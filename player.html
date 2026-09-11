@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>(SMRP) Shane McCoys Recurter Pro (SMRP) - Verified Personnel Dossier</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="/static/css/custom.css">
+</head>
+<body class="min-h-screen text-slate-100 flex flex-col antialiased bg-[#06090e] p-4 sm:p-6 lg:p-8">
+
+  <div class="max-w-5xl mx-auto w-full space-y-6">
+    
+    <!-- Top Navigation Bar -->
+    <div class="flex flex-wrap items-center justify-between border-b border-slate-800 pb-4 gap-3">
+      <div class="flex items-center gap-2 flex-wrap">
+        <a href="/" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-xs font-bold text-slate-300 hover:text-white transition flex items-center gap-1.5">
+          <span>🏒</span> Main Platform
+        </a>
+        <a href="/database.html" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-xs font-bold text-sky-400 hover:text-sky-300 transition flex items-center gap-1.5">
+          <span>📊</span> (SMRP) Directory (2,970+)
+        </a>
+        <a href="/broadcast_ai.html" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-xs font-bold text-purple-400 hover:text-purple-300 transition flex items-center gap-1.5">
+          <span>🎙️</span> Broadcast AI
+        </a>
+      </div>
+      <div class="flex items-center gap-2">
+        <button id="togglePassportEditBtn" class="px-3 py-1.5 rounded-xl bg-sky-600 hover:bg-sky-500 text-xs font-bold text-white transition flex items-center gap-1.5 shadow-lg shadow-sky-600/30">
+          ✏️ Edit Evaluation
+        </button>
+        <button onclick="window.print()" class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs font-bold text-white transition flex items-center gap-1.5">
+          🖨️ Print PDF
+        </button>
+      </div>
+    </div>
+
+    <!-- Edit Suite Container -->
+    <div id="passportEditPanel" class="p-5 rounded-3xl bg-slate-950/95 border border-sky-500/40 space-y-4 shadow-2xl hidden animate-fadeIn">
+      <div class="flex justify-between items-center border-b border-slate-800 pb-2">
+        <h3 class="text-xs font-bold text-sky-400 uppercase tracking-wider">✏️ Quick Edit Mode: Live Recalculation & Ledger Sync</h3>
+        <span class="text-[10px] text-emerald-400 font-mono">Immutable Ledger Stamping</span>
+      </div>
+
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
+        <div>
+          <label class="block text-slate-400 text-[11px] mb-1">Flying 30m (s):</label>
+          <input id="passEditSpeed" type="number" step="0.01" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-white font-mono">
+        </div>
+        <div>
+          <label class="block text-slate-400 text-[11px] mb-1">Broad Jump (in):</label>
+          <input id="passEditJump" type="number" step="1" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-white font-mono">
+        </div>
+        <div>
+          <label class="block text-slate-400 text-[11px] mb-1">Controlled Exits (%):</label>
+          <input id="passEditExit" type="number" step="1" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-white font-mono">
+        </div>
+        <div>
+          <label class="block text-slate-400 text-[11px] mb-1">Pre-Touch Scans:</label>
+          <input id="passEditScans" type="number" step="0.1" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-white font-mono">
+        </div>
+        <div>
+          <label class="block text-slate-400 text-[11px] mb-1">Core GPA:</label>
+          <input id="passEditGPA" type="number" step="0.01" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-white font-mono">
+        </div>
+        <div>
+          <label class="block text-slate-400 text-[11px] mb-1">Weight (lbs):</label>
+          <input id="passEditWeight" type="number" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-white font-mono">
+        </div>
+        <div>
+          <label class="block text-slate-400 text-[11px] mb-1">Height (in):</label>
+          <input id="passEditHeight" type="number" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-white font-mono">
+        </div>
+        <div>
+          <label class="block text-slate-400 text-[11px] mb-1">Target Status:</label>
+          <input id="passEditStatus" type="text" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-white">
+        </div>
+      </div>
+
+      <div class="flex justify-end pt-2 border-t border-slate-800">
+        <button id="savePassportEditBtn" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 font-bold text-xs text-white transition flex items-center gap-1.5 shadow-lg shadow-emerald-600/30">
+          💾 Save & Update Verified Trajectory
+        </button>
+      </div>
+    </div>
+
+    <div id="playerPassportContainer" class="space-y-6">
+      <div class="p-8 text-center text-slate-400 text-sm">Loading Player Passport...</div>
+    </div>
+
+  </div>
+
+  <script src="/static/js/bundle_data.js"></script>
+  <script src="/static/js/master_players.js"></script>
+  <script>
+    let activePlayer = null;
+    let passportChartInstance = null;
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const playerId = urlParams.get('id') || 'u14_01';
+      
+      const embeddedData = window.EMBEDDED_PUCKPATHWAY_DATA || { players: [] };
+      let found = embeddedData.players.find(p => p.id === playerId);
+
+      const allRegistry = window.MASTER_NON_PRO_REGISTRY || window.MASTER_PLAYERS || [];
+      if (!found && allRegistry.length > 0) {
+        const mp = allRegistry.find(p => p.id === playerId);
+        if (mp) {
+          const isCoach = mp.entity_type === 'coach' || mp.pos === 'HC' || mp.pos === 'GM' || mp.pos === 'REC';
+          if (isCoach) {
+            found = {
+              id: mp.id,
+              name: mp.name,
+              num: 0,
+              pos: mp.pos || 'HC',
+              age: 45,
+              height_in: 72,
+              weight_lbs: 190,
+              handed: 'Staff',
+              level: 'coaching_staff',
+              league: mp.league || 'Non-Pro Hockey',
+              team: mp.team,
+              institution: mp.institution || mp.team,
+              conference: mp.conference || '',
+              hometown: mp.hometown || 'USA / CAN',
+              date_of_birth: mp.tenure || 'Active Staff',
+              previous_team: mp.alma_mater ? `Alma Mater: ${mp.alma_mater}` : (mp.previous_team || ''),
+              draft_status: mp.accolades || mp.draft_status || 'Staff Personnel',
+              class_level: mp.role_title || 'Head Coach',
+              gpa: 4.0,
+              grad_year: 2026,
+              primary_role: `👔 ${mp.role_title} • ${mp.team}`,
+              status: 'active',
+              status_badge: `👔 ${mp.role_title}`,
+              avatar_gradient: mp.avatar_gradient || 'from-amber-600 to-indigo-800',
+              combine: {
+                flying_30m_sec: 3.50,
+                broad_jump_in: 110,
+                pro_agility_5_10_5_sec: 4.20,
+                grip_strength_lbs: 160,
+                rotational_medball_mph: 50.0
+              },
+              micro_kpis: {
+                controlled_entry_pct: 95.0,
+                controlled_exit_pct: 94.0,
+                faceoff_win_pct: 60.0,
+                high_danger_pass_comp_pct: 92.0,
+                shoulder_scans_per_possession: 8.5,
+                wall_battle_win_pct: 94.0
+              },
+              skill_rubric: {
+                edges: 95,
+                puck_skills: 95,
+                shooting: 95,
+                hockey_iq: 99,
+                contact: 92,
+                d_zone: 96,
+                transition: 95,
+                goalie: 90
+              },
+              telemetry: {
+                decision_engine: { reaction_time_ms: 180.0, scan_rate_hz: 4.5 },
+                passing_analytics: { high_danger_attempts: 25, high_danger_completed: 24, slot_passes: 18, pass_completion_pct: 96, completed_tape_to_tape: 30 },
+                puck_possession: { avg_hold_duration_sec: 3.5, total_time_on_puck_sec: 140.0, wall_bank_escapes: 15, wall_usage_pct: 70 },
+                shot_telemetry: { avg_shot_distance_ft: 20.0, goals: 8, shots_on_goal: 30, total_shot_attempts: 40, shot_events: [] }
+              },
+              projection: {
+                player_id: mp.id,
+                player_name: mp.name,
+                composite_trajectory_score: 99.0,
+                athletic_index: 96.0,
+                kpi_index: 98.5,
+                tech_index: 99.0,
+                ceiling_label: `Premier Coaching Leadership (${mp.role_title})`,
+                probabilities: { ncaa_d1: 99.0, ushl_tier1: 99.0, nahl_tier2: 99.0, ncaa_d3_acha: 99.0 },
+                developmental_hurdles: []
+              },
+              audit_ledger: [
+                {
+                  id: `led_${mp.id}_01`,
+                  timestamp: '2026-09-10 12:00:00',
+                  account: 'Shane McCoy (Head Recruiter)',
+                  category: 'Official Staff Roster Verification',
+                  action: 'Verified Non-Pro Coaching Dossier',
+                  diff: `Program: ${mp.team}, Role: ${mp.role_title}, Alma Mater: ${mp.alma_mater || '--'}`
+                }
+              ]
+            };
+          } else {
+            const ht = mp.height_in || 73;
+            const wt = mp.weight_lbs || 190;
+            const isDrafted = mp.draft_status && mp.draft_status !== 'Undrafted';
+            const score = mp.composite_score || 88.0;
+
+            found = {
+              id: mp.id,
+              name: mp.name,
+              num: mp.num || 0,
+              pos: mp.pos || 'F',
+              age: mp.date_of_birth ? Math.max(16, 2026 - parseInt(mp.date_of_birth.substring(0, 4))) : 20,
+              height_in: ht,
+              weight_lbs: wt,
+              handed: (mp.num % 2 === 0) ? 'L' : 'R',
+              level: 'collegiate',
+              league: mp.league || 'Collegiate Varsity',
+              team: mp.team,
+              institution: mp.institution || mp.team,
+              conference: mp.conference || '',
+              hometown: mp.hometown || '',
+              date_of_birth: mp.date_of_birth || '',
+              previous_team: mp.previous_team || '',
+              draft_status: mp.draft_status || 'Undrafted',
+              class_level: mp.class_level || 'Active',
+              gpa: 3.72,
+              grad_year: 2026,
+              primary_role: isDrafted ? `${mp.pos} • NHL Draft Affiliate` : `${mp.pos} • Active Non-Pro Roster`,
+              status: 'active',
+              status_badge: isDrafted ? `🏒 ${mp.draft_status}` : `${mp.league} Student-Athlete`,
+              avatar_gradient: mp.avatar_gradient || 'from-sky-500 to-indigo-600',
+              combine: {
+                flying_30m_sec: (mp.pos === 'G') ? 3.65 : 3.48,
+                broad_jump_in: 116,
+                pro_agility_5_10_5_sec: 4.12,
+                grip_strength_lbs: 165,
+                rotational_medball_mph: 51.0
+              },
+              micro_kpis: {
+                controlled_entry_pct: 88.0,
+                controlled_exit_pct: 92.0,
+                faceoff_win_pct: (mp.pos === 'C' ? 54.0 : 0.0),
+                high_danger_pass_comp_pct: 85.0,
+                shoulder_scans_per_possession: 6.8,
+                wall_battle_win_pct: 90.0
+              },
+              skill_rubric: {
+                edges: 92,
+                puck_skills: 90,
+                shooting: 88,
+                hockey_iq: 92,
+                contact: 88,
+                d_zone: 90,
+                transition: 91,
+                goalie: (mp.pos === 'G' ? 92 : 0)
+              },
+              telemetry: {
+                decision_engine: { reaction_time_ms: 230.0, scan_rate_hz: 3.2 },
+                passing_analytics: { high_danger_attempts: 18, high_danger_completed: 15, slot_passes: 12, pass_completion_pct: 86, completed_tape_to_tape: 22 },
+                puck_possession: { avg_hold_duration_sec: 2.8, total_time_on_puck_sec: 95.0, wall_bank_escapes: 11, wall_usage_pct: 62 },
+                shot_telemetry: { avg_shot_distance_ft: 24.0, goals: 4, shots_on_goal: 22, total_shot_attempts: 35, shot_events: [] }
+              },
+              projection: {
+                player_id: mp.id,
+                player_name: mp.name,
+                composite_trajectory_score: score,
+                athletic_index: 91.0,
+                kpi_index: 90.5,
+                tech_index: 92.0,
+                ceiling_label: isDrafted ? 'NHL Developing Prospect' : 'Premier Collegiate Contributor',
+                probabilities: { ncaa_d1: 99.0, ushl_tier1: 95.0, nahl_tier2: 95.0, ncaa_d3_acha: 99.0 },
+                developmental_hurdles: []
+              },
+              audit_ledger: [
+                {
+                  id: `led_${mp.id}_01`,
+                  timestamp: '2026-09-10 12:00:00',
+                  account: 'Shane McCoy (Head Recruiter)',
+                  category: 'Official Roster Record Ingestion',
+                  action: 'Verified Non-Pro Athlete Registry',
+                  diff: `Program: ${mp.team}, League: ${mp.league}, Draft: ${mp.draft_status}`
+                }
+              ]
+            };
+          }
+        }
+      }
+
+      activePlayer = found || embeddedData.players[0];
+
+      if (!activePlayer) {
+        document.getElementById('playerPassportContainer').innerHTML = '<div class="p-8 text-center text-red-400">Player not found.</div>';
+        return;
+      }
+
+      renderPassport(activePlayer);
+
+      // Edit Toggle
+      const toggleBtn = document.getElementById('togglePassportEditBtn');
+      const editPanel = document.getElementById('passportEditPanel');
+      if (toggleBtn && editPanel) {
+        toggleBtn.addEventListener('click', () => {
+          editPanel.classList.toggle('hidden');
+          if (!editPanel.classList.contains('hidden')) {
+            populateEditInputs(activePlayer);
+          }
+        });
+      }
+
+      // Save Edit
+      const saveBtn = document.getElementById('savePassportEditBtn');
+      if (saveBtn) {
+        saveBtn.addEventListener('click', () => {
+          const speed = parseFloat(document.getElementById('passEditSpeed').value) || activePlayer.combine.flying_30m_sec;
+          const jump = parseFloat(document.getElementById('passEditJump').value) || activePlayer.combine.broad_jump_in;
+          const exitPct = parseFloat(document.getElementById('passEditExit').value) || activePlayer.micro_kpis.controlled_exit_pct;
+          const scans = parseFloat(document.getElementById('passEditScans').value) || activePlayer.micro_kpis.shoulder_scans_per_possession;
+          const gpa = parseFloat(document.getElementById('passEditGPA').value) || activePlayer.gpa;
+          const wt = parseFloat(document.getElementById('passEditWeight').value) || activePlayer.weight_lbs;
+          const ht = parseFloat(document.getElementById('passEditHeight').value) || activePlayer.height_in;
+          const stat = document.getElementById('passEditStatus').value || activePlayer.status_badge;
+
+          activePlayer.combine.flying_30m_sec = speed;
+          activePlayer.combine.broad_jump_in = jump;
+          activePlayer.micro_kpis.controlled_exit_pct = exitPct;
+          activePlayer.micro_kpis.shoulder_scans_per_possession = scans;
+          activePlayer.gpa = gpa;
+          activePlayer.weight_lbs = wt;
+          activePlayer.height_in = ht;
+          activePlayer.status_badge = stat;
+
+          // Mathematical recompute
+          const speedScore = Math.max(40, Math.min(99, 100 - (speed - 3.8) * 60));
+          const jumpScore = Math.max(40, Math.min(99, (jump / 100) * 88));
+          const athleticIndex = (speedScore * 0.6 + jumpScore * 0.4).toFixed(1);
+          const kpiIndex = (exitPct * 0.5 + Math.min(99, (scans / 5.5) * 90) * 0.5).toFixed(1);
+          const acad = Math.min(100, (gpa / 4.0) * 100);
+          const composite = (athleticIndex * 0.35 + kpiIndex * 0.45 + acad * 0.20).toFixed(1);
+
+          activePlayer.projection.composite_trajectory_score = parseFloat(composite);
+          activePlayer.projection.probabilities.ncaa_d1 = Math.min(98, (composite >= 88 ? 65 + (composite - 88) * 3.5 : 35 + (composite - 78) * 3.0)).toFixed(1);
+
+          activePlayer.audit_ledger.unshift({
+            id: `led_${Date.now()}`,
+            timestamp: new Date().toLocaleString(),
+            account: 'Verified Staff Evaluator',
+            category: 'Passport Re-Assessment',
+            action: 'Updated Biometrics & Combine',
+            diff: `Speed: ${speed}s; Jump: ${jump}in; Exit: ${exitPct}%; Scans: ${scans}; GPA: ${gpa}. Trajectory: ${composite}.`
+          });
+
+          editPanel.classList.add('hidden');
+          renderPassport(activePlayer);
+        });
+      }
+    });
+
+    function populateEditInputs(p) {
+      document.getElementById('passEditSpeed').value = p.combine?.flying_30m_sec || 3.9;
+      document.getElementById('passEditJump').value = p.combine?.broad_jump_in || 96;
+      document.getElementById('passEditExit').value = p.micro_kpis?.controlled_exit_pct || 84;
+      document.getElementById('passEditScans').value = p.micro_kpis?.shoulder_scans_per_possession || 4.8;
+      document.getElementById('passEditGPA').value = p.gpa || 3.88;
+      document.getElementById('passEditWeight').value = p.weight_lbs || 148;
+      document.getElementById('passEditHeight').value = p.height_in || 68;
+      document.getElementById('passEditStatus').value = p.status_badge || 'Tier 1 AAA';
+    }
+
+    function renderPassport(player) {
+      document.title = `${player.name} (#${player.num}) - (SMRP) Shane McCoys Recurter Pro`;
+
+      const proj = player.projection || { composite_trajectory_score: 80, probabilities: { ncaa_d1: 50, ushl_tier1: 45, nahl_tier2: 70, ncaa_d3_acha: 90 }, ceiling_label: "Developing" };
+      const telem = player.telemetry || { puck_possession: { avg_hold_duration_sec: 2.5, total_time_on_puck_sec: 90, wall_usage_pct: 60, wall_bank_escapes: 10 }, passing_analytics: { pass_completion_pct: 85, completed_tape_to_tape: 25, bad_passes_turnovers: 4 }, shot_telemetry: { avg_shot_distance_ft: 18, shots_on_goal: 4, goals: 1, shot_events: [] } };
+      const poss = telem.puck_possession;
+      const pass = telem.passing_analytics;
+      const shot = telem.shot_telemetry;
+      const shotEvents = shot.shot_events || [];
+      const ledger = player.audit_ledger || [];
+
+      document.getElementById('playerPassportContainer').innerHTML = `
+        <div class="glass-panel p-6 rounded-3xl border-t-2 border-sky-400 space-y-6 shadow-2xl">
+          <div class="flex flex-wrap items-center justify-between gap-4 border-b border-slate-800 pb-5">
+            <div class="flex items-center gap-4">
+              <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr ${player.avatar_gradient || 'from-sky-500 to-indigo-600'} text-white font-black flex items-center justify-center text-2xl shadow-xl shadow-sky-500/20">
+                #${player.num}
+              </div>
+              <div>
+                <div class="flex items-center gap-2">
+                  <h1 class="text-2xl font-black text-white tracking-tight">${player.name}</h1>
+                  <span class="px-2.5 py-0.5 text-xs font-bold rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">
+                    ${player.status_badge}
+                  </span>
+                </div>
+                <p class="text-xs text-slate-300 font-medium">${player.primary_role} • <strong class="text-sky-400">${player.team}</strong> (${player.league})</p>
+                <div class="flex flex-wrap items-center gap-2 mt-1.5">
+                  ${player.class_level ? `<span class="px-2 py-0.5 text-[10px] font-bold rounded-md bg-sky-950 text-sky-300 border border-sky-800">Class: ${player.class_level}</span>` : ''}
+                  ${player.draft_status && player.draft_status !== 'Undrafted' ? `<span class="px-2 py-0.5 text-[10px] font-bold rounded-md bg-purple-950 text-purple-300 border border-purple-700">🏒 Draft: ${player.draft_status}</span>` : (player.draft_status ? `<span class="px-2 py-0.5 text-[10px] font-bold rounded-md bg-slate-900 text-slate-400 border border-slate-800">Draft: ${player.draft_status}</span>` : '')}
+                  ${player.hometown ? `<span class="px-2 py-0.5 text-[10px] font-medium rounded-md bg-slate-900 text-slate-300 border border-slate-800">📍 ${player.hometown}</span>` : ''}
+                  ${player.previous_team ? `<span class="px-2 py-0.5 text-[10px] font-medium rounded-md bg-slate-900 text-slate-300 border border-slate-800">⚡ Feeder: ${player.previous_team}</span>` : ''}
+                </div>
+                <p class="text-xs text-slate-400 mt-1.5">
+                  Age: <strong class="text-white">${player.age}</strong> | 
+                  ${player.date_of_birth ? `DOB: <strong class="text-white">${player.date_of_birth}</strong> | ` : ''}
+                  Height: <strong class="text-white">${Math.floor(player.height_in/12)}'${player.height_in%12}" (${player.height_in}")</strong> | 
+                  Weight: <strong class="text-white">${player.weight_lbs} lbs</strong> | 
+                  Shot: <strong class="text-white">${player.handed}</strong> | 
+                  GPA: <strong class="text-amber-400">${player.gpa}</strong> | 
+                  Grad: <strong class="text-white">${player.grad_year}</strong>
+                </p>
+              </div>
+            </div>
+            <div class="text-right">
+              <span class="text-[10px] text-slate-400 font-bold uppercase tracking-wider block">Composite Trajectory</span>
+              <span class="text-4xl font-black text-sky-400 font-mono">${proj.composite_trajectory_score}</span>
+              <span class="text-[10px] text-emerald-400 block">${proj.ceiling_label}</span>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
+            <div class="p-3 bg-slate-950/80 rounded-xl border border-slate-800">
+              <span class="text-[10px] text-slate-400 uppercase font-bold block">Avg Puck Hold</span>
+              <span class="text-xl font-black text-sky-400 font-mono">${poss.avg_hold_duration_sec}s</span>
+              <span class="text-[10px] text-slate-500 block">${poss.total_time_on_puck_sec}s/game</span>
+            </div>
+            <div class="p-3 bg-slate-950/80 rounded-xl border border-slate-800">
+              <span class="text-[10px] text-slate-400 uppercase font-bold block">Wall Usage Rate</span>
+              <span class="text-xl font-black text-amber-400 font-mono">${poss.wall_usage_pct}%</span>
+              <span class="text-[10px] text-slate-500 block">${poss.wall_bank_escapes} Bank Escapes</span>
+            </div>
+            <div class="p-3 bg-slate-950/80 rounded-xl border border-slate-800">
+              <span class="text-[10px] text-slate-400 uppercase font-bold block">Pass Completion</span>
+              <span class="text-xl font-black text-emerald-400 font-mono">${pass.pass_completion_pct}%</span>
+              <span class="text-[10px] text-slate-500 block">${pass.completed_tape_to_tape} Tape-to-Tape</span>
+            </div>
+            <div class="p-3 bg-slate-950/80 rounded-xl border border-slate-800">
+              <span class="text-[10px] text-slate-400 uppercase font-bold block">Avg Shot Distance</span>
+              <span class="text-xl font-black text-purple-400 font-mono">${shot.avg_shot_distance_ft} ft</span>
+              <span class="text-[10px] text-slate-500 block">${shot.shots_on_goal} SOG / ${shot.goals} Goals (🚨)</span>
+            </div>
+          </div>
+
+          <!-- Visual Shot Chart on 2D Ice -->
+          <div class="p-4 rounded-2xl bg-slate-950/90 border border-slate-800 space-y-2">
+            <div class="flex justify-between items-center text-xs">
+              <span class="font-bold text-slate-300 uppercase flex items-center gap-1.5">
+                <span>🎯</span> Verified Visual Shot Chart & Danger Zone Heatmap
+              </span>
+              <div class="flex items-center gap-2 text-[10px]">
+                <span class="flex items-center gap-1 text-emerald-400"><span class="w-2 h-2 rounded-full bg-emerald-400"></span> Goal (🚨)</span>
+                <span class="flex items-center gap-1 text-sky-400"><span class="w-2 h-2 rounded-full bg-sky-400"></span> Save (SOG)</span>
+                <span class="flex items-center gap-1 text-amber-400"><span class="w-2 h-2 rounded-full bg-amber-400"></span> Blocked</span>
+              </div>
+            </div>
+
+            <div class="relative w-full h-44 bg-[#0a111a] rounded-xl border border-slate-800 flex items-center justify-center overflow-hidden">
+              <svg class="absolute inset-0 w-full h-full" viewBox="0 0 600 240" preserveAspectRatio="none">
+                <rect x="10" y="10" width="580" height="220" rx="30" ry="30" fill="none" stroke="#334155" stroke-width="2"/>
+                <line x1="80" y1="20" x2="80" y2="220" stroke="#ef4444" stroke-width="2"/>
+                <path d="M 80 100 A 20 20 0 0 1 80 140 Z" fill="rgba(56, 189, 248, 0.2)" stroke="#ef4444" stroke-width="1.5"/>
+                <line x1="80" y1="120" x2="400" y2="120" stroke="rgba(244, 63, 94, 0.4)" stroke-width="1.5" stroke-dasharray="4,4"/>
+                <circle cx="160" cy="65" r="18" fill="none" stroke="#ef4444" stroke-width="1.5"/>
+                <circle cx="160" cy="65" r="2.5" fill="#ef4444"/>
+                <circle cx="160" cy="175" r="18" fill="none" stroke="#ef4444" stroke-width="1.5"/>
+                <circle cx="160" cy="175" r="2.5" fill="#ef4444"/>
+                <line x1="450" y1="10" x2="450" y2="230" stroke="#0284c7" stroke-width="4"/>
+              </svg>
+
+              <div class="absolute inset-0 pointer-events-none">
+                ${shotEvents.map(s => {
+                  const isGoal = s.outcome_type === 'goal' || s.outcome.toUpperCase().includes('GOAL');
+                  const isSave = s.outcome_type === 'save' || s.outcome.toUpperCase().includes('SAVE');
+                  
+                  let pinHtml = '';
+                  if (isGoal) {
+                    pinHtml = `<span class="px-2 py-0.5 rounded-full bg-emerald-500 text-slate-950 font-black text-[9px] shadow-lg shadow-emerald-500/50 animate-bounce pointer-events-auto" title="Goal 🚨 (${s.type} - ${s.distance_ft}ft)">🚨 GOAL (${s.distance_ft}ft)</span>`;
+                  } else if (isSave) {
+                    pinHtml = `<span class="w-4 h-4 rounded-full bg-sky-500 text-white font-bold text-[9px] flex items-center justify-center shadow pointer-events-auto" title="Save (${s.type} - ${s.distance_ft}ft)">S</span>`;
+                  } else {
+                    pinHtml = `<span class="w-4 h-4 rounded-full bg-amber-500 text-slate-950 font-bold text-[9px] flex items-center justify-center shadow pointer-events-auto" title="Blocked (${s.type} - ${s.distance_ft}ft)">B</span>`;
+                  }
+                  return `<div class="absolute transform -translate-x-1/2 -translate-y-1/2" style="left: ${s.x_pct || 30}%; top: ${s.y_pct || 50}%;">${pinHtml}</div>`;
+                }).join('')}
+              </div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+            <div class="md:col-span-6 bg-slate-950/70 p-4 rounded-2xl border border-slate-800 flex flex-col items-center justify-center">
+              <span class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">8-Pillar Skill Evaluation Radar</span>
+              <div class="w-full max-w-[280px] h-[240px]">
+                <canvas id="passportRadarCanvas"></canvas>
+              </div>
+            </div>
+
+            <div class="md:col-span-6 space-y-3 bg-slate-950/70 p-4 rounded-2xl border border-slate-800 flex flex-col justify-between text-xs">
+              <span class="font-bold text-slate-400 uppercase tracking-wider block">AI Career Advancement Trajectory</span>
+              
+              <div class="space-y-2">
+                <div>
+                  <div class="flex justify-between font-bold mb-1">
+                    <span class="text-sky-300">🎓 NCAA Division I</span>
+                    <span class="text-sky-400 font-mono">${proj.probabilities.ncaa_d1}%</span>
+                  </div>
+                  <div class="w-full bg-slate-900 h-2 rounded-full overflow-hidden">
+                    <div class="bg-gradient-to-r from-sky-500 to-cyan-400 h-2 rounded-full" style="width: ${proj.probabilities.ncaa_d1}%"></div>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="flex justify-between font-bold mb-1">
+                    <span class="text-amber-300">⚡ USHL Tier 1 Junior</span>
+                    <span class="text-amber-400 font-mono">${proj.probabilities.ushl_tier1}%</span>
+                  </div>
+                  <div class="w-full bg-slate-900 h-2 rounded-full overflow-hidden">
+                    <div class="bg-gradient-to-r from-amber-500 to-yellow-400 h-2 rounded-full" style="width: ${proj.probabilities.ushl_tier1}%"></div>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="flex justify-between font-bold mb-1">
+                    <span class="text-emerald-300">🏒 NAHL / BCHL Tier 2</span>
+                    <span class="text-emerald-400 font-mono">${proj.probabilities.nahl_tier2}%</span>
+                  </div>
+                  <div class="w-full bg-slate-900 h-2 rounded-full overflow-hidden">
+                    <div class="bg-gradient-to-r from-emerald-500 to-teal-400 h-2 rounded-full" style="width: ${proj.probabilities.nahl_tier2}%"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="p-5 rounded-2xl bg-slate-950/90 border border-slate-800 space-y-3">
+            <div class="flex justify-between items-center border-b border-slate-800 pb-2">
+              <h3 class="text-xs font-bold text-emerald-300 uppercase tracking-wider">📜 Verified Change Audit Ledger</h3>
+              <span class="text-[10px] text-slate-400 font-mono">${ledger.length} Logged Entries</span>
+            </div>
+
+            <div class="space-y-2 max-h-60 overflow-y-auto pr-1">
+              ${ledger.map(entry => `
+                <div class="p-2.5 rounded-xl bg-slate-900/70 border border-slate-800 space-y-1 text-xs">
+                  <div class="flex items-center justify-between text-[11px]">
+                    <span class="font-bold text-sky-400">👤 ${entry.account}</span>
+                    <span class="font-mono text-[10px] text-slate-500">${entry.timestamp}</span>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <span class="px-1.5 py-0.5 rounded text-[9px] font-bold bg-slate-800 text-slate-300 border border-slate-700">${entry.category}</span>
+                    <span class="font-medium text-white">${entry.action}</span>
+                  </div>
+                  <p class="text-slate-300 text-[11px]">${entry.diff}</p>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        </div>
+      `;
+
+      // Radar
+      const canvas = document.getElementById('passportRadarCanvas');
+      if (canvas && player.skill_rubric) {
+        if (passportChartInstance) passportChartInstance.destroy();
+        passportChartInstance = new Chart(canvas, {
+          type: 'radar',
+          data: {
+            labels: ['Edges', 'Puck Skills', 'Shooting', 'Hockey IQ', 'Contact', 'D-Zone', 'Transition'],
+            datasets: [{
+              label: 'Player Rating',
+              data: [
+                player.skill_rubric.edges || 75,
+                player.skill_rubric.puck_skills || 75,
+                player.skill_rubric.shooting || 75,
+                player.skill_rubric.hockey_iq || 75,
+                player.skill_rubric.contact || 75,
+                player.skill_rubric.d_zone || 75,
+                player.skill_rubric.transition || 75
+              ],
+              backgroundColor: 'rgba(56, 189, 248, 0.25)',
+              borderColor: '#38bdf8',
+              pointBackgroundColor: '#0284c7',
+              borderWidth: 2
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              r: {
+                angleLines: { color: 'rgba(255, 255, 255, 0.1)' },
+                grid: { color: 'rgba(255, 255, 255, 0.08)' },
+                pointLabels: { color: '#94a3b8', font: { size: 9, weight: 'bold' } },
+                ticks: { display: false, min: 0, max: 100 }
+              }
+            },
+            plugins: { legend: { display: false } }
+          }
+        });
+      }
+    }
+  </script>
+
+  <!-- Mobile Sticky Bottom Navigation Dock (< 1024px) -->
+  <nav id="mobileBottomNav" class="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-slate-950/95 backdrop-blur-xl border-t border-sky-500/30 px-2 py-1.5 flex items-center justify-around shadow-2xl safe-area-bottom no-print">
+    <a href="/" class="flex-1 flex flex-col items-center justify-center py-1 px-1 rounded-xl text-slate-400 hover:text-sky-400 active:scale-95 transition" aria-label="Main Platform Rosters">
+      <svg class="w-5 h-5 mb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+      <span class="text-[10px] font-bold">Rosters</span>
+    </a>
+    <a href="/database.html" class="flex-1 flex flex-col items-center justify-center py-1 px-1 rounded-xl text-slate-400 hover:text-sky-400 active:scale-95 transition" aria-label="Master Database">
+      <svg class="w-5 h-5 mb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"/></svg>
+      <span class="text-[10px] font-bold">Database</span>
+    </a>
+    <a href="/?tab=filmroom" class="flex-1 flex flex-col items-center justify-center py-1 px-1 rounded-xl text-slate-400 hover:text-sky-400 active:scale-95 transition" aria-label="Film Room & Video">
+      <svg class="w-5 h-5 mb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+      <span class="text-[10px] font-bold">Film Room</span>
+    </a>
+    <a href="/broadcast_ai.html" class="flex-1 flex flex-col items-center justify-center py-1 px-1 rounded-xl text-purple-400 hover:text-purple-300 active:scale-95 transition" aria-label="Live Voice AI">
+      <svg class="w-5 h-5 mb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"/></svg>
+      <span class="text-[10px] font-bold">Voice AI</span>
+    </a>
+    <a href="javascript:window.scrollTo({top:0,behavior:'smooth'});" class="flex-1 flex flex-col items-center justify-center py-1 px-1 rounded-xl text-emerald-400 active:scale-95 transition" aria-label="Top of Passport">
+      <svg class="w-5 h-5 mb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>
+      <span class="text-[10px] font-bold">Top</span>
+    </a>
+  </nav>
+</body>
+</html>

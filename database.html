@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>(SMRP) Shane McCoys Recurter Pro (SMRP) - Master Scouting Directory</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2338bdf8'><path d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z'/></svg>">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            ice: {
+              50: '#f0f9ff',
+              100: '#e0f2fe',
+              500: '#0ea5e9',
+              900: '#0c4a6e',
+              950: '#082f49'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="/static/css/custom.css">
+  <style>
+    .glass-panel {
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(56, 189, 248, 0.18);
+    }
+    .hover-glow:hover {
+      box-shadow: 0 0 15px rgba(56, 189, 248, 0.25);
+    }
+    th.sortable {
+      cursor: pointer;
+      user-select: none;
+    }
+    th.sortable:hover {
+      color: #38bdf8;
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col font-sans selection:bg-sky-500 selection:text-white pb-16 lg:pb-6">
+
+  <!-- Header Navigation -->
+  <header class="border-b border-slate-800 bg-slate-950/90 backdrop-blur sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 py-2.5 sm:py-3 flex items-center justify-between gap-2">
+      
+      <div class="flex items-center gap-2 sm:gap-3 min-w-0">
+        <a href="/" class="flex items-center gap-2 group min-w-0">
+          <div class="w-8 h-8 sm:w-9 sm:h-9 shrink-0 rounded-xl bg-gradient-to-tr from-sky-500 to-indigo-600 flex items-center justify-center text-white text-base sm:text-lg font-black shadow-lg shadow-sky-500/20 group-hover:scale-105 transition">
+            🏒
+          </div>
+          <div class="min-w-0">
+            <div class="flex items-center gap-1.5 sm:gap-2">
+              <span class="font-black text-xs sm:text-base md:text-lg tracking-tight text-white group-hover:text-sky-400 transition truncate">(SMRP) Shane McCoys Recurter Pro</span>
+              <span class="text-[9px] px-1.5 py-0.5 rounded-full bg-sky-500/20 text-sky-300 border border-sky-500/30 font-bold shrink-0">DIRECTORY</span>
+            </div>
+            <p class="text-[10px] text-slate-400 truncate hidden sm:block">Master Roster & Player Scouting Hub • Head Recruiter: Shane McCoy</p>
+          </div>
+        </a>
+      </div>
+
+      <!-- Quick Nav Buttons -->
+      <div class="flex items-center gap-1.5 sm:gap-2 shrink-0 text-xs">
+        <a href="/" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>📋</span> <span class="hidden sm:inline">Main OS</span>
+        </a>
+        <a href="/broadcast_ai.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-purple-300 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>🎙️</span> <span class="hidden sm:inline">Voice AI</span>
+        </a>
+        <a href="/player.html?id=um_csv_13" target="_blank" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-sky-600/30 hover:bg-sky-600/50 text-sky-300 font-semibold border border-sky-500/40 transition flex items-center gap-1">
+          <span>⚡</span> <span class="hidden sm:inline">Passport</span>
+        </a>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- Main Body Content -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 py-6 flex-1 w-full space-y-6">
+    
+    <!-- Hero / Headline Bar -->
+    <div class="glass-panel p-6 rounded-3xl space-y-4 shadow-2xl relative overflow-hidden">
+      <div class="absolute -right-10 -bottom-10 w-64 h-64 bg-sky-500/10 rounded-full blur-3xl pointer-events-none"></div>
+      
+      <div class="flex flex-wrap items-center justify-between gap-4">
+        <div>
+          <div class="flex items-center gap-2.5">
+            <h1 class="text-xl sm:text-2xl font-black text-white tracking-tight">(SMRP) SHANE MCCOYS RECURTER PRO DIRECTORY</h1>
+            <span class="text-xs px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 font-bold" id="heroTotalBadge">
+              Active Personnel
+            </span>
+          </div>
+          <p class="text-xs sm:text-sm text-slate-400 mt-1">
+            Complete collegiate, junior, minor pro, prep & amateur hockey ecosystem: NCAA D1 Men & Women, NCAA D3, ACHA, USHL, NAHL, AHL, ECHL, Canadian U Sports, Junior A, and Prep Academies (Zero NHL).
+          </p>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <button id="exportCsvBtn" class="px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 text-xs font-bold transition flex items-center gap-1.5 shadow-md">
+            <span>📊</span> Export CSV
+          </button>
+          <button id="exportJsonBtn" class="px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 text-xs font-bold transition flex items-center gap-1.5 shadow-md">
+            <span>💾</span> Export JSON
+          </button>
+        </div>
+      </div>
+
+      <!-- Quick Search Bar -->
+      <div class="relative">
+        <input type="text" id="masterSearchInput" placeholder="🔍 Search across 2,970+ players, coaches, staff, schools (e.g. Shane McCoy, David Carle, Michigan, Hershey Bears, Lincoln Stars)..." class="w-full bg-slate-950/90 border border-sky-500/40 rounded-2xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-sky-400 focus:ring-2 focus:ring-sky-400/20 transition shadow-inner">
+        <button id="clearMasterSearchBtn" class="absolute right-3.5 top-3.5 text-slate-400 hover:text-white text-xs hidden" title="Clear search">✕</button>
+      </div>
+
+      <!-- Faceted Filters Strip -->
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 gap-2 text-xs">
+        
+        <div>
+          <label class="text-[10px] text-amber-400 font-bold block mb-1">Personnel Role</label>
+          <select id="filterRole" class="w-full bg-slate-900 border border-amber-500/40 rounded-xl p-2 text-amber-200 text-xs font-bold focus:border-amber-400">
+            <option value="all">🌟 All Personnel</option>
+            <option value="player">🏒 Players Only</option>
+            <option value="coach">👔 Coaches & Staff Only</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="text-[10px] text-slate-400 font-bold block mb-1">League / Tier</label>
+          <select id="filterLeague" class="w-full bg-slate-900 border border-slate-800 rounded-xl p-2 text-slate-200 text-xs focus:border-sky-500">
+            <option value="all">All Leagues (Non-NHL)</option>
+            <option value="AHL">AHL Pro Minor (318)</option>
+            <option value="ECHL">ECHL AA Minor (26)</option>
+            <option value="NCAA Division I Men">NCAA D1 Men</option>
+            <option value="NCAA Division I Women">NCAA D1 Women</option>
+            <option value="NCAA Division III">NCAA Division III</option>
+            <option value="ACHA">ACHA Club Hockey</option>
+            <option value="USHL">USHL Tier 1 Junior</option>
+            <option value="NAHL">NAHL Tier 2 Junior</option>
+            <option value="U Sports">Canadian U Sports</option>
+            <option value="BCHL">BCHL Junior A</option>
+            <option value="Prep">High School & Prep</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="text-[10px] text-slate-400 font-bold block mb-1">Conference / Division</label>
+          <select id="filterConference" class="w-full bg-slate-900 border border-slate-800 rounded-xl p-2 text-slate-200 text-xs focus:border-sky-500">
+            <option value="all">All Conferences & Divisions</option>
+            <option value="Big Ten">Big Ten</option>
+            <option value="NCHC">NCHC</option>
+            <option value="Hockey East">Hockey East</option>
+            <option value="ECAC">ECAC Hockey</option>
+            <option value="CCHA">CCHA</option>
+            <option value="AHA">Atlantic Hockey (AHA)</option>
+            <option value="WCHA">WCHA (Women)</option>
+            <option value="Pacific">Pacific Division (AHL)</option>
+            <option value="North">North Division (AHL)</option>
+            <option value="Atlantic">Atlantic Division (AHL)</option>
+            <option value="Central">Central Division (AHL)</option>
+            <option value="USHL">USHL Divisions</option>
+            <option value="Canada West">Canada West</option>
+            <option value="NEPSAC">NEPSAC Prep</option>
+            <option value="MSHSL">Minnesota High School</option>
+            <option value="Independent">Independent</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="text-[10px] text-slate-400 font-bold block mb-1">Position / Role</label>
+          <select id="filterPosition" class="w-full bg-slate-900 border border-slate-800 rounded-xl p-2 text-slate-200 text-xs focus:border-sky-500">
+            <option value="all">All Positions & Staff</option>
+            <option value="F">Forwards (F / C / W)</option>
+            <option value="D">Defensemen (D)</option>
+            <option value="G">Goaltenders (G)</option>
+            <option value="HC">Head Coaches (HC)</option>
+            <option value="GM">General Managers (GM)</option>
+            <option value="REC">Recruiters & Staff</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="text-[10px] text-slate-400 font-bold block mb-1">Class / Staff Level</label>
+          <select id="filterClass" class="w-full bg-slate-900 border border-slate-800 rounded-xl p-2 text-slate-200 text-xs focus:border-sky-500">
+            <option value="all">All Levels & Staff</option>
+            <option value="Freshman">Freshmen</option>
+            <option value="Sophomore">Sophomores</option>
+            <option value="Junior">Juniors</option>
+            <option value="Senior">Seniors / Graduate</option>
+            <option value="Staff">Coaching & Operations Staff</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="text-[10px] text-slate-400 font-bold block mb-1">Status / Honors</label>
+          <select id="filterDraft" class="w-full bg-slate-900 border border-slate-800 rounded-xl p-2 text-slate-200 text-xs focus:border-sky-500">
+            <option value="all">All Statuses</option>
+            <option value="champion">National Champions / Accolades</option>
+            <option value="drafted">NHL Drafted Skaters</option>
+            <option value="undrafted">Undrafted Skaters</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="text-[10px] text-slate-400 font-bold block mb-1">Display View</label>
+          <div class="flex items-center gap-1 bg-slate-900 p-1 rounded-xl border border-slate-800">
+            <button id="viewTableBtn" class="flex-1 py-1 rounded-lg bg-sky-600 text-white font-bold text-xs text-center transition">
+              📊 Table
+            </button>
+            <button id="viewCardBtn" class="flex-1 py-1 rounded-lg text-slate-400 hover:text-white font-bold text-xs text-center transition">
+              🎴 Cards
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Quick Filter Pills -->
+      <div class="flex flex-wrap items-center gap-1.5 pt-1 border-t border-slate-800 text-xs overflow-x-auto">
+        <span class="text-[10px] uppercase font-bold text-slate-500 mr-1">Quick Select:</span>
+        <button class="quick-team-pill px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-sky-400 border border-slate-800 font-bold text-[11px]" data-search="Michigan">Michigan Wolverines</button>
+        <button class="quick-team-pill px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-sky-400 border border-slate-800 font-bold text-[11px]" data-search="Denver">Denver Pioneers</button>
+        <button class="quick-team-pill px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-sky-400 border border-slate-800 font-bold text-[11px]" data-search="Boston College">Boston College</button>
+        <button class="quick-team-pill px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-sky-400 border border-slate-800 font-bold text-[11px]" data-search="Boston University">Boston Univ</button>
+        <button class="quick-team-pill px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-sky-400 border border-slate-800 font-bold text-[11px]" data-search="Minnesota">Minnesota Gophers</button>
+        <button class="quick-team-pill px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-sky-400 border border-slate-800 font-bold text-[11px]" data-search="North Dakota">North Dakota</button>
+        <button class="quick-team-pill px-2.5 py-1 rounded-lg bg-amber-950/60 hover:bg-amber-900/60 text-amber-300 border border-amber-700/60 font-bold text-[11px]" data-search="David Carle">David Carle (Denver)</button>
+        <button class="quick-team-pill px-2.5 py-1 rounded-lg bg-amber-950/60 hover:bg-amber-900/60 text-amber-300 border border-amber-700/60 font-bold text-[11px]" data-search="Brandon Naurato">Brandon Naurato (Mich)</button>
+        <button class="quick-team-pill px-2.5 py-1 rounded-lg bg-amber-950/60 hover:bg-amber-900/60 text-amber-300 border border-amber-700/60 font-bold text-[11px]" data-search="Rocky Russo">Rocky Russo (USHL)</button>
+        <button class="quick-team-pill px-2.5 py-1 rounded-lg bg-emerald-950/60 hover:bg-emerald-900/60 text-emerald-300 border border-emerald-700/60 font-bold text-[11px]" data-search="Shane McCoy">Shane McCoy (Recruiter)</button>
+        <button id="resetFiltersBtn" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-[11px] ml-auto">Reset Filters</button>
+      </div>
+
+    </div>
+
+    <!-- Active Stats & Pagination Header -->
+    <div class="flex flex-wrap items-center justify-between gap-3 text-xs text-slate-400 px-1">
+      <div class="flex items-center gap-2">
+        <span class="font-bold text-white text-sm" id="resultCountLabel">Showing 1 to 50 of 2,412 athletes</span>
+        <span class="text-slate-600">•</span>
+        <span id="activeFilterSummary">All records active</span>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <label for="pageSizeSelect" class="text-[11px]">Per Page:</label>
+        <select id="pageSizeSelect" class="bg-slate-900 border border-slate-800 rounded-lg px-2 py-1 text-xs text-slate-200">
+          <option value="25">25</option>
+          <option value="50" selected>50</option>
+          <option value="100">100</option>
+          <option value="250">250</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Container 1: Table View -->
+    <div id="tableViewContainer" class="glass-panel rounded-2xl border border-slate-800 overflow-hidden shadow-2xl">
+      <div class="overflow-x-auto max-h-[700px] overflow-y-auto">
+        <table class="w-full text-left text-xs border-collapse">
+          <thead class="sticky top-0 z-20 bg-slate-950/95 backdrop-blur border-b border-slate-800 text-[10px] text-slate-400 uppercase tracking-wider">
+            <tr>
+              <th class="py-3 px-3 sortable" data-sort="num"># / Role ↕</th>
+              <th class="py-3 px-3 sortable" data-sort="name">Personnel Name ↕</th>
+              <th class="py-3 px-2 text-center sortable" data-sort="pos">Pos / Role ↕</th>
+              <th class="py-3 px-3 sortable" data-sort="team">School / Program ↕</th>
+              <th class="py-3 px-2 sortable" data-sort="conference">Conf ↕</th>
+              <th class="py-3 px-2 sortable" data-sort="class_level">Level / Title ↕</th>
+              <th class="py-3 px-2">Ht / Wt / Tenure</th>
+              <th class="py-3 px-3 sortable" data-sort="hometown">Origin / Hometown ↕</th>
+              <th class="py-3 px-3">Feeder / Alma Mater</th>
+              <th class="py-3 px-3 sortable" data-sort="draft_status">Honors / Draft Status ↕</th>
+              <th class="py-3 px-2 text-center sortable" data-sort="composite_score">Score ↕</th>
+              <th class="py-3 px-3 text-right">Dossier / Passport</th>
+            </tr>
+          </thead>
+          <tbody id="databaseTableBody" class="divide-y divide-slate-800/60 font-mono text-slate-300">
+            <!-- Dynamically populated -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Container 2: Card Grid View (Hidden by default) -->
+    <div id="cardViewContainer" class="hidden grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <!-- Dynamically populated -->
+    </div>
+
+    <!-- Pagination Controls -->
+    <div class="flex flex-wrap items-center justify-between gap-3 pt-2">
+      <div class="text-xs text-slate-400" id="paginationStatusLabel">
+        Page 1 of 49
+      </div>
+
+      <div class="flex items-center gap-1.5" id="paginationButtons">
+        <button id="prevPageBtn" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-xs font-bold text-slate-300 disabled:opacity-30 disabled:pointer-events-none transition">
+          &larr; Previous
+        </button>
+        <div id="pageNumberButtons" class="flex items-center gap-1"></div>
+        <button id="nextPageBtn" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-xs font-bold text-slate-300 disabled:opacity-30 disabled:pointer-events-none transition">
+          Next &rarr;
+        </button>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Mobile Sticky Bottom Navigation Dock (< 1024px) -->
+  <nav id="mobileBottomNav" class="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-slate-950/95 backdrop-blur-xl border-t border-sky-500/30 px-2 py-1.5 flex items-center justify-around shadow-2xl safe-area-bottom">
+    <a href="/" class="flex-1 flex flex-col items-center justify-center py-1 px-1 rounded-xl text-slate-400 hover:text-sky-400 active:scale-95 transition" aria-label="Main Platform Rosters">
+      <svg class="w-5 h-5 mb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+      <span class="text-[10px] font-bold">Rosters</span>
+    </a>
+    <a href="/database.html" class="flex-1 flex flex-col items-center justify-center py-1 px-1 rounded-xl text-sky-400 active:scale-95 transition" aria-label="Master Database">
+      <svg class="w-5 h-5 mb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"/></svg>
+      <span class="text-[10px] font-bold">Database</span>
+    </a>
+    <a href="/?tab=filmroom" class="flex-1 flex flex-col items-center justify-center py-1 px-1 rounded-xl text-slate-400 hover:text-sky-400 active:scale-95 transition" aria-label="Film Room & Video">
+      <svg class="w-5 h-5 mb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+      <span class="text-[10px] font-bold">Film Room</span>
+    </a>
+    <a href="/broadcast_ai.html" class="flex-1 flex flex-col items-center justify-center py-1 px-1 rounded-xl text-purple-400 hover:text-purple-300 active:scale-95 transition" aria-label="Live Voice AI">
+      <svg class="w-5 h-5 mb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"/></svg>
+      <span class="text-[10px] font-bold">Voice AI</span>
+    </a>
+    <a href="/player.html?id=um_csv_13" target="_blank" class="flex-1 flex flex-col items-center justify-center py-1 px-1 rounded-xl text-emerald-400 hover:text-emerald-300 active:scale-95 transition" aria-label="Athlete Passport">
+      <svg class="w-5 h-5 mb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2"/></svg>
+      <span class="text-[10px] font-bold">Passport</span>
+    </a>
+  </nav>
+
+  <!-- Scripts -->
+  <script src="/static/js/bundle_data.js"></script>
+  <script src="/static/js/master_players.js"></script>
+  <script>
+    let allAthletes = [];
+    let filteredAthletes = [];
+    let currentPage = 1;
+    let pageSize = 50;
+    let currentView = (window.innerWidth < 768) ? 'card' : 'table'; // Auto-select Card view on mobile phones
+    let currentSortCol = 'score';
+    let currentSortDir = 'desc';
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // 1. Ingest datasets (master non-pro registry + bundle_data fallback)
+      if (window.MASTER_NON_PRO_REGISTRY && Array.isArray(window.MASTER_NON_PRO_REGISTRY)) {
+        allAthletes = [...window.MASTER_NON_PRO_REGISTRY];
+      } else if (window.MASTER_PLAYERS && Array.isArray(window.MASTER_PLAYERS)) {
+        allAthletes = [...window.MASTER_PLAYERS];
+      } else if (window.EMBEDDED_PUCKPATHWAY_DATA && window.EMBEDDED_PUCKPATHWAY_DATA.players) {
+        allAthletes = window.EMBEDDED_PUCKPATHWAY_DATA.players.map(p => ({
+          id: p.id,
+          entity_type: 'player',
+          name: p.name,
+          num: p.num || 0,
+          pos: p.pos || 'F',
+          team: p.team || 'Unassigned',
+          institution: p.institution || p.team || '',
+          league: p.league || 'Collegiate',
+          conference: p.conference || '',
+          class_level: p.class_level || 'Active',
+          height_str: p.height_in ? `${Math.floor(p.height_in/12)}'${p.height_in%12}"` : '6\'0"',
+          weight_lbs: p.weight_lbs || 185,
+          hometown: p.hometown || '',
+          previous_team: p.previous_team || '',
+          draft_status: p.draft_status || 'Undrafted',
+          composite_score: (p.projection && p.projection.composite_trajectory_score) ? p.projection.composite_trajectory_score : 88.0,
+          avatar_gradient: p.avatar_gradient || 'from-sky-500 to-indigo-600'
+        }));
+      }
+
+      document.getElementById('heroTotalBadge').textContent = `${allAthletes.length.toLocaleString()} Active Personnel (Non-NHL)`;
+
+      // 2. Setup Event Listeners
+      const searchInput = document.getElementById('masterSearchInput');
+      const clearSearchBtn = document.getElementById('clearMasterSearchBtn');
+
+      searchInput.addEventListener('input', () => {
+        if (searchInput.value.trim()) {
+          clearSearchBtn.classList.remove('hidden');
+        } else {
+          clearSearchBtn.classList.add('hidden');
+        }
+        currentPage = 1;
+        applyFilters();
+      });
+
+      clearSearchBtn.addEventListener('click', () => {
+        searchInput.value = '';
+        clearSearchBtn.classList.add('hidden');
+        currentPage = 1;
+        applyFilters();
+      });
+
+      ['filterRole', 'filterLeague', 'filterConference', 'filterPosition', 'filterClass', 'filterDraft'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+          el.addEventListener('change', () => {
+            currentPage = 1;
+            applyFilters();
+          });
+        }
+      });
+
+      document.getElementById('pageSizeSelect').addEventListener('change', (e) => {
+        pageSize = parseInt(e.target.value) || 50;
+        currentPage = 1;
+        renderCurrentPage();
+      });
+
+      // Quick Pills
+      document.querySelectorAll('.quick-team-pill').forEach(pill => {
+        pill.addEventListener('click', () => {
+          searchInput.value = pill.dataset.search;
+          clearSearchBtn.classList.remove('hidden');
+          currentPage = 1;
+          applyFilters();
+        });
+      });
+
+      document.getElementById('resetFiltersBtn').addEventListener('click', () => {
+        searchInput.value = '';
+        clearSearchBtn.classList.add('hidden');
+        if (document.getElementById('filterRole')) document.getElementById('filterRole').value = 'all';
+        document.getElementById('filterLeague').value = 'all';
+        document.getElementById('filterConference').value = 'all';
+        document.getElementById('filterPosition').value = 'all';
+        document.getElementById('filterClass').value = 'all';
+        document.getElementById('filterDraft').value = 'all';
+        currentPage = 1;
+        applyFilters();
+      });
+
+      // View Toggle
+      const viewTableBtn = document.getElementById('viewTableBtn');
+      const viewCardBtn = document.getElementById('viewCardBtn');
+      const tableContainer = document.getElementById('tableViewContainer');
+      const cardContainer = document.getElementById('cardViewContainer');
+
+      viewTableBtn.addEventListener('click', () => {
+        currentView = 'table';
+        viewTableBtn.classList.add('bg-sky-600', 'text-white');
+        viewTableBtn.classList.remove('text-slate-400');
+        viewCardBtn.classList.remove('bg-sky-600', 'text-white');
+        viewCardBtn.classList.add('text-slate-400');
+        tableContainer.classList.remove('hidden');
+        cardContainer.classList.add('hidden');
+        renderCurrentPage();
+      });
+
+      viewCardBtn.addEventListener('click', () => {
+        currentView = 'card';
+        viewCardBtn.classList.add('bg-sky-600', 'text-white');
+        viewCardBtn.classList.remove('text-slate-400');
+        viewTableBtn.classList.remove('bg-sky-600', 'text-white');
+        viewTableBtn.classList.add('text-slate-400');
+        cardContainer.classList.remove('hidden');
+        tableContainer.classList.add('hidden');
+        renderCurrentPage();
+      });
+
+      // Synchronize initial view state if card view was auto-selected on mobile
+      if (currentView === 'card') {
+        viewCardBtn.classList.add('bg-sky-600', 'text-white');
+        viewCardBtn.classList.remove('text-slate-400');
+        viewTableBtn.classList.remove('bg-sky-600', 'text-white');
+        viewTableBtn.classList.add('text-slate-400');
+        cardContainer.classList.remove('hidden');
+        tableContainer.classList.add('hidden');
+      }
+
+      // Pagination buttons
+      document.getElementById('prevPageBtn').addEventListener('click', () => {
+        if (currentPage > 1) {
+          currentPage--;
+          renderCurrentPage();
+          window.scrollTo({ top: 200, behavior: 'smooth' });
+        }
+      });
+
+      document.getElementById('nextPageBtn').addEventListener('click', () => {
+        const totalPages = Math.ceil(filteredAthletes.length / pageSize);
+        if (currentPage < totalPages) {
+          currentPage++;
+          renderCurrentPage();
+          window.scrollTo({ top: 200, behavior: 'smooth' });
+        }
+      });
+
+      // Table Sorting headers
+      document.querySelectorAll('th.sortable').forEach(th => {
+        th.addEventListener('click', () => {
+          const col = th.dataset.sort;
+          if (currentSortCol === col) {
+            currentSortDir = currentSortDir === 'asc' ? 'desc' : 'asc';
+          } else {
+            currentSortCol = col;
+            currentSortDir = 'desc';
+          }
+          sortAthletes();
+          renderCurrentPage();
+        });
+      });
+
+      // Export Buttons
+      document.getElementById('exportCsvBtn').addEventListener('click', exportFilteredCSV);
+      document.getElementById('exportJsonBtn').addEventListener('click', exportFilteredJSON);
+
+      // Check URL query parameters (e.g. ?q=Michigan or ?league=AHL)
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('q')) {
+        searchInput.value = urlParams.get('q');
+        clearSearchBtn.classList.remove('hidden');
+      }
+      if (urlParams.get('league')) {
+        document.getElementById('filterLeague').value = urlParams.get('league');
+      }
+
+      // Initial Filter & Render
+      applyFilters();
+    });
+
+    function applyFilters() {
+      const q = document.getElementById('masterSearchInput').value.toLowerCase().trim();
+      const role = document.getElementById('filterRole') ? document.getElementById('filterRole').value : 'all';
+      const league = document.getElementById('filterLeague').value;
+      const conf = document.getElementById('filterConference').value;
+      const pos = document.getElementById('filterPosition').value;
+      const cls = document.getElementById('filterClass').value;
+      const draft = document.getElementById('filterDraft').value;
+
+      filteredAthletes = allAthletes.filter(p => {
+        // Role filter
+        if (role === 'player' && p.entity_type !== 'player') return false;
+        if (role === 'coach' && p.entity_type !== 'coach') return false;
+
+        // Query search
+        if (q) {
+          const name = (p.name || '').toLowerCase();
+          const team = (p.team || '').toLowerCase();
+          const inst = (p.institution || '').toLowerCase();
+          const num = `#${p.num}`.toLowerCase();
+          const rawNum = `${p.num}`;
+          const hometown = (p.hometown || '').toLowerCase();
+          const feeder = (p.previous_team || '').toLowerCase();
+          const draftStatus = (p.draft_status || '').toLowerCase();
+          const confName = (p.conference || '').toLowerCase();
+          const roleTitle = (p.role_title || '').toLowerCase();
+          const almaMater = (p.alma_mater || '').toLowerCase();
+          const accolades = (p.accolades || '').toLowerCase();
+
+          const matchesQ = name.includes(q) || team.includes(q) || inst.includes(q) || 
+                           num === q || rawNum === q || hometown.includes(q) || feeder.includes(q) || 
+                           draftStatus.includes(q) || confName.includes(q) || roleTitle.includes(q) || 
+                           almaMater.includes(q) || accolades.includes(q);
+          if (!matchesQ) return false;
+        }
+
+        // League
+        if (league !== 'all') {
+          if (!p.league || !p.league.toLowerCase().includes(league.toLowerCase())) return false;
+        }
+
+        // Conference
+        if (conf !== 'all') {
+          if (!p.conference || !p.conference.toLowerCase().includes(conf.toLowerCase())) return false;
+        }
+
+        // Position & Staff Role
+        if (pos !== 'all') {
+          if (pos === 'F' && !['F', 'C', 'LW', 'RW'].includes(p.pos)) return false;
+          if (pos === 'D' && p.pos !== 'D') return false;
+          if (pos === 'G' && p.pos !== 'G') return false;
+          if (pos === 'HC' && p.pos !== 'HC') return false;
+          if (pos === 'GM' && p.pos !== 'GM') return false;
+          if (pos === 'REC' && !['REC', 'STAFF'].includes(p.pos)) return false;
+        }
+
+        // Class Level & Staff
+        if (cls !== 'all') {
+          if (cls === 'Staff') {
+            if (p.entity_type !== 'coach') return false;
+          } else {
+            if (p.entity_type === 'coach') return false;
+            if (!p.class_level || !p.class_level.toLowerCase().includes(cls.toLowerCase())) return false;
+          }
+        }
+
+        // Status & Honors
+        if (draft === 'champion') {
+          const hasChampionship = (p.accolades && p.accolades.toLowerCase().includes('champ')) ||
+                                  (p.draft_status && p.draft_status.toLowerCase().includes('champ'));
+          if (!hasChampionship) return false;
+        } else if (draft === 'drafted') {
+          if (p.entity_type === 'coach') return false;
+          if (!p.draft_status || p.draft_status === 'Undrafted') return false;
+        } else if (draft === 'undrafted') {
+          if (p.entity_type === 'coach') return false;
+          if (p.draft_status && p.draft_status !== 'Undrafted') return false;
+        }
+
+        return true;
+      });
+
+      sortAthletes();
+      renderCurrentPage();
+    }
+
+    function sortAthletes() {
+      filteredAthletes.sort((a, b) => {
+        let valA = a[currentSortCol];
+        let valB = b[currentSortCol];
+
+        if (typeof valA === 'string') valA = valA.toLowerCase();
+        if (typeof valB === 'string') valB = valB.toLowerCase();
+
+        if (valA < valB) return currentSortDir === 'asc' ? -1 : 1;
+        if (valA > valB) return currentSortDir === 'asc' ? 1 : -1;
+        return 0;
+      });
+    }
+
+    function renderCurrentPage() {
+      const total = filteredAthletes.length;
+      const totalPages = Math.max(1, Math.ceil(total / pageSize));
+      if (currentPage > totalPages) currentPage = totalPages;
+
+      const startIndex = (currentPage - 1) * pageSize;
+      const endIndex = Math.min(total, startIndex + pageSize);
+      const pageAthletes = filteredAthletes.slice(startIndex, endIndex);
+
+      // Labels
+      const countLabel = document.getElementById('resultCountLabel');
+      if (countLabel) {
+        countLabel.textContent = total === 0 
+          ? 'No matching athletes found' 
+          : `Showing ${startIndex + 1} to ${endIndex} of ${total.toLocaleString()} athletes`;
+      }
+
+      const pagStatus = document.getElementById('paginationStatusLabel');
+      if (pagStatus) {
+        pagStatus.textContent = `Page ${currentPage} of ${totalPages} (${total.toLocaleString()} total)`;
+      }
+
+      // Disabled state
+      document.getElementById('prevPageBtn').disabled = (currentPage <= 1);
+      document.getElementById('nextPageBtn').disabled = (currentPage >= totalPages);
+
+      // Page numbers (max 5 buttons)
+      renderPageNumbers(totalPages);
+
+      if (currentView === 'table') {
+        renderTableView(pageAthletes);
+      } else {
+        renderCardView(pageAthletes);
+      }
+    }
+
+    function renderPageNumbers(totalPages) {
+      const container = document.getElementById('pageNumberButtons');
+      if (!container) return;
+
+      let start = Math.max(1, currentPage - 2);
+      let end = Math.min(totalPages, start + 4);
+      if (end - start < 4) {
+        start = Math.max(1, end - 4);
+      }
+
+      let html = '';
+      for (let i = start; i <= end; i++) {
+        const isActive = (i === currentPage);
+        html += `
+          <button onclick="goToPage(${i})" class="w-8 h-8 rounded-xl text-xs font-bold transition ${isActive ? 'bg-sky-600 text-white shadow shadow-sky-600/30' : 'bg-slate-900 border border-slate-800 text-slate-400 hover:text-white'}">
+            ${i}
+          </button>
+        `;
+      }
+      container.innerHTML = html;
+    }
+
+    window.goToPage = function(p) {
+      currentPage = p;
+      renderCurrentPage();
+      window.scrollTo({ top: 200, behavior: 'smooth' });
+    };
+
+    function renderTableView(athletes) {
+      const tbody = document.getElementById('databaseTableBody');
+      if (!tbody) return;
+
+      if (athletes.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="12" class="py-12 text-center text-slate-500 font-sans text-xs">
+              No athletes match your query. Try resetting filters or typing a broader keyword.
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      tbody.innerHTML = athletes.map(p => {
+        const isCoach = p.entity_type === 'coach' || p.pos === 'HC' || p.pos === 'GM' || p.pos === 'REC';
+
+        if (isCoach) {
+          return `
+            <tr class="hover:bg-slate-900/60 transition group bg-slate-950/40">
+              <td class="py-2.5 px-3 font-bold text-amber-400 font-mono">
+                <span class="px-1.5 py-0.5 rounded text-[9px] bg-amber-500/20 text-amber-300 border border-amber-500/30">STAFF</span>
+              </td>
+              <td class="py-2.5 px-3 font-bold text-white font-sans flex items-center gap-2">
+                <span class="w-6 h-6 rounded-lg bg-gradient-to-tr ${p.avatar_gradient || 'from-amber-600 to-indigo-800'} text-white text-[10px] flex items-center justify-center font-bold">
+                  ${p.pos || '👔'}
+                </span>
+                <span class="group-hover:text-amber-300 transition">${p.name}</span>
+              </td>
+              <td class="py-2.5 px-2 text-center font-bold text-amber-400 font-mono">${p.pos}</td>
+              <td class="py-2.5 px-3 font-sans text-slate-200">${p.team}</td>
+              <td class="py-2.5 px-2 text-[10px] text-slate-400 font-sans">${p.conference || '--'}</td>
+              <td class="py-2.5 px-2 text-[10px] font-sans">
+                <span class="px-1.5 py-0.5 rounded bg-amber-950/80 text-amber-300 border border-amber-800/40 font-bold">${p.role_title}</span>
+              </td>
+              <td class="py-2.5 px-2 text-[10px] text-slate-300">${p.tenure || 'Staff'}</td>
+              <td class="py-2.5 px-3 font-sans text-slate-300 text-[11px] truncate max-w-[150px]">${p.hometown || '--'}</td>
+              <td class="py-2.5 px-3 font-sans text-slate-400 text-[10px] truncate max-w-[160px]">${p.alma_mater ? 'Alma: ' + p.alma_mater : (p.previous_team || '--')}</td>
+              <td class="py-2.5 px-3 font-sans">
+                <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-950/80 text-amber-300 border border-amber-800/60 truncate max-w-[220px] inline-block">🏆 ${p.accolades || p.draft_status}</span>
+              </td>
+              <td class="py-2.5 px-2 text-center font-bold text-amber-400">99.0</td>
+              <td class="py-2.5 px-3 text-right">
+                <a href="/player.html?id=${p.id}" target="_blank" class="px-2.5 py-1 rounded-lg bg-amber-600/30 hover:bg-amber-600 text-amber-300 hover:text-white font-sans text-[11px] font-bold border border-amber-500/30 transition shadow-sm inline-flex items-center gap-1">
+                  Staff Dossier &rarr;
+                </a>
+              </td>
+            </tr>
+          `;
+        }
+
+        const isDrafted = p.draft_status && p.draft_status !== 'Undrafted';
+        const draftDisplay = isDrafted 
+          ? `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-purple-950/80 text-purple-300 border border-purple-800/60 truncate max-w-[200px] inline-block">🏒 ${p.draft_status}</span>` 
+          : `<span class="text-slate-500 text-[10px]">Undrafted</span>`;
+
+        return `
+          <tr class="hover:bg-slate-900/60 transition group">
+            <td class="py-2.5 px-3 font-bold text-sky-400">#${p.num}</td>
+            <td class="py-2.5 px-3 font-bold text-white font-sans flex items-center gap-2">
+              <span class="w-6 h-6 rounded-lg bg-gradient-to-tr ${p.avatar_gradient || 'from-sky-600 to-indigo-700'} text-white text-[10px] flex items-center justify-center font-bold">
+                ${p.num}
+              </span>
+              <span class="group-hover:text-sky-300 transition">${p.name}</span>
+            </td>
+            <td class="py-2.5 px-2 text-center font-bold ${p.pos === 'G' ? 'text-amber-400' : p.pos === 'D' ? 'text-emerald-400' : 'text-sky-400'}">${p.pos}</td>
+            <td class="py-2.5 px-3 font-sans text-slate-200">${p.team}</td>
+            <td class="py-2.5 px-2 text-[10px] text-slate-400 font-sans">${p.conference || '--'}</td>
+            <td class="py-2.5 px-2 text-[10px] font-sans">
+              <span class="px-1.5 py-0.5 rounded bg-slate-800/80 text-slate-300">${p.class_level || 'Active'}</span>
+            </td>
+            <td class="py-2.5 px-2 text-[10px] text-slate-400">${p.height_str || '--'} / ${p.weight_lbs || '--'}#</td>
+            <td class="py-2.5 px-3 font-sans text-slate-300 text-[11px] truncate max-w-[150px]">${p.hometown || '--'}</td>
+            <td class="py-2.5 px-3 font-sans text-slate-400 text-[10px] truncate max-w-[160px]">${p.previous_team || '--'}</td>
+            <td class="py-2.5 px-3 font-sans">${draftDisplay}</td>
+            <td class="py-2.5 px-2 text-center font-bold text-amber-400">${p.composite_score ? p.composite_score.toFixed(1) : '--'}</td>
+            <td class="py-2.5 px-3 text-right">
+              <a href="/player.html?id=${p.id}" target="_blank" class="px-2.5 py-1 rounded-lg bg-sky-600/30 hover:bg-sky-600 text-sky-300 hover:text-white font-sans text-[11px] font-bold border border-sky-500/30 transition shadow-sm inline-flex items-center gap-1">
+                Passport &rarr;
+              </a>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function renderCardView(athletes) {
+      const container = document.getElementById('cardViewContainer');
+      if (!container) return;
+
+      if (athletes.length === 0) {
+        container.innerHTML = `
+          <div class="col-span-full py-12 text-center text-slate-500 font-sans text-xs glass-panel rounded-2xl">
+            No athletes match your query. Try resetting filters or typing a broader keyword.
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = athletes.map(p => {
+        const isCoach = p.entity_type === 'coach' || p.pos === 'HC' || p.pos === 'GM' || p.pos === 'REC';
+
+        if (isCoach) {
+          return `
+            <div class="glass-panel p-4 rounded-2xl border border-amber-500/30 hover-glow transition-all flex flex-col justify-between space-y-3 bg-gradient-to-b from-slate-900/90 to-amber-950/10">
+              <div class="space-y-2.5">
+                <div class="flex items-start justify-between gap-2">
+                  <div class="flex items-center gap-3">
+                    <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr ${p.avatar_gradient || 'from-amber-600 to-indigo-800'} text-white font-black flex items-center justify-center text-sm shadow-md">
+                      ${p.pos || '👔'}
+                    </div>
+                    <div>
+                      <h3 class="font-black text-sm text-white">${p.name}</h3>
+                      <div class="text-[11px] text-amber-400 font-bold flex items-center gap-1">
+                        <span>${p.role_title}</span>
+                        <span class="text-slate-600">•</span>
+                        <span class="text-slate-300 truncate max-w-[150px]">${p.team}</span>
+                      </div>
+                    </div>
+                  </div>
+                  <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-950 text-amber-300 border border-amber-700/60">
+                    STAFF
+                  </span>
+                </div>
+
+                <div class="space-y-1 text-[11px]">
+                  <div class="px-2 py-0.5 rounded-lg bg-amber-900/30 border border-amber-500/30 text-amber-300 font-bold truncate">
+                    🏆 ${p.accolades || p.draft_status}
+                  </div>
+                  ${p.alma_mater ? `
+                    <div class="text-slate-400 flex items-center gap-1">
+                      <span class="text-slate-500">🎓</span> <span class="truncate">Alma Mater: ${p.alma_mater}</span>
+                    </div>
+                  ` : ''}
+                  ${p.hometown ? `
+                    <div class="text-slate-400 flex items-center gap-1">
+                      <span class="text-slate-500">📍</span> <span class="truncate">Origin: ${p.hometown}</span>
+                    </div>
+                  ` : ''}
+                </div>
+
+                <div class="grid grid-cols-3 gap-1 p-2 rounded-xl bg-slate-950 text-center font-mono text-[10px] border border-slate-800">
+                  <div>
+                    <span class="text-slate-500 text-[8px] block">TENURE</span>
+                    <span class="text-white font-bold text-[9px] truncate block">${p.tenure || 'Staff'}</span>
+                  </div>
+                  <div>
+                    <span class="text-slate-500 text-[8px] block">CONF</span>
+                    <span class="text-sky-400 font-bold truncate block">${p.conference || '--'}</span>
+                  </div>
+                  <div>
+                    <span class="text-slate-500 text-[8px] block">RATING</span>
+                    <span class="text-amber-400 font-bold">99.0</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="pt-2 border-t border-slate-800/80">
+                <a href="/player.html?id=${p.id}" target="_blank" class="w-full py-2 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-bold text-xs text-center transition shadow-md shadow-amber-600/20 block">
+                  Open Staff Dossier &rarr;
+                </a>
+              </div>
+            </div>
+          `;
+        }
+
+        const isDrafted = p.draft_status && p.draft_status !== 'Undrafted';
+
+        return `
+          <div class="glass-panel p-4 rounded-2xl border border-slate-800 hover-glow transition-all flex flex-col justify-between space-y-3">
+            <div class="space-y-2.5">
+              
+              <div class="flex items-start justify-between gap-2">
+                <div class="flex items-center gap-3">
+                  <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr ${p.avatar_gradient || 'from-sky-600 to-indigo-700'} text-white font-black flex items-center justify-center text-base shadow-md">
+                    #${p.num}
+                  </div>
+                  <div>
+                    <h3 class="font-black text-sm text-white">${p.name}</h3>
+                    <div class="text-[11px] text-sky-400 font-bold flex items-center gap-1">
+                      <span>${p.pos}</span>
+                      <span class="text-slate-600">•</span>
+                      <span class="text-slate-300 truncate max-w-[150px]">${p.team}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded-full ${isDrafted ? 'bg-purple-950 text-purple-300 border border-purple-700/60' : 'bg-slate-800 text-slate-400'}">
+                  ${p.class_level || 'Active'}
+                </span>
+              </div>
+
+              <div class="space-y-1 text-[11px]">
+                ${isDrafted ? `
+                  <div class="px-2 py-0.5 rounded-lg bg-purple-900/30 border border-purple-500/30 text-purple-300 font-bold truncate">
+                    🏒 ${p.draft_status}
+                  </div>
+                ` : ''}
+                ${p.hometown ? `
+                  <div class="text-slate-400 flex items-center gap-1">
+                    <span class="text-slate-500">📍</span> <span class="truncate">${p.hometown}</span>
+                  </div>
+                ` : ''}
+                ${p.previous_team ? `
+                  <div class="text-slate-400 flex items-center gap-1">
+                    <span class="text-slate-500">⚡</span> <span class="truncate">Feeder: ${p.previous_team}</span>
+                  </div>
+                ` : ''}
+              </div>
+
+              <div class="grid grid-cols-3 gap-1 p-2 rounded-xl bg-slate-950 text-center font-mono text-[10px] border border-slate-800">
+                <div>
+                  <span class="text-slate-500 text-[8px] block">HT/WT</span>
+                  <span class="text-white font-bold">${p.height_str || '--'} ${p.weight_lbs ? p.weight_lbs + '#' : ''}</span>
+                </div>
+                <div>
+                  <span class="text-slate-500 text-[8px] block">CONF</span>
+                  <span class="text-sky-400 font-bold truncate block">${p.conference || '--'}</span>
+                </div>
+                <div>
+                  <span class="text-slate-500 text-[8px] block">SCORE</span>
+                  <span class="text-amber-400 font-bold">${p.composite_score ? p.composite_score.toFixed(1) : '--'}</span>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="pt-2 border-t border-slate-800/80">
+              <a href="/player.html?id=${p.id}" target="_blank" class="w-full py-2 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-bold text-xs text-center transition shadow-md shadow-sky-600/20 block">
+                Open Athlete Passport &rarr;
+              </a>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function exportFilteredCSV() {
+      if (filteredAthletes.length === 0) return alert('No personnel to export.');
+      const headers = ['Type', 'Number_or_Role', 'Name', 'Role_or_Position', 'Team', 'League', 'Conference', 'Level_or_Title', 'Height_or_Tenure', 'Weight', 'Hometown_or_Origin', 'Feeder_or_AlmaMater', 'Honors_or_Draft', 'Score'];
+      const rows = filteredAthletes.map(p => [
+        p.entity_type || 'player',
+        p.entity_type === 'coach' ? 'STAFF' : p.num,
+        `"${p.name.replace(/"/g, '""')}"`,
+        p.pos,
+        `"${(p.team || '').replace(/"/g, '""')}"`,
+        `"${(p.league || '').replace(/"/g, '""')}"`,
+        `"${(p.conference || '').replace(/"/g, '""')}"`,
+        `"${(p.role_title || p.class_level || '').replace(/"/g, '""')}"`,
+        `"${p.entity_type === 'coach' ? (p.tenure || 'Staff') : (p.height_str || '')}"`,
+        p.entity_type === 'coach' ? '' : (p.weight_lbs || ''),
+        `"${(p.hometown || '').replace(/"/g, '""')}"`,
+        `"${(p.alma_mater || p.previous_team || '').replace(/"/g, '""')}"`,
+        `"${(p.accolades || p.draft_status || '').replace(/"/g, '""')}"`,
+        p.composite_score || ''
+      ]);
+
+      const csvContent = [headers.join(','), ...rows.map(r => r.join(','))].join('\r\n');
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `smrp_shane_mccoys_recurter_pro_directory_${Date.now()}.csv`;
+      a.click();
+    }
+
+    function exportFilteredJSON() {
+      if (filteredAthletes.length === 0) return alert('No personnel to export.');
+      const jsonContent = JSON.stringify(filteredAthletes, null, 2);
+      const blob = new Blob([jsonContent], { type: 'application/json;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `smrp_shane_mccoys_recurter_pro_directory_${Date.now()}.json`;
+      a.click();
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "cleanUrls": true,
+  "routes": [
+    { "src": "/player", "dest": "/player.html" },
+    { "src": "/database", "dest": "/database.html" },
+    { "src": "/broadcast_ai", "dest": "/broadcast_ai.html" },
+    { "src": "/broadcast-ai", "dest": "/broadcast_ai.html" },
+    { "src": "/(.*)", "dest": "/$1" }
+  ]
+}
