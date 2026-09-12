@@ -1,4 +1,4 @@
-/**
+﻿/**
  * PuckPathway OS: Client-Side Controller & Enterprise ADM Practice Suite (v5.6 Pro)
  * Supports Universal Field Editing & Recalculation Across All Modules,
  * Enterprise Hockey Whiteboard, Live Micro-Telemetry Event Logger, Visual Interactive Shot Chart,
@@ -936,7 +936,7 @@ function renderPlayerDossier(player) {
               <span class="px-2.5 py-0.5 text-[10px] font-bold rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">
                 ${player.status_badge}
               </span>
-              <a href="/player.html?id=${player.id}" target="_blank" class="px-2 py-0.5 text-[10px] font-bold rounded-md bg-sky-500/20 text-sky-300 border border-sky-500/40 hover:bg-sky-500/40 transition">
+              <a href="player.html?id=${player.id}" target="_blank" class="px-2 py-0.5 text-[10px] font-bold rounded-md bg-sky-500/20 text-sky-300 border border-sky-500/40 hover:bg-sky-500/40 transition">
                 🔗 Open Standalone Passport
               </a>
               <button onclick="openScoutDossierModalForPlayer('${player.id}')" class="px-2.5 py-0.5 text-[10px] font-bold rounded-md bg-amber-500/20 text-amber-300 border border-amber-500/40 hover:bg-amber-500/40 transition flex items-center gap-1 shadow-sm">
@@ -7557,7 +7557,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const overflowNote = filtered.length > 75 ? `
       <div class="col-span-full p-3.5 rounded-2xl bg-sky-950/40 border border-sky-500/30 text-center text-xs text-sky-300">
         Showing first 75 of ${filtered.length.toLocaleString()} matches.
-        <a href="/database.html" class="font-bold underline ml-1 text-white hover:text-sky-200">Open Full Master Database Hub (2,412+ Athletes) &rarr;</a>
+        <a href="database.html" class="font-bold underline ml-1 text-white hover:text-sky-200">Open Full Master Database Hub (2,412+ Athletes) &rarr;</a>
       </div>
     ` : '';
 
@@ -7634,7 +7634,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <button onclick="selectPlayerById('${p.id}'); closeRosterExplorer();" class="flex-1 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-[11px] transition text-center">
               View Dossier
             </button>
-            <a href="/player.html?id=${p.id}" target="_blank" class="flex-1 py-1.5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-bold text-[11px] transition text-center shadow shadow-sky-600/20">
+            <a href="player.html?id=${p.id}" target="_blank" class="flex-1 py-1.5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-bold text-[11px] transition text-center shadow shadow-sky-600/20">
               Open Passport &rarr;
             </a>
           </div>

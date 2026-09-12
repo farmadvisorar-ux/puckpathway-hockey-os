@@ -1,4 +1,4 @@
-/**
+﻿/**
  * PuckPathway OS - Live Broadcast Commentary & Voice AI Telemetry Studio
  * 
  * Ingestion Channels:
@@ -916,7 +916,7 @@ function renderPlayerTelemetryCards() {
             </div>
             <div>
               <div class="flex items-center gap-1.5">
-                <a href="/player.html?id=${s.player.id}" class="font-bold text-xs text-white hover:text-sky-400 transition underline-offset-2 hover:underline">${s.player.name}</a>
+                <a href="player.html?id=${s.player.id}" class="font-bold text-xs text-white hover:text-sky-400 transition underline-offset-2 hover:underline">${s.player.name}</a>
                 ${teamBadge}
               </div>
               <span class="text-[10px] text-slate-400">${s.player.position || 'Forward'} • ${s.mentions} mentions in broadcast</span>
