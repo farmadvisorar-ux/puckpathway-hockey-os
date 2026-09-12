@@ -3,25 +3,30 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>(SMRP) Shane McCoys Recurter Pro (SMRP) - Verified Personnel Dossier</title>
-  <meta name="description" content="(SMRP) Shane McCoy's Recruiter Pro - Verified Player Passport, Scouting Reports & Immutable Assessment Ledger.">
-  <link rel="icon" type="image/jpeg" href="static/img/smrp_logo.jpg">
-  <link rel="apple-touch-icon" href="static/img/smrp_logo.jpg">
+  <title>BlueLine DataWorks - Verified Athlete Dossier & Trajectory Passport</title>
+  <meta name="description" content="BlueLine DataWorks Athlete Passport - BlueLine DataWorks is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory.">
+  <link rel="icon" type="image/jpeg" href="static/img/blueline_logo.jpg">
+  <link rel="apple-touch-icon" href="static/img/blueline_logo.jpg">
 
-  <!-- Open Graph / Social Link Preview -->
+    <!-- Open Graph / Social Link Preview -->
   <meta property="og:type" content="profile">
-  <meta property="og:title" content="(SMRP) Shane McCoys Recurter Pro (SMRP) - Player Dossier">
-  <meta property="og:description" content="Verified Non-NHL Prospect Passport • Real-Time Scouting Analytics & Tactical Film Breakdown.">
-  <meta property="og:image" content="https://farmadvisorar-ux.github.io/puckpathway-hockey-os/static/img/smrp_og_preview.jpg">
+  <meta property="og:site_name" content="BlueLine DataWorks">
+  <meta property="og:title" content="BlueLine DataWorks - Athlete Dossier & Trajectory Passport">
+  <meta property="og:description" content="BlueLine DataWorks is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory.">
+  <meta property="og:image" content="https://farmadvisorar-ux.github.io/puckpathway-hockey-os/static/img/blueline_og_preview.jpg">
+  <meta property="og:image:secure_url" content="https://farmadvisorar-ux.github.io/puckpathway-hockey-os/static/img/blueline_og_preview.jpg">
   <meta property="og:image:type" content="image/jpeg">
   <meta property="og:image:width" content="1280">
   <meta property="og:image:height" content="720">
+  <meta property="og:image:alt" content="BlueLine DataWorks Athlete Passport">
+  <link rel="image_src" href="https://farmadvisorar-ux.github.io/puckpathway-hockey-os/static/img/blueline_og_preview.jpg">
+  <meta name="thumbnail" content="https://farmadvisorar-ux.github.io/puckpathway-hockey-os/static/img/blueline_og_preview.jpg">
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="(SMRP) Shane McCoys Recurter Pro (SMRP) - Player Dossier">
-  <meta name="twitter:description" content="Verified Non-NHL Prospect Passport • Real-Time Scouting Analytics & Tactical Film Breakdown.">
-  <meta name="twitter:image" content="https://farmadvisorar-ux.github.io/puckpathway-hockey-os/static/img/smrp_og_preview.jpg">
+  <meta name="twitter:title" content="BlueLine DataWorks - Athlete Dossier">
+  <meta name="twitter:description" content="BlueLine DataWorks is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory.">
+  <meta name="twitter:image" content="https://farmadvisorar-ux.github.io/puckpathway-hockey-os/static/img/blueline_og_preview.jpg">
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -38,7 +43,7 @@
           <span>🏒</span> Main Platform
         </a>
         <a href="database.html" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-xs font-bold text-sky-400 hover:text-sky-300 transition flex items-center gap-1.5">
-          <span>📊</span> (SMRP) Directory (2,970+)
+          <span>📊</span> BlueLine Directory (2,974+)
         </a>
         <a href="broadcast_ai.html" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-xs font-bold text-purple-400 hover:text-purple-300 transition flex items-center gap-1.5">
           <span>🎙️</span> Broadcast AI
@@ -199,7 +204,7 @@
                 {
                   id: `led_${mp.id}_01`,
                   timestamp: '2026-09-10 12:00:00',
-                  account: 'Shane McCoy (Head Recruiter)',
+                  account: 'Shane McCoy (Head of Scouting, BlueLine DataWorks)',
                   category: 'Official Staff Roster Verification',
                   action: 'Verified Non-Pro Coaching Dossier',
                   diff: `Program: ${mp.team}, Role: ${mp.role_title}, Alma Mater: ${mp.alma_mater || '--'}`
@@ -283,7 +288,7 @@
                 {
                   id: `led_${mp.id}_01`,
                   timestamp: '2026-09-10 12:00:00',
-                  account: 'Shane McCoy (Head Recruiter)',
+                  account: 'Shane McCoy (Head of Scouting, BlueLine DataWorks)',
                   category: 'Official Roster Record Ingestion',
                   action: 'Verified Non-Pro Athlete Registry',
                   diff: `Program: ${mp.team}, League: ${mp.league}, Draft: ${mp.draft_status}`
@@ -375,7 +380,7 @@
     }
 
     function renderPassport(player) {
-      document.title = `${player.name} (#${player.num}) - (SMRP) Shane McCoys Recurter Pro`;
+      document.title = `${player.name} (#${player.num}) - BlueLine DataWorks`;
 
       const proj = player.projection || { composite_trajectory_score: 80, probabilities: { ncaa_d1: 50, ushl_tier1: 45, nahl_tier2: 70, ncaa_d3_acha: 90 }, ceiling_label: "Developing" };
       const telem = player.telemetry || { puck_possession: { avg_hold_duration_sec: 2.5, total_time_on_puck_sec: 90, wall_usage_pct: 60, wall_bank_escapes: 10 }, passing_analytics: { pass_completion_pct: 85, completed_tape_to_tape: 25, bad_passes_turnovers: 4 }, shot_telemetry: { avg_shot_distance_ft: 18, shots_on_goal: 4, goals: 1, shot_events: [] } };

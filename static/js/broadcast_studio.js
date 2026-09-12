@@ -1189,7 +1189,7 @@ function downloadCsvReport() {
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = `smrp_broadcast_telemetry_${Date.now()}.csv`;
+  a.download = `blueline_broadcast_telemetry_${Date.now()}.csv`;
   a.click();
   showToast("Exported CSV event ledger!", "success");
 }
@@ -1226,13 +1226,13 @@ function downloadJsonReport() {
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = `smrp_broadcast_report_${Date.now()}.json`;
+  a.download = `blueline_broadcast_report_${Date.now()}.json`;
   a.click();
   showToast("Exported JSON telemetry dataset!", "success");
 }
 
 function copyMarkdownReport() {
-  let md = `# (SMRP) Shane McCoys Recurter Pro - Broadcast Telemetry & Scout Report\n`;
+  let md = `# BlueLine DataWorks - Broadcast Telemetry & Scout Report\n`;
   md += `**Matchup:** ${homeTeam.name} (${gameState.homeScore}) vs. ${awayTeam.name} (${gameState.awayScore})\n`;
   md += `**Momentum:** ${homeTeam.name.split(' ')[0]} ${gameState.homeMomentum}% | ${awayTeam.name.split(' ')[0]} ${gameState.awayMomentum}%\n\n`;
   md += `## Top Performer Highlights\n`;
