@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BlueLine DataWorks | AI Tournament Bracketology & Championship War Room</title>
+  
+  <meta name="description" content="BlueLine DataWorks is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory.">
+  <meta property="og:title" content="BlueLine DataWorks - AI Tournament Bracketology">
+  <meta property="og:description" content="BlueLine DataWorks is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory.">
+  <meta property="og:image" content="static/img/blueline_og_preview.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="BlueLine DataWorks - AI Tournament Bracketology">
+  <meta name="twitter:description" content="BlueLine DataWorks is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory.">
+
+  <!-- Manifest for PWA -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#060b14">
+
+  <!-- Tailwind CSS & Fonts -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              primary: '#0ea5e9',
+              dark: '#060b14',
+              surface: '#0d131f',
+              border: 'rgba(56, 189, 248, 0.2)'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="static/css/custom.css">
+
+  <style>
+    body {
+      background-color: #060b14;
+      background-image: 
+        radial-gradient(at 0% 0%, rgba(245, 158, 11, 0.12) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(14, 165, 233, 0.08) 0px, transparent 50%);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+    .glass-panel {
+      background: rgba(13, 19, 31, 0.75);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(56, 189, 248, 0.2);
+    }
+  </style>
+</head>
+<body class="text-slate-100 min-h-screen flex flex-col antialiased selection:bg-amber-500 selection:text-white">
+
+  <!-- Universal Enterprise Top Navigation Header -->
+  <header class="border-b border-sky-500/20 bg-slate-950/95 backdrop-blur-xl sticky top-0 z-50 shadow-2xl shadow-black/60">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-14 sm:h-16 flex items-center justify-between gap-2">
+      
+      <!-- Brand Logo & Title -->
+      <div class="flex items-center gap-2 sm:gap-3 min-w-0">
+        <a href="index.html" class="flex items-center gap-2 group min-w-0">
+          <img src="static/img/blueline_logo.jpg" alt="BlueLine DataWorks" class="w-9 h-9 sm:w-10 sm:h-10 shrink-0 rounded-xl border border-sky-400/50 object-cover shadow-lg shadow-sky-500/30 group-hover:scale-105 transition">
+          <div class="min-w-0">
+            <div class="flex items-center gap-1.5 sm:gap-2">
+              <span class="font-black text-xs sm:text-base md:text-lg tracking-tight bg-gradient-to-r from-amber-400 via-orange-200 to-yellow-400 bg-clip-text text-transparent truncate">BLUELINE DATAWORKS</span>
+              <span class="px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40 text-[9px] font-extrabold tracking-wide uppercase shrink-0">TOURNAMENT ROOM</span>
+            </div>
+            <p class="text-[10px] sm:text-[11px] text-slate-400 truncate hidden sm:block">NCAA Frozen Four • World Juniors • Monte Carlo Bracketology • Championship War Room</p>
+          </div>
+        </a>
+      </div>
+
+      <!-- Quick Nav Buttons -->
+      <div class="flex items-center gap-1.5 sm:gap-2 shrink-0 text-xs font-bold overflow-x-auto py-1">
+        <a href="index.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>🏒</span> <span class="hidden md:inline">Main OS</span>
+        </a>
+        <a href="database.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-sky-400 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>📊</span> <span class="hidden md:inline">Directory</span>
+        </a>
+        <a href="scoreboard.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-rose-300 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>📡</span> <span class="hidden md:inline">Game Center</span>
+        </a>
+        <a href="rink3d.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-sky-300 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>🧊</span> <span class="hidden md:inline">3D Rink</span>
+        </a>
+        <a href="film.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-cyan-300 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>🎬</span> <span class="hidden md:inline">Film Studio</span>
+        </a>
+        <a href="portal.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-amber-300 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>⚡</span> <span class="hidden md:inline">Portal & NIL</span>
+        </a>
+        <a href="draft.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>🎯</span> <span class="hidden md:inline">Draft Room</span>
+        </a>
+        <a href="combine.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-amber-300 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>🧬</span> <span class="hidden md:inline">Combine Lab</span>
+        </a>
+        <a href="caplab.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-emerald-400 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>💼</span> <span class="hidden md:inline">Cap Lab</span>
+        </a>
+        <a href="tournament.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-gradient-to-r from-amber-600 to-orange-600 text-white font-bold border border-amber-400/50 shadow-md shadow-amber-500/20 flex items-center gap-1">
+          <span>🏆</span> <span class="hidden md:inline">Tournaments</span>
+        </a>
+        <a href="community.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>🌐</span> <span class="hidden md:inline">The Wire</span>
+        </a>
+        <a href="agents.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-emerald-400 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>🤖</span> <span class="hidden md:inline">Swarm</span>
+        </a>
+      </div>
+
+    </div>
+
+    <!-- Mandatory Lifelong Tracking Mission Statement Banner -->
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-2 border-t border-slate-800/80 bg-slate-950/90 flex flex-wrap items-center justify-between gap-2 text-xs">
+      <div class="flex items-center gap-2 min-w-0">
+        <span class="px-2 py-0.5 rounded-md bg-amber-500/20 text-amber-300 font-mono text-[10px] font-bold shrink-0">MISSION</span>
+        <p class="text-[11px] text-slate-400 truncate">
+          BlueLine DataWorks is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory.
+        </p>
+      </div>
+      <div class="flex items-center gap-3 shrink-0 text-[11px] font-mono text-slate-400">
+        <span class="flex items-center gap-1.5 text-amber-400">
+          <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+          <span>Monte Carlo Engine: 1,000 Runs</span>
+        </span>
+        <span id="pwaStatusPill" class="px-2 py-0.5 rounded bg-sky-950 text-sky-400 border border-sky-500/30 text-[10px]">
+          ⚡ Rinkside PWA Cached
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Sub-Header Tournament Selector & Simulation Controls -->
+  <section class="border-b border-slate-800 bg-slate-900/60 backdrop-blur-md px-3 sm:px-6 lg:px-8 py-3">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
+      
+      <!-- Tournament Selector Dropdown -->
+      <div class="flex items-center gap-2.5 flex-wrap">
+        <div class="flex items-center gap-1.5 bg-slate-950 px-3 py-1.5 rounded-xl border border-slate-800">
+          <span class="text-xs text-slate-400 font-medium">Championship:</span>
+          <select id="tournamentSelect" class="bg-transparent text-white font-bold text-xs focus:outline-none cursor-pointer">
+            <option value="ncaa" selected>🏆 NCAA Men's Frozen Four (16 Teams)</option>
+            <option value="wjc">🥇 IIHF World Junior Championship (U20)</option>
+            <option value="memorial">🍁 CHL Memorial Cup (Major Junior)</option>
+          </select>
+        </div>
+
+        <div class="flex items-center gap-2 bg-slate-950 px-3 py-1.5 rounded-xl border border-slate-800 text-xs font-mono">
+          <span class="text-slate-400">Projected Champion:</span>
+          <span class="text-base" id="headerChampLogo">🦅</span>
+          <strong class="text-amber-400 font-bold text-xs sm:text-sm" id="headerChampName">Boston College</strong>
+          <span class="text-slate-600">|</span>
+          <span class="text-slate-400">Odds:</span>
+          <span class="text-emerald-400 font-bold" id="headerChampOdds">18.2%</span>
+        </div>
+      </div>
+
+      <!-- Quick Action Buttons -->
+      <div class="flex items-center gap-2 flex-wrap text-xs">
+        <button id="runMonteCarloBtn" class="px-3.5 py-1.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-slate-950 font-black transition flex items-center gap-1.5 shadow-md active:scale-95">
+          <i class="fa-solid fa-dice text-xs"></i> <span>Re-Sim 1,000 Runs</span>
+        </button>
+
+        <button id="autoPickSmartBtn" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-sky-400 border border-slate-700 font-bold transition flex items-center gap-1">
+          <i class="fa-solid fa-wand-magic-sparkles text-xs"></i> <span>Auto-Fill Bracket</span>
+        </button>
+
+        <button id="clearPicksBtn" class="p-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-400 hover:text-rose-400 transition" title="Clear Bracket Picks">
+          <i class="fa-solid fa-rotate-right text-xs"></i>
+        </button>
+
+        <button id="broadcastBracketBtn" class="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-400 hover:to-orange-500 text-white font-extrabold transition flex items-center gap-1.5 shadow-lg shadow-amber-500/20 active:scale-95">
+          <span>🌐</span> <span>Broadcast to Wire</span>
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Main Tournament Bracket & Analysis Grid -->
+  <main class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-6 flex-1 w-full space-y-6">
+    
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+      
+      <!-- Column 1: Monte Carlo Odds & Matchup Scout Dossier (4 cols) -->
+      <div class="lg:col-span-4 space-y-5">
+        
+        <!-- Monte Carlo Probability Table -->
+        <div class="glass-panel p-5 rounded-3xl space-y-3.5 border border-amber-500/30">
+          <div class="flex items-center justify-between border-b border-slate-800/80 pb-2">
+            <div class="flex items-center gap-2">
+              <span class="text-lg">🎲</span>
+              <h3 class="text-sm font-black text-white tracking-wide uppercase">Monte Carlo Win Matrix</h3>
+            </div>
+            <span class="text-[10px] font-mono text-slate-400">1,000 Iterations</span>
+          </div>
+
+          <div class="space-y-2 overflow-y-auto max-h-72 pr-1" id="monteCarloStream">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+
+        <!-- Matchup Scouting Breakdown Card -->
+        <div class="glass-panel p-5 rounded-3xl space-y-4 border border-slate-800">
+          <div class="flex items-center justify-between border-b border-slate-800/80 pb-2">
+            <div class="flex items-center gap-2">
+              <span class="text-lg">🔎</span>
+              <h3 class="text-sm font-black text-white tracking-wide uppercase">Matchup Scout Breakdown</h3>
+            </div>
+            <span class="px-2 py-0.5 rounded bg-sky-500/20 text-sky-300 text-[10px] font-mono font-bold" id="matchupRoundBadge">Regional Final</span>
+          </div>
+
+          <!-- Head-to-Head Header -->
+          <div class="grid grid-cols-2 gap-3 p-3 rounded-2xl bg-slate-950/80 border border-slate-800 text-center">
+            <div class="space-y-1">
+              <div class="text-2xl" id="matchupLogoA">🦅</div>
+              <div class="font-black text-xs text-white" id="matchupNameA">Boston College</div>
+              <div class="text-[10px] text-slate-400 font-mono" id="matchupRecordA">34-6-1 • #1 Seed</div>
+            </div>
+            <div class="space-y-1">
+              <div class="text-2xl" id="matchupLogoB">🐾</div>
+              <div class="font-black text-xs text-white" id="matchupNameB">Boston University</div>
+              <div class="text-[10px] text-slate-400 font-mono" id="matchupRecordB">28-10-2 • #2 Seed</div>
+            </div>
+          </div>
+
+          <!-- Goalie Duel -->
+          <div class="space-y-1.5 text-xs font-mono">
+            <div class="text-[11px] font-bold text-slate-400 uppercase">Goaltending Duel</div>
+            <div class="flex justify-between items-center p-2 rounded-xl bg-slate-950/70 border border-slate-800">
+              <span class="text-slate-300" id="matchupGoalieA">J. Fowler (.926)</span>
+              <span class="text-slate-500 font-bold">vs</span>
+              <span class="text-slate-300 text-right" id="matchupGoalieB">M. Caron (.918)</span>
+            </div>
+          </div>
+
+          <!-- Key Prospects on Display -->
+          <div class="space-y-1.5 text-xs">
+            <div class="text-[11px] font-bold text-slate-400 font-mono uppercase">Key Prospects on the Ice</div>
+            <div class="p-2.5 rounded-xl bg-slate-950/70 border border-slate-800 text-[11px] text-slate-300 space-y-1" id="matchupProspectsList">
+              <!-- Populated by JS -->
+            </div>
+          </div>
+
+          <!-- AI Predicted Score & Win Probability -->
+          <div class="p-3 rounded-2xl bg-gradient-to-r from-amber-950/40 via-slate-900 to-sky-950/40 border border-amber-500/30 flex items-center justify-between font-mono">
+            <div>
+              <div class="text-[10px] text-amber-400 uppercase font-bold">AI Projected Outcome</div>
+              <div class="text-xs font-black text-white" id="matchupPredScore">BC wins 4 - 3 (58.4%)</div>
+            </div>
+            <button id="pickMatchupWinnerBtn" class="px-3 py-1 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/40 text-amber-300 font-bold text-[11px] transition">
+              Advance BC →
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Column 2: Interactive Visual Bracket Tree (8 cols) -->
+      <div class="lg:col-span-8 space-y-5">
+        
+        <!-- Bracket Tree Canvas & Cards Container -->
+        <div class="glass-panel p-5 rounded-3xl border border-slate-800 space-y-4">
+          <div class="flex items-center justify-between border-b border-slate-800 pb-2.5">
+            <div class="flex items-center gap-2">
+              <span class="text-lg">🏒</span>
+              <h2 class="text-sm font-black text-white uppercase tracking-wider">16-Team National Bracket Tree</h2>
+            </div>
+            <span class="text-xs text-slate-400 font-mono">Click any team to advance to the next round</span>
+          </div>
+
+          <!-- 4 Regionals Container -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="regionalsGrid">
+            
+            <!-- Northeast Regional -->
+            <div class="p-3.5 rounded-2xl bg-slate-950/80 border border-slate-800 space-y-2.5">
+              <div class="flex justify-between items-center text-xs font-mono border-b border-slate-800 pb-1">
+                <span class="font-bold text-sky-400">Northeast Regional (Springfield, MA)</span>
+                <span class="text-[10px] text-slate-500">R16 & Reg Final</span>
+              </div>
+              <div class="space-y-2" id="regional_northeast">
+                <!-- Populated by JS -->
+              </div>
+            </div>
+
+            <!-- West Regional -->
+            <div class="p-3.5 rounded-2xl bg-slate-950/80 border border-slate-800 space-y-2.5">
+              <div class="flex justify-between items-center text-xs font-mono border-b border-slate-800 pb-1">
+                <span class="font-bold text-emerald-400">West Regional (Sioux Falls, SD)</span>
+                <span class="text-[10px] text-slate-500">R16 & Reg Final</span>
+              </div>
+              <div class="space-y-2" id="regional_west">
+                <!-- Populated by JS -->
+              </div>
+            </div>
+
+            <!-- Midwest Regional -->
+            <div class="p-3.5 rounded-2xl bg-slate-950/80 border border-slate-800 space-y-2.5">
+              <div class="flex justify-between items-center text-xs font-mono border-b border-slate-800 pb-1">
+                <span class="font-bold text-amber-400">Midwest Regional (Maryland Heights, MO)</span>
+                <span class="text-[10px] text-slate-500">R16 & Reg Final</span>
+              </div>
+              <div class="space-y-2" id="regional_midwest">
+                <!-- Populated by JS -->
+              </div>
+            </div>
+
+            <!-- East Regional -->
+            <div class="p-3.5 rounded-2xl bg-slate-950/80 border border-slate-800 space-y-2.5">
+              <div class="flex justify-between items-center text-xs font-mono border-b border-slate-800 pb-1">
+                <span class="font-bold text-purple-400">East Regional (Providence, RI)</span>
+                <span class="text-[10px] text-slate-500">R16 & Reg Final</span>
+              </div>
+              <div class="space-y-2" id="regional_east">
+                <!-- Populated by JS -->
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Frozen Four National Semifinals & Championship Pedestal -->
+          <div class="p-4 rounded-2xl bg-gradient-to-r from-slate-950 via-amber-950/30 to-slate-950 border border-amber-500/40 space-y-3">
+            <div class="flex items-center justify-between text-xs font-mono border-b border-slate-800 pb-1.5">
+              <div class="flex items-center gap-1.5 font-bold text-amber-400">
+                <span>🏆</span> <span>NCAA FROZEN FOUR • NATIONAL CHAMPIONSHIP</span>
+              </div>
+              <span class="text-[10px] text-slate-400">Saint Paul, MN (Xcel Energy Center)</span>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 items-center">
+              
+              <!-- Semifinal 1 -->
+              <div class="p-2.5 rounded-xl bg-slate-900/90 border border-slate-800 space-y-1 text-xs font-mono" id="semiFinal1Box">
+                <div class="text-[10px] text-slate-400 uppercase">Semifinal 1</div>
+                <div class="p-1.5 rounded-lg bg-slate-950 border border-slate-800 cursor-pointer hover:border-amber-400 transition" id="semi1TeamA">
+                  <!-- Team 1 -->
+                </div>
+                <div class="p-1.5 rounded-lg bg-slate-950 border border-slate-800 cursor-pointer hover:border-amber-400 transition" id="semi1TeamB">
+                  <!-- Team 2 -->
+                </div>
+              </div>
+
+              <!-- National Champion Pedestal (Center) -->
+              <div class="p-3.5 rounded-2xl bg-gradient-to-b from-amber-500/20 to-orange-600/10 border-2 border-amber-400/60 text-center space-y-1.5">
+                <div class="text-[10px] font-mono font-black text-amber-400 uppercase tracking-wider">NATIONAL CHAMPION</div>
+                <div class="text-3xl" id="pedestalChampLogo">🦅</div>
+                <div class="text-sm font-black text-white" id="pedestalChampName">Boston College</div>
+                <div class="text-[10px] text-emerald-400 font-mono font-bold" id="pedestalChampRecord">34-6-1 • National Title</div>
+              </div>
+
+              <!-- Semifinal 2 -->
+              <div class="p-2.5 rounded-xl bg-slate-900/90 border border-slate-800 space-y-1 text-xs font-mono" id="semiFinal2Box">
+                <div class="text-[10px] text-slate-400 uppercase">Semifinal 2</div>
+                <div class="p-1.5 rounded-lg bg-slate-950 border border-slate-800 cursor-pointer hover:border-amber-400 transition" id="semi2TeamA">
+                  <!-- Team 1 -->
+                </div>
+                <div class="p-1.5 rounded-lg bg-slate-950 border border-slate-800 cursor-pointer hover:border-amber-400 transition" id="semi2TeamB">
+                  <!-- Team 2 -->
+                </div>
+              </div>
+
+            </div>
+
+            <!-- MVP & All-Star Selection Bar -->
+            <div class="pt-2 border-t border-slate-800/80 flex flex-wrap items-center justify-between gap-2 text-xs">
+              <div class="flex items-center gap-2">
+                <span class="text-slate-400 font-mono text-[11px]">Tournament Most Outstanding Player (MOP):</span>
+                <select id="mopSelect" class="bg-slate-900 text-white font-bold text-xs rounded-lg px-2 py-1 border border-slate-700 cursor-pointer">
+                  <option value="Will Smith">Will Smith (BC • 1C)</option>
+                  <option value="Macklin Celebrini">Macklin Celebrini (BU • 1C)</option>
+                  <option value="Jacob Fowler">Jacob Fowler (BC • G)</option>
+                  <option value="Zeev Buium">Zeev Buium (Denver • LHD)</option>
+                  <option value="Matt Davis">Matt Davis (Denver • G)</option>
+                  <option value="Artyom Levshunov">Artyom Levshunov (MSU • RHD)</option>
+                </select>
+              </div>
+              <span class="text-[11px] text-amber-400 font-mono font-bold" id="mopBadge">Verified MOP Vote Stamped</span>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- Global Toast Notification Container -->
+  <div id="tournamentToast" class="fixed bottom-6 right-6 z-50 px-4 py-2.5 rounded-2xl text-xs font-bold shadow-2xl flex items-center gap-2 transition-all duration-300 transform translate-y-10 opacity-0 pointer-events-none"></div>
+
+  <!-- Scripts -->
+  <script src="static/js/tournament_engine.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const engine = window.BlueLineTournamentEngine;
+      if (!engine) {
+        console.error("Tournament Engine failed to load.");
+        return;
+      }
+
+      let simResults = engine.runMonteCarloSimulations(1000);
+      let userPicks = engine.loadUserPicks();
+
+      // Top Header Update
+      function updateHeaderFavorite() {
+        const top = simResults[0];
+        document.getElementById('headerChampLogo').textContent = top.team.logo;
+        document.getElementById('headerChampName').textContent = top.team.name;
+        document.getElementById('headerChampOdds').textContent = `${top.champPct}%`;
+      }
+
+      // Render Monte Carlo Sidebar
+      function renderMonteCarloTable() {
+        const container = document.getElementById('monteCarloStream');
+        container.innerHTML = simResults.map((r, i) => `
+          <div class="p-2 rounded-xl bg-slate-950/70 border border-slate-800 flex items-center justify-between gap-2 text-xs font-mono hover:border-amber-400/50 transition cursor-pointer" onclick="inspectTeam('${r.team.id}')">
+            <div class="flex items-center gap-2 min-w-0">
+              <span class="text-sm">${r.team.logo}</span>
+              <span class="font-bold text-white truncate text-[11px]">${r.team.name}</span>
+            </div>
+            <div class="flex items-center gap-2 shrink-0">
+              <div class="w-16 h-2 rounded-full bg-slate-900 border border-slate-800 overflow-hidden">
+                <div class="bg-gradient-to-r from-amber-500 to-orange-400 h-full" style="width: ${Math.min(100, parseFloat(r.champPct) * 3)}%"></div>
+              </div>
+              <span class="text-amber-300 font-bold text-[11px] w-12 text-right">${r.champPct}%</span>
+            </div>
+          </div>
+        `).join('');
+      }
+
+      // Render Regionals Bracket
+      function renderBracket() {
+        const regionMapping = {
+          "Northeast (Springfield, MA)": "regional_northeast",
+          "West (Sioux Falls, SD)": "regional_west",
+          "Midwest (Maryland Heights, MO)": "regional_midwest",
+          "East (Providence, RI)": "regional_east"
+        };
+
+        engine.NCAA_REGIONALS.forEach(r => {
+          const container = document.getElementById(regionMapping[r.region]);
+          const t1A = engine.NCAA_TEAMS.find(t => t.id === r.game1.teamA);
+          const t1B = engine.NCAA_TEAMS.find(t => t.id === r.game1.teamB);
+          const t2A = engine.NCAA_TEAMS.find(t => t.id === r.game2.teamA);
+          const t2B = engine.NCAA_TEAMS.find(t => t.id === r.game2.teamB);
+
+          const pickG1 = userPicks[r.game1.id] || t1A.id;
+          const pickG2 = userPicks[r.game2.id] || t2A.id;
+          const regFinalId = `reg_final_${r.game1.id}_${r.game2.id}`;
+          const pickRegFinal = userPicks[regFinalId] || pickG1;
+
+          container.innerHTML = `
+            <div class="space-y-1.5 text-xs font-mono">
+              <div class="flex justify-between items-center text-[10px] text-slate-500">Game 1: 1 vs 4</div>
+              <div class="grid grid-cols-2 gap-1.5">
+                <div class="p-1.5 rounded-lg border ${pickG1 === t1A.id ? 'bg-sky-950/60 border-sky-400 text-white font-bold' : 'bg-slate-900 border-slate-800 text-slate-400'} cursor-pointer transition text-[11px] flex items-center justify-between" onclick="selectWinner('${r.game1.id}', '${t1A.id}')">
+                  <span>${t1A.logo} ${t1A.name}</span>
+                  <span class="text-[9px] px-1 rounded bg-slate-800">${t1A.seed}</span>
+                </div>
+                <div class="p-1.5 rounded-lg border ${pickG1 === t1B.id ? 'bg-sky-950/60 border-sky-400 text-white font-bold' : 'bg-slate-900 border-slate-800 text-slate-400'} cursor-pointer transition text-[11px] flex items-center justify-between" onclick="selectWinner('${r.game1.id}', '${t1B.id}')">
+                  <span>${t1B.logo} ${t1B.name}</span>
+                  <span class="text-[9px] px-1 rounded bg-slate-800">${t1B.seed}</span>
+                </div>
+              </div>
+
+              <div class="flex justify-between items-center text-[10px] text-slate-500 pt-1">Game 2: 2 vs 3</div>
+              <div class="grid grid-cols-2 gap-1.5">
+                <div class="p-1.5 rounded-lg border ${pickG2 === t2A.id ? 'bg-sky-950/60 border-sky-400 text-white font-bold' : 'bg-slate-900 border-slate-800 text-slate-400'} cursor-pointer transition text-[11px] flex items-center justify-between" onclick="selectWinner('${r.game2.id}', '${t2A.id}')">
+                  <span>${t2A.logo} ${t2A.name}</span>
+                  <span class="text-[9px] px-1 rounded bg-slate-800">${t2A.seed}</span>
+                </div>
+                <div class="p-1.5 rounded-lg border ${pickG2 === t2B.id ? 'bg-sky-950/60 border-sky-400 text-white font-bold' : 'bg-slate-900 border-slate-800 text-slate-400'} cursor-pointer transition text-[11px] flex items-center justify-between" onclick="selectWinner('${r.game2.id}', '${t2B.id}')">
+                  <span>${t2B.logo} ${t2B.name}</span>
+                  <span class="text-[9px] px-1 rounded bg-slate-800">${t2B.seed}</span>
+                </div>
+              </div>
+
+              <div class="flex justify-between items-center text-[10px] text-amber-400 font-bold pt-1.5 border-t border-slate-800">
+                <span>Regional Championship Pick</span>
+              </div>
+              <div class="grid grid-cols-2 gap-1.5">
+                <div class="p-1.5 rounded-lg border ${pickRegFinal === pickG1 ? 'bg-amber-500/20 border-amber-400 text-amber-200 font-bold' : 'bg-slate-900 border-slate-800 text-slate-400'} cursor-pointer transition text-[11px]" onclick="selectWinner('${regFinalId}', '${pickG1}')">
+                  ${engine.NCAA_TEAMS.find(t => t.id === pickG1).logo} ${engine.NCAA_TEAMS.find(t => t.id === pickG1).name}
+                </div>
+                <div class="p-1.5 rounded-lg border ${pickRegFinal === pickG2 ? 'bg-amber-500/20 border-amber-400 text-amber-200 font-bold' : 'bg-slate-900 border-slate-800 text-slate-400'} cursor-pointer transition text-[11px]" onclick="selectWinner('${regFinalId}', '${pickG2}')">
+                  ${engine.NCAA_TEAMS.find(t => t.id === pickG2).logo} ${engine.NCAA_TEAMS.find(t => t.id === pickG2).name}
+                </div>
+              </div>
+            </div>
+          `;
+        });
+
+        // Update Frozen Four Pedestal
+        updateFrozenFourPedestal();
+      }
+
+      function updateFrozenFourPedestal() {
+        const champ = simResults[0].team;
+        document.getElementById('pedestalChampLogo').textContent = champ.logo;
+        document.getElementById('pedestalChampName').textContent = champ.name;
+        document.getElementById('pedestalChampRecord').textContent = `${champ.record} • Projected National Title`;
+
+        // Semis
+        const semi1TeamA = engine.NCAA_TEAMS[0]; // BC
+        const semi1TeamB = engine.NCAA_TEAMS[3]; // MSU
+        const semi2TeamA = engine.NCAA_TEAMS[1]; // BU
+        const semi2TeamB = engine.NCAA_TEAMS[2]; // Denver
+
+        document.getElementById('semi1TeamA').innerHTML = `<span class="font-bold text-white">${semi1TeamA.logo} ${semi1TeamA.name}</span>`;
+        document.getElementById('semi1TeamB').innerHTML = `<span class="font-bold text-white">${semi1TeamB.logo} ${semi1TeamB.name}</span>`;
+        document.getElementById('semi2TeamA').innerHTML = `<span class="font-bold text-white">${semi2TeamA.logo} ${semi2TeamA.name}</span>`;
+        document.getElementById('semi2TeamB').innerHTML = `<span class="font-bold text-white">${semi2TeamB.logo} ${semi2TeamB.name}</span>`;
+      }
+
+      // Inspect Team in Scout Breakdown Card
+      window.inspectTeam = function(teamId) {
+        const teamA = engine.NCAA_TEAMS.find(t => t.id === teamId) || engine.NCAA_TEAMS[0];
+        const teamB = engine.NCAA_TEAMS.find(t => t.id !== teamId) || engine.NCAA_TEAMS[1];
+
+        document.getElementById('matchupLogoA').textContent = teamA.logo;
+        document.getElementById('matchupNameA').textContent = teamA.name;
+        document.getElementById('matchupRecordA').textContent = `${teamA.record} • ${teamA.conference}`;
+
+        document.getElementById('matchupLogoB').textContent = teamB.logo;
+        document.getElementById('matchupNameB').textContent = teamB.name;
+        document.getElementById('matchupRecordB').textContent = `${teamB.record} • ${teamB.conference}`;
+
+        document.getElementById('matchupGoalieA').textContent = `${teamA.goalieName} (${teamA.goalieSvPct})`;
+        document.getElementById('matchupGoalieB').textContent = `${teamB.goalieName} (${teamB.goalieSvPct})`;
+
+        const probA = (engine.getWinProbability(teamA, teamB) * 100).toFixed(1);
+        document.getElementById('matchupPredScore').textContent = `${teamA.name} win probability: ${probA}%`;
+        document.getElementById('pickMatchupWinnerBtn').textContent = `Advance ${teamA.name} →`;
+
+        const prospectHtml = `
+          <div><strong>${teamA.name}:</strong> ${teamA.keyProspects.join(', ')}</div>
+          <div><strong>${teamB.name}:</strong> ${teamB.keyProspects.join(', ')}</div>
+        `;
+        document.getElementById('matchupProspectsList').innerHTML = prospectHtml;
+      };
+
+      // Select Winner on click
+      window.selectWinner = function(gameId, teamId) {
+        userPicks = engine.makeUserPick(gameId, teamId);
+        renderBracket();
+        showToast(`Picked ${engine.NCAA_TEAMS.find(t => t.id === teamId).name} to advance!`, "info");
+      };
+
+      // Re-run Monte Carlo Simulations
+      document.getElementById('runMonteCarloBtn').addEventListener('click', () => {
+        simResults = engine.runMonteCarloSimulations(1000);
+        updateHeaderFavorite();
+        renderMonteCarloTable();
+        showToast("Completed 1,000 Monte Carlo Tournament Simulations!", "success");
+      });
+
+      // Auto-Fill Bracket
+      document.getElementById('autoPickSmartBtn').addEventListener('click', () => {
+        engine.NCAA_REGIONALS.forEach(r => {
+          const t1A = engine.NCAA_TEAMS.find(t => t.id === r.game1.teamA);
+          const t2A = engine.NCAA_TEAMS.find(t => t.id === r.game2.teamA);
+          engine.makeUserPick(r.game1.id, t1A.id);
+          engine.makeUserPick(r.game2.id, t2A.id);
+          engine.makeUserPick(`reg_final_${r.game1.id}_${r.game2.id}`, t1A.id);
+        });
+        userPicks = engine.loadUserPicks();
+        renderBracket();
+        showToast("Auto-filled bracket based on highest Elo ratings!", "success");
+      });
+
+      // Clear Picks
+      document.getElementById('clearPicksBtn').addEventListener('click', () => {
+        userPicks = engine.clearUserPicks();
+        renderBracket();
+        showToast("Cleared bracket selections.", "info");
+      });
+
+      // Broadcast to The Wire
+      document.getElementById('broadcastBracketBtn').addEventListener('click', () => {
+        const top = simResults[0];
+        const top4 = simResults.slice(0, 4).map(r => `${r.team.name} (${r.champPct}%)`).join(' • ');
+        engine.broadcastBracketToWire({
+          favoriteName: top.team.name,
+          favoriteOdds: top.champPct,
+          top4Summary: top4
+        });
+        showToast("Broadcasted Tournament Bracketology to The Wire (#Bracketology)!", "success");
+      });
+
+      // Toast Notification Helper
+      function showToast(msg, type = 'info') {
+        const toastEl = document.getElementById('tournamentToast');
+        const colorClasses = type === 'success' ? 'bg-emerald-600 text-white border border-emerald-400/50 shadow-emerald-500/30' :
+                             type === 'error' ? 'bg-rose-600 text-white border border-rose-400/50 shadow-rose-500/30' :
+                             'bg-amber-600 text-slate-950 border border-amber-400/50 shadow-amber-500/30';
+        toastEl.className = `fixed bottom-6 right-6 z-50 px-4 py-2.5 rounded-2xl text-xs font-bold shadow-2xl flex items-center gap-2 transition-all duration-300 transform translate-y-0 opacity-100 ${colorClasses}`;
+        toastEl.innerHTML = `<span>${type === 'success' ? '✅' : type === 'error' ? '⚠️' : '🏆'}</span> <span>${msg}</span>`;
+        clearTimeout(toastEl._timer);
+        toastEl._timer = setTimeout(() => {
+          toastEl.className = 'fixed bottom-6 right-6 z-50 px-4 py-2.5 rounded-2xl text-xs font-bold shadow-2xl flex items-center gap-2 transition-all duration-300 transform translate-y-10 opacity-0 pointer-events-none';
+        }, 2800);
+      }
+
+      // Initial Renders
+      updateHeaderFavorite();
+      renderMonteCarloTable();
+      renderBracket();
+      inspectTeam("bc");
+    });
+  </script>
+
+  <!-- Service Worker Registration for Offline Rinkside PWA -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js').then(reg => {
+          console.log('BlueLine Tournament Service Worker registered:', reg.scope);
+          const pill = document.getElementById('pwaStatusPill');
+          if (pill) pill.textContent = '⚡ Rinkside PWA Active';
+        }).catch(err => {
+          console.warn('Service Worker registration skipped:', err);
+        });
+      });
+    }
+  </script>
+
+</body>
+</html>

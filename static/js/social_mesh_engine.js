@@ -531,7 +531,9 @@
     'chicagosteel': 'usr_chicago_steel',
     'chicago-steel': 'usr_chicago_steel',
     'caplab': 'usr_blueline_caplab',
-    'cap-lab': 'usr_blueline_caplab'
+    'cap-lab': 'usr_blueline_caplab',
+    'tournaments': 'usr_blueline_tournaments',
+    'bracketology': 'usr_blueline_tournaments'
   };
 
   const SPECIAL_ACCOUNTS = {
@@ -574,6 +576,26 @@
       stats: { contractsAudited: 840, buyoutsModeled: 120, capSpaceTracked: '$2.8B' },
       following: ['usr_scout_director'],
       followers: 4200
+    },
+    'usr_blueline_tournaments': {
+      id: 'usr_blueline_tournaments',
+      name: 'BlueLine Tournament & Bracketology Bureau',
+      handle: 'blueline_bracketology',
+      role: 'scout',
+      badge: BADGES.SCOUT,
+      title: 'Director of Championship Analytics & Bracketology',
+      organization: 'BlueLine Tournament Bureau',
+      location: 'Boston / Minneapolis',
+      bio: 'Official championship simulation and tournament bracketology desk. Modeling NCAA Frozen Four, IIHF World Juniors, and CHL Memorial Cup win probabilities.',
+      avatar: 'https://images.unsplash.com/photo-1546519638-68e109498ffc?auto=format&fit=crop&w=250&q=80',
+      avatarColor: 'from-amber-500 to-yellow-600',
+      banner: 'https://images.unsplash.com/photo-1580748141549-71748dbe0bdc?auto=format&fit=crop&w=1200&q=80',
+      level: 95,
+      xp: 91000,
+      xpNext: 95000,
+      stats: { bracketsSimulated: 1240, upsetsPredicted: 44, championshipsTracked: 18 },
+      following: ['usr_scout_director'],
+      followers: 3800
     }
   };
 
