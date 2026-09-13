@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The BlueLine Wire - The X Platform for the Hockey Community | BlueLine DataWorks</title>
+  <meta name="description" content="The premier social, messaging & scouting network for hockey. Universal athlete sign-up, X-style custom profiles, peer-to-peer messaging, and live stats.">
+  <link rel="icon" type="image/jpeg" href="static/img/blueline_logo.jpg">
+  <link rel="apple-touch-icon" href="static/img/blueline_logo.jpg">
+
+  <!-- Open Graph / Social Link Preview -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="BlueLine DataWorks">
+  <meta property="og:title" content="The BlueLine Wire - The X Platform for Hockey">
+  <meta property="og:description" content="Connect with 2,974+ players, coaches, and recruiters. Custom X profiles, direct messaging, gamified status tracking, and live telemetry.">
+  <meta property="og:image" content="https://farmadvisorar-ux.github.io/puckpathway-hockey-os/static/img/blueline_og_preview.jpg">
+  <meta property="og:image:secure_url" content="https://farmadvisorar-ux.github.io/puckpathway-hockey-os/static/img/blueline_og_preview.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1280">
+  <meta property="og:image:height" content="720">
+  <meta property="og:image:alt" content="The BlueLine Wire - X for Hockey">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="The BlueLine Wire - The X Platform for Hockey">
+  <meta name="twitter:description" content="Connect with 2,974+ players, coaches, and recruiters. Custom X profiles, direct messaging, gamified status tracking, and live telemetry.">
+  <meta name="twitter:image" content="https://farmadvisorar-ux.github.io/puckpathway-hockey-os/static/img/blueline_og_preview.jpg">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="static/css/custom.css">
+  <style>
+    .glass-panel-subtle {
+      background: rgba(15, 23, 42, 0.65);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(56, 189, 248, 0.15);
+    }
+    .custom-scroll::-webkit-scrollbar { width: 4px; }
+    .custom-scroll::-webkit-scrollbar-track { background: transparent; }
+    .custom-scroll::-webkit-scrollbar-thumb { background: rgba(56, 189, 248, 0.2); border-radius: 4px; }
+  </style>
+</head>
+<body class="bg-[#05070c] text-slate-100 min-h-screen flex flex-col font-sans selection:bg-sky-500 selection:text-white">
+
+  <!-- Top Global Header Navigation -->
+  <header class="border-b border-sky-500/20 bg-slate-950/95 backdrop-blur-xl sticky top-0 z-40 shadow-2xl shadow-black/60">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-14 sm:h-16 flex items-center justify-between gap-2">
+      
+      <!-- Brand Logo & Wire Badge -->
+      <div class="flex items-center gap-2 sm:gap-3 min-w-0">
+        <a href="index.html" class="flex items-center gap-2 group min-w-0">
+          <img src="static/img/blueline_logo.jpg" alt="BlueLine DataWorks" class="w-9 h-9 sm:w-10 sm:h-10 shrink-0 rounded-xl border border-sky-400/50 object-cover shadow-lg shadow-sky-500/30 group-hover:scale-105 transition">
+          <div class="min-w-0">
+            <div class="flex items-center gap-1.5 sm:gap-2">
+              <span class="font-black text-xs sm:text-base md:text-lg tracking-tight bg-gradient-to-r from-sky-400 via-cyan-200 to-blue-400 bg-clip-text text-transparent truncate">BLUELINE WIRE</span>
+              <span class="px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 text-[9px] font-extrabold tracking-wide uppercase shrink-0">X FOR HOCKEY</span>
+            </div>
+            <p class="text-[10px] sm:text-[11px] text-slate-400 truncate hidden sm:block">Universal Community, Messaging & Trajectory Network</p>
+          </div>
+        </a>
+      </div>
+
+      <!-- Quick Platform Navigation -->
+      <div class="flex items-center gap-1.5 sm:gap-2 shrink-0 text-xs font-bold">
+        <a href="index.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>🏒</span> <span class="hidden md:inline">Main OS</span>
+        </a>
+        <a href="database.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-sky-400 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>📊</span> <span class="hidden md:inline">Directory (2,974)</span>
+        </a>
+        <a href="agents.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-cyan-400 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>🤖</span> <span class="hidden md:inline">AI Mesh</span>
+        </a>
+
+        <!-- Open DMs Quick Trigger Button -->
+        <button id="headerOpenDMsBtn" class="px-3 py-1.5 rounded-xl bg-cyan-600/30 hover:bg-cyan-600/50 border border-cyan-500/40 text-cyan-300 font-bold transition flex items-center gap-1.5 shadow-md">
+          <span>💬</span> <span>Messages</span>
+          <span id="headerUnreadBadge" class="px-1.5 py-0.2 rounded-full bg-cyan-500 text-slate-950 font-black text-[10px]">1</span>
+        </button>
+
+        <!-- Sign Up / Register Button -->
+        <button id="openSignUpModalBtn" class="px-3 sm:px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 text-white font-extrabold shadow-lg shadow-sky-600/30 transition flex items-center gap-1.5 active:scale-95">
+          <span>⚡</span> <span>Sign Up</span>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ==================== THREE-COLUMN X-STYLE APP LAYOUT ==================== -->
+  <div class="max-w-7xl mx-auto w-full flex-1 px-2 sm:px-4 lg:px-6 py-4 grid grid-cols-1 md:grid-cols-12 gap-4">
+    
+    <!-- ==================== LEFT SIDEBAR NAVIGATION ==================== -->
+    <aside class="hidden md:flex md:col-span-3 lg:col-span-3 flex-col justify-between space-y-4 sticky top-20 h-[calc(100vh-6rem)]">
+      <div class="space-y-2">
+        <div class="glass-panel p-3.5 rounded-2xl space-y-1 border border-slate-800/80">
+          <a href="#" class="nav-item flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-bold bg-sky-500/20 text-sky-400 border border-sky-500/40 transition">
+            <span class="text-lg">🌐</span> <span>The Wire (Feed)</span>
+          </a>
+          <button id="navOpenMessagesBtn" class="w-full nav-item flex items-center justify-between px-3 py-2 rounded-xl text-sm font-bold text-slate-300 hover:bg-slate-900 hover:text-white transition">
+            <div class="flex items-center gap-3">
+              <span class="text-lg">💬</span> <span>Direct Messages</span>
+            </div>
+            <span class="px-2 py-0.5 rounded-full bg-cyan-500 text-slate-950 font-black text-[10px]" id="navUnreadCount">1</span>
+          </button>
+          <button id="navOpenProfileBtn" class="w-full nav-item flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-bold text-slate-300 hover:bg-slate-900 hover:text-white transition">
+            <span class="text-lg">👤</span> <span>My X Profile</span>
+          </button>
+          <a href="database.html" class="nav-item flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-bold text-slate-300 hover:bg-slate-900 hover:text-white transition">
+            <span class="text-lg">📊</span> <span>2,974 Directory</span>
+          </a>
+          <a href="agents.html" class="nav-item flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-bold text-slate-300 hover:bg-slate-900 hover:text-white transition">
+            <span class="text-lg">🤖</span> <span>6-Agent AI Mesh</span>
+          </a>
+        </div>
+
+        <!-- Big 'Post to Wire' CTA Button -->
+        <button id="openPostModalBtn" class="w-full py-3 rounded-2xl bg-gradient-to-r from-sky-500 via-cyan-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white font-black text-sm shadow-xl shadow-cyan-600/30 transition active:scale-95 flex items-center justify-center gap-2">
+          <span>✏️</span> <span>Post to Wire</span>
+        </button>
+      </div>
+
+      <!-- Current User Profile Card in Sidebar -->
+      <div id="currentUserSidebarCard" class="glass-panel p-3 rounded-2xl border border-slate-800 flex items-center justify-between gap-2 hover:border-sky-500/40 transition cursor-pointer" onclick="openProfileCustomizer()">
+        <div class="flex items-center gap-2.5 min-w-0">
+          <img id="sidebarUserAvatar" src="" class="w-10 h-10 rounded-full border border-sky-400/50 object-cover shrink-0">
+          <div class="min-w-0 leading-tight">
+            <div class="flex items-center gap-1">
+              <span id="sidebarUserName" class="font-black text-xs text-white truncate"></span>
+              <span id="sidebarUserBadge" class="text-[10px]"></span>
+            </div>
+            <span id="sidebarUserHandle" class="text-[10px] text-slate-400 block truncate font-mono"></span>
+          </div>
+        </div>
+        <button class="text-slate-400 hover:text-white text-xs p-1" title="Customize Profile">⚙️</button>
+      </div>
+    </aside>
+
+    <!-- ==================== CENTER WIRE FEED STREAM ==================== -->
+    <section class="col-span-1 md:col-span-9 lg:col-span-6 space-y-4">
+      
+      <!-- Feed Tabs (For You / Verified Scouts / Commitments / Locker Room) -->
+      <div class="glass-panel p-1.5 rounded-2xl border border-slate-800/90 flex items-center gap-1 text-xs font-bold">
+        <button class="feed-tab-btn flex-1 py-2 rounded-xl text-center transition bg-sky-600 text-white" data-feed="all">
+          🔥 For You
+        </button>
+        <button class="feed-tab-btn flex-1 py-2 rounded-xl text-center text-slate-400 hover:text-white transition" data-feed="scouts">
+          ⭐ Verified Scouts
+        </button>
+        <button class="feed-tab-btn flex-1 py-2 rounded-xl text-center text-slate-400 hover:text-white transition" data-feed="commitments">
+          🚨 Commitments
+        </button>
+        <button class="feed-tab-btn flex-1 py-2 rounded-xl text-center text-slate-400 hover:text-white transition" data-feed="locker_room">
+          🏒 Locker Room
+        </button>
+      </div>
+
+      <!-- In-Feed Post Composer (X-Style) -->
+      <div class="glass-panel p-4 rounded-3xl space-y-3 border border-sky-500/30 shadow-xl">
+        <div class="flex items-start gap-3">
+          <img id="composerUserAvatar" src="" class="w-10 h-10 rounded-full border border-sky-400/40 object-cover shrink-0">
+          <div class="flex-1 space-y-2">
+            <textarea id="composerTextarea" rows="3" placeholder="What's happening on the ice? Post scouting observations, training film, game scores, or commitments..." class="w-full bg-slate-950/80 border border-slate-800 rounded-2xl p-3 text-xs sm:text-sm text-white placeholder-slate-500 focus:outline-none focus:border-sky-400 focus:ring-1 focus:ring-sky-400 transition resize-none"></textarea>
+            
+            <!-- Quick Tag Pills -->
+            <div class="flex items-center gap-1.5 flex-wrap">
+              <button class="composer-tag-pill px-2 py-0.5 rounded-full bg-slate-900 border border-slate-800 text-[10px] text-sky-400 hover:border-sky-500/50 font-mono" data-tag="#NCAA">#NCAA</button>
+              <button class="composer-tag-pill px-2 py-0.5 rounded-full bg-slate-900 border border-slate-800 text-[10px] text-purple-400 hover:border-purple-500/50 font-mono" data-tag="#USHL">#USHL</button>
+              <button class="composer-tag-pill px-2 py-0.5 rounded-full bg-slate-900 border border-slate-800 text-[10px] text-amber-400 hover:border-amber-500/50 font-mono" data-tag="#ScoutingReport">#ScoutingReport</button>
+              <button class="composer-tag-pill px-2 py-0.5 rounded-full bg-slate-900 border border-slate-800 text-[10px] text-emerald-400 hover:border-emerald-500/50 font-mono" data-tag="#Commitment">#Commitment</button>
+              <button class="composer-tag-pill px-2 py-0.5 rounded-full bg-slate-900 border border-slate-800 text-[10px] text-rose-400 hover:border-rose-500/50 font-mono" data-tag="#DrillOfTheDay">#DrillOfTheDay</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between pt-2 border-t border-slate-800/80">
+          <div class="flex items-center gap-2 text-slate-400 text-xs">
+            <span class="text-[11px] font-mono text-slate-400" id="composerCharCount">0 / 280</span>
+            <span class="text-[10px] text-emerald-400 font-mono">● Live to all users</span>
+          </div>
+          <button id="submitPostBtn" class="px-4 py-1.5 rounded-xl bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white font-bold text-xs shadow-md shadow-sky-500/20 transition active:scale-95 flex items-center gap-1.5">
+            <span>🚀</span> <span>Post</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Feed Stream Container -->
+      <div id="wireFeedContainer" class="space-y-3.5">
+        <!-- Rendered by JavaScript -->
+      </div>
+
+    </section>
+
+    <!-- ==================== RIGHT SIDEBAR ==================== -->
+    <aside class="hidden lg:block lg:col-span-3 space-y-4 sticky top-20 h-[calc(100vh-6rem)] overflow-y-auto custom-scroll pr-1">
+      
+      <!-- Gamified Player Status Card (PuckXP) -->
+      <div class="glass-panel p-4 rounded-3xl space-y-3 border border-sky-500/30 shadow-xl">
+        <div class="flex items-center justify-between">
+          <span class="text-[10px] font-mono font-bold uppercase tracking-wider text-sky-400">GAMIFIED ATHLETE STATUS</span>
+          <span class="px-2 py-0.5 rounded bg-sky-500/20 text-sky-300 font-mono text-[10px] font-bold" id="xpLevelBadge">Lv. 92</span>
+        </div>
+
+        <div class="space-y-1">
+          <h3 class="text-sm font-black text-white" id="xpTitleLabel">Pro War Room Draft Eligible</h3>
+          <p class="text-[10px] text-slate-400">Earn PuckXP by logging workouts, filing scout reports, and interacting on The Wire.</p>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="space-y-1.5">
+          <div class="flex justify-between text-[11px] font-mono">
+            <span class="text-slate-400">PuckXP</span>
+            <span class="text-white font-bold" id="xpCountLabel">84,500 / 90,000</span>
+          </div>
+          <div class="w-full bg-slate-900 h-2.5 rounded-full overflow-hidden border border-slate-800">
+            <div id="xpProgressBar" class="bg-gradient-to-r from-sky-400 via-cyan-400 to-emerald-400 h-full rounded-full transition-all duration-500" style="width: 94%"></div>
+          </div>
+        </div>
+
+        <!-- Daily Quests -->
+        <div class="pt-2 border-t border-slate-800/80 space-y-2">
+          <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">Daily Training Quests</span>
+          <div id="dailyQuestsList" class="space-y-1.5 text-[11px]">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Trending in Hockey -->
+      <div class="glass-panel p-4 rounded-3xl space-y-3 border border-slate-800 shadow-xl">
+        <h3 class="text-xs font-mono font-bold uppercase tracking-wider text-slate-400">Trending on BlueLine Wire</h3>
+        <div class="space-y-2 text-xs">
+          <div class="hover:bg-slate-900/60 p-1.5 rounded-xl transition cursor-pointer" onclick="filterByTag('#MichiganHockey')">
+            <div class="text-[10px] text-slate-500">College Hockey • Trending</div>
+            <div class="font-bold text-white">#MichiganHockey</div>
+            <div class="text-[10px] text-slate-400">14.2K Posts</div>
+          </div>
+          <div class="hover:bg-slate-900/60 p-1.5 rounded-xl transition cursor-pointer" onclick="filterByTag('#USHLDraft')">
+            <div class="text-[10px] text-slate-500">Junior Tier 1 • Trending</div>
+            <div class="font-bold text-white">#USHLDraft</div>
+            <div class="text-[10px] text-slate-400">8.9K Posts</div>
+          </div>
+          <div class="hover:bg-slate-900/60 p-1.5 rounded-xl transition cursor-pointer" onclick="filterByTag('#FrozenFour')">
+            <div class="text-[10px] text-slate-500">NCAA Tournament • Trending</div>
+            <div class="font-bold text-white">#FrozenFour</div>
+            <div class="text-[10px] text-slate-400">24.5K Posts</div>
+          </div>
+          <div class="hover:bg-slate-900/60 p-1.5 rounded-xl transition cursor-pointer" onclick="filterByTag('#ScoutingReport')">
+            <div class="text-[10px] text-slate-500">Shane McCoy Bureau • Trending</div>
+            <div class="font-bold text-white">#ScoutingReport</div>
+            <div class="text-[10px] text-slate-400">5.1K Posts</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Who to Scout & Message -->
+      <div class="glass-panel p-4 rounded-3xl space-y-3 border border-slate-800 shadow-xl">
+        <h3 class="text-xs font-mono font-bold uppercase tracking-wider text-slate-400">Who to Scout & Follow</h3>
+        <div id="suggestedUsersList" class="space-y-2.5">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+    </aside>
+  </div>
+
+  <!-- ==================== UNIVERSAL DIRECT MESSAGING MODAL / DRAWER ==================== -->
+  <div id="directMessengerModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-2 sm:p-4">
+    <div class="bg-slate-950 border border-cyan-500/40 w-full max-w-4xl h-[85vh] rounded-3xl shadow-2xl flex flex-col overflow-hidden animate-fadeIn">
+      
+      <!-- Modal Header -->
+      <div class="p-4 border-b border-slate-800 flex items-center justify-between bg-slate-900/80">
+        <div class="flex items-center gap-2.5">
+          <span class="w-8 h-8 rounded-xl bg-cyan-600/30 border border-cyan-500/40 flex items-center justify-center text-base">💬</span>
+          <div>
+            <h3 class="font-black text-sm sm:text-base text-white">BlueLine Universal Direct Messenger</h3>
+            <p class="text-[10px] text-slate-400">Real-time DMs: Player-to-Player • Coach-to-Coach • Scout-to-Prospect</p>
+          </div>
+        </div>
+        <button id="closeDirectMessengerBtn" class="p-1.5 rounded-xl bg-slate-800 text-slate-400 hover:text-white text-base">✕</button>
+      </div>
+
+      <!-- Chat Body (Two-Column Layout) -->
+      <div class="flex-1 grid grid-cols-1 md:grid-cols-12 overflow-hidden">
+        
+        <!-- Conversations List (Left) -->
+        <div class="md:col-span-4 border-r border-slate-800 flex flex-col h-full bg-slate-950/60">
+          <div class="p-3 border-b border-slate-800">
+            <input type="text" id="messengerSearchInput" placeholder="🔍 Search athletes & coaches..." class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-1.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400">
+          </div>
+          <div id="conversationsListContainer" class="flex-1 overflow-y-auto custom-scroll divide-y divide-slate-900">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+
+        <!-- Active Chat Message Stream (Right) -->
+        <div class="md:col-span-8 flex flex-col h-full bg-slate-950/90">
+          <!-- Active Conversation Header -->
+          <div id="activeChatHeader" class="p-3 border-b border-slate-800 flex items-center justify-between bg-slate-900/40">
+            <div class="flex items-center gap-2.5 min-w-0">
+              <img id="activeChatAvatar" src="" class="w-8 h-8 rounded-full border border-sky-400/40 object-cover shrink-0">
+              <div class="min-w-0 leading-tight">
+                <div class="flex items-center gap-1">
+                  <span id="activeChatName" class="font-bold text-xs text-white truncate"></span>
+                  <span id="activeChatBadge"></span>
+                </div>
+                <span id="activeChatRole" class="text-[10px] text-slate-400 truncate block"></span>
+              </div>
+            </div>
+            <div class="flex items-center gap-1.5">
+              <a id="activeChatProfileLink" href="#" target="_blank" class="px-2 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-[10px] font-bold">Dossier</a>
+            </div>
+          </div>
+
+          <!-- Quick Scout Prompts -->
+          <div class="p-2 border-b border-slate-800/80 bg-slate-900/20 flex items-center gap-1.5 overflow-x-auto no-scrollbar text-[10px]">
+            <button class="quick-chat-pill shrink-0 px-2 py-0.5 rounded-full bg-slate-900 border border-slate-800 text-cyan-300 hover:border-cyan-400" data-msg="Great game on Friday! Love the pace and defensive positioning.">👏 "Great game on Friday!"</button>
+            <button class="quick-chat-pill shrink-0 px-2 py-0.5 rounded-full bg-slate-900 border border-slate-800 text-sky-300 hover:border-sky-400" data-msg="Can we schedule a 15-minute scouting debrief call this week?">📞 "Schedule 15-min call"</button>
+            <button class="quick-chat-pill shrink-0 px-2 py-0.5 rounded-full bg-slate-900 border border-slate-800 text-purple-300 hover:border-purple-400" data-msg="Are you attending the upcoming USHL / NCAA Showcase?">🏆 "Attending Showcase?"</button>
+          </div>
+
+          <!-- Messages Scroll Area -->
+          <div id="activeMessagesStream" class="flex-1 p-4 overflow-y-auto custom-scroll space-y-3">
+            <!-- Message bubbles -->
+          </div>
+
+          <!-- Message Composer Input -->
+          <div class="p-3 border-t border-slate-800 bg-slate-900/60 flex items-center gap-2">
+            <input type="text" id="chatMessageInput" placeholder="Type a message to athlete, coach, or recruiter..." class="flex-1 bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400">
+            <button id="sendChatMessageBtn" class="px-4 py-2 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-bold text-xs shadow-md shadow-cyan-600/30 transition flex items-center gap-1">
+              <span>Send</span> <span>➤</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ==================== X-STYLE PROFILE CUSTOMIZER MODAL ==================== -->
+  <div id="profileCustomizerModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-3 sm:p-6">
+    <div class="bg-slate-950 border border-sky-500/40 w-full max-w-xl rounded-3xl shadow-2xl overflow-hidden p-6 space-y-4">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <h3 class="font-black text-base text-white flex items-center gap-2">
+          <span>⚙️</span> Customize Your X Hockey Profile
+        </h3>
+        <button id="closeProfileModalBtn" class="p-1.5 rounded-lg bg-slate-900 text-slate-400 hover:text-white">✕</button>
+      </div>
+
+      <div class="space-y-3 text-xs">
+        <div>
+          <label class="block text-slate-400 font-bold mb-1">Header Banner URL (or choose preset)</label>
+          <input type="text" id="editProfileBannerInput" class="w-full bg-slate-900 border border-slate-800 rounded-xl p-2.5 text-white">
+          <div class="flex gap-2 mt-2">
+            <button class="banner-preset-btn px-2 py-1 rounded bg-slate-800 text-[10px] text-sky-300" data-url="https://images.unsplash.com/photo-1580748141549-71748dbe0bdc?auto=format&fit=crop&w=1200&q=80">Ice Rink 1</button>
+            <button class="banner-preset-btn px-2 py-1 rounded bg-slate-800 text-[10px] text-sky-300" data-url="https://images.unsplash.com/photo-1515703407324-5f753eed24a1?auto=format&fit=crop&w=1200&q=80">Dark Arena</button>
+            <button class="banner-preset-btn px-2 py-1 rounded bg-slate-800 text-[10px] text-sky-300" data-url="https://images.unsplash.com/photo-1546519638-68e109498ffc?auto=format&fit=crop&w=1200&q=80">Championship</button>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-slate-400 font-bold mb-1">Display Name</label>
+            <input type="text" id="editProfileNameInput" class="w-full bg-slate-900 border border-slate-800 rounded-xl p-2.5 text-white">
+          </div>
+          <div>
+            <label class="block text-slate-400 font-bold mb-1">Handle (@handle)</label>
+            <input type="text" id="editProfileHandleInput" class="w-full bg-slate-900 border border-slate-800 rounded-xl p-2.5 text-white">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-slate-400 font-bold mb-1">Title / Role (#Jersey)</label>
+            <input type="text" id="editProfileTitleInput" class="w-full bg-slate-900 border border-slate-800 rounded-xl p-2.5 text-white">
+          </div>
+          <div>
+            <label class="block text-slate-400 font-bold mb-1">Team / Organization</label>
+            <input type="text" id="editProfileOrgInput" class="w-full bg-slate-900 border border-slate-800 rounded-xl p-2.5 text-white">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-slate-400 font-bold mb-1">Bio / Elevator Pitch</label>
+          <textarea id="editProfileBioInput" rows="3" class="w-full bg-slate-900 border border-slate-800 rounded-xl p-2.5 text-white resize-none"></textarea>
+        </div>
+      </div>
+
+      <div class="flex justify-end gap-2 pt-3 border-t border-slate-800">
+        <button id="cancelEditProfileBtn" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 font-bold text-xs text-slate-300">Cancel</button>
+        <button id="saveEditProfileBtn" class="px-4 py-2 rounded-xl bg-sky-600 hover:bg-sky-500 font-bold text-xs text-white shadow-lg shadow-sky-600/30">Save Profile</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== UNIVERSAL SIGN-UP / ONBOARDING MODAL ==================== -->
+  <div id="signUpModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-3 sm:p-6">
+    <div class="bg-slate-950 border border-cyan-500/40 w-full max-w-lg rounded-3xl shadow-2xl overflow-hidden p-6 space-y-4">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <div>
+          <h3 class="font-black text-base text-white flex items-center gap-2">
+            <span>⚡</span> Join the BlueLine Hockey Community
+          </h3>
+          <p class="text-[11px] text-slate-400">Universal sign-up for Athletes, Coaches, Scouts & Organizations</p>
+        </div>
+        <button id="closeSignUpModalBtn" class="p-1.5 rounded-lg bg-slate-900 text-slate-400 hover:text-white">✕</button>
+      </div>
+
+      <form id="signUpForm" class="space-y-3 text-xs">
+        <div>
+          <label class="block text-slate-300 font-bold mb-1">Select Your Community Role</label>
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+            <label class="cursor-pointer p-2.5 rounded-xl border border-slate-800 hover:border-sky-500/50 bg-slate-900 text-center space-y-1 block">
+              <input type="radio" name="signupRole" value="athlete" checked class="hidden peer">
+              <div class="peer-checked:text-sky-400 peer-checked:font-bold">
+                <div class="text-base">🏒</div>
+                <div class="text-[11px]">Athlete</div>
+              </div>
+            </label>
+            <label class="cursor-pointer p-2.5 rounded-xl border border-slate-800 hover:border-purple-500/50 bg-slate-900 text-center space-y-1 block">
+              <input type="radio" name="signupRole" value="coach" class="hidden peer">
+              <div class="peer-checked:text-purple-400 peer-checked:font-bold">
+                <div class="text-base">📋</div>
+                <div class="text-[11px]">Coach</div>
+              </div>
+            </label>
+            <label class="cursor-pointer p-2.5 rounded-xl border border-slate-800 hover:border-amber-500/50 bg-slate-900 text-center space-y-1 block">
+              <input type="radio" name="signupRole" value="scout" class="hidden peer">
+              <div class="peer-checked:text-amber-400 peer-checked:font-bold">
+                <div class="text-base">⭐</div>
+                <div class="text-[11px]">Scout</div>
+              </div>
+            </label>
+            <label class="cursor-pointer p-2.5 rounded-xl border border-slate-800 hover:border-emerald-500/50 bg-slate-900 text-center space-y-1 block">
+              <input type="radio" name="signupRole" value="team" class="hidden peer">
+              <div class="peer-checked:text-emerald-400 peer-checked:font-bold">
+                <div class="text-base">🏢</div>
+                <div class="text-[11px]">Team GM</div>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-slate-400 font-bold mb-1">Full Name</label>
+            <input type="text" id="regName" required placeholder="e.g. Connor Vance" class="w-full bg-slate-900 border border-slate-800 rounded-xl p-2.5 text-white">
+          </div>
+          <div>
+            <label class="block text-slate-400 font-bold mb-1">Desired Handle (@handle)</label>
+            <input type="text" id="regHandle" required placeholder="e.g. connor_vance9" class="w-full bg-slate-900 border border-slate-800 rounded-xl p-2.5 text-white">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-slate-400 font-bold mb-1">Current Team / Club</label>
+            <input type="text" id="regOrg" required placeholder="e.g. Chicago Mission U16 AAA" class="w-full bg-slate-900 border border-slate-800 rounded-xl p-2.5 text-white">
+          </div>
+          <div>
+            <label class="block text-slate-400 font-bold mb-1">Position & Jersey #</label>
+            <input type="text" id="regTitle" placeholder="e.g. Center (#9)" class="w-full bg-slate-900 border border-slate-800 rounded-xl p-2.5 text-white">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-slate-400 font-bold mb-1">Bio / Recruitment Goals</label>
+          <textarea id="regBio" rows="2" placeholder="Tell coaches and scouts about your playstyle, shooting hand, and aspirations..." class="w-full bg-slate-900 border border-slate-800 rounded-xl p-2.5 text-white resize-none"></textarea>
+        </div>
+
+        <div class="p-3 bg-sky-950/40 border border-sky-500/30 rounded-xl text-[11px] text-sky-300">
+          ✨ <strong>Instant Bonus:</strong> Signing up immediately awards <strong>100 PuckXP (Level 1)</strong>, grants a custom X-style profile, and unlocks direct messaging to Shane McCoy and all 2,974 roster personnel.
+        </div>
+
+        <div class="flex justify-end gap-2 pt-2 border-t border-slate-800">
+          <button type="button" id="cancelSignUpBtn" class="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 font-bold">Cancel</button>
+          <button type="submit" class="px-5 py-2 rounded-xl bg-gradient-to-r from-sky-500 to-indigo-600 font-black text-white shadow-lg shadow-sky-600/30">Create Account & Join</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================== SCRIPTS ==================== -->
+  <script src="static/js/social_mesh_engine.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const social = window.BlueLineSocial;
+      if (!social) return;
+
+      let state = social.getState();
+      let activeFeed = 'all';
+      let activeRecipientId = 'usr_michael_hage';
+
+      // 1. Render Current User Everywhere
+      function renderCurrentUser() {
+        const u = state.currentUser;
+        document.getElementById('sidebarUserAvatar').src = u.avatar;
+        document.getElementById('sidebarUserName').textContent = u.name;
+        document.getElementById('sidebarUserHandle').textContent = `@${u.handle}`;
+        document.getElementById('sidebarUserBadge').textContent = u.badge.icon;
+        document.getElementById('composerUserAvatar').src = u.avatar;
+
+        // Gamified Status
+        document.getElementById('xpLevelBadge').textContent = `Lv. ${u.level}`;
+        document.getElementById('xpTitleLabel').textContent = social.getLevelTitle(u.level);
+        document.getElementById('xpCountLabel').textContent = `${(u.xp || 0).toLocaleString()} / ${(u.xpNext || 1000).toLocaleString()}`;
+        
+        const pct = Math.min(100, Math.round(((u.xp || 0) / (u.xpNext || 1000)) * 100));
+        document.getElementById('xpProgressBar').style.width = `${pct}%`;
+
+        // Quests
+        const questsList = document.getElementById('dailyQuestsList');
+        questsList.innerHTML = state.dailyQuests.map(q => `
+          <div class="flex items-center justify-between p-1.5 rounded-lg bg-slate-900/60 border border-slate-800">
+            <div class="flex items-center gap-2">
+              <span class="${q.done ? 'text-emerald-400' : 'text-slate-600'}">${q.done ? '✓' : '○'}</span>
+              <span class="${q.done ? 'line-through text-slate-500' : 'text-slate-200'}">${q.title}</span>
+            </div>
+            <span class="text-[10px] font-mono font-bold text-amber-400">+${q.xp} XP</span>
+          </div>
+        `).join('');
+      }
+
+      // 2. Render Wire Feed
+      function renderFeed() {
+        const container = document.getElementById('wireFeedContainer');
+        const posts = state.posts.filter(p => {
+          if (activeFeed === 'all') return true;
+          const author = social.getUserById(p.authorId);
+          if (activeFeed === 'scouts') return author.role === 'scout';
+          if (activeFeed === 'commitments') return p.tags.includes('#Commitment') || p.content.includes('COMMITMENT');
+          if (activeFeed === 'locker_room') return !p.tags.includes('#ScoutingReport');
+          return true;
+        });
+
+        if (posts.length === 0) {
+          container.innerHTML = `<div class="glass-panel p-8 text-center text-slate-500 text-xs">No posts in this feed yet. Be the first to share!</div>`;
+          return;
+        }
+
+        container.innerHTML = posts.map(post => {
+          const author = social.getUserById(post.authorId);
+          const badgeHtml = `<span class="inline-flex items-center px-1.5 py-0.2 rounded-full text-[10px] ${author.badge ? author.badge.color : 'bg-slate-800 text-slate-300'}" title="${author.badge ? author.badge.label : ''}">${author.badge ? author.badge.icon : ''}</span>`;
+
+          // Format highlighted hashtags and mentions
+          let formattedContent = post.content.replace(/(#\w+)/g, '<span class="text-sky-400 font-bold hover:underline cursor-pointer">$1</span>');
+          formattedContent = formattedContent.replace(/(@\w+)/g, '<span class="text-cyan-300 font-bold hover:underline cursor-pointer">$1</span>');
+
+          // Optional Media Card
+          let mediaHtml = '';
+          if (post.media && post.media.type === 'stats_card') {
+            mediaHtml = `
+              <div class="mt-2.5 p-3 rounded-2xl bg-gradient-to-r from-sky-950/60 via-slate-900 to-indigo-950/60 border border-sky-500/30 flex items-center justify-between gap-3">
+                <div>
+                  <div class="text-[10px] font-mono text-sky-400 uppercase tracking-wider">VERIFIED ATHLETE TELEMETRY</div>
+                  <div class="text-xs font-black text-white">${post.media.playerName} • ${post.media.team}</div>
+                </div>
+                <div class="flex items-center gap-2 text-xs font-mono">
+                  <span class="px-2 py-0.5 rounded bg-sky-500/20 text-sky-300 font-bold border border-sky-500/30">${post.media.stat1}</span>
+                  <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-bold border border-emerald-500/30">${post.media.stat2}</span>
+                  <span class="px-2 py-0.5 rounded bg-purple-500/20 text-purple-300 font-bold border border-purple-500/30">${post.media.stat3}</span>
+                </div>
+              </div>
+            `;
+          } else if (post.media && post.media.type === 'banner') {
+            mediaHtml = `
+              <div class="mt-2.5 p-4 rounded-2xl bg-gradient-to-r from-amber-950/60 to-orange-950/60 border border-amber-500/40 text-center space-y-0.5">
+                <div class="text-xs font-black text-amber-300 tracking-wider font-mono">${post.media.title}</div>
+                <div class="text-sm font-black text-white">${post.media.subtitle}</div>
+              </div>
+            `;
+          }
+
+          return `
+            <article class="glass-panel p-4 rounded-3xl space-y-2.5 border border-slate-800/90 hover:border-slate-700 transition">
+              <div class="flex items-start justify-between gap-2">
+                <div class="flex items-center gap-2.5 min-w-0">
+                  <img src="${author.avatar}" class="w-10 h-10 rounded-full border border-sky-400/30 object-cover shrink-0">
+                  <div class="min-w-0 leading-tight">
+                    <div class="flex items-center gap-1.5 flex-wrap">
+                      <span class="font-black text-xs sm:text-sm text-white">${author.name}</span>
+                      ${badgeHtml}
+                      <span class="text-[11px] text-slate-400 font-mono">@${author.handle}</span>
+                      <span class="text-slate-600 text-[10px]">·</span>
+                      <span class="text-[10px] text-slate-500">${post.timestamp}</span>
+                    </div>
+                    <span class="text-[10px] text-slate-400 block truncate">${author.title} • ${author.organization}</span>
+                  </div>
+                </div>
+                <button onclick="openDirectMessageWith('${author.id}')" class="px-2.5 py-1 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-cyan-400 text-[10px] font-bold transition flex items-center gap-1">
+                  <span>💬</span> <span class="hidden sm:inline">Message</span>
+                </button>
+              </div>
+
+              <!-- Content Body -->
+              <p class="text-xs sm:text-sm text-slate-200 leading-relaxed font-sans">${formattedContent}</p>
+              ${mediaHtml}
+
+              <!-- Post Action Bar (X-Style) -->
+              <div class="flex items-center justify-between pt-2 border-t border-slate-800/80 text-xs text-slate-400 font-mono">
+                <button class="flex items-center gap-1 hover:text-sky-400 transition" onclick="replyToPost('${post.id}')">
+                  <span>💬</span> <span>${post.replies}</span>
+                </button>
+                <button class="flex items-center gap-1 hover:text-emerald-400 transition" onclick="repostPost('${post.id}')">
+                  <span>🔁</span> <span>${post.reposts}</span>
+                </button>
+                <button class="flex items-center gap-1 ${post.likedByMe ? 'text-rose-500 font-bold' : 'hover:text-rose-400'} transition" onclick="toggleLike('${post.id}')">
+                  <span>${post.likedByMe ? '❤️' : '🤍'}</span> <span>${post.likes}</span>
+                </button>
+                <button class="hover:text-amber-400 transition" title="Bookmark">
+                  <span>🔖</span>
+                </button>
+                <button class="hover:text-cyan-400 transition" onclick="sharePost('${post.id}')" title="Share">
+                  <span>📤</span>
+                </button>
+              </div>
+            </article>
+          `;
+        }).join('');
+      }
+
+      // 3. Render Suggested Users Sidebar
+      function renderSuggestedUsers() {
+        const container = document.getElementById('suggestedUsersList');
+        const otherUsers = state.users.filter(u => u.id !== state.currentUser.id).slice(0, 3);
+        container.innerHTML = otherUsers.map(u => `
+          <div class="flex items-center justify-between gap-2 p-1.5 rounded-xl hover:bg-slate-900/60 transition">
+            <div class="flex items-center gap-2 min-w-0">
+              <img src="${u.avatar}" class="w-8 h-8 rounded-full border border-sky-400/30 object-cover shrink-0">
+              <div class="min-w-0 leading-tight">
+                <div class="flex items-center gap-1">
+                  <span class="font-bold text-xs text-white truncate">${u.name}</span>
+                  <span class="text-[9px]">${u.badge ? u.badge.icon : ''}</span>
+                </div>
+                <span class="text-[10px] text-slate-400 font-mono truncate block">@${u.handle}</span>
+              </div>
+            </div>
+            <button onclick="openDirectMessageWith('${u.id}')" class="px-2.5 py-1 rounded-xl bg-cyan-600/30 hover:bg-cyan-600 text-cyan-300 hover:text-white font-bold text-[10px] border border-cyan-500/40 transition">
+              Message
+            </button>
+          </div>
+        `).join('');
+      }
+
+      // 4. Render Conversations in Messenger Modal
+      function renderConversations() {
+        const container = document.getElementById('conversationsListContainer');
+        container.innerHTML = state.conversations.map(c => {
+          const otherId = c.participantIds.find(id => id !== state.currentUser.id) || c.participantIds[0];
+          const other = social.getUserById(otherId);
+          const isSelected = otherId === activeRecipientId;
+
+          return `
+            <div class="p-3 cursor-pointer hover:bg-slate-900/80 transition flex items-center justify-between gap-2 ${isSelected ? 'bg-sky-950/40 border-l-2 border-cyan-400' : ''}" onclick="selectConversation('${otherId}')">
+              <div class="flex items-center gap-2.5 min-w-0">
+                <img src="${other.avatar}" class="w-9 h-9 rounded-full border border-slate-700 object-cover shrink-0">
+                <div class="min-w-0 leading-tight">
+                  <div class="flex items-center gap-1">
+                    <span class="font-bold text-xs text-white truncate">${other.name}</span>
+                    <span class="text-[9px]">${other.badge ? other.badge.icon : ''}</span>
+                  </div>
+                  <p class="text-[10px] text-slate-400 truncate mt-0.5">${c.lastMessage}</p>
+                </div>
+              </div>
+              <span class="text-[9px] text-slate-500 font-mono shrink-0">${c.lastTimestamp}</span>
+            </div>
+          `;
+        }).join('');
+      }
+
+      // 5. Render Active Chat Message Stream
+      function renderActiveChat() {
+        const other = social.getUserById(activeRecipientId);
+        document.getElementById('activeChatAvatar').src = other.avatar;
+        document.getElementById('activeChatName').textContent = other.name;
+        document.getElementById('activeChatRole').textContent = `${other.title} • ${other.organization}`;
+        document.getElementById('activeChatBadge').innerHTML = `<span class="text-[10px]">${other.badge ? other.badge.icon : ''}</span>`;
+        document.getElementById('activeChatProfileLink').href = `player.html?id=${other.id}`;
+
+        const conv = state.conversations.find(c => 
+          c.participantIds.includes(state.currentUser.id) && c.participantIds.includes(activeRecipientId)
+        );
+
+        const stream = document.getElementById('activeMessagesStream');
+        if (!conv || !conv.messages || conv.messages.length === 0) {
+          stream.innerHTML = `
+            <div class="h-full flex flex-col items-center justify-center text-center p-6 space-y-2 text-slate-500">
+              <div class="text-3xl">🏒</div>
+              <p class="text-xs">No prior messages with ${other.name}.<br>Send a scouting inquiry, training question, or commitment note!</p>
+            </div>
+          `;
+          return;
+        }
+
+        stream.innerHTML = conv.messages.map(m => {
+          const isMe = m.senderId === state.currentUser.id;
+          return `
+            <div class="flex flex-col ${isMe ? 'items-end' : 'items-start'} space-y-0.5">
+              <div class="max-w-md p-3 rounded-2xl text-xs ${isMe ? 'bg-cyan-600 text-white rounded-br-none shadow-md shadow-cyan-600/20' : 'bg-slate-900 border border-slate-800 text-slate-200 rounded-bl-none'}">
+                ${m.text}
+              </div>
+              <span class="text-[9px] font-mono text-slate-500 px-1">${m.time}</span>
+            </div>
+          `;
+        }).join('');
+
+        stream.scrollTop = stream.scrollHeight;
+      }
+
+      // 6. Global Window Handlers
+      window.openDirectMessageWith = function(userId) {
+        activeRecipientId = userId;
+        document.getElementById('directMessengerModal').classList.remove('hidden');
+        renderConversations();
+        renderActiveChat();
+      };
+
+      window.selectConversation = function(otherId) {
+        activeRecipientId = otherId;
+        renderConversations();
+        renderActiveChat();
+      };
+
+      window.toggleLike = function(postId) {
+        social.toggleLikePost(postId);
+        state = social.getState();
+        renderFeed();
+      };
+
+      window.filterByTag = function(tag) {
+        document.getElementById('composerTextarea').value += ` ${tag} `;
+        renderFeed();
+      };
+
+      window.openProfileCustomizer = function() {
+        const u = state.currentUser;
+        document.getElementById('editProfileNameInput').value = u.name;
+        document.getElementById('editProfileHandleInput').value = u.handle;
+        document.getElementById('editProfileBioInput').value = u.bio;
+        document.getElementById('editProfileOrgInput').value = u.organization;
+        document.getElementById('editProfileTitleInput').value = u.title;
+        document.getElementById('editProfileBannerInput').value = u.banner;
+        document.getElementById('profileCustomizerModal').classList.remove('hidden');
+      };
+
+      // 7. Event Listeners
+      // Post Composer
+      document.getElementById('submitPostBtn').addEventListener('click', () => {
+        const text = document.getElementById('composerTextarea').value.trim();
+        if (!text) return;
+
+        const tags = (text.match(/(#\w+)/g) || []);
+        social.createPost(text, tags);
+        state = social.getState();
+        document.getElementById('composerTextarea').value = '';
+        document.getElementById('composerCharCount').textContent = '0 / 280';
+        renderFeed();
+        renderCurrentUser();
+      });
+
+      document.getElementById('composerTextarea').addEventListener('input', (e) => {
+        document.getElementById('composerCharCount').textContent = `${e.target.value.length} / 280`;
+      });
+
+      document.querySelectorAll('.composer-tag-pill').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          document.getElementById('composerTextarea').value += ` ${e.target.dataset.tag} `;
+        });
+      });
+
+      // Feed Tabs
+      document.querySelectorAll('.feed-tab-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          document.querySelectorAll('.feed-tab-btn').forEach(b => {
+            b.classList.remove('bg-sky-600', 'text-white');
+            b.classList.add('text-slate-400');
+          });
+          e.target.classList.add('bg-sky-600', 'text-white');
+          e.target.classList.remove('text-slate-400');
+          activeFeed = e.target.dataset.feed;
+          renderFeed();
+        });
+      });
+
+      // Send Direct Message
+      function handleSendChat() {
+        const input = document.getElementById('chatMessageInput');
+        const text = input.value.trim();
+        if (!text) return;
+
+        social.sendMessage(activeRecipientId, text);
+        state = social.getState();
+        input.value = '';
+        renderConversations();
+        renderActiveChat();
+        renderCurrentUser();
+      }
+
+      document.getElementById('sendChatMessageBtn').addEventListener('click', handleSendChat);
+      document.getElementById('chatMessageInput').addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') handleSendChat();
+      });
+
+      document.querySelectorAll('.quick-chat-pill').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          document.getElementById('chatMessageInput').value = e.target.dataset.msg;
+        });
+      });
+
+      // Modal Open/Close
+      document.getElementById('headerOpenDMsBtn').addEventListener('click', () => {
+        document.getElementById('directMessengerModal').classList.remove('hidden');
+        renderConversations();
+        renderActiveChat();
+      });
+      document.getElementById('navOpenMessagesBtn').addEventListener('click', () => {
+        document.getElementById('directMessengerModal').classList.remove('hidden');
+        renderConversations();
+        renderActiveChat();
+      });
+      document.getElementById('closeDirectMessengerBtn').addEventListener('click', () => {
+        document.getElementById('directMessengerModal').classList.add('hidden');
+      });
+
+      document.getElementById('navOpenProfileBtn').addEventListener('click', window.openProfileCustomizer);
+      document.getElementById('closeProfileModalBtn').addEventListener('click', () => {
+        document.getElementById('profileCustomizerModal').classList.add('hidden');
+      });
+      document.getElementById('cancelEditProfileBtn').addEventListener('click', () => {
+        document.getElementById('profileCustomizerModal').classList.add('hidden');
+      });
+
+      // Save Profile
+      document.getElementById('saveEditProfileBtn').addEventListener('click', () => {
+        social.updateProfile({
+          name: document.getElementById('editProfileNameInput').value,
+          handle: document.getElementById('editProfileHandleInput').value,
+          bio: document.getElementById('editProfileBioInput').value,
+          organization: document.getElementById('editProfileOrgInput').value,
+          title: document.getElementById('editProfileTitleInput').value,
+          banner: document.getElementById('editProfileBannerInput').value
+        });
+        state = social.getState();
+        document.getElementById('profileCustomizerModal').classList.add('hidden');
+        renderCurrentUser();
+        renderFeed();
+      });
+
+      document.querySelectorAll('.banner-preset-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          document.getElementById('editProfileBannerInput').value = e.target.dataset.url;
+        });
+      });
+
+      // Sign Up Modal
+      document.getElementById('openSignUpModalBtn').addEventListener('click', () => {
+        document.getElementById('signUpModal').classList.remove('hidden');
+      });
+      document.getElementById('closeSignUpModalBtn').addEventListener('click', () => {
+        document.getElementById('signUpModal').classList.add('hidden');
+      });
+      document.getElementById('cancelSignUpBtn').addEventListener('click', () => {
+        document.getElementById('signUpModal').classList.add('hidden');
+      });
+
+      document.getElementById('signUpForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const role = document.querySelector('input[name="signupRole"]:checked').value;
+        const name = document.getElementById('regName').value.trim();
+        const handle = document.getElementById('regHandle').value.trim();
+        const org = document.getElementById('regOrg').value.trim();
+        const title = document.getElementById('regTitle').value.trim();
+        const bio = document.getElementById('regBio').value.trim();
+
+        social.registerUser({
+          role: role,
+          name: name,
+          handle: handle,
+          organization: org,
+          title: title,
+          bio: bio
+        });
+
+        state = social.getState();
+        document.getElementById('signUpModal').classList.add('hidden');
+        renderCurrentUser();
+        renderFeed();
+        renderSuggestedUsers();
+        alert(`Welcome to BlueLine DataWorks, ${name}! Your X hockey profile is active with 100 PuckXP (Level 1).`);
+      });
+
+      // Initial Renders
+      renderCurrentUser();
+      renderFeed();
+      renderSuggestedUsers();
+      renderConversations();
+    });
+  </script>
+</body>
+</html>

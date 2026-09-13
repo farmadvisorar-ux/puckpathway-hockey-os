@@ -8,6 +8,9 @@
     { "src": "/broadcast-ai", "dest": "/broadcast_ai.html" },
     { "src": "/agents", "dest": "/agents.html" },
     { "src": "/ai-mesh", "dest": "/agents.html" },
+    { "src": "/community", "dest": "/community.html" },
+    { "src": "/wire", "dest": "/community.html" },
+    { "src": "/messages", "dest": "/community.html" },
     { "src": "/(.*)", "dest": "/$1" }
   ]
 }
