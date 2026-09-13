@@ -15,6 +15,9 @@
     { "src": "/nil", "dest": "/portal.html" },
     { "src": "/film", "dest": "/film.html" },
     { "src": "/studio", "dest": "/film.html" },
+    { "src": "/rink3d", "dest": "/rink3d.html" },
+    { "src": "/3d", "dest": "/rink3d.html" },
+    { "src": "/simulator", "dest": "/rink3d.html" },
     { "src": "/(.*)", "dest": "/$1" }
   ]
 }
