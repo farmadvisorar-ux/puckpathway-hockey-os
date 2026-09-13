@@ -1,0 +1,18 @@
+{
+  "name": "BlueLine DataWorks - Enterprise Hockey OS",
+  "short_name": "BlueLine OS",
+  "description": "BlueLine DataWorks is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory.",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#060b14",
+  "theme_color": "#060b14",
+  "icons": [
+    {
+      "src": "static/img/blueline_logo.jpg",
+      "sizes": "192x192 512x512",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["sports", "productivity", "utilities"]
+}

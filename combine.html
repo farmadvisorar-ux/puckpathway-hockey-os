@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BlueLine DataWorks | AI Combine & Biometric Benchmark Lab</title>
+  
+  <meta name="description" content="BlueLine DataWorks is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory.">
+  <meta property="og:title" content="BlueLine DataWorks - AI Combine & Biometric Testing Lab">
+  <meta property="og:description" content="BlueLine DataWorks is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory.">
+  <meta property="og:image" content="static/img/blueline_og_preview.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="BlueLine DataWorks - AI Combine & Biometric Testing Lab">
+  <meta name="twitter:description" content="BlueLine DataWorks is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory.">
+
+  <!-- Manifest for PWA -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#060b14">
+
+  <!-- Tailwind CSS & Fonts -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              primary: '#0ea5e9',
+              dark: '#060b14',
+              surface: '#0d131f',
+              border: 'rgba(56, 189, 248, 0.2)'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="static/css/custom.css">
+
+  <style>
+    body {
+      background-color: #060b14;
+      background-image: 
+        radial-gradient(at 0% 0%, rgba(14, 165, 233, 0.12) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(2, 132, 199, 0.08) 0px, transparent 50%);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+    .glass-panel {
+      background: rgba(13, 19, 31, 0.75);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(56, 189, 248, 0.2);
+    }
+  </style>
+</head>
+<body class="text-slate-100 min-h-screen flex flex-col antialiased selection:bg-sky-500 selection:text-white">
+
+  <!-- Universal Enterprise Top Navigation Header -->
+  <header class="border-b border-sky-500/20 bg-slate-950/95 backdrop-blur-xl sticky top-0 z-50 shadow-2xl shadow-black/60">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-14 sm:h-16 flex items-center justify-between gap-2">
+      
+      <!-- Brand Logo & Title -->
+      <div class="flex items-center gap-2 sm:gap-3 min-w-0">
+        <a href="index.html" class="flex items-center gap-2 group min-w-0">
+          <img src="static/img/blueline_logo.jpg" alt="BlueLine DataWorks" class="w-9 h-9 sm:w-10 sm:h-10 shrink-0 rounded-xl border border-sky-400/50 object-cover shadow-lg shadow-sky-500/30 group-hover:scale-105 transition">
+          <div class="min-w-0">
+            <div class="flex items-center gap-1.5 sm:gap-2">
+              <span class="font-black text-xs sm:text-base md:text-lg tracking-tight bg-gradient-to-r from-sky-400 via-cyan-200 to-blue-400 bg-clip-text text-transparent truncate">BLUELINE DATAWORKS</span>
+              <span class="px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40 text-[9px] font-extrabold tracking-wide uppercase shrink-0">COMBINE LAB</span>
+            </div>
+            <p class="text-[10px] sm:text-[11px] text-slate-400 truncate hidden sm:block">AI Biometric Benchmarking • Laser Telemetry • Trajectory Grades</p>
+          </div>
+        </a>
+      </div>
+
+      <!-- Quick Nav Buttons -->
+      <div class="flex items-center gap-1.5 sm:gap-2 shrink-0 text-xs font-bold overflow-x-auto py-1">
+        <a href="index.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>🏒</span> <span class="hidden md:inline">Main OS</span>
+        </a>
+        <a href="database.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-sky-400 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>📊</span> <span class="hidden md:inline">Directory</span>
+        </a>
+        <a href="scoreboard.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-rose-300 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>📡</span> <span class="hidden md:inline">Game Center</span>
+        </a>
+        <a href="rink3d.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-sky-300 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>🧊</span> <span class="hidden md:inline">3D Rink</span>
+        </a>
+        <a href="film.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-cyan-300 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>🎬</span> <span class="hidden md:inline">Film Studio</span>
+        </a>
+        <a href="portal.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-amber-300 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>⚡</span> <span class="hidden md:inline">Portal & NIL</span>
+        </a>
+        <a href="draft.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>🎯</span> <span class="hidden md:inline">Draft Room</span>
+        </a>
+        <a href="combine.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-gradient-to-r from-amber-600 to-red-600 text-white font-bold border border-amber-400/50 shadow-md shadow-amber-500/20 flex items-center gap-1">
+          <span>🧬</span> <span class="hidden md:inline">Combine Lab</span>
+        </a>
+        <a href="community.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>🌐</span> <span class="hidden md:inline">The Wire</span>
+        </a>
+        <a href="agents.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-emerald-400 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>🤖</span> <span class="hidden md:inline">Swarm</span>
+        </a>
+      </div>
+
+    </div>
+
+    <!-- Mandatory Lifelong Tracking Mission Statement Banner -->
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-2 border-t border-slate-800/80 bg-slate-950/90 flex flex-wrap items-center justify-between gap-2 text-xs">
+      <div class="flex items-center gap-2 min-w-0">
+        <span class="px-2 py-0.5 rounded-md bg-sky-500/20 text-sky-300 font-mono text-[10px] font-bold shrink-0">MISSION</span>
+        <p class="text-[11px] text-slate-400 truncate">
+          BlueLine DataWorks is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory.
+        </p>
+      </div>
+      <div class="flex items-center gap-3 shrink-0 text-[11px] font-mono text-slate-400">
+        <span class="flex items-center gap-1.5 text-emerald-400">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span>Laser Trap: ARMED</span>
+        </span>
+        <span id="pwaStatusPill" class="px-2 py-0.5 rounded bg-sky-950 text-sky-400 border border-sky-500/30 text-[10px]">
+          ⚡ Rinkside PWA Cached
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Sub-Header Controls & Athlete Selection Bar -->
+  <section class="border-b border-slate-800 bg-slate-900/60 backdrop-blur-md px-3 sm:px-6 lg:px-8 py-3">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
+      
+      <!-- Athlete Picker -->
+      <div class="flex items-center gap-2.5 flex-wrap">
+        <div class="flex items-center gap-1.5 bg-slate-950 px-3 py-1.5 rounded-xl border border-slate-800">
+          <span class="text-xs text-slate-400 font-medium">Prospect:</span>
+          <select id="combineProspectSelect" class="bg-transparent text-white font-bold text-xs focus:outline-none cursor-pointer">
+            <!-- Populated by JS -->
+          </select>
+        </div>
+
+        <div class="flex items-center gap-1.5 bg-slate-950 px-3 py-1.5 rounded-xl border border-slate-800">
+          <span class="text-xs text-slate-400 font-medium">Compare Cohort:</span>
+          <select id="combineCohortSelect" class="bg-transparent text-sky-300 font-mono text-xs focus:outline-none cursor-pointer">
+            <option value="none">No Overlay</option>
+            <option value="U14 AAA">U14 AAA Norm</option>
+            <option value="U16 AAA">U16 AAA Norm</option>
+            <option value="Junior / USHL">Junior / USHL Norm</option>
+            <option value="NCAA D1" selected>NCAA D1 Norm</option>
+            <option value="NHL Combine Top 10%">NHL Combine Top 10%</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex items-center gap-2 flex-wrap text-xs">
+        <button id="resetTestBtn" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-700 font-bold transition flex items-center gap-1">
+          <i class="fa-solid fa-rotate-left text-[11px]"></i> <span>Reset Form</span>
+        </button>
+
+        <button id="saveEvaluationBtn" class="px-3.5 py-1.5 rounded-xl bg-emerald-600/30 hover:bg-emerald-600/50 text-emerald-300 border border-emerald-500/40 font-bold transition flex items-center gap-1.5 shadow-md">
+          <i class="fa-solid fa-floppy-disk text-[11px]"></i> <span>Save to Passport</span>
+        </button>
+
+        <button id="broadcastWireBtn" class="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 text-white font-extrabold transition flex items-center gap-1.5 shadow-lg shadow-sky-500/20 active:scale-95">
+          <span>🌐</span> <span>Broadcast to Wire</span>
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Main Combine Testing & Analytics Grid -->
+  <main class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-6 flex-1 w-full space-y-6">
+    
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+      
+      <!-- Column 1: Athlete Dossier & 8 Telemetry Protocol Inputs (4 cols) -->
+      <div class="lg:col-span-5 space-y-5">
+        
+        <!-- Athlete Profile Card -->
+        <div class="glass-panel p-5 rounded-3xl space-y-4 border border-sky-500/30 relative overflow-hidden">
+          <div class="flex items-center gap-3.5">
+            <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-sky-600 to-blue-800 flex items-center justify-center text-2xl font-black text-white shadow-xl shadow-sky-500/30 border border-sky-400/40 shrink-0" id="athleteInitials">
+              MC
+            </div>
+            <div class="min-w-0">
+              <div class="flex items-center gap-2">
+                <h2 class="text-base sm:text-lg font-black text-white truncate" id="athleteName">Macklin Celebrini</h2>
+                <span class="px-2 py-0.5 rounded-md bg-sky-500/20 text-sky-300 font-mono text-[10px] font-bold border border-sky-500/30" id="athletePos">C</span>
+              </div>
+              <p class="text-xs text-slate-300 truncate" id="athleteTeam">Boston University • NCAA D1</p>
+              <p class="text-[11px] text-slate-400 font-mono" id="athleteBio">6'0" • 195 lbs • Draft Projection: #1 Overall</p>
+            </div>
+          </div>
+
+          <div class="p-3 rounded-2xl bg-slate-950/80 border border-slate-800/80 text-xs text-slate-300 leading-relaxed italic" id="scoutingNotesDisplay">
+            "Elite first-three-stride laser speed combined with top 2% aerobic capacity. Exceptional recovery in high-intensity shifts."
+          </div>
+        </div>
+
+        <!-- Testing Protocol Sliders & Inputs -->
+        <div class="glass-panel p-5 rounded-3xl space-y-4 border border-slate-800">
+          <div class="flex items-center justify-between border-b border-slate-800/80 pb-2">
+            <div class="flex items-center gap-2">
+              <span class="text-base">⏱️</span>
+              <h3 class="text-sm font-black text-white tracking-wide uppercase">Biometric Laser Telemetry</h3>
+            </div>
+            <span class="text-[10px] font-mono text-slate-400">8 Standard Protocols</span>
+          </div>
+
+          <form id="combineForm" class="space-y-3.5 text-xs">
+            
+            <!-- 1. 30m Sprint -->
+            <div class="space-y-1">
+              <div class="flex items-center justify-between">
+                <label class="font-bold text-slate-200">30m On-Ice Laser Sprint</label>
+                <span class="font-mono font-bold text-sky-400" id="val_sprint30m">3.81 sec</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <input type="range" id="input_sprint30m" min="3.70" max="4.40" step="0.01" value="3.81" class="w-full accent-sky-400 cursor-pointer">
+              </div>
+              <div class="flex justify-between text-[10px] text-slate-500 font-mono">
+                <span>3.70s (Elite)</span>
+                <span>4.05s (Avg)</span>
+                <span>4.40s (Dev)</span>
+              </div>
+            </div>
+
+            <!-- 2. Wingate Peak Power -->
+            <div class="space-y-1 pt-1 border-t border-slate-800/60">
+              <div class="flex items-center justify-between">
+                <label class="font-bold text-slate-200">Wingate Anaerobic Peak Power</label>
+                <span class="font-mono font-bold text-amber-400" id="val_wingatePeak">17.4 W/kg</span>
+              </div>
+              <input type="range" id="input_wingatePeak" min="13.0" max="19.5" step="0.1" value="17.4" class="w-full accent-amber-400 cursor-pointer">
+              <div class="flex justify-between text-[10px] text-slate-500 font-mono">
+                <span>13.0 W/kg</span>
+                <span>16.2 W/kg</span>
+                <span>19.5 W/kg (Elite)</span>
+              </div>
+            </div>
+
+            <!-- 3. Force Plate Vertical Jump -->
+            <div class="space-y-1 pt-1 border-t border-slate-800/60">
+              <div class="flex items-center justify-between">
+                <label class="font-bold text-slate-200">Force Plate Vertical Jump</label>
+                <span class="font-mono font-bold text-emerald-400" id="val_verticalJump">28.5 in</span>
+              </div>
+              <input type="range" id="input_verticalJump" min="18.0" max="34.0" step="0.5" value="28.5" class="w-full accent-emerald-400 cursor-pointer">
+              <div class="flex justify-between text-[10px] text-slate-500 font-mono">
+                <span>18.0 in</span>
+                <span>25.5 in</span>
+                <span>34.0 in (Elite)</span>
+              </div>
+            </div>
+
+            <!-- 4. Pro Agility 5-10-5 -->
+            <div class="space-y-1 pt-1 border-t border-slate-800/60">
+              <div class="flex items-center justify-between">
+                <label class="font-bold text-slate-200">Pro Agility 5-10-5 Shuttle</label>
+                <span class="font-mono font-bold text-cyan-400" id="val_proAgility">4.18 sec</span>
+              </div>
+              <input type="range" id="input_proAgility" min="4.05" max="4.70" step="0.01" value="4.18" class="w-full accent-cyan-400 cursor-pointer">
+              <div class="flex justify-between text-[10px] text-slate-500 font-mono">
+                <span>4.05s (Elite)</span>
+                <span>4.35s (Avg)</span>
+                <span>4.70s (Dev)</span>
+              </div>
+            </div>
+
+            <!-- 5. Strict Pull-Ups -->
+            <div class="space-y-1 pt-1 border-t border-slate-800/60">
+              <div class="flex items-center justify-between">
+                <label class="font-bold text-slate-200">Strict Pull-Ups (Max Reps)</label>
+                <span class="font-mono font-bold text-purple-400" id="val_pullUps">16 reps</span>
+              </div>
+              <input type="range" id="input_pullUps" min="6" max="24" step="1" value="16" class="w-full accent-purple-400 cursor-pointer">
+              <div class="flex justify-between text-[10px] text-slate-500 font-mono">
+                <span>6 reps</span>
+                <span>13 reps</span>
+                <span>24 reps (Elite)</span>
+              </div>
+            </div>
+
+            <!-- 6. Grip Strength Dyno -->
+            <div class="space-y-1 pt-1 border-t border-slate-800/60">
+              <div class="flex items-center justify-between">
+                <label class="font-bold text-slate-200">Grip Strength Dyno (Combined)</label>
+                <span class="font-mono font-bold text-rose-400" id="val_gripStrength">65 kg</span>
+              </div>
+              <input type="range" id="input_gripStrength" min="45" max="80" step="1" value="65" class="w-full accent-rose-400 cursor-pointer">
+              <div class="flex justify-between text-[10px] text-slate-500 font-mono">
+                <span>45 kg</span>
+                <span>60 kg</span>
+                <span>80 kg (Elite)</span>
+              </div>
+            </div>
+
+            <!-- 7. VO2 Max -->
+            <div class="space-y-1 pt-1 border-t border-slate-800/60">
+              <div class="flex items-center justify-between">
+                <label class="font-bold text-slate-200">Aerobic Capacity (VO2 Max)</label>
+                <span class="font-mono font-bold text-teal-400" id="val_vo2Max">63.8 ml/kg</span>
+              </div>
+              <input type="range" id="input_vo2Max" min="48.0" max="68.0" step="0.5" value="63.8" class="w-full accent-teal-400 cursor-pointer">
+              <div class="flex justify-between text-[10px] text-slate-500 font-mono">
+                <span>48 ml/kg</span>
+                <span>58 ml/kg</span>
+                <span>68 ml/kg (Elite)</span>
+              </div>
+            </div>
+
+            <!-- 8. Standing Broad Jump -->
+            <div class="space-y-1 pt-1 border-t border-slate-800/60">
+              <div class="flex items-center justify-between">
+                <label class="font-bold text-slate-200">Standing Broad Jump</label>
+                <span class="font-mono font-bold text-indigo-400" id="val_broadJump">115 in</span>
+              </div>
+              <input type="range" id="input_broadJump" min="88" max="125" step="1" value="115" class="w-full accent-indigo-400 cursor-pointer">
+              <div class="flex justify-between text-[10px] text-slate-500 font-mono">
+                <span>88 in</span>
+                <span>106 in</span>
+                <span>125 in (Elite)</span>
+              </div>
+            </div>
+
+          </form>
+        </div>
+
+      </div>
+
+      <!-- Column 2: Biometric Spider Radar & Composite Grade (7 cols) -->
+      <div class="lg:col-span-7 space-y-5">
+        
+        <!-- Composite Score Card -->
+        <div class="glass-panel p-5 rounded-3xl border border-sky-500/30 flex flex-wrap items-center justify-between gap-4">
+          <div class="space-y-1">
+            <span class="text-[10px] font-mono uppercase tracking-widest text-sky-400">BLUE LINE ATHLETIC COMPOSITE</span>
+            <div class="flex items-baseline gap-2">
+              <span class="text-4xl sm:text-5xl font-black tracking-tight text-white font-mono" id="compositeGradeDisplay">72</span>
+              <span class="text-sm font-bold text-slate-400 font-mono">/ 80</span>
+              <span class="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-xs font-black font-mono ml-2" id="percentileBadge">
+                94th Percentile
+              </span>
+            </div>
+            <p class="text-xs font-semibold" id="tierLabelDisplay">Tier 2 High-End NCAA D1 / 1st Round Caliber</p>
+          </div>
+
+          <!-- Quick Sub-Ratings -->
+          <div class="grid grid-cols-3 gap-2.5 text-center font-mono">
+            <div class="p-2.5 rounded-2xl bg-slate-950/80 border border-slate-800">
+              <div class="text-[9px] text-slate-400 uppercase">Explosive</div>
+              <div class="text-sm font-black text-sky-400" id="subRatingExplosive">74/80</div>
+            </div>
+            <div class="p-2.5 rounded-2xl bg-slate-950/80 border border-slate-800">
+              <div class="text-[9px] text-slate-400 uppercase">Anaerobic</div>
+              <div class="text-sm font-black text-amber-400" id="subRatingAnaerobic">71/80</div>
+            </div>
+            <div class="p-2.5 rounded-2xl bg-slate-950/80 border border-slate-800">
+              <div class="text-[9px] text-slate-400 uppercase">Endurance</div>
+              <div class="text-sm font-black text-teal-400" id="subRatingEndurance">70/80</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Radar Chart Container -->
+        <div class="glass-panel p-5 rounded-3xl border border-slate-800 space-y-3">
+          <div class="flex items-center justify-between border-b border-slate-800 pb-2 text-xs">
+            <div class="flex items-center gap-2">
+              <span class="w-3 h-3 rounded-full bg-sky-400 shadow-sm shadow-sky-400/50"></span>
+              <span class="font-bold text-white" id="radarAthleteLabel">Athlete Profile</span>
+            </div>
+            <div class="flex items-center gap-2" id="radarCompareLegend">
+              <span class="w-3 h-0.5 bg-slate-400 border-dashed"></span>
+              <span class="text-slate-400 font-mono text-[11px]" id="radarCompareLabel">NCAA D1 Benchmark</span>
+            </div>
+          </div>
+
+          <div class="flex justify-center items-center py-2">
+            <canvas id="combineRadarCanvas" width="460" height="380" class="max-w-full h-auto"></canvas>
+          </div>
+        </div>
+
+        <!-- Diagnostic Insights & Recent Evaluations -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          
+          <!-- AI Biometric Diagnostic Card -->
+          <div class="glass-panel p-4 rounded-2xl border border-slate-800 space-y-2.5 text-xs">
+            <div class="flex items-center gap-2 font-bold text-white">
+              <i class="fa-solid fa-microchip text-sky-400"></i>
+              <span>Scouting Bureau Diagnostic</span>
+            </div>
+            <ul class="space-y-2 text-slate-300 font-sans" id="diagnosticList">
+              <li class="flex items-start gap-2">
+                <span class="text-emerald-400">✓</span>
+                <span><strong>Laser Acceleration:</strong> Top 5% 30m burst creates immediate separation in neutral zone.</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-emerald-400">✓</span>
+                <span><strong>Anaerobic Output:</strong> Wingate 17.4 W/kg handles high-danger slot puck battles without fade.</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-sky-400">ℹ</span>
+                <span><strong>Development Note:</strong> Slight emphasis on lateral eccentric braking during 5-10-5 transition turns.</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Recent Evaluations Stream -->
+          <div class="glass-panel p-4 rounded-2xl border border-slate-800 space-y-2.5 text-xs">
+            <div class="flex items-center justify-between font-bold text-white">
+              <div class="flex items-center gap-2">
+                <i class="fa-solid fa-clock-rotate-left text-amber-400"></i>
+                <span>Certified Lab Records</span>
+              </div>
+              <span class="text-[10px] text-slate-500 font-mono">Live Sync</span>
+            </div>
+            <div class="space-y-2 overflow-y-auto max-h-40 pr-1" id="combineHistoryStream">
+              <!-- Populated by JS -->
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- Global Toast Notification Container -->
+  <div id="combineToast" class="fixed bottom-6 right-6 z-50 px-4 py-2.5 rounded-2xl text-xs font-bold shadow-2xl flex items-center gap-2 transition-all duration-300 transform translate-y-10 opacity-0 pointer-events-none"></div>
+
+  <!-- Scripts -->
+  <script src="static/js/combine_engine.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const engine = window.BlueLineCombineEngine;
+      if (!engine) {
+        console.error("Combine Engine failed to load.");
+        return;
+      }
+
+      const canvas = document.getElementById('combineRadarCanvas');
+      const prospectSelect = document.getElementById('combineProspectSelect');
+      const cohortSelect = document.getElementById('combineCohortSelect');
+
+      // Populate Prospect Dropdown
+      prospectSelect.innerHTML = engine.PROSPECT_BENCHMARKS.map(p => `
+        <option value="${p.id}">${p.name} (${p.pos} • ${p.team.split('/')[0].trim()})</option>
+      `).join('') + `
+        <option value="custom">⚡ Custom Athlete Entry...</option>
+      `;
+
+      let currentMetrics = Object.assign({}, engine.PROSPECT_BENCHMARKS[0].metrics);
+      let currentAthlete = engine.PROSPECT_BENCHMARKS[0];
+
+      // Update Form Inputs from Metrics
+      function syncMetricsToForm(metrics) {
+        for (const [k, v] of Object.entries(metrics)) {
+          const input = document.getElementById(`input_${k}`);
+          const display = document.getElementById(`val_${k}`);
+          if (input && display) {
+            input.value = v;
+            const proto = engine.PROTOCOLS[k];
+            display.textContent = `${v} ${proto.unit}`;
+          }
+        }
+        updateAnalytics();
+      }
+
+      // Read Metrics from Form Inputs
+      function readMetricsFromForm() {
+        const metrics = {};
+        for (const k of Object.keys(engine.PROTOCOLS)) {
+          const input = document.getElementById(`input_${k}`);
+          if (input) {
+            metrics[k] = parseFloat(input.value);
+          }
+        }
+        return metrics;
+      }
+
+      // Update Analytics & Radar
+      function updateAnalytics() {
+        const metrics = readMetricsFromForm();
+        currentMetrics = metrics;
+
+        const comp = engine.calculateComposite(metrics);
+        document.getElementById('compositeGradeDisplay').textContent = comp.scoutingGrade;
+        document.getElementById('percentileBadge').textContent = `${comp.percentile}th Percentile`;
+        
+        const tierEl = document.getElementById('tierLabelDisplay');
+        tierEl.textContent = comp.tierLabel;
+        tierEl.className = `text-xs font-semibold ${comp.tierColor}`;
+
+        // Sub-ratings
+        const pSprint = engine.calculateMetricPercentile('sprint30m', metrics.sprint30m);
+        const pVert = engine.calculateMetricPercentile('verticalJump', metrics.verticalJump);
+        const explosive = engine.percentileToScoutingScale(Math.round((pSprint + pVert) / 2));
+        document.getElementById('subRatingExplosive').textContent = `${explosive}/80`;
+
+        const pWingate = engine.calculateMetricPercentile('wingatePeak', metrics.wingatePeak);
+        const pBroad = engine.calculateMetricPercentile('broadJump', metrics.broadJump);
+        const anaerobic = engine.percentileToScoutingScale(Math.round((pWingate + pBroad) / 2));
+        document.getElementById('subRatingAnaerobic').textContent = `${anaerobic}/80`;
+
+        const pVo2 = engine.calculateMetricPercentile('vo2Max', metrics.vo2Max);
+        const pAgility = engine.calculateMetricPercentile('proAgility', metrics.proAgility);
+        const endurance = engine.percentileToScoutingScale(Math.round((pVo2 + pAgility) / 2));
+        document.getElementById('subRatingEndurance').textContent = `${endurance}/80`;
+
+        // Cohort Overlay
+        const cohortKey = cohortSelect.value;
+        const compareMetrics = cohortKey !== 'none' ? engine.COHORT_NORMS[cohortKey] : null;
+
+        const compareLabel = document.getElementById('radarCompareLabel');
+        if (compareMetrics) {
+          compareLabel.textContent = `${cohortKey} Baseline`;
+          document.getElementById('radarCompareLegend').classList.remove('hidden');
+        } else {
+          document.getElementById('radarCompareLegend').classList.add('hidden');
+        }
+
+        // Draw Radar
+        engine.drawBiometricRadar(canvas, metrics, compareMetrics);
+      }
+
+      // Switch Athlete
+      prospectSelect.addEventListener('change', (e) => {
+        const id = e.target.value;
+        if (id === 'custom') {
+          currentAthlete = {
+            id: 'custom-prospect',
+            name: 'Custom Prospect Assessment',
+            pos: 'F/D',
+            team: 'Scouting Bureau Combine Invitee',
+            height: "6'1\"",
+            weight: 195,
+            metrics: {
+              sprint30m: 4.02, wingatePeak: 16.0, verticalJump: 25.0,
+              proAgility: 4.35, pullUps: 12, gripStrength: 58, vo2Max: 59.0, broadJump: 105
+            },
+            scoutingNote: "Custom combine evaluation initiated in the BlueLine Biometric Lab."
+          };
+        } else {
+          currentAthlete = engine.PROSPECT_BENCHMARKS.find(p => p.id === id) || engine.PROSPECT_BENCHMARKS[0];
+        }
+
+        document.getElementById('athleteName').textContent = currentAthlete.name;
+        document.getElementById('athleteInitials').textContent = currentAthlete.name.split(' ').map(w => w[0]).join('');
+        document.getElementById('athletePos').textContent = currentAthlete.pos;
+        document.getElementById('athleteTeam').textContent = currentAthlete.team;
+        document.getElementById('athleteBio').textContent = `${currentAthlete.height} • ${currentAthlete.weight} lbs • Official Verified Assessment`;
+        document.getElementById('scoutingNotesDisplay').textContent = `"${currentAthlete.scoutingNote || 'Certified combine measurements.'}"`;
+        document.getElementById('radarAthleteLabel').textContent = currentAthlete.name;
+
+        syncMetricsToForm(currentAthlete.metrics);
+      });
+
+      // Change Cohort Comparison
+      cohortSelect.addEventListener('change', () => {
+        updateAnalytics();
+      });
+
+      // Bind input sliders to live changes
+      for (const k of Object.keys(engine.PROTOCOLS)) {
+        const input = document.getElementById(`input_${k}`);
+        const display = document.getElementById(`val_${k}`);
+        if (input && display) {
+          input.addEventListener('input', (e) => {
+            const proto = engine.PROTOCOLS[k];
+            display.textContent = `${e.target.value} ${proto.unit}`;
+            updateAnalytics();
+          });
+        }
+      }
+
+      // Reset Form
+      document.getElementById('resetTestBtn').addEventListener('click', () => {
+        if (currentAthlete) {
+          syncMetricsToForm(currentAthlete.metrics);
+          showToast("Metrics reset to prospect baseline.", "info");
+        }
+      });
+
+      // Save to Passport
+      document.getElementById('saveEvaluationBtn').addEventListener('click', () => {
+        const metrics = readMetricsFromForm();
+        const evalObj = engine.saveCombineEvaluation(currentAthlete.id, currentAthlete.name, metrics, currentAthlete.scoutingNote);
+        showToast(`Saved ${currentAthlete.name} evaluation to Player Passport!`, "success");
+        renderHistory();
+      });
+
+      // Broadcast to The Wire
+      document.getElementById('broadcastWireBtn').addEventListener('click', () => {
+        const metrics = readMetricsFromForm();
+        const evalObj = engine.saveCombineEvaluation(currentAthlete.id, currentAthlete.name, metrics, currentAthlete.scoutingNote);
+        const post = engine.broadcastCombineToWire(evalObj);
+        showToast("Broadcasted Combine Dossier to The BlueLine Wire (#CombineReport)!", "success");
+      });
+
+      // Toast Notification Helper
+      function showToast(msg, type = 'info') {
+        const toastEl = document.getElementById('combineToast');
+        const colorClasses = type === 'success' ? 'bg-emerald-600 text-white border border-emerald-400/50 shadow-emerald-500/30' :
+                             type === 'error' ? 'bg-rose-600 text-white border border-rose-400/50 shadow-rose-500/30' :
+                             'bg-sky-600 text-white border border-sky-400/50 shadow-sky-500/30';
+        toastEl.className = `fixed bottom-6 right-6 z-50 px-4 py-2.5 rounded-2xl text-xs font-bold shadow-2xl flex items-center gap-2 transition-all duration-300 transform translate-y-0 opacity-100 ${colorClasses}`;
+        toastEl.innerHTML = `<span>${type === 'success' ? '✅' : type === 'error' ? '⚠️' : '🧬'}</span> <span>${msg}</span>`;
+        clearTimeout(toastEl._timer);
+        toastEl._timer = setTimeout(() => {
+          toastEl.className = 'fixed bottom-6 right-6 z-50 px-4 py-2.5 rounded-2xl text-xs font-bold shadow-2xl flex items-center gap-2 transition-all duration-300 transform translate-y-10 opacity-0 pointer-events-none';
+        }, 2800);
+      }
+
+      // Render History List
+      function renderHistory() {
+        const container = document.getElementById('combineHistoryStream');
+        let evals = [];
+        try {
+          const raw = localStorage.getItem('blueline_combine_evaluations');
+          if (raw) evals = JSON.parse(raw);
+        } catch (e) {}
+
+        if (evals.length === 0) {
+          evals = [
+            {
+              athleteName: "Macklin Celebrini",
+              timestamp: "Sep 13, 2026",
+              composite: { scoutingGrade: 72, percentile: 94 }
+            },
+            {
+              athleteName: "Artyom Levshunov",
+              timestamp: "Sep 12, 2026",
+              composite: { scoutingGrade: 74, percentile: 96 }
+            },
+            {
+              athleteName: "Michael Hage",
+              timestamp: "Sep 11, 2026",
+              composite: { scoutingGrade: 68, percentile: 88 }
+            }
+          ];
+        }
+
+        container.innerHTML = evals.slice(0, 5).map(ev => `
+          <div class="p-2.5 rounded-xl bg-slate-950/70 border border-slate-800/80 flex items-center justify-between gap-2">
+            <div>
+              <div class="font-bold text-white text-[11px]">${ev.athleteName}</div>
+              <div class="text-[10px] text-slate-500 font-mono">${ev.timestamp}</div>
+            </div>
+            <div class="text-right font-mono">
+              <span class="px-2 py-0.5 rounded bg-sky-500/20 text-sky-300 text-[10px] font-bold">Grade: ${ev.composite.scoutingGrade}/80</span>
+            </div>
+          </div>
+        `).join('');
+      }
+
+      // Initial Load
+      syncMetricsToForm(currentMetrics);
+      renderHistory();
+    });
+  </script>
+
+  <!-- Service Worker Registration for Offline Rinkside PWA -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js').then(reg => {
+          console.log('BlueLine Rinkside Service Worker registered successfully:', reg.scope);
+          const pill = document.getElementById('pwaStatusPill');
+          if (pill) pill.textContent = '⚡ Rinkside PWA Active';
+        }).catch(err => {
+          console.warn('Service Worker registration skipped or failed:', err);
+        });
+      });
+    }
+  </script>
+
+</body>
+</html>

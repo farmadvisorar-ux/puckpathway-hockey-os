@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>The BlueLine Wire - The X Platform for the Hockey Community | BlueLine DataWorks</title>
-  <meta name="description" content="The premier social, messaging & scouting network for hockey. Universal athlete sign-up, X-style custom profiles, peer-to-peer messaging, and live stats.">
+  <meta name="description" content="BlueLine DataWorks is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory.">
   <link rel="icon" type="image/jpeg" href="static/img/blueline_logo.jpg">
   <link rel="apple-touch-icon" href="static/img/blueline_logo.jpg">
 
@@ -12,7 +12,7 @@
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="BlueLine DataWorks">
   <meta property="og:title" content="The BlueLine Wire - The X Platform for Hockey">
-  <meta property="og:description" content="Connect with 2,974+ players, coaches, and recruiters. Custom X profiles, direct messaging, gamified status tracking, and live telemetry.">
+  <meta property="og:description" content="BlueLine DataWorks is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory.">
   <meta property="og:image" content="https://farmadvisorar-ux.github.io/puckpathway-hockey-os/static/img/blueline_og_preview.jpg">
   <meta property="og:image:secure_url" content="https://farmadvisorar-ux.github.io/puckpathway-hockey-os/static/img/blueline_og_preview.jpg">
   <meta property="og:image:type" content="image/jpeg">
@@ -23,7 +23,7 @@
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="The BlueLine Wire - The X Platform for Hockey">
-  <meta name="twitter:description" content="Connect with 2,974+ players, coaches, and recruiters. Custom X profiles, direct messaging, gamified status tracking, and live telemetry.">
+  <meta name="twitter:description" content="BlueLine DataWorks is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory.">
   <meta name="twitter:image" content="https://farmadvisorar-ux.github.io/puckpathway-hockey-os/static/img/blueline_og_preview.jpg">
 
   <!-- Tailwind CSS -->
@@ -39,6 +39,7 @@
     .custom-scroll::-webkit-scrollbar-track { background: transparent; }
     .custom-scroll::-webkit-scrollbar-thumb { background: rgba(56, 189, 248, 0.2); border-radius: 4px; }
   </style>
+  <link rel="manifest" href="manifest.json">
 </head>
 <body class="bg-[#05070c] text-slate-100 min-h-screen flex flex-col font-sans selection:bg-sky-500 selection:text-white">
 
@@ -74,6 +75,9 @@
         </a>
         <a href="draft.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-sky-600/30 hover:bg-sky-600/50 text-sky-300 font-semibold border border-sky-400/50 transition flex items-center gap-1">
           <span>🎯</span> <span class="hidden md:inline">Draft Room</span>
+        </a>
+        <a href="combine.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-amber-300 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>🧬</span> <span class="hidden md:inline">Combine Lab</span>
         </a>
         <a href="index.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 font-semibold border border-slate-800 transition flex items-center gap-1">
           <span>🏒</span> <span class="hidden md:inline">Main OS</span>
@@ -636,8 +640,8 @@
                 <button class="flex items-center gap-1 ${post.likedByMe ? 'text-rose-500 font-bold' : 'hover:text-rose-400'} transition" onclick="toggleLike('${post.id}')">
                   <span>${post.likedByMe ? '❤️' : '🤍'}</span> <span>${post.likes}</span>
                 </button>
-                <button class="hover:text-amber-400 transition" title="Bookmark">
-                  <span>🔖</span>
+                <button class="flex items-center gap-1 ${post.bookmarkedByMe ? 'text-amber-400 font-bold' : 'hover:text-amber-400'} transition" onclick="toggleBookmark('${post.id}')" title="Bookmark">
+                  <span>${post.bookmarkedByMe ? '🔖' : '📑'}</span>
                 </button>
                 <button class="hover:text-cyan-400 transition" onclick="sharePost('${post.id}')" title="Share">
                   <span>📤</span>
@@ -755,6 +759,68 @@
         state = social.getState();
         renderFeed();
       };
+
+      window.toggleBookmark = function(postId) {
+        const post = social.toggleBookmarkPost(postId);
+        if (post) {
+          state = social.getState();
+          renderFeed();
+          showToast(post.bookmarkedByMe ? "Post bookmarked!" : "Bookmark removed", "info");
+        }
+      };
+
+      window.repostPost = function(postId) {
+        const post = social.repostPost(postId);
+        if (post) {
+          state = social.getState();
+          renderFeed();
+          showToast("Reposted to your BlueLine Wire feed!", "success");
+        }
+      };
+
+      window.replyToPost = function(postId) {
+        const post = state.posts.find(p => p.id === postId);
+        if (!post) return;
+        const author = social.getUserById(post.authorId);
+        const composer = document.getElementById('composerTextarea');
+        composer.value = `@${author.handle} `;
+        composer.focus();
+        composer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        const countEl = document.getElementById('composerCharCount');
+        if (countEl) countEl.textContent = `${composer.value.length} / 280`;
+        showToast(`Replying to @${author.handle}`, 'info');
+      };
+
+      window.sharePost = function(postId) {
+        const url = `${window.location.origin}${window.location.pathname}#post-${postId}`;
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(url).then(() => {
+            showToast("Post link copied to clipboard!", "success");
+          }).catch(() => {
+            prompt("Copy post link:", url);
+          });
+        } else {
+          prompt("Copy post link:", url);
+        }
+      };
+
+      function showToast(msg, type = 'info') {
+        let toastEl = document.getElementById('wireGlobalToast');
+        if (!toastEl) {
+          toastEl = document.createElement('div');
+          toastEl.id = 'wireGlobalToast';
+          document.body.appendChild(toastEl);
+        }
+        const colorClasses = type === 'success' ? 'bg-emerald-600 text-white border border-emerald-400/50 shadow-emerald-500/30' :
+                             type === 'error' ? 'bg-rose-600 text-white border border-rose-400/50 shadow-rose-500/30' :
+                             'bg-sky-600 text-white border border-sky-400/50 shadow-sky-500/30';
+        toastEl.className = `fixed bottom-6 right-6 z-50 px-4 py-2.5 rounded-2xl text-xs font-bold shadow-2xl flex items-center gap-2 transition-all duration-300 transform translate-y-0 opacity-100 ${colorClasses}`;
+        toastEl.innerHTML = `<span>${type === 'success' ? '✅' : type === 'error' ? '⚠️' : 'ℹ️'}</span> <span>${msg}</span>`;
+        clearTimeout(toastEl._timer);
+        toastEl._timer = setTimeout(() => {
+          toastEl.className = 'fixed bottom-6 right-6 z-50 px-4 py-2.5 rounded-2xl text-xs font-bold shadow-2xl flex items-center gap-2 transition-all duration-300 transform translate-y-10 opacity-0 pointer-events-none';
+        }, 2800);
+      }
 
       window.filterByTag = function(tag) {
         document.getElementById('composerTextarea').value += ` ${tag} `;

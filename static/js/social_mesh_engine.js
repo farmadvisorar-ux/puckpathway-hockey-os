@@ -481,11 +481,108 @@
     return post;
   }
 
-  // Helper to find a user by ID
-  function getUserById(userId) {
+  // Toggle Bookmark on a post
+  function toggleBookmarkPost(postId) {
+    const state = loadState();
+    const post = state.posts.find(p => p.id === postId);
+    if (!post) return null;
+
+    post.bookmarkedByMe = !post.bookmarkedByMe;
+    saveState(state);
+    return post;
+  }
+
+  // Repost a post to the feed
+  function repostPost(postId) {
+    const state = loadState();
+    const post = state.posts.find(p => p.id === postId);
+    if (!post) return null;
+
+    post.reposts = (post.reposts || 0) + 1;
+    const author = getUserById(post.authorId);
+
+    const repostEntry = {
+      id: `post_repost_${Date.now()}`,
+      authorId: state.currentUser ? state.currentUser.id : "usr_scout_director",
+      timestamp: "Just now",
+      content: `🔁 **Reposted from @${author ? author.handle : 'hockey'}**\n\n${post.content.slice(0, 200)}${post.content.length > 200 ? '...' : ''}`,
+      tags: Array.from(new Set([...(post.tags || []), '#Repost'])),
+      likes: 1,
+      reposts: 0,
+      replies: 0,
+      likedByMe: true,
+      pinned: false,
+      media: post.media || null
+    };
+
+    state.posts.unshift(repostEntry);
+    addXP(30, "Reposted on The Wire");
+    saveState(state);
+    return post;
+  }
+
+  // Helper to find a user by ID with alias mapping
+  const USER_ALIASES = {
+    'director-scouting': 'usr_scout_director',
+    'blueline-scout-director': 'usr_scout_director',
+    'blueline_scouting': 'usr_scout_director',
+    'coach-callahan': 'usr_mike_callahan',
+    'coach_callahan': 'usr_mike_callahan',
+    'chicagosteel': 'usr_chicago_steel',
+    'chicago-steel': 'usr_chicago_steel'
+  };
+
+  const SPECIAL_ACCOUNTS = {
+    'usr_blueline_combine': {
+      id: 'usr_blueline_combine',
+      name: 'BlueLine Combine Testing Lab',
+      handle: 'blueline_combine',
+      role: 'scout',
+      badge: BADGES.SCOUT,
+      title: 'Biometrics & Laser Telemetry Hub',
+      organization: 'BlueLine Scouting Bureau',
+      location: 'USA Hockey Arena / Plymouth, MI',
+      bio: 'Official athletic testing and physical metrics validation lab. Measuring laser 30m speed, Wingate anaerobic power, force plate jump dynamics, and trajectory percentile curves.',
+      avatar: 'https://images.unsplash.com/photo-1517649763962-0c623266ddc0?auto=format&fit=crop&w=250&q=80',
+      avatarColor: 'from-amber-500 to-red-600',
+      banner: 'https://images.unsplash.com/photo-1580748141549-71748dbe0bdc?auto=format&fit=crop&w=1200&q=80',
+      level: 94,
+      xp: 89000,
+      xpNext: 95000,
+      stats: { athletesTested: 1420, reportsGenerated: 620, laserPBs: 388 },
+      following: ['usr_scout_director'],
+      followers: 3100
+    }
+  };
+
+  function getUserById(rawUserId, fallbackObj) {
+    const userId = USER_ALIASES[rawUserId] || rawUserId;
+    if (SPECIAL_ACCOUNTS[userId]) return SPECIAL_ACCOUNTS[userId];
+
     const state = loadState();
     let found = state.users.find(u => u.id === userId);
     if (found) return found;
+
+    // If caller provided fallback author object (e.g. from post.author)
+    if (fallbackObj && fallbackObj.name) {
+      return {
+        id: userId,
+        name: fallbackObj.name,
+        handle: fallbackObj.handle || 'blueline_scouting',
+        role: fallbackObj.role || 'scout',
+        badge: BADGES.SCOUT,
+        title: fallbackObj.title || 'Scouting Specialist',
+        organization: fallbackObj.organization || 'BlueLine DataWorks',
+        location: 'North America',
+        bio: 'Verified BlueLine Scouting Bureau contributor.',
+        avatar: fallbackObj.avatar || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=250&q=80',
+        banner: 'https://images.unsplash.com/photo-1580748141549-71748dbe0bdc?auto=format&fit=crop&w=1200&q=80',
+        level: 88,
+        xp: 72000,
+        xpNext: 80000,
+        stats: { reports: 120 }
+      };
+    }
 
     // Check if it's a roster player from master_players
     if (window.SMRP_MASTER_PLAYERS) {
@@ -535,6 +632,8 @@
     sendMessage: sendMessage,
     createPost: createPost,
     toggleLikePost: toggleLikePost,
+    toggleBookmarkPost: toggleBookmarkPost,
+    repostPost: repostPost,
     getUserById: getUserById
   };
 
