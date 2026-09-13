@@ -22,6 +22,9 @@
     { "src": "/gamecenter", "dest": "/scoreboard.html" },
     { "src": "/scores", "dest": "/scoreboard.html" },
     { "src": "/warroom", "dest": "/scoreboard.html" },
+    { "src": "/draft", "dest": "/draft.html" },
+    { "src": "/mockdraft", "dest": "/draft.html" },
+    { "src": "/draftroom", "dest": "/draft.html" },
     { "src": "/(.*)", "dest": "/$1" }
   ]
 }
