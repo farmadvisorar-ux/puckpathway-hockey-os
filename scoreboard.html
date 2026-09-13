@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BlueLine DataWorks | Live Multi-Game Scouting War Room & Game Center</title>
+
+  <!-- Meta Tags -->
+  <meta name="title" content="BlueLine DataWorks | Live Multi-Game Scouting War Room">
+  <meta name="description" content="BlueLine DataWorks Live Multi-Game Scouting War Room. Monitor 4 concurrent NCAA D1 and USHL games with real-time shift telemetry, xG momentum tracking, and 1-click scouting exports.">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://farmadvisorar-ux.github.io/puckpathway-hockey-os/scoreboard.html">
+  <meta property="og:title" content="BlueLine DataWorks | Live Multi-Game Scouting War Room">
+  <meta property="og:description" content="Quad-view live game monitoring, shift telemetry, period shot maps, and direct scouting exports.">
+  <meta property="og:image" content="https://farmadvisorar-ux.github.io/puckpathway-hockey-os/static/img/blueline_og_preview.jpg">
+  <meta property="og:image:width" content="1280">
+  <meta property="og:image:height" content="720">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="BlueLine DataWorks | Live Multi-Game Scouting War Room">
+  <meta name="twitter:description" content="Quad-view live game monitoring, shift telemetry, period shot maps, and direct scouting exports.">
+  <meta name="twitter:image" content="https://farmadvisorar-ux.github.io/puckpathway-hockey-os/static/img/blueline_og_preview.jpg">
+
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,400;0,600;0,700;1,700&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              primary: '#0284c7',
+              cyan: '#00f0ff',
+              electric: '#38bdf8',
+              accent: '#f59e0b',
+              gold: '#fbbf24',
+              surface: '#0d131f',
+              border: 'rgba(56, 189, 248, 0.2)'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Chakra Petch', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background: radial-gradient(circle at 50% 0%, #0c1a30 0%, #060b14 100%);
+      color: #f1f5f9;
+      min-height: 100vh;
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #090e17;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #1e293b;
+      border-radius: 4px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: #38bdf8;
+    }
+    .game-card.active {
+      border-color: #00f0ff;
+      box-shadow: 0 0 15px rgba(0, 240, 255, 0.25);
+    }
+  </style>
+</head>
+<body class="font-sans antialiased custom-scrollbar flex flex-col min-h-screen">
+
+  <!-- TOP BRAND HEADER -->
+  <header class="sticky top-0 z-40 bg-[#060b14]/90 backdrop-blur-md border-b border-brand-border px-4 py-3">
+    <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
+      
+      <!-- Brand Logo & Title -->
+      <div class="flex items-center gap-3">
+        <a href="index.html" class="flex items-center gap-2 group">
+          <img src="https://farmadvisorar-ux.github.io/puckpathway-hockey-os/static/img/blueline_logo.jpg" 
+               alt="BlueLine DataWorks Crest" 
+               class="w-10 h-10 rounded-lg border border-brand-cyan/40 shadow-[0_0_10px_rgba(0,240,255,0.3)] object-cover group-hover:scale-105 transition-transform">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="font-display font-bold text-lg tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-white via-brand-cyan to-brand-electric">
+                BLUELINE DATAWORKS
+              </span>
+              <span class="px-2 py-0.5 text-[10px] font-mono font-bold uppercase rounded bg-red-500/20 text-red-400 border border-red-500/40">
+                LIVE WAR ROOM
+              </span>
+            </div>
+            <p class="text-[11px] text-slate-400 font-mono hidden sm:block">Multi-Game Collegiate & Junior Scouting Center</p>
+          </div>
+        </a>
+      </div>
+
+      <!-- Navigation Hub -->
+      <nav class="hidden md:flex items-center gap-1 bg-slate-900/80 p-1 rounded-xl border border-slate-800">
+        <a href="scoreboard.html" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-brand-primary text-white shadow-sm flex items-center gap-1.5">
+          <i class="fa-solid fa-satellite-dish text-red-400 animate-pulse"></i>
+          <span>Game Center</span>
+        </a>
+        <a href="rink3d.html" class="px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-800 transition-colors flex items-center gap-1.5">
+          <i class="fa-solid fa-cube text-cyan-400"></i>
+          <span>3D Rink</span>
+        </a>
+        <a href="film.html" class="px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-800 transition-colors flex items-center gap-1.5">
+          <i class="fa-solid fa-film text-cyan-400"></i>
+          <span>Film Studio</span>
+        </a>
+        <a href="portal.html" class="px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-800 transition-colors flex items-center gap-1.5">
+          <i class="fa-solid fa-bolt text-amber-400"></i>
+          <span>Portal & NIL</span>
+        </a>
+        <a href="community.html" class="px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-800 transition-colors flex items-center gap-1.5">
+          <i class="fa-solid fa-globe text-cyan-400"></i>
+          <span>The Wire</span>
+        </a>
+        <a href="database.html" class="px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-800 transition-colors flex items-center gap-1.5">
+          <i class="fa-solid fa-database text-slate-400"></i>
+          <span>Directory</span>
+        </a>
+      </nav>
+
+      <!-- Quick Actions -->
+      <div class="flex items-center gap-2">
+        <button onclick="publishGameReportToWire()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-gradient-to-r from-red-500 to-amber-500 text-white hover:from-red-400 hover:to-amber-400 transition-all shadow-md">
+          <i class="fa-solid fa-bullhorn"></i>
+          <span>Post Game Report</span>
+        </button>
+        <a href="community.html" class="relative p-2 rounded-lg bg-slate-900 border border-slate-800 text-slate-300 hover:text-cyan-400 transition-colors" title="Messages">
+          <i class="fa-solid fa-comments"></i>
+        </a>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- MISSION BANNER HUD -->
+  <div class="bg-gradient-to-r from-sky-950/40 via-slate-900/60 to-sky-950/40 border-b border-brand-border/40 py-2 px-4">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-2 text-center md:text-left">
+      <div class="flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
+        <p class="text-xs text-slate-300">
+          <strong class="text-cyan-300 font-display">BLUELINE DATAWORKS:</strong>
+          The only hockey analytics platform tracking athletes from earliest grassroots through professional careers.
+        </p>
+      </div>
+      <div class="flex items-center gap-2 text-[11px] font-mono bg-slate-950/80 px-3 py-1 rounded-full border border-red-500/30 text-red-400">
+        <i class="fa-solid fa-satellite-dish"></i>
+        <span>SCOUTING RADAR: <strong>4 CONCURRENT BROADCAST FEEDS SYNCED</strong></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN MULTI-GAME WAR ROOM CONTAINER -->
+  <main class="max-w-7xl mx-auto px-4 py-6 space-y-6 flex-1 w-full">
+
+    <!-- TOP QUAD-GAME MATCHUP STRIP (4 CARDS) -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
+      
+      <!-- Game 1: Michigan vs Minnesota -->
+      <div onclick="selectGame(0, this)" class="game-card active p-3 rounded-2xl bg-slate-900/80 border border-cyan-500/50 cursor-pointer transition-all hover:bg-slate-900 flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between text-[11px] font-mono mb-2">
+            <span class="px-2 py-0.5 rounded bg-red-500/20 text-red-400 font-bold border border-red-500/30 flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-red-400 animate-pulse"></span>
+              <span>3RD 04:12</span>
+            </span>
+            <span class="text-slate-400">Big Ten</span>
+          </div>
+
+          <!-- Teams & Scores -->
+          <div class="space-y-1.5 mb-2">
+            <div class="flex items-center justify-between text-xs font-bold">
+              <span class="text-white flex items-center gap-1.5">〽️ #3 Michigan</span>
+              <span class="text-cyan-300 font-display text-base">4</span>
+            </div>
+            <div class="flex items-center justify-between text-xs font-bold">
+              <span class="text-slate-300 flex items-center gap-1.5">〽️ #5 Minnesota</span>
+              <span class="text-slate-300 font-display text-base">3</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="pt-2 border-t border-slate-800/80 text-[10px] text-slate-400 flex items-center justify-between font-mono">
+          <span>SOG: 34-31</span>
+          <span class="text-cyan-400">Hage: 1G, 1A</span>
+        </div>
+      </div>
+
+      <!-- Game 2: Denver vs North Dakota -->
+      <div onclick="selectGame(1, this)" class="game-card p-3 rounded-2xl bg-slate-900/80 border border-slate-800 cursor-pointer transition-all hover:bg-slate-900 flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between text-[11px] font-mono mb-2">
+            <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-400 font-bold border border-slate-700">FINAL</span>
+            <span class="text-slate-400">NCHC</span>
+          </div>
+
+          <div class="space-y-1.5 mb-2">
+            <div class="flex items-center justify-between text-xs font-bold">
+              <span class="text-white flex items-center gap-1.5">🏔️ #1 Denver</span>
+              <span class="text-cyan-300 font-display text-base">5</span>
+            </div>
+            <div class="flex items-center justify-between text-xs font-bold">
+              <span class="text-slate-400 flex items-center gap-1.5">🦅 #4 North Dakota</span>
+              <span class="text-slate-400 font-display text-base">2</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="pt-2 border-t border-slate-800/80 text-[10px] text-slate-400 flex items-center justify-between font-mono">
+          <span>SOG: 38-26</span>
+          <span class="text-amber-400">Devine: 2G, 1A</span>
+        </div>
+      </div>
+
+      <!-- Game 3: Boston College vs Boston University -->
+      <div onclick="selectGame(2, this)" class="game-card p-3 rounded-2xl bg-slate-900/80 border border-slate-800 cursor-pointer transition-all hover:bg-slate-900 flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between text-[11px] font-mono mb-2">
+            <span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-bold border border-amber-500/30 flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>
+              <span>OT 02:45</span>
+            </span>
+            <span class="text-slate-400">Hockey East</span>
+          </div>
+
+          <div class="space-y-1.5 mb-2">
+            <div class="flex items-center justify-between text-xs font-bold">
+              <span class="text-white flex items-center gap-1.5">🦅 #2 Boston College</span>
+              <span class="text-white font-display text-base">3</span>
+            </div>
+            <div class="flex items-center justify-between text-xs font-bold">
+              <span class="text-white flex items-center gap-1.5">🐾 #6 Boston Univ</span>
+              <span class="text-white font-display text-base">3</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="pt-2 border-t border-slate-800/80 text-[10px] text-slate-400 flex items-center justify-between font-mono">
+          <span>SOG: 29-29</span>
+          <span class="text-emerald-400">4-on-4 Sudden Death</span>
+        </div>
+      </div>
+
+      <!-- Game 4: Chicago Steel vs Fargo Force -->
+      <div onclick="selectGame(3, this)" class="game-card p-3 rounded-2xl bg-slate-900/80 border border-slate-800 cursor-pointer transition-all hover:bg-slate-900 flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between text-[11px] font-mono mb-2">
+            <span class="px-2 py-0.5 rounded bg-red-500/20 text-red-400 font-bold border border-red-500/30 flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-red-400 animate-pulse"></span>
+              <span>2ND 11:30</span>
+            </span>
+            <span class="text-slate-400">USHL Junior</span>
+          </div>
+
+          <div class="space-y-1.5 mb-2">
+            <div class="flex items-center justify-between text-xs font-bold">
+              <span class="text-white flex items-center gap-1.5">⚙️ Chicago Steel</span>
+              <span class="text-cyan-300 font-display text-base">3</span>
+            </div>
+            <div class="flex items-center justify-between text-xs font-bold">
+              <span class="text-slate-300 flex items-center gap-1.5">⚡ Fargo Force</span>
+              <span class="text-slate-300 font-display text-base">2</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="pt-2 border-t border-slate-800/80 text-[10px] text-slate-400 flex items-center justify-between font-mono">
+          <span>SOG: 21-19</span>
+          <span class="text-cyan-400">PP 1:14 (5v4)</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ACTIVE GAME EXPANDED SCOUTING WAR ROOM -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+      
+      <!-- LEFT: ACTIVE SCOREBOARD & PLAY-BY-PLAY STREAM (8 COLS) -->
+      <div class="lg:col-span-8 space-y-4">
+        
+        <!-- Live Detailed Scorebug Banner -->
+        <div class="bg-slate-900/90 border border-brand-border rounded-2xl p-5 shadow-2xl relative overflow-hidden">
+          <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+            
+            <!-- Home Team -->
+            <div class="flex items-center gap-4 text-center sm:text-left">
+              <div class="w-14 h-14 rounded-2xl bg-sky-950 border border-sky-500/40 flex items-center justify-center text-3xl shadow-lg">
+                <span id="activeHomeLogo">〽️</span>
+              </div>
+              <div>
+                <h2 id="activeHomeName" class="font-display font-bold text-lg text-white">#3 Michigan Wolverines</h2>
+                <p class="text-xs text-slate-400 font-mono">Home • Big Ten (21-8-3)</p>
+              </div>
+            </div>
+
+            <!-- Score Center Pill -->
+            <div class="bg-slate-950 border border-slate-800 px-6 py-2.5 rounded-2xl text-center shadow-inner">
+              <div class="text-3xl font-display font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-white tracking-widest" id="activeScore">
+                4 - 3
+              </div>
+              <div class="text-[11px] font-mono text-red-400 font-bold flex items-center justify-center gap-1 mt-0.5">
+                <span class="w-2 h-2 rounded-full bg-red-400 animate-pulse"></span>
+                <span id="activeClock">3RD PERIOD • 04:12</span>
+              </div>
+            </div>
+
+            <!-- Away Team -->
+            <div class="flex items-center gap-4 text-center sm:text-right flex-row-reverse">
+              <div class="w-14 h-14 rounded-2xl bg-amber-950/40 border border-amber-500/40 flex items-center justify-center text-3xl shadow-lg">
+                <span id="activeAwayLogo">〽️</span>
+              </div>
+              <div>
+                <h2 id="activeAwayName" class="font-display font-bold text-lg text-white">#5 Minnesota Gophers</h2>
+                <p class="text-xs text-slate-400 font-mono">Away • Big Ten (20-9-4)</p>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Period Breakdown Grid -->
+          <div class="mt-5 pt-4 border-t border-slate-800/80 grid grid-cols-4 sm:grid-cols-6 gap-2 text-center font-mono text-xs">
+            <div class="p-2 bg-slate-950/60 rounded-lg border border-slate-800">
+              <span class="text-[10px] text-slate-500 block">1ST</span>
+              <strong class="text-white">1 - 1</strong>
+            </div>
+            <div class="p-2 bg-slate-950/60 rounded-lg border border-slate-800">
+              <span class="text-[10px] text-slate-500 block">2ND</span>
+              <strong class="text-white">2 - 1</strong>
+            </div>
+            <div class="p-2 bg-slate-950/60 rounded-lg border border-slate-800">
+              <span class="text-[10px] text-slate-500 block">3RD</span>
+              <strong class="text-cyan-300">1 - 1</strong>
+            </div>
+            <div class="p-2 bg-slate-950/60 rounded-lg border border-slate-800">
+              <span class="text-[10px] text-slate-500 block">SHOTS</span>
+              <strong class="text-emerald-400">34 - 31</strong>
+            </div>
+            <div class="p-2 bg-slate-950/60 rounded-lg border border-slate-800">
+              <span class="text-[10px] text-slate-500 block">POWER PLAY</span>
+              <strong class="text-amber-300">1/3 - 0/2</strong>
+            </div>
+            <div class="p-2 bg-slate-950/60 rounded-lg border border-slate-800">
+              <span class="text-[10px] text-slate-500 block">FACEOFFS</span>
+              <strong class="text-white">54.2%</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- LIVE EVENT PLAY-BY-PLAY STREAM -->
+        <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-4 space-y-3">
+          <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+            <h3 class="font-display font-bold text-sm text-white flex items-center gap-2">
+              <i class="fa-solid fa-list-check text-cyan-400"></i>
+              <span>Live Play-by-Play & Scouting Events</span>
+            </h3>
+            <span class="text-[10px] font-mono text-slate-400">Real-Time Shift Engine</span>
+          </div>
+
+          <div class="space-y-2 text-xs font-mono max-h-72 overflow-y-auto custom-scrollbar pr-1" id="eventsStream">
+            <div class="p-2.5 rounded-xl bg-cyan-950/30 border border-cyan-500/30 flex items-start gap-3">
+              <span class="px-2 py-0.5 rounded bg-cyan-500 text-slate-950 font-bold text-[10px]">15:48</span>
+              <div class="flex-1">
+                <span class="text-cyan-300 font-bold">🚨 GOAL (MICH 4 - MINN 3):</span>
+                <span class="text-slate-300">Michael Hage (#19) snipes top-shelf over glove off rush transition. Assists: Chesley, Hughes.</span>
+              </div>
+            </div>
+
+            <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800 flex items-start gap-3">
+              <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 font-bold text-[10px]">13:20</span>
+              <div class="flex-1">
+                <span class="text-amber-400 font-bold">🧤 BIG SAVE:</span>
+                <span class="text-slate-300">Logan Stein turns aside high-danger slot one-timer from hashmarks. Rebound steered to corner.</span>
+              </div>
+            </div>
+
+            <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800 flex items-start gap-3">
+              <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 font-bold text-[10px]">09:15</span>
+              <div class="flex-1">
+                <span class="text-red-400 font-bold">⚠️ PENALTY:</span>
+                <span class="text-slate-300">Minnesota 2-minute minor for Hooking. Michigan on Power Play (1:14 remaining).</span>
+              </div>
+            </div>
+
+            <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800 flex items-start gap-3">
+              <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 font-bold text-[10px]">06:40</span>
+              <div class="flex-1">
+                <span class="text-emerald-400 font-bold">🛡️ CONTROLLED EXIT:</span>
+                <span class="text-slate-300">Ryan Chesley breaks cycle with stick lift, banks first-pass off boards to spring 2-on-1 rush.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- RIGHT: ATHLETE SHIFT METRICS & 1-CLICK WIRE REPORT (4 COLS) -->
+      <div class="lg:col-span-4 space-y-4">
+        
+        <!-- Key Athlete Live Performance Box -->
+        <div class="bg-slate-900/85 border border-brand-border rounded-2xl p-4 space-y-3">
+          <h3 class="font-display font-bold text-sm text-white flex items-center gap-2">
+            <i class="fa-solid fa-users-viewfinder text-cyan-400"></i>
+            <span>Tracked Athlete Shift Telemetry</span>
+          </h3>
+
+          <div class="space-y-2 text-xs">
+            <!-- Athlete 1 -->
+            <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800">
+              <div class="flex items-center justify-between mb-1">
+                <strong class="text-cyan-300">Michael Hage (C #19)</strong>
+                <span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-cyan-500/20 text-cyan-300">1G, 1A</span>
+              </div>
+              <div class="grid grid-cols-3 gap-1 text-[10px] font-mono text-slate-400">
+                <span>TOI: 19:42</span>
+                <span>Top Spd: 22.8 MPH</span>
+                <span>FO%: 62.5%</span>
+              </div>
+            </div>
+
+            <!-- Athlete 2 -->
+            <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800">
+              <div class="flex items-center justify-between mb-1">
+                <strong class="text-amber-300">Ryan Chesley (RD #2)</strong>
+                <span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300">+2, 1A</span>
+              </div>
+              <div class="grid grid-cols-3 gap-1 text-[10px] font-mono text-slate-400">
+                <span>TOI: 23:15</span>
+                <span>Blocks: 4</span>
+                <span>Hits: 5</span>
+              </div>
+            </div>
+
+            <!-- Athlete 3 -->
+            <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800">
+              <div class="flex items-center justify-between mb-1">
+                <strong class="text-emerald-300">Logan Stein (G #31)</strong>
+                <span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300">.912 SV%</span>
+              </div>
+              <div class="grid grid-cols-3 gap-1 text-[10px] font-mono text-slate-400">
+                <span>Saves: 31/34</span>
+                <span>xGA: 3.82</span>
+                <span>GSAA: +0.82</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 1-CLICK SCOUTING REPORT CARD -->
+        <div class="bg-gradient-to-br from-slate-900 via-sky-950/40 to-slate-900 border border-cyan-500/40 rounded-2xl p-4 space-y-3 shadow-lg">
+          <div class="flex items-center justify-between">
+            <h4 class="font-display font-bold text-sm text-cyan-300 flex items-center gap-2">
+              <i class="fa-solid fa-file-pen"></i>
+              <span>Live Game Scouting Report</span>
+            </h4>
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">Scouting Bureau</span>
+          </div>
+
+          <p class="text-xs text-slate-300 leading-relaxed">
+            Auto-compile period telemetry, key shift evaluations, and momentum charts into an official BlueLine Scouting Bureau game brief.
+          </p>
+
+          <button onclick="publishGameReportToWire()" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 via-sky-400 to-blue-500 text-slate-950 font-bold text-xs hover:from-cyan-400 hover:to-blue-400 transition-all flex items-center justify-center gap-2 shadow-lg shadow-cyan-500/20">
+            <i class="fa-solid fa-paper-plane"></i>
+            <span>Broadcast Report to The Wire</span>
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+  <script>
+    const GAMES_DATA = [
+      {
+        homeName: "#3 Michigan Wolverines",
+        awayName: "#5 Minnesota Gophers",
+        homeLogo: "〽️",
+        awayLogo: "〽️",
+        score: "4 - 3",
+        clock: "3RD PERIOD • 04:12"
+      },
+      {
+        homeName: "#1 Denver Pioneers",
+        awayName: "#4 North Dakota Fighting Hawks",
+        homeLogo: "🏔️",
+        awayLogo: "🦅",
+        score: "5 - 2",
+        clock: "FINAL (NCHC SHOWDOWN)"
+      },
+      {
+        homeName: "#2 Boston College Eagles",
+        awayName: "#6 Boston University Terriers",
+        homeLogo: "🦅",
+        awayLogo: "🐾",
+        score: "3 - 3",
+        clock: "OVERTIME • 02:45"
+      },
+      {
+        homeName: "Chicago Steel",
+        awayName: "Fargo Force",
+        homeLogo: "⚙️",
+        awayLogo: "⚡",
+        score: "3 - 2",
+        clock: "2ND PERIOD • 11:30"
+      }
+    ];
+
+    function selectGame(index, card) {
+      document.querySelectorAll('.game-card').forEach(c => c.classList.remove('active', 'border-cyan-500/50'));
+      card.classList.add('active', 'border-cyan-500/50');
+
+      const g = GAMES_DATA[index];
+      document.getElementById('activeHomeName').textContent = g.homeName;
+      document.getElementById('activeAwayName').textContent = g.awayName;
+      document.getElementById('activeHomeLogo').textContent = g.homeLogo;
+      document.getElementById('activeAwayLogo').textContent = g.awayLogo;
+      document.getElementById('activeScore').textContent = g.score;
+      document.getElementById('activeClock').textContent = g.clock;
+    }
+
+    function publishGameReportToWire() {
+      const g = GAMES_DATA[0];
+      const wireStateRaw = localStorage.getItem('blueline_social_state');
+      if (!wireStateRaw) {
+        alert("🎉 Game Scouting Brief generated and dispatched!");
+        return;
+      }
+
+      try {
+        const wireState = JSON.parse(wireStateRaw);
+        const reportPost = {
+          id: `post-game-${Date.now()}`,
+          authorId: 'director-scouting',
+          authorName: 'Director of Scouting',
+          handle: '@blueline_scouting',
+          role: 'recruiter',
+          avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80',
+          verifiedBadge: 'verified-gold',
+          timestamp: 'Just now',
+          content: `📡 **LIVE GAME EVALUATION REPORT: ${g.homeName} vs ${g.awayName} (${g.score})**\n\n📌 **Scouting Bureau Takeaways**:\n- **Michael Hage**: Dynamic first-step burst off rush entry (22.8 MPH), 1G, 1A.\n- **Ryan Chesley**: Lockdown gap discipline, 4 blocked shots, heavy physical presence.\n- **Pace of Play**: High-tempo transition (68 total shots). NCAA Tournament intensity.\n\n#GameNight #ScoutingReport #BigTenHockey #BlueLineDataWorks`,
+          likes: 38,
+          reposts: 16,
+          comments: 9,
+          userLiked: false,
+          userReposted: false,
+          tags: ['#GameNight', '#ScoutingReport', '#BigTenHockey'],
+          playerBadge: {
+            name: `${g.homeName} vs ${g.awayName}`,
+            team: 'Game Center Live',
+            pos: 'Quad War Room',
+            stats: `Final Score: ${g.score} • 68 SOG`,
+            nilVal: 'Official BlueLine Game Brief'
+          }
+        };
+
+        wireState.posts.unshift(reportPost);
+        localStorage.setItem('blueline_social_state', JSON.stringify(wireState));
+        alert(`🎉 Live Scouting Report for ${g.homeName} vs ${g.awayName} broadcasted to The BlueLine Wire (#GameNight)!`);
+      } catch (e) {
+        console.error('Error posting to Wire:', e);
+      }
+    }
+  </script>
+</body>
+</html>

@@ -18,6 +18,10 @@
     { "src": "/rink3d", "dest": "/rink3d.html" },
     { "src": "/3d", "dest": "/rink3d.html" },
     { "src": "/simulator", "dest": "/rink3d.html" },
+    { "src": "/scoreboard", "dest": "/scoreboard.html" },
+    { "src": "/gamecenter", "dest": "/scoreboard.html" },
+    { "src": "/scores", "dest": "/scoreboard.html" },
+    { "src": "/warroom", "dest": "/scoreboard.html" },
     { "src": "/(.*)", "dest": "/$1" }
   ]
 }

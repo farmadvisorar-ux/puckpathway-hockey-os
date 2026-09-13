@@ -26,8 +26,8 @@ let activeEditorTab = 'combine';
 
 let currentUser = {
   id: "usr_scout_01",
-  username: "scout_mccoy",
-  name: "Shane McCoy",
+  username: "scout_director",
+  name: "Director of Scouting",
   role: "scout",
   role_title: "Head NCAA & Junior Recruiter",
   badge: "Head Recruiter"
@@ -107,7 +107,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   }
 
-  // Load stored user session if available (defaulting to Shane McCoy unless explicitly switched)
+  // Load stored user session if available (defaulting to Director of Scouting unless explicitly switched)
   const storedUser = localStorage.getItem('blueline_user') || localStorage.getItem('smrp_user') || localStorage.getItem('puckpathway_user');
   if (storedUser) {
     try {
@@ -665,7 +665,7 @@ function updateCurrentUserUI() {
             <span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-bold border border-amber-500/40">Recruiter / Scout Mode</span>
             <span class="text-slate-300">Evaluating Prospects for: <strong class="text-white">${currentUser.organization || 'USHL / NCAA Scouting Bureau'}</strong></span>
           </div>
-          <span class="text-amber-400 font-bold">Shane McCoy • BlueLine Scouting & Trajectory Portal</span>
+          <span class="text-amber-400 font-bold">Director of Scouting • BlueLine Scouting & Trajectory Portal</span>
         </div>
       `;
       if (athleteTabBtn) athleteTabBtn.classList.add('hidden');
@@ -5249,7 +5249,7 @@ async function openScoutDossierModalForPlayer(playerId) {
             "${player.name} possesses elite hockey sense and deceptive poise under pressure. Exhibits high-frequency shoulder scanning before receiving passes in all 3 zones. High collegiate ceiling with immediate NCAA D1 Top-6 forward or Top-4 defenseman upside."
           </p>
           <div class="pt-2 border-t border-slate-800 flex justify-between text-[11px] text-slate-400">
-            <span>Evaluator: <strong>Shane McCoy</strong> (Head of Scouting, BlueLine DataWorks)</span>
+            <span>Evaluator: <strong>Director of Scouting</strong> (Head of Scouting, BlueLine DataWorks)</span>
             <span class="text-amber-400 font-mono font-bold">Grade: 1st Round Junior Grade</span>
           </div>
         </div>
@@ -6361,7 +6361,7 @@ function openGameBoxScoreModal() {
       <!-- Certification Footer -->
       <div class="flex justify-between items-center pt-3 border-t border-slate-800 text-xs text-slate-400">
         <div>
-          <span>Official Scorer: <strong>Shane McCoy</strong> (Head of Scouting, BlueLine DataWorks)</span> | 
+          <span>Official Scorer: <strong>Director of Scouting</strong> (Head of Scouting, BlueLine DataWorks)</span> | 
           <span>Head Coach: <strong>Mike Callahan</strong></span>
         </div>
         <div class="font-mono text-sky-400 font-bold">

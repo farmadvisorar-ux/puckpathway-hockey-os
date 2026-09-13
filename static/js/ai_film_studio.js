@@ -1,4 +1,4 @@
-/**
+﻿/**
  * BlueLine DataWorks — Enterprise AI Video Telestration & Tracking Engine
  * Provides:
  * - Computer Vision skater detection bounding boxes with confidence scores
@@ -874,7 +874,7 @@ class BlueLineAIFilmStudio {
       level: clip.level,
       duration: `${this.duration.toFixed(0)}s Broadcast Cut`,
       annotationsCount: this.telestrations.length,
-      scoutSeal: 'Verified by Shane McCoy (Head Recruiter)',
+      scoutSeal: 'Verified by Director of Player Personnel',
       createdAt: new Date().toISOString(),
       tags: ['#ScoutingFilm', '#TelestrationAI', '#DraftReel', '#BlueLineDataWorks']
     };
@@ -887,9 +887,9 @@ class BlueLineAIFilmStudio {
         if (wireState.posts) {
           const reelPost = {
             id: `post-reel-${Date.now()}`,
-            authorId: 'shane-mccoy-recruiter',
-            authorName: 'Shane McCoy',
-            handle: '@shanemccoy_scout',
+            authorId: 'blueline-scout-director',
+            authorName: 'Director of Scouting',
+            handle: '@blueline_scouting',
             role: 'recruiter',
             avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80',
             verifiedBadge: 'verified-gold',

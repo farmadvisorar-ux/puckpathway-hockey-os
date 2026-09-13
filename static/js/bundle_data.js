@@ -836,7 +836,7 @@ window.EMBEDDED_PUCKPATHWAY_DATA = {
                                                                            "name":  "4-Dot Overspeed \u0026 Tight Turn Circuit",
                                                                            "category":  "Skating \u0026 Edge Agility",
                                                                            "focus":  "Hip mobility, lateral linear crossovers, and tight-radius escapes",
-                                                                           "coach_lead":  "Shane McCoy"
+                                                                           "coach_lead":  "Director of Scouting"
                                                                        },
                                                                        {
                                                                            "station_id":  "stn_3",
@@ -1282,7 +1282,7 @@ window.EMBEDDED_PUCKPATHWAY_DATA = {
                                                                            "name":  "Stick-on-Puck Angling \u0026 Steering Lane Denial",
                                                                            "category":  "Checking \u0026 Angling",
                                                                            "focus":  "Angle opponent toward boards using stick blade lead and matching hip speed",
-                                                                           "coach_lead":  "Shane McCoy"
+                                                                           "coach_lead":  "Director of Scouting"
                                                                        },
                                                                        {
                                                                            "station_id":  "stn_p5_3",
@@ -2153,7 +2153,7 @@ window.EMBEDDED_PUCKPATHWAY_DATA = {
                         "age":  10,
                         "audit_ledger":  [
                                              {
-                                                 "account":  "Shane McCoy (Head Recruiter)",
+                                                 "account":  "Director of Player Personnel",
                                                  "action":  "Logged T1EHL Showcase",
                                                  "category":  "Squirt AAA Scouting",
                                                  "diff":  "Elite puck protection in hip pocket.",
@@ -2435,7 +2435,7 @@ window.EMBEDDED_PUCKPATHWAY_DATA = {
                         "age":  10,
                         "audit_ledger":  [
                                              {
-                                                 "account":  "Shane McCoy (Head Recruiter)",
+                                                 "account":  "Director of Player Personnel",
                                                  "action":  "Logged D-to-D Hinge Pass",
                                                  "category":  "D-Zone Skills",
                                                  "diff":  "Crisp tape-to-tape breakout passes under pressure.",
@@ -2585,7 +2585,7 @@ window.EMBEDDED_PUCKPATHWAY_DATA = {
                         "age":  12,
                         "audit_ledger":  [
                                              {
-                                                 "account":  "Shane McCoy (Head Recruiter)",
+                                                 "account":  "Director of Player Personnel",
                                                  "action":  "Logged 3-Point Game",
                                                  "category":  "GTHL Showcase",
                                                  "diff":  "Elite release speed in full stride.",
@@ -3234,7 +3234,7 @@ window.EMBEDDED_PUCKPATHWAY_DATA = {
                         "age":  14,
                         "audit_ledger":  [
                                              {
-                                                 "account":  "Shane McCoy (Head Recruiter)",
+                                                 "account":  "Director of Player Personnel",
                                                  "action":  "Logged Transition Quarterbacking",
                                                  "category":  "AYHL Showcase",
                                                  "diff":  "Controlled 86% of D-zone exits cleanly.",
@@ -3375,7 +3375,7 @@ window.EMBEDDED_PUCKPATHWAY_DATA = {
                         "age":  17,
                         "audit_ledger":  [
                                              {
-                                                 "account":  "Shane McCoy (Head Recruiter)",
+                                                 "account":  "Director of Player Personnel",
                                                  "action":  "Logged NEPSAC Flood-Marr Tourney",
                                                  "category":  "Prep Scouting",
                                                  "diff":  "Tournament 1st Team All-Star.",
@@ -3525,7 +3525,7 @@ window.EMBEDDED_PUCKPATHWAY_DATA = {
                         "age":  17,
                         "audit_ledger":  [
                                              {
-                                                 "account":  "Shane McCoy (Head Recruiter)",
+                                                 "account":  "Director of Player Personnel",
                                                  "action":  "Logged Championship Game",
                                                  "category":  "MSHSL State Tourney",
                                                  "diff":  "Recorded 92+ mph point bomb goal and 6 blocked shots.",
@@ -3670,7 +3670,7 @@ window.EMBEDDED_PUCKPATHWAY_DATA = {
                         "age":  18,
                         "audit_ledger":  [
                                              {
-                                                 "account":  "Shane McCoy (Head Recruiter)",
+                                                 "account":  "Director of Player Personnel",
                                                  "action":  "Logged Michigan D1 Full Grant Commitment",
                                                  "category":  "NCAA Commitment",
                                                  "diff":  "Committed to Big Ten Michigan Wolverines on full scholarship.",
@@ -3831,7 +3831,7 @@ window.EMBEDDED_PUCKPATHWAY_DATA = {
                         "age":  19,
                         "audit_ledger":  [
                                              {
-                                                 "account":  "Shane McCoy (Head Recruiter)",
+                                                 "account":  "Director of Player Personnel",
                                                  "action":  "Logged Playoff Performance",
                                                  "category":  "USHL Clark Cup",
                                                  "diff":  "Led all USHL defensemen in transition exit efficiency.",
@@ -3972,7 +3972,7 @@ window.EMBEDDED_PUCKPATHWAY_DATA = {
                         "age":  19,
                         "audit_ledger":  [
                                              {
-                                                 "account":  "Shane McCoy (Head Recruiter)",
+                                                 "account":  "Director of Player Personnel",
                                                  "action":  "Logged 2-Goal Performance",
                                                  "category":  "NAHL Showcase",
                                                  "diff":  "Won 89% of wall battles in offensive zone.",
@@ -4118,7 +4118,7 @@ window.EMBEDDED_PUCKPATHWAY_DATA = {
                         "age":  18,
                         "audit_ledger":  [
                                              {
-                                                 "account":  "Shane McCoy (Head Recruiter)",
+                                                 "account":  "Director of Player Personnel",
                                                  "action":  "Logged Blue-Line Quarterbacking",
                                                  "category":  "BCHL Showcase",
                                                  "diff":  "Controlled 90% of breakout transitions with zero giveaways.",
@@ -4259,7 +4259,7 @@ window.EMBEDDED_PUCKPATHWAY_DATA = {
                         "age":  21,
                         "audit_ledger":  [
                                              {
-                                                 "account":  "Shane McCoy (Head Recruiter)",
+                                                 "account":  "Director of Player Personnel",
                                                  "action":  "Logged Hobey Baker Watchlist Rating",
                                                  "category":  "NCAA D1 Scouting",
                                                  "diff":  "Top Big Ten center in scoring and 200-foot defense.",
@@ -4420,7 +4420,7 @@ window.EMBEDDED_PUCKPATHWAY_DATA = {
                         "age":  22,
                         "audit_ledger":  [
                                              {
-                                                 "account":  "Shane McCoy (Head Recruiter)",
+                                                 "account":  "Director of Player Personnel",
                                                  "action":  "Logged National Championship MVP",
                                                  "category":  "NCAA D3 All-American",
                                                  "diff":  "Led NCAA D3 in power play goals.",
@@ -4566,7 +4566,7 @@ window.EMBEDDED_PUCKPATHWAY_DATA = {
                         "age":  23,
                         "audit_ledger":  [
                                              {
-                                                 "account":  "Shane McCoy (Head Recruiter)",
+                                                 "account":  "Director of Player Personnel",
                                                  "action":  "Logged Championship Game 1st Star",
                                                  "category":  "ACHA D1 National Tournament",
                                                  "diff":  "Won 66% of faceoffs and 91% of wall battles.",
@@ -4716,7 +4716,7 @@ window.EMBEDDED_PUCKPATHWAY_DATA = {
                         "age":  17,
                         "audit_ledger":  [
                                              {
-                                                 "account":  "Shane McCoy (Head Recruiter)",
+                                                 "account":  "Director of Player Personnel",
                                                  "action":  "Logged Gold Medal Tournament MVP",
                                                  "category":  "Team USA U18 World Championship",
                                                  "diff":  "Led Team USA U18 in assists and royal road passes.",
@@ -20581,8 +20581,8 @@ window.EMBEDDED_PUCKPATHWAY_DATA = {
                           },
                           {
                               "id":  "usr_scout_01",
-                              "username":  "scout_mccoy",
-                              "name":  "Shane McCoy",
+                              "username":  "scout_director",
+                              "name":  "Director of Scouting",
                               "role":  "scout",
                               "role_title":  "Head NCAA \u0026 Junior Recruiter",
                               "badge":  "Recruiter",

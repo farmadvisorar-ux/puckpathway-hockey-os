@@ -1,4 +1,4 @@
-/**
+﻿/**
  * BlueLine DataWorks — 3D Interactive Virtual Rink & Practice Simulator
  * Built with Three.js:
  * - NHL regulation 200x85 ft 3D ice surface with boards, glass, and goal nets
@@ -588,7 +588,7 @@ class BlueLine3DRinkSimulator {
           team: play.level,
           pos: '3D Simulation',
           stats: `${play.duration}s 60 FPS WebGL • Multi-Cam POV`,
-          nilVal: 'Shane McCoy Certified Playbook'
+          nilVal: 'Director of Scouting Certified Playbook'
         }
       };
 

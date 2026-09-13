@@ -1,4 +1,4 @@
-/**
+﻿/**
  * BlueLine DataWorks: 6-Agent Autonomous Data Harvesting & Signal Ranking Mesh
  * 
  * 6 Rotating Specialized Agents (One, Two, Three, Four, Five, Six)
@@ -75,11 +75,11 @@
       name: "Agent-Six",
       codename: "LEDGER INTEGRATOR",
       role: "12-Hour Master Data Compile & Signing",
-      specialty: "Aggregates verified candidate payloads, commits immutable audit ledgers signed by Head of Scouting Shane McCoy.",
+      specialty: "Aggregates verified candidate payloads, commits immutable audit ledgers signed by Head of Scouting Director of Scouting.",
       color: "from-sky-400 to-indigo-500",
       accent: "#818cf8",
       avatar: "🛡️",
-      skills: ["Audit Ledger Stamping", "Master Database Compile", "Cryptographic Hash", "Shane McCoy Sign-Off"]
+      skills: ["Audit Ledger Stamping", "Master Database Compile", "Cryptographic Hash", "Scouting Bureau Sign-Off"]
     }
   ];
 
@@ -237,7 +237,7 @@
         avgSignalVeracity: 96.4,
         last12HourCompile: new Date(Date.now() - 3600000 * 3.5).toISOString(),
         next12HourCompile: new Date(Date.now() + 3600000 * 8.5).toISOString(),
-        leadRecruiter: "Shane McCoy",
+        leadRecruiter: "Director of Scouting",
         targets: rankedTargets,
         trialLog: [
           { timestamp: "17:34:10", agent: "Agent-One", copilot: "Agent-Two", event: "PROBE_SUCCESS", targetId: "ushl_leaguestat_feed", msg: "Polled USHL LeagueStat API. 14 boxscores scraped, 82 athlete game sheets verified. SQM: 98.4 (Tier S)" },
@@ -323,7 +323,7 @@
       copilot: "Agent-One",
       event: "MASTER_12H_COMPILE_COMPLETE",
       targetId: "ALL_TIER_S_CHANNELS",
-      msg: `MASTER 12-HOUR COMPILE: Ingested ${newStatsGathered} statistical trajectory updates across ${highTierTargets.length} Tier-S/A channels. Signed by Head of Scouting Shane McCoy.`
+      msg: `MASTER 12-HOUR COMPILE: Ingested ${newStatsGathered} statistical trajectory updates across ${highTierTargets.length} Tier-S/A channels. Signed by Head of Scouting Director of Scouting.`
     };
 
     state.last12HourCompile = now.toISOString();

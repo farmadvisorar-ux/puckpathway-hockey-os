@@ -1,4 +1,4 @@
-/**
+﻿/**
  * BlueLine DataWorks — NCAA Transfer Portal & NIL Valuation Engine
  * Manages live transfer portal state, BlueLine NIL Index™ valuation algorithm,
  * interactive portal declarations, and seamless recruiting messaging hooks.
@@ -26,7 +26,7 @@ class BlueLinePortalEngine {
         calendarPeriod: 'CONTACT PERIOD', // CONTACT PERIOD, QUIET PERIOD, DEAD PERIOD
         description: 'Coaches may engage in direct communications, in-person campus visits, and official evaluations.',
         windowCloses: 'May 15, 2026',
-        complianceDirector: 'Shane McCoy (Head Recruiter)'
+        complianceDirector: 'Director of Player Personnel'
       },
       athletes: [
         {

@@ -25,9 +25,9 @@
 
   const DEFAULT_USERS = [
     {
-      id: "usr_shane_mccoy",
-      name: "Shane McCoy",
-      handle: "shane_mccoy",
+      id: "usr_scout_director",
+      name: "Director of Scouting",
+      handle: "blueline_scouting",
       role: "scout",
       badge: BADGES.SCOUT,
       title: "Head of Scouting & Recruitment",
@@ -61,7 +61,7 @@
       xp: 68200,
       xpNext: 75000,
       stats: { gp: 38, g: 24, a: 31, pts: 55, plusMinus: "+18" },
-      following: ["usr_shane_mccoy", "usr_logan_stein"],
+      following: ["usr_scout_director", "usr_logan_stein"],
       followers: 4890
     },
     {
@@ -81,7 +81,7 @@
       xp: 64100,
       xpNext: 70000,
       stats: { gp: 28, svPct: ".924", gaa: "2.14", so: 4 },
-      following: ["usr_shane_mccoy", "usr_michael_hage"],
+      following: ["usr_scout_director", "usr_michael_hage"],
       followers: 2150
     },
     {
@@ -101,7 +101,7 @@
       xp: 74900,
       xpNext: 80000,
       stats: { practicesBuilt: 142, playersDeveloped: 88, championships: 4 },
-      following: ["usr_shane_mccoy"],
+      following: ["usr_scout_director"],
       followers: 1840
     },
     {
@@ -121,7 +121,7 @@
       xp: 98000,
       xpNext: 100000,
       stats: { draftPicks: 42, clarkCups: 2, alumniInPro: 65 },
-      following: ["usr_shane_mccoy", "usr_michael_hage"],
+      following: ["usr_scout_director", "usr_michael_hage"],
       followers: 12400
     }
   ];
@@ -132,7 +132,7 @@
   const DEFAULT_POSTS = [
     {
       id: "post_001",
-      authorId: "usr_shane_mccoy",
+      authorId: "usr_scout_director",
       timestamp: "12m ago",
       content: "Deep scouting review on Michael Hage (#19) from Michigan's weekend series. Elite edge work on the regroup with high-danger slot pass completion at 88%. Look for his transition speed to translate seamlessly to the next level. Complete dossier stamped in BlueLine DataWorks. #NCAA #ScoutingReport #MichiganHockey",
       tags: ["#NCAA", "#ScoutingReport", "#MichiganHockey"],
@@ -214,39 +214,39 @@
   // ==========================================
   const DEFAULT_CONVERSATIONS = [
     {
-      id: "conv_shane_michael",
-      participantIds: ["usr_shane_mccoy", "usr_michael_hage"],
+      id: "conv_director_michael",
+      participantIds: ["usr_scout_director", "usr_michael_hage"],
       lastMessage: "Looking forward to reviewing your weekend film. Great execution on that 2nd period cutback.",
       lastTimestamp: "18m ago",
       unread: 1,
       messages: [
-        { senderId: "usr_shane_mccoy", text: "Hey Michael, Shane McCoy here from BlueLine DataWorks. Outstanding game against Wisconsin on Friday.", time: "Yesterday 4:15 PM" },
-        { senderId: "usr_michael_hage", text: "Thanks Shane! Really appreciate you coming out to Yost. The transition speed felt crisp.", time: "Yesterday 4:45 PM" },
-        { senderId: "usr_shane_mccoy", text: "Looking forward to reviewing your weekend film. Great execution on that 2nd period cutback.", time: "18m ago" }
+        { senderId: "usr_scout_director", text: "Hey Michael, Director of Scouting here from BlueLine DataWorks. Outstanding game against Wisconsin on Friday.", time: "Yesterday 4:15 PM" },
+        { senderId: "usr_michael_hage", text: "Thanks Director! Really appreciate you coming out to Yost. The transition speed felt crisp.", time: "Yesterday 4:45 PM" },
+        { senderId: "usr_scout_director", text: "Looking forward to reviewing your weekend film. Great execution on that 2nd period cutback.", time: "18m ago" }
       ]
     },
     {
-      id: "conv_shane_callahan",
-      participantIds: ["usr_shane_mccoy", "usr_mike_callahan"],
+      id: "conv_director_callahan",
+      participantIds: ["usr_scout_director", "usr_mike_callahan"],
       lastMessage: "Let's review the U16 AAA invite list tomorrow morning.",
       lastTimestamp: "2h ago",
       unread: 0,
       messages: [
-        { senderId: "usr_mike_callahan", text: "Shane, did you get a chance to inspect the draft board for the upcoming combine?", time: "10:30 AM" },
-        { senderId: "usr_shane_mccoy", text: "Yes Mike, the telemetry numbers on the defenseman cohort look elite.", time: "11:15 AM" },
-        { senderId: "usr_shane_mccoy", text: "Let's review the U16 AAA invite list tomorrow morning.", time: "2h ago" }
+        { senderId: "usr_mike_callahan", text: "Director, did you get a chance to inspect the draft board for the upcoming combine?", time: "10:30 AM" },
+        { senderId: "usr_scout_director", text: "Yes Mike, the telemetry numbers on the defenseman cohort look elite.", time: "11:15 AM" },
+        { senderId: "usr_scout_director", text: "Let's review the U16 AAA invite list tomorrow morning.", time: "2h ago" }
       ]
     },
     {
-      id: "conv_shane_logan",
-      participantIds: ["usr_shane_mccoy", "usr_logan_stein"],
+      id: "conv_director_logan",
+      participantIds: ["usr_scout_director", "usr_logan_stein"],
       lastMessage: "Your high-danger slot save percentage (.924) ranks top-3 in Division I right now.",
       lastTimestamp: "5h ago",
       unread: 0,
       messages: [
-        { senderId: "usr_shane_mccoy", text: "Logan, huge game in net on Saturday.", time: "1:20 PM" },
-        { senderId: "usr_logan_stein", text: "Thanks Shane! Defense did a great job clearing rebounds.", time: "2:00 PM" },
-        { senderId: "usr_shane_mccoy", text: "Your high-danger slot save percentage (.924) ranks top-3 in Division I right now.", time: "5h ago" }
+        { senderId: "usr_scout_director", text: "Logan, huge game in net on Saturday.", time: "1:20 PM" },
+        { senderId: "usr_logan_stein", text: "Thanks Director! Defense did a great job clearing rebounds.", time: "2:00 PM" },
+        { senderId: "usr_scout_director", text: "Your high-danger slot save percentage (.924) ranks top-3 in Division I right now.", time: "5h ago" }
       ]
     }
   ];
@@ -284,7 +284,7 @@
 
     if (!state) {
       state = {
-        currentUser: DEFAULT_USERS[0], // Shane McCoy active by default
+        currentUser: DEFAULT_USERS[0], // Director of Scouting active by default
         users: DEFAULT_USERS,
         posts: DEFAULT_POSTS,
         conversations: DEFAULT_CONVERSATIONS,
@@ -339,7 +339,7 @@
       xp: 100,
       xpNext: 1000,
       stats: formData.stats || { gp: 0, g: 0, a: 0, pts: 0, plusMinus: "E" },
-      following: ["usr_shane_mccoy"],
+      following: ["usr_scout_director"],
       followers: 1
     };
 
