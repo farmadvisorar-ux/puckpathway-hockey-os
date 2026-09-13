@@ -13,6 +13,8 @@
     { "src": "/messages", "dest": "/community.html" },
     { "src": "/portal", "dest": "/portal.html" },
     { "src": "/nil", "dest": "/portal.html" },
+    { "src": "/film", "dest": "/film.html" },
+    { "src": "/studio", "dest": "/film.html" },
     { "src": "/(.*)", "dest": "/$1" }
   ]
 }
