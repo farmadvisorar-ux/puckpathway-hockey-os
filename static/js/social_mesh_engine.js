@@ -529,7 +529,9 @@
     'coach-callahan': 'usr_mike_callahan',
     'coach_callahan': 'usr_mike_callahan',
     'chicagosteel': 'usr_chicago_steel',
-    'chicago-steel': 'usr_chicago_steel'
+    'chicago-steel': 'usr_chicago_steel',
+    'caplab': 'usr_blueline_caplab',
+    'cap-lab': 'usr_blueline_caplab'
   };
 
   const SPECIAL_ACCOUNTS = {
@@ -552,6 +554,26 @@
       stats: { athletesTested: 1420, reportsGenerated: 620, laserPBs: 388 },
       following: ['usr_scout_director'],
       followers: 3100
+    },
+    'usr_blueline_caplab': {
+      id: 'usr_blueline_caplab',
+      name: 'BlueLine Salary Cap & CBA Bureau',
+      handle: 'blueline_caplab',
+      role: 'scout',
+      badge: BADGES.SCOUT,
+      title: 'Director of Hockey Operations & CBA Analytics',
+      organization: 'BlueLine Cap War Room',
+      location: 'New York / Toronto',
+      bio: 'Official front-office contract, salary cap, and CBA analytics desk. Tracking 32 franchise cap sheets, ELC slide matrices, and lifelong contract value curves.',
+      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=250&q=80',
+      avatarColor: 'from-emerald-500 to-teal-600',
+      banner: 'https://images.unsplash.com/photo-1580748141549-71748dbe0bdc?auto=format&fit=crop&w=1200&q=80',
+      level: 96,
+      xp: 92000,
+      xpNext: 100000,
+      stats: { contractsAudited: 840, buyoutsModeled: 120, capSpaceTracked: '$2.8B' },
+      following: ['usr_scout_director'],
+      followers: 4200
     }
   };
 

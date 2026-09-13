@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BlueLine DataWorks | AI Contract, Salary Cap & ELC Trajectory Lab</title>
+  
+  <meta name="description" content="BlueLine DataWorks is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory.">
+  <meta property="og:title" content="BlueLine DataWorks - AI Contract & Salary Cap Lab">
+  <meta property="og:description" content="BlueLine DataWorks is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory.">
+  <meta property="og:image" content="static/img/blueline_og_preview.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="BlueLine DataWorks - AI Contract & Salary Cap Lab">
+  <meta name="twitter:description" content="BlueLine DataWorks is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory.">
+
+  <!-- Manifest for PWA -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#060b14">
+
+  <!-- Tailwind CSS & Fonts -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              primary: '#0ea5e9',
+              dark: '#060b14',
+              surface: '#0d131f',
+              border: 'rgba(56, 189, 248, 0.2)'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="static/css/custom.css">
+
+  <style>
+    body {
+      background-color: #060b14;
+      background-image: 
+        radial-gradient(at 0% 0%, rgba(16, 185, 129, 0.12) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(14, 165, 233, 0.08) 0px, transparent 50%);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+    .glass-panel {
+      background: rgba(13, 19, 31, 0.75);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(56, 189, 248, 0.2);
+    }
+  </style>
+</head>
+<body class="text-slate-100 min-h-screen flex flex-col antialiased selection:bg-emerald-500 selection:text-white">
+
+  <!-- Universal Enterprise Top Navigation Header -->
+  <header class="border-b border-sky-500/20 bg-slate-950/95 backdrop-blur-xl sticky top-0 z-50 shadow-2xl shadow-black/60">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-14 sm:h-16 flex items-center justify-between gap-2">
+      
+      <!-- Brand Logo & Title -->
+      <div class="flex items-center gap-2 sm:gap-3 min-w-0">
+        <a href="index.html" class="flex items-center gap-2 group min-w-0">
+          <img src="static/img/blueline_logo.jpg" alt="BlueLine DataWorks" class="w-9 h-9 sm:w-10 sm:h-10 shrink-0 rounded-xl border border-sky-400/50 object-cover shadow-lg shadow-sky-500/30 group-hover:scale-105 transition">
+          <div class="min-w-0">
+            <div class="flex items-center gap-1.5 sm:gap-2">
+              <span class="font-black text-xs sm:text-base md:text-lg tracking-tight bg-gradient-to-r from-emerald-400 via-teal-200 to-sky-400 bg-clip-text text-transparent truncate">BLUELINE DATAWORKS</span>
+              <span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-[9px] font-extrabold tracking-wide uppercase shrink-0">CAP LAB</span>
+            </div>
+            <p class="text-[10px] sm:text-[11px] text-slate-400 truncate hidden sm:block">32-Team Cap War Room • ELC Slide Matrix • Buyout Calculator • Financial Trajectory</p>
+          </div>
+        </a>
+      </div>
+
+      <!-- Quick Nav Buttons -->
+      <div class="flex items-center gap-1.5 sm:gap-2 shrink-0 text-xs font-bold overflow-x-auto py-1">
+        <a href="index.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>🏒</span> <span class="hidden md:inline">Main OS</span>
+        </a>
+        <a href="database.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-sky-400 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>📊</span> <span class="hidden md:inline">Directory</span>
+        </a>
+        <a href="scoreboard.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-rose-300 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>📡</span> <span class="hidden md:inline">Game Center</span>
+        </a>
+        <a href="rink3d.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-sky-300 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>🧊</span> <span class="hidden md:inline">3D Rink</span>
+        </a>
+        <a href="film.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-cyan-300 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>🎬</span> <span class="hidden md:inline">Film Studio</span>
+        </a>
+        <a href="portal.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-amber-300 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>⚡</span> <span class="hidden md:inline">Portal & NIL</span>
+        </a>
+        <a href="draft.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>🎯</span> <span class="hidden md:inline">Draft Room</span>
+        </a>
+        <a href="combine.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-amber-300 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>🧬</span> <span class="hidden md:inline">Combine Lab</span>
+        </a>
+        <a href="caplab.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-bold border border-emerald-400/50 shadow-md shadow-emerald-500/20 flex items-center gap-1">
+          <span>💼</span> <span class="hidden md:inline">Cap Lab</span>
+        </a>
+        <a href="community.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>🌐</span> <span class="hidden md:inline">The Wire</span>
+        </a>
+        <a href="agents.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-emerald-400 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>🤖</span> <span class="hidden md:inline">Swarm</span>
+        </a>
+      </div>
+
+    </div>
+
+    <!-- Mandatory Lifelong Tracking Mission Statement Banner -->
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-2 border-t border-slate-800/80 bg-slate-950/90 flex flex-wrap items-center justify-between gap-2 text-xs">
+      <div class="flex items-center gap-2 min-w-0">
+        <span class="px-2 py-0.5 rounded-md bg-emerald-500/20 text-emerald-300 font-mono text-[10px] font-bold shrink-0">MISSION</span>
+        <p class="text-[11px] text-slate-400 truncate">
+          BlueLine DataWorks is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory.
+        </p>
+      </div>
+      <div class="flex items-center gap-3 shrink-0 text-[11px] font-mono text-slate-400">
+        <span class="flex items-center gap-1.5 text-emerald-400">
+          <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+          <span>CBA Cap Ceiling: $88.0M</span>
+        </span>
+        <span id="pwaStatusPill" class="px-2 py-0.5 rounded bg-sky-950 text-sky-400 border border-sky-500/30 text-[10px]">
+          ⚡ Rinkside PWA Cached
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Sub-Header Franchise Controls & Financial Summary -->
+  <section class="border-b border-slate-800 bg-slate-900/60 backdrop-blur-md px-3 sm:px-6 lg:px-8 py-3">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
+      
+      <!-- Franchise Selector -->
+      <div class="flex items-center gap-2.5 flex-wrap">
+        <div class="flex items-center gap-1.5 bg-slate-950 px-3 py-1.5 rounded-xl border border-slate-800">
+          <span class="text-xs text-slate-400 font-medium">Franchise:</span>
+          <select id="teamSelect" class="bg-transparent text-white font-bold text-xs focus:outline-none cursor-pointer">
+            <!-- Populated by JS -->
+          </select>
+        </div>
+
+        <div class="flex items-center gap-2 bg-slate-950 px-3 py-1.5 rounded-xl border border-slate-800 text-xs font-mono">
+          <span class="text-slate-400">Cap Space:</span>
+          <strong class="text-emerald-400 font-bold text-sm" id="headerCapSpace">$14,550,000</strong>
+          <span class="text-slate-600">|</span>
+          <span class="text-slate-400">Dead Cap:</span>
+          <span class="text-amber-400 font-semibold" id="headerDeadCap">$4,125,000</span>
+        </div>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="flex items-center gap-2 flex-wrap text-xs">
+        <button id="broadcastContractBtn" class="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-extrabold transition flex items-center gap-1.5 shadow-lg shadow-emerald-500/20 active:scale-95">
+          <span>💼</span> <span>Broadcast Deal to Wire</span>
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Main Cap Lab Workspace Grid -->
+  <main class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-6 flex-1 w-full space-y-6">
+    
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+      
+      <!-- Column 1: Team Cap Sheet & Buyout Calculator (5 cols) -->
+      <div class="lg:col-span-5 space-y-5">
+        
+        <!-- Active Franchise Cap Sheet Panel -->
+        <div class="glass-panel p-5 rounded-3xl space-y-4 border border-emerald-500/30">
+          <div class="flex items-center justify-between border-b border-slate-800/80 pb-2.5">
+            <div class="flex items-center gap-2.5">
+              <span class="text-2xl" id="teamLogoDisplay">🦈</span>
+              <div>
+                <h2 class="text-sm font-black text-white" id="teamNameDisplay">San Jose Sharks</h2>
+                <p class="text-[10px] text-slate-400 font-mono" id="teamDraftCapital">9 Total Draft Picks</p>
+              </div>
+            </div>
+            <div class="text-right font-mono">
+              <div class="text-[10px] text-slate-400 uppercase">Cap Ceiling</div>
+              <div class="text-xs font-bold text-white">$88,000,000</div>
+            </div>
+          </div>
+
+          <!-- Visual Cap Thermometer Bar -->
+          <div class="space-y-1.5">
+            <div class="flex justify-between text-[11px] font-mono">
+              <span class="text-slate-300">Committed: <strong class="text-white" id="teamCapHitDisplay">$73,450,000</strong></span>
+              <span class="text-emerald-400 font-bold" id="teamCapPctDisplay">83.5% Used</span>
+            </div>
+            <div class="w-full h-3 rounded-full bg-slate-900 border border-slate-800 overflow-hidden flex">
+              <div id="capBarActive" class="bg-gradient-to-r from-emerald-500 to-teal-400 h-full transition-all duration-500" style="width: 83.5%"></div>
+              <div id="capBarDead" class="bg-amber-500 h-full transition-all duration-500" style="width: 4.6%"></div>
+            </div>
+            <div class="flex justify-between text-[10px] text-slate-500 font-mono">
+              <span>Floor ($65.0M)</span>
+              <span class="text-emerald-400">Available Space: <strong id="teamAvailableDisplay">$14.55M</strong></span>
+            </div>
+          </div>
+
+          <!-- Top Contracts Table -->
+          <div class="space-y-2 pt-1 border-t border-slate-800/60">
+            <div class="text-[11px] font-bold text-slate-300 uppercase tracking-wider font-mono">Top Contract Commitments</div>
+            <div class="space-y-1.5" id="teamTopContractsList">
+              <!-- Populated by JS -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Buyout & Salary Retention Calculator Panel -->
+        <div class="glass-panel p-5 rounded-3xl space-y-4 border border-slate-800">
+          <div class="flex items-center justify-between border-b border-slate-800/80 pb-2">
+            <div class="flex items-center gap-2">
+              <span class="text-base">✂️</span>
+              <h3 class="text-sm font-black text-white tracking-wide uppercase">CBA Buyout & Retention Machine</h3>
+            </div>
+            <span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 text-[10px] font-mono font-bold" id="buyoutRatioBadge">2/3 Standard</span>
+          </div>
+
+          <div class="space-y-3 text-xs">
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="font-bold text-slate-300">Player Age (June 15):</label>
+                <input type="number" id="buyoutAge" value="28" min="18" max="42" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-2.5 py-1.5 text-white font-mono text-xs mt-1">
+                <span class="text-[10px] text-slate-500 font-mono">&lt;26 gets 1/3 discount</span>
+              </div>
+              <div>
+                <label class="font-bold text-slate-300">Remaining Term (Yrs):</label>
+                <input type="number" id="buyoutYears" value="2" min="1" max="8" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-2.5 py-1.5 text-white font-mono text-xs mt-1">
+                <span class="text-[10px] text-slate-500 font-mono">Payout over 2x years</span>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="font-bold text-slate-300">Base Salary ($/yr):</label>
+                <input type="number" id="buyoutBase" value="5000000" step="250000" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-2.5 py-1.5 text-white font-mono text-xs mt-1">
+              </div>
+              <div>
+                <label class="font-bold text-slate-300">Signing Bonus ($/yr):</label>
+                <input type="number" id="buyoutBonus" value="0" step="100000" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-2.5 py-1.5 text-white font-mono text-xs mt-1">
+                <span class="text-[10px] text-slate-500 font-mono">100% Non-buyout</span>
+              </div>
+            </div>
+
+            <!-- Buyout Breakdown Table -->
+            <div class="p-3 rounded-2xl bg-slate-950/80 border border-slate-800/80 space-y-2">
+              <div class="flex justify-between items-center text-[11px] font-mono border-b border-slate-800 pb-1">
+                <span class="text-slate-400">Total Buyout Cost:</span>
+                <strong class="text-amber-400" id="buyoutTotalCost">$6,666,667</strong>
+              </div>
+              <div class="flex justify-between items-center text-[11px] font-mono border-b border-slate-800 pb-1">
+                <span class="text-slate-400">Annual Payout:</span>
+                <strong class="text-white" id="buyoutAnnualPayout">$1,666,667 /yr (4 Yrs)</strong>
+              </div>
+              <div class="space-y-1 pt-1" id="buyoutBreakdownStream">
+                <!-- Populated by JS -->
+              </div>
+            </div>
+
+            <!-- Salary Retention Slider -->
+            <div class="space-y-1.5 pt-2 border-t border-slate-800/60">
+              <div class="flex justify-between">
+                <label class="font-bold text-slate-200">Trade Salary Retention (Max 50%):</label>
+                <span class="font-mono font-bold text-sky-400" id="retentionDisplay">50% ($2,500,000 Retained)</span>
+              </div>
+              <input type="range" id="retentionSlider" min="10" max="50" step="5" value="50" class="w-full accent-sky-400 cursor-pointer">
+              <div class="flex justify-between text-[10px] text-slate-500 font-mono">
+                <span>10% Min</span>
+                <span>Acquiring Team Cap Hit: <strong class="text-emerald-400" id="acquiringCapHit">$2.50M</strong></span>
+                <span>50% Max</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Column 2: ELC Architect & Career Trajectory Curve (7 cols) -->
+      <div class="lg:col-span-7 space-y-5">
+        
+        <!-- ELC Contract Architect -->
+        <div class="glass-panel p-5 rounded-3xl border border-emerald-500/30 space-y-4">
+          <div class="flex items-center justify-between border-b border-slate-800/80 pb-2.5">
+            <div class="flex items-center gap-2">
+              <span class="text-xl">📜</span>
+              <div>
+                <h3 class="text-sm font-black text-white tracking-wide uppercase">NHL Entry-Level Contract (ELC) Architect</h3>
+                <p class="text-[11px] text-slate-400">Collective Bargaining Agreement Wage Scale & Performance Bonus Matrix</p>
+              </div>
+            </div>
+            <span class="px-2.5 py-0.5 rounded-full bg-sky-500/20 text-sky-300 border border-sky-500/30 text-xs font-mono font-bold" id="elcTermBadge">3 Years</span>
+          </div>
+
+          <!-- Prospect & Contract Inputs -->
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+            <div>
+              <label class="font-bold text-slate-300">Select Athlete:</label>
+              <select id="elcPlayerSelect" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-2.5 py-1.5 text-white font-bold text-xs mt-1 cursor-pointer">
+                <option value="Macklin Celebrini" data-rank="1" data-age="18">Macklin Celebrini (C • Top 1)</option>
+                <option value="Artyom Levshunov" data-rank="2" data-age="18">Artyom Levshunov (RHD • Top 2)</option>
+                <option value="Michael Hage" data-rank="21" data-age="18">Michael Hage (C • Top 21)</option>
+                <option value="Cayden Lindstrom" data-rank="4" data-age="18">Cayden Lindstrom (C • Top 4)</option>
+                <option value="Cole Eiserman" data-rank="20" data-age="18">Cole Eiserman (LW • Top 20)</option>
+                <option value="Custom Prospect" data-rank="15" data-age="19">Custom Prospect</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="font-bold text-slate-300">Signing Age:</label>
+              <select id="elcAgeSelect" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-2.5 py-1.5 text-white font-mono text-xs mt-1 cursor-pointer">
+                <option value="18" selected>18 Yrs (3-Yr ELC, Slide Eligible)</option>
+                <option value="19">19 Yrs (3-Yr ELC, Slide Eligible)</option>
+                <option value="20">20 Yrs (3-Yr ELC, No Slide)</option>
+                <option value="21">21 Yrs (3-Yr ELC, No Slide)</option>
+                <option value="22">22 Yrs (2-Yr ELC)</option>
+                <option value="23">23 Yrs (2-Yr ELC)</option>
+                <option value="24">24 Yrs (1-Yr ELC)</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="font-bold text-slate-300">NHL Games (Yr 1):</label>
+              <input type="number" id="elcGamesPlayed" value="4" min="0" max="82" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-2.5 py-1.5 text-white font-mono text-xs mt-1">
+              <span class="text-[10px] text-slate-500 font-mono">&lt;10 games slides ELC</span>
+            </div>
+          </div>
+
+          <!-- Base & Signing Bonus Sliders -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1 text-xs">
+            <div class="space-y-1">
+              <div class="flex justify-between font-mono">
+                <span class="font-bold text-slate-300">Base Salary:</span>
+                <span class="text-emerald-400 font-bold" id="elcBaseVal">$975,000 (Max)</span>
+              </div>
+              <input type="range" id="elcBaseSlider" min="775000" max="975000" step="25000" value="975000" class="w-full accent-emerald-400 cursor-pointer">
+              <div class="flex justify-between text-[10px] text-slate-500 font-mono">
+                <span>$775k Min</span>
+                <span>$975k Max Base</span>
+              </div>
+            </div>
+
+            <div class="space-y-1">
+              <div class="flex justify-between font-mono">
+                <span class="font-bold text-slate-300">Signing Bonus (10% max):</span>
+                <span class="text-teal-400 font-bold" id="elcBonusVal">$97,500</span>
+              </div>
+              <input type="range" id="elcBonusSlider" min="0" max="97500" step="5000" value="97500" class="w-full accent-teal-400 cursor-pointer">
+              <div class="flex justify-between text-[10px] text-slate-500 font-mono">
+                <span>$0</span>
+                <span>$97.5k Max</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Performance Bonus Accordions -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs pt-1">
+            
+            <!-- Schedule A Checklist -->
+            <div class="p-3 rounded-2xl bg-slate-950/80 border border-slate-800 space-y-2">
+              <div class="flex items-center justify-between border-b border-slate-800 pb-1">
+                <span class="font-bold text-sky-400 font-mono">Schedule A ($1.0M Max)</span>
+                <span class="text-[10px] text-slate-400 font-mono" id="schedATotalDisplay">$1,000,000</span>
+              </div>
+              <div class="space-y-1 max-h-36 overflow-y-auto pr-1 text-[11px]" id="schedACheckboxes">
+                <!-- Populated by JS -->
+              </div>
+            </div>
+
+            <!-- Schedule B Checklist -->
+            <div class="p-3 rounded-2xl bg-slate-950/80 border border-slate-800 space-y-2">
+              <div class="flex items-center justify-between border-b border-slate-800 pb-1">
+                <span class="font-bold text-amber-400 font-mono">Schedule B ($2.5M Max)</span>
+                <span class="text-[10px] text-slate-400 font-mono" id="schedBTotalDisplay">$2,500,000</span>
+              </div>
+              <div class="space-y-1 max-h-36 overflow-y-auto pr-1 text-[11px]" id="schedBCheckboxes">
+                <!-- Populated by JS -->
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Live Contract Summary Card -->
+          <div class="p-4 rounded-2xl bg-gradient-to-r from-emerald-950/60 via-slate-900 to-teal-950/60 border border-emerald-500/40 flex flex-wrap items-center justify-between gap-4">
+            <div>
+              <div class="text-[10px] font-mono text-emerald-400 uppercase tracking-wider">OFFICIAL NHL CONTRACT SUMMARY</div>
+              <div class="text-2xl font-black text-white font-mono" id="contractAavDisplay">$1,072,500 <span class="text-sm font-semibold text-slate-400">Cap Hit (AAV)</span></div>
+              <p class="text-xs text-slate-300 font-mono mt-0.5" id="contractMaxPotential">Max Potential Compensation: $4,572,500 /yr</p>
+            </div>
+            <div class="text-right">
+              <div class="text-[10px] font-mono text-slate-400 uppercase">Slide Status</div>
+              <div class="px-2.5 py-1 rounded-lg text-xs font-mono font-bold inline-block" id="slideStatusBadge">
+                SLIDE ELIGIBLE
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Lifelong Career Financial Trajectory Curve -->
+        <div class="glass-panel p-5 rounded-3xl border border-slate-800 space-y-3">
+          <div class="flex items-center justify-between border-b border-slate-800 pb-2 text-xs">
+            <div class="flex items-center gap-2">
+              <span class="w-3 h-3 rounded-full bg-emerald-400 shadow-sm shadow-emerald-400/50"></span>
+              <span class="font-bold text-white">Lifelong Career Financial Trajectory Model</span>
+            </div>
+            <span class="text-slate-400 font-mono text-[11px]">NIL → ELC → Prime ($M/yr)</span>
+          </div>
+
+          <div class="flex justify-center items-center py-2">
+            <canvas id="trajectoryCanvas" width="560" height="230" class="max-w-full h-auto"></canvas>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- Global Toast Notification Container -->
+  <div id="capToast" class="fixed bottom-6 right-6 z-50 px-4 py-2.5 rounded-2xl text-xs font-bold shadow-2xl flex items-center gap-2 transition-all duration-300 transform translate-y-10 opacity-0 pointer-events-none"></div>
+
+  <!-- Scripts -->
+  <script src="static/js/cap_engine.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const engine = window.BlueLineCapEngine;
+      if (!engine) {
+        console.error("Cap Engine failed to load.");
+        return;
+      }
+
+      const teamSelect = document.getElementById('teamSelect');
+      const canvas = document.getElementById('trajectoryCanvas');
+
+      // Populate Team Dropdown
+      teamSelect.innerHTML = engine.NHL_TEAMS_CAP.map(t => `
+        <option value="${t.id}">${t.logo} ${t.name}</option>
+      `).join('');
+
+      let currentTeam = engine.NHL_TEAMS_CAP[0];
+
+      // Populate Schedule A & B Checkboxes
+      const schedAContainer = document.getElementById('schedACheckboxes');
+      schedAContainer.innerHTML = engine.SCHEDULE_A_CATEGORIES.map(c => `
+        <label class="flex items-center gap-2 cursor-pointer hover:text-white transition">
+          <input type="checkbox" name="schedA" value="${c.id}" checked class="accent-sky-400 rounded">
+          <span class="truncate">${c.label} ($250k)</span>
+        </label>
+      `).join('');
+
+      const schedBContainer = document.getElementById('schedBCheckboxes');
+      schedBContainer.innerHTML = engine.SCHEDULE_B_CATEGORIES.map(c => `
+        <label class="flex items-center gap-2 cursor-pointer hover:text-white transition">
+          <input type="checkbox" name="schedB" value="${c.id}" ${c.id === 'calder_win' ? 'checked' : ''} class="accent-amber-400 rounded">
+          <span class="truncate">${c.label} ($${(c.amount/1000000).toFixed(1)}M)</span>
+        </label>
+      `).join('');
+
+      // Update Active Franchise View
+      function updateTeamView() {
+        document.getElementById('teamNameDisplay').textContent = currentTeam.name;
+        document.getElementById('teamLogoDisplay').textContent = currentTeam.logo;
+        document.getElementById('teamDraftCapital').textContent = currentTeam.draftPickCapital;
+
+        const capHitStr = `$${currentTeam.capHit.toLocaleString()}`;
+        const spaceStr = `$${currentTeam.capSpace.toLocaleString()}`;
+        const deadStr = `$${currentTeam.deadCap.toLocaleString()}`;
+
+        document.getElementById('teamCapHitDisplay').textContent = capHitStr;
+        document.getElementById('teamAvailableDisplay').textContent = `$${(currentTeam.capSpace / 1000000).toFixed(2)}M`;
+        document.getElementById('headerCapSpace').textContent = spaceStr;
+        document.getElementById('headerDeadCap').textContent = deadStr;
+
+        const usedPct = ((currentTeam.capHit / engine.CBA_RULES.capUpperLimit) * 100).toFixed(1);
+        document.getElementById('teamCapPctDisplay').textContent = `${usedPct}% Used`;
+        document.getElementById('capBarActive').style.width = `${usedPct}%`;
+
+        const deadPct = ((currentTeam.deadCap / engine.CBA_RULES.capUpperLimit) * 100).toFixed(1);
+        document.getElementById('capBarDead').style.width = `${deadPct}%`;
+
+        // Top contracts
+        const list = document.getElementById('teamTopContractsList');
+        list.innerHTML = currentTeam.topContracts.map(c => `
+          <div class="flex justify-between items-center text-xs font-mono p-2 rounded-xl bg-slate-950/70 border border-slate-800">
+            <span class="font-bold text-slate-200">${c.player}</span>
+            <span class="text-emerald-400 font-bold">$${(c.aav / 1000000).toFixed(2)}M <span class="text-slate-500 font-normal">thru ${c.term}</span></span>
+          </div>
+        `).join('');
+      }
+
+      teamSelect.addEventListener('change', (e) => {
+        currentTeam = engine.NHL_TEAMS_CAP.find(t => t.id === e.target.value) || engine.NHL_TEAMS_CAP[0];
+        updateTeamView();
+      });
+
+      // Update ELC Calculations
+      function updateELC() {
+        const age = parseInt(document.getElementById('elcAgeSelect').value, 10);
+        const base = parseFloat(document.getElementById('elcBaseSlider').value);
+        const bonus = parseFloat(document.getElementById('elcBonusSlider').value);
+        const games = parseInt(document.getElementById('elcGamesPlayed').value, 10);
+
+        document.getElementById('elcBaseVal').textContent = `$${base.toLocaleString()}`;
+        document.getElementById('elcBonusVal').textContent = `$${bonus.toLocaleString()}`;
+
+        const checkedA = Array.from(document.querySelectorAll('input[name="schedA"]:checked')).map(cb => cb.value);
+        const checkedB = Array.from(document.querySelectorAll('input[name="schedB"]:checked')).map(cb => cb.value);
+
+        const elc = engine.calculateELC({
+          age: age,
+          baseSalary: base,
+          signingBonus: bonus,
+          nhlGamesPlayed: games,
+          schedAChecked: checkedA,
+          schedBChecked: checkedB
+        });
+
+        document.getElementById('elcTermBadge').textContent = `${elc.term} Years`;
+        document.getElementById('schedATotalDisplay').textContent = `$${elc.schedATotal.toLocaleString()}`;
+        document.getElementById('schedBTotalDisplay').textContent = `$${elc.schedBTotal.toLocaleString()}`;
+
+        document.getElementById('contractAavDisplay').innerHTML = `$${elc.capHit.toLocaleString()} <span class="text-sm font-semibold text-slate-400">Cap Hit (AAV)</span>`;
+        document.getElementById('contractMaxPotential').textContent = `Max Potential Compensation: $${elc.maxEarningsPerYear.toLocaleString()} /yr ($${elc.totalContractValue.toLocaleString()} total)`;
+
+        const slideBadge = document.getElementById('slideStatusBadge');
+        if (elc.slides) {
+          slideBadge.textContent = "SLIDE ELIGIBLE (YOUTH DISCOUNT)";
+          slideBadge.className = "px-2.5 py-1 rounded-lg text-xs font-mono font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 inline-block animate-pulse";
+        } else {
+          slideBadge.textContent = "ACTIVE NHL CAP HIT (BURNS YEAR)";
+          slideBadge.className = "px-2.5 py-1 rounded-lg text-xs font-mono font-bold bg-sky-500/20 text-sky-300 border border-sky-500/40 inline-block";
+        }
+      }
+
+      // Update Buyout Calculations
+      function updateBuyout() {
+        const age = parseInt(document.getElementById('buyoutAge').value, 10);
+        const years = parseInt(document.getElementById('buyoutYears').value, 10);
+        const base = parseFloat(document.getElementById('buyoutBase').value);
+        const bonus = parseFloat(document.getElementById('buyoutBonus').value);
+
+        const res = engine.calculateBuyout(age, years, base, bonus);
+        document.getElementById('buyoutRatioBadge').textContent = res.ratioLabel;
+        document.getElementById('buyoutTotalCost').textContent = `$${res.totalBuyoutCost.toLocaleString()}`;
+        document.getElementById('buyoutAnnualPayout').textContent = `$${res.annualBuyoutPayout.toLocaleString()} /yr (${res.buyoutSpreadYears} Yrs)`;
+
+        const container = document.getElementById('buyoutBreakdownStream');
+        container.innerHTML = res.breakdown.map(b => `
+          <div class="flex justify-between items-center text-[10px] font-mono py-0.5">
+            <span class="text-slate-400">${b.label}:</span>
+            <span class="text-slate-200">Cap: $${(b.capHit / 1000000).toFixed(2)}M</span>
+            <span class="${b.savings >= 0 ? 'text-emerald-400' : 'text-rose-400'} font-bold">
+              ${b.savings >= 0 ? 'Savings: $' : 'Penalty: -$'} ${Math.abs(b.savings / 1000000).toFixed(2)}M
+            </span>
+          </div>
+        `).join('');
+
+        // Retention
+        const retentionPct = parseInt(document.getElementById('retentionSlider').value, 10) / 100;
+        const ret = engine.calculateRetention(base + bonus, retentionPct);
+        document.getElementById('retentionDisplay').textContent = `${ret.retentionPct}% ($${ret.retainedAmount.toLocaleString()} Retained)`;
+        document.getElementById('acquiringCapHit').textContent = `$${(ret.acquiringTeamCapHit / 1000000).toFixed(2)}M`;
+      }
+
+      // Trajectory Chart Update
+      function updateTrajectory() {
+        const playerSelect = document.getElementById('elcPlayerSelect');
+        const selectedOpt = playerSelect.options[playerSelect.selectedIndex];
+        const rank = parseInt(selectedOpt.getAttribute('data-rank') || 1, 10);
+        const data = engine.getCareerFinancialTrajectory(rank);
+        engine.drawCareerTrajectoryChart(canvas, data);
+      }
+
+      // Event Listeners for inputs
+      ['elcAgeSelect', 'elcBaseSlider', 'elcBonusSlider', 'elcGamesPlayed'].forEach(id => {
+        document.getElementById(id).addEventListener('input', updateELC);
+      });
+
+      document.querySelectorAll('input[name="schedA"], input[name="schedB"]').forEach(cb => {
+        cb.addEventListener('change', updateELC);
+      });
+
+      ['buyoutAge', 'buyoutYears', 'buyoutBase', 'buyoutBonus', 'retentionSlider'].forEach(id => {
+        document.getElementById(id).addEventListener('input', updateBuyout);
+      });
+
+      document.getElementById('elcPlayerSelect').addEventListener('change', () => {
+        updateELC();
+        updateTrajectory();
+      });
+
+      // Broadcast Contract to Wire
+      document.getElementById('broadcastContractBtn').addEventListener('click', () => {
+        const playerSelect = document.getElementById('elcPlayerSelect');
+        const playerName = playerSelect.value;
+        const age = parseInt(document.getElementById('elcAgeSelect').value, 10);
+        const base = parseFloat(document.getElementById('elcBaseSlider').value);
+        const bonus = parseFloat(document.getElementById('elcBonusSlider').value);
+        const games = parseInt(document.getElementById('elcGamesPlayed').value, 10);
+        const checkedA = Array.from(document.querySelectorAll('input[name="schedA"]:checked')).map(cb => cb.value);
+        const checkedB = Array.from(document.querySelectorAll('input[name="schedB"]:checked')).map(cb => cb.value);
+
+        const elc = engine.calculateELC({
+          age: age,
+          baseSalary: base,
+          signingBonus: bonus,
+          nhlGamesPlayed: games,
+          schedAChecked: checkedA,
+          schedBChecked: checkedB
+        });
+
+        const post = engine.broadcastContractToWire({
+          playerName: playerName,
+          teamName: currentTeam.name,
+          term: elc.term,
+          aav: elc.capHit,
+          totalValue: elc.totalContractValue,
+          baseSalary: elc.baseSalary,
+          signingBonus: elc.signingBonus,
+          bonuses: elc.schedATotal + elc.schedBTotal,
+          slides: elc.slides
+        });
+
+        showToast(`Published ${playerName} contract registration to The Wire!`, "success");
+      });
+
+      // Toast Notification
+      function showToast(msg, type = 'info') {
+        const toastEl = document.getElementById('capToast');
+        const colorClasses = type === 'success' ? 'bg-emerald-600 text-white border border-emerald-400/50 shadow-emerald-500/30' :
+                             type === 'error' ? 'bg-rose-600 text-white border border-rose-400/50 shadow-rose-500/30' :
+                             'bg-sky-600 text-white border border-sky-400/50 shadow-sky-500/30';
+        toastEl.className = `fixed bottom-6 right-6 z-50 px-4 py-2.5 rounded-2xl text-xs font-bold shadow-2xl flex items-center gap-2 transition-all duration-300 transform translate-y-0 opacity-100 ${colorClasses}`;
+        toastEl.innerHTML = `<span>${type === 'success' ? '✅' : type === 'error' ? '⚠️' : '💼'}</span> <span>${msg}</span>`;
+        clearTimeout(toastEl._timer);
+        toastEl._timer = setTimeout(() => {
+          toastEl.className = 'fixed bottom-6 right-6 z-50 px-4 py-2.5 rounded-2xl text-xs font-bold shadow-2xl flex items-center gap-2 transition-all duration-300 transform translate-y-10 opacity-0 pointer-events-none';
+        }, 2800);
+      }
+
+      // Initial Renders
+      updateTeamView();
+      updateELC();
+      updateBuyout();
+      updateTrajectory();
+    });
+  </script>
+
+  <!-- Service Worker Registration for Offline Rinkside PWA -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js').then(reg => {
+          console.log('BlueLine Cap Lab Service Worker registered:', reg.scope);
+          const pill = document.getElementById('pwaStatusPill');
+          if (pill) pill.textContent = '⚡ Rinkside PWA Active';
+        }).catch(err => {
+          console.warn('Service Worker registration skipped:', err);
+        });
+      });
+    }
+  </script>
+
+</body>
+</html>
