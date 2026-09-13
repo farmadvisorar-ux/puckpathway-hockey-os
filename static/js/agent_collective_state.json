@@ -1,0 +1,81 @@
+﻿{
+  "recentLogs": [
+    {
+      "timestamp": "20:56:25",
+      "sqm": 99.0,
+      "target": "USHL LeagueStat API Engine",
+      "agent": "Agent-Six",
+      "tier": "Tier S",
+      "msg": "[Agent-Six & Agent-One] Probed 'USHL LeagueStat API Engine' (USHL Tier 1). Signal: 99 SQM (Tier S) • Latency: 112ms.",
+      "event": "SIGNAL_APPROVED",
+      "copilot": "Agent-One"
+    },
+    {
+      "timestamp": "20:56:25",
+      "sqm": 97.4,
+      "target": "College Hockey News Scores Hub",
+      "agent": "Agent-Six",
+      "tier": "Tier S",
+      "msg": "[Agent-Six & Agent-One] Probed 'College Hockey News Scores Hub' (NCAA D1). Signal: 97.4 SQM (Tier S) • Latency: 145ms.",
+      "event": "SIGNAL_APPROVED",
+      "copilot": "Agent-One"
+    },
+    {
+      "timestamp": "20:56:25",
+      "sqm": 98.7,
+      "target": "TheAHL Official Stats Feed",
+      "agent": "Agent-Six",
+      "tier": "Tier S",
+      "msg": "[Agent-Six & Agent-One] Probed 'TheAHL Official Stats Feed' (AHL Minor Pro). Signal: 98.7 SQM (Tier S) • Latency: 120ms.",
+      "event": "SIGNAL_APPROVED",
+      "copilot": "Agent-One"
+    },
+    {
+      "timestamp": "20:56:25",
+      "sqm": 95.6,
+      "target": "USA Hockey ADM Player Tracking",
+      "agent": "Agent-Six",
+      "tier": "Tier S",
+      "msg": "[Agent-Six & Agent-One] Probed 'USA Hockey ADM Player Tracking' (Grassroots ADM). Signal: 95.6 SQM (Tier S) • Latency: 210ms.",
+      "event": "SIGNAL_APPROVED",
+      "copilot": "Agent-One"
+    },
+    {
+      "timestamp": "20:56:25",
+      "sqm": 81.3,
+      "target": "NCAA Commitments Micro-Signal Webhook",
+      "agent": "Agent-Six",
+      "tier": "Tier B",
+      "msg": "[Agent-Six & Agent-One] Probed 'NCAA Commitments Micro-Signal Webhook' (Social Signal). Signal: 81.3 SQM (Tier B) • Latency: 360ms.",
+      "event": "TRIAL_LOGGED",
+      "copilot": "Agent-One"
+    }
+  ],
+  "version": "2.4",
+  "totalTrialsConducted": 4897,
+  "mission": "Collective Signal Discovery & Evolving Athlete Trajectory",
+  "lastSyncTimestamp": "2026-09-12T20:56:25Z",
+  "currentShift": {
+    "copilotAgent": {
+      "id": "agent_one",
+      "name": "Agent-One",
+      "codename": "PIONEER SCOUT",
+      "avatar": "🛰️",
+      "role": "Raw Channel Discovery & Feed Ingestion"
+    },
+    "shiftNumber": 6.0,
+    "leadAgent": {
+      "id": "agent_six",
+      "name": "Agent-Six",
+      "codename": "LEDGER INTEGRATOR",
+      "avatar": "🛡️",
+      "role": "12-Hour Master Data Compile & Signing"
+    },
+    "shiftWindow": "20:00 - 24:00"
+  },
+  "totalCandidatesIngested": 2974,
+  "totalCyclesCompleted": 143,
+  "leadRecruiter": "Shane McCoy",
+  "totalChannelsDiscovered": 38,
+  "avgSignalVeracity": 96.6
+}

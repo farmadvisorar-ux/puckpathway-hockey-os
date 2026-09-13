@@ -6,6 +6,8 @@
     { "src": "/database", "dest": "/database.html" },
     { "src": "/broadcast_ai", "dest": "/broadcast_ai.html" },
     { "src": "/broadcast-ai", "dest": "/broadcast_ai.html" },
+    { "src": "/agents", "dest": "/agents.html" },
+    { "src": "/ai-mesh", "dest": "/agents.html" },
     { "src": "/(.*)", "dest": "/$1" }
   ]
 }

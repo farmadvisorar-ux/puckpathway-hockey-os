@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BlueLine DataWorks - 6-Agent Autonomous Data Harvesting Mesh</title>
+  <meta name="description" content="BlueLine DataWorks 6-Agent Autonomous Data Mesh: 4-Hour Shift Relays, Continuous Co-Pilot Hand-offs & Dynamic Signal Ranking Algorithm.">
+  <link rel="icon" type="image/jpeg" href="static/img/blueline_logo.jpg">
+  <link rel="apple-touch-icon" href="static/img/blueline_logo.jpg">
+
+  <!-- Open Graph / Social Link Preview -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="BlueLine DataWorks">
+  <meta property="og:title" content="BlueLine DataWorks - 6-Agent Autonomous Data Mesh">
+  <meta property="og:description" content="Rotating 6-Agent AI Network discovering, trial-testing and ranking open source hockey data feeds every 4 hours. Master updates compiled every 12 hours.">
+  <meta property="og:image" content="https://farmadvisorar-ux.github.io/puckpathway-hockey-os/static/img/blueline_og_preview.jpg">
+  <meta property="og:image:secure_url" content="https://farmadvisorar-ux.github.io/puckpathway-hockey-os/static/img/blueline_og_preview.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1280">
+  <meta property="og:image:height" content="720">
+  <meta property="og:image:alt" content="BlueLine DataWorks 6-Agent AI Mesh">
+  <link rel="image_src" href="https://farmadvisorar-ux.github.io/puckpathway-hockey-os/static/img/blueline_og_preview.jpg">
+  <meta name="thumbnail" content="https://farmadvisorar-ux.github.io/puckpathway-hockey-os/static/img/blueline_og_preview.jpg">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="BlueLine DataWorks - 6-Agent Autonomous Data Mesh">
+  <meta name="twitter:description" content="Rotating 6-Agent AI Network discovering, trial-testing and ranking open source hockey data feeds every 4 hours. Master updates compiled every 12 hours.">
+  <meta name="twitter:image" content="https://farmadvisorar-ux.github.io/puckpathway-hockey-os/static/img/blueline_og_preview.jpg">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="static/css/custom.css">
+</head>
+<body class="bg-[#06090e] text-slate-100 min-h-screen flex flex-col font-sans selection:bg-sky-500 selection:text-white pb-16">
+
+  <!-- Top Global Header -->
+  <header class="border-b border-sky-500/20 bg-slate-950/95 backdrop-blur-xl sticky top-0 z-50 shadow-2xl shadow-black/60">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-14 sm:h-16 flex items-center justify-between gap-2">
+      
+      <!-- Brand Logo & Title -->
+      <div class="flex items-center gap-2 sm:gap-3 min-w-0">
+        <a href="index.html" class="flex items-center gap-2 group min-w-0">
+          <img src="static/img/blueline_logo.jpg" alt="BlueLine DataWorks" class="w-9 h-9 sm:w-10 sm:h-10 shrink-0 rounded-xl border border-sky-400/50 object-cover shadow-lg shadow-sky-500/30 group-hover:scale-105 transition">
+          <div class="min-w-0">
+            <div class="flex items-center gap-1.5 sm:gap-2">
+              <span class="font-black text-xs sm:text-base md:text-lg tracking-tight bg-gradient-to-r from-sky-400 via-cyan-200 to-blue-400 bg-clip-text text-transparent truncate">BLUELINE DATAWORKS</span>
+              <span class="px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 text-[9px] font-extrabold tracking-wide uppercase shrink-0">AI MESH</span>
+            </div>
+            <p class="text-[10px] sm:text-[11px] text-slate-400 truncate hidden sm:block">6-Agent Autonomous Data Harvesting & Signal Ranking Network</p>
+          </div>
+        </a>
+      </div>
+
+      <!-- Quick Nav Buttons -->
+      <div class="flex items-center gap-1.5 sm:gap-2 shrink-0 text-xs font-bold">
+        <a href="index.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>🏒</span> <span class="hidden md:inline">Main OS</span>
+        </a>
+        <a href="database.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-sky-400 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>📊</span> <span class="hidden md:inline">Directory (2,974)</span>
+        </a>
+        <a href="broadcast_ai.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-purple-400 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>🎙️</span> <span class="hidden md:inline">Voice AI</span>
+        </a>
+        <div class="h-4 w-[1px] bg-slate-800 hidden sm:block"></div>
+        <div class="flex items-center gap-1.5 bg-slate-900/90 border border-slate-700 rounded-xl px-2.5 py-1 text-[11px] text-slate-300">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span class="hidden sm:inline">Recruiter:</span> <strong class="text-white">Shane McCoy</strong>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Active Shift Status Bar -->
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-1.5 border-t border-slate-800/80 bg-slate-950/60 flex flex-wrap items-center justify-between gap-2 text-xs">
+      <div class="flex items-center gap-2 flex-wrap">
+        <span class="px-2 py-0.5 rounded-md bg-sky-500/20 text-sky-300 font-mono font-bold text-[10px] border border-sky-500/30 uppercase tracking-wider" id="activeShiftBadge">SHIFT 6 ACTIVE</span>
+        <span class="text-slate-300 font-semibold text-[11px]">
+          Lead: <span class="text-emerald-400 font-bold" id="leadAgentLabel">Agent-Six</span> • 
+          Co-Pilot: <span class="text-cyan-400 font-bold" id="copilotAgentLabel">Agent-One</span>
+        </span>
+        <span class="text-slate-500 text-[10px] hidden md:inline">| Continuous 4-Hour Relay Hand-Off</span>
+      </div>
+
+      <div class="flex items-center gap-3 text-[11px] font-mono">
+        <span class="text-slate-400 flex items-center gap-1">
+          <span>⏳ Shift Rotation In:</span> <strong class="text-sky-400" id="shiftCountdown">--:--</strong>
+        </span>
+        <span class="text-slate-400 hidden sm:flex items-center gap-1">
+          <span>📦 Master 12h Compile:</span> <strong class="text-amber-400" id="compileCountdown">--:--</strong>
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-6 space-y-6 flex-1 w-full">
+    
+    <!-- Hero / Architecture Overview Banner -->
+    <div class="glass-panel p-5 sm:p-6 rounded-3xl space-y-3 relative overflow-hidden shadow-2xl border border-sky-500/30">
+      <div class="absolute -right-12 -bottom-12 w-64 h-64 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
+      
+      <div class="flex flex-wrap items-start justify-between gap-4">
+        <div class="space-y-1 max-w-3xl">
+          <div class="flex items-center gap-2">
+            <span class="px-2.5 py-0.5 rounded-full bg-gradient-to-r from-cyan-500/20 to-blue-500/20 text-cyan-300 border border-cyan-500/40 text-[10px] font-mono font-bold uppercase tracking-wider">AUTONOMOUS MULTI-AGENT SWARM</span>
+            <span class="text-xs text-emerald-400 font-mono">● All 6 Nodes Synchronized</span>
+          </div>
+          <h1 class="text-xl sm:text-2xl font-black text-white tracking-tight">
+            BlueLine DataWorks 6-Agent Autonomous Data Harvesting Mesh
+          </h1>
+          <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+            A collective of six specialized, cloned AI agents operating in continuous 4-hour relay shifts. One leads while another co-pilots, sharing an immutable collective memory to trial-test open source web feeds, rank statistical signal quality (0-100 SQM), and auto-compile player trajectories every 12 hours.
+          </p>
+        </div>
+
+        <!-- Trigger Controls -->
+        <div class="flex flex-wrap items-center gap-2 shrink-0">
+          <button id="triggerShiftTrialBtn" class="px-3.5 py-2 rounded-xl bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-bold text-xs shadow-lg shadow-cyan-600/30 transition flex items-center gap-1.5 active:scale-95">
+            <span>⚡</span> Trigger Shift Probe Now
+          </button>
+          <button id="trigger12hCompileBtn" class="px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-amber-500/50 text-amber-300 font-bold text-xs shadow-md transition flex items-center gap-1.5 active:scale-95">
+            <span>📦</span> Run 12h Master Compile
+          </button>
+          <button id="exportLedgerJsonBtn" class="px-3 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-300 font-bold text-xs shadow-sm transition flex items-center gap-1">
+            <span>💾</span> JSON
+          </button>
+        </div>
+      </div>
+
+      <!-- Quick Metrics Ribbon -->
+      <div class="grid grid-cols-2 sm:grid-cols-5 gap-3 pt-3 border-t border-slate-800/80 text-xs">
+        <div class="p-2.5 rounded-xl bg-slate-900/60 border border-slate-800">
+          <div class="text-[10px] text-slate-400 font-mono">TOTAL TRIALS</div>
+          <div class="text-base sm:text-lg font-black text-white font-mono" id="statTotalTrials">4,897</div>
+        </div>
+        <div class="p-2.5 rounded-xl bg-slate-900/60 border border-slate-800">
+          <div class="text-[10px] text-slate-400 font-mono">CHANNELS MAPPED</div>
+          <div class="text-base sm:text-lg font-black text-cyan-400 font-mono" id="statTotalChannels">38</div>
+        </div>
+        <div class="p-2.5 rounded-xl bg-slate-900/60 border border-slate-800">
+          <div class="text-[10px] text-slate-400 font-mono">SIGNAL VERACITY</div>
+          <div class="text-base sm:text-lg font-black text-emerald-400 font-mono" id="statAvgVeracity">96.6%</div>
+        </div>
+        <div class="p-2.5 rounded-xl bg-slate-900/60 border border-slate-800">
+          <div class="text-[10px] text-slate-400 font-mono">ATHLETES SYNCED</div>
+          <div class="text-base sm:text-lg font-black text-purple-400 font-mono">2,974</div>
+        </div>
+        <div class="p-2.5 rounded-xl bg-slate-900/60 border border-slate-800 col-span-2 sm:col-span-1">
+          <div class="text-[10px] text-slate-400 font-mono">LEAD RECRUITER</div>
+          <div class="text-base sm:text-lg font-black text-amber-400 truncate">Shane McCoy</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== 1. THE 6 SPECIALIZED AGENTS ROSTER ==================== -->
+    <div class="space-y-3">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <h2 class="text-base sm:text-lg font-black text-white tracking-tight flex items-center gap-2">
+            <span>🤖</span> The 6 Rotating Autonomous Nodes
+          </h2>
+          <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 font-mono text-[10px]">4-Hour Relay Loop</span>
+        </div>
+        <span class="text-xs text-slate-400 hidden sm:block">One starts where previous left off + co-pilot support</span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5" id="agentCardsContainer">
+        <!-- Rendered by JavaScript -->
+      </div>
+    </div>
+
+    <!-- ==================== 2. TRIAL-AND-ERROR SIGNAL MATRIX (CHANNELS) ==================== -->
+    <div class="glass-panel p-5 rounded-3xl space-y-4 shadow-xl border border-slate-800">
+      
+      <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-800 pb-3">
+        <div>
+          <h2 class="text-base sm:text-lg font-black text-white flex items-center gap-2">
+            <span>📡</span> Evolving Open Source Hockey Channel Matrix
+          </h2>
+          <p class="text-xs text-slate-400">Ranked dynamically by the Signal Quality Metric (0-100 SQM) algorithm</p>
+        </div>
+
+        <!-- Filter Pills -->
+        <div class="flex items-center gap-1.5 flex-wrap">
+          <button class="channel-filter-btn px-2.5 py-1 rounded-lg text-xs font-bold bg-sky-600 text-white transition active" data-filter="all">All (38)</button>
+          <button class="channel-filter-btn px-2.5 py-1 rounded-lg text-xs font-bold bg-slate-900 text-slate-300 border border-slate-800 hover:text-white transition" data-filter="Tier S">Tier S (92+)</button>
+          <button class="channel-filter-btn px-2.5 py-1 rounded-lg text-xs font-bold bg-slate-900 text-slate-300 border border-slate-800 hover:text-white transition" data-filter="Tier A">Tier A (85-91)</button>
+          <button class="channel-filter-btn px-2.5 py-1 rounded-lg text-xs font-bold bg-slate-900 text-slate-300 border border-slate-800 hover:text-white transition" data-filter="Tier B">Tier B (75-84)</button>
+          <button class="channel-filter-btn px-2.5 py-1 rounded-lg text-xs font-bold bg-slate-900 text-slate-300 border border-slate-800 hover:text-white transition" data-filter="Trial">Trial (&lt;75)</button>
+        </div>
+      </div>
+
+      <!-- Quick Search inside Channels -->
+      <div class="relative">
+        <input type="text" id="channelSearchInput" placeholder="🔍 Search target feeds (e.g. USHL, NCAA, CHL, Hockey East, ADM, AHL, ECHL)..." class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-sky-400">
+      </div>
+
+      <!-- Ranked Table Container -->
+      <div class="overflow-x-auto rounded-2xl border border-slate-800/80">
+        <table class="w-full text-left text-xs border-collapse">
+          <thead>
+            <tr class="bg-slate-900/80 border-b border-slate-800 text-slate-400 text-[11px] font-mono">
+              <th class="p-3">TARGET CHANNEL</th>
+              <th class="p-3">CATEGORY</th>
+              <th class="p-3">PROTOCOL</th>
+              <th class="p-3 text-center">LATENCY</th>
+              <th class="p-3 text-center">FRESHNESS</th>
+              <th class="p-3 text-center">VERACITY</th>
+              <th class="p-3 text-center">SQM SCORE</th>
+              <th class="p-3 text-center">TIER RANK</th>
+              <th class="p-3 text-right">LAST PROBED</th>
+            </tr>
+          </thead>
+          <tbody id="channelsTableBody" class="divide-y divide-slate-800/60 font-sans">
+            <!-- Populated by JavaScript -->
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+    <!-- ==================== 3. LIVE TRIAL-AND-ERROR CONSOLE ==================== -->
+    <div class="glass-panel p-5 rounded-3xl space-y-3 shadow-xl border border-slate-800">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+        <div class="flex items-center gap-2">
+          <div class="w-3 h-3 rounded-full bg-emerald-400 animate-pulse"></div>
+          <h3 class="text-xs sm:text-sm font-bold text-white font-mono uppercase tracking-wider">Live Trial-and-Error Experiment Stream</h3>
+        </div>
+        <span class="text-[10px] text-slate-400 font-mono">Lead + Co-Pilot Collective Output</span>
+      </div>
+
+      <!-- Terminal Output Window -->
+      <div id="trialConsoleOutput" class="bg-black/90 p-4 rounded-2xl border border-slate-800 font-mono text-[11px] space-y-2 max-h-64 overflow-y-auto leading-relaxed shadow-inner">
+        <!-- Log entries stream here -->
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ==================== SCRIPTS ==================== -->
+  <script src="static/js/agent_mesh_engine.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const mesh = window.BlueLineAgentMesh;
+      if (!mesh) {
+        console.error("BlueLineAgentMesh engine not loaded.");
+        return;
+      }
+
+      let state = mesh.getState();
+      let activeFilter = 'all';
+
+      // 1. Render Active Shift Status
+      function renderShiftStatus() {
+        const shift = mesh.getCurrentShift();
+        document.getElementById('activeShiftBadge').textContent = `SHIFT ${shift.shiftNumber} ACTIVE (${shift.shiftStartHour} - ${shift.shiftEndHour})`;
+        document.getElementById('leadAgentLabel').textContent = `${shift.leadAgent.name} (${shift.leadAgent.codename})`;
+        document.getElementById('copilotAgentLabel').textContent = `${shift.copilotAgent.name} (${shift.copilotAgent.codename})`;
+
+        const hoursLeft = Math.floor(shift.minutesRemainingInShift / 60);
+        const minsLeft = shift.minutesRemainingInShift % 60;
+        document.getElementById('shiftCountdown').textContent = `${hoursLeft}h ${minsLeft}m`;
+
+        const compileHoursLeft = Math.floor(shift.minutesUntilMasterCompile / 60);
+        const compileMinsLeft = shift.minutesUntilMasterCompile % 60;
+        document.getElementById('compileCountdown').textContent = `${compileHoursLeft}h ${compileMinsLeft}m`;
+      }
+
+      // 2. Render 6 Agent Cards
+      function renderAgentCards() {
+        const shift = mesh.getCurrentShift();
+        const container = document.getElementById('agentCardsContainer');
+        container.innerHTML = mesh.AGENTS.map((agent, idx) => {
+          const isLead = agent.id === shift.leadAgent.id;
+          const isCopilot = agent.id === shift.copilotAgent.id;
+
+          let badgeHtml = `<span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-slate-800 text-slate-400 border border-slate-700">STANDBY</span>`;
+          let cardBorder = `border-slate-800/80`;
+
+          if (isLead) {
+            badgeHtml = `<span class="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/50 flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span> LEAD PILOT</span>`;
+            cardBorder = `border-emerald-500/60 shadow-lg shadow-emerald-500/10`;
+          } else if (isCopilot) {
+            badgeHtml = `<span class="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-500/50 flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span> CO-PILOT</span>`;
+            cardBorder = `border-cyan-500/60 shadow-lg shadow-cyan-500/10`;
+          }
+
+          return `
+            <div class="glass-panel p-4 rounded-2xl border ${cardBorder} flex flex-col justify-between space-y-3 transition hover:scale-[1.01]">
+              <div class="flex items-start justify-between gap-2">
+                <div class="flex items-center gap-2.5">
+                  <div class="w-10 h-10 rounded-xl bg-gradient-to-tr ${agent.color} flex items-center justify-center text-xl shadow-md">
+                    ${agent.avatar}
+                  </div>
+                  <div>
+                    <div class="flex items-center gap-1.5">
+                      <h3 class="text-sm font-black text-white">${agent.name}</h3>
+                      <span class="text-[9px] font-mono text-slate-400 uppercase tracking-widest">${agent.codename}</span>
+                    </div>
+                    <p class="text-[11px] font-semibold text-sky-400">${agent.role}</p>
+                  </div>
+                </div>
+                ${badgeHtml}
+              </div>
+
+              <p class="text-[11px] text-slate-300 leading-snug">${agent.specialty}</p>
+
+              <div class="flex flex-wrap gap-1 pt-2 border-t border-slate-800/80">
+                ${agent.skills.map(s => `<span class="px-2 py-0.5 rounded bg-slate-900 text-slate-400 text-[9px] font-mono border border-slate-800">${s}</span>`).join('')}
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      // 3. Render Channels Table
+      function renderChannelsTable() {
+        const query = document.getElementById('channelSearchInput').value.toLowerCase().trim();
+        const tbody = document.getElementById('channelsTableBody');
+
+        const filtered = state.targets.filter(t => {
+          const matchFilter = activeFilter === 'all' || t.tier === activeFilter;
+          const matchQuery = !query || t.name.toLowerCase().includes(query) || t.category.toLowerCase().includes(query) || t.type.toLowerCase().includes(query);
+          return matchFilter && matchQuery;
+        });
+
+        if (filtered.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="9" class="p-6 text-center text-slate-500 font-mono text-xs">No channels matching criteria.</td></tr>`;
+          return;
+        }
+
+        tbody.innerHTML = filtered.map(t => {
+          let tierBadge = `bg-slate-800 text-slate-300 border-slate-700`;
+          if (t.tier === "Tier S") tierBadge = `bg-emerald-500/20 text-emerald-300 border-emerald-500/40`;
+          else if (t.tier === "Tier A") tierBadge = `bg-cyan-500/20 text-cyan-300 border-cyan-500/40`;
+          else if (t.tier === "Tier B") tierBadge = `bg-amber-500/20 text-amber-300 border-amber-500/40`;
+          else if (t.tier === "Trial") tierBadge = `bg-rose-500/20 text-rose-300 border-rose-500/40`;
+
+          return `
+            <tr class="hover:bg-slate-900/40 transition text-slate-200">
+              <td class="p-3 font-semibold text-white">
+                <div class="flex items-center gap-1.5">
+                  <span>${t.name}</span>
+                </div>
+                <div class="text-[10px] text-slate-400 font-mono truncate max-w-xs">${t.endpoint}</div>
+              </td>
+              <td class="p-3 text-[11px] text-slate-300">${t.category}</td>
+              <td class="p-3 font-mono text-[10px] text-slate-400">${t.type}</td>
+              <td class="p-3 text-center font-mono text-xs ${t.latencyMs < 180 ? 'text-emerald-400' : (t.latencyMs < 300 ? 'text-cyan-400' : 'text-amber-400')}">${t.latencyMs}ms</td>
+              <td class="p-3 text-center font-mono text-xs">${t.freshness}%</td>
+              <td class="p-3 text-center font-mono text-xs text-emerald-400 font-bold">${t.veracity}%</td>
+              <td class="p-3 text-center">
+                <div class="flex items-center justify-center gap-2">
+                  <div class="w-16 bg-slate-800 h-2 rounded-full overflow-hidden">
+                    <div class="bg-gradient-to-r from-sky-400 to-emerald-400 h-full" style="width: ${t.sqm}%"></div>
+                  </div>
+                  <span class="font-mono font-bold text-xs text-white">${t.sqm}</span>
+                </div>
+              </td>
+              <td class="p-3 text-center">
+                <span class="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold border ${tierBadge}">${t.tier}</span>
+              </td>
+              <td class="p-3 text-right font-mono text-[11px] text-slate-400">${t.lastProbed}</td>
+            </tr>
+          `;
+        }).join('');
+      }
+
+      // 4. Render Console Log
+      function renderConsoleLogs() {
+        const consoleEl = document.getElementById('trialConsoleOutput');
+        consoleEl.innerHTML = state.trialLog.map(log => {
+          let eventColor = "text-sky-400";
+          if (log.event.includes("APPROVED") || log.event.includes("SUCCESS")) eventColor = "text-emerald-400";
+          if (log.event.includes("TRIAL") || log.event.includes("EXPERIMENT")) eventColor = "text-amber-400";
+          if (log.event.includes("COMPILE")) eventColor = "text-purple-400 font-bold";
+
+          return `
+            <div class="flex items-start gap-2">
+              <span class="text-slate-500 shrink-0">[${log.timestamp}]</span>
+              <span class="${eventColor} shrink-0">[${log.event}]</span>
+              <span class="text-slate-300">${log.msg}</span>
+            </div>
+          `;
+        }).join('');
+      }
+
+      // 5. Update Metrics
+      function updateMetrics() {
+        document.getElementById('statTotalTrials').textContent = state.totalTrialsConducted.toLocaleString();
+        document.getElementById('statTotalChannels').textContent = state.targets.length;
+        document.getElementById('statAvgVeracity').textContent = `${state.avgSignalVeracity}%`;
+      }
+
+      // 6. Event Listeners
+      document.getElementById('triggerShiftTrialBtn').addEventListener('click', () => {
+        const result = mesh.runShiftTrial();
+        state = result.state;
+        renderShiftStatus();
+        renderAgentCards();
+        renderChannelsTable();
+        renderConsoleLogs();
+        updateMetrics();
+      });
+
+      document.getElementById('trigger12hCompileBtn').addEventListener('click', () => {
+        const result = mesh.runMasterCompile();
+        state = result.state;
+        renderShiftStatus();
+        renderConsoleLogs();
+        alert(`Master 12-Hour Compile Executed!\nIngested ${result.newStatsGathered} athlete trajectory updates across Tier-S/A open channels. Signed by Head of Scouting Shane McCoy.`);
+      });
+
+      document.getElementById('exportLedgerJsonBtn').addEventListener('click', () => {
+        const blob = new Blob([JSON.stringify(state, null, 2)], { type: 'application/json' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = `blueline_agent_mesh_state_${Date.now()}.json`;
+        a.click();
+      });
+
+      document.getElementById('channelSearchInput').addEventListener('input', () => {
+        renderChannelsTable();
+      });
+
+      document.querySelectorAll('.channel-filter-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          document.querySelectorAll('.channel-filter-btn').forEach(b => {
+            b.classList.remove('bg-sky-600', 'text-white');
+            b.classList.add('bg-slate-900', 'text-slate-300');
+          });
+          e.target.classList.add('bg-sky-600', 'text-white');
+          e.target.classList.remove('bg-slate-900', 'text-slate-300');
+          activeFilter = e.target.dataset.filter;
+          renderChannelsTable();
+        });
+      });
+
+      // Initial Render
+      renderShiftStatus();
+      renderAgentCards();
+      renderChannelsTable();
+      renderConsoleLogs();
+      updateMetrics();
+
+      // Live tick every minute for timers
+      setInterval(renderShiftStatus, 60000);
+    });
+  </script>
+</body>
+</html>
