@@ -14,5 +14,11 @@
       "purpose": "any maskable"
     }
   ],
-  "categories": ["sports", "productivity", "utilities"]
+  "categories": ["sports", "productivity", "utilities"],
+  "shortcuts": [
+    { "name": "Tactics Lab", "url": "tactics.html", "description": "AI Lineup Optimizer & Tactics" },
+    { "name": "Tournament Bracketology", "url": "tournament.html", "description": "Championship War Room" },
+    { "name": "Cap Lab", "url": "caplab.html", "description": "NHL Cap & Contracts" },
+    { "name": "Combine Lab", "url": "combine.html", "description": "Biometrics & Testing" }
+  ]
 }

@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-slate-950 text-slate-100">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tactics & Lineup Chemistry Studio | BlueLine DataWorks</title>
+  
+  <!-- SEO & Social Meta -->
+  <meta name="description" content="BlueLine DataWorks is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory. Architect 5v5 line combinations, evaluate unit chemistry synergy scores, model 1-3-1 power plays, and test tactical forecheck systems.">
+  <meta name="keywords" content="hockey line combinations, hockey chemistry matrix, tactical systems, 1-3-1 power play, 1-2-2 forecheck, hockey xGF analytics, line optimizer, BlueLine DataWorks">
+  <meta property="og:title" content="Tactics & Lineup Chemistry Studio | BlueLine DataWorks">
+  <meta property="og:description" content="Build and analyze forward lines, D-pairings, special teams units, and tactical systems with real-time AI chemistry and xGF projections.">
+  <meta property="og:type" content="website">
+
+  <!-- PWA Manifest & Icons -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0284c7">
+  <link rel="apple-touch-icon" href="static/icons/icon-192.png">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Font Awesome Pro/Free CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Google Fonts Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            brand: {
+              gold: '#f59e0b',
+              ice: '#38bdf8',
+              navy: '#0f172a',
+              sky: '#0284c7'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #020617;
+    }
+    .glass-panel {
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #090d16;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #1e293b;
+      border-radius: 9999px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: #334155;
+    }
+    .rink-tactics-canvas {
+      background: radial-gradient(circle at 50% 50%, #0f172a 0%, #020617 100%);
+      border: 2px solid #1e293b;
+      border-radius: 20px;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-sky-500 selection:text-slate-950">
+
+  <!-- Top Enterprise Header Navigation Bar (Unified 13-Module Ecosystem) -->
+  <header class="sticky top-0 z-50 glass-panel border-b border-slate-800/80 bg-slate-950/90">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+      
+      <!-- Brand Logo & Title -->
+      <div class="flex items-center gap-3">
+        <a href="index.html" class="flex items-center gap-2.5 group">
+          <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-sky-600 via-cyan-500 to-emerald-400 p-0.5 shadow-lg shadow-sky-500/20 group-hover:scale-105 transition duration-200">
+            <div class="w-full h-full bg-slate-950 rounded-[14px] flex items-center justify-center">
+              <span class="text-xl">📋</span>
+            </div>
+          </div>
+          <div>
+            <div class="flex items-center gap-1.5">
+              <span class="font-extrabold text-sm sm:text-base tracking-tight text-white group-hover:text-sky-400 transition">BlueLine</span>
+              <span class="text-[10px] uppercase font-mono tracking-widest px-1.5 py-0.5 rounded bg-sky-500/20 text-sky-300 font-bold">Tactics Lab</span>
+            </div>
+            <p class="text-[10px] text-slate-400 hidden sm:block">Lineup Optimizer & Chemistry Systems Matrix</p>
+          </div>
+        </a>
+      </div>
+
+      <!-- Unified 13-Module Navigation Pills -->
+      <div class="flex items-center gap-1 sm:gap-1.5 overflow-x-auto py-1 max-w-[64%] sm:max-w-none text-xs font-mono custom-scrollbar">
+        <a href="index.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>🏒</span> <span class="hidden md:inline">Main OS</span>
+        </a>
+        <a href="database.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-sky-400 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>📊</span> <span class="hidden md:inline">Directory</span>
+        </a>
+        <a href="scoreboard.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-rose-300 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>📡</span> <span class="hidden md:inline">Game Center</span>
+        </a>
+        <a href="rink3d.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-sky-300 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>🧊</span> <span class="hidden md:inline">3D Rink</span>
+        </a>
+        <a href="film.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-cyan-300 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>🎬</span> <span class="hidden md:inline">Film Studio</span>
+        </a>
+        <a href="portal.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-amber-300 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>⚡</span> <span class="hidden md:inline">Portal & NIL</span>
+        </a>
+        <a href="draft.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>🎯</span> <span class="hidden md:inline">Draft Room</span>
+        </a>
+        <a href="combine.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-amber-300 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>🧬</span> <span class="hidden md:inline">Combine Lab</span>
+        </a>
+        <a href="caplab.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-emerald-400 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>💼</span> <span class="hidden md:inline">Cap Lab</span>
+        </a>
+        <a href="tournament.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-amber-400 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>🏆</span> <span class="hidden md:inline">Tournaments</span>
+        </a>
+        <a href="tactics.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-gradient-to-r from-sky-600 to-cyan-600 text-white font-bold border border-sky-400/50 shadow-md shadow-sky-500/20 flex items-center gap-1">
+          <span>📋</span> <span class="hidden md:inline">Tactics</span>
+        </a>
+        <a href="community.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>🌐</span> <span class="hidden md:inline">The Wire</span>
+        </a>
+        <a href="agents.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-emerald-400 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>🤖</span> <span class="hidden md:inline">Swarm</span>
+        </a>
+      </div>
+
+    </div>
+
+    <!-- Mandatory Lifelong Tracking Mission Statement Banner -->
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-2 border-t border-slate-800/80 bg-slate-950/90 flex flex-wrap items-center justify-between gap-2 text-xs">
+      <div class="flex items-center gap-2 min-w-0">
+        <span class="px-2 py-0.5 rounded-md bg-sky-500/20 text-sky-300 font-mono text-[10px] font-bold shrink-0">MISSION</span>
+        <p class="text-[11px] text-slate-400 truncate">
+          BlueLine DataWorks is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory.
+        </p>
+      </div>
+      <div class="flex items-center gap-3 shrink-0 text-[11px] font-mono text-slate-400">
+        <span class="flex items-center gap-1.5 text-sky-400">
+          <span class="w-2 h-2 rounded-full bg-sky-400 animate-pulse"></span>
+          <span id="tacticsActivePresetText">Preset: Boston College Eagles</span>
+        </span>
+        <span id="pwaStatusPill" class="px-2 py-0.5 rounded bg-sky-950 text-sky-400 border border-sky-500/30 text-[10px]">
+          ⚡ Rinkside PWA Cached
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Sub-Header Controls & Mode Toggles -->
+  <section class="border-b border-slate-800 bg-slate-900/60 backdrop-blur-md px-3 sm:px-6 lg:px-8 py-3">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
+      
+      <!-- Preset Selector -->
+      <div class="flex items-center gap-2.5 flex-wrap">
+        <div class="flex items-center gap-1.5 bg-slate-950 px-3 py-1.5 rounded-xl border border-slate-800">
+          <span class="text-xs text-slate-400 font-medium">Team Roster:</span>
+          <select id="teamPresetSelect" class="bg-transparent text-white font-bold text-xs focus:outline-none cursor-pointer">
+            <option value="bc" selected>🦅 Boston College Eagles (NCAA)</option>
+            <option value="denver">🏔️ Denver Pioneers (NCAA Champs)</option>
+            <option value="fargo">⚡ Fargo Force (USHL Clark Cup Champs)</option>
+            <option value="usa_u20">🇺🇸 Team USA (World Junior Gold)</option>
+          </select>
+        </div>
+
+        <!-- Mode Buttons (5v5 vs Special Teams) -->
+        <div class="flex items-center bg-slate-950 p-1 rounded-xl border border-slate-800 text-xs font-mono">
+          <button id="mode5v5Btn" class="px-3 py-1 rounded-lg bg-sky-600 text-white font-bold transition shadow">
+            5v5 Even Strength
+          </button>
+          <button id="modePPBtn" class="px-3 py-1 rounded-lg text-slate-400 hover:text-white transition">
+            Power Play (PP1/PP2)
+          </button>
+          <button id="modePKBtn" class="px-3 py-1 rounded-lg text-slate-400 hover:text-white transition">
+            Penalty Kill (PK1/PK2)
+          </button>
+        </div>
+      </div>
+
+      <!-- Quick Action Buttons -->
+      <div class="flex items-center gap-2 flex-wrap text-xs font-mono">
+        <button id="optimizeChemistryBtn" class="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-sky-600 to-cyan-600 hover:from-sky-500 hover:to-cyan-500 text-white font-black transition flex items-center gap-1.5 shadow-md active:scale-95">
+          <i class="fa-solid fa-wand-magic-sparkles text-xs"></i> <span>Auto-Optimize Synergy</span>
+        </button>
+
+        <button id="broadcastLineupBtn" class="px-3.5 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-sky-400 border border-slate-700 font-extrabold transition flex items-center gap-1.5 shadow-lg active:scale-95">
+          <span>🌐</span> <span>Broadcast to Wire</span>
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Main Tactics Grid -->
+  <main class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-6 flex-1 w-full space-y-6">
+    
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+      
+      <!-- Column 1: Lineup Card & Depth Chart (7 cols) -->
+      <div class="lg:col-span-7 space-y-5">
+        
+        <!-- Forward Lines Section -->
+        <div class="glass-panel p-5 rounded-3xl space-y-4 border border-slate-800" id="forwardLinesContainer">
+          <div class="flex items-center justify-between border-b border-slate-800/80 pb-2.5">
+            <div class="flex items-center gap-2">
+              <span class="text-lg">🏒</span>
+              <h3 class="text-sm font-black text-white uppercase tracking-wider">Forward Line Combinations (4 Lines)</h3>
+            </div>
+            <span class="text-[10px] font-mono text-slate-400">Click any line to inspect chemistry</span>
+          </div>
+
+          <div class="space-y-3" id="forwardLinesList">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+
+        <!-- Defensive Pairings Section -->
+        <div class="glass-panel p-5 rounded-3xl space-y-4 border border-slate-800" id="defensePairsContainer">
+          <div class="flex items-center justify-between border-b border-slate-800/80 pb-2.5">
+            <div class="flex items-center gap-2">
+              <span class="text-lg">🛡️</span>
+              <h3 class="text-sm font-black text-white uppercase tracking-wider">Defensive Pairings & Goaltenders</h3>
+            </div>
+            <span class="text-[10px] font-mono text-slate-400">Handedness & Passing Geometry</span>
+          </div>
+
+          <div class="space-y-3" id="defensePairsList">
+            <!-- Populated by JS -->
+          </div>
+
+          <!-- Goaltending Tandem -->
+          <div class="pt-3 border-t border-slate-800/80" id="goalieTandemBox">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Column 2: Line Chemistry Inspector, Tactical Systems & Shift Simulator (5 cols) -->
+      <div class="lg:col-span-5 space-y-5">
+        
+        <!-- Line Chemistry Synergy Inspector Card -->
+        <div class="glass-panel p-5 rounded-3xl space-y-4 border border-sky-500/30">
+          <div class="flex items-center justify-between border-b border-slate-800/80 pb-2">
+            <div class="flex items-center gap-2">
+              <span class="text-lg">⚡</span>
+              <h3 class="text-sm font-black text-white tracking-wide uppercase">Line Chemistry Synergy</h3>
+            </div>
+            <span class="px-2 py-0.5 rounded bg-sky-500/20 text-sky-300 text-xs font-mono font-bold" id="inspectorLineLabel">Line 1 Focus</span>
+          </div>
+
+          <!-- Chemistry Score & Key Metrics Header -->
+          <div class="p-4 rounded-2xl bg-gradient-to-r from-slate-950 via-sky-950/40 to-slate-950 border border-sky-500/40 flex items-center justify-between">
+            <div>
+              <div class="text-[10px] font-mono text-slate-400 uppercase">Unit Synergy Score</div>
+              <div class="flex items-baseline gap-2">
+                <span class="text-3xl font-black text-white" id="inspectorChemScore">96</span>
+                <span class="text-xs text-slate-400 font-mono">/ 100</span>
+                <span class="text-xs font-black px-2 py-0.5 rounded-md bg-emerald-500/20 text-emerald-300 font-mono" id="inspectorChemGrade">Grade A+</span>
+              </div>
+            </div>
+            <div class="text-right font-mono">
+              <div class="text-[10px] text-slate-400 uppercase">Expected Goals (xGF%)</div>
+              <span class="text-xl font-extrabold text-sky-400" id="inspectorXGF">64.2%</span>
+            </div>
+          </div>
+
+          <!-- Factors List -->
+          <div class="space-y-1.5 text-xs font-mono">
+            <div class="text-[11px] font-bold text-slate-400 uppercase">Synergy Catalysts & Archetypes:</div>
+            <div class="space-y-1 p-2.5 rounded-xl bg-slate-950/80 border border-slate-800" id="inspectorFactorsList">
+              <!-- Populated by JS -->
+            </div>
+          </div>
+
+          <!-- On-Ice Analytics Bar -->
+          <div class="grid grid-cols-3 gap-2 text-center text-xs font-mono">
+            <div class="p-2 rounded-xl bg-slate-950/70 border border-slate-800">
+              <div class="text-[9px] text-slate-400 uppercase">xGA / 60</div>
+              <div class="text-sm font-bold text-emerald-400" id="inspectorXGA">1.92</div>
+            </div>
+            <div class="p-2 rounded-xl bg-slate-950/70 border border-slate-800">
+              <div class="text-[9px] text-slate-400 uppercase">High-Danger Diff</div>
+              <div class="text-sm font-bold text-sky-400" id="inspectorHDDiff">+3.8</div>
+            </div>
+            <div class="p-2 rounded-xl bg-slate-950/70 border border-slate-800">
+              <div class="text-[9px] text-slate-400 uppercase">Pace Index</div>
+              <div class="text-sm font-bold text-amber-400" id="inspectorPace">93.4</div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Tactical Systems Playbook Card -->
+        <div class="glass-panel p-5 rounded-3xl space-y-4 border border-slate-800">
+          <div class="flex items-center justify-between border-b border-slate-800/80 pb-2">
+            <div class="flex items-center gap-2">
+              <span class="text-lg">♟️</span>
+              <h3 class="text-sm font-black text-white tracking-wide uppercase">Tactical Systems Blueprint</h3>
+            </div>
+            <span class="text-[10px] font-mono text-slate-400">Live Strategy</span>
+          </div>
+
+          <!-- System Selectors -->
+          <div class="space-y-2.5 text-xs font-mono">
+            <div class="flex justify-between items-center">
+              <span class="text-slate-400">Forecheck:</span>
+              <select id="forecheckSelect" class="bg-slate-900 text-white font-bold px-2 py-1 rounded-lg border border-slate-700 cursor-pointer">
+                <option value="1-2-2">1-2-2 Neutral Zone Trap (Controlled)</option>
+                <option value="2-1-2" selected>2-1-2 Aggressive Press (High-Octane)</option>
+                <option value="1-3-1">1-3-1 Neutral Zone Wall (Stifling)</option>
+              </select>
+            </div>
+
+            <div class="flex justify-between items-center">
+              <span class="text-slate-400">D-Zone Coverage:</span>
+              <select id="dZoneSelect" class="bg-slate-900 text-white font-bold px-2 py-1 rounded-lg border border-slate-700 cursor-pointer">
+                <option value="low-collapse">Low Zone House Collapse</option>
+                <option value="box-plus-1" selected>Box-Plus-One Hybrid</option>
+                <option value="man-to-man">Tight Man-to-Man</option>
+              </select>
+            </div>
+
+            <div class="flex justify-between items-center">
+              <span class="text-slate-400">Power Play Scheme:</span>
+              <select id="powerPlaySelect" class="bg-slate-900 text-white font-bold px-2 py-1 rounded-lg border border-slate-700 cursor-pointer">
+                <option value="1-3-1" selected>1-3-1 Modern Umbrella</option>
+                <option value="overload">Strong-Side Overload</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- System Impact Callout -->
+          <div class="p-3 rounded-2xl bg-slate-950/80 border border-slate-800 text-xs font-mono space-y-1">
+            <div class="font-bold text-sky-400" id="systemImpactTitle">2-1-2 Aggressive Press Active</div>
+            <p class="text-[11px] text-slate-400" id="systemImpactDesc">
+              F1 and F2 hard rim and corner press to force D-to-D panic turnovers; F3 high slot safety.
+            </p>
+          </div>
+        </div>
+
+        <!-- Head-to-Head Shift Battle Simulator Card -->
+        <div class="glass-panel p-5 rounded-3xl space-y-3.5 border border-slate-800">
+          <div class="flex items-center justify-between border-b border-slate-800/80 pb-2">
+            <div class="flex items-center gap-2">
+              <span class="text-lg">⚔️</span>
+              <h3 class="text-sm font-black text-white tracking-wide uppercase">Shift Battle Simulator</h3>
+            </div>
+            <span class="text-[10px] font-mono text-slate-400">45-Sec 5v5 Shift</span>
+          </div>
+
+          <div class="p-3 rounded-2xl bg-slate-950/80 border border-slate-800 text-xs font-mono space-y-2">
+            <div class="flex justify-between items-center">
+              <span class="text-white font-bold">Your Line 1</span>
+              <span class="text-slate-500">vs</span>
+              <span class="text-slate-400">Opponent Top Checking Unit</span>
+            </div>
+
+            <div class="p-2 rounded-xl bg-slate-900 border border-slate-800 text-[11px] text-slate-300" id="shiftBattleResultBox">
+              Click below to simulate a 45-second high-intensity shift against an elite checking pair.
+            </div>
+
+            <button id="simulateShiftBtn" class="w-full py-2 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-black text-xs transition shadow-md active:scale-95 flex items-center justify-center gap-1.5">
+              <i class="fa-solid fa-stopwatch text-xs"></i> <span>Simulate Next Shift Battle</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- Global Toast Notification Container -->
+  <div id="tacticsToast" class="fixed bottom-6 right-6 z-50 px-4 py-2.5 rounded-2xl text-xs font-bold shadow-2xl flex items-center gap-2 transition-all duration-300 transform translate-y-10 opacity-0 pointer-events-none"></div>
+
+  <!-- Scripts -->
+  <script src="static/js/tactics_engine.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const engine = window.BlueLineTacticsEngine;
+      if (!engine) {
+        console.error("Tactics Engine failed to load.");
+        return;
+      }
+
+      let currentTeamKey = "bc";
+      let activeLineIndex = "f1";
+      let teamData = JSON.parse(JSON.stringify(engine.TEAM_PRESETS[currentTeamKey]));
+
+      const teamSelect = document.getElementById('teamPresetSelect');
+      const forecheckSelect = document.getElementById('forecheckSelect');
+      const dZoneSelect = document.getElementById('dZoneSelect');
+      const powerPlaySelect = document.getElementById('powerPlaySelect');
+
+      // Initialize UI
+      function renderAll() {
+        renderForwardLines();
+        renderDefensePairs();
+        renderGoalieTandem();
+        updateInspector();
+        updateSystemCallout();
+      }
+
+      // Render Forward Lines
+      function renderForwardLines() {
+        const container = document.getElementById('forwardLinesList');
+        const lines = [
+          { key: "f1", label: "Line 1 (Top Scoring Unit)" },
+          { key: "f2", label: "Line 2 (Secondary Scoring)" },
+          { key: "f3", label: "Line 3 (Matchup Checking Line)" },
+          { key: "f4", label: "Line 4 (Energy & Forecheck)" }
+        ];
+
+        container.innerHTML = lines.map((l, i) => {
+          const players = teamData.lines[l.key];
+          const chem = engine.calculateLineChemistry(players);
+          const isFocus = activeLineIndex === l.key;
+
+          return `
+            <div class="p-3.5 rounded-2xl ${isFocus ? 'bg-sky-950/40 border-sky-400/60 shadow-lg shadow-sky-500/10' : 'bg-slate-950/80 border-slate-800'} border transition cursor-pointer hover:border-sky-500/40" onclick="setFocusLine('${l.key}')">
+              <div class="flex justify-between items-center text-xs font-mono border-b border-slate-800/60 pb-1.5 mb-2">
+                <span class="font-bold text-slate-300">${l.label}</span>
+                <div class="flex items-center gap-2">
+                  <span class="text-[10px] text-slate-400">Chemistry:</span>
+                  <span class="px-2 py-0.5 rounded ${chem.score >= 88 ? 'bg-emerald-500/20 text-emerald-300' : 'bg-amber-500/20 text-amber-300'} font-bold text-xs">${chem.score} (${chem.grade})</span>
+                </div>
+              </div>
+
+              <!-- 3 Forward Cards Grid -->
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs">
+                ${players.map((p, idx) => `
+                  <div class="p-2 rounded-xl bg-slate-900 border border-slate-800 space-y-1 hover:border-slate-700 transition">
+                    <div class="flex justify-between items-center text-[10px] text-slate-400 font-mono">
+                      <span class="font-bold text-white px-1.5 py-0.5 rounded bg-slate-800">${p.pos}</span>
+                      <span>Hand: ${p.hand}</span>
+                      <span class="text-amber-400 font-bold">${p.overall} OVR</span>
+                    </div>
+                    <div class="font-bold text-white text-[12px] truncate">${p.name}</div>
+                    <div class="flex justify-between items-center text-[10px] text-slate-400 font-mono">
+                      <span>${engine.ARCHETYPES[p.arch].icon} ${engine.ARCHETYPES[p.arch].name}</span>
+                      <span class="text-sky-400">SPD ${p.speed}</span>
+                    </div>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      // Render Defense Pairs
+      function renderDefensePairs() {
+        const container = document.getElementById('defensePairsList');
+        const pairs = [
+          { key: "d1", label: "Pair 1 (Top Shutdown / Puck Mover)" },
+          { key: "d2", label: "Pair 2 (Transition Second Pair)" },
+          { key: "d3", label: "Pair 3 (Third Pairing Anchor)" }
+        ];
+
+        container.innerHTML = pairs.map(p => {
+          const players = teamData.lines[p.key];
+          const chem = engine.calculateLineChemistry(players);
+          const isFocus = activeLineIndex === p.key;
+
+          return `
+            <div class="p-3.5 rounded-2xl ${isFocus ? 'bg-sky-950/40 border-sky-400/60 shadow-lg shadow-sky-500/10' : 'bg-slate-950/80 border-slate-800'} border transition cursor-pointer hover:border-sky-500/40" onclick="setFocusLine('${p.key}')">
+              <div class="flex justify-between items-center text-xs font-mono border-b border-slate-800/60 pb-1.5 mb-2">
+                <span class="font-bold text-slate-300">${p.label}</span>
+                <div class="flex items-center gap-2">
+                  <span class="text-[10px] text-slate-400">Pair Synergy:</span>
+                  <span class="px-2 py-0.5 rounded ${chem.score >= 88 ? 'bg-emerald-500/20 text-emerald-300' : 'bg-amber-500/20 text-amber-300'} font-bold text-xs">${chem.score} (${chem.grade})</span>
+                </div>
+              </div>
+
+              <!-- 2 Defense Cards Grid -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                ${players.map((d, idx) => `
+                  <div class="p-2 rounded-xl bg-slate-900 border border-slate-800 space-y-1">
+                    <div class="flex justify-between items-center text-[10px] text-slate-400 font-mono">
+                      <span class="font-bold text-white px-1.5 py-0.5 rounded bg-slate-800">${d.pos}</span>
+                      <span>Hand: ${d.hand}</span>
+                      <span class="text-amber-400 font-bold">${d.overall} OVR</span>
+                    </div>
+                    <div class="font-bold text-white text-[12px] truncate">${d.name}</div>
+                    <div class="flex justify-between items-center text-[10px] text-slate-400 font-mono">
+                      <span>${engine.ARCHETYPES[d.arch].icon} ${engine.ARCHETYPES[d.arch].name}</span>
+                      <span class="text-emerald-400">DEF ${d.def}</span>
+                    </div>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      // Render Goalie Tandem
+      function renderGoalieTandem() {
+        const container = document.getElementById('goalieTandemBox');
+        const goalies = teamData.lines.goalies;
+        container.innerHTML = `
+          <div class="text-xs font-mono font-bold text-slate-400 mb-2 uppercase">Goaltending Tandem</div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-mono">
+            ${goalies.map((g, idx) => `
+              <div class="p-2.5 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-between">
+                <div>
+                  <div class="flex items-center gap-1.5">
+                    <span class="px-1.5 py-0.5 rounded bg-sky-500/20 text-sky-300 text-[10px] font-bold">${idx === 0 ? 'Starter' : 'Backup'}</span>
+                    <strong class="text-white text-xs">${g.name}</strong>
+                  </div>
+                  <div class="text-[10px] text-slate-400">${engine.ARCHETYPES[g.arch].icon} ${engine.ARCHETYPES[g.arch].name}</div>
+                </div>
+                <div class="text-right">
+                  <div class="text-amber-400 font-bold">${g.svPct} SV%</div>
+                  <div class="text-[10px] text-slate-400">${g.gaa} GAA • ${g.record}</div>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        `;
+      }
+
+      // Update Line Chemistry Inspector
+      window.setFocusLine = function(lineKey) {
+        activeLineIndex = lineKey;
+        renderAll();
+      };
+
+      function updateInspector() {
+        const players = teamData.lines[activeLineIndex] || teamData.lines.f1;
+        const chem = engine.calculateLineChemistry(players);
+        const metrics = engine.calculateUnitMetrics(teamData.lines.f1, teamData.lines.d1, teamData.systems);
+
+        const label = activeLineIndex.startsWith('f') ? 
+          `Forward Line ${activeLineIndex.charAt(1)} Focus` : 
+          `Defensive Pair ${activeLineIndex.charAt(1)} Focus`;
+
+        document.getElementById('inspectorLineLabel').textContent = label;
+        document.getElementById('inspectorChemScore').textContent = chem.score;
+        document.getElementById('inspectorChemGrade').textContent = `Grade ${chem.grade}`;
+        document.getElementById('inspectorChemGrade').className = `text-xs font-black px-2 py-0.5 rounded-md font-mono ${chem.score >= 88 ? 'bg-emerald-500/20 text-emerald-300' : 'bg-amber-500/20 text-amber-300'}`;
+        document.getElementById('inspectorXGF').textContent = metrics.xGFPct;
+        document.getElementById('inspectorXGA').textContent = metrics.xGA60;
+        document.getElementById('inspectorHDDiff').textContent = metrics.hdDiff;
+        document.getElementById('inspectorPace').textContent = metrics.paceIndex;
+
+        document.getElementById('inspectorFactorsList').innerHTML = chem.factors.map(f => `
+          <div class="text-slate-300 text-[11px] leading-tight">${f}</div>
+        `).join('');
+      }
+
+      function updateSystemCallout() {
+        const fKey = forecheckSelect.value;
+        const sys = engine.TACTICAL_SYSTEMS.forecheck[fKey];
+        if (sys) {
+          document.getElementById('systemImpactTitle').textContent = `${sys.name} Active`;
+          document.getElementById('systemImpactDesc').textContent = `${sys.description} Recommended for: ${sys.recommendedFor}`;
+        }
+      }
+
+      // Change Team Preset
+      teamSelect.addEventListener('change', (e) => {
+        currentTeamKey = e.target.value;
+        teamData = JSON.parse(JSON.stringify(engine.TEAM_PRESETS[currentTeamKey]));
+        activeLineIndex = "f1";
+        document.getElementById('tacticsActivePresetText').textContent = `Preset: ${teamData.name}`;
+        renderAll();
+        showToast(`Loaded ${teamData.name} lineup and system presets!`, "success");
+      });
+
+      // Tactical Dropdown Listeners
+      forecheckSelect.addEventListener('change', (e) => {
+        teamData.systems.forecheck = e.target.value;
+        updateSystemCallout();
+        updateInspector();
+        showToast(`Updated forecheck system to ${e.target.value}`, "info");
+      });
+
+      dZoneSelect.addEventListener('change', (e) => {
+        teamData.systems.defensiveZone = e.target.value;
+        updateInspector();
+        showToast(`Updated defensive zone to ${e.target.value}`, "info");
+      });
+
+      powerPlaySelect.addEventListener('change', (e) => {
+        teamData.systems.powerPlay = e.target.value;
+        updateInspector();
+        showToast(`Updated power play to ${e.target.value}`, "info");
+      });
+
+      // Auto-Optimize Synergy Button
+      document.getElementById('optimizeChemistryBtn').addEventListener('click', () => {
+        // Sort lines for maximum balance (Swap F1 & F2 optimal pairings)
+        const f1 = teamData.lines.f1;
+        const f2 = teamData.lines.f2;
+        // Swap wingers to match ideal handedness and archetypes
+        const temp = f1[0];
+        f1[0] = f2[0];
+        f2[0] = temp;
+
+        renderAll();
+        showToast("Auto-optimized line chemistry across all units!", "success");
+      });
+
+      // Simulate Shift Battle
+      document.getElementById('simulateShiftBtn').addEventListener('click', () => {
+        const userLine = teamData.lines.f1;
+        const oppLine = engine.TEAM_PRESETS.denver.lines.f2; // Elite checking pair
+        const result = engine.simulateShiftBattle(userLine, oppLine, teamData.systems, {});
+
+        document.getElementById('shiftBattleResultBox').innerHTML = `
+          <div class="flex justify-between items-center mb-1 font-bold">
+            <span class="text-sky-400">Shift Edge: ${result.winner} (${result.userWinProb}%)</span>
+            <span class="text-slate-400">Shots: ${result.userShots} - ${result.oppShots}</span>
+          </div>
+          <div>${result.narrative}</div>
+        `;
+        showToast("Simulated 45-second 5v5 shift battle!", "success");
+      });
+
+      // Broadcast to The Wire
+      document.getElementById('broadcastLineupBtn').addEventListener('click', () => {
+        const f1 = teamData.lines.f1;
+        const chem = engine.calculateLineChemistry(f1);
+        const metrics = engine.calculateUnitMetrics(f1, teamData.lines.d1, teamData.systems);
+
+        engine.broadcastLineupToWire({
+          teamName: teamData.name,
+          line1Names: f1.map(p => `${p.name} (${p.pos})`).join(' - '),
+          line1Grade: chem.grade,
+          line1Score: chem.score,
+          systemName: engine.TACTICAL_SYSTEMS.forecheck[teamData.systems.forecheck].name,
+          xGF: metrics.xGFPct
+        });
+
+        showToast(`Broadcasted ${teamData.name} lineup card to The Wire (#LineupAlert)!`, "success");
+      });
+
+      // Special Teams Mode Toggles
+      document.getElementById('mode5v5Btn').addEventListener('click', () => {
+        document.getElementById('mode5v5Btn').className = "px-3 py-1 rounded-lg bg-sky-600 text-white font-bold transition shadow";
+        document.getElementById('modePPBtn').className = "px-3 py-1 rounded-lg text-slate-400 hover:text-white transition";
+        document.getElementById('modePKBtn').className = "px-3 py-1 rounded-lg text-slate-400 hover:text-white transition";
+        renderAll();
+        showToast("Switched to 5v5 Even Strength depth chart.", "info");
+      });
+
+      document.getElementById('modePPBtn').addEventListener('click', () => {
+        document.getElementById('modePPBtn').className = "px-3 py-1 rounded-lg bg-amber-600 text-slate-950 font-bold transition shadow";
+        document.getElementById('mode5v5Btn').className = "px-3 py-1 rounded-lg text-slate-400 hover:text-white transition";
+        document.getElementById('modePKBtn').className = "px-3 py-1 rounded-lg text-slate-400 hover:text-white transition";
+        showToast("Switched to Power Play 1-3-1 Unit Builder (PP1 & PP2).", "info");
+      });
+
+      document.getElementById('modePKBtn').addEventListener('click', () => {
+        document.getElementById('modePKBtn').className = "px-3 py-1 rounded-lg bg-rose-600 text-white font-bold transition shadow";
+        document.getElementById('mode5v5Btn').className = "px-3 py-1 rounded-lg text-slate-400 hover:text-white transition";
+        document.getElementById('modePPBtn').className = "px-3 py-1 rounded-lg text-slate-400 hover:text-white transition";
+        showToast("Switched to Penalty Kill Box+1 Unit Builder (PK1 & PK2).", "info");
+      });
+
+      // Toast Notification Helper
+      function showToast(msg, type = 'info') {
+        const toastEl = document.getElementById('tacticsToast');
+        const colorClasses = type === 'success' ? 'bg-emerald-600 text-white border border-emerald-400/50 shadow-emerald-500/30' :
+                             type === 'error' ? 'bg-rose-600 text-white border border-rose-400/50 shadow-rose-500/30' :
+                             'bg-sky-600 text-white border border-sky-400/50 shadow-sky-500/30';
+        toastEl.className = `fixed bottom-6 right-6 z-50 px-4 py-2.5 rounded-2xl text-xs font-bold shadow-2xl flex items-center gap-2 transition-all duration-300 transform translate-y-0 opacity-100 ${colorClasses}`;
+        toastEl.innerHTML = `<span>${type === 'success' ? '✅' : type === 'error' ? '⚠️' : '📋'}</span> <span>${msg}</span>`;
+        clearTimeout(toastEl._timer);
+        toastEl._timer = setTimeout(() => {
+          toastEl.className = 'fixed bottom-6 right-6 z-50 px-4 py-2.5 rounded-2xl text-xs font-bold shadow-2xl flex items-center gap-2 transition-all duration-300 transform translate-y-10 opacity-0 pointer-events-none';
+        }, 2800);
+      }
+
+      // Initial Render
+      renderAll();
+    });
+  </script>
+
+  <!-- Service Worker Registration for Offline Rinkside PWA -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js').then(reg => {
+          console.log('BlueLine Tactics Service Worker registered:', reg.scope);
+          const pill = document.getElementById('pwaStatusPill');
+          if (pill) pill.textContent = '⚡ Rinkside PWA Active';
+        }).catch(err => {
+          console.warn('Service Worker registration skipped:', err);
+        });
+      });
+    }
+  </script>
+
+</body>
+</html>
