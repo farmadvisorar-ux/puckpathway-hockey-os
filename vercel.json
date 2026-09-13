@@ -11,6 +11,8 @@
     { "src": "/community", "dest": "/community.html" },
     { "src": "/wire", "dest": "/community.html" },
     { "src": "/messages", "dest": "/community.html" },
+    { "src": "/portal", "dest": "/portal.html" },
+    { "src": "/nil", "dest": "/portal.html" },
     { "src": "/(.*)", "dest": "/$1" }
   ]
 }

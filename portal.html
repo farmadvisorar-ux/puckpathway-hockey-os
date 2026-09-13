@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BlueLine DataWorks | NCAA Transfer Portal & NIL Valuation War Room</title>
+  
+  <!-- Primary Meta Tags -->
+  <meta name="title" content="BlueLine DataWorks | NCAA Transfer Portal & NIL Valuation War Room">
+  <meta name="description" content="BlueLine DataWorks is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers. Live NCAA Transfer Portal, real-time NIL Valuations, and direct collegiate recruiter comms.">
+  
+  <!-- Open Graph / Facebook / WhatsApp / iMessage Preview -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://farmadvisorar-ux.github.io/puckpathway-hockey-os/portal.html">
+  <meta property="og:title" content="BlueLine DataWorks | NCAA Transfer Portal & NIL War Room">
+  <meta property="og:description" content="Live NCAA Transfer Portal, real-time NIL Valuations, and direct collegiate recruiter comms. Tracking athletes from grassroots to pro careers.">
+  <meta property="og:image" content="https://farmadvisorar-ux.github.io/puckpathway-hockey-os/static/img/blueline_og_preview.jpg">
+  <meta property="og:image:secure_url" content="https://farmadvisorar-ux.github.io/puckpathway-hockey-os/static/img/blueline_og_preview.jpg">
+  <meta property="og:image:width" content="1280">
+  <meta property="og:image:height" content="720">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="BlueLine DataWorks | NCAA Transfer Portal & NIL War Room">
+  <meta name="twitter:description" content="Live NCAA Transfer Portal, real-time NIL Valuations, and direct collegiate recruiter comms.">
+  <meta name="twitter:image" content="https://farmadvisorar-ux.github.io/puckpathway-hockey-os/static/img/blueline_og_preview.jpg">
+
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,400;0,600;0,700;1,700&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              primary: '#0284c7',
+              cyan: '#00f0ff',
+              electric: '#38bdf8',
+              accent: '#f59e0b',
+              gold: '#fbbf24',
+              surface: '#0d131f',
+              card: 'rgba(15, 23, 42, 0.85)',
+              border: 'rgba(56, 189, 248, 0.2)'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Chakra Petch', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background: radial-gradient(circle at 50% 0%, #0c1a30 0%, #060b14 100%);
+      color: #f1f5f9;
+      min-height: 100vh;
+    }
+    .neon-border {
+      box-shadow: 0 0 15px rgba(0, 240, 255, 0.2), inset 0 0 15px rgba(0, 240, 255, 0.05);
+    }
+    .gold-glow {
+      box-shadow: 0 0 15px rgba(251, 191, 36, 0.3);
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #090e17;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #1e293b;
+      border-radius: 4px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: #38bdf8;
+    }
+  </style>
+</head>
+<body class="font-sans antialiased custom-scrollbar">
+
+  <!-- TOP BRAND HEADER -->
+  <header class="sticky top-0 z-40 bg-[#060b14]/90 backdrop-blur-md border-b border-brand-border px-4 py-3">
+    <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
+      
+      <!-- Brand Logo & Title -->
+      <div class="flex items-center gap-3">
+        <a href="index.html" class="flex items-center gap-2 group">
+          <img src="https://farmadvisorar-ux.github.io/puckpathway-hockey-os/static/img/blueline_logo.jpg" 
+               alt="BlueLine DataWorks Crest" 
+               class="w-10 h-10 rounded-lg border border-brand-cyan/40 shadow-[0_0_10px_rgba(0,240,255,0.3)] object-cover group-hover:scale-105 transition-transform">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="font-display font-bold text-lg tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-white via-brand-cyan to-brand-electric">
+                BLUELINE DATAWORKS
+              </span>
+              <span class="px-2 py-0.5 text-[10px] font-mono font-bold uppercase rounded bg-amber-500/20 text-amber-400 border border-amber-500/40">
+                NIL WAR ROOM
+              </span>
+            </div>
+            <p class="text-[11px] text-slate-400 font-mono hidden sm:block">NCAA D1 & Junior Transfer Portal Intelligence</p>
+          </div>
+        </a>
+      </div>
+
+      <!-- Main Navigation Hub -->
+      <nav class="hidden md:flex items-center gap-1 bg-slate-900/80 p-1 rounded-xl border border-slate-800">
+        <a href="portal.html" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-brand-primary text-white shadow-sm flex items-center gap-1.5">
+          <i class="fa-solid fa-bolt text-brand-cyan"></i>
+          <span>Portal & NIL</span>
+        </a>
+        <a href="community.html" class="px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-800 transition-colors flex items-center gap-1.5">
+          <i class="fa-solid fa-globe text-cyan-400"></i>
+          <span>The Wire</span>
+        </a>
+        <a href="database.html" class="px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-800 transition-colors flex items-center gap-1.5">
+          <i class="fa-solid fa-database text-slate-400"></i>
+          <span>Directory (2,974)</span>
+        </a>
+        <a href="index.html" class="px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-800 transition-colors flex items-center gap-1.5">
+          <i class="fa-solid fa-chalkboard text-emerald-400"></i>
+          <span>Tactical Canvas</span>
+        </a>
+        <a href="agents.html" class="px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-800 transition-colors flex items-center gap-1.5">
+          <i class="fa-solid fa-robot text-purple-400"></i>
+          <span>AI Mesh</span>
+        </a>
+      </nav>
+
+      <!-- Quick Actions -->
+      <div class="flex items-center gap-2">
+        <button onclick="openNilSimulator()" class="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40 hover:bg-amber-500/30 transition-all">
+          <i class="fa-solid fa-calculator"></i>
+          <span>NIL Simulator</span>
+        </button>
+        <button onclick="openDeclareModal()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-cyan-500 text-slate-950 hover:bg-cyan-400 transition-all shadow-[0_0_12px_rgba(0,240,255,0.4)]">
+          <i class="fa-solid fa-file-signature"></i>
+          <span>Declare for Portal</span>
+        </button>
+        <button onclick="toggleDmDrawer()" class="relative p-2 rounded-lg bg-slate-900 border border-slate-800 text-slate-300 hover:text-cyan-400 transition-colors" title="Open Messages">
+          <i class="fa-solid fa-comments"></i>
+          <span id="unreadDmCount" class="absolute -top-1 -right-1 px-1.5 py-0.2 text-[9px] font-bold bg-red-500 text-white rounded-full">2</span>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- MISSION BANNER HUD -->
+  <div class="bg-gradient-to-r from-sky-950/40 via-slate-900/60 to-sky-950/40 border-b border-brand-border/40 py-2 px-4">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-2 text-center md:text-left">
+      <div class="flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
+        <p class="text-xs text-slate-300">
+          <strong class="text-cyan-300 font-display">BLUELINE DATAWORKS:</strong>
+          The only hockey analytics platform tracking athletes from earliest grassroots through professional careers.
+        </p>
+      </div>
+      <!-- NCAA Compliance Radar -->
+      <div class="flex items-center gap-2 text-[11px] font-mono bg-slate-950/80 px-3 py-1 rounded-full border border-emerald-500/30 text-emerald-400">
+        <i class="fa-solid fa-shield-halved"></i>
+        <span>NCAA RECRUITING PERIOD: <strong>CONTACT PERIOD ACTIVE</strong> (Direct visits & evaluations authorized)</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN WAR ROOM CONTAINER -->
+  <main class="max-w-7xl mx-auto px-4 py-6">
+
+    <!-- KPI STATS OVERVIEW CARDS -->
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
+      
+      <div class="bg-slate-900/70 border border-slate-800 rounded-xl p-4 flex items-center justify-between">
+        <div>
+          <p class="text-[11px] font-mono text-slate-400 uppercase tracking-wider">Active in Portal</p>
+          <p id="kpiTotal" class="text-2xl font-display font-bold text-white mt-1">142</p>
+          <span class="text-[10px] text-emerald-400 flex items-center gap-1 mt-0.5">
+            <i class="fa-solid fa-arrow-trend-up"></i> +14 this week
+          </span>
+        </div>
+        <div class="w-10 h-10 rounded-lg bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400">
+          <i class="fa-solid fa-door-open text-lg"></i>
+        </div>
+      </div>
+
+      <div class="bg-slate-900/70 border border-slate-800 rounded-xl p-4 flex items-center justify-between">
+        <div>
+          <p class="text-[11px] font-mono text-slate-400 uppercase tracking-wider">Open for Contact</p>
+          <p id="kpiOpen" class="text-2xl font-display font-bold text-emerald-400 mt-1">98</p>
+          <span class="text-[10px] text-slate-400 mt-0.5">Direct DMs enabled</span>
+        </div>
+        <div class="w-10 h-10 rounded-lg bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
+          <i class="fa-solid fa-envelope-open-text text-lg"></i>
+        </div>
+      </div>
+
+      <div class="bg-slate-900/70 border border-slate-800 rounded-xl p-4 flex items-center justify-between">
+        <div>
+          <p class="text-[11px] font-mono text-slate-400 uppercase tracking-wider">Committed / Placed</p>
+          <p id="kpiCommitted" class="text-2xl font-display font-bold text-amber-400 mt-1">44</p>
+          <span class="text-[10px] text-amber-300/80 mt-0.5">Signed D1 & Junior</span>
+        </div>
+        <div class="w-10 h-10 rounded-lg bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400">
+          <i class="fa-solid fa-handshake text-lg"></i>
+        </div>
+      </div>
+
+      <div class="bg-slate-900/70 border border-slate-800 rounded-xl p-4 flex items-center justify-between">
+        <div>
+          <p class="text-[11px] font-mono text-slate-400 uppercase tracking-wider">Avg Projected NIL</p>
+          <p id="kpiAvgNIL" class="text-2xl font-display font-bold text-cyan-300 mt-1">$58.4k</p>
+          <span class="text-[10px] text-cyan-400 mt-0.5">BlueLine NIL Index™</span>
+        </div>
+        <div class="w-10 h-10 rounded-lg bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-300">
+          <i class="fa-solid fa-coins text-lg"></i>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ADVANCED FILTER & SEARCH CONTROL SUITE -->
+    <div class="bg-slate-900/80 border border-brand-border rounded-xl p-4 mb-6 backdrop-blur-sm">
+      <div class="flex flex-col md:flex-row gap-3 items-center justify-between">
+        
+        <!-- Search Input -->
+        <div class="relative w-full md:w-80">
+          <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-slate-400 text-xs"></i>
+          <input type="text" id="searchInput" oninput="applyFilters()" 
+                 placeholder="Search by player, origin school, draft..." 
+                 class="w-full bg-slate-950 border border-slate-800 rounded-lg pl-9 pr-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400 transition-colors">
+        </div>
+
+        <!-- Filter Dropdowns / Toggles -->
+        <div class="flex flex-wrap items-center gap-2 w-full md:w-auto">
+          
+          <!-- Conference Filter -->
+          <select id="conferenceFilter" onchange="applyFilters()" class="bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-slate-300 focus:outline-none focus:border-cyan-400">
+            <option value="ALL">All Conferences</option>
+            <option value="Big Ten">Big Ten (B1G)</option>
+            <option value="NCHC">NCHC</option>
+            <option value="Hockey East">Hockey East</option>
+            <option value="ECAC">ECAC Hockey</option>
+            <option value="CCHA">CCHA</option>
+            <option value="Atlantic Hockey">Atlantic Hockey</option>
+          </select>
+
+          <!-- Position Filter -->
+          <select id="positionFilter" onchange="applyFilters()" class="bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-slate-300 focus:outline-none focus:border-cyan-400">
+            <option value="ALL">All Positions</option>
+            <option value="F">Forwards (C / W)</option>
+            <option value="C">Centers (Top-6)</option>
+            <option value="D">Defensemen</option>
+            <option value="RD">Right-Shot Defense (Premium)</option>
+            <option value="G">Goaltenders (Netminders)</option>
+          </select>
+
+          <!-- Status Filter -->
+          <select id="statusFilter" onchange="applyFilters()" class="bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-slate-300 focus:outline-none focus:border-cyan-400">
+            <option value="ALL">All Statuses</option>
+            <option value="Open to Contact">🟢 Open to Contact</option>
+            <option value="Committed">🔒 Committed</option>
+            <option value="Do Not Contact">⛔ Do Not Contact</option>
+          </select>
+
+          <!-- Eligibility Filter -->
+          <select id="eligibilityFilter" onchange="applyFilters()" class="bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-slate-300 focus:outline-none focus:border-cyan-400">
+            <option value="ALL">Any Eligibility</option>
+            <option value="1">1 Year Remaining</option>
+            <option value="2">2 Years Remaining</option>
+            <option value="3">3 Years Remaining</option>
+            <option value="4">4 Years Remaining</option>
+          </select>
+
+          <!-- Reset Filter -->
+          <button onclick="resetFilters()" class="p-2 text-xs text-slate-400 hover:text-white rounded-lg bg-slate-950 border border-slate-800 hover:bg-slate-800 transition-colors" title="Reset Filters">
+            <i class="fa-solid fa-rotate-left"></i>
+          </button>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ATHLETE CARDS GRID -->
+    <div id="athletesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <!-- Dynamically generated via JS -->
+    </div>
+
+    <!-- EMPTY STATE -->
+    <div id="emptyState" class="hidden text-center py-16 bg-slate-900/40 border border-slate-800/80 rounded-2xl">
+      <div class="w-16 h-16 rounded-full bg-slate-800/60 flex items-center justify-center mx-auto mb-3 text-slate-500">
+        <i class="fa-solid fa-filter-circle-xmark text-2xl"></i>
+      </div>
+      <h3 class="text-base font-bold text-white mb-1">No Transfer Athletes Found</h3>
+      <p class="text-xs text-slate-400 max-w-sm mx-auto mb-4">No collegiate athletes match your current filter criteria. Try adjusting position, conference, or search parameters.</p>
+      <button onclick="resetFilters()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-cyan-400 text-xs font-semibold rounded-lg transition-colors">
+        Clear All Filters
+      </button>
+    </div>
+
+  </main>
+
+  <!-- DECLARE FOR PORTAL MODAL -->
+  <div id="declareModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="bg-[#090e17] border border-cyan-500/40 rounded-2xl w-full max-w-lg shadow-[0_0_30px_rgba(0,240,255,0.2)] overflow-hidden">
+      <div class="p-4 border-b border-slate-800 flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <i class="fa-solid fa-file-signature text-cyan-400"></i>
+          <h3 class="font-display font-bold text-white text-base">NCAA Transfer Portal Intent Submission</h3>
+        </div>
+        <button onclick="closeDeclareModal()" class="text-slate-400 hover:text-white text-sm">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <form id="portalForm" onsubmit="handlePortalSubmit(event)" class="p-4 space-y-3">
+        <div>
+          <label class="block text-xs font-mono text-slate-400 mb-1">Athlete Full Name *</label>
+          <input type="text" id="athleteName" required placeholder="e.g. Michael Hage" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-cyan-400">
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-mono text-slate-400 mb-1">Current / Origin Program *</label>
+            <input type="text" id="athleteSchool" required placeholder="e.g. Michigan Wolverines" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-cyan-400">
+          </div>
+          <div>
+            <label class="block text-xs font-mono text-slate-400 mb-1">Conference *</label>
+            <select id="athleteConference" required class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-cyan-400">
+              <option value="Big Ten">Big Ten</option>
+              <option value="NCHC">NCHC</option>
+              <option value="Hockey East">Hockey East</option>
+              <option value="ECAC">ECAC Hockey</option>
+              <option value="CCHA">CCHA</option>
+              <option value="Atlantic Hockey">Atlantic Hockey</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-3 gap-3">
+          <div>
+            <label class="block text-xs font-mono text-slate-400 mb-1">Position *</label>
+            <select id="athletePosition" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-cyan-400">
+              <option value="C">Center (C)</option>
+              <option value="RW">Right Wing (RW)</option>
+              <option value="LW">Left Wing (LW)</option>
+              <option value="RD">Right Defense (RD)</option>
+              <option value="LD">Left Defense (LD)</option>
+              <option value="G">Goaltender (G)</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-mono text-slate-400 mb-1">Years Remaining</label>
+            <select id="athleteEligibility" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-cyan-400">
+              <option value="1">1 Year</option>
+              <option value="2" selected>2 Years</option>
+              <option value="3">3 Years</option>
+              <option value="4">4 Years</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-mono text-slate-400 mb-1">Recruiting Status</label>
+            <select id="athleteStatus" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-cyan-400">
+              <option value="Open to Contact">🟢 Open to Contact</option>
+              <option value="Do Not Contact">⛔ Do Not Contact</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-3 gap-3">
+          <div>
+            <label class="block text-xs font-mono text-slate-400 mb-1">GP</label>
+            <input type="number" id="statGp" value="34" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-cyan-400">
+          </div>
+          <div>
+            <label class="block text-xs font-mono text-slate-400 mb-1">Goals / GAA</label>
+            <input type="text" id="statGoals" value="12" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-cyan-400">
+          </div>
+          <div>
+            <label class="block text-xs font-mono text-slate-400 mb-1">Points / SV%</label>
+            <input type="text" id="statPts" value="28" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-cyan-400">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-mono text-slate-400 mb-1">Pro Draft Status / Camp Invites</label>
+          <input type="text" id="athleteDraft" placeholder="e.g. NHL Camp Invite / Undrafted Free Agent" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-cyan-400">
+        </div>
+
+        <div>
+          <label class="block text-xs font-mono text-slate-400 mb-1">Scouting & Fit Statement</label>
+          <textarea id="athleteSummary" rows="2" placeholder="Tell prospective college recruiters about your play style, leadership, and academics..." class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-cyan-400"></textarea>
+        </div>
+
+        <div class="pt-2 flex justify-end gap-2 border-t border-slate-800">
+          <button type="button" onclick="closeDeclareModal()" class="px-3 py-2 text-xs text-slate-400 hover:text-white rounded-lg bg-slate-900 border border-slate-800">Cancel</button>
+          <button type="submit" class="px-4 py-2 text-xs font-bold text-slate-950 bg-cyan-400 hover:bg-cyan-300 rounded-lg transition-colors flex items-center gap-1.5">
+            <i class="fa-solid fa-paper-plane"></i>
+            <span>Submit Declaration & Post to Wire</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- NIL VALUATION SIMULATOR MODAL -->
+  <div id="nilModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="bg-[#090e17] border border-amber-500/40 rounded-2xl w-full max-w-lg shadow-[0_0_30px_rgba(251,191,36,0.2)] overflow-hidden">
+      <div class="p-4 border-b border-slate-800 flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <i class="fa-solid fa-coins text-amber-400"></i>
+          <h3 class="font-display font-bold text-white text-base">BlueLine NIL Index™ Valuation Simulator</h3>
+        </div>
+        <button onclick="closeNilSimulator()" class="text-slate-400 hover:text-white text-sm">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="p-4 space-y-4">
+        <!-- Live Result Banner -->
+        <div class="p-4 rounded-xl bg-gradient-to-r from-amber-950/30 via-slate-900 to-amber-950/30 border border-amber-500/30 text-center">
+          <p class="text-[11px] font-mono text-amber-300 uppercase tracking-wider">Projected Annual NIL Fair Market Value</p>
+          <p id="simNilResult" class="text-3xl font-display font-bold text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-yellow-200 to-amber-400 my-1">$45k – $62k/yr</p>
+          <div class="flex items-center justify-center gap-2 mt-1">
+            <span id="simNilTier" class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">Tier 2 (Core Impact Transfer)</span>
+            <span id="simNilScore" class="text-[11px] font-mono text-slate-300">Index Score: <strong>86 / 99</strong></span>
+          </div>
+        </div>
+
+        <!-- Simulator Sliders -->
+        <div class="space-y-3">
+          <div>
+            <div class="flex justify-between text-xs font-mono text-slate-400 mb-1">
+              <span>Position & Scarcity</span>
+              <span id="lblSimPos" class="text-cyan-400 font-bold">Center (C)</span>
+            </div>
+            <select id="simPosition" onchange="runSimulatorCalc()" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-1.5 text-xs text-white">
+              <option value="C">Center (C) — Top-6 Playmaker (1.15x)</option>
+              <option value="RD">Right-Shot Defense (RD) — High Scarcity (1.25x)</option>
+              <option value="LD">Left-Shot Defense (LD)</option>
+              <option value="RW">Right Wing (RW)</option>
+              <option value="LW">Left Wing (LW)</option>
+              <option value="G">Goaltender (G) — Starting Anchor (1.20x)</option>
+            </select>
+          </div>
+
+          <div>
+            <div class="flex justify-between text-xs font-mono text-slate-400 mb-1">
+              <span>Points Per Game (PPG) / Production</span>
+              <span id="lblSimPpg" class="text-cyan-400 font-bold">0.85 PPG</span>
+            </div>
+            <input type="range" id="simPpg" min="0.2" max="1.8" step="0.05" value="0.85" oninput="runSimulatorCalc()" class="w-full accent-cyan-400 cursor-pointer">
+          </div>
+
+          <div>
+            <div class="flex justify-between text-xs font-mono text-slate-400 mb-1">
+              <span>Conference Prestige Tier</span>
+              <span id="lblSimConf" class="text-cyan-400 font-bold">Big Ten</span>
+            </div>
+            <select id="simConference" onchange="runSimulatorCalc()" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-1.5 text-xs text-white">
+              <option value="Big Ten">Big Ten (1.20x)</option>
+              <option value="NCHC">NCHC (1.20x)</option>
+              <option value="Hockey East">Hockey East (1.15x)</option>
+              <option value="ECAC">ECAC Hockey (1.05x)</option>
+              <option value="CCHA">CCHA (1.00x)</option>
+              <option value="Atlantic Hockey">Atlantic Hockey (0.95x)</option>
+            </select>
+          </div>
+
+          <div>
+            <div class="flex justify-between text-xs font-mono text-slate-400 mb-1">
+              <span>NHL Draft Pedigree</span>
+              <span id="lblSimDraft" class="text-cyan-400 font-bold">Undrafted Free Agent</span>
+            </div>
+            <select id="simDraft" onchange="runSimulatorCalc()" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-1.5 text-xs text-white">
+              <option value="undrafted">Undrafted College Free Agent</option>
+              <option value="round4_7">NHL Drafted (Rounds 4–7)</option>
+              <option value="round2_3">NHL Drafted (Rounds 2–3)</option>
+              <option value="round1">NHL 1st Round Selection (High Pedigree)</option>
+            </select>
+          </div>
+
+          <div>
+            <div class="flex justify-between text-xs font-mono text-slate-400 mb-1">
+              <span>The BlueLine Wire Social Reach & PuckXP</span>
+              <span id="lblSimWire" class="text-cyan-400 font-bold">2,500 Followers (Lv. 35)</span>
+            </div>
+            <input type="range" id="simWire" min="200" max="10000" step="200" value="2500" oninput="runSimulatorCalc()" class="w-full accent-amber-400 cursor-pointer">
+          </div>
+        </div>
+
+        <p class="text-[10px] text-slate-400 font-mono text-center border-t border-slate-800/80 pt-2">
+          * Valuations calculated via the proprietary BlueLine NIL Index™ combining historical transfer market deals, conference budgets, and collective compensation data.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE-OVER UNIVERSAL DIRECT MESSAGING DRAWER -->
+  <div id="dmDrawer" class="fixed inset-y-0 right-0 z-50 w-full max-w-md bg-[#090e17] border-l border-brand-border shadow-2xl transform translate-x-full transition-transform duration-300 flex flex-col">
+    <div class="p-4 border-b border-slate-800 flex items-center justify-between bg-slate-950/80">
+      <div class="flex items-center gap-2">
+        <div class="w-8 h-8 rounded-full bg-cyan-500/20 border border-cyan-500/40 flex items-center justify-center text-cyan-400">
+          <i class="fa-solid fa-comments"></i>
+        </div>
+        <div>
+          <h3 id="dmRecipientName" class="font-display font-bold text-white text-sm">Recruiter Comms</h3>
+          <p id="dmRecipientSub" class="text-[10px] text-slate-400 font-mono">Encrypted Collegiate Dialogue</p>
+        </div>
+      </div>
+      <button onclick="toggleDmDrawer()" class="text-slate-400 hover:text-white p-1">
+        <i class="fa-solid fa-xmark text-lg"></i>
+      </button>
+    </div>
+
+    <!-- Active Messages Stream -->
+    <div id="dmMessagesContainer" class="flex-1 p-4 overflow-y-auto space-y-3 custom-scrollbar">
+      <!-- Injected via JS -->
+    </div>
+
+    <!-- Message Input Bar -->
+    <div class="p-3 border-t border-slate-800 bg-slate-950/80">
+      <form onsubmit="handleSendDm(event)" class="flex gap-2">
+        <input type="text" id="dmInput" placeholder="Send recruiting message or inquiry..." class="flex-1 bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-cyan-400">
+        <button type="submit" class="px-3 py-2 bg-cyan-400 hover:bg-cyan-300 text-slate-950 rounded-lg font-bold text-xs transition-colors">
+          <i class="fa-solid fa-paper-plane"></i>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- SCRIPTS -->
+  <script src="static/js/social_mesh_engine.js"></script>
+  <script src="static/js/portal_engine.js"></script>
+  <script>
+    let activeRecipient = null;
+
+    document.addEventListener('DOMContentLoaded', () => {
+      renderKPIs();
+      renderAthletes();
+      runSimulatorCalc();
+    });
+
+    function renderKPIs() {
+      if (!window.portalEngine) return;
+      const kpi = window.portalEngine.getStatsKPI();
+      document.getElementById('kpiTotal').textContent = kpi.totalInPortal;
+      document.getElementById('kpiOpen').textContent = kpi.openForContact;
+      document.getElementById('kpiCommitted').textContent = kpi.committed;
+      document.getElementById('kpiAvgNIL').textContent = kpi.formattedAvgNIL;
+    }
+
+    function renderAthletes() {
+      if (!window.portalEngine) return;
+      const grid = document.getElementById('athletesGrid');
+      const empty = document.getElementById('emptyState');
+
+      const filters = {
+        conference: document.getElementById('conferenceFilter').value,
+        position: document.getElementById('positionFilter').value,
+        status: document.getElementById('statusFilter').value,
+        eligibility: document.getElementById('eligibilityFilter').value,
+        query: document.getElementById('searchInput').value
+      };
+
+      const athletes = window.portalEngine.filterAthletes(filters);
+
+      if (athletes.length === 0) {
+        grid.innerHTML = '';
+        empty.classList.remove('hidden');
+        return;
+      }
+
+      empty.classList.add('hidden');
+      grid.innerHTML = athletes.map(a => {
+        const isGoalie = a.position === 'G';
+        const statsHtml = isGoalie
+          ? `<div class="grid grid-cols-4 gap-1 text-center py-2 px-1 bg-slate-950/60 rounded-lg border border-slate-800/80 mb-3">
+               <div><span class="block text-[9px] font-mono text-slate-400">GP</span><strong class="text-xs text-white">${a.stats.gp}</strong></div>
+               <div><span class="block text-[9px] font-mono text-slate-400">W</span><strong class="text-xs text-white">${a.stats.wins || 14}</strong></div>
+               <div><span class="block text-[9px] font-mono text-slate-400">GAA</span><strong class="text-xs text-emerald-400">${a.stats.gaa}</strong></div>
+               <div><span class="block text-[9px] font-mono text-slate-400">SV%</span><strong class="text-xs text-cyan-300">${a.stats.svPct}</strong></div>
+             </div>`
+          : `<div class="grid grid-cols-5 gap-1 text-center py-2 px-1 bg-slate-950/60 rounded-lg border border-slate-800/80 mb-3">
+               <div><span class="block text-[9px] font-mono text-slate-400">GP</span><strong class="text-xs text-white">${a.stats.gp}</strong></div>
+               <div><span class="block text-[9px] font-mono text-slate-400">G</span><strong class="text-xs text-white">${a.stats.g}</strong></div>
+               <div><span class="block text-[9px] font-mono text-slate-400">A</span><strong class="text-xs text-white">${a.stats.a}</strong></div>
+               <div><span class="block text-[9px] font-mono text-slate-400">PTS</span><strong class="text-xs text-emerald-400">${a.stats.pts}</strong></div>
+               <div><span class="block text-[9px] font-mono text-slate-400">PPG</span><strong class="text-xs text-cyan-300">${a.stats.ppg}</strong></div>
+             </div>`;
+
+        let statusPill = `<span class="px-2 py-0.5 text-[10px] font-mono font-bold rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">🟢 Open</span>`;
+        if (a.status === 'Committed') {
+          statusPill = `<span class="px-2 py-0.5 text-[10px] font-mono font-bold rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40">🔒 Committed (${a.committedSchool || 'D1'})</span>`;
+        } else if (a.status === 'Do Not Contact') {
+          statusPill = `<span class="px-2 py-0.5 text-[10px] font-mono font-bold rounded-full bg-red-500/20 text-red-300 border border-red-500/40">⛔ Do Not Contact</span>`;
+        }
+
+        return `
+          <div class="bg-slate-900/85 border border-slate-800 hover:border-cyan-500/40 rounded-2xl p-4 transition-all duration-200 flex flex-col justify-between group">
+            <div>
+              <!-- Header -->
+              <div class="flex items-start justify-between gap-3 mb-3">
+                <div class="flex items-center gap-3">
+                  <img src="${a.avatar}" alt="${a.name}" class="w-12 h-12 rounded-xl object-cover border border-slate-700">
+                  <div>
+                    <h4 class="font-bold text-sm text-white group-hover:text-cyan-300 transition-colors flex items-center gap-1.5">
+                      <span>${a.name}</span>
+                      <span class="text-[10px] font-mono px-1.5 py-0.2 rounded bg-slate-800 text-slate-300 border border-slate-700">${a.position}</span>
+                    </h4>
+                    <p class="text-xs text-slate-400 flex items-center gap-1 mt-0.5">
+                      <span>${a.originLogo || '🏒'} ${a.originSchool}</span>
+                      <span class="text-slate-600">•</span>
+                      <span class="text-cyan-400 text-[11px]">${a.conference}</span>
+                    </p>
+                  </div>
+                </div>
+                ${statusPill}
+              </div>
+
+              <!-- Badges Row -->
+              <div class="flex flex-wrap items-center gap-1.5 mb-3 text-[10px] font-mono">
+                <span class="px-2 py-0.5 rounded bg-slate-950 text-slate-300 border border-slate-800">
+                  <i class="fa-solid fa-hourglass-half text-cyan-400 mr-1"></i>${a.eligibilityYears} Yr(s) Left
+                </span>
+                <span class="px-2 py-0.5 rounded bg-slate-950 text-slate-300 border border-slate-800">
+                  ${a.height}, ${a.weight}
+                </span>
+                <span class="px-2 py-0.5 rounded bg-slate-950 text-cyan-400 border border-slate-800">
+                  ${a.draftInfo}
+                </span>
+              </div>
+
+              <!-- Stats Grid -->
+              ${statsHtml}
+
+              <!-- NIL Index Card -->
+              <div class="bg-gradient-to-r from-amber-950/20 via-slate-950 to-amber-950/20 border border-amber-500/20 rounded-xl p-2.5 mb-3">
+                <div class="flex items-center justify-between mb-1">
+                  <span class="text-[10px] font-mono text-amber-400 flex items-center gap-1">
+                    <i class="fa-solid fa-coins"></i> BlueLine NIL Index™
+                  </span>
+                  <span class="text-[10px] font-mono text-slate-400">Score: <strong class="text-amber-300">${a.nilValuation.score}</strong>/99</span>
+                </div>
+                <div class="flex items-center justify-between">
+                  <span class="text-sm font-bold font-display text-amber-300">${a.nilValuation.formattedRange || '$' + (a.nilValuation.min/1000) + 'k – $' + (a.nilValuation.max/1000) + 'k/yr'}</span>
+                  <span class="text-[9px] font-mono px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30">${a.nilValuation.tier.split(' ')[0]}</span>
+                </div>
+              </div>
+
+              <!-- Scouting Summary -->
+              <p class="text-xs text-slate-400 line-clamp-2 mb-4 leading-relaxed">${a.scoutingSummary}</p>
+            </div>
+
+            <!-- Action Controls -->
+            <div class="flex items-center gap-2 pt-3 border-t border-slate-800/80">
+              <button onclick="initiateRecruitingDm('${a.id}')" class="flex-1 py-1.5 px-3 rounded-lg text-xs font-bold bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 hover:border-cyan-400 transition-colors flex items-center justify-center gap-1.5">
+                <i class="fa-solid fa-comment-dots"></i>
+                <span>Initiate Contact</span>
+              </button>
+              <a href="player.html?id=${a.id}" class="py-1.5 px-3 rounded-lg text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-300 transition-colors" title="View Full Dossier">
+                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+              </a>
+              ${a.status !== 'Committed' ? `
+                <button onclick="promptCommitment('${a.id}')" class="py-1.5 px-3 rounded-lg text-xs font-semibold bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 border border-amber-500/30 transition-colors" title="Record Commitment">
+                  <i class="fa-solid fa-pen-clip"></i>
+                </button>
+              ` : ''}
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function applyFilters() {
+      renderAthletes();
+    }
+
+    function resetFilters() {
+      document.getElementById('searchInput').value = '';
+      document.getElementById('conferenceFilter').value = 'ALL';
+      document.getElementById('positionFilter').value = 'ALL';
+      document.getElementById('statusFilter').value = 'ALL';
+      document.getElementById('eligibilityFilter').value = 'ALL';
+      renderAthletes();
+    }
+
+    // DECLARE FOR PORTAL MODAL HANDLERS
+    function openDeclareModal() {
+      document.getElementById('declareModal').classList.remove('hidden');
+      document.getElementById('declareModal').classList.add('flex');
+    }
+
+    function closeDeclareModal() {
+      document.getElementById('declareModal').classList.add('hidden');
+      document.getElementById('declareModal').classList.remove('flex');
+    }
+
+    function handlePortalSubmit(e) {
+      e.preventDefault();
+      const athlete = window.portalEngine.declareForPortal({
+        name: document.getElementById('athleteName').value,
+        originSchool: document.getElementById('athleteSchool').value,
+        conference: document.getElementById('athleteConference').value,
+        position: document.getElementById('athletePosition').value,
+        eligibilityYears: document.getElementById('athleteEligibility').value,
+        status: document.getElementById('athleteStatus').value,
+        draftInfo: document.getElementById('athleteDraft').value || 'Undrafted Free Agent',
+        scoutingSummary: document.getElementById('athleteSummary').value,
+        stats: {
+          gp: parseInt(document.getElementById('statGp').value) || 30,
+          g: parseInt(document.getElementById('statGoals').value) || 10,
+          a: parseInt(document.getElementById('statPts').value) || 15,
+          pts: (parseInt(document.getElementById('statGoals').value) || 10) + (parseInt(document.getElementById('statPts').value) || 15),
+          ppg: 0.85
+        }
+      });
+
+      closeDeclareModal();
+      renderKPIs();
+      renderAthletes();
+      alert(`🎉 Declaration received! ${athlete.name} has entered the NCAA Transfer Portal. Automatic alert broadcasted to The BlueLine Wire.`);
+    }
+
+    // NIL SIMULATOR CALCULATOR
+    function openNilSimulator() {
+      document.getElementById('nilModal').classList.remove('hidden');
+      document.getElementById('nilModal').classList.add('flex');
+      runSimulatorCalc();
+    }
+
+    function closeNilSimulator() {
+      document.getElementById('nilModal').classList.add('hidden');
+      document.getElementById('nilModal').classList.remove('flex');
+    }
+
+    function runSimulatorCalc() {
+      const pos = document.getElementById('simPosition').value;
+      const ppg = parseFloat(document.getElementById('simPpg').value);
+      const conf = document.getElementById('simConference').value;
+      const draft = document.getElementById('simDraft').value;
+      const wire = parseInt(document.getElementById('simWire').value);
+
+      document.getElementById('lblSimPos').textContent = pos;
+      document.getElementById('lblSimPpg').textContent = ppg.toFixed(2) + ' PPG';
+      document.getElementById('lblSimConf').textContent = conf;
+      document.getElementById('lblSimWire').textContent = wire.toLocaleString() + ' Followers';
+
+      const res = window.portalEngine.calculateNILValuation({
+        position: pos,
+        ppg: ppg,
+        conference: conf,
+        draftStatus: draft,
+        wireFollowers: wire,
+        puckXpLevel: Math.round(wire / 80)
+      });
+
+      document.getElementById('simNilResult').textContent = res.formattedRange;
+      document.getElementById('simNilTier').textContent = res.tier;
+      document.getElementById('simNilScore').innerHTML = `Index Score: <strong>${res.score}</strong> / 99`;
+    }
+
+    // COMMITMENT RECORDER
+    function promptCommitment(athleteId) {
+      const athlete = window.portalEngine.getAthleteById(athleteId);
+      if (!athlete) return;
+
+      const school = prompt(`Enter committed destination school for ${athlete.name}:`, 'Boston College Eagles');
+      if (school && school.trim()) {
+        window.portalEngine.commitAthlete(athleteId, school.trim());
+        renderKPIs();
+        renderAthletes();
+        alert(`✍️ Commitment saved for ${athlete.name} -> ${school.trim()}! Broadcasted to The BlueLine Wire.`);
+      }
+    }
+
+    // RECRUITING DIRECT MESSAGING DRAWER
+    function toggleDmDrawer() {
+      const drawer = document.getElementById('dmDrawer');
+      drawer.classList.toggle('translate-x-full');
+    }
+
+    function initiateRecruitingDm(athleteId) {
+      const athlete = window.portalEngine.getAthleteById(athleteId);
+      if (!athlete) return;
+
+      activeRecipient = athlete;
+      document.getElementById('dmRecipientName').textContent = athlete.name;
+      document.getElementById('dmRecipientSub').textContent = `${athlete.position} • ${athlete.originSchool} (${athlete.conference})`;
+
+      const container = document.getElementById('dmMessagesContainer');
+      container.innerHTML = `
+        <div class="text-center my-3">
+          <span class="text-[10px] font-mono px-2 py-1 rounded bg-slate-950 text-slate-500 border border-slate-800">
+            Encrypted Dialogue • Shane McCoy Compliance Guard Active
+          </span>
+        </div>
+        <div class="flex items-start gap-2.5">
+          <img src="${athlete.avatar}" class="w-7 h-7 rounded-full object-cover">
+          <div class="bg-slate-900 border border-slate-800 rounded-2xl rounded-tl-none p-3 max-w-[85%] text-xs text-slate-200">
+            <p class="font-bold text-cyan-400 mb-1 text-[11px]">${athlete.name}</p>
+            Hello Coach / Scout! Thank you for reviewing my transfer portal dossier. I am currently reviewing prospective collegiate systems with ${athlete.eligibilityYears} year(s) of eligibility remaining.
+          </div>
+        </div>
+      `;
+
+      const drawer = document.getElementById('dmDrawer');
+      drawer.classList.remove('translate-x-full');
+    }
+
+    function handleSendDm(e) {
+      e.preventDefault();
+      const input = document.getElementById('dmInput');
+      const text = input.value.trim();
+      if (!text) return;
+
+      const container = document.getElementById('dmMessagesContainer');
+      container.innerHTML += `
+        <div class="flex justify-end gap-2.5">
+          <div class="bg-cyan-500 text-slate-950 font-medium rounded-2xl rounded-tr-none p-3 max-w-[85%] text-xs shadow-md">
+            ${text}
+          </div>
+        </div>
+      `;
+      input.value = '';
+      container.scrollTop = container.scrollHeight;
+
+      // Simulated auto-reply from athlete
+      setTimeout(() => {
+        const replies = [
+          "Thank you for the message! Our staff is putting together film cuts from this past season. Would love to schedule a compliance-cleared phone call.",
+          "Received! We are evaluating system fit, offensive transition tempo, and campus opportunities. Talk to you soon.",
+          "Appreciate the interest! Looking forward to reviewing the depth chart and development resources."
+        ];
+        const randomReply = replies[Math.floor(Math.random() * replies.length)];
+        container.innerHTML += `
+          <div class="flex items-start gap-2.5">
+            <img src="${activeRecipient ? activeRecipient.avatar : 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150'}" class="w-7 h-7 rounded-full object-cover">
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl rounded-tl-none p-3 max-w-[85%] text-xs text-slate-200">
+              <p class="font-bold text-cyan-400 mb-1 text-[11px]">${activeRecipient ? activeRecipient.name : 'Athlete'}</p>
+              ${randomReply}
+            </div>
+          </div>
+        `;
+        container.scrollTop = container.scrollHeight;
+      }, 900);
+    }
+  </script>
+</body>
+</html>
