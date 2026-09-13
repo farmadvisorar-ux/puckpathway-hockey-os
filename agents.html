@@ -3,34 +3,35 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BlueLine DataWorks - 6-Agent Autonomous Data Harvesting Mesh</title>
-  <meta name="description" content="BlueLine DataWorks 6-Agent Autonomous Data Mesh: 4-Hour Shift Relays, Continuous Co-Pilot Hand-offs & Dynamic Signal Ranking Algorithm.">
+  <title>BlueLine DataWorks - 24-Agent Autonomous Swarm (1-Hour Staggered Relay)</title>
+  <meta name="description" content="BlueLine DataWorks 24-Agent Autonomous Swarm: 1-Hour Staggered Shift Relays, Dynamic Co-Pilot Hand-offs & Dynamic Signal Ranking Algorithm.">
   <link rel="icon" type="image/jpeg" href="static/img/blueline_logo.jpg">
   <link rel="apple-touch-icon" href="static/img/blueline_logo.jpg">
 
   <!-- Open Graph / Social Link Preview -->
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="BlueLine DataWorks">
-  <meta property="og:title" content="BlueLine DataWorks - 6-Agent Autonomous Data Mesh">
-  <meta property="og:description" content="Rotating 6-Agent AI Network discovering, trial-testing and ranking open source hockey data feeds every 4 hours. Master updates compiled every 12 hours.">
+  <meta property="og:title" content="BlueLine DataWorks - 24-Agent Autonomous Swarm">
+  <meta property="og:description" content="Rotating 24-Agent AI Swarm discovering, trial-testing and ranking open source hockey data feeds with 1-hour staggered shift relays and dynamic co-pilot hand-offs.">
   <meta property="og:image" content="https://farmadvisorar-ux.github.io/puckpathway-hockey-os/static/img/blueline_og_preview.jpg">
   <meta property="og:image:secure_url" content="https://farmadvisorar-ux.github.io/puckpathway-hockey-os/static/img/blueline_og_preview.jpg">
   <meta property="og:image:type" content="image/jpeg">
   <meta property="og:image:width" content="1280">
   <meta property="og:image:height" content="720">
-  <meta property="og:image:alt" content="BlueLine DataWorks 6-Agent AI Mesh">
+  <meta property="og:image:alt" content="BlueLine DataWorks 24-Agent AI Swarm">
   <link rel="image_src" href="https://farmadvisorar-ux.github.io/puckpathway-hockey-os/static/img/blueline_og_preview.jpg">
   <meta name="thumbnail" content="https://farmadvisorar-ux.github.io/puckpathway-hockey-os/static/img/blueline_og_preview.jpg">
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="BlueLine DataWorks - 6-Agent Autonomous Data Mesh">
-  <meta name="twitter:description" content="Rotating 6-Agent AI Network discovering, trial-testing and ranking open source hockey data feeds every 4 hours. Master updates compiled every 12 hours.">
+  <meta name="twitter:title" content="BlueLine DataWorks - 24-Agent Autonomous Swarm">
+  <meta name="twitter:description" content="Rotating 24-Agent AI Swarm with 1-hour staggered shift relays and dynamic co-pilot hand-offs. Master updates compiled every 12 hours.">
   <meta name="twitter:image" content="https://farmadvisorar-ux.github.io/puckpathway-hockey-os/static/img/blueline_og_preview.jpg">
 
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="static/css/custom.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body class="bg-[#06090e] text-slate-100 min-h-screen flex flex-col font-sans selection:bg-sky-500 selection:text-white pb-16">
 
@@ -45,9 +46,9 @@
           <div class="min-w-0">
             <div class="flex items-center gap-1.5 sm:gap-2">
               <span class="font-black text-xs sm:text-base md:text-lg tracking-tight bg-gradient-to-r from-sky-400 via-cyan-200 to-blue-400 bg-clip-text text-transparent truncate">BLUELINE DATAWORKS</span>
-              <span class="px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 text-[9px] font-extrabold tracking-wide uppercase shrink-0">AI MESH</span>
+              <span class="px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 text-[9px] font-extrabold tracking-wide uppercase shrink-0">24-AGENT SWARM</span>
             </div>
-            <p class="text-[10px] sm:text-[11px] text-slate-400 truncate hidden sm:block">6-Agent Autonomous Data Harvesting & Signal Ranking Network</p>
+            <p class="text-[10px] sm:text-[11px] text-slate-400 truncate hidden sm:block">24 Autonomous Clones • 1-Hour Staggered Relays • Dynamic Co-Pilot Hand-Offs</p>
           </div>
         </a>
       </div>
@@ -85,22 +86,36 @@
     </div>
 
     <!-- Active Shift Status Bar -->
-    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-1.5 border-t border-slate-800/80 bg-slate-950/60 flex flex-wrap items-center justify-between gap-2 text-xs">
-      <div class="flex items-center gap-2 flex-wrap">
-        <span class="px-2 py-0.5 rounded-md bg-sky-500/20 text-sky-300 font-mono font-bold text-[10px] border border-sky-500/30 uppercase tracking-wider" id="activeShiftBadge">SHIFT 6 ACTIVE</span>
-        <span class="text-slate-300 font-semibold text-[11px]">
-          Lead: <span class="text-emerald-400 font-bold" id="leadAgentLabel">Agent-Six</span> • 
-          Co-Pilot: <span class="text-cyan-400 font-bold" id="copilotAgentLabel">Agent-One</span>
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-2 border-t border-slate-800/80 bg-slate-950/80 flex flex-wrap items-center justify-between gap-3 text-xs">
+      <div class="flex items-center gap-2.5 flex-wrap">
+        <span class="px-2.5 py-1 rounded-lg bg-emerald-500/20 text-emerald-300 font-mono font-bold text-[11px] border border-emerald-500/40 uppercase tracking-wider flex items-center gap-1.5" id="activeShiftBadge">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+          <span>SHIFT 03/24 ACTIVE</span>
         </span>
-        <span class="text-slate-500 text-[10px] hidden md:inline">| Continuous 4-Hour Relay Hand-Off</span>
+        <div class="flex items-center gap-2 text-slate-300 font-semibold text-xs bg-slate-900/80 px-3 py-1 rounded-xl border border-slate-800">
+          <span>Lead Pilot:</span>
+          <span class="text-emerald-400 font-black font-mono flex items-center gap-1" id="leadAgentLabel">
+            <span>Agent-3.1</span>
+            <span class="text-[10px] text-emerald-300/70 font-normal">(ALPHA SYNTHESIZER)</span>
+          </span>
+          <span class="text-slate-600">|</span>
+          <span class="text-amber-400">Co-Pilot:</span>
+          <span class="text-cyan-400 font-black font-mono flex items-center gap-1" id="copilotAgentLabel">
+            <span>Agent-2.1</span>
+            <span class="text-[10px] text-cyan-300/70 font-normal">(ALPHA AUDITOR)</span>
+          </span>
+        </div>
+        <span class="text-slate-400 text-[10px] hidden lg:inline font-mono bg-sky-950/40 px-2 py-0.5 rounded border border-sky-800/40">
+          🔄 Started last hour → Now active Co-Pilot
+        </span>
       </div>
 
       <div class="flex items-center gap-3 text-[11px] font-mono">
-        <span class="text-slate-400 flex items-center gap-1">
-          <span>⏳ Shift Rotation In:</span> <strong class="text-sky-400" id="shiftCountdown">--:--</strong>
+        <span class="text-slate-300 flex items-center gap-1.5 bg-slate-900/90 px-2.5 py-1 rounded-lg border border-slate-800">
+          <span>⏳ Next Rotation:</span> <strong class="text-sky-400 font-bold" id="shiftCountdown">--:--</strong>
         </span>
-        <span class="text-slate-400 hidden sm:flex items-center gap-1">
-          <span>📦 Master 12h Compile:</span> <strong class="text-amber-400" id="compileCountdown">--:--</strong>
+        <span class="text-slate-300 hidden sm:flex items-center gap-1.5 bg-slate-900/90 px-2.5 py-1 rounded-lg border border-slate-800">
+          <span>📦 12h Master Compile:</span> <strong class="text-amber-400 font-bold" id="compileCountdown">--:--</strong>
         </span>
       </div>
     </div>
@@ -110,33 +125,40 @@
   <main class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-6 space-y-6 flex-1 w-full">
     
     <!-- Hero / Architecture Overview Banner -->
-    <div class="glass-panel p-5 sm:p-6 rounded-3xl space-y-3 relative overflow-hidden shadow-2xl border border-sky-500/30">
+    <div class="glass-panel p-5 sm:p-6 rounded-3xl space-y-4 relative overflow-hidden shadow-2xl border border-sky-500/30">
       <div class="absolute -right-12 -bottom-12 w-64 h-64 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
       
       <div class="flex flex-wrap items-start justify-between gap-4">
-        <div class="space-y-1 max-w-3xl">
-          <div class="flex items-center gap-2">
-            <span class="px-2.5 py-0.5 rounded-full bg-gradient-to-r from-cyan-500/20 to-blue-500/20 text-cyan-300 border border-cyan-500/40 text-[10px] font-mono font-bold uppercase tracking-wider">AUTONOMOUS MULTI-AGENT SWARM</span>
-            <span class="text-xs text-emerald-400 font-mono">● All 6 Nodes Synchronized</span>
+        <div class="space-y-1.5 max-w-3xl">
+          <div class="flex items-center gap-2 flex-wrap">
+            <span class="px-2.5 py-0.5 rounded-full bg-gradient-to-r from-cyan-500/20 to-blue-500/20 text-cyan-300 border border-cyan-500/40 text-[10px] font-mono font-bold uppercase tracking-wider">
+              24-AGENT AUTONOMOUS SWARM
+            </span>
+            <span class="text-xs text-emerald-400 font-mono flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> 6 Divisions × 4 Clones Synchronized
+            </span>
+            <span class="text-xs text-amber-300 font-mono bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/30">
+              1-Hour Staggered Relays
+            </span>
           </div>
           <h1 class="text-xl sm:text-2xl font-black text-white tracking-tight">
-            BlueLine DataWorks 6-Agent Autonomous Data Harvesting Mesh
+            24-Agent Autonomous Swarm & Continuous Co-Pilot Hand-Off Relay
           </h1>
           <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
-            A collective of six specialized, cloned AI agents operating in continuous 4-hour relay shifts. One leads while another co-pilots, sharing an immutable collective memory to trial-test open source web feeds, rank statistical signal quality (0-100 SQM), and auto-compile player trajectories every 12 hours.
+            Every one of the 6 intelligence archetypes has been cloned into 4 specialized instances (Alpha, Beta, Gamma, Delta), forming a collective 24-agent swarm. Agent 1 starts, and each subsequent agent starts exactly 1 hour after the next. <strong>The agent that started last hour immediately becomes the active co-pilot for the agent that just went online</strong>, ensuring continuous handover, signal consensus, and automated 12-hour master compiles.
           </p>
         </div>
 
         <!-- Trigger Controls -->
         <div class="flex flex-wrap items-center gap-2 shrink-0">
-          <button id="triggerShiftTrialBtn" class="px-3.5 py-2 rounded-xl bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-bold text-xs shadow-lg shadow-cyan-600/30 transition flex items-center gap-1.5 active:scale-95">
+          <button id="triggerShiftTrialBtn" class="px-3.5 py-2.5 rounded-xl bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-bold text-xs shadow-lg shadow-cyan-600/30 transition flex items-center gap-1.5 active:scale-95">
             <span>⚡</span> Trigger Shift Probe Now
           </button>
-          <button id="trigger12hCompileBtn" class="px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-amber-500/50 text-amber-300 font-bold text-xs shadow-md transition flex items-center gap-1.5 active:scale-95">
+          <button id="trigger12hCompileBtn" class="px-3.5 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-amber-500/50 text-amber-300 font-bold text-xs shadow-md transition flex items-center gap-1.5 active:scale-95">
             <span>📦</span> Run 12h Master Compile
           </button>
-          <button id="exportLedgerJsonBtn" class="px-3 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-300 font-bold text-xs shadow-sm transition flex items-center gap-1">
-            <span>💾</span> JSON
+          <button id="exportLedgerJsonBtn" class="px-3 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-300 font-bold text-xs shadow-sm transition flex items-center gap-1">
+            <span>💾</span> Export JSON
           </button>
         </div>
       </div>
@@ -144,41 +166,53 @@
       <!-- Quick Metrics Ribbon -->
       <div class="grid grid-cols-2 sm:grid-cols-5 gap-3 pt-3 border-t border-slate-800/80 text-xs">
         <div class="p-2.5 rounded-xl bg-slate-900/60 border border-slate-800">
-          <div class="text-[10px] text-slate-400 font-mono">TOTAL TRIALS</div>
-          <div class="text-base sm:text-lg font-black text-white font-mono" id="statTotalTrials">4,897</div>
+          <div class="text-[10px] text-slate-400 font-mono">TOTAL SWARM AGENTS</div>
+          <div class="text-base sm:text-lg font-black text-cyan-400 font-mono">24 (6 × 4)</div>
         </div>
         <div class="p-2.5 rounded-xl bg-slate-900/60 border border-slate-800">
-          <div class="text-[10px] text-slate-400 font-mono">CHANNELS MAPPED</div>
-          <div class="text-base sm:text-lg font-black text-cyan-400 font-mono" id="statTotalChannels">38</div>
+          <div class="text-[10px] text-slate-400 font-mono">SHIFT RELAY CADENCE</div>
+          <div class="text-base sm:text-lg font-black text-emerald-400 font-mono">1 Hour / Hand-Off</div>
         </div>
         <div class="p-2.5 rounded-xl bg-slate-900/60 border border-slate-800">
-          <div class="text-[10px] text-slate-400 font-mono">SIGNAL VERACITY</div>
-          <div class="text-base sm:text-lg font-black text-emerald-400 font-mono" id="statAvgVeracity">96.6%</div>
+          <div class="text-[10px] text-slate-400 font-mono">TOTAL TRIALS CONDUCTED</div>
+          <div class="text-base sm:text-lg font-black text-white font-mono" id="statTotalTrials">14,825</div>
         </div>
         <div class="p-2.5 rounded-xl bg-slate-900/60 border border-slate-800">
-          <div class="text-[10px] text-slate-400 font-mono">ATHLETES SYNCED</div>
-          <div class="text-base sm:text-lg font-black text-purple-400 font-mono">2,974</div>
+          <div class="text-[10px] text-slate-400 font-mono">AVERAGE SIGNAL VERACITY</div>
+          <div class="text-base sm:text-lg font-black text-purple-400 font-mono" id="statAvgVeracity">97.4%</div>
         </div>
         <div class="p-2.5 rounded-xl bg-slate-900/60 border border-slate-800 col-span-2 sm:col-span-1">
-          <div class="text-[10px] text-slate-400 font-mono">LEAD RECRUITER</div>
+          <div class="text-[10px] text-slate-400 font-mono">LEAD RECRUITER / SIGN-OFF</div>
           <div class="text-base sm:text-lg font-black text-amber-400 truncate">Director of Scouting</div>
         </div>
       </div>
     </div>
 
-    <!-- ==================== 1. THE 6 SPECIALIZED AGENTS ROSTER ==================== -->
-    <div class="space-y-3">
-      <div class="flex items-center justify-between">
+    <!-- ==================== 1. THE 24-AGENT SWARM ROSTER ==================== -->
+    <div class="space-y-4">
+      <div class="flex flex-wrap items-center justify-between gap-3">
         <div class="flex items-center gap-2">
           <h2 class="text-base sm:text-lg font-black text-white tracking-tight flex items-center gap-2">
-            <span>🤖</span> The 6 Rotating Autonomous Nodes
+            <span>🤖</span> The 24 Autonomous Swarm Clones (6 Functional Divisions)
           </h2>
-          <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 font-mono text-[10px]">4-Hour Relay Loop</span>
+          <span class="px-2 py-0.5 rounded bg-sky-500/20 text-sky-300 font-mono text-[10px] border border-sky-500/30 font-bold">1-Hour Staggered Cycle</span>
         </div>
-        <span class="text-xs text-slate-400 hidden sm:block">One starts where previous left off + co-pilot support</span>
+
+        <!-- Filter Selector -->
+        <div class="flex items-center gap-1.5 flex-wrap text-xs">
+          <button class="agent-view-btn px-2.5 py-1 rounded-lg font-bold bg-sky-600 text-white transition active" data-squad="all">All 24</button>
+          <button class="agent-view-btn px-2.5 py-1 rounded-lg font-bold bg-slate-900 text-slate-300 border border-slate-800 hover:text-white transition" data-squad="active">Active Pair (Lead & Co-Pilot)</button>
+          <button class="agent-view-btn px-2.5 py-1 rounded-lg font-bold bg-slate-900 text-slate-300 border border-slate-800 hover:text-white transition" data-squad="1">Div 1 (Pioneers)</button>
+          <button class="agent-view-btn px-2.5 py-1 rounded-lg font-bold bg-slate-900 text-slate-300 border border-slate-800 hover:text-white transition" data-squad="2">Div 2 (Auditors)</button>
+          <button class="agent-view-btn px-2.5 py-1 rounded-lg font-bold bg-slate-900 text-slate-300 border border-slate-800 hover:text-white transition" data-squad="3">Div 3 (Synthesizers)</button>
+          <button class="agent-view-btn px-2.5 py-1 rounded-lg font-bold bg-slate-900 text-slate-300 border border-slate-800 hover:text-white transition" data-squad="4">Div 4 (Harvesters)</button>
+          <button class="agent-view-btn px-2.5 py-1 rounded-lg font-bold bg-slate-900 text-slate-300 border border-slate-800 hover:text-white transition" data-squad="5">Div 5 (Rankers)</button>
+          <button class="agent-view-btn px-2.5 py-1 rounded-lg font-bold bg-slate-900 text-slate-300 border border-slate-800 hover:text-white transition" data-squad="6">Div 6 (Integrators)</button>
+        </div>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5" id="agentCardsContainer">
+      <!-- Agent Cards Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3.5" id="agentCardsContainer">
         <!-- Rendered by JavaScript -->
       </div>
     </div>
@@ -191,12 +225,12 @@
           <h2 class="text-base sm:text-lg font-black text-white flex items-center gap-2">
             <span>📡</span> Evolving Open Source Hockey Channel Matrix
           </h2>
-          <p class="text-xs text-slate-400">Ranked dynamically by the Signal Quality Metric (0-100 SQM) algorithm</p>
+          <p class="text-xs text-slate-400">Continuous 0-100 SQM algorithmic ranking updated every 1-hour shift</p>
         </div>
 
         <!-- Filter Pills -->
         <div class="flex items-center gap-1.5 flex-wrap">
-          <button class="channel-filter-btn px-2.5 py-1 rounded-lg text-xs font-bold bg-sky-600 text-white transition active" data-filter="all">All (38)</button>
+          <button class="channel-filter-btn px-2.5 py-1 rounded-lg text-xs font-bold bg-sky-600 text-white transition active" data-filter="all">All (42)</button>
           <button class="channel-filter-btn px-2.5 py-1 rounded-lg text-xs font-bold bg-slate-900 text-slate-300 border border-slate-800 hover:text-white transition" data-filter="Tier S">Tier S (92+)</button>
           <button class="channel-filter-btn px-2.5 py-1 rounded-lg text-xs font-bold bg-slate-900 text-slate-300 border border-slate-800 hover:text-white transition" data-filter="Tier A">Tier A (85-91)</button>
           <button class="channel-filter-btn px-2.5 py-1 rounded-lg text-xs font-bold bg-slate-900 text-slate-300 border border-slate-800 hover:text-white transition" data-filter="Tier B">Tier B (75-84)</button>
@@ -240,7 +274,7 @@
           <div class="w-3 h-3 rounded-full bg-emerald-400 animate-pulse"></div>
           <h3 class="text-xs sm:text-sm font-bold text-white font-mono uppercase tracking-wider">Live Trial-and-Error Experiment Stream</h3>
         </div>
-        <span class="text-[10px] text-slate-400 font-mono">Lead + Co-Pilot Collective Output</span>
+        <span class="text-[10px] text-slate-400 font-mono">Lead + Co-Pilot Continuous Hand-Off Output</span>
       </div>
 
       <!-- Terminal Output Window -->
@@ -263,64 +297,109 @@
 
       let state = mesh.getState();
       let activeFilter = 'all';
+      let activeSquadFilter = 'all';
 
       // 1. Render Active Shift Status
       function renderShiftStatus() {
         const shift = mesh.getCurrentShift();
-        document.getElementById('activeShiftBadge').textContent = `SHIFT ${shift.shiftNumber} ACTIVE (${shift.shiftStartHour} - ${shift.shiftEndHour})`;
-        document.getElementById('leadAgentLabel').textContent = `${shift.leadAgent.name} (${shift.leadAgent.codename})`;
-        document.getElementById('copilotAgentLabel').textContent = `${shift.copilotAgent.name} (${shift.copilotAgent.codename})`;
+        document.getElementById('activeShiftBadge').innerHTML = `
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+          <span>SHIFT ${String(shift.shiftIndex).padStart(2, '0')}/24 ACTIVE (${shift.shiftStartHour} - ${shift.shiftEndHour})</span>
+        `;
+        document.getElementById('leadAgentLabel').innerHTML = `
+          <span>${shift.leadAgent.name}</span>
+          <span class="text-[10px] text-emerald-300/70 font-normal">(${shift.leadAgent.codename})</span>
+        `;
+        document.getElementById('copilotAgentLabel').innerHTML = `
+          <span>${shift.copilotAgent.name}</span>
+          <span class="text-[10px] text-cyan-300/70 font-normal">(${shift.copilotAgent.codename})</span>
+        `;
 
-        const hoursLeft = Math.floor(shift.minutesRemainingInShift / 60);
-        const minsLeft = shift.minutesRemainingInShift % 60;
-        document.getElementById('shiftCountdown').textContent = `${hoursLeft}h ${minsLeft}m`;
+        const minsLeft = Math.floor(shift.secondsRemainingInShift / 60);
+        const secsLeft = shift.secondsRemainingInShift % 60;
+        document.getElementById('shiftCountdown').textContent = `${String(minsLeft).padStart(2, '0')}m ${String(secsLeft).padStart(2, '0')}s`;
 
         const compileHoursLeft = Math.floor(shift.minutesUntilMasterCompile / 60);
         const compileMinsLeft = shift.minutesUntilMasterCompile % 60;
         document.getElementById('compileCountdown').textContent = `${compileHoursLeft}h ${compileMinsLeft}m`;
       }
 
-      // 2. Render 6 Agent Cards
+      // 2. Render 24 Agent Cards
       function renderAgentCards() {
         const shift = mesh.getCurrentShift();
         const container = document.getElementById('agentCardsContainer');
-        container.innerHTML = mesh.AGENTS.map((agent, idx) => {
+
+        const filteredAgents = mesh.AGENTS.filter(agent => {
+          if (activeSquadFilter === 'all') return true;
+          if (activeSquadFilter === 'active') {
+            return agent.id === shift.leadAgent.id || agent.id === shift.copilotAgent.id;
+          }
+          return agent.squad === parseInt(activeSquadFilter, 10);
+        });
+
+        container.innerHTML = filteredAgents.map(agent => {
           const isLead = agent.id === shift.leadAgent.id;
           const isCopilot = agent.id === shift.copilotAgent.id;
 
-          let badgeHtml = `<span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-slate-800 text-slate-400 border border-slate-700">STANDBY</span>`;
-          let cardBorder = `border-slate-800/80`;
+          let badgeHtml = `<span class="px-2 py-0.5 rounded text-[9px] font-mono font-bold bg-slate-900 text-slate-400 border border-slate-800">STANDBY</span>`;
+          let cardBorder = `border-slate-800/80 bg-slate-950/40`;
+          let glowEffect = ``;
 
           if (isLead) {
-            badgeHtml = `<span class="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/50 flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span> LEAD PILOT</span>`;
-            cardBorder = `border-emerald-500/60 shadow-lg shadow-emerald-500/10`;
+            badgeHtml = `
+              <span class="px-2.5 py-0.5 rounded-full text-[9px] font-mono font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/50 flex items-center gap-1 shadow-sm">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span> LEAD PILOT
+              </span>
+            `;
+            cardBorder = `border-emerald-500/80 bg-gradient-to-b from-emerald-950/40 to-slate-950 shadow-xl shadow-emerald-500/10`;
+            glowEffect = `<div class="absolute -top-1 -right-1 w-3 h-3 rounded-full bg-emerald-400 animate-ping"></div>`;
           } else if (isCopilot) {
-            badgeHtml = `<span class="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-500/50 flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span> CO-PILOT</span>`;
-            cardBorder = `border-cyan-500/60 shadow-lg shadow-cyan-500/10`;
+            badgeHtml = `
+              <span class="px-2.5 py-0.5 rounded-full text-[9px] font-mono font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-500/50 flex items-center gap-1 shadow-sm">
+                <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span> CO-PILOT
+              </span>
+            `;
+            cardBorder = `border-cyan-500/80 bg-gradient-to-b from-cyan-950/40 to-slate-950 shadow-xl shadow-cyan-500/10`;
+            glowEffect = `<div class="absolute -top-1 -right-1 w-3 h-3 rounded-full bg-cyan-400 animate-pulse"></div>`;
           }
 
+          const startHourStr = `${String(agent.scheduleHour).padStart(2, '0')}:00`;
+          const endHourStr = `${String((agent.scheduleHour + 1) % 24).padStart(2, '0')}:00`;
+
           return `
-            <div class="glass-panel p-4 rounded-2xl border ${cardBorder} flex flex-col justify-between space-y-3 transition hover:scale-[1.01]">
+            <div class="glass-panel p-3.5 rounded-2xl border ${cardBorder} flex flex-col justify-between space-y-2.5 transition-all duration-300 hover:scale-[1.01] relative">
+              ${glowEffect}
               <div class="flex items-start justify-between gap-2">
-                <div class="flex items-center gap-2.5">
-                  <div class="w-10 h-10 rounded-xl bg-gradient-to-tr ${agent.color} flex items-center justify-center text-xl shadow-md">
+                <div class="flex items-center gap-2.5 min-w-0">
+                  <div class="w-9 h-9 rounded-xl bg-gradient-to-tr ${agent.color} flex items-center justify-center text-lg shadow-md shrink-0">
                     ${agent.avatar}
                   </div>
-                  <div>
+                  <div class="min-w-0">
                     <div class="flex items-center gap-1.5">
-                      <h3 class="text-sm font-black text-white">${agent.name}</h3>
-                      <span class="text-[9px] font-mono text-slate-400 uppercase tracking-widest">${agent.codename}</span>
+                      <h3 class="text-xs font-black text-white truncate">${agent.name}</h3>
+                      <span class="px-1.5 py-0.2 rounded text-[8px] font-mono font-bold bg-slate-800 text-sky-300 border border-slate-700">${agent.cloneCode}</span>
                     </div>
-                    <p class="text-[11px] font-semibold text-sky-400">${agent.role}</p>
+                    <p class="text-[10px] font-mono text-slate-400 uppercase tracking-wider truncate">${agent.codename}</p>
                   </div>
                 </div>
                 ${badgeHtml}
               </div>
 
-              <p class="text-[11px] text-slate-300 leading-snug">${agent.specialty}</p>
+              <!-- Division & Schedule Slot -->
+              <div class="bg-slate-900/80 px-2.5 py-1 rounded-xl border border-slate-800/80 flex items-center justify-between text-[10px] font-mono">
+                <span class="text-slate-400">Slot ${startHourStr}-${endHourStr}</span>
+                <span class="text-sky-400 font-bold">Div ${agent.squad}</span>
+              </div>
 
-              <div class="flex flex-wrap gap-1 pt-2 border-t border-slate-800/80">
-                ${agent.skills.map(s => `<span class="px-2 py-0.5 rounded bg-slate-900 text-slate-400 text-[9px] font-mono border border-slate-800">${s}</span>`).join('')}
+              <!-- Role Description -->
+              <div class="space-y-0.5">
+                <div class="text-[11px] font-bold text-white leading-tight">${agent.role}</div>
+                <p class="text-[10px] text-slate-400 leading-snug line-clamp-2">${agent.specialty}</p>
+              </div>
+
+              <!-- Skills Badges -->
+              <div class="flex flex-wrap gap-1 pt-1.5 border-t border-slate-800/80">
+                ${agent.skills.slice(0, 3).map(s => `<span class="px-1.5 py-0.5 rounded bg-slate-900 text-slate-400 text-[8px] font-mono border border-slate-800">${s}</span>`).join('')}
               </div>
             </div>
           `;
@@ -402,7 +481,6 @@
       // 5. Update Metrics
       function updateMetrics() {
         document.getElementById('statTotalTrials').textContent = state.totalTrialsConducted.toLocaleString();
-        document.getElementById('statTotalChannels').textContent = state.targets.length;
         document.getElementById('statAvgVeracity').textContent = `${state.avgSignalVeracity}%`;
       }
 
@@ -422,14 +500,14 @@
         state = result.state;
         renderShiftStatus();
         renderConsoleLogs();
-        alert(`Master 12-Hour Compile Executed!\nIngested ${result.newStatsGathered} athlete trajectory updates across Tier-S/A open channels. Signed by Head of Scouting Director of Scouting.`);
+        alert(`Master 12-Hour Compile Executed!\nIngested ${result.newStatsGathered} athlete trajectory updates across Tier-S/A open channels. Verified by 24-Agent Swarm and signed by Director of Scouting.`);
       });
 
       document.getElementById('exportLedgerJsonBtn').addEventListener('click', () => {
         const blob = new Blob([JSON.stringify(state, null, 2)], { type: 'application/json' });
         const a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = `blueline_agent_mesh_state_${Date.now()}.json`;
+        a.download = `blueline_agent_swarm24_state_${Date.now()}.json`;
         a.click();
       });
 
@@ -450,6 +528,19 @@
         });
       });
 
+      document.querySelectorAll('.agent-view-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          document.querySelectorAll('.agent-view-btn').forEach(b => {
+            b.classList.remove('bg-sky-600', 'text-white');
+            b.classList.add('bg-slate-900', 'text-slate-300');
+          });
+          e.target.classList.add('bg-sky-600', 'text-white');
+          e.target.classList.remove('bg-slate-900', 'text-slate-300');
+          activeSquadFilter = e.target.dataset.squad;
+          renderAgentCards();
+        });
+      });
+
       // Initial Render
       renderShiftStatus();
       renderAgentCards();
@@ -457,8 +548,8 @@
       renderConsoleLogs();
       updateMetrics();
 
-      // Live tick every minute for timers
-      setInterval(renderShiftStatus, 60000);
+      // Live 1-second tick for precision countdown timer
+      setInterval(renderShiftStatus, 1000);
     });
   </script>
 </body>
