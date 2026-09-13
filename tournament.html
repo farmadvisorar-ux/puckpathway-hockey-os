@@ -1,82 +1,112 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en" class="h-full bg-slate-950 text-slate-100">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BlueLine DataWorks | AI Tournament Bracketology & Championship War Room</title>
+  <title>Tournament Bracketology & Championship War Room | BlueLine DataWorks</title>
   
-  <meta name="description" content="BlueLine DataWorks is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory.">
-  <meta property="og:title" content="BlueLine DataWorks - AI Tournament Bracketology">
-  <meta property="og:description" content="BlueLine DataWorks is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory.">
-  <meta property="og:image" content="static/img/blueline_og_preview.jpg">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="BlueLine DataWorks - AI Tournament Bracketology">
-  <meta name="twitter:description" content="BlueLine DataWorks is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory.">
+  <!-- SEO & Social Meta -->
+  <meta name="description" content="BlueLine DataWorks is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory. Experience 1,000-iteration Monte Carlo bracketology for NCAA Frozen Four, USHL Clark Cup Playoffs, IIHF World Juniors, and CHL Memorial Cup.">
+  <meta name="keywords" content="hockey tournament bracketology, NCAA Frozen Four, USHL Clark Cup, IIHF World Juniors, CHL Memorial Cup, Monte Carlo hockey simulation, prospect scout war room">
+  <meta property="og:title" content="Tournament Bracketology & Championship War Room | BlueLine DataWorks">
+  <meta property="og:description" content="Simulate, analyze, and build interactive brackets for the NCAA Frozen Four, USHL Clark Cup, IIHF World Juniors, and CHL Memorial Cup with 1,000-run Monte Carlo probability engine.">
+  <meta property="og:type" content="website">
 
-  <!-- Manifest for PWA -->
+  <!-- PWA Manifest & Icons -->
   <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#060b14">
+  <meta name="theme-color" content="#d97706">
+  <link rel="apple-touch-icon" href="static/icons/icon-192.png">
 
-  <!-- Tailwind CSS & Fonts -->
+  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Font Awesome Pro/Free CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Google Fonts Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+
   <script>
     tailwind.config = {
-      darkMode: 'class',
       theme: {
         extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
           colors: {
             brand: {
-              primary: '#0ea5e9',
-              dark: '#060b14',
-              surface: '#0d131f',
-              border: 'rgba(56, 189, 248, 0.2)'
+              gold: '#f59e0b',
+              ice: '#38bdf8',
+              navy: '#0f172a',
+              amber: '#d97706'
             }
           }
         }
       }
     }
   </script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="static/css/custom.css">
 
   <style>
     body {
-      background-color: #060b14;
-      background-image: 
-        radial-gradient(at 0% 0%, rgba(245, 158, 11, 0.12) 0px, transparent 50%),
-        radial-gradient(at 100% 100%, rgba(14, 165, 233, 0.08) 0px, transparent 50%);
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-family: 'Inter', sans-serif;
+      background-color: #020617;
     }
     .glass-panel {
-      background: rgba(13, 19, 31, 0.75);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(56, 189, 248, 0.2);
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .bracket-node-active {
+      background: linear-gradient(135deg, rgba(217, 119, 6, 0.25), rgba(15, 23, 42, 0.9));
+      border-color: #f59e0b;
+      box-shadow: 0 0 15px rgba(245, 158, 11, 0.2);
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #090d16;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #1e293b;
+      border-radius: 9999px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: #334155;
     }
   </style>
 </head>
-<body class="text-slate-100 min-h-screen flex flex-col antialiased selection:bg-amber-500 selection:text-white">
+<body class="min-h-screen flex flex-col selection:bg-amber-500 selection:text-slate-950">
 
-  <!-- Universal Enterprise Top Navigation Header -->
-  <header class="border-b border-sky-500/20 bg-slate-950/95 backdrop-blur-xl sticky top-0 z-50 shadow-2xl shadow-black/60">
-    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-14 sm:h-16 flex items-center justify-between gap-2">
+  <!-- Top Enterprise Header Navigation Bar (Unified 12-Module Ecosystem) -->
+  <header class="sticky top-0 z-50 glass-panel border-b border-slate-800/80 bg-slate-950/90">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
       
       <!-- Brand Logo & Title -->
-      <div class="flex items-center gap-2 sm:gap-3 min-w-0">
-        <a href="index.html" class="flex items-center gap-2 group min-w-0">
-          <img src="static/img/blueline_logo.jpg" alt="BlueLine DataWorks" class="w-9 h-9 sm:w-10 sm:h-10 shrink-0 rounded-xl border border-sky-400/50 object-cover shadow-lg shadow-sky-500/30 group-hover:scale-105 transition">
-          <div class="min-w-0">
-            <div class="flex items-center gap-1.5 sm:gap-2">
-              <span class="font-black text-xs sm:text-base md:text-lg tracking-tight bg-gradient-to-r from-amber-400 via-orange-200 to-yellow-400 bg-clip-text text-transparent truncate">BLUELINE DATAWORKS</span>
-              <span class="px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40 text-[9px] font-extrabold tracking-wide uppercase shrink-0">TOURNAMENT ROOM</span>
+      <div class="flex items-center gap-3">
+        <a href="index.html" class="flex items-center gap-2.5 group">
+          <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-amber-600 via-orange-500 to-yellow-400 p-0.5 shadow-lg shadow-amber-500/20 group-hover:scale-105 transition duration-200">
+            <div class="w-full h-full bg-slate-950 rounded-[14px] flex items-center justify-center">
+              <span class="text-xl">🏆</span>
             </div>
-            <p class="text-[10px] sm:text-[11px] text-slate-400 truncate hidden sm:block">NCAA Frozen Four • World Juniors • Monte Carlo Bracketology • Championship War Room</p>
+          </div>
+          <div>
+            <div class="flex items-center gap-1.5">
+              <span class="font-extrabold text-sm sm:text-base tracking-tight text-white group-hover:text-amber-400 transition">BlueLine</span>
+              <span class="text-[10px] uppercase font-mono tracking-widest px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 font-bold">Bracketology</span>
+            </div>
+            <p class="text-[10px] text-slate-400 hidden sm:block">Championship War Room & Monte Carlo Predictor</p>
           </div>
         </a>
       </div>
 
-      <!-- Quick Nav Buttons -->
-      <div class="flex items-center gap-1.5 sm:gap-2 shrink-0 text-xs font-bold overflow-x-auto py-1">
+      <!-- Unified 12-Module Navigation Pills -->
+      <div class="flex items-center gap-1 sm:gap-1.5 overflow-x-auto py-1 max-w-[62%] sm:max-w-none text-xs font-mono custom-scrollbar">
         <a href="index.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 font-semibold border border-slate-800 transition flex items-center gap-1">
           <span>🏒</span> <span class="hidden md:inline">Main OS</span>
         </a>
@@ -128,7 +158,7 @@
       <div class="flex items-center gap-3 shrink-0 text-[11px] font-mono text-slate-400">
         <span class="flex items-center gap-1.5 text-amber-400">
           <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
-          <span>Monte Carlo Engine: 1,000 Runs</span>
+          <span id="monteCarloRunsPill">Monte Carlo Engine: 1,000 Runs</span>
         </span>
         <span id="pwaStatusPill" class="px-2 py-0.5 rounded bg-sky-950 text-sky-400 border border-sky-500/30 text-[10px]">
           ⚡ Rinkside PWA Cached
@@ -147,8 +177,9 @@
           <span class="text-xs text-slate-400 font-medium">Championship:</span>
           <select id="tournamentSelect" class="bg-transparent text-white font-bold text-xs focus:outline-none cursor-pointer">
             <option value="ncaa" selected>🏆 NCAA Men's Frozen Four (16 Teams)</option>
-            <option value="wjc">🥇 IIHF World Junior Championship (U20)</option>
-            <option value="memorial">🍁 CHL Memorial Cup (Major Junior)</option>
+            <option value="ushl">🛡️ USHL Clark Cup Playoffs (Tier 1 Junior - 12 Teams)</option>
+            <option value="wjc">🥇 IIHF World Junior Championship (U20 - 10 Nations)</option>
+            <option value="memorial">🍁 CHL Memorial Cup (Major Junior - 4 Teams)</option>
           </select>
         </div>
 
@@ -197,12 +228,12 @@
           <div class="flex items-center justify-between border-b border-slate-800/80 pb-2">
             <div class="flex items-center gap-2">
               <span class="text-lg">🎲</span>
-              <h3 class="text-sm font-black text-white tracking-wide uppercase">Monte Carlo Win Matrix</h3>
+              <h3 class="text-sm font-black text-white tracking-wide uppercase" id="monteCarloBoxTitle">Monte Carlo Win Matrix</h3>
             </div>
             <span class="text-[10px] font-mono text-slate-400">1,000 Iterations</span>
           </div>
 
-          <div class="space-y-2 overflow-y-auto max-h-72 pr-1" id="monteCarloStream">
+          <div class="space-y-2 overflow-y-auto max-h-72 pr-1 custom-scrollbar" id="monteCarloStream">
             <!-- Populated by JS -->
           </div>
         </div>
@@ -214,7 +245,7 @@
               <span class="text-lg">🔎</span>
               <h3 class="text-sm font-black text-white tracking-wide uppercase">Matchup Scout Breakdown</h3>
             </div>
-            <span class="px-2 py-0.5 rounded bg-sky-500/20 text-sky-300 text-[10px] font-mono font-bold" id="matchupRoundBadge">Regional Final</span>
+            <span class="px-2 py-0.5 rounded bg-sky-500/20 text-sky-300 text-[10px] font-mono font-bold" id="matchupRoundBadge">Championship Matchup</span>
           </div>
 
           <!-- Head-to-Head Header -->
@@ -249,14 +280,14 @@
             </div>
           </div>
 
-          <!-- AI Predicted Score & Win Probability -->
-          <div class="p-3 rounded-2xl bg-gradient-to-r from-amber-950/40 via-slate-900 to-sky-950/40 border border-amber-500/30 flex items-center justify-between font-mono">
-            <div>
-              <div class="text-[10px] text-amber-400 uppercase font-bold">AI Projected Outcome</div>
-              <div class="text-xs font-black text-white" id="matchupPredScore">BC wins 4 - 3 (58.4%)</div>
+          <!-- Expected Goals & Win Expectancy -->
+          <div class="p-3 rounded-2xl bg-slate-950/90 border border-slate-800 space-y-2">
+            <div class="flex justify-between items-center text-xs font-mono">
+              <span class="text-slate-400">Predicted Outcome:</span>
+              <span class="text-amber-400 font-bold" id="matchupPredScore">Boston College 58.4% Prob</span>
             </div>
-            <button id="pickMatchupWinnerBtn" class="px-3 py-1 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/40 text-amber-300 font-bold text-[11px] transition">
-              Advance BC →
+            <button id="pickMatchupWinnerBtn" class="w-full py-2 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-black text-xs transition shadow-md">
+              Advance Team A →
             </button>
           </div>
 
@@ -267,124 +298,19 @@
       <!-- Column 2: Interactive Visual Bracket Tree (8 cols) -->
       <div class="lg:col-span-8 space-y-5">
         
-        <!-- Bracket Tree Canvas & Cards Container -->
-        <div class="glass-panel p-5 rounded-3xl border border-slate-800 space-y-4">
+        <!-- Dynamic Bracket Container -->
+        <div class="glass-panel p-5 rounded-3xl border border-slate-800 space-y-4" id="bracketTreeWrapper">
           <div class="flex items-center justify-between border-b border-slate-800 pb-2.5">
             <div class="flex items-center gap-2">
-              <span class="text-lg">🏒</span>
-              <h2 class="text-sm font-black text-white uppercase tracking-wider">16-Team National Bracket Tree</h2>
+              <span class="text-lg" id="bracketHeaderIcon">🏒</span>
+              <h2 class="text-sm font-black text-white uppercase tracking-wider" id="bracketHeaderTitle">16-Team National Bracket Tree</h2>
             </div>
-            <span class="text-xs text-slate-400 font-mono">Click any team to advance to the next round</span>
+            <span class="text-xs text-slate-400 font-mono" id="bracketHeaderSubtitle">Click any team to advance through rounds</span>
           </div>
 
-          <!-- 4 Regionals Container -->
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="regionalsGrid">
-            
-            <!-- Northeast Regional -->
-            <div class="p-3.5 rounded-2xl bg-slate-950/80 border border-slate-800 space-y-2.5">
-              <div class="flex justify-between items-center text-xs font-mono border-b border-slate-800 pb-1">
-                <span class="font-bold text-sky-400">Northeast Regional (Springfield, MA)</span>
-                <span class="text-[10px] text-slate-500">R16 & Reg Final</span>
-              </div>
-              <div class="space-y-2" id="regional_northeast">
-                <!-- Populated by JS -->
-              </div>
-            </div>
-
-            <!-- West Regional -->
-            <div class="p-3.5 rounded-2xl bg-slate-950/80 border border-slate-800 space-y-2.5">
-              <div class="flex justify-between items-center text-xs font-mono border-b border-slate-800 pb-1">
-                <span class="font-bold text-emerald-400">West Regional (Sioux Falls, SD)</span>
-                <span class="text-[10px] text-slate-500">R16 & Reg Final</span>
-              </div>
-              <div class="space-y-2" id="regional_west">
-                <!-- Populated by JS -->
-              </div>
-            </div>
-
-            <!-- Midwest Regional -->
-            <div class="p-3.5 rounded-2xl bg-slate-950/80 border border-slate-800 space-y-2.5">
-              <div class="flex justify-between items-center text-xs font-mono border-b border-slate-800 pb-1">
-                <span class="font-bold text-amber-400">Midwest Regional (Maryland Heights, MO)</span>
-                <span class="text-[10px] text-slate-500">R16 & Reg Final</span>
-              </div>
-              <div class="space-y-2" id="regional_midwest">
-                <!-- Populated by JS -->
-              </div>
-            </div>
-
-            <!-- East Regional -->
-            <div class="p-3.5 rounded-2xl bg-slate-950/80 border border-slate-800 space-y-2.5">
-              <div class="flex justify-between items-center text-xs font-mono border-b border-slate-800 pb-1">
-                <span class="font-bold text-purple-400">East Regional (Providence, RI)</span>
-                <span class="text-[10px] text-slate-500">R16 & Reg Final</span>
-              </div>
-              <div class="space-y-2" id="regional_east">
-                <!-- Populated by JS -->
-              </div>
-            </div>
-
-          </div>
-
-          <!-- Frozen Four National Semifinals & Championship Pedestal -->
-          <div class="p-4 rounded-2xl bg-gradient-to-r from-slate-950 via-amber-950/30 to-slate-950 border border-amber-500/40 space-y-3">
-            <div class="flex items-center justify-between text-xs font-mono border-b border-slate-800 pb-1.5">
-              <div class="flex items-center gap-1.5 font-bold text-amber-400">
-                <span>🏆</span> <span>NCAA FROZEN FOUR • NATIONAL CHAMPIONSHIP</span>
-              </div>
-              <span class="text-[10px] text-slate-400">Saint Paul, MN (Xcel Energy Center)</span>
-            </div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 items-center">
-              
-              <!-- Semifinal 1 -->
-              <div class="p-2.5 rounded-xl bg-slate-900/90 border border-slate-800 space-y-1 text-xs font-mono" id="semiFinal1Box">
-                <div class="text-[10px] text-slate-400 uppercase">Semifinal 1</div>
-                <div class="p-1.5 rounded-lg bg-slate-950 border border-slate-800 cursor-pointer hover:border-amber-400 transition" id="semi1TeamA">
-                  <!-- Team 1 -->
-                </div>
-                <div class="p-1.5 rounded-lg bg-slate-950 border border-slate-800 cursor-pointer hover:border-amber-400 transition" id="semi1TeamB">
-                  <!-- Team 2 -->
-                </div>
-              </div>
-
-              <!-- National Champion Pedestal (Center) -->
-              <div class="p-3.5 rounded-2xl bg-gradient-to-b from-amber-500/20 to-orange-600/10 border-2 border-amber-400/60 text-center space-y-1.5">
-                <div class="text-[10px] font-mono font-black text-amber-400 uppercase tracking-wider">NATIONAL CHAMPION</div>
-                <div class="text-3xl" id="pedestalChampLogo">🦅</div>
-                <div class="text-sm font-black text-white" id="pedestalChampName">Boston College</div>
-                <div class="text-[10px] text-emerald-400 font-mono font-bold" id="pedestalChampRecord">34-6-1 • National Title</div>
-              </div>
-
-              <!-- Semifinal 2 -->
-              <div class="p-2.5 rounded-xl bg-slate-900/90 border border-slate-800 space-y-1 text-xs font-mono" id="semiFinal2Box">
-                <div class="text-[10px] text-slate-400 uppercase">Semifinal 2</div>
-                <div class="p-1.5 rounded-lg bg-slate-950 border border-slate-800 cursor-pointer hover:border-amber-400 transition" id="semi2TeamA">
-                  <!-- Team 1 -->
-                </div>
-                <div class="p-1.5 rounded-lg bg-slate-950 border border-slate-800 cursor-pointer hover:border-amber-400 transition" id="semi2TeamB">
-                  <!-- Team 2 -->
-                </div>
-              </div>
-
-            </div>
-
-            <!-- MVP & All-Star Selection Bar -->
-            <div class="pt-2 border-t border-slate-800/80 flex flex-wrap items-center justify-between gap-2 text-xs">
-              <div class="flex items-center gap-2">
-                <span class="text-slate-400 font-mono text-[11px]">Tournament Most Outstanding Player (MOP):</span>
-                <select id="mopSelect" class="bg-slate-900 text-white font-bold text-xs rounded-lg px-2 py-1 border border-slate-700 cursor-pointer">
-                  <option value="Will Smith">Will Smith (BC • 1C)</option>
-                  <option value="Macklin Celebrini">Macklin Celebrini (BU • 1C)</option>
-                  <option value="Jacob Fowler">Jacob Fowler (BC • G)</option>
-                  <option value="Zeev Buium">Zeev Buium (Denver • LHD)</option>
-                  <option value="Matt Davis">Matt Davis (Denver • G)</option>
-                  <option value="Artyom Levshunov">Artyom Levshunov (MSU • RHD)</option>
-                </select>
-              </div>
-              <span class="text-[11px] text-amber-400 font-mono font-bold" id="mopBadge">Verified MOP Vote Stamped</span>
-            </div>
-
+          <!-- Bracket Body Container (Dynamically rendered based on active tournament) -->
+          <div id="bracketDynamicContent" class="space-y-4">
+            <!-- Rendered by JS -->
           </div>
 
         </div>
@@ -408,11 +334,15 @@
         return;
       }
 
-      let simResults = engine.runMonteCarloSimulations(1000);
-      let userPicks = engine.loadUserPicks();
+      let activeTourney = "ncaa";
+      let simResults = engine.runMonteCarloSimulations(activeTourney, 1000);
+      let userPicks = engine.loadUserPicks(activeTourney);
+
+      const tournamentSelect = document.getElementById('tournamentSelect');
 
       // Top Header Update
       function updateHeaderFavorite() {
+        if (!simResults || simResults.length === 0) return;
         const top = simResults[0];
         document.getElementById('headerChampLogo').textContent = top.team.logo;
         document.getElementById('headerChampName').textContent = top.team.name;
@@ -422,6 +352,8 @@
       // Render Monte Carlo Sidebar
       function renderMonteCarloTable() {
         const container = document.getElementById('monteCarloStream');
+        document.getElementById('monteCarloBoxTitle').textContent = `${engine.TOURNAMENTS[activeTourney].name} Win Matrix`;
+        
         container.innerHTML = simResults.map((r, i) => `
           <div class="p-2 rounded-xl bg-slate-950/70 border border-slate-800 flex items-center justify-between gap-2 text-xs font-mono hover:border-amber-400/50 transition cursor-pointer" onclick="inspectTeam('${r.team.id}')">
             <div class="flex items-center gap-2 min-w-0">
@@ -430,7 +362,7 @@
             </div>
             <div class="flex items-center gap-2 shrink-0">
               <div class="w-16 h-2 rounded-full bg-slate-900 border border-slate-800 overflow-hidden">
-                <div class="bg-gradient-to-r from-amber-500 to-orange-400 h-full" style="width: ${Math.min(100, parseFloat(r.champPct) * 3)}%"></div>
+                <div class="bg-gradient-to-r from-amber-500 to-orange-400 h-full" style="width: ${Math.min(100, parseFloat(r.champPct) * 3.2)}%"></div>
               </div>
               <span class="text-amber-300 font-bold text-[11px] w-12 text-right">${r.champPct}%</span>
             </div>
@@ -438,17 +370,74 @@
         `).join('');
       }
 
-      // Render Regionals Bracket
-      function renderBracket() {
-        const regionMapping = {
-          "Northeast (Springfield, MA)": "regional_northeast",
-          "West (Sioux Falls, SD)": "regional_west",
-          "Midwest (Maryland Heights, MO)": "regional_midwest",
-          "East (Providence, RI)": "regional_east"
+      // Inspect Team in Scout Breakdown Card
+      window.inspectTeam = function(teamId) {
+        const teams = engine.TOURNAMENTS[activeTourney].teams;
+        const teamA = teams.find(t => t.id === teamId) || teams[0];
+        const teamB = teams.find(t => t.id !== teamId) || teams[1];
+
+        document.getElementById('matchupLogoA').textContent = teamA.logo;
+        document.getElementById('matchupNameA').textContent = teamA.name;
+        document.getElementById('matchupRecordA').textContent = `${teamA.record} • ${teamA.conference || ('Seed #' + teamA.seed)}`;
+
+        document.getElementById('matchupLogoB').textContent = teamB.logo;
+        document.getElementById('matchupNameB').textContent = teamB.name;
+        document.getElementById('matchupRecordB').textContent = `${teamB.record} • ${teamB.conference || ('Seed #' + teamB.seed)}`;
+
+        document.getElementById('matchupGoalieA').textContent = `${teamA.goalieName} (${teamA.goalieSvPct})`;
+        document.getElementById('matchupGoalieB').textContent = `${teamB.goalieName} (${teamB.goalieSvPct})`;
+
+        const probA = (engine.getWinProbability(teamA, teamB) * 100).toFixed(1);
+        document.getElementById('matchupPredScore').textContent = `${teamA.name} win probability: ${probA}%`;
+        document.getElementById('pickMatchupWinnerBtn').textContent = `Advance ${teamA.name} →`;
+        document.getElementById('pickMatchupWinnerBtn').onclick = () => {
+          showToast(`Advanced ${teamA.name} in matchup preview!`, "success");
         };
 
-        engine.NCAA_REGIONALS.forEach(r => {
-          const container = document.getElementById(regionMapping[r.region]);
+        const prospectHtml = `
+          <div><strong>${teamA.name}:</strong> ${(teamA.keyProspects || []).join(', ')}</div>
+          <div class="text-[10px] text-slate-400 italic">${teamA.scoutingNote || ''}</div>
+          <div class="pt-1 border-t border-slate-800"><strong>${teamB.name}:</strong> ${(teamB.keyProspects || []).join(', ')}</div>
+        `;
+        document.getElementById('matchupProspectsList').innerHTML = prospectHtml;
+      };
+
+      // Select Winner on Click
+      window.selectWinner = function(gameId, teamId) {
+        userPicks = engine.makeUserPick(gameId, teamId, activeTourney);
+        renderBracket();
+        const t = engine.TOURNAMENTS[activeTourney].teams.find(x => x.id === teamId);
+        showToast(`Picked ${t ? t.name : teamId} to advance!`, "info");
+      };
+
+      // Main Bracket Renderer Dispatcher
+      function renderBracket() {
+        const container = document.getElementById('bracketDynamicContent');
+        const tourney = engine.TOURNAMENTS[activeTourney];
+
+        document.getElementById('bracketHeaderIcon').textContent = tourney.trophy;
+        document.getElementById('bracketHeaderTitle').textContent = `${tourney.name} Bracket Tree`;
+        document.getElementById('bracketHeaderSubtitle').textContent = tourney.tagline;
+
+        if (activeTourney === 'ncaa') {
+          renderNcaaBracket(container);
+        } else if (activeTourney === 'ushl') {
+          renderUshlBracket(container);
+        } else if (activeTourney === 'wjc') {
+          renderWjcBracket(container);
+        } else if (activeTourney === 'memorial') {
+          renderMemorialBracket(container);
+        }
+      }
+
+      // 1. NCAA Render
+      function renderNcaaBracket(container) {
+        const regionals = engine.NCAA_REGIONALS;
+        let regHtml = `
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        `;
+
+        regionals.forEach(r => {
           const t1A = engine.NCAA_TEAMS.find(t => t.id === r.game1.teamA);
           const t1B = engine.NCAA_TEAMS.find(t => t.id === r.game1.teamB);
           const t2A = engine.NCAA_TEAMS.find(t => t.id === r.game2.teamA);
@@ -459,130 +448,609 @@
           const regFinalId = `reg_final_${r.game1.id}_${r.game2.id}`;
           const pickRegFinal = userPicks[regFinalId] || pickG1;
 
-          container.innerHTML = `
-            <div class="space-y-1.5 text-xs font-mono">
-              <div class="flex justify-between items-center text-[10px] text-slate-500">Game 1: 1 vs 4</div>
-              <div class="grid grid-cols-2 gap-1.5">
-                <div class="p-1.5 rounded-lg border ${pickG1 === t1A.id ? 'bg-sky-950/60 border-sky-400 text-white font-bold' : 'bg-slate-900 border-slate-800 text-slate-400'} cursor-pointer transition text-[11px] flex items-center justify-between" onclick="selectWinner('${r.game1.id}', '${t1A.id}')">
-                  <span>${t1A.logo} ${t1A.name}</span>
-                  <span class="text-[9px] px-1 rounded bg-slate-800">${t1A.seed}</span>
-                </div>
-                <div class="p-1.5 rounded-lg border ${pickG1 === t1B.id ? 'bg-sky-950/60 border-sky-400 text-white font-bold' : 'bg-slate-900 border-slate-800 text-slate-400'} cursor-pointer transition text-[11px] flex items-center justify-between" onclick="selectWinner('${r.game1.id}', '${t1B.id}')">
-                  <span>${t1B.logo} ${t1B.name}</span>
-                  <span class="text-[9px] px-1 rounded bg-slate-800">${t1B.seed}</span>
-                </div>
-              </div>
+          const winnerObj1 = engine.NCAA_TEAMS.find(t => t.id === pickG1) || t1A;
+          const winnerObj2 = engine.NCAA_TEAMS.find(t => t.id === pickG2) || t2A;
 
-              <div class="flex justify-between items-center text-[10px] text-slate-500 pt-1">Game 2: 2 vs 3</div>
-              <div class="grid grid-cols-2 gap-1.5">
-                <div class="p-1.5 rounded-lg border ${pickG2 === t2A.id ? 'bg-sky-950/60 border-sky-400 text-white font-bold' : 'bg-slate-900 border-slate-800 text-slate-400'} cursor-pointer transition text-[11px] flex items-center justify-between" onclick="selectWinner('${r.game2.id}', '${t2A.id}')">
-                  <span>${t2A.logo} ${t2A.name}</span>
-                  <span class="text-[9px] px-1 rounded bg-slate-800">${t2A.seed}</span>
-                </div>
-                <div class="p-1.5 rounded-lg border ${pickG2 === t2B.id ? 'bg-sky-950/60 border-sky-400 text-white font-bold' : 'bg-slate-900 border-slate-800 text-slate-400'} cursor-pointer transition text-[11px] flex items-center justify-between" onclick="selectWinner('${r.game2.id}', '${t2B.id}')">
-                  <span>${t2B.logo} ${t2B.name}</span>
-                  <span class="text-[9px] px-1 rounded bg-slate-800">${t2B.seed}</span>
-                </div>
+          regHtml += `
+            <div class="p-3.5 rounded-2xl bg-slate-950/80 border border-slate-800 space-y-2.5">
+              <div class="flex justify-between items-center text-xs font-mono border-b border-slate-800 pb-1">
+                <span class="font-bold text-amber-400">${r.region}</span>
+                <span class="text-[10px] text-slate-500">R16 & Regional Final</span>
               </div>
+              <div class="space-y-2 text-xs font-mono">
+                <div class="flex justify-between items-center text-[10px] text-slate-500">Game 1: 1 vs 4</div>
+                <div class="grid grid-cols-2 gap-1.5">
+                  <div class="p-1.5 rounded-lg border ${pickG1 === t1A.id ? 'bg-sky-950/60 border-sky-400 text-white font-bold' : 'bg-slate-900 border-slate-800 text-slate-400'} cursor-pointer transition text-[11px] flex items-center justify-between" onclick="selectWinner('${r.game1.id}', '${t1A.id}')">
+                    <span>${t1A.logo} ${t1A.name}</span>
+                    <span class="text-[9px] px-1 rounded bg-slate-800">${t1A.seed}</span>
+                  </div>
+                  <div class="p-1.5 rounded-lg border ${pickG1 === t1B.id ? 'bg-sky-950/60 border-sky-400 text-white font-bold' : 'bg-slate-900 border-slate-800 text-slate-400'} cursor-pointer transition text-[11px] flex items-center justify-between" onclick="selectWinner('${r.game1.id}', '${t1B.id}')">
+                    <span>${t1B.logo} ${t1B.name}</span>
+                    <span class="text-[9px] px-1 rounded bg-slate-800">${t1B.seed}</span>
+                  </div>
+                </div>
 
-              <div class="flex justify-between items-center text-[10px] text-amber-400 font-bold pt-1.5 border-t border-slate-800">
-                <span>Regional Championship Pick</span>
-              </div>
-              <div class="grid grid-cols-2 gap-1.5">
-                <div class="p-1.5 rounded-lg border ${pickRegFinal === pickG1 ? 'bg-amber-500/20 border-amber-400 text-amber-200 font-bold' : 'bg-slate-900 border-slate-800 text-slate-400'} cursor-pointer transition text-[11px]" onclick="selectWinner('${regFinalId}', '${pickG1}')">
-                  ${engine.NCAA_TEAMS.find(t => t.id === pickG1).logo} ${engine.NCAA_TEAMS.find(t => t.id === pickG1).name}
+                <div class="flex justify-between items-center text-[10px] text-slate-500 pt-1">Game 2: 2 vs 3</div>
+                <div class="grid grid-cols-2 gap-1.5">
+                  <div class="p-1.5 rounded-lg border ${pickG2 === t2A.id ? 'bg-sky-950/60 border-sky-400 text-white font-bold' : 'bg-slate-900 border-slate-800 text-slate-400'} cursor-pointer transition text-[11px] flex items-center justify-between" onclick="selectWinner('${r.game2.id}', '${t2A.id}')">
+                    <span>${t2A.logo} ${t2A.name}</span>
+                    <span class="text-[9px] px-1 rounded bg-slate-800">${t2A.seed}</span>
+                  </div>
+                  <div class="p-1.5 rounded-lg border ${pickG2 === t2B.id ? 'bg-sky-950/60 border-sky-400 text-white font-bold' : 'bg-slate-900 border-slate-800 text-slate-400'} cursor-pointer transition text-[11px] flex items-center justify-between" onclick="selectWinner('${r.game2.id}', '${t2B.id}')">
+                    <span>${t2B.logo} ${t2B.name}</span>
+                    <span class="text-[9px] px-1 rounded bg-slate-800">${t2B.seed}</span>
+                  </div>
                 </div>
-                <div class="p-1.5 rounded-lg border ${pickRegFinal === pickG2 ? 'bg-amber-500/20 border-amber-400 text-amber-200 font-bold' : 'bg-slate-900 border-slate-800 text-slate-400'} cursor-pointer transition text-[11px]" onclick="selectWinner('${regFinalId}', '${pickG2}')">
-                  ${engine.NCAA_TEAMS.find(t => t.id === pickG2).logo} ${engine.NCAA_TEAMS.find(t => t.id === pickG2).name}
+
+                <div class="flex justify-between items-center text-[10px] text-amber-400 font-bold pt-1.5 border-t border-slate-800">
+                  <span>Regional Final Pick</span>
+                </div>
+                <div class="grid grid-cols-2 gap-1.5">
+                  <div class="p-1.5 rounded-lg border ${pickRegFinal === winnerObj1.id ? 'bg-amber-500/20 border-amber-400 text-amber-200 font-bold' : 'bg-slate-900 border-slate-800 text-slate-400'} cursor-pointer transition text-[11px]" onclick="selectWinner('${regFinalId}', '${winnerObj1.id}')">
+                    ${winnerObj1.logo} ${winnerObj1.name}
+                  </div>
+                  <div class="p-1.5 rounded-lg border ${pickRegFinal === winnerObj2.id ? 'bg-amber-500/20 border-amber-400 text-amber-200 font-bold' : 'bg-slate-900 border-slate-800 text-slate-400'} cursor-pointer transition text-[11px]" onclick="selectWinner('${regFinalId}', '${winnerObj2.id}')">
+                    ${winnerObj2.logo} ${winnerObj2.name}
+                  </div>
                 </div>
               </div>
             </div>
           `;
         });
 
-        // Update Frozen Four Pedestal
-        updateFrozenFourPedestal();
-      }
+        regHtml += `</div>`;
 
-      function updateFrozenFourPedestal() {
+        // Frozen Four Pedestal
         const champ = simResults[0].team;
-        document.getElementById('pedestalChampLogo').textContent = champ.logo;
-        document.getElementById('pedestalChampName').textContent = champ.name;
-        document.getElementById('pedestalChampRecord').textContent = `${champ.record} • Projected National Title`;
+        regHtml += `
+          <div class="p-4 rounded-2xl bg-gradient-to-r from-slate-950 via-amber-950/30 to-slate-950 border border-amber-500/40 space-y-3">
+            <div class="flex items-center justify-between text-xs font-mono border-b border-slate-800 pb-1.5">
+              <div class="flex items-center gap-1.5 font-bold text-amber-400">
+                <span>🏆</span> <span>NCAA FROZEN FOUR • SAINT PAUL, MN</span>
+              </div>
+              <span class="text-[10px] text-slate-400">Xcel Energy Center</span>
+            </div>
 
-        // Semis
-        const semi1TeamA = engine.NCAA_TEAMS[0]; // BC
-        const semi1TeamB = engine.NCAA_TEAMS[3]; // MSU
-        const semi2TeamA = engine.NCAA_TEAMS[1]; // BU
-        const semi2TeamB = engine.NCAA_TEAMS[2]; // Denver
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 items-center">
+              <div class="p-2.5 rounded-xl bg-slate-900/90 border border-slate-800 space-y-1 text-xs font-mono">
+                <div class="text-[10px] text-slate-400 uppercase">Semifinal 1</div>
+                <div class="p-1.5 rounded-lg bg-slate-950 border border-slate-800 cursor-pointer hover:border-amber-400 transition" onclick="inspectTeam('bc')">
+                  <span class="font-bold text-white">🦅 Boston College</span>
+                </div>
+                <div class="p-1.5 rounded-lg bg-slate-950 border border-slate-800 cursor-pointer hover:border-amber-400 transition" onclick="inspectTeam('msu')">
+                  <span class="font-bold text-white">⚔️ Michigan State</span>
+                </div>
+              </div>
 
-        document.getElementById('semi1TeamA').innerHTML = `<span class="font-bold text-white">${semi1TeamA.logo} ${semi1TeamA.name}</span>`;
-        document.getElementById('semi1TeamB').innerHTML = `<span class="font-bold text-white">${semi1TeamB.logo} ${semi1TeamB.name}</span>`;
-        document.getElementById('semi2TeamA').innerHTML = `<span class="font-bold text-white">${semi2TeamA.logo} ${semi2TeamA.name}</span>`;
-        document.getElementById('semi2TeamB').innerHTML = `<span class="font-bold text-white">${semi2TeamB.logo} ${semi2TeamB.name}</span>`;
+              <div class="p-3.5 rounded-2xl bg-gradient-to-b from-amber-500/20 to-orange-600/10 border-2 border-amber-400/60 text-center space-y-1.5">
+                <div class="text-[10px] font-mono font-black text-amber-400 uppercase tracking-wider">NATIONAL CHAMPION</div>
+                <div class="text-3xl">${champ.logo}</div>
+                <div class="text-sm font-black text-white">${champ.name}</div>
+                <div class="text-[10px] text-emerald-400 font-mono font-bold">${champ.record} • Projected Title</div>
+              </div>
+
+              <div class="p-2.5 rounded-xl bg-slate-900/90 border border-slate-800 space-y-1 text-xs font-mono">
+                <div class="text-[10px] text-slate-400 uppercase">Semifinal 2</div>
+                <div class="p-1.5 rounded-lg bg-slate-950 border border-slate-800 cursor-pointer hover:border-amber-400 transition" onclick="inspectTeam('bu')">
+                  <span class="font-bold text-white">🐾 Boston University</span>
+                </div>
+                <div class="p-1.5 rounded-lg bg-slate-950 border border-slate-800 cursor-pointer hover:border-amber-400 transition" onclick="inspectTeam('denver')">
+                  <span class="font-bold text-white">🏔️ Denver Pioneers</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- MVP Select -->
+            <div class="pt-2 border-t border-slate-800/80 flex flex-wrap items-center justify-between gap-2 text-xs">
+              <div class="flex items-center gap-2">
+                <span class="text-slate-400 font-mono text-[11px]">Tournament MOP:</span>
+                <select id="mopSelect" class="bg-slate-900 text-white font-bold text-xs rounded-lg px-2 py-1 border border-slate-700 cursor-pointer">
+                  <option value="Will Smith">Will Smith (BC • 1C)</option>
+                  <option value="Macklin Celebrini">Macklin Celebrini (BU • 1C)</option>
+                  <option value="Jacob Fowler">Jacob Fowler (BC • G)</option>
+                  <option value="Zeev Buium">Zeev Buium (Denver • LHD)</option>
+                  <option value="Matt Davis">Matt Davis (Denver • G)</option>
+                </select>
+              </div>
+              <span class="text-[11px] text-amber-400 font-mono font-bold">Verified MOP Vote Stamped</span>
+            </div>
+          </div>
+        `;
+
+        container.innerHTML = regHtml;
       }
 
-      // Inspect Team in Scout Breakdown Card
-      window.inspectTeam = function(teamId) {
-        const teamA = engine.NCAA_TEAMS.find(t => t.id === teamId) || engine.NCAA_TEAMS[0];
-        const teamB = engine.NCAA_TEAMS.find(t => t.id !== teamId) || engine.NCAA_TEAMS[1];
+      // 2. USHL Clark Cup Render
+      function renderUshlBracket(container) {
+        const p = engine.USHL_PLAYOFFS;
+        const champ = simResults[0].team;
 
-        document.getElementById('matchupLogoA').textContent = teamA.logo;
-        document.getElementById('matchupNameA').textContent = teamA.name;
-        document.getElementById('matchupRecordA').textContent = `${teamA.record} • ${teamA.conference}`;
+        let ushlHtml = `
+          <!-- Anderson Cup Champion Callout -->
+          <div class="p-3 rounded-2xl bg-gradient-to-r from-sky-950/60 via-slate-900 to-amber-950/40 border border-sky-500/30 flex flex-wrap items-center justify-between gap-2 text-xs">
+            <div class="flex items-center gap-2">
+              <span class="text-lg">🛡️</span>
+              <div>
+                <span class="font-black text-white">Anderson Cup Regular Season Champions:</span>
+                <strong class="text-amber-400 font-bold ml-1">Fargo Force (50-10-2 • 102 Pts)</strong>
+              </div>
+            </div>
+            <span class="text-[10px] font-mono text-sky-300">Tier 1 USHL Championship Bracket (12 Teams)</span>
+          </div>
 
-        document.getElementById('matchupLogoB').textContent = teamB.logo;
-        document.getElementById('matchupNameB').textContent = teamB.name;
-        document.getElementById('matchupRecordB').textContent = `${teamB.record} • ${teamB.conference}`;
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            
+            <!-- Eastern Conference Playoff Tree -->
+            <div class="p-3.5 rounded-2xl bg-slate-950/80 border border-slate-800 space-y-3">
+              <div class="flex justify-between items-center text-xs font-mono border-b border-slate-800 pb-1">
+                <span class="font-bold text-sky-400">⚜️ Eastern Conference Playoffs</span>
+                <span class="text-[10px] text-slate-500">6 Teams • Best-of-3 & Best-of-5</span>
+              </div>
 
-        document.getElementById('matchupGoalieA').textContent = `${teamA.goalieName} (${teamA.goalieSvPct})`;
-        document.getElementById('matchupGoalieB').textContent = `${teamB.goalieName} (${teamB.goalieSvPct})`;
+              <!-- First Round -->
+              <div class="space-y-2 text-xs font-mono">
+                <div class="text-[10px] text-slate-400 uppercase font-bold">First Round (Best of 3)</div>
+                ${p.eastern.round1.map(m => {
+                  const tA = engine.USHL_TEAMS.find(t => t.id === m.teamA);
+                  const tB = engine.USHL_TEAMS.find(t => t.id === m.teamB);
+                  const pick = userPicks[m.id] || tA.id;
+                  return `
+                    <div class="p-2 rounded-xl bg-slate-900 border border-slate-800 space-y-1">
+                      <div class="text-[10px] text-slate-500 flex justify-between">${m.note}</div>
+                      <div class="grid grid-cols-2 gap-1.5">
+                        <div class="p-1.5 rounded-lg border ${pick === tA.id ? 'bg-sky-950/80 border-sky-400 text-white font-bold' : 'bg-slate-950 border-slate-800 text-slate-400'} cursor-pointer text-[11px] flex justify-between items-center" onclick="selectWinner('${m.id}', '${tA.id}')">
+                          <span>${tA.logo} ${tA.name}</span>
+                          <span class="text-[9px] px-1 rounded bg-slate-800">#${tA.seed}</span>
+                        </div>
+                        <div class="p-1.5 rounded-lg border ${pick === tB.id ? 'bg-sky-950/80 border-sky-400 text-white font-bold' : 'bg-slate-950 border-slate-800 text-slate-400'} cursor-pointer text-[11px] flex justify-between items-center" onclick="selectWinner('${m.id}', '${tB.id}')">
+                          <span>${tB.logo} ${tB.name}</span>
+                          <span class="text-[9px] px-1 rounded bg-slate-800">#${tB.seed}</span>
+                        </div>
+                      </div>
+                    </div>
+                  `;
+                }).join('')}
 
-        const probA = (engine.getWinProbability(teamA, teamB) * 100).toFixed(1);
-        document.getElementById('matchupPredScore').textContent = `${teamA.name} win probability: ${probA}%`;
-        document.getElementById('pickMatchupWinnerBtn').textContent = `Advance ${teamA.name} →`;
+                <!-- Conference Semifinals & Finals -->
+                <div class="text-[10px] text-slate-400 uppercase font-bold pt-2 border-t border-slate-800">Conference Semifinals (Top Seeds Bye)</div>
+                <div class="grid grid-cols-2 gap-2 text-[11px]">
+                  <div class="p-2 rounded-xl bg-slate-900 border border-slate-800 space-y-1">
+                    <span class="text-[9px] text-slate-500">Semi 1: #1 Seed</span>
+                    <div class="font-bold text-white flex items-center gap-1"><span>⚜️ Dubuque</span></div>
+                  </div>
+                  <div class="p-2 rounded-xl bg-slate-900 border border-slate-800 space-y-1">
+                    <span class="text-[9px] text-slate-500">Semi 2: #2 Seed</span>
+                    <div class="font-bold text-white flex items-center gap-1"><span>🪓 Muskegon</span></div>
+                  </div>
+                </div>
 
-        const prospectHtml = `
-          <div><strong>${teamA.name}:</strong> ${teamA.keyProspects.join(', ')}</div>
-          <div><strong>${teamB.name}:</strong> ${teamB.keyProspects.join(', ')}</div>
+                <!-- Eastern Final Pick -->
+                <div class="pt-2 border-t border-slate-800">
+                  <div class="text-[10px] text-amber-400 font-bold mb-1">Eastern Conference Finalist Pick:</div>
+                  <div class="grid grid-cols-2 gap-1.5">
+                    <div class="p-1.5 rounded-lg border ${userPicks['ushl_e_final'] === 'dubuque' ? 'bg-amber-500/20 border-amber-400 text-amber-200 font-bold' : 'bg-slate-900 border-slate-800 text-slate-400'} cursor-pointer text-[11px]" onclick="selectWinner('ushl_e_final', 'dubuque')">
+                      ⚜️ Dubuque Fighting Saints
+                    </div>
+                    <div class="p-1.5 rounded-lg border ${userPicks['ushl_e_final'] === 'muskegon' ? 'bg-amber-500/20 border-amber-400 text-amber-200 font-bold' : 'bg-slate-900 border-slate-800 text-slate-400'} cursor-pointer text-[11px]" onclick="selectWinner('ushl_e_final', 'muskegon')">
+                      🪓 Muskegon Lumberjacks
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Western Conference Playoff Tree -->
+            <div class="p-3.5 rounded-2xl bg-slate-950/80 border border-slate-800 space-y-3">
+              <div class="flex justify-between items-center text-xs font-mono border-b border-slate-800 pb-1">
+                <span class="font-bold text-amber-400">⚡ Western Conference Playoffs</span>
+                <span class="text-[10px] text-slate-500">6 Teams • Best-of-3 & Best-of-5</span>
+              </div>
+
+              <!-- First Round -->
+              <div class="space-y-2 text-xs font-mono">
+                <div class="text-[10px] text-slate-400 uppercase font-bold">First Round (Best of 3)</div>
+                ${p.western.round1.map(m => {
+                  const tA = engine.USHL_TEAMS.find(t => t.id === m.teamA);
+                  const tB = engine.USHL_TEAMS.find(t => t.id === m.teamB);
+                  const pick = userPicks[m.id] || tA.id;
+                  return `
+                    <div class="p-2 rounded-xl bg-slate-900 border border-slate-800 space-y-1">
+                      <div class="text-[10px] text-slate-500 flex justify-between">${m.note}</div>
+                      <div class="grid grid-cols-2 gap-1.5">
+                        <div class="p-1.5 rounded-lg border ${pick === tA.id ? 'bg-sky-950/80 border-sky-400 text-white font-bold' : 'bg-slate-950 border-slate-800 text-slate-400'} cursor-pointer text-[11px] flex justify-between items-center" onclick="selectWinner('${m.id}', '${tA.id}')">
+                          <span>${tA.logo} ${tA.name}</span>
+                          <span class="text-[9px] px-1 rounded bg-slate-800">#${tA.seed}</span>
+                        </div>
+                        <div class="p-1.5 rounded-lg border ${pick === tB.id ? 'bg-sky-950/80 border-sky-400 text-white font-bold' : 'bg-slate-950 border-slate-800 text-slate-400'} cursor-pointer text-[11px] flex justify-between items-center" onclick="selectWinner('${m.id}', '${tB.id}')">
+                          <span>${tB.logo} ${tB.name}</span>
+                          <span class="text-[9px] px-1 rounded bg-slate-800">#${tB.seed}</span>
+                        </div>
+                      </div>
+                    </div>
+                  `;
+                }).join('')}
+
+                <!-- Conference Semifinals -->
+                <div class="text-[10px] text-slate-400 uppercase font-bold pt-2 border-t border-slate-800">Conference Semifinals (Top Seeds Bye)</div>
+                <div class="grid grid-cols-2 gap-2 text-[11px]">
+                  <div class="p-2 rounded-xl bg-slate-900 border border-slate-800 space-y-1">
+                    <span class="text-[9px] text-slate-500">Semi 1: #1 Seed</span>
+                    <div class="font-bold text-white flex items-center gap-1"><span>⚡ Fargo Force</span></div>
+                  </div>
+                  <div class="p-2 rounded-xl bg-slate-900 border border-slate-800 space-y-1">
+                    <span class="text-[9px] text-slate-500">Semi 2: #2 Seed</span>
+                    <div class="font-bold text-white flex items-center gap-1"><span>⚔️ Sioux City</span></div>
+                  </div>
+                </div>
+
+                <!-- Western Final Pick -->
+                <div class="pt-2 border-t border-slate-800">
+                  <div class="text-[10px] text-amber-400 font-bold mb-1">Western Conference Finalist Pick:</div>
+                  <div class="grid grid-cols-2 gap-1.5">
+                    <div class="p-1.5 rounded-lg border ${userPicks['ushl_w_final'] === 'fargo' ? 'bg-amber-500/20 border-amber-400 text-amber-200 font-bold' : 'bg-slate-900 border-slate-800 text-slate-400'} cursor-pointer text-[11px]" onclick="selectWinner('ushl_w_final', 'fargo')">
+                      ⚡ Fargo Force
+                    </div>
+                    <div class="p-1.5 rounded-lg border ${userPicks['ushl_w_final'] === 'siouxcity' ? 'bg-amber-500/20 border-amber-400 text-amber-200 font-bold' : 'bg-slate-900 border-slate-800 text-slate-400'} cursor-pointer text-[11px]" onclick="selectWinner('ushl_w_final', 'siouxcity')">
+                      ⚔️ Sioux City Musketeers
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Clark Cup Championship Series Pedestal -->
+          <div class="p-4 rounded-2xl bg-gradient-to-r from-slate-950 via-amber-950/30 to-slate-950 border border-amber-500/40 space-y-3">
+            <div class="flex items-center justify-between text-xs font-mono border-b border-slate-800 pb-1.5">
+              <div class="flex items-center gap-1.5 font-bold text-amber-400">
+                <span>🛡️</span> <span>USHL CLARK CUP FINALS (BEST-OF-5)</span>
+              </div>
+              <span class="text-[10px] text-slate-400">Tier 1 Junior Championship</span>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 items-center">
+              <div class="p-2.5 rounded-xl bg-slate-900/90 border border-slate-800 space-y-1 text-xs font-mono">
+                <div class="text-[10px] text-slate-400 uppercase">Western Champion</div>
+                <div class="p-1.5 rounded-lg bg-slate-950 border border-slate-800 cursor-pointer hover:border-amber-400 transition" onclick="inspectTeam('fargo')">
+                  <span class="font-bold text-white">⚡ Fargo Force</span>
+                  <div class="text-[10px] text-emerald-400">50-10-2 • Elo 1690</div>
+                </div>
+              </div>
+
+              <div class="p-3.5 rounded-2xl bg-gradient-to-b from-amber-500/20 to-orange-600/10 border-2 border-amber-400/60 text-center space-y-1.5">
+                <div class="text-[10px] font-mono font-black text-amber-400 uppercase tracking-wider">CLARK CUP CHAMPION</div>
+                <div class="text-3xl">${champ.logo}</div>
+                <div class="text-sm font-black text-white">${champ.name}</div>
+                <div class="text-[10px] text-emerald-400 font-mono font-bold">${champ.record} • Clark Cup Projected</div>
+              </div>
+
+              <div class="p-2.5 rounded-xl bg-slate-900/90 border border-slate-800 space-y-1 text-xs font-mono">
+                <div class="text-[10px] text-slate-400 uppercase">Eastern Champion</div>
+                <div class="p-1.5 rounded-lg bg-slate-950 border border-slate-800 cursor-pointer hover:border-amber-400 transition" onclick="inspectTeam('dubuque')">
+                  <span class="font-bold text-white">⚜️ Dubuque Fighting Saints</span>
+                  <div class="text-[10px] text-emerald-400">41-13-8 • Elo 1660</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Clark Cup Playoff MVP Selection -->
+            <div class="pt-2 border-t border-slate-800/80 flex flex-wrap items-center justify-between gap-2 text-xs">
+              <div class="flex items-center gap-2">
+                <span class="text-slate-400 font-mono text-[11px]">Clark Cup Playoff MVP:</span>
+                <select id="mopSelect" class="bg-slate-900 text-white font-bold text-xs rounded-lg px-2 py-1 border border-slate-700 cursor-pointer">
+                  <option value="Mac Swanson">Mac Swanson (Fargo • USHL POY)</option>
+                  <option value="Hampton Slukynsky">Hampton Slukynsky (Fargo • G)</option>
+                  <option value="Noah Powell">Noah Powell (Dubuque • 39G)</option>
+                  <option value="Kevin Reidler">Kevin Reidler (Dubuque • G)</option>
+                  <option value="Sacha Boisvert">Sacha Boisvert (Muskegon • 1C)</option>
+                  <option value="Trevor Connelly">Trevor Connelly (Tri-City • LW)</option>
+                </select>
+              </div>
+              <span class="text-[11px] text-amber-400 font-mono font-bold">Tier 1 Junior Stamped</span>
+            </div>
+          </div>
         `;
-        document.getElementById('matchupProspectsList').innerHTML = prospectHtml;
-      };
 
-      // Select Winner on click
-      window.selectWinner = function(gameId, teamId) {
-        userPicks = engine.makeUserPick(gameId, teamId);
+        container.innerHTML = ushlHtml;
+      }
+
+      // 3. WJC Render
+      function renderWjcBracket(container) {
+        const p = engine.WJC_PLAYOFFS;
+        const champ = simResults[0].team;
+
+        let wjcHtml = `
+          <!-- Group Standings Matrix -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="p-3.5 rounded-2xl bg-slate-950/80 border border-slate-800 space-y-2">
+              <div class="flex justify-between items-center text-xs font-mono border-b border-slate-800 pb-1">
+                <span class="font-bold text-sky-400">Group A (Gothenburg, SWE)</span>
+                <span class="text-[10px] text-slate-500">Top 4 Advance to QF</span>
+              </div>
+              <div class="space-y-1 text-xs font-mono">
+                <div class="flex justify-between p-1 rounded bg-slate-900 text-white"><span>1. 🇺🇸 USA (4-0-0)</span><span class="text-emerald-400">11 Pts</span></div>
+                <div class="flex justify-between p-1 rounded bg-slate-900 text-white"><span>2. 🇨🇿 Czechia (2-1-1)</span><span class="text-emerald-400">7 Pts</span></div>
+                <div class="flex justify-between p-1 rounded bg-slate-900 text-white"><span>3. 🇫🇮 Finland (2-2-0)</span><span class="text-emerald-400">6 Pts</span></div>
+                <div class="flex justify-between p-1 rounded bg-slate-900 text-white"><span>4. 🇨🇭 Switzerland (1-3-0)</span><span class="text-emerald-400">3 Pts</span></div>
+                <div class="flex justify-between p-1 rounded bg-slate-950/40 text-slate-500"><span>5. 🇱🇻 Latvia (Relegation)</span><span class="text-slate-500">2 Pts</span></div>
+              </div>
+            </div>
+
+            <div class="p-3.5 rounded-2xl bg-slate-950/80 border border-slate-800 space-y-2">
+              <div class="flex justify-between items-center text-xs font-mono border-b border-slate-800 pb-1">
+                <span class="font-bold text-amber-400">Group B (Frolundaborg, SWE)</span>
+                <span class="text-[10px] text-slate-500">Top 4 Advance to QF</span>
+              </div>
+              <div class="space-y-1 text-xs font-mono">
+                <div class="flex justify-between p-1 rounded bg-slate-900 text-white"><span>1. 🇸🇪 Sweden (3-0-1)</span><span class="text-emerald-400">10 Pts</span></div>
+                <div class="flex justify-between p-1 rounded bg-slate-900 text-white"><span>2. 🇨🇦 Canada (3-1-0)</span><span class="text-emerald-400">9 Pts</span></div>
+                <div class="flex justify-between p-1 rounded bg-slate-900 text-white"><span>3. 🇸🇰 Slovakia (2-2-0)</span><span class="text-emerald-400">6 Pts</span></div>
+                <div class="flex justify-between p-1 rounded bg-slate-900 text-white"><span>4. 🇩🇪 Germany (1-3-0)</span><span class="text-emerald-400">3 Pts</span></div>
+                <div class="flex justify-between p-1 rounded bg-slate-950/40 text-slate-500"><span>5. 🇳🇴 Norway (Relegation)</span><span class="text-slate-500">0 Pts</span></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Knockout Quarterfinals -->
+          <div class="p-3.5 rounded-2xl bg-slate-950/80 border border-slate-800 space-y-3">
+            <div class="flex justify-between items-center text-xs font-mono border-b border-slate-800 pb-1">
+              <span class="font-bold text-purple-400">IIHF Medal Round (Quarterfinals)</span>
+              <span class="text-[10px] text-slate-500">Single Elimination Knockout</span>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs font-mono">
+              ${p.quarterfinals.map(q => {
+                const tA = engine.WJC_TEAMS.find(t => t.id === q.teamA);
+                const tB = engine.WJC_TEAMS.find(t => t.id === q.teamB);
+                const pick = userPicks[q.id] || tA.id;
+                return `
+                  <div class="p-2 rounded-xl bg-slate-900 border border-slate-800 space-y-1">
+                    <div class="text-[10px] text-slate-500 flex justify-between"><span>${q.match}</span><span>${q.note}</span></div>
+                    <div class="grid grid-cols-2 gap-1.5">
+                      <div class="p-1.5 rounded-lg border ${pick === tA.id ? 'bg-sky-950/80 border-sky-400 text-white font-bold' : 'bg-slate-950 border-slate-800 text-slate-400'} cursor-pointer text-[11px] flex justify-between" onclick="selectWinner('${q.id}', '${tA.id}')">
+                        <span>${tA.logo} ${tA.name}</span>
+                        <span class="text-[9px] px-1 rounded bg-slate-800">${tA.elo}</span>
+                      </div>
+                      <div class="p-1.5 rounded-lg border ${pick === tB.id ? 'bg-sky-950/80 border-sky-400 text-white font-bold' : 'bg-slate-950 border-slate-800 text-slate-400'} cursor-pointer text-[11px] flex justify-between" onclick="selectWinner('${q.id}', '${tB.id}')">
+                        <span>${tB.logo} ${tB.name}</span>
+                        <span class="text-[9px] px-1 rounded bg-slate-800">${tB.elo}</span>
+                      </div>
+                    </div>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          </div>
+
+          <!-- Gold Medal Game Pedestal -->
+          <div class="p-4 rounded-2xl bg-gradient-to-r from-slate-950 via-amber-950/30 to-slate-950 border border-amber-500/40 space-y-3">
+            <div class="flex items-center justify-between text-xs font-mono border-b border-slate-800 pb-1.5">
+              <div class="flex items-center gap-1.5 font-bold text-amber-400">
+                <span>🥇</span> <span>IIHF WORLD JUNIOR CHAMPIONSHIP • GOLD MEDAL GAME</span>
+              </div>
+              <span class="text-[10px] text-slate-400">Scandinavium • Gothenburg, Sweden</span>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 items-center">
+              <div class="p-2.5 rounded-xl bg-slate-900/90 border border-slate-800 space-y-1 text-xs font-mono">
+                <div class="text-[10px] text-slate-400 uppercase">Semifinalist 1</div>
+                <div class="p-1.5 rounded-lg bg-slate-950 border border-slate-800 cursor-pointer hover:border-amber-400 transition" onclick="inspectTeam('usa')">
+                  <span class="font-bold text-white">🇺🇸 United States</span>
+                  <div class="text-[10px] text-emerald-400">Elo 1710 • Gold Contender</div>
+                </div>
+              </div>
+
+              <div class="p-3.5 rounded-2xl bg-gradient-to-b from-amber-500/20 to-orange-600/10 border-2 border-amber-400/60 text-center space-y-1.5">
+                <div class="text-[10px] font-mono font-black text-amber-400 uppercase tracking-wider">WORLD JUNIOR CHAMPION</div>
+                <div class="text-3xl">${champ.logo}</div>
+                <div class="text-sm font-black text-white">${champ.name}</div>
+                <div class="text-[10px] text-amber-400 font-mono font-bold">Gold Medal Winner</div>
+              </div>
+
+              <div class="p-2.5 rounded-xl bg-slate-900/90 border border-slate-800 space-y-1 text-xs font-mono">
+                <div class="text-[10px] text-slate-400 uppercase">Semifinalist 2</div>
+                <div class="p-1.5 rounded-lg bg-slate-950 border border-slate-800 cursor-pointer hover:border-amber-400 transition" onclick="inspectTeam('sweden')">
+                  <span class="font-bold text-white">🇸🇪 Sweden</span>
+                  <div class="text-[10px] text-emerald-400">Elo 1675 • Host Nation</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tournament MVP -->
+            <div class="pt-2 border-t border-slate-800/80 flex flex-wrap items-center justify-between gap-2 text-xs">
+              <div class="flex items-center gap-2">
+                <span class="text-slate-400 font-mono text-[11px]">Tournament MVP:</span>
+                <select id="mopSelect" class="bg-slate-900 text-white font-bold text-xs rounded-lg px-2 py-1 border border-slate-700 cursor-pointer">
+                  <option value="Jonathan Lekkerimaki">Jonathan Lekkerimaki (SWE • 7G)</option>
+                  <option value="Macklin Celebrini">Macklin Celebrini (CAN • 8P)</option>
+                  <option value="Trey Augustine">Trey Augustine (USA • .936 SV%)</option>
+                  <option value="Cutter Gauthier">Cutter Gauthier (USA • 12P)</option>
+                  <option value="Jiri Kulich">Jiri Kulich (CZE • 12P)</option>
+                  <option value="Axel Sandin Pellikka">Axel Sandin Pellikka (SWE • Top D)</option>
+                </select>
+              </div>
+              <span class="text-[11px] text-amber-400 font-mono font-bold">IIHF Directorate Stamped</span>
+            </div>
+          </div>
+        `;
+
+        container.innerHTML = wjcHtml;
+      }
+
+      // 4. CHL Memorial Cup Render
+      function renderMemorialBracket(container) {
+        const p = engine.MEMORIAL_PLAYOFFS;
+        const champ = simResults[0].team;
+
+        let memHtml = `
+          <!-- 4-Team Round Robin Standings -->
+          <div class="p-3.5 rounded-2xl bg-slate-950/80 border border-slate-800 space-y-2.5">
+            <div class="flex justify-between items-center text-xs font-mono border-b border-slate-800 pb-1">
+              <span class="font-bold text-amber-400">🍁 CHL Memorial Cup Round-Robin Standings</span>
+              <span class="text-[10px] text-slate-500">Dow Event Center • Saginaw, MI</span>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs font-mono">
+              ${engine.MEMORIAL_TEAMS.map(t => `
+                <div class="p-2.5 rounded-xl bg-slate-900 border border-slate-800 space-y-1 cursor-pointer hover:border-amber-400 transition" onclick="inspectTeam('${t.id}')">
+                  <div class="flex justify-between items-center">
+                    <span class="text-base">${t.logo}</span>
+                    <span class="text-[10px] px-1 rounded bg-slate-800 font-bold text-slate-300">${t.conference}</span>
+                  </div>
+                  <div class="font-bold text-white">${t.name}</div>
+                  <div class="text-[10px] text-emerald-400">${t.record} • Elo ${t.elo}</div>
+                  <div class="text-[10px] text-slate-400 truncate">${(t.keyProspects || []).join(', ')}</div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+
+          <!-- Playoff Path (Semifinal & Final) -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            
+            <!-- Semifinal Card -->
+            <div class="p-3.5 rounded-2xl bg-slate-950/80 border border-slate-800 space-y-2">
+              <div class="flex justify-between items-center text-xs font-mono border-b border-slate-800 pb-1">
+                <span class="font-bold text-sky-400">CHL Memorial Cup Semifinal</span>
+                <span class="text-[10px] text-slate-500">#2 Seed vs #3 Seed</span>
+              </div>
+              <div class="text-xs font-mono space-y-2">
+                <div class="text-[10px] text-slate-400">Winner advances to National Championship:</div>
+                <div class="grid grid-cols-2 gap-2">
+                  <div class="p-2 rounded-xl border ${userPicks['mem_semi'] === 'saginaw' ? 'bg-amber-500/20 border-amber-400 text-amber-200 font-bold' : 'bg-slate-900 border-slate-800 text-slate-400'} cursor-pointer text-[11px]" onclick="selectWinner('mem_semi', 'saginaw')">
+                    🦅 Saginaw Spirit
+                  </div>
+                  <div class="p-2 rounded-xl border ${userPicks['mem_semi'] === 'moosejaw' ? 'bg-amber-500/20 border-amber-400 text-amber-200 font-bold' : 'bg-slate-900 border-slate-800 text-slate-400'} cursor-pointer text-[11px]" onclick="selectWinner('mem_semi', 'moosejaw')">
+                    🪓 Moose Jaw Warriors
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Direct Bye to Final Card -->
+            <div class="p-3.5 rounded-2xl bg-slate-950/80 border border-slate-800 space-y-2">
+              <div class="flex justify-between items-center text-xs font-mono border-b border-slate-800 pb-1">
+                <span class="font-bold text-emerald-400">Round-Robin #1 Seed (Bye to Final)</span>
+                <span class="text-[10px] text-slate-500">Direct Championship Berth</span>
+              </div>
+              <div class="p-2 rounded-xl bg-slate-900 border border-slate-800 flex justify-between items-center text-xs font-mono">
+                <div>
+                  <div class="font-bold text-white">⚔️ London Knights</div>
+                  <div class="text-[10px] text-slate-400">OHL Champions • 50-14-4</div>
+                </div>
+                <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 text-[10px] font-bold">#1 Seed</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Memorial Cup Championship Pedestal -->
+          <div class="p-4 rounded-2xl bg-gradient-to-r from-slate-950 via-amber-950/30 to-slate-950 border border-amber-500/40 space-y-3">
+            <div class="flex items-center justify-between text-xs font-mono border-b border-slate-800 pb-1.5">
+              <div class="flex items-center gap-1.5 font-bold text-amber-400">
+                <span>🍁</span> <span>CHL MEMORIAL CUP • NATIONAL CHAMPIONSHIP</span>
+              </div>
+              <span class="text-[10px] text-slate-400">Major Junior Supremacy</span>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 items-center">
+              <div class="p-2.5 rounded-xl bg-slate-900/90 border border-slate-800 space-y-1 text-xs font-mono">
+                <div class="text-[10px] text-slate-400 uppercase">Finalist 1</div>
+                <div class="p-1.5 rounded-lg bg-slate-950 border border-slate-800 cursor-pointer hover:border-amber-400 transition" onclick="inspectTeam('saginaw')">
+                  <span class="font-bold text-white">🦅 Saginaw Spirit</span>
+                  <div class="text-[10px] text-emerald-400">Tournament Host • 50-16-2</div>
+                </div>
+              </div>
+
+              <div class="p-3.5 rounded-2xl bg-gradient-to-b from-amber-500/20 to-orange-600/10 border-2 border-amber-400/60 text-center space-y-1.5">
+                <div class="text-[10px] font-mono font-black text-amber-400 uppercase tracking-wider">MEMORIAL CUP CHAMPION</div>
+                <div class="text-3xl">${champ.logo}</div>
+                <div class="text-sm font-black text-white">${champ.name}</div>
+                <div class="text-[10px] text-emerald-400 font-mono font-bold">${champ.record} • Memorial Cup Title</div>
+              </div>
+
+              <div class="p-2.5 rounded-xl bg-slate-900/90 border border-slate-800 space-y-1 text-xs font-mono">
+                <div class="text-[10px] text-slate-400 uppercase">Finalist 2</div>
+                <div class="p-1.5 rounded-lg bg-slate-950 border border-slate-800 cursor-pointer hover:border-amber-400 transition" onclick="inspectTeam('london')">
+                  <span class="font-bold text-white">⚔️ London Knights</span>
+                  <div class="text-[10px] text-emerald-400">OHL Champions • 50-14-4</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Stafford Smythe Memorial Trophy (MVP) -->
+            <div class="pt-2 border-t border-slate-800/80 flex flex-wrap items-center justify-between gap-2 text-xs">
+              <div class="flex items-center gap-2">
+                <span class="text-slate-400 font-mono text-[11px]">Stafford Smythe Trophy (MOP):</span>
+                <select id="mopSelect" class="bg-slate-900 text-white font-bold text-xs rounded-lg px-2 py-1 border border-slate-700 cursor-pointer">
+                  <option value="Owen Beck">Owen Beck (Saginaw • Memorial Cup MVP)</option>
+                  <option value="Easton Cowan">Easton Cowan (London • 36-Game Streak)</option>
+                  <option value="Denton Mateychuk">Denton Mateychuk (Moose Jaw • WHL MVP)</option>
+                  <option value="Zayne Parekh">Zayne Parekh (Saginaw • 96-pt D)</option>
+                  <option value="Jagger Firkus">Jagger Firkus (Moose Jaw • CHL Scoring Champ)</option>
+                </select>
+              </div>
+              <span class="text-[11px] text-amber-400 font-mono font-bold">CHL Memorial Cup Stamped</span>
+            </div>
+          </div>
+        `;
+
+        container.innerHTML = memHtml;
+      }
+
+      // Tournament Dropdown Change Listener
+      tournamentSelect.addEventListener('change', (e) => {
+        activeTourney = e.target.value;
+        simResults = engine.runMonteCarloSimulations(activeTourney, 1000);
+        userPicks = engine.loadUserPicks(activeTourney);
+        updateHeaderFavorite();
+        renderMonteCarloTable();
         renderBracket();
-        showToast(`Picked ${engine.NCAA_TEAMS.find(t => t.id === teamId).name} to advance!`, "info");
-      };
+        inspectTeam(simResults[0].team.id);
+        showToast(`Loaded ${engine.TOURNAMENTS[activeTourney].name} bracketology!`, "success");
+      });
 
       // Re-run Monte Carlo Simulations
       document.getElementById('runMonteCarloBtn').addEventListener('click', () => {
-        simResults = engine.runMonteCarloSimulations(1000);
+        simResults = engine.runMonteCarloSimulations(activeTourney, 1000);
         updateHeaderFavorite();
         renderMonteCarloTable();
-        showToast("Completed 1,000 Monte Carlo Tournament Simulations!", "success");
+        renderBracket();
+        showToast(`Completed 1,000 Monte Carlo Simulations for ${engine.TOURNAMENTS[activeTourney].name}!`, "success");
       });
 
       // Auto-Fill Bracket
       document.getElementById('autoPickSmartBtn').addEventListener('click', () => {
-        engine.NCAA_REGIONALS.forEach(r => {
-          const t1A = engine.NCAA_TEAMS.find(t => t.id === r.game1.teamA);
-          const t2A = engine.NCAA_TEAMS.find(t => t.id === r.game2.teamA);
-          engine.makeUserPick(r.game1.id, t1A.id);
-          engine.makeUserPick(r.game2.id, t2A.id);
-          engine.makeUserPick(`reg_final_${r.game1.id}_${r.game2.id}`, t1A.id);
-        });
-        userPicks = engine.loadUserPicks();
+        if (activeTourney === 'ncaa') {
+          engine.NCAA_REGIONALS.forEach(r => {
+            const t1A = engine.NCAA_TEAMS.find(t => t.id === r.game1.teamA);
+            const t2A = engine.NCAA_TEAMS.find(t => t.id === r.game2.teamA);
+            engine.makeUserPick(r.game1.id, t1A.id, 'ncaa');
+            engine.makeUserPick(r.game2.id, t2A.id, 'ncaa');
+            engine.makeUserPick(`reg_final_${r.game1.id}_${r.game2.id}`, t1A.id, 'ncaa');
+          });
+        } else if (activeTourney === 'ushl') {
+          engine.USHL_PLAYOFFS.eastern.round1.forEach(m => engine.makeUserPick(m.id, m.teamA, 'ushl'));
+          engine.USHL_PLAYOFFS.western.round1.forEach(m => engine.makeUserPick(m.id, m.teamA, 'ushl'));
+          engine.makeUserPick('ushl_e_final', 'dubuque', 'ushl');
+          engine.makeUserPick('ushl_w_final', 'fargo', 'ushl');
+        } else if (activeTourney === 'wjc') {
+          engine.WJC_PLAYOFFS.quarterfinals.forEach(q => engine.makeUserPick(q.id, q.teamA, 'wjc'));
+        } else if (activeTourney === 'memorial') {
+          engine.makeUserPick('mem_semi', 'saginaw', 'memorial');
+        }
+
+        userPicks = engine.loadUserPicks(activeTourney);
         renderBracket();
-        showToast("Auto-filled bracket based on highest Elo ratings!", "success");
+        showToast(`Auto-filled ${engine.TOURNAMENTS[activeTourney].name} bracket based on Elo ratings!`, "success");
       });
 
       // Clear Picks
       document.getElementById('clearPicksBtn').addEventListener('click', () => {
-        userPicks = engine.clearUserPicks();
+        userPicks = engine.clearUserPicks(activeTourney);
         renderBracket();
-        showToast("Cleared bracket selections.", "info");
+        showToast(`Cleared picks for ${engine.TOURNAMENTS[activeTourney].name}.`, "info");
       });
 
       // Broadcast to The Wire
@@ -590,11 +1058,12 @@
         const top = simResults[0];
         const top4 = simResults.slice(0, 4).map(r => `${r.team.name} (${r.champPct}%)`).join(' • ');
         engine.broadcastBracketToWire({
+          tournamentName: engine.TOURNAMENTS[activeTourney].name,
           favoriteName: top.team.name,
           favoriteOdds: top.champPct,
           top4Summary: top4
         });
-        showToast("Broadcasted Tournament Bracketology to The Wire (#Bracketology)!", "success");
+        showToast(`Broadcasted ${engine.TOURNAMENTS[activeTourney].name} Bracketology to The Wire!`, "success");
       });
 
       // Toast Notification Helper
