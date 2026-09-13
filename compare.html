@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-slate-950 text-slate-100">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Player Comparison & Radar Matrix Lab | BlueLine DataWorks</title>
+  
+  <!-- SEO & Social Meta -->
+  <meta name="description" content="BlueLine DataWorks is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory. Benchmark athletes side-by-side with 8-axis biometric radars, NHLe trajectory curves, and automated Tale of the Tape edge verdicts.">
+  <meta name="keywords" content="hockey player comparison, prospect radar chart, NHLe trajectory, Tale of the Tape, draft prospect comparison, Macklin Celebrini, Artyom Levshunov, Zeev Buium, BlueLine DataWorks">
+  <meta property="og:title" content="Player Comparison & Radar Matrix Lab | BlueLine DataWorks">
+  <meta property="og:description" content="Benchmark elite hockey prospects side-by-side with 8-axis skill radars, superimposed NHLe career curves, and scouting edge verdicts.">
+  <meta property="og:type" content="website">
+
+  <!-- PWA Manifest & Icons -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#38bdf8">
+  <link rel="apple-touch-icon" href="static/icons/icon-192.png">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Font Awesome Pro/Free CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Google Fonts Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            brand: {
+              gold: '#f59e0b',
+              ice: '#38bdf8',
+              navy: '#0f172a',
+              sky: '#0284c7'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #020617;
+    }
+    .glass-panel {
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #090d16;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #1e293b;
+      border-radius: 9999px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: #334155;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-sky-500 selection:text-slate-950">
+
+  <!-- Top Enterprise Header Navigation Bar (Unified 14-Module Ecosystem) -->
+  <header class="sticky top-0 z-50 glass-panel border-b border-slate-800/80 bg-slate-950/90">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+      
+      <!-- Brand Logo & Title -->
+      <div class="flex items-center gap-3">
+        <a href="index.html" class="flex items-center gap-2.5 group">
+          <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-sky-500 via-indigo-500 to-purple-500 p-0.5 shadow-lg shadow-sky-500/20 group-hover:scale-105 transition duration-200">
+            <div class="w-full h-full bg-slate-950 rounded-[14px] flex items-center justify-center">
+              <span class="text-xl">⚖️</span>
+            </div>
+          </div>
+          <div>
+            <div class="flex items-center gap-1.5">
+              <span class="font-extrabold text-sm sm:text-base tracking-tight text-white group-hover:text-sky-400 transition">BlueLine</span>
+              <span class="text-[10px] uppercase font-mono tracking-widest px-1.5 py-0.5 rounded bg-sky-500/20 text-sky-300 font-bold">Compare Lab</span>
+            </div>
+            <p class="text-[10px] text-slate-400 hidden sm:block">Head-to-Head Multi-Radar & NHLe Trajectory Matrix</p>
+          </div>
+        </a>
+      </div>
+
+      <!-- Unified 14-Module Navigation Pills -->
+      <div class="flex items-center gap-1 sm:gap-1.5 overflow-x-auto py-1 max-w-[65%] sm:max-w-none text-xs font-mono custom-scrollbar">
+        <a href="index.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>🏒</span> <span class="hidden md:inline">Main OS</span>
+        </a>
+        <a href="database.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-sky-400 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>📊</span> <span class="hidden md:inline">Directory</span>
+        </a>
+        <a href="scoreboard.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-rose-300 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>📡</span> <span class="hidden md:inline">Game Center</span>
+        </a>
+        <a href="rink3d.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-sky-300 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>🧊</span> <span class="hidden md:inline">3D Rink</span>
+        </a>
+        <a href="film.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-cyan-300 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>🎬</span> <span class="hidden md:inline">Film Studio</span>
+        </a>
+        <a href="portal.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-amber-300 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>⚡</span> <span class="hidden md:inline">Portal & NIL</span>
+        </a>
+        <a href="draft.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>🎯</span> <span class="hidden md:inline">Draft Room</span>
+        </a>
+        <a href="combine.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-amber-300 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>🧬</span> <span class="hidden md:inline">Combine Lab</span>
+        </a>
+        <a href="caplab.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-emerald-400 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>💼</span> <span class="hidden md:inline">Cap Lab</span>
+        </a>
+        <a href="tournament.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-amber-400 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>🏆</span> <span class="hidden md:inline">Tournaments</span>
+        </a>
+        <a href="tactics.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-sky-400 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>📋</span> <span class="hidden md:inline">Tactics</span>
+        </a>
+        <a href="compare.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-gradient-to-r from-sky-500 via-indigo-600 to-purple-600 text-white font-bold border border-sky-400/50 shadow-md shadow-sky-500/20 flex items-center gap-1">
+          <span>⚖️</span> <span class="hidden md:inline">Compare</span>
+        </a>
+        <a href="community.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>🌐</span> <span class="hidden md:inline">The Wire</span>
+        </a>
+        <a href="agents.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-emerald-400 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>🤖</span> <span class="hidden md:inline">Swarm</span>
+        </a>
+      </div>
+
+    </div>
+
+    <!-- Mandatory Lifelong Tracking Mission Statement Banner -->
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-2 border-t border-slate-800/80 bg-slate-950/90 flex flex-wrap items-center justify-between gap-2 text-xs">
+      <div class="flex items-center gap-2 min-w-0">
+        <span class="px-2 py-0.5 rounded-md bg-sky-500/20 text-sky-300 font-mono text-[10px] font-bold shrink-0">MISSION</span>
+        <p class="text-[11px] text-slate-400 truncate">
+          BlueLine DataWorks is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory.
+        </p>
+      </div>
+      <div class="flex items-center gap-3 shrink-0 text-[11px] font-mono text-slate-400">
+        <span class="flex items-center gap-1.5 text-sky-400">
+          <span class="w-2 h-2 rounded-full bg-sky-400 animate-pulse"></span>
+          <span>8-Axis Radar Active</span>
+        </span>
+        <span id="pwaStatusPill" class="px-2 py-0.5 rounded bg-sky-950 text-sky-400 border border-sky-500/30 text-[10px]">
+          ⚡ Rinkside PWA Cached
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Sub-Header Curated Rivalry Presets & Multi-Slot Controls -->
+  <section class="border-b border-slate-800 bg-slate-900/60 backdrop-blur-md px-3 sm:px-6 lg:px-8 py-3">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
+      
+      <!-- Preset Rivalry Selector -->
+      <div class="flex items-center gap-2 flex-wrap text-xs font-mono">
+        <span class="text-slate-400 font-medium">Curated Rivalries:</span>
+        <div class="flex items-center gap-1.5 flex-wrap" id="presetPillButtons">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+      <!-- Quick Action Buttons -->
+      <div class="flex items-center gap-2 flex-wrap text-xs font-mono">
+        <button id="swapDuelBtn" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-sky-400 border border-slate-700 font-bold transition flex items-center gap-1">
+          <i class="fa-solid fa-arrows-rotate text-xs"></i> <span>Swap Sides</span>
+        </button>
+
+        <button id="broadcastCompareBtn" class="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-sky-500 via-indigo-600 to-purple-600 hover:from-sky-400 hover:to-purple-500 text-white font-extrabold transition flex items-center gap-1.5 shadow-lg shadow-sky-500/20 active:scale-95">
+          <span>🌐</span> <span>Broadcast to Wire</span>
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Main Comparison Matrix Grid -->
+  <main class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-6 flex-1 w-full space-y-6">
+    
+    <!-- Player Selection Cards (Side-by-Side Tale of the Tape Header) -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="playerDuelHeader">
+      
+      <!-- Player A Card -->
+      <div class="glass-panel p-4 rounded-3xl border-2 border-sky-500/40 space-y-3">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="text-2xl" id="cardLogoA">🦈</span>
+            <div>
+              <span class="text-[10px] font-mono text-sky-400 font-bold uppercase">Player 1 (Primary)</span>
+              <select id="selectPlayerA" class="bg-slate-900 text-white font-black text-sm rounded-lg px-2 py-1 border border-slate-700 block cursor-pointer">
+                <!-- Populated by JS -->
+              </select>
+            </div>
+          </div>
+          <span class="px-2.5 py-1 rounded-xl bg-sky-500/20 text-sky-300 font-mono font-bold text-xs" id="cardDraftA">2024 #1 Overall</span>
+        </div>
+
+        <div class="grid grid-cols-4 gap-2 text-center text-xs font-mono bg-slate-950/80 p-2.5 rounded-2xl border border-slate-800">
+          <div>
+            <div class="text-[9px] text-slate-500 uppercase">Pos / Hand</div>
+            <strong class="text-white text-[11px]" id="cardPosHandA">C • Left</strong>
+          </div>
+          <div>
+            <div class="text-[9px] text-slate-500 uppercase">Age / Size</div>
+            <strong class="text-white text-[11px]" id="cardAgeSizeA">18 • 6'0 197#</strong>
+          </div>
+          <div>
+            <div class="text-[9px] text-slate-500 uppercase">Current Team</div>
+            <strong class="text-sky-400 text-[11px] truncate block" id="cardTeamA">Boston Univ</strong>
+          </div>
+          <div>
+            <div class="text-[9px] text-slate-500 uppercase">NHL Pro Comp</div>
+            <strong class="text-amber-400 text-[11px] truncate block" id="cardCompA">J. Toews</strong>
+          </div>
+        </div>
+
+        <p class="text-[11px] text-slate-400 italic line-clamp-2" id="cardScoutSummaryA">
+          Complete 200-foot franchise center. Hobey Baker Award winner at age 17. Unrivaled motor and transition speed.
+        </p>
+      </div>
+
+      <!-- Player B Card -->
+      <div class="glass-panel p-4 rounded-3xl border-2 border-amber-500/40 space-y-3">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="text-2xl" id="cardLogoB">⚔️</span>
+            <div>
+              <span class="text-[10px] font-mono text-amber-400 font-bold uppercase">Player 2 (Benchmark)</span>
+              <select id="selectPlayerB" class="bg-slate-900 text-white font-black text-sm rounded-lg px-2 py-1 border border-slate-700 block cursor-pointer">
+                <!-- Populated by JS -->
+              </select>
+            </div>
+          </div>
+          <span class="px-2.5 py-1 rounded-xl bg-amber-500/20 text-amber-300 font-mono font-bold text-xs" id="cardDraftB">2024 #2 Overall</span>
+        </div>
+
+        <div class="grid grid-cols-4 gap-2 text-center text-xs font-mono bg-slate-950/80 p-2.5 rounded-2xl border border-slate-800">
+          <div>
+            <div class="text-[9px] text-slate-500 uppercase">Pos / Hand</div>
+            <strong class="text-white text-[11px]" id="cardPosHandB">RHD • Right</strong>
+          </div>
+          <div>
+            <div class="text-[9px] text-slate-500 uppercase">Age / Size</div>
+            <strong class="text-white text-[11px]" id="cardAgeSizeB">18 • 6'2 208#</strong>
+          </div>
+          <div>
+            <div class="text-[9px] text-slate-500 uppercase">Current Team</div>
+            <strong class="text-amber-400 text-[11px] truncate block" id="cardTeamB">Michigan St</strong>
+          </div>
+          <div>
+            <div class="text-[9px] text-slate-500 uppercase">NHL Pro Comp</div>
+            <strong class="text-amber-400 text-[11px] truncate block" id="cardCompB">Pietrangelo</strong>
+          </div>
+        </div>
+
+        <p class="text-[11px] text-slate-400 italic line-clamp-2" id="cardScoutSummaryB">
+          Franchise right-shot #1 defenseman. Pro frame, four-way mobility, and dynamic offensive blue-line activation.
+        </p>
+      </div>
+
+    </div>
+
+    <!-- Visual Comparison Analytics (Radar + Trajectory) -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+      
+      <!-- 8-Axis Radar Canvas (6 cols) -->
+      <div class="lg:col-span-6 glass-panel p-5 rounded-3xl space-y-4 border border-slate-800 flex flex-col">
+        <div class="flex items-center justify-between border-b border-slate-800/80 pb-2">
+          <div class="flex items-center gap-2">
+            <span class="text-lg">🕸️</span>
+            <h3 class="text-sm font-black text-white uppercase tracking-wider">8-Axis Biometric & Skill Radar</h3>
+          </div>
+          <div class="flex items-center gap-3 text-xs font-mono">
+            <span class="flex items-center gap-1 text-sky-400">
+              <span class="w-2.5 h-2.5 rounded-full bg-sky-400"></span> <span id="radarLegendA">Celebrini</span>
+            </span>
+            <span class="flex items-center gap-1 text-amber-400">
+              <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span> <span id="radarLegendB">Levshunov</span>
+            </span>
+          </div>
+        </div>
+
+        <!-- Canvas Container -->
+        <div class="flex-1 flex items-center justify-center p-2 min-h-[340px]">
+          <canvas id="radarChartCanvas" width="480" height="360" class="max-w-full h-auto"></canvas>
+        </div>
+
+        <div class="text-center text-[10px] font-mono text-slate-500 border-t border-slate-800/60 pt-2">
+          Ratings normalized from USHL/NCAA/CHL tracking data into 0-100 pro percentiles.
+        </div>
+      </div>
+
+      <!-- NHLe Career Trajectory Curves & Tale of the Tape (6 cols) -->
+      <div class="lg:col-span-6 space-y-5">
+        
+        <!-- Category Edge Breakdown & Tale of the Tape -->
+        <div class="glass-panel p-5 rounded-3xl space-y-3.5 border border-slate-800">
+          <div class="flex items-center justify-between border-b border-slate-800/80 pb-2">
+            <div class="flex items-center gap-2">
+              <span class="text-lg">📊</span>
+              <h3 class="text-sm font-black text-white uppercase tracking-wider">Tale of the Tape: Category Edges</h3>
+            </div>
+            <span class="text-xs font-mono font-bold text-slate-400" id="overallScoreSplit">5-3 Edge Split</span>
+          </div>
+
+          <!-- Category Bars Grid -->
+          <div class="space-y-2 text-xs font-mono" id="categoryEdgesList">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+
+        <!-- Overlaid NHLe Career Trajectory Curves -->
+        <div class="glass-panel p-5 rounded-3xl space-y-3 border border-slate-800">
+          <div class="flex items-center justify-between border-b border-slate-800/80 pb-2">
+            <div class="flex items-center gap-2">
+              <span class="text-lg">📈</span>
+              <h3 class="text-sm font-black text-white uppercase tracking-wider">NHLe Career Trajectory (Ages 15–25)</h3>
+            </div>
+            <span class="text-[10px] font-mono text-slate-400">Projected 82-Game NHL Points</span>
+          </div>
+
+          <!-- Trajectory SVG Visualizer -->
+          <div class="p-3 rounded-2xl bg-slate-950/80 border border-slate-800" id="trajectoryCurveContainer">
+            <!-- Populated by JS SVG -->
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Overall Scout Verdict Card -->
+    <div class="glass-panel p-5 rounded-3xl border border-sky-500/30 space-y-3">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+        <div class="flex items-center gap-2">
+          <span class="text-lg">🎯</span>
+          <h3 class="text-sm font-black text-white uppercase tracking-wider">BlueLine AI Scout Verdict</h3>
+        </div>
+        <span class="px-2.5 py-0.5 rounded bg-sky-500/20 text-sky-300 font-mono text-[10px] font-bold">Consensus Model Stamped</span>
+      </div>
+
+      <div class="p-4 rounded-2xl bg-slate-950/80 border border-slate-800 text-xs font-mono leading-relaxed" id="scoutVerdictText">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Global Toast Notification Container -->
+  <div id="compareToast" class="fixed bottom-6 right-6 z-50 px-4 py-2.5 rounded-2xl text-xs font-bold shadow-2xl flex items-center gap-2 transition-all duration-300 transform translate-y-10 opacity-0 pointer-events-none"></div>
+
+  <!-- Scripts -->
+  <script src="static/js/compare_engine.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const engine = window.BlueLineCompareEngine;
+      if (!engine) {
+        console.error("Comparison Engine failed to load.");
+        return;
+      }
+
+      let activeIdA = "celebrini";
+      let activeIdB = "levshunov";
+
+      const selectA = document.getElementById('selectPlayerA');
+      const selectB = document.getElementById('selectPlayerB');
+      const presetContainer = document.getElementById('presetPillButtons');
+      const canvas = document.getElementById('radarChartCanvas');
+
+      // Populate Select Dropdowns
+      function populateDropdowns() {
+        const players = Object.values(engine.COMPARISON_PLAYERS);
+        const optionsA = players.map(p => `<option value="${p.id}" ${p.id === activeIdA ? 'selected' : ''}>${p.avatar} ${p.name} (${p.pos})</option>`).join('');
+        const optionsB = players.map(p => `<option value="${p.id}" ${p.id === activeIdB ? 'selected' : ''}>${p.avatar} ${p.name} (${p.pos})</option>`).join('');
+
+        selectA.innerHTML = optionsA;
+        selectB.innerHTML = optionsB;
+      }
+
+      // Populate Preset Buttons
+      function populatePresets() {
+        presetContainer.innerHTML = engine.COMPARISON_PRESETS.map(preset => `
+          <button class="px-2.5 py-1 rounded-lg bg-slate-950 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-800 text-[11px] font-mono transition" onclick="loadPreset('${preset.id}')">
+            ${preset.title}
+          </button>
+        `).join('');
+      }
+
+      // Load Preset
+      window.loadPreset = function(presetId) {
+        const preset = engine.COMPARISON_PRESETS.find(p => p.id === presetId);
+        if (preset && preset.playerIds.length >= 2) {
+          activeIdA = preset.playerIds[0];
+          activeIdB = preset.playerIds[1];
+          populateDropdowns();
+          renderComparison();
+          showToast(`Loaded ${preset.title}!`, "success");
+        }
+      };
+
+      // Main Render Comparison Function
+      function renderComparison() {
+        const playerA = engine.COMPARISON_PLAYERS[activeIdA];
+        const playerB = engine.COMPARISON_PLAYERS[activeIdB];
+
+        if (!playerA || !playerB) return;
+
+        // 1. Update Header Cards
+        updatePlayerCards(playerA, playerB);
+
+        // 2. Draw 8-Axis Radar Chart
+        engine.drawRadarChart(canvas, [playerA, playerB]);
+        document.getElementById('radarLegendA').textContent = playerA.name;
+        document.getElementById('radarLegendB').textContent = playerB.name;
+
+        // 3. Category Edges & Verdict
+        const verdict = engine.calculateComparisonVerdict(playerA, playerB);
+        renderCategoryEdges(verdict);
+        renderVerdict(verdict);
+
+        // 4. Render NHLe Trajectory Curves
+        renderNHLeCurves(playerA, playerB);
+      }
+
+      function updatePlayerCards(pA, pB) {
+        document.getElementById('cardLogoA').textContent = pA.avatar;
+        document.getElementById('cardDraftA').textContent = pA.draft;
+        document.getElementById('cardPosHandA').textContent = `${pA.pos} • ${pA.hand === 'L' ? 'Left' : 'Right'}`;
+        document.getElementById('cardAgeSizeA').textContent = `${pA.age} • ${pA.height} ${pA.weight}`;
+        document.getElementById('cardTeamA').textContent = pA.team;
+        document.getElementById('cardCompA').textContent = pA.nhlComp;
+        document.getElementById('cardScoutSummaryA').textContent = pA.scoutSummary;
+
+        document.getElementById('cardLogoB').textContent = pB.avatar;
+        document.getElementById('cardDraftB').textContent = pB.draft;
+        document.getElementById('cardPosHandB').textContent = `${pB.pos} • ${pB.hand === 'L' ? 'Left' : 'Right'}`;
+        document.getElementById('cardAgeSizeB').textContent = `${pB.age} • ${pB.height} ${pB.weight}`;
+        document.getElementById('cardTeamB').textContent = pB.team;
+        document.getElementById('cardCompB').textContent = pB.nhlComp;
+        document.getElementById('cardScoutSummaryB').textContent = pB.scoutSummary;
+      }
+
+      function renderCategoryEdges(verdict) {
+        const pA = verdict.playerA;
+        const pB = verdict.playerB;
+        document.getElementById('overallScoreSplit').textContent = `${pA.name}: ${verdict.winsA} Edges | ${pB.name}: ${verdict.winsB} Edges`;
+
+        const container = document.getElementById('categoryEdgesList');
+        container.innerHTML = engine.RADAR_METRICS.map(m => {
+          const valA = pA.ratings[m.key];
+          const valB = pB.ratings[m.key];
+          const edge = verdict.edges[m.key];
+
+          const winnerClass = edge.winner === pA.id ? 'text-sky-400 font-bold' :
+                              edge.winner === pB.id ? 'text-amber-400 font-bold' : 'text-slate-400';
+
+          return `
+            <div class="p-2 rounded-xl bg-slate-950/70 border border-slate-800/80 flex items-center justify-between gap-2">
+              <span class="w-32 truncate text-slate-300">${m.label}</span>
+              <div class="flex items-center gap-2 flex-1 justify-center">
+                <span class="text-sky-400 font-bold">${valA}</span>
+                <div class="w-24 h-1.5 rounded-full bg-slate-900 border border-slate-800 overflow-hidden flex">
+                  <div class="bg-sky-400 h-full" style="width: ${valA / (valA + valB) * 100}%"></div>
+                  <div class="bg-amber-400 h-full" style="width: ${valB / (valA + valB) * 100}%"></div>
+                </div>
+                <span class="text-amber-400 font-bold">${valB}</span>
+              </div>
+              <span class="w-28 text-right text-[11px] ${winnerClass}">
+                ${edge.winner === 'tie' ? 'Even' : edge.winnerName.split(' ').pop() + ' ' + edge.delta}
+              </span>
+            </div>
+          `;
+        }).join('');
+      }
+
+      function renderVerdict(verdict) {
+        const box = document.getElementById('scoutVerdictText');
+        box.innerHTML = `
+          <div class="space-y-1.5">
+            <div class="text-sm font-bold text-white">${verdict.overallVerdict}</div>
+            <div class="text-slate-400 pt-1 border-t border-slate-800/80">
+              ${verdict.playerA.name} averages <strong>${verdict.avgA}/100</strong> across 8 scout pillars; ${verdict.playerB.name} averages <strong>${verdict.avgB}/100</strong>.
+            </div>
+          </div>
+        `;
+      }
+
+      function renderNHLeCurves(pA, pB) {
+        const container = document.getElementById('trajectoryCurveContainer');
+        const trajA = pA.nhleTrajectory || [];
+        const trajB = pB.nhleTrajectory || [];
+
+        let svg = `
+          <svg viewBox="0 0 500 160" class="w-full h-36">
+            <!-- Grid lines -->
+            <line x1="40" y1="20" x2="480" y2="20" stroke="#1e293b" stroke-dasharray="3" />
+            <line x1="40" y1="60" x2="480" y2="60" stroke="#1e293b" stroke-dasharray="3" />
+            <line x1="40" y1="100" x2="480" y2="100" stroke="#1e293b" stroke-dasharray="3" />
+            <line x1="40" y1="140" x2="480" y2="140" stroke="#334155" />
+
+            <!-- Y Axis labels -->
+            <text x="10" y="24" fill="#64748b" font-size="9" font-family="monospace">100P</text>
+            <text x="10" y="64" fill="#64748b" font-size="9" font-family="monospace">70P</text>
+            <text x="10" y="104" fill="#64748b" font-size="9" font-family="monospace">40P</text>
+            <text x="10" y="144" fill="#64748b" font-size="9" font-family="monospace">10P</text>
+        `;
+
+        // Map ages to X: 15->60, 25->460
+        function getX(age) {
+          return 60 + ((age - 15) / 10) * 400;
+        }
+        function getY(nhle) {
+          return 140 - ((nhle - 10) / 100) * 120;
+        }
+
+        // Draw Polyline A
+        const pointsA = trajA.map(t => `${getX(t.age)},${getY(t.nhle)}`).join(' ');
+        svg += `<polyline points="${pointsA}" fill="none" stroke="#38bdf8" stroke-width="2.5" />`;
+
+        // Draw Polyline B
+        const pointsB = trajB.map(t => `${getX(t.age)},${getY(t.nhle)}`).join(' ');
+        svg += `<polyline points="${pointsB}" fill="none" stroke="#f59e0b" stroke-width="2.5" />`;
+
+        // Draw Points & Tooltips
+        trajA.forEach(t => {
+          svg += `<circle cx="${getX(t.age)}" cy="${getY(t.nhle)}" r="3.5" fill="#38bdf8" />`;
+        });
+        trajB.forEach(t => {
+          svg += `<circle cx="${getX(t.age)}" cy="${getY(t.nhle)}" r="3.5" fill="#f59e0b" />`;
+        });
+
+        // Age labels on X-axis
+        [15, 17, 19, 21, 23, 25].forEach(age => {
+          svg += `<text x="${getX(age)}" y="155" fill="#64748b" font-size="8" font-family="monospace" text-anchor="middle">Age ${age}</text>`;
+        });
+
+        svg += `</svg>`;
+        container.innerHTML = svg;
+      }
+
+      // Dropdown Change Listeners
+      selectA.addEventListener('change', (e) => {
+        activeIdA = e.target.value;
+        renderComparison();
+      });
+
+      selectB.addEventListener('change', (e) => {
+        activeIdB = e.target.value;
+        renderComparison();
+      });
+
+      // Swap Button
+      document.getElementById('swapDuelBtn').addEventListener('click', () => {
+        const temp = activeIdA;
+        activeIdA = activeIdB;
+        activeIdB = temp;
+        populateDropdowns();
+        renderComparison();
+        showToast("Swapped player comparison slots!", "info");
+      });
+
+      // Broadcast to The Wire
+      document.getElementById('broadcastCompareBtn').addEventListener('click', () => {
+        const pA = engine.COMPARISON_PLAYERS[activeIdA];
+        const pB = engine.COMPARISON_PLAYERS[activeIdB];
+        const verdict = engine.calculateComparisonVerdict(pA, pB);
+        engine.broadcastComparisonToWire(verdict);
+        showToast(`Broadcasted ${pA.name} vs ${pB.name} Tale of the Tape to The Wire!`, "success");
+      });
+
+      // Toast Notification Helper
+      function showToast(msg, type = 'info') {
+        const toastEl = document.getElementById('compareToast');
+        const colorClasses = type === 'success' ? 'bg-emerald-600 text-white border border-emerald-400/50 shadow-emerald-500/30' :
+                             type === 'error' ? 'bg-rose-600 text-white border border-rose-400/50 shadow-rose-500/30' :
+                             'bg-sky-600 text-white border border-sky-400/50 shadow-sky-500/30';
+        toastEl.className = `fixed bottom-6 right-6 z-50 px-4 py-2.5 rounded-2xl text-xs font-bold shadow-2xl flex items-center gap-2 transition-all duration-300 transform translate-y-0 opacity-100 ${colorClasses}`;
+        toastEl.innerHTML = `<span>${type === 'success' ? '✅' : type === 'error' ? '⚠️' : '⚖️'}</span> <span>${msg}</span>`;
+        clearTimeout(toastEl._timer);
+        toastEl._timer = setTimeout(() => {
+          toastEl.className = 'fixed bottom-6 right-6 z-50 px-4 py-2.5 rounded-2xl text-xs font-bold shadow-2xl flex items-center gap-2 transition-all duration-300 transform translate-y-10 opacity-0 pointer-events-none';
+        }, 2800);
+      }
+
+      // Initial Render
+      populateDropdowns();
+      populatePresets();
+      renderComparison();
+    });
+  </script>
+
+  <!-- Service Worker Registration for Offline Rinkside PWA -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js').then(reg => {
+          console.log('BlueLine Compare Service Worker registered:', reg.scope);
+          const pill = document.getElementById('pwaStatusPill');
+          if (pill) pill.textContent = '⚡ Rinkside PWA Active';
+        }).catch(err => {
+          console.warn('Service Worker registration skipped:', err);
+        });
+      });
+    }
+  </script>
+
+</body>
+</html>

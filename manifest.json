@@ -16,6 +16,7 @@
   ],
   "categories": ["sports", "productivity", "utilities"],
   "shortcuts": [
+    { "name": "Compare Lab", "url": "compare.html", "description": "Player Radar & Head-to-Head Matrix" },
     { "name": "Tactics Lab", "url": "tactics.html", "description": "AI Lineup Optimizer & Tactics" },
     { "name": "Tournament Bracketology", "url": "tournament.html", "description": "Championship War Room" },
     { "name": "Cap Lab", "url": "caplab.html", "description": "NHL Cap & Contracts" },
