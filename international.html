@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-slate-950 text-slate-100">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>International Best-on-Best & Olympic War Room | BlueLine DataWorks</title>
+  
+  <!-- SEO & Social Meta -->
+  <meta name="description" content="BlueLine DataWorks is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory. Experience the return of best-on-best international hockey at the NHL 4 Nations Face-Off and 2026 Milano-Cortina Winter Olympics.">
+  <meta name="keywords" content="international hockey best on best, NHL 4 Nations Face-Off, 2026 Winter Olympics hockey, Team USA hockey, Team Canada hockey, Olympic hockey rosters, BlueLine DataWorks">
+  <meta property="og:title" content="International Best-on-Best & Olympic War Room | BlueLine DataWorks">
+  <meta property="og:description" content="Simulate best-on-best matchups, track 23-man national team depth charts, evaluate Olympic bubble phenoms, and model ice dimension tactical impacts.">
+  <meta property="og:type" content="website">
+
+  <!-- PWA Manifest & Icons -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#dc2626">
+  <link rel="apple-touch-icon" href="static/icons/icon-192.png">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Font Awesome Pro/Free CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Google Fonts Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            brand: {
+              gold: '#f59e0b',
+              ice: '#38bdf8',
+              navy: '#0f172a',
+              red: '#dc2626',
+              blue: '#1e3a8a'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #020617;
+    }
+    .glass-panel {
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #090d16;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #1e293b;
+      border-radius: 9999px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: #334155;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-rose-500 selection:text-white">
+
+  <!-- Top Enterprise Header Navigation Bar (Unified 15-Module Ecosystem) -->
+  <header class="sticky top-0 z-50 glass-panel border-b border-slate-800/80 bg-slate-950/90">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+      
+      <!-- Brand Logo & Title -->
+      <div class="flex items-center gap-3">
+        <a href="index.html" class="flex items-center gap-2.5 group">
+          <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-rose-600 via-amber-500 to-sky-400 p-0.5 shadow-lg shadow-rose-500/20 group-hover:scale-105 transition duration-200">
+            <div class="w-full h-full bg-slate-950 rounded-[14px] flex items-center justify-center">
+              <span class="text-xl">🌍</span>
+            </div>
+          </div>
+          <div>
+            <div class="flex items-center gap-1.5">
+              <span class="font-extrabold text-sm sm:text-base tracking-tight text-white group-hover:text-rose-400 transition">BlueLine</span>
+              <span class="text-[10px] uppercase font-mono tracking-widest px-1.5 py-0.5 rounded bg-rose-500/20 text-rose-300 font-bold">Best-on-Best</span>
+            </div>
+            <p class="text-[10px] text-slate-400 hidden sm:block">4 Nations Face-Off & 2026 Olympic War Room</p>
+          </div>
+        </a>
+      </div>
+
+      <!-- Unified 15-Module Navigation Pills -->
+      <div class="flex items-center gap-1 sm:gap-1.5 overflow-x-auto py-1 max-w-[66%] sm:max-w-none text-xs font-mono custom-scrollbar">
+        <a href="index.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>🏒</span> <span class="hidden md:inline">Main OS</span>
+        </a>
+        <a href="database.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-sky-400 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>📊</span> <span class="hidden md:inline">Directory</span>
+        </a>
+        <a href="scoreboard.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-rose-300 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>📡</span> <span class="hidden md:inline">Game Center</span>
+        </a>
+        <a href="rink3d.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-sky-300 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>🧊</span> <span class="hidden md:inline">3D Rink</span>
+        </a>
+        <a href="film.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-cyan-300 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>🎬</span> <span class="hidden md:inline">Film Studio</span>
+        </a>
+        <a href="portal.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-amber-300 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>⚡</span> <span class="hidden md:inline">Portal & NIL</span>
+        </a>
+        <a href="draft.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>🎯</span> <span class="hidden md:inline">Draft Room</span>
+        </a>
+        <a href="combine.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-amber-300 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>🧬</span> <span class="hidden md:inline">Combine Lab</span>
+        </a>
+        <a href="caplab.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-emerald-400 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>💼</span> <span class="hidden md:inline">Cap Lab</span>
+        </a>
+        <a href="tournament.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-amber-400 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>🏆</span> <span class="hidden md:inline">Tournaments</span>
+        </a>
+        <a href="tactics.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-sky-400 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>📋</span> <span class="hidden md:inline">Tactics</span>
+        </a>
+        <a href="compare.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-sky-400 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>⚖️</span> <span class="hidden md:inline">Compare</span>
+        </a>
+        <a href="international.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-gradient-to-r from-rose-600 via-amber-600 to-sky-600 text-white font-bold border border-rose-400/50 shadow-md shadow-rose-500/20 flex items-center gap-1">
+          <span>🌍</span> <span class="hidden md:inline">International</span>
+        </a>
+        <a href="community.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>🌐</span> <span class="hidden md:inline">The Wire</span>
+        </a>
+        <a href="agents.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-emerald-400 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>🤖</span> <span class="hidden md:inline">Swarm</span>
+        </a>
+      </div>
+
+    </div>
+
+    <!-- Mandatory Lifelong Tracking Mission Statement Banner -->
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-2 border-t border-slate-800/80 bg-slate-950/90 flex flex-wrap items-center justify-between gap-2 text-xs">
+      <div class="flex items-center gap-2 min-w-0">
+        <span class="px-2 py-0.5 rounded-md bg-rose-500/20 text-rose-300 font-mono text-[10px] font-bold shrink-0">MISSION</span>
+        <p class="text-[11px] text-slate-400 truncate">
+          BlueLine DataWorks is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory.
+        </p>
+      </div>
+      <div class="flex items-center gap-3 shrink-0 text-[11px] font-mono text-slate-400">
+        <span class="flex items-center gap-1.5 text-rose-400">
+          <span class="w-2 h-2 rounded-full bg-rose-400 animate-pulse"></span>
+          <span id="activeTournamentTag">NHL 4 Nations Face-Off</span>
+        </span>
+        <span id="pwaStatusPill" class="px-2 py-0.5 rounded bg-sky-950 text-sky-400 border border-sky-500/30 text-[10px]">
+          ⚡ Rinkside PWA Cached
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Sub-Header Tournament Switcher & Status Controls -->
+  <section class="border-b border-slate-800 bg-slate-900/60 backdrop-blur-md px-3 sm:px-6 lg:px-8 py-3">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
+      
+      <!-- Tournament Mode Toggle Buttons -->
+      <div class="flex items-center gap-2.5 flex-wrap">
+        <div class="flex items-center bg-slate-950 p-1 rounded-xl border border-slate-800 text-xs font-mono">
+          <button id="btnTourney4Nations" class="px-3.5 py-1.5 rounded-lg bg-rose-600 text-white font-bold transition shadow flex items-center gap-1.5">
+            <span>🛡️</span> <span>NHL 4 Nations Face-Off (2025)</span>
+          </button>
+          <button id="btnTourneyOlympics" class="px-3.5 py-1.5 rounded-lg text-slate-400 hover:text-white transition flex items-center gap-1.5">
+            <span>🥇</span> <span>2026 Milano-Cortina Olympics</span>
+          </button>
+        </div>
+
+        <div class="flex items-center gap-2 bg-slate-950 px-3 py-1.5 rounded-xl border border-slate-800 text-xs font-mono">
+          <span class="text-slate-400">Projected Gold:</span>
+          <span class="text-base" id="goldFavoriteFlag">🇨🇦</span>
+          <strong class="text-amber-400 font-bold text-xs sm:text-sm" id="goldFavoriteName">Canada</strong>
+          <span class="text-slate-600">|</span>
+          <span class="text-slate-400">Odds:</span>
+          <span class="text-emerald-400 font-bold" id="goldFavoriteOdds">44.8%</span>
+        </div>
+      </div>
+
+      <!-- Quick Action Buttons -->
+      <div class="flex items-center gap-2 flex-wrap text-xs font-mono">
+        <button id="broadcastIntlBtn" class="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-rose-600 via-amber-600 to-sky-600 hover:from-rose-500 hover:to-sky-500 text-white font-extrabold transition flex items-center gap-1.5 shadow-lg shadow-rose-500/20 active:scale-95">
+          <span>🌐</span> <span>Broadcast to Wire</span>
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Main International War Room Grid -->
+  <main class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-6 flex-1 w-full space-y-6">
+    
+    <!-- Nation Selection Tabs Bar -->
+    <div class="flex items-center gap-2 overflow-x-auto pb-1 text-xs font-mono custom-scrollbar" id="nationTabBar">
+      <!-- Populated by JS -->
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+      
+      <!-- Column 1: National Depth Chart & Lines (7 cols) -->
+      <div class="lg:col-span-7 space-y-5">
+        
+        <!-- Forward Lines Section -->
+        <div class="glass-panel p-5 rounded-3xl space-y-4 border border-slate-800">
+          <div class="flex items-center justify-between border-b border-slate-800/80 pb-2.5">
+            <div class="flex items-center gap-2">
+              <span class="text-xl" id="nationHeaderFlag">🇨🇦</span>
+              <h3 class="text-sm font-black text-white uppercase tracking-wider" id="nationHeaderTitle">Canada Forward Combinations</h3>
+            </div>
+            <span class="text-[10px] font-mono text-emerald-400 font-bold" id="nationOffenseScore">Offense: 99 OVR</span>
+          </div>
+
+          <div class="space-y-3" id="nationForwardLinesList">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+
+        <!-- Defense Pairs & Goaltending Section -->
+        <div class="glass-panel p-5 rounded-3xl space-y-4 border border-slate-800">
+          <div class="flex items-center justify-between border-b border-slate-800/80 pb-2.5">
+            <div class="flex items-center gap-2">
+              <span class="text-lg">🛡️</span>
+              <h3 class="text-sm font-black text-white uppercase tracking-wider">Defensive Pairings & Goaltending Trio</h3>
+            </div>
+            <span class="text-[10px] font-mono text-sky-400 font-bold" id="nationDefenseScore">Defense: 95 OVR</span>
+          </div>
+
+          <div class="space-y-3" id="nationDefensePairsList">
+            <!-- Populated by JS -->
+          </div>
+
+          <!-- Goaltending Section -->
+          <div class="pt-3 border-t border-slate-800/80" id="nationGoalieBox">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+
+        <!-- Olympic Bubble Watch & Next-Gen Phenoms -->
+        <div class="glass-panel p-5 rounded-3xl space-y-3.5 border border-amber-500/30">
+          <div class="flex items-center justify-between border-b border-slate-800/80 pb-2">
+            <div class="flex items-center gap-2">
+              <span class="text-lg">👀</span>
+              <h3 class="text-sm font-black text-white uppercase tracking-wider">Olympic Roster Bubble & Youth Phenom Watch</h3>
+            </div>
+            <span class="text-[10px] font-mono text-amber-400">Roster Cutdown Pressure</span>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-mono" id="bubbleWatchContainer">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Column 2: Head-to-Head Simulator, Rink Dimensions & Tournament Schedule (5 cols) -->
+      <div class="lg:col-span-5 space-y-5">
+        
+        <!-- Head-to-Head Best-on-Best Match Predictor -->
+        <div class="glass-panel p-5 rounded-3xl space-y-4 border border-rose-500/30">
+          <div class="flex items-center justify-between border-b border-slate-800/80 pb-2">
+            <div class="flex items-center gap-2">
+              <span class="text-lg">⚔️</span>
+              <h3 class="text-sm font-black text-white tracking-wide uppercase">Best-on-Best Match Simulator</h3>
+            </div>
+            <span class="px-2 py-0.5 rounded bg-rose-500/20 text-rose-300 text-[10px] font-mono font-bold" id="simulatorVenueBadge">Bell Centre (Montreal)</span>
+          </div>
+
+          <!-- Matchup Selectors -->
+          <div class="grid grid-cols-2 gap-3 p-3 rounded-2xl bg-slate-950/80 border border-slate-800">
+            <div class="space-y-1">
+              <div class="text-[10px] font-mono text-slate-400">Home Nation:</div>
+              <select id="simNationA" class="w-full bg-slate-900 text-white font-bold text-xs rounded-lg px-2 py-1.5 border border-slate-700 cursor-pointer">
+                <option value="canada" selected>🇨🇦 Canada</option>
+                <option value="usa">🇺🇸 USA</option>
+                <option value="sweden">🇸🇪 Sweden</option>
+                <option value="finland">🇫🇮 Finland</option>
+              </select>
+            </div>
+            <div class="space-y-1">
+              <div class="text-[10px] font-mono text-slate-400">Away Nation:</div>
+              <select id="simNationB" class="w-full bg-slate-900 text-white font-bold text-xs rounded-lg px-2 py-1.5 border border-slate-700 cursor-pointer">
+                <option value="usa" selected>🇺🇸 USA</option>
+                <option value="canada">🇨🇦 Canada</option>
+                <option value="sweden">🇸🇪 Sweden</option>
+                <option value="finland">🇫🇮 Finland</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Win Expectancy Meter -->
+          <div class="space-y-1.5 text-xs font-mono">
+            <div class="flex justify-between items-center text-[11px]">
+              <span class="text-sky-400 font-bold" id="simProbLabelA">Canada: 52.1%</span>
+              <span class="text-slate-400">Win Expectancy</span>
+              <span class="text-rose-400 font-bold" id="simProbLabelB">USA: 47.9%</span>
+            </div>
+            <div class="w-full h-2 rounded-full bg-slate-900 border border-slate-800 overflow-hidden flex">
+              <div class="bg-sky-400 h-full" id="simProbBarA" style="width: 52.1%"></div>
+              <div class="bg-rose-500 h-full" id="simProbBarB" style="width: 47.9%"></div>
+            </div>
+          </div>
+
+          <!-- Simulated Result Box -->
+          <div class="p-3 rounded-2xl bg-slate-950/80 border border-slate-800 text-xs font-mono space-y-1.5" id="simResultBox">
+            <div class="text-slate-400 text-[11px]">Click below to run an instant Monte Carlo match simulation between the two superpowers.</div>
+          </div>
+
+          <button id="runSimMatchBtn" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-rose-600 to-sky-600 hover:from-rose-500 hover:to-sky-500 text-white font-black text-xs transition shadow-md active:scale-95 flex items-center justify-center gap-1.5">
+            <i class="fa-solid fa-dice text-xs"></i> <span>Simulate Best-on-Best Game</span>
+          </button>
+        </div>
+
+        <!-- Ice Dimensions & Rink Geometry Tactical Impact Card -->
+        <div class="glass-panel p-5 rounded-3xl space-y-3.5 border border-slate-800">
+          <div class="flex items-center justify-between border-b border-slate-800/80 pb-2">
+            <div class="flex items-center gap-2">
+              <span class="text-lg">🧊</span>
+              <h3 class="text-sm font-black text-white uppercase tracking-wider">Rink Dimensions Tactical Model</h3>
+            </div>
+            <span class="text-[10px] font-mono text-sky-400" id="currentIceWidthBadge">85 ft (NHL Standard)</span>
+          </div>
+
+          <div class="grid grid-cols-2 gap-2 text-xs font-mono">
+            <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800 space-y-1">
+              <span class="text-[10px] text-sky-400 font-bold">NHL Ice (4 Nations)</span>
+              <div class="text-[11px] text-white">200 × 85 ft</div>
+              <p class="text-[10px] text-slate-400 leading-tight">Compressed neutral zone; heavy board battles; high-traffic net screens.</p>
+            </div>
+            <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800 space-y-1">
+              <span class="text-[10px] text-amber-400 font-bold">Olympic Ice (Milan)</span>
+              <div class="text-[11px] text-white">200 × 98.5 ft</div>
+              <p class="text-[10px] text-slate-400 leading-tight">13.5 ft wider; massive perimeter space; rewards elite edge agility & east-west passing.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tournament Schedule / Standings Card -->
+        <div class="glass-panel p-5 rounded-3xl space-y-3 border border-slate-800">
+          <div class="flex items-center justify-between border-b border-slate-800/80 pb-2">
+            <div class="flex items-center gap-2">
+              <span class="text-lg">📅</span>
+              <h3 class="text-sm font-black text-white uppercase tracking-wider" id="scheduleCardTitle">Tournament Schedule</h3>
+            </div>
+            <span class="text-[10px] font-mono text-slate-400">Official Dates</span>
+          </div>
+
+          <div class="space-y-2 text-xs font-mono" id="scheduleListContainer">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- Global Toast Notification Container -->
+  <div id="intlToast" class="fixed bottom-6 right-6 z-50 px-4 py-2.5 rounded-2xl text-xs font-bold shadow-2xl flex items-center gap-2 transition-all duration-300 transform translate-y-10 opacity-0 pointer-events-none"></div>
+
+  <!-- Scripts -->
+  <script src="static/js/international_engine.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const engine = window.BlueLineInternationalEngine;
+      if (!engine) {
+        console.error("International Engine failed to load.");
+        return;
+      }
+
+      let activeTourneyKey = "fourNations";
+      let activeNationKey = "canada";
+
+      const btn4Nations = document.getElementById('btnTourney4Nations');
+      const btnOlympics = document.getElementById('btnTourneyOlympics');
+      const simNationA = document.getElementById('simNationA');
+      const simNationB = document.getElementById('simNationB');
+
+      // Initialize UI
+      function renderAll() {
+        renderNationTabs();
+        renderRosterDepthChart();
+        renderSchedule();
+        updateTopGoldFavorite();
+        updateMatchPredictorOdds();
+      }
+
+      // 1. Nation Selection Tabs
+      function renderNationTabs() {
+        const container = document.getElementById('nationTabBar');
+        const nations = Object.values(engine.NATIONS);
+
+        container.innerHTML = nations.map(n => `
+          <button class="px-3 py-1.5 rounded-xl ${n.id === activeNationKey ? 'bg-rose-600 text-white font-bold border-rose-400 shadow-md shadow-rose-500/20' : 'bg-slate-900 text-slate-400 hover:text-white border-slate-800'} border transition flex items-center gap-1.5 shrink-0" onclick="selectNation('${n.id}')">
+            <span>${n.flag}</span> <span>${n.name}</span>
+            <span class="text-[10px] px-1 rounded bg-slate-950 font-mono">${n.elo}</span>
+          </button>
+        `).join('');
+      }
+
+      window.selectNation = function(nationId) {
+        activeNationKey = nationId;
+        renderNationTabs();
+        renderRosterDepthChart();
+        showToast(`Loaded ${engine.NATIONS[nationId].name} National Depth Chart!`, "info");
+      };
+
+      // 2. Render Roster Depth Chart
+      function renderRosterDepthChart() {
+        const nation = engine.NATIONS[activeNationKey];
+        if (!nation) return;
+
+        document.getElementById('nationHeaderFlag').textContent = nation.flag;
+        document.getElementById('nationHeaderTitle').textContent = `${nation.name} Forward Combinations`;
+        document.getElementById('nationOffenseScore').textContent = `Offense: ${nation.offenseRating} OVR`;
+        document.getElementById('nationDefenseScore').textContent = `Defense: ${nation.defenseRating} OVR`;
+
+        // Check if nation has detailed lines
+        if (nation.lines) {
+          const lines = [
+            { key: "f1", label: "Line 1 (Top Scoring Unit)" },
+            { key: "f2", label: "Line 2 (Secondary Strike)" },
+            { key: "f3", label: "Line 3 (Two-Way Power Unit)" },
+            { key: "f4", label: "Line 4 (Energy & Checking)" }
+          ];
+
+          document.getElementById('nationForwardLinesList').innerHTML = lines.map(l => {
+            const players = nation.lines[l.key] || [];
+            return `
+              <div class="p-3 rounded-2xl bg-slate-950/80 border border-slate-800 space-y-1.5">
+                <div class="flex justify-between items-center text-xs font-mono text-slate-400 border-b border-slate-800/60 pb-1">
+                  <span class="font-bold text-slate-300">${l.label}</span>
+                  <span class="text-[10px]">Avg OVR: ${Math.round(players.reduce((s, p) => s + p.overall, 0) / (players.length || 1))}</span>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs">
+                  ${players.map(p => `
+                    <div class="p-2 rounded-xl bg-slate-900 border border-slate-800 space-y-0.5">
+                      <div class="flex justify-between items-center text-[10px] font-mono text-slate-400">
+                        <span class="font-bold text-white px-1.5 rounded bg-slate-800">${p.pos}</span>
+                        <span>${p.hand}</span>
+                        <span class="text-amber-400 font-bold">${p.overall} OVR</span>
+                      </div>
+                      <div class="font-bold text-white text-[11px] truncate">${p.name}</div>
+                      <div class="text-[10px] text-slate-400 font-mono truncate">${p.nhlTeam}</div>
+                      <div class="text-[9px] text-sky-400 font-mono">${p.role}</div>
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+            `;
+          }).join('');
+
+          // Defense Pairs
+          const pairs = [
+            { key: "d1", label: "Pair 1 (Top Shutdown / Puck Mover)" },
+            { key: "d2", label: "Pair 2 (Transition Second Pair)" },
+            { key: "d3", label: "Pair 3 (Third Pairing Anchor)" }
+          ];
+
+          document.getElementById('nationDefensePairsList').innerHTML = pairs.map(p => {
+            const players = nation.lines[p.key] || [];
+            return `
+              <div class="p-3 rounded-2xl bg-slate-950/80 border border-slate-800 space-y-1.5">
+                <div class="flex justify-between items-center text-xs font-mono text-slate-400 border-b border-slate-800/60 pb-1">
+                  <span class="font-bold text-slate-300">${p.label}</span>
+                  <span class="text-[10px]">Left / Right Symmetry</span>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                  ${players.map(d => `
+                    <div class="p-2 rounded-xl bg-slate-900 border border-slate-800 space-y-0.5">
+                      <div class="flex justify-between items-center text-[10px] font-mono text-slate-400">
+                        <span class="font-bold text-white px-1.5 rounded bg-slate-800">${d.pos}</span>
+                        <span>${d.hand}</span>
+                        <span class="text-amber-400 font-bold">${d.overall} OVR</span>
+                      </div>
+                      <div class="font-bold text-white text-[11px] truncate">${d.name}</div>
+                      <div class="text-[10px] text-slate-400 font-mono truncate">${d.nhlTeam}</div>
+                      <div class="text-[9px] text-emerald-400 font-mono">${d.role}</div>
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+            `;
+          }).join('');
+
+          // Goalies
+          document.getElementById('nationGoalieBox').innerHTML = `
+            <div class="text-xs font-mono font-bold text-slate-400 mb-2 uppercase">Goaltending Trio (Starter, Tandem, 3rd)</div>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-mono">
+              ${nation.lines.goalies.map(g => `
+                <div class="p-2.5 rounded-xl bg-slate-900 border border-slate-800 space-y-1">
+                  <div class="flex justify-between items-center">
+                    <span class="text-[9px] px-1 rounded bg-rose-500/20 text-rose-300 font-bold">${g.status}</span>
+                    <span class="text-amber-400 font-bold">${g.overall} OVR</span>
+                  </div>
+                  <div class="font-bold text-white">${g.name}</div>
+                  <div class="text-[10px] text-slate-400">${g.nhlTeam} • ${g.svPct} SV%</div>
+                </div>
+              `).join('')}
+            </div>
+          `;
+
+          // Bubble Watch
+          document.getElementById('bubbleWatchContainer').innerHTML = (nation.lines.bubbleWatch || []).map(b => `
+            <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800 space-y-1">
+              <div class="flex justify-between items-center">
+                <span class="font-bold text-white">${b.name} (${b.pos})</span>
+                <span class="text-[10px] px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 font-bold">${b.status}</span>
+              </div>
+              <p class="text-[10px] text-slate-400 leading-tight">${b.note}</p>
+            </div>
+          `).join('');
+
+        } else {
+          // Compact Roster for Olympic Secondary Nations
+          document.getElementById('nationForwardLinesList').innerHTML = `
+            <div class="p-4 rounded-2xl bg-slate-950/80 border border-slate-800 space-y-2 text-xs font-mono">
+              <div class="font-bold text-white">Tactical Identity: ${nation.identity}</div>
+              <div class="pt-2 border-t border-slate-800 text-slate-300">
+                <strong>Headline NHL Superstars:</strong> ${(nation.keyStars || []).join(', ')}
+              </div>
+            </div>
+          `;
+          document.getElementById('nationDefensePairsList').innerHTML = `
+            <div class="p-4 rounded-2xl bg-slate-950/80 border border-slate-800 text-xs font-mono text-slate-400">
+              Complete 23-man tournament roster locked into the BlueLine International Directory.
+            </div>
+          `;
+          document.getElementById('nationGoalieBox').innerHTML = ``;
+          document.getElementById('bubbleWatchContainer').innerHTML = `
+            <div class="p-3 rounded-xl bg-slate-950 border border-slate-800 text-xs font-mono text-slate-400 col-span-2">
+              National selection committee evaluating adult European pro league and NHL depth.
+            </div>
+          `;
+        }
+      }
+
+      // 3. Update Top Gold Favorite Header
+      function updateTopGoldFavorite() {
+        const tourney = engine.TOURNAMENTS[activeTourneyKey];
+        if (activeTourneyKey === "fourNations") {
+          document.getElementById('activeTournamentTag').textContent = "NHL 4 Nations Face-Off";
+          document.getElementById('goldFavoriteFlag').textContent = "🇨🇦";
+          document.getElementById('goldFavoriteName').textContent = "Canada";
+          document.getElementById('goldFavoriteOdds').textContent = "44.8%";
+          document.getElementById('currentIceWidthBadge').textContent = "85 ft (NHL Standard)";
+        } else {
+          document.getElementById('activeTournamentTag').textContent = "2026 Milano-Cortina Olympics";
+          document.getElementById('goldFavoriteFlag').textContent = "🇨🇦";
+          document.getElementById('goldFavoriteName').textContent = "Canada";
+          document.getElementById('goldFavoriteOdds').textContent = "41.6%";
+          document.getElementById('currentIceWidthBadge').textContent = "98.5 ft (Olympic Hybrid)";
+        }
+      }
+
+      // 4. Render Schedule
+      function renderSchedule() {
+        const tourney = engine.TOURNAMENTS[activeTourneyKey];
+        const container = document.getElementById('scheduleListContainer');
+
+        if (activeTourneyKey === "fourNations") {
+          document.getElementById('scheduleCardTitle').textContent = "4 Nations Round-Robin Schedule";
+          container.innerHTML = tourney.schedule.map(g => {
+            const tA = engine.NATIONS[g.teamA];
+            const tB = engine.NATIONS[g.teamB];
+            return `
+              <div class="p-2 rounded-xl bg-slate-950/80 border border-slate-800 flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                  <span class="text-xs font-bold text-amber-400">${g.date}</span>
+                  <span class="text-white">${tA ? tA.flag + ' ' + tA.name : (g.title || 'Game')}</span>
+                  <span class="text-slate-500 font-bold">${tB ? 'vs' : ''}</span>
+                  <span class="text-white">${tB ? tB.flag + ' ' + tB.name : ''}</span>
+                </div>
+                <span class="text-[10px] text-slate-400 truncate max-w-[120px]">${g.venue}</span>
+              </div>
+            `;
+          }).join('');
+        } else {
+          document.getElementById('scheduleCardTitle').textContent = "Olympic Groups & Host Information";
+          container.innerHTML = `
+            <div class="space-y-1.5 text-xs font-mono">
+              <div class="p-2 rounded-xl bg-slate-950 border border-slate-800">
+                <span class="text-sky-400 font-bold">Group A:</span> Canada, Switzerland, Czechia, Slovakia
+              </div>
+              <div class="p-2 rounded-xl bg-slate-950 border border-slate-800">
+                <span class="text-amber-400 font-bold">Group B:</span> Finland, Sweden, Germany, Latvia
+              </div>
+              <div class="p-2 rounded-xl bg-slate-950 border border-slate-800">
+                <span class="text-rose-400 font-bold">Group C:</span> United States, Denmark, Norway, Qualifier
+              </div>
+            </div>
+          `;
+        }
+      }
+
+      // 5. Match Predictor Odds Calculation
+      function updateMatchPredictorOdds() {
+        const nA = engine.NATIONS[simNationA.value];
+        const nB = engine.NATIONS[simNationB.value];
+        const ice = activeTourneyKey === "fourNations" ? "nhl" : "olympic";
+
+        const probA = (engine.getWinProbability(nA, nB, ice) * 100).toFixed(1);
+        const probB = (100 - probA).toFixed(1);
+
+        document.getElementById('simProbLabelA').textContent = `${nA.name}: ${probA}%`;
+        document.getElementById('simProbLabelB').textContent = `${nB.name}: ${probB}%`;
+        document.getElementById('simProbBarA').style.width = `${probA}%`;
+        document.getElementById('simProbBarB').style.width = `${probB}%`;
+      }
+
+      // Simulate Match Click
+      document.getElementById('runSimMatchBtn').addEventListener('click', () => {
+        const nA = engine.NATIONS[simNationA.value];
+        const nB = engine.NATIONS[simNationB.value];
+        const ice = activeTourneyKey === "fourNations" ? "nhl" : "olympic";
+
+        const res = engine.simulateMatch(nA, nB, ice);
+        document.getElementById('simResultBox').innerHTML = `
+          <div class="flex justify-between items-center font-bold">
+            <span class="text-white text-sm">${nA.flag} ${nA.name} vs ${nB.flag} ${nB.name}</span>
+            <span class="text-amber-400 text-sm">${res.scoreStr}</span>
+          </div>
+          <div class="text-[11px] text-slate-300 pt-1 border-t border-slate-800">
+            <strong>Winner:</strong> ${res.winner.flag} ${res.winner.name} | Win Expectancy: ${res.winProbA}%
+          </div>
+        `;
+        showToast(`Simulated ${nA.name} vs ${nB.name}: ${res.scoreStr}!`, "success");
+      });
+
+      // Switch Tournaments
+      btn4Nations.addEventListener('click', () => {
+        activeTourneyKey = "fourNations";
+        btn4Nations.className = "px-3.5 py-1.5 rounded-lg bg-rose-600 text-white font-bold transition shadow flex items-center gap-1.5";
+        btnOlympics.className = "px-3.5 py-1.5 rounded-lg text-slate-400 hover:text-white transition flex items-center gap-1.5";
+        document.getElementById('simulatorVenueBadge').textContent = "Bell Centre (Montreal)";
+        renderAll();
+        showToast("Switched to NHL 4 Nations Face-Off War Room!", "info");
+      });
+
+      btnOlympics.addEventListener('click', () => {
+        activeTourneyKey = "olympics2026";
+        btnOlympics.className = "px-3.5 py-1.5 rounded-lg bg-rose-600 text-white font-bold transition shadow flex items-center gap-1.5";
+        btn4Nations.className = "px-3.5 py-1.5 rounded-lg text-slate-400 hover:text-white transition flex items-center gap-1.5";
+        document.getElementById('simulatorVenueBadge').textContent = "PalaItalia Santa Giulia (Milan)";
+        renderAll();
+        showToast("Switched to 2026 Milano-Cortina Olympic Tournament!", "info");
+      });
+
+      simNationA.addEventListener('change', updateMatchPredictorOdds);
+      simNationB.addEventListener('change', updateMatchPredictorOdds);
+
+      // Broadcast to The Wire
+      document.getElementById('broadcastIntlBtn').addEventListener('click', () => {
+        const tourney = engine.TOURNAMENTS[activeTourneyKey];
+        const nA = engine.NATIONS[simNationA.value];
+        const nB = engine.NATIONS[simNationB.value];
+
+        engine.broadcastInternationalToWire({
+          tournamentTitle: tourney.name,
+          favoriteName: "Canada",
+          favoriteOdds: activeTourneyKey === "fourNations" ? "44.8%" : "41.6%",
+          matchupTitle: `${nA.name} vs ${nB.name}`,
+          matchupEdge: `${nA.name} ${document.getElementById('simProbLabelA').textContent.split(': ')[1]} Win Prob`,
+          iceType: tourney.iceDimensions
+        });
+
+        showToast(`Broadcasted ${tourney.name} War Room Report to The Wire (#4Nations)!`, "success");
+      });
+
+      // Toast Notification Helper
+      function showToast(msg, type = 'info') {
+        const toastEl = document.getElementById('intlToast');
+        const colorClasses = type === 'success' ? 'bg-emerald-600 text-white border border-emerald-400/50 shadow-emerald-500/30' :
+                             type === 'error' ? 'bg-rose-600 text-white border border-rose-400/50 shadow-rose-500/30' :
+                             'bg-rose-600 text-white border border-rose-400/50 shadow-rose-500/30';
+        toastEl.className = `fixed bottom-6 right-6 z-50 px-4 py-2.5 rounded-2xl text-xs font-bold shadow-2xl flex items-center gap-2 transition-all duration-300 transform translate-y-0 opacity-100 ${colorClasses}`;
+        toastEl.innerHTML = `<span>${type === 'success' ? '✅' : type === 'error' ? '⚠️' : '🌍'}</span> <span>${msg}</span>`;
+        clearTimeout(toastEl._timer);
+        toastEl._timer = setTimeout(() => {
+          toastEl.className = 'fixed bottom-6 right-6 z-50 px-4 py-2.5 rounded-2xl text-xs font-bold shadow-2xl flex items-center gap-2 transition-all duration-300 transform translate-y-10 opacity-0 pointer-events-none';
+        }, 2800);
+      }
+
+      // Initial Render
+      renderAll();
+    });
+  </script>
+
+  <!-- Service Worker Registration for Offline Rinkside PWA -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js').then(reg => {
+          console.log('BlueLine International Service Worker registered:', reg.scope);
+          const pill = document.getElementById('pwaStatusPill');
+          if (pill) pill.textContent = '⚡ Rinkside PWA Active';
+        }).catch(err => {
+          console.warn('Service Worker registration skipped:', err);
+        });
+      });
+    }
+  </script>
+
+  <script src="static/js/telemetry.js"></script>
+</body>
+</html>
