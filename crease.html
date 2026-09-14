@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-slate-950 text-slate-100">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crease Lab & Goaltender Shot Geometry Studio | BlueLine DataWorks</title>
+  
+  <!-- SEO & Social Meta -->
+  <meta name="description" content="BlueLine DataWorks is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory. Explore advanced crease geometry, RVH post seals, GSAx modeling, and tandem workload simulation.">
+  <meta name="keywords" content="hockey goalie analytics, crease geometry, RVH post seal, GSAx goals saved above expected, high danger save percentage, goaltender tandem simulator, BlueLine DataWorks">
+  <meta property="og:title" content="Crease Lab & Goaltender Shot Geometry Studio | BlueLine DataWorks">
+  <meta property="og:description" content="Calculate real-time net quadrant exposure, test RVH vs VH post seals, optimize 82-game tandem fatigue, and simulate shootout breakaways against elite shooters.">
+  <meta property="og:type" content="website">
+
+  <!-- PWA Manifest & Icons -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0284c7">
+  <link rel="apple-touch-icon" href="static/icons/icon-192.png">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Font Awesome Pro/Free CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Google Fonts Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            brand: {
+              gold: '#f59e0b',
+              ice: '#38bdf8',
+              navy: '#0f172a',
+              crease: '#0284c7',
+              red: '#ef4444',
+              emerald: '#10b981'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #020617;
+    }
+    .glass-panel {
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #090d16;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #1e293b;
+      border-radius: 9999px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: #334155;
+    }
+    .quadrant-box {
+      transition: all 0.25s ease-in-out;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-sky-500 selection:text-white">
+
+  <!-- Top Enterprise Header Navigation Bar (Unified 16-Module Ecosystem) -->
+  <header class="sticky top-0 z-50 glass-panel border-b border-slate-800/80 bg-slate-950/90">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+      
+      <!-- Brand Logo & Title -->
+      <div class="flex items-center gap-3">
+        <a href="index.html" class="flex items-center gap-2.5 group">
+          <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-sky-500 via-cyan-400 to-indigo-600 p-0.5 shadow-lg shadow-sky-500/20 group-hover:scale-105 transition duration-200">
+            <div class="w-full h-full bg-slate-950 rounded-[14px] flex items-center justify-center">
+              <span class="text-xl">🥅</span>
+            </div>
+          </div>
+          <div>
+            <div class="flex items-center gap-1.5">
+              <span class="font-extrabold text-sm sm:text-base tracking-tight text-white group-hover:text-sky-400 transition">BlueLine</span>
+              <span class="text-[10px] uppercase font-mono tracking-widest px-1.5 py-0.5 rounded bg-sky-500/20 text-sky-300 font-bold">Crease Lab</span>
+            </div>
+            <p class="text-[10px] text-slate-400 hidden sm:block">Goaltender Shot Geometry & GSAx Studio</p>
+          </div>
+        </a>
+      </div>
+
+      <!-- Unified 16-Module Navigation Pills -->
+      <div class="flex items-center gap-1 sm:gap-1.5 overflow-x-auto py-1 max-w-[66%] sm:max-w-none text-xs font-mono custom-scrollbar">
+        <a href="index.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>🏒</span> <span class="hidden md:inline">Main OS</span>
+        </a>
+        <a href="database.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-sky-400 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>📊</span> <span class="hidden md:inline">Directory</span>
+        </a>
+        <a href="scoreboard.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-rose-300 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>📡</span> <span class="hidden md:inline">Game Center</span>
+        </a>
+        <a href="rink3d.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-sky-300 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>🧊</span> <span class="hidden md:inline">3D Rink</span>
+        </a>
+        <a href="film.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-cyan-300 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>🎬</span> <span class="hidden md:inline">Film Studio</span>
+        </a>
+        <a href="portal.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-amber-300 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>⚡</span> <span class="hidden md:inline">Portal & NIL</span>
+        </a>
+        <a href="draft.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>🎯</span> <span class="hidden md:inline">Draft Room</span>
+        </a>
+        <a href="combine.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-amber-300 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>🧬</span> <span class="hidden md:inline">Combine Lab</span>
+        </a>
+        <a href="caplab.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-emerald-400 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>💼</span> <span class="hidden md:inline">Cap Lab</span>
+        </a>
+        <a href="tournament.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-amber-400 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>🏆</span> <span class="hidden md:inline">Tournaments</span>
+        </a>
+        <a href="tactics.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-sky-400 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>📋</span> <span class="hidden md:inline">Tactics</span>
+        </a>
+        <a href="compare.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-sky-400 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>⚖️</span> <span class="hidden md:inline">Compare</span>
+        </a>
+        <a href="international.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-rose-300 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>🌍</span> <span class="hidden md:inline">International</span>
+        </a>
+        <a href="crease.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-gradient-to-r from-sky-600 to-indigo-600 text-white font-bold border border-sky-400/50 shadow-md shadow-sky-500/20 flex items-center gap-1">
+          <span>🥅</span> <span class="hidden md:inline">Crease Lab</span>
+        </a>
+        <a href="community.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>🌐</span> <span class="hidden md:inline">The Wire</span>
+        </a>
+        <a href="agents.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-emerald-400 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>🤖</span> <span class="hidden md:inline">Swarm</span>
+        </a>
+      </div>
+
+    </div>
+
+    <!-- Mandatory Lifelong Tracking Mission Statement Banner -->
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-2 border-t border-slate-800/80 bg-slate-950/90 flex flex-wrap items-center justify-between gap-2 text-xs">
+      <div class="flex items-center gap-2 min-w-0">
+        <span class="px-2 py-0.5 rounded-md bg-sky-500/20 text-sky-300 font-mono text-[10px] font-bold shrink-0">MISSION</span>
+        <p class="text-[11px] text-slate-400 truncate">
+          BlueLine DataWorks is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory.
+        </p>
+      </div>
+      <div class="flex items-center gap-2 shrink-0">
+        <span id="pwaStatusPill" class="text-[10px] font-mono text-emerald-400 bg-emerald-950/60 border border-emerald-800/50 px-2 py-0.5 rounded-full">⚡ Rinkside Offline Ready</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Crease Lab Workspace -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 py-6 space-y-6">
+
+    <!-- Hero Strip & Goaltender Selector Header -->
+    <div class="glass-panel p-5 sm:p-6 rounded-3xl relative overflow-hidden border border-slate-800">
+      <div class="absolute -right-20 -top-20 w-80 h-80 bg-sky-500/10 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-5 relative z-10">
+        
+        <div class="space-y-1.5">
+          <div class="flex items-center gap-2">
+            <span class="px-2.5 py-0.5 rounded-full bg-sky-500/20 text-sky-300 text-xs font-mono font-bold">PRO & AMATEUR GOALIE STUDIO</span>
+            <span class="text-xs text-slate-500">•</span>
+            <span class="text-xs text-slate-400 font-mono">516 Goaltenders Cataloged</span>
+          </div>
+          <h1 class="text-2xl sm:text-3xl font-black tracking-tight text-white flex items-center gap-3">
+            <span>Crease Lab & Shot Geometry Studio</span>
+          </h1>
+          <p class="text-xs sm:text-sm text-slate-400 max-w-3xl leading-relaxed">
+            Real-time trigonometric goal mouth coverage, RVH post-seal leakage modeling, GSAx biometric profiles, and 82-game regular season tandem fatigue optimization.
+          </p>
+        </div>
+
+        <!-- Quick Goalie Switcher -->
+        <div class="flex flex-wrap items-center gap-2 w-full lg:w-auto">
+          <div class="flex items-center gap-2 bg-slate-900 border border-slate-700/80 rounded-2xl px-3 py-2 w-full sm:w-auto">
+            <span class="text-slate-400 text-xs">Active Goalie:</span>
+            <select id="quickGoalieSelect" class="bg-transparent text-white font-bold text-xs focus:outline-none cursor-pointer">
+              <!-- Populated by JavaScript -->
+            </select>
+          </div>
+          <button id="broadcastGoalieBtn" class="px-3.5 py-2 rounded-2xl bg-gradient-to-r from-sky-600 to-indigo-600 hover:from-sky-500 hover:to-indigo-500 text-white text-xs font-bold shadow-lg shadow-sky-600/30 transition flex items-center gap-1.5">
+            <i class="fa-solid fa-satellite-dish"></i> Broadcast to The Wire
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- MAIN TWO-COLUMN WORKBENCH -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+      <!-- LEFT COLUMN (7 COLS): INTERACTIVE CREASE GEOMETRY & GOAL MOUTH -->
+      <div class="lg:col-span-7 space-y-6">
+
+        <!-- Panel A: Real-Time Crease Geometry & Net Occlusion -->
+        <div class="glass-panel p-5 sm:p-6 rounded-3xl border border-slate-800 space-y-5">
+          
+          <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-800 pb-4">
+            <div>
+              <h2 class="text-base font-bold text-white flex items-center gap-2">
+                <i class="fa-solid fa-shapes text-sky-400"></i> Net Coverage & Angle Geometry
+              </h2>
+              <p class="text-xs text-slate-400">Trigonometric occlusion calculated from puck release location to 6x4 net</p>
+            </div>
+            
+            <!-- Post Seal Mode Selector -->
+            <div class="flex items-center gap-1 bg-slate-900 p-1 rounded-xl border border-slate-800 text-xs font-mono">
+              <button class="post-seal-btn px-2.5 py-1 rounded-lg font-bold bg-sky-600 text-white transition" data-mode="rvh">RVH Seal</button>
+              <button class="post-seal-btn px-2.5 py-1 rounded-lg text-slate-400 hover:text-white transition" data-mode="vh">Conventional VH</button>
+              <button class="post-seal-btn px-2.5 py-1 rounded-lg text-slate-400 hover:text-white transition" data-mode="standup">Upright Drop</button>
+            </div>
+          </div>
+
+          <!-- Interactive Controls: Shooter Presets & Depth Slider -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-slate-950/60 p-4 rounded-2xl border border-slate-800/80">
+            
+            <!-- Shooter Presets -->
+            <div class="space-y-1.5">
+              <label class="text-[11px] font-mono text-slate-400 uppercase font-semibold">Shooter Release Point</label>
+              <div class="grid grid-cols-3 gap-1.5">
+                <button class="preset-shooter-btn px-2 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-[11px] font-mono hover:border-sky-500 hover:text-sky-300 transition active" data-x="0" data-y="18">Low Slot</button>
+                <button class="preset-shooter-btn px-2 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-[11px] font-mono hover:border-sky-500 hover:text-sky-300 transition" data-x="0" data-y="35">High Slot</button>
+                <button class="preset-shooter-btn px-2 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-[11px] font-mono hover:border-sky-500 hover:text-sky-300 transition" data-x="-22" data-y="24">Left Circle</button>
+                <button class="preset-shooter-btn px-2 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-[11px] font-mono hover:border-sky-500 hover:text-sky-300 transition" data-x="22" data-y="24">Right Circle</button>
+                <button class="preset-shooter-btn px-2 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-[11px] font-mono hover:border-sky-500 hover:text-sky-300 transition" data-x="-28" data-y="6">Sharp Angle</button>
+                <button class="preset-shooter-btn px-2 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-[11px] font-mono hover:border-sky-500 hover:text-sky-300 transition" data-x="0" data-y="54">Point Blast</button>
+              </div>
+            </div>
+
+            <!-- Goalie Crease Depth Slider -->
+            <div class="space-y-1.5">
+              <div class="flex items-center justify-between text-[11px] font-mono">
+                <span class="text-slate-400 uppercase font-semibold">Goalie Crease Depth</span>
+                <span id="depthLabel" class="text-sky-400 font-bold">2.5 ft (Top of Crease)</span>
+              </div>
+              <input id="depthSlider" type="range" min="0" max="5.0" step="0.5" value="2.5" class="w-full h-2 bg-slate-900 rounded-lg appearance-none cursor-pointer accent-sky-500">
+              <div class="flex justify-between text-[10px] text-slate-500 font-mono">
+                <span>Goal Line (0ft)</span>
+                <span>Inner Paint</span>
+                <span>Top Arc (3ft)</span>
+                <span>Aggressive (5ft)</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Visual Net Quadrant Exposure Graphic (Shooter Perspective) -->
+          <div class="space-y-3">
+            <div class="flex items-center justify-between text-xs">
+              <span class="font-bold text-slate-300 flex items-center gap-1.5">
+                <i class="fa-solid fa-crosshairs text-rose-400"></i> Shooter's Eye Net View (6ft × 4ft Target)
+              </span>
+              <span id="computedXgBadge" class="px-2.5 py-0.5 rounded-full bg-rose-500/20 text-rose-300 font-mono font-bold text-[11px]">xG: 0.184</span>
+            </div>
+
+            <!-- 6x4 Net Representation -->
+            <div class="relative w-full aspect-[6/3.8] bg-slate-950 rounded-2xl border-4 border-red-600/80 p-3 flex flex-col justify-between shadow-inner overflow-hidden">
+              
+              <!-- Red Goal Frame Background Mesh -->
+              <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:12px_12px] pointer-events-none"></div>
+
+              <!-- Top Quadrants (Glove High, Top Shelf, Blocker High) -->
+              <div class="grid grid-cols-3 gap-2 h-1/2 relative z-10">
+                <!-- Glove High (Top Left) -->
+                <div id="quadGloveHigh" class="quadrant-box rounded-xl border border-dashed border-slate-700 bg-slate-900/60 p-2.5 flex flex-col justify-between">
+                  <div class="flex items-center justify-between text-[10px] font-mono text-slate-400">
+                    <span>GLOVE HIGH</span>
+                    <i class="fa-solid fa-hand text-sky-400"></i>
+                  </div>
+                  <div class="text-right">
+                    <span id="expGloveHigh" class="text-sm font-mono font-bold text-emerald-400">240</span>
+                    <span class="text-[9px] text-slate-500 block">sq. inches</span>
+                  </div>
+                </div>
+
+                <!-- Center Crossbar Shelf -->
+                <div id="quadCenterHigh" class="quadrant-box rounded-xl border border-dashed border-slate-700 bg-slate-900/40 p-2.5 flex flex-col justify-between items-center text-center">
+                  <span class="text-[10px] font-mono text-slate-400">TOP SHELF</span>
+                  <div id="earHoleWarning" class="hidden px-2 py-0.5 rounded bg-rose-600/30 border border-rose-500 text-[10px] text-rose-300 font-mono font-bold animate-pulse">
+                    ⚠️ RVH EAR-HOLE OPENING
+                  </div>
+                  <span class="text-[10px] text-slate-400 font-mono">TORSO OCCLUSION</span>
+                </div>
+
+                <!-- Blocker High (Top Right) -->
+                <div id="quadBlockerHigh" class="quadrant-box rounded-xl border border-dashed border-slate-700 bg-slate-900/60 p-2.5 flex flex-col justify-between">
+                  <div class="flex items-center justify-between text-[10px] font-mono text-slate-400">
+                    <span>BLOCKER HIGH</span>
+                    <i class="fa-solid fa-shield text-amber-400"></i>
+                  </div>
+                  <div class="text-right">
+                    <span id="expBlockerHigh" class="text-sm font-mono font-bold text-emerald-400">220</span>
+                    <span class="text-[9px] text-slate-500 block">sq. inches</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Bottom Quadrants (Glove Low, Five-Hole, Blocker Low) -->
+              <div class="grid grid-cols-3 gap-2 h-1/2 relative z-10 mt-2">
+                <!-- Glove Low (Bottom Left) -->
+                <div id="quadGloveLow" class="quadrant-box rounded-xl border border-dashed border-slate-700 bg-slate-900/60 p-2.5 flex flex-col justify-between">
+                  <div class="text-[10px] font-mono text-slate-400">GLOVE LOW</div>
+                  <div class="text-right">
+                    <span id="expGloveLow" class="text-sm font-mono font-bold text-sky-400">140</span>
+                    <span class="text-[9px] text-slate-500 block">sq. inches</span>
+                  </div>
+                </div>
+
+                <!-- Five-Hole (Center Low) -->
+                <div id="quadFiveHole" class="quadrant-box rounded-xl border border-dashed border-slate-700 bg-slate-900/80 p-2.5 flex flex-col justify-between items-center text-center">
+                  <div class="text-[10px] font-mono text-slate-400">FIVE-HOLE</div>
+                  <div>
+                    <span id="expFiveHole" class="text-sm font-mono font-bold text-indigo-400">95</span>
+                    <span class="text-[9px] text-slate-500 block">sq. inches</span>
+                  </div>
+                </div>
+
+                <!-- Blocker Low (Bottom Right) -->
+                <div id="quadBlockerLow" class="quadrant-box rounded-xl border border-dashed border-slate-700 bg-slate-900/60 p-2.5 flex flex-col justify-between">
+                  <div class="text-[10px] font-mono text-slate-400">BLOCKER LOW</div>
+                  <div class="text-right">
+                    <span id="expBlockerLow" class="text-sm font-mono font-bold text-sky-400">155</span>
+                    <span class="text-[9px] text-slate-500 block">sq. inches</span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Technical Post Seal Diagnostic Banner -->
+            <div id="postSealDiagnostic" class="p-3 rounded-xl bg-slate-950/80 border border-slate-800 text-xs font-mono text-slate-300 flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-sky-400"></span>
+              <span id="postSealDiagnosticText">RVH Active: Flawless bottom pad post seal. High-danger 'ear-hole' roof opening vulnerable to elevated snipe.</span>
+            </div>
+
+          </div>
+
+          <!-- Overall Occlusion Metrics Bar -->
+          <div class="grid grid-cols-3 gap-3 pt-2">
+            <div class="p-3 rounded-2xl bg-slate-950/60 border border-slate-800 text-center">
+              <span class="text-[10px] font-mono text-slate-400 uppercase">Net Covered</span>
+              <div id="statTotalCovered" class="text-lg font-mono font-black text-sky-400 mt-0.5">82%</div>
+            </div>
+            <div class="p-3 rounded-2xl bg-slate-950/60 border border-slate-800 text-center">
+              <span class="text-[10px] font-mono text-slate-400 uppercase">Open Surface</span>
+              <div id="statTotalOpen" class="text-lg font-mono font-black text-rose-400 mt-0.5">620 sq in</div>
+            </div>
+            <div class="p-3 rounded-2xl bg-slate-950/60 border border-slate-800 text-center">
+              <span class="text-[10px] font-mono text-slate-400 uppercase">Release Angle</span>
+              <div id="statReleaseAngle" class="text-lg font-mono font-black text-emerald-400 mt-0.5">0° (Center)</div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Panel D: 82-Game Tandem Workload & Fatigue Optimizer -->
+        <div class="glass-panel p-5 sm:p-6 rounded-3xl border border-slate-800 space-y-4">
+          <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+            <div>
+              <h3 class="text-base font-bold text-white flex items-center gap-2">
+                <i class="fa-solid fa-battery-three-quarters text-emerald-400"></i> 82-Game Tandem Workload & Fatigue Simulator
+              </h3>
+              <p class="text-xs text-slate-400">Optimizes starter/backup start distribution to eliminate 0-days-rest SV% decay</p>
+            </div>
+            <span id="tandemRiskPill" class="text-[10px] font-mono font-bold px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-300">OPTIMAL SPLIT</span>
+          </div>
+
+          <!-- Tandem Start Slider -->
+          <div class="space-y-2 bg-slate-950/60 p-4 rounded-2xl border border-slate-800/80">
+            <div class="flex items-center justify-between text-xs font-mono">
+              <span class="text-slate-300 font-bold">Starter Regular Season Starts:</span>
+              <span id="starterStartsDisplay" class="text-sky-400 font-black text-sm">54 Starts (Backup: 28)</span>
+            </div>
+            <input id="starterStartsSlider" type="range" min="35" max="72" value="54" class="w-full h-2 bg-slate-900 rounded-lg appearance-none cursor-pointer accent-sky-500">
+            <div class="flex justify-between text-[10px] text-slate-500 font-mono">
+              <span>35 (Strict Timeshare)</span>
+              <span>54 (Modern Pro Baseline)</span>
+              <span>65+ (Extreme Workhorse Decay)</span>
+            </div>
+          </div>
+
+          <!-- Tandem Impact Projection Matrix -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <div class="p-3 rounded-xl bg-slate-900/70 border border-slate-800">
+              <div class="text-[10px] font-mono text-slate-400 uppercase font-semibold">Starter SV%</div>
+              <div id="tandemStarterSv" class="text-base font-mono font-bold text-sky-400 mt-1">.921</div>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-900/70 border border-slate-800">
+              <div class="text-[10px] font-mono text-slate-400 uppercase font-semibold">Backup SV%</div>
+              <div id="tandemBackupSv" class="text-base font-mono font-bold text-indigo-400 mt-1">.908</div>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-900/70 border border-slate-800">
+              <div class="text-[10px] font-mono text-slate-400 uppercase font-semibold">Team Projected GAA</div>
+              <div id="tandemTeamGaa" class="text-base font-mono font-bold text-emerald-400 mt-1">2.44</div>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-900/70 border border-slate-800">
+              <div class="text-[10px] font-mono text-slate-400 uppercase font-semibold">Projected Standings Pts</div>
+              <div id="tandemProjectedPts" class="text-base font-mono font-bold text-amber-400 mt-1">101 pts</div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- RIGHT COLUMN (5 COLS): ACTIVE GOALIE DOSSIER, RADAR & SHOOTOUT ARENA -->
+      <div class="lg:col-span-5 space-y-6">
+
+        <!-- Panel B: Active Goalie Dossier Card -->
+        <div class="glass-panel p-5 sm:p-6 rounded-3xl border border-slate-800 space-y-5">
+          
+          <div class="flex items-start justify-between gap-3">
+            <div class="flex items-center gap-3">
+              <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-sky-600 via-cyan-500 to-indigo-700 p-0.5 shadow-lg shadow-sky-500/20 flex items-center justify-center text-2xl">
+                🥅
+              </div>
+              <div>
+                <h3 id="dossierName" class="text-lg font-black text-white">Trey Augustine</h3>
+                <p id="dossierTeam" class="text-xs text-sky-400 font-semibold">Michigan State University • NCAA Division I</p>
+                <p id="dossierDraft" class="text-[11px] font-mono text-slate-400">Detroit Red Wings (2023, 41st)</p>
+              </div>
+            </div>
+            <span id="dossierTier" class="text-[10px] font-mono font-bold px-2 py-1 rounded bg-sky-500/20 text-sky-300 text-right">Elite NCAA Starter</span>
+          </div>
+
+          <!-- Biometric Profile Strip -->
+          <div class="grid grid-cols-4 gap-2 bg-slate-950/70 p-3 rounded-2xl border border-slate-800/80 text-center font-mono text-xs">
+            <div>
+              <span class="text-[9px] text-slate-500 block uppercase">Height</span>
+              <span id="dossierHeight" class="text-white font-bold">6'1"</span>
+            </div>
+            <div>
+              <span class="text-[9px] text-slate-500 block uppercase">Weight</span>
+              <span id="dossierWeight" class="text-white font-bold">179 lbs</span>
+            </div>
+            <div>
+              <span class="text-[9px] text-slate-500 block uppercase">Catches</span>
+              <span id="dossierCatches" class="text-white font-bold">Left</span>
+            </div>
+            <div>
+              <span class="text-[9px] text-slate-500 block uppercase">Age</span>
+              <span id="dossierAge" class="text-white font-bold">20</span>
+            </div>
+          </div>
+
+          <!-- Advanced Crease Analytics Grid -->
+          <div class="space-y-3">
+            <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400 font-mono">Advanced Crease Analytics</h4>
+            
+            <div class="grid grid-cols-3 gap-2.5">
+              <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800">
+                <span class="text-[9px] text-slate-500 font-mono block">GSAx (SAVED/EXP)</span>
+                <span id="dossierGsax" class="text-base font-mono font-black text-emerald-400">+18.4</span>
+              </div>
+              <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800">
+                <span class="text-[9px] text-slate-500 font-mono block">HIGH-DANGER SV%</span>
+                <span id="dossierHdsv" class="text-base font-mono font-black text-sky-400">.858</span>
+              </div>
+              <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800">
+                <span class="text-[9px] text-slate-500 font-mono block">FREEZE RATE</span>
+                <span id="dossierFreeze" class="text-base font-mono font-black text-amber-400">68.2%</span>
+              </div>
+            </div>
+
+            <!-- Technical Progress Bars -->
+            <div class="space-y-2 pt-1 text-xs font-mono">
+              <div>
+                <div class="flex justify-between text-[11px] mb-1">
+                  <span class="text-slate-400">RVH Post-Seal Tightness</span>
+                  <span id="dossierRvhEfficiency" class="text-sky-300 font-bold">94%</span>
+                </div>
+                <div class="w-full bg-slate-900 rounded-full h-1.5 overflow-hidden">
+                  <div id="dossierRvhBar" class="bg-sky-500 h-1.5 rounded-full" style="width: 94%"></div>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex justify-between text-[11px] mb-1">
+                  <span class="text-slate-400">Rebound Control Score</span>
+                  <span id="dossierReboundScore" class="text-emerald-300 font-bold">92 / 100</span>
+                </div>
+                <div class="w-full bg-slate-900 rounded-full h-1.5 overflow-hidden">
+                  <div id="dossierReboundBar" class="bg-emerald-500 h-1.5 rounded-full" style="width: 92%"></div>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex justify-between text-[11px] mb-1">
+                  <span class="text-slate-400">Lateral Recovery Latency</span>
+                  <span id="dossierRecoverySpeed" class="text-purple-300 font-bold">0.24s</span>
+                </div>
+                <div class="w-full bg-slate-900 rounded-full h-1.5 overflow-hidden">
+                  <div id="dossierRecoveryBar" class="bg-purple-500 h-1.5 rounded-full" style="width: 88%"></div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Scout's Eye Dossier Notes -->
+          <div class="p-3.5 rounded-2xl bg-slate-950/80 border border-slate-800 text-xs leading-relaxed space-y-1">
+            <span class="text-[10px] font-mono uppercase font-bold text-sky-400 flex items-center gap-1">
+              <i class="fa-solid fa-binoculars"></i> Scout's Eye Evaluation
+            </span>
+            <p id="dossierNotes" class="text-slate-300 italic">
+              "World Juniors Gold Medalist. Impeccable technical tracking, calm post-to-post pushes, and surgical lateral rebound redirection into corner glass."
+            </p>
+          </div>
+
+        </div>
+
+        <!-- Panel E: Shootout & Breakaway AI Duel Arena -->
+        <div class="glass-panel p-5 sm:p-6 rounded-3xl border border-slate-800 space-y-4">
+          <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+            <div>
+              <h3 class="text-base font-bold text-white flex items-center gap-2">
+                <i class="fa-solid fa-wand-magic-sparkles text-amber-400"></i> Shootout Duel Arena
+              </h3>
+              <p class="text-xs text-slate-400">Challenge active goaltender against generational shootout snipers</p>
+            </div>
+            <span class="text-[10px] font-mono text-slate-400">1v1 Breakaway</span>
+          </div>
+
+          <!-- Sniper Selection -->
+          <div class="space-y-2">
+            <label class="text-[11px] font-mono text-slate-400 uppercase font-semibold">Select Shooter</label>
+            <select id="shootoutSniperSelect" class="w-full bg-slate-900 border border-slate-700/80 rounded-xl px-3 py-2 text-xs font-bold text-white focus:outline-none">
+              <!-- Populated by JavaScript -->
+            </select>
+          </div>
+
+          <!-- Duel Execution Button -->
+          <button id="runShootoutBtn" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-amber-600 via-rose-600 to-red-600 hover:from-amber-500 hover:to-red-500 text-white font-bold text-xs shadow-lg shadow-rose-600/20 transition flex items-center justify-center gap-2">
+            <i class="fa-solid fa-bolt"></i> Execute Breakaway Simulation
+          </button>
+
+          <!-- Duel Result Container -->
+          <div id="shootoutResultBox" class="p-3.5 rounded-2xl bg-slate-950/80 border border-slate-800 text-xs font-mono space-y-2 min-h-[90px] flex flex-col justify-center">
+            <span class="text-[10px] text-slate-500 uppercase">Awaiting Breakaway Attempt</span>
+            <p class="text-slate-400 italic">Select a sniper and launch the duel to test shot release speed against crease recovery velocity.</p>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Panel C: Master Goalie Roster Explorer (500+ Amateurs & Pros) -->
+    <div class="glass-panel p-5 sm:p-6 rounded-3xl border border-slate-800 space-y-4">
+      
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-b border-slate-800 pb-3">
+        <div>
+          <h3 class="text-base font-bold text-white flex items-center gap-2">
+            <i class="fa-solid fa-clipboard-user text-sky-400"></i> Master Goalie Directory & Prospect Watch
+          </h3>
+          <p class="text-xs text-slate-400">Lifelong trajectory tracking from U16/AAA, USHL, NAHL, and NCAA into the NHL</p>
+        </div>
+        
+        <div class="flex items-center gap-2 w-full sm:w-auto">
+          <div class="relative w-full sm:w-64">
+            <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-slate-500 text-xs"></i>
+            <input id="goalieSearchInput" type="text" placeholder="Search 500+ goalies, teams, draft..." class="w-full bg-slate-900 border border-slate-800 rounded-xl pl-8 pr-3 py-1.5 text-xs text-white focus:outline-none focus:border-sky-500 font-mono">
+          </div>
+        </div>
+      </div>
+
+      <!-- Filter Buttons -->
+      <div class="flex flex-wrap items-center gap-2 text-xs font-mono">
+        <button class="goalie-filter-btn px-3 py-1 rounded-xl bg-sky-600 text-white font-bold transition active" data-filter="all">All Goalies</button>
+        <button class="goalie-filter-btn px-3 py-1 rounded-xl bg-slate-900 border border-slate-800 text-slate-400 hover:text-white transition" data-filter="ncaa">NCAA Division I</button>
+        <button class="goalie-filter-btn px-3 py-1 rounded-xl bg-slate-900 border border-slate-800 text-slate-400 hover:text-white transition" data-filter="pro">NHL Benchmarks</button>
+        <button class="goalie-filter-btn px-3 py-1 rounded-xl bg-slate-900 border border-slate-800 text-slate-400 hover:text-white transition" data-filter="drafted">NHL Drafted</button>
+      </div>
+
+      <!-- Goalie Table / Grid -->
+      <div class="rounded-2xl border border-slate-800 overflow-hidden">
+        <div class="max-h-72 overflow-y-auto custom-scrollbar">
+          <table class="w-full text-left text-xs font-mono">
+            <thead class="bg-slate-950 text-slate-400 text-[10px] sticky top-0 border-b border-slate-800">
+              <tr>
+                <th class="p-3">Goaltender</th>
+                <th class="p-3">Team & League</th>
+                <th class="p-3">Draft Status</th>
+                <th class="p-3">GSAx</th>
+                <th class="p-3">SV%</th>
+                <th class="p-3">HDSV%</th>
+                <th class="p-3 text-right">Action</th>
+              </tr>
+            </thead>
+            <tbody id="goalieTableBody" class="divide-y divide-slate-800/50 bg-slate-900/40">
+              <!-- Populated by JavaScript -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- Notification Toast -->
+  <div id="toastNotification" class="fixed bottom-6 right-6 z-50 px-4 py-2.5 rounded-2xl text-xs font-bold shadow-2xl flex items-center gap-2 transition-all duration-300 transform translate-y-10 opacity-0 pointer-events-none"></div>
+
+  <!-- Client-Side Scripts -->
+  <script src="static/js/bundle_data.js"></script>
+  <script src="static/js/master_players.js"></script>
+  <script src="static/js/crease_engine.js"></script>
+  <script src="static/js/telemetry.js"></script>
+
+  <!-- Interactive Studio Orchestrator Script -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      let activeGoalie = window.CreaseEngine.benchmarks[0]; // Trey Augustine default
+      let allGoaliesList = window.CreaseEngine.getAllGoalies();
+      let currentShooterX = 0;
+      let currentShooterY = 18; // 18 ft low slot
+      let currentDepth = 2.5; // 2.5 ft top of crease
+      let currentSealMode = "rvh";
+
+      // 1. Populate Goalie Dropdown
+      const quickSelect = document.getElementById("quickGoalieSelect");
+      window.CreaseEngine.benchmarks.forEach(g => {
+        const opt = document.createElement("option");
+        opt.value = g.id;
+        opt.textContent = `${g.name} (${g.team} • ${g.league})`;
+        quickSelect.appendChild(opt);
+      });
+
+      quickSelect.addEventListener("change", (e) => {
+        const sel = allGoaliesList.find(g => g.id === e.target.value) || window.CreaseEngine.benchmarks.find(g => g.id === e.target.value);
+        if (sel) {
+          activeGoalie = sel;
+          renderDossier();
+          recalculateGeometry();
+          recalculateTandem();
+        }
+      });
+
+      // 2. Populate Shootout Snipers
+      const sniperSelect = document.getElementById("shootoutSniperSelect");
+      window.CreaseEngine.snipers.forEach(s => {
+        const opt = document.createElement("option");
+        opt.value = s.name;
+        opt.textContent = `${s.name} (${s.team} • Rating ${s.rating})`;
+        sniperSelect.appendChild(opt);
+      });
+
+      // 3. Post Seal Mode Buttons
+      document.querySelectorAll(".post-seal-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          document.querySelectorAll(".post-seal-btn").forEach(b => {
+            b.classList.remove("bg-sky-600", "text-white");
+            b.classList.add("text-slate-400");
+          });
+          btn.classList.add("bg-sky-600", "text-white");
+          btn.classList.remove("text-slate-400");
+          currentSealMode = btn.dataset.mode;
+          recalculateGeometry();
+        });
+      });
+
+      // 4. Shooter Preset Buttons
+      document.querySelectorAll(".preset-shooter-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          document.querySelectorAll(".preset-shooter-btn").forEach(b => b.classList.remove("border-sky-500", "text-sky-300", "active"));
+          btn.classList.add("border-sky-500", "text-sky-300", "active");
+          currentShooterX = parseFloat(btn.dataset.x);
+          currentShooterY = parseFloat(btn.dataset.y);
+          recalculateGeometry();
+        });
+      });
+
+      // 5. Crease Depth Slider
+      const depthSlider = document.getElementById("depthSlider");
+      depthSlider.addEventListener("input", (e) => {
+        currentDepth = parseFloat(e.target.value);
+        const depthLabel = document.getElementById("depthLabel");
+        if (currentDepth <= 0.5) depthLabel.textContent = `${currentDepth.toFixed(1)} ft (Goal Line)`;
+        else if (currentDepth < 3.0) depthLabel.textContent = `${currentDepth.toFixed(1)} ft (Inner Paint)`;
+        else if (currentDepth <= 3.5) depthLabel.textContent = `${currentDepth.toFixed(1)} ft (Top Arc)`;
+        else depthLabel.textContent = `${currentDepth.toFixed(1)} ft (Aggressive Challenge)`;
+        recalculateGeometry();
+      });
+
+      // 6. Tandem Starts Slider
+      const tandemSlider = document.getElementById("starterStartsSlider");
+      tandemSlider.addEventListener("input", (e) => {
+        recalculateTandem();
+      });
+
+      // 7. Shootout Breakaway Duel
+      document.getElementById("runShootoutBtn").addEventListener("click", () => {
+        const sniper = window.CreaseEngine.snipers.find(s => s.name === sniperSelect.value);
+        if (!sniper) return;
+        const result = window.CreaseEngine.runShootoutAttempt(sniper, activeGoalie);
+        const box = document.getElementById("shootoutResultBox");
+        
+        box.innerHTML = `
+          <div class="flex items-center justify-between">
+            <span class="text-[10px] font-bold uppercase tracking-wider ${result.isGoal ? 'text-rose-400' : 'text-emerald-400'}">
+              ${result.isGoal ? '🚨 GOAL SCORED' : '🛑 SHUTDOWN SAVE'}
+            </span>
+            <span class="text-[10px] text-slate-500">${result.probabilityPct}% Goal Probability</span>
+          </div>
+          <p class="text-xs font-semibold text-white mt-1">${result.message}</p>
+          <div class="text-[10px] text-slate-400 mt-1">
+            Move: <span class="text-sky-300">${result.move}</span> (${result.moveType})
+          </div>
+        `;
+      });
+
+      // 8. Broadcast to The Wire
+      document.getElementById("broadcastGoalieBtn").addEventListener("click", () => {
+        const geom = window.CreaseEngine.calculateShotGeometry(currentShooterX, currentShooterY, currentDepth, currentSealMode);
+        window.CreaseEngine.broadcastCreaseScoutingReport(activeGoalie, geom);
+        showToast(`📡 Broadcasted ${activeGoalie.name}'s Crease Dossier to The Wire!`);
+      });
+
+      // 9. Goalie Directory Table & Search Filter
+      const searchInput = document.getElementById("goalieSearchInput");
+      searchInput.addEventListener("input", renderGoalieTable);
+
+      document.querySelectorAll(".goalie-filter-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          document.querySelectorAll(".goalie-filter-btn").forEach(b => {
+            b.classList.remove("bg-sky-600", "text-white", "active");
+            b.classList.add("bg-slate-900", "text-slate-400");
+          });
+          btn.classList.add("bg-sky-600", "text-white", "active");
+          btn.classList.remove("bg-slate-900", "text-slate-400");
+          renderGoalieTable();
+        });
+      });
+
+      // ==========================================
+      // CORE LOGIC FUNCTIONS
+      // ==========================================
+
+      function recalculateGeometry() {
+        const stats = window.CreaseEngine.calculateShotGeometry(currentShooterX, currentShooterY, currentDepth, currentSealMode);
+        
+        // Update Quadrant Displays
+        document.getElementById("expGloveHigh").textContent = stats.quadrants.gloveHigh;
+        document.getElementById("expBlockerHigh").textContent = stats.quadrants.blockerHigh;
+        document.getElementById("expGloveLow").textContent = stats.quadrants.gloveLow;
+        document.getElementById("expBlockerLow").textContent = stats.quadrants.blockerLow;
+        document.getElementById("expFiveHole").textContent = stats.quadrants.fiveHole;
+
+        // Diagnostic text & Ear hole warning
+        document.getElementById("postSealDiagnosticText").textContent = stats.postSealNote;
+        const earHole = document.getElementById("earHoleWarning");
+        if (stats.isShortSideVulnerable) {
+          earHole.classList.remove("hidden");
+        } else {
+          earHole.classList.add("hidden");
+        }
+
+        // xG and Net Coverage Stats
+        document.getElementById("computedXgBadge").textContent = `xG: ${stats.computedXg}`;
+        document.getElementById("statTotalCovered").textContent = `${stats.totalCoveragePct}%`;
+        document.getElementById("statTotalOpen").textContent = `${stats.totalOpenSqIn} sq in`;
+        document.getElementById("statReleaseAngle").textContent = `${stats.shotAngleDeg}° (${stats.distToCenterFt}ft)`;
+      }
+
+      function recalculateTandem() {
+        const starterStarts = parseInt(tandemSlider.value, 10);
+        const starterBaseSv = parseFloat(activeGoalie.svPct) || 0.920;
+        const backupBaseSv = 0.908;
+        const result = window.CreaseEngine.simulateTandemWorkload(starterStarts, starterBaseSv, backupBaseSv);
+
+        document.getElementById("starterStartsDisplay").textContent = `${result.starterStarts} Starts (Backup: ${result.backupStarts})`;
+        document.getElementById("tandemStarterSv").textContent = result.starterEffectiveSv;
+        document.getElementById("tandemBackupSv").textContent = result.backupEffectiveSv;
+        document.getElementById("tandemTeamGaa").textContent = result.teamGaa;
+        document.getElementById("tandemProjectedPts").textContent = `${result.projectedPoints} pts`;
+
+        const pill = document.getElementById("tandemRiskPill");
+        if (result.starterStarts > 62) {
+          pill.className = "text-[10px] font-mono font-bold px-2.5 py-1 rounded-full bg-rose-500/20 text-rose-300";
+          pill.textContent = "HEAVY FATIGUE RISK";
+        } else if (result.starterStarts < 45) {
+          pill.className = "text-[10px] font-mono font-bold px-2.5 py-1 rounded-full bg-indigo-500/20 text-indigo-300";
+          pill.textContent = "TIMESHARE ROTATION";
+        } else {
+          pill.className = "text-[10px] font-mono font-bold px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-300";
+          pill.textContent = "OPTIMAL WORKLOAD";
+        }
+      }
+
+      function renderDossier() {
+        document.getElementById("dossierName").textContent = activeGoalie.name;
+        document.getElementById("dossierTeam").textContent = `${activeGoalie.team} • ${activeGoalie.league}`;
+        document.getElementById("dossierDraft").textContent = activeGoalie.draftStatus;
+        document.getElementById("dossierTier").textContent = activeGoalie.tier;
+        document.getElementById("dossierHeight").textContent = activeGoalie.height;
+        document.getElementById("dossierWeight").textContent = `${activeGoalie.weight} lbs`;
+        document.getElementById("dossierCatches").textContent = activeGoalie.catches === "L" ? "Left" : "Right";
+        document.getElementById("dossierAge").textContent = activeGoalie.age;
+
+        document.getElementById("dossierGsax").textContent = activeGoalie.gsax;
+        document.getElementById("dossierHdsv").textContent = activeGoalie.hdsvPct;
+        document.getElementById("dossierFreeze").textContent = activeGoalie.freezeRate;
+
+        document.getElementById("dossierRvhEfficiency").textContent = activeGoalie.rvhSealEfficiency;
+        document.getElementById("dossierRvhBar").style.width = activeGoalie.rvhSealEfficiency;
+
+        document.getElementById("dossierReboundScore").textContent = `${activeGoalie.reboundScore} / 100`;
+        document.getElementById("dossierReboundBar").style.width = `${activeGoalie.reboundScore}%`;
+
+        document.getElementById("dossierRecoverySpeed").textContent = activeGoalie.recoverySpeed;
+        const recPct = Math.min(Math.max(Math.round((0.35 - parseFloat(activeGoalie.recoverySpeed)) * 350), 60), 98);
+        document.getElementById("dossierRecoveryBar").style.width = `${recPct}%`;
+
+        document.getElementById("dossierNotes").textContent = `"${activeGoalie.notes}"`;
+      }
+
+      function renderGoalieTable() {
+        const tbody = document.getElementById("goalieTableBody");
+        const query = (searchInput.value || "").toLowerCase().trim();
+        const activeFilter = document.querySelector(".goalie-filter-btn.active")?.dataset.filter || "all";
+
+        let filtered = allGoaliesList.filter(g => {
+          const matchQuery = !query || g.name.toLowerCase().includes(query) || g.team.toLowerCase().includes(query) || g.draftStatus.toLowerCase().includes(query);
+          if (!matchQuery) return false;
+
+          if (activeFilter === "ncaa") return g.league.includes("NCAA");
+          if (activeFilter === "pro") return g.league.includes("NHL");
+          if (activeFilter === "drafted") return !g.draftStatus.includes("Undrafted");
+          return true;
+        });
+
+        tbody.innerHTML = filtered.slice(0, 40).map(g => `
+          <tr class="hover:bg-slate-800/50 transition">
+            <td class="p-3">
+              <div class="font-bold text-white">${g.name}</div>
+              <div class="text-[10px] text-slate-500">${g.height} • ${g.weight} lbs • Catches ${g.catches}</div>
+            </td>
+            <td class="p-3">
+              <div class="text-sky-300 font-semibold">${g.team}</div>
+              <div class="text-[10px] text-slate-400">${g.league}</div>
+            </td>
+            <td class="p-3 text-slate-300 text-[11px]">${g.draftStatus}</td>
+            <td class="p-3 font-bold text-emerald-400">${g.gsax}</td>
+            <td class="p-3 font-semibold text-sky-400">${g.svPct}</td>
+            <td class="p-3 text-amber-300">${g.hdsvPct}</td>
+            <td class="p-3 text-right">
+              <button class="load-goalie-btn px-2.5 py-1 rounded-lg bg-sky-600/30 hover:bg-sky-600 text-sky-300 hover:text-white border border-sky-500/40 text-[10px] font-bold transition" data-id="${g.id}">
+                Select
+              </button>
+            </td>
+          </tr>
+        `).join("");
+
+        // Add event listeners to table select buttons
+        document.querySelectorAll(".load-goalie-btn").forEach(btn => {
+          btn.addEventListener("click", () => {
+            const sel = allGoaliesList.find(g => g.id === btn.dataset.id);
+            if (sel) {
+              activeGoalie = sel;
+              renderDossier();
+              recalculateGeometry();
+              recalculateTandem();
+              showToast(`🎯 Selected ${sel.name} into Crease Lab!`);
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }
+          });
+        });
+      }
+
+      function showToast(msg) {
+        const toast = document.getElementById("toastNotification");
+        toast.textContent = msg;
+        toast.className = "fixed bottom-6 right-6 z-50 px-4 py-2.5 rounded-2xl text-xs font-bold shadow-2xl flex items-center gap-2 bg-sky-600 text-white transition-all duration-300 transform translate-y-0 opacity-100";
+        setTimeout(() => {
+          toast.className = "fixed bottom-6 right-6 z-50 px-4 py-2.5 rounded-2xl text-xs font-bold shadow-2xl flex items-center gap-2 transition-all duration-300 transform translate-y-10 opacity-0 pointer-events-none";
+        }, 2800);
+      }
+
+      // Initial Render
+      renderDossier();
+      recalculateGeometry();
+      recalculateTandem();
+      renderGoalieTable();
+    });
+  </script>
+
+  <!-- Service Worker Registration for Offline Rinkside PWA -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js').then(reg => {
+          console.log('BlueLine Crease Lab Service Worker registered:', reg.scope);
+          const pill = document.getElementById('pwaStatusPill');
+          if (pill) pill.textContent = '⚡ Rinkside Offline Ready';
+        }).catch(err => {
+          console.warn('Service Worker registration skipped:', err);
+        });
+      });
+    }
+  </script>
+
+</body>
+</html>
