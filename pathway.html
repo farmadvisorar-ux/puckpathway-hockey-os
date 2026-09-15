@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-slate-950 text-slate-100">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lifelong Athlete Pathway & Career Trajectory Studio | BlueLine DataWorks</title>
+  
+  <!-- SEO & Social Meta -->
+  <meta name="description" content="BlueLine DataWorks is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory. Explore the 5-stage career ladder, NCAA vs CHL crossroads, Monte Carlo career longevity simulator, and superstar precedent benchmarks.">
+  <meta name="keywords" content="hockey player development pathway, NCAA vs CHL, lifelong hockey tracking, USHL to NHL, hockey career trajectory simulator, BlueLine DataWorks">
+  <meta property="og:title" content="Lifelong Athlete Pathway & Career Trajectory Studio | BlueLine DataWorks">
+  <meta property="og:description" content="Interactive 5-stage player development ladder, NCAA vs CHL crossroads calculator, and Monte Carlo career longevity simulator.">
+  <meta property="og:type" content="website">
+
+  <!-- PWA Manifest & Icons -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#10b981">
+  <link rel="apple-touch-icon" href="static/icons/icon-192.png">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Font Awesome Pro/Free CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Google Fonts Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            brand: {
+              gold: '#f59e0b',
+              ice: '#38bdf8',
+              navy: '#0f172a',
+              path: '#10b981',
+              red: '#ef4444'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #020617;
+    }
+    .glass-panel {
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #090d16;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #1e293b;
+      border-radius: 9999px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: #334155;
+    }
+    .stage-card {
+      transition: all 0.25s ease-in-out;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-emerald-500 selection:text-white">
+
+  <!-- Top Enterprise Header Navigation Bar (Unified 17-Module Ecosystem) -->
+  <header class="sticky top-0 z-50 glass-panel border-b border-slate-800/80 bg-slate-950/90">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+      
+      <!-- Brand Logo & Title -->
+      <div class="flex items-center gap-3">
+        <a href="index.html" class="flex items-center gap-2.5 group">
+          <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-emerald-500 via-teal-400 to-sky-600 p-0.5 shadow-lg shadow-emerald-500/20 group-hover:scale-105 transition duration-200">
+            <div class="w-full h-full bg-slate-950 rounded-[14px] flex items-center justify-center">
+              <span class="text-xl">🛣️</span>
+            </div>
+          </div>
+          <div>
+            <div class="flex items-center gap-1.5">
+              <span class="font-extrabold text-sm sm:text-base tracking-tight text-white group-hover:text-emerald-400 transition">BlueLine</span>
+              <span class="text-[10px] uppercase font-mono tracking-widest px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-bold">Pathway</span>
+            </div>
+            <p class="text-[10px] text-slate-400 hidden sm:block">Lifelong Career Trajectory Studio</p>
+          </div>
+        </a>
+      </div>
+
+      <!-- Unified 17-Module Navigation Pills -->
+      <div class="flex items-center gap-1 sm:gap-1.5 overflow-x-auto py-1 max-w-[66%] sm:max-w-none text-xs font-mono custom-scrollbar">
+        <a href="index.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>🏒</span> <span class="hidden md:inline">Main OS</span>
+        </a>
+        <a href="database.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-sky-400 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>📊</span> <span class="hidden md:inline">Directory</span>
+        </a>
+        <a href="scoreboard.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-rose-300 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>📡</span> <span class="hidden md:inline">Game Center</span>
+        </a>
+        <a href="rink3d.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-sky-300 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>🧊</span> <span class="hidden md:inline">3D Rink</span>
+        </a>
+        <a href="film.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-cyan-300 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>🎬</span> <span class="hidden md:inline">Film Studio</span>
+        </a>
+        <a href="portal.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-amber-300 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>⚡</span> <span class="hidden md:inline">Portal & NIL</span>
+        </a>
+        <a href="draft.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>🎯</span> <span class="hidden md:inline">Draft Room</span>
+        </a>
+        <a href="combine.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-amber-300 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>🧬</span> <span class="hidden md:inline">Combine Lab</span>
+        </a>
+        <a href="caplab.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-emerald-400 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>💼</span> <span class="hidden md:inline">Cap Lab</span>
+        </a>
+        <a href="tournament.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-amber-400 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>🏆</span> <span class="hidden md:inline">Tournaments</span>
+        </a>
+        <a href="tactics.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-sky-400 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>📋</span> <span class="hidden md:inline">Tactics</span>
+        </a>
+        <a href="compare.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-sky-400 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>⚖️</span> <span class="hidden md:inline">Compare</span>
+        </a>
+        <a href="international.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-rose-300 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>🌍</span> <span class="hidden md:inline">International</span>
+        </a>
+        <a href="crease.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-sky-300 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>🥅</span> <span class="hidden md:inline">Crease Lab</span>
+        </a>
+        <a href="pathway.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-bold border border-emerald-400/50 shadow-md shadow-emerald-500/20 flex items-center gap-1">
+          <span>🛣️</span> <span class="hidden md:inline">Pathway</span>
+        </a>
+        <a href="community.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>🌐</span> <span class="hidden md:inline">The Wire</span>
+        </a>
+        <a href="agents.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-emerald-400 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>🤖</span> <span class="hidden md:inline">Swarm</span>
+        </a>
+      </div>
+
+    </div>
+
+    <!-- Mandatory Lifelong Tracking Mission Statement Banner -->
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-2 border-t border-slate-800/80 bg-slate-950/90 flex flex-wrap items-center justify-between gap-2 text-xs">
+      <div class="flex items-center gap-2 min-w-0">
+        <span class="px-2 py-0.5 rounded-md bg-emerald-500/20 text-emerald-300 font-mono text-[10px] font-bold shrink-0">MISSION</span>
+        <p class="text-[11px] text-slate-400 truncate">
+          BlueLine DataWorks is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory.
+        </p>
+      </div>
+      <div class="flex items-center gap-2 shrink-0">
+        <span id="pwaStatusPill" class="text-[10px] font-mono text-emerald-400 bg-emerald-950/60 border border-emerald-800/50 px-2 py-0.5 rounded-full">⚡ Rinkside Offline Ready</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Pathway Studio Workspace -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 py-6 space-y-6">
+
+    <!-- Hero Strip -->
+    <div class="glass-panel p-5 sm:p-6 rounded-3xl relative overflow-hidden border border-slate-800">
+      <div class="absolute -right-20 -top-20 w-80 h-80 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-5 relative z-10">
+        
+        <div class="space-y-1.5">
+          <div class="flex items-center gap-2">
+            <span class="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-mono font-bold">LIFELONG CAREER ARCHITECTURE</span>
+            <span class="text-xs text-slate-500">•</span>
+            <span class="text-xs text-slate-400 font-mono">Bantam (14U) to NHL Prime</span>
+          </div>
+          <h1 class="text-2xl sm:text-3xl font-black tracking-tight text-white flex items-center gap-3">
+            <span>Lifelong Athlete Pathway & Trajectory Studio</span>
+          </h1>
+          <p class="text-xs sm:text-sm text-slate-400 max-w-3xl leading-relaxed">
+            Navigate the 5 developmental stages of hockey progression, calculate the strategic NCAA vs Major Junior (CHL) crossroads, simulate Monte Carlo career longevity, and benchmark against historical superstar precedent curves.
+          </p>
+        </div>
+
+        <!-- Action Button -->
+        <button id="broadcastPathwayBtn" class="px-4 py-2.5 rounded-2xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white text-xs font-bold shadow-lg shadow-emerald-600/30 transition flex items-center gap-2 shrink-0">
+          <i class="fa-solid fa-satellite-dish"></i> Broadcast Pathway Dossier
+        </button>
+
+      </div>
+    </div>
+
+    <!-- PANEL A: THE 5-STAGE INTERACTIVE PROGRESSION LADDER -->
+    <div class="glass-panel p-5 sm:p-6 rounded-3xl border border-slate-800 space-y-5">
+      
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-b border-slate-800 pb-4">
+        <div>
+          <h2 class="text-base font-bold text-white flex items-center gap-2">
+            <i class="fa-solid fa-stairs text-emerald-400"></i> The 5-Stage Career Progression Ladder
+          </h2>
+          <p class="text-xs text-slate-400">Select any stage to inspect age milestones, athletic training ratios, and regulatory guidelines</p>
+        </div>
+        <span class="text-[11px] font-mono text-emerald-400 bg-emerald-950/60 border border-emerald-800/40 px-3 py-1 rounded-full">
+          Click Stage to Inspect Details
+        </span>
+      </div>
+
+      <!-- Stage Selector Tabs -->
+      <div class="grid grid-cols-2 sm:grid-cols-5 gap-2.5 font-mono text-xs">
+        <button class="stage-tab-btn p-3 rounded-2xl bg-emerald-600 text-white font-bold text-left transition active" data-stage="stage_1">
+          <div class="text-[10px] text-emerald-200">STAGE 1</div>
+          <div class="text-sm font-black mt-0.5">🌱 Youth AAA</div>
+          <div class="text-[10px] text-emerald-200/80 mt-1">Ages 12 – 14</div>
+        </button>
+
+        <button class="stage-tab-btn p-3 rounded-2xl bg-slate-900 border border-slate-800 text-slate-300 font-bold text-left hover:border-slate-700 transition" data-stage="stage_2">
+          <div class="text-[10px] text-slate-500">STAGE 2</div>
+          <div class="text-sm font-black mt-0.5">⚡ Junior Tier 1/2</div>
+          <div class="text-[10px] text-slate-500 mt-1">Ages 15 – 17</div>
+        </button>
+
+        <button class="stage-tab-btn p-3 rounded-2xl bg-slate-900 border border-slate-800 text-slate-300 font-bold text-left hover:border-slate-700 transition" data-stage="stage_3">
+          <div class="text-[10px] text-slate-500">STAGE 3</div>
+          <div class="text-sm font-black mt-0.5">⚖️ Crossroads</div>
+          <div class="text-[10px] text-slate-500 mt-1">NCAA vs CHL</div>
+        </button>
+
+        <button class="stage-tab-btn p-3 rounded-2xl bg-slate-900 border border-slate-800 text-slate-300 font-bold text-left hover:border-slate-700 transition" data-stage="stage_4">
+          <div class="text-[10px] text-slate-500">STAGE 4</div>
+          <div class="text-sm font-black mt-0.5">🎯 Draft & ELC</div>
+          <div class="text-[10px] text-slate-500 mt-1">Ages 18 – 21</div>
+        </button>
+
+        <button class="stage-tab-btn p-3 rounded-2xl bg-slate-900 border border-slate-800 text-slate-300 font-bold text-left hover:border-slate-700 transition" data-stage="stage_5">
+          <div class="text-[10px] text-slate-500">STAGE 5</div>
+          <div class="text-sm font-black mt-0.5">🏆 Pro Prime</div>
+          <div class="text-[10px] text-slate-500 mt-1">Ages 22 – 35+</div>
+        </button>
+      </div>
+
+      <!-- Active Stage Detailed Card -->
+      <div id="stageDetailContainer" class="p-5 sm:p-6 rounded-2xl bg-slate-950/60 border border-slate-800 space-y-5">
+        <!-- Rendered by JavaScript -->
+      </div>
+
+    </div>
+
+    <!-- PANEL B: THE CROSSROADS — NCAA VS MAJOR JUNIOR (CHL) -->
+    <div class="glass-panel p-5 sm:p-6 rounded-3xl border border-slate-800 space-y-5">
+      
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-b border-slate-800 pb-4">
+        <div>
+          <h2 class="text-base font-bold text-white flex items-center gap-2">
+            <i class="fa-solid fa-code-compare text-sky-400"></i> The Strategic Crossroads: NCAA D1 vs Major Junior (CHL)
+          </h2>
+          <p class="text-xs text-slate-400">Comprehensive head-to-head comparison of collegiate development and Canadian Major Junior</p>
+        </div>
+        <span class="text-[10px] font-mono text-sky-300 bg-sky-950/60 border border-sky-800/40 px-2.5 py-1 rounded-full">
+          Harmonized for 2025–2026 Regulations
+        </span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+        
+        <!-- NCAA College Route Column -->
+        <div class="p-5 rounded-2xl bg-slate-900/60 border border-emerald-500/30 space-y-4">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-mono font-bold text-emerald-400 uppercase tracking-wider">Collegiate Development</span>
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-bold">NCAA D1</span>
+          </div>
+          <h3 class="text-lg font-black text-white">The NCAA Collegiate Route</h3>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            Characterized by a 34–40 game schedule, leaving Monday through Thursday dedicated to intense weight training, physical maturation, and academic degree completion.
+          </p>
+          
+          <div class="space-y-2 text-xs font-mono">
+            <div class="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800">
+              <span class="text-slate-500 block text-[10px]">GAMES & SCHEDULE</span>
+              <span class="text-slate-200 font-bold">34 – 40 games (Friday/Saturday series)</span>
+            </div>
+            <div class="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800">
+              <span class="text-slate-500 block text-[10px]">WEIGHT ROOM DEVELOPMENT</span>
+              <span class="text-emerald-400 font-bold">8 – 12 hrs weekly with D1 strength staff</span>
+            </div>
+            <div class="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800">
+              <span class="text-slate-500 block text-[10px]">NIL EARNING POTENTIAL</span>
+              <span class="text-amber-400 font-bold">$35,000 – $350,000+ annually for stars</span>
+            </div>
+            <div class="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800">
+              <span class="text-slate-500 block text-[10px]">NHL DRAFT RIGHTS HOLD</span>
+              <span class="text-sky-300 font-bold">Up to 4 years (until August 15 graduation)</span>
+            </div>
+            <div class="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800">
+              <span class="text-slate-500 block text-[10px]">PROMINENT ALUMNI</span>
+              <span class="text-white">Cale Makar, Adam Fox, Quinn Hughes, Macklin Celebrini</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Major Junior CHL Route Column -->
+        <div class="p-5 rounded-2xl bg-slate-900/60 border border-rose-500/30 space-y-4">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-mono font-bold text-rose-400 uppercase tracking-wider">Major Junior Pro Prep</span>
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-rose-500/20 text-rose-300 font-bold">OHL / WHL / QMJHL</span>
+          </div>
+          <h3 class="text-lg font-black text-white">Major Junior (CHL)</h3>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            Characterized by a grueling 68-game schedule plus deep playoffs, mirroring the exact travel tempo, bus leagues, and daily game grind of the AHL and NHL.
+          </p>
+          
+          <div class="space-y-2 text-xs font-mono">
+            <div class="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800">
+              <span class="text-slate-500 block text-[10px]">GAMES & SCHEDULE</span>
+              <span class="text-slate-200 font-bold">68 games + playoffs (3 games in 4 nights)</span>
+            </div>
+            <div class="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800">
+              <span class="text-slate-500 block text-[10px]">WEIGHT ROOM DEVELOPMENT</span>
+              <span class="text-slate-300 font-bold">3 – 5 hrs weekly (maintenance & game recovery)</span>
+            </div>
+            <div class="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800">
+              <span class="text-slate-500 block text-[10px]">FINANCIAL & STIPEND</span>
+              <span class="text-amber-400 font-bold">Weekly player stipend + CHL scholarship fund</span>
+            </div>
+            <div class="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800">
+              <span class="text-slate-500 block text-[10px]">NHL DRAFT RIGHTS HOLD</span>
+              <span class="text-rose-300 font-bold">2 years to sign before re-entering draft</span>
+            </div>
+            <div class="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800">
+              <span class="text-slate-500 block text-[10px]">PROMINENT ALUMNI</span>
+              <span class="text-white">Connor McDavid, Nathan MacKinnon, Connor Bedard</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- PANEL C & D: MONTE CARLO SIMULATOR & SUPERSTAR PRECEDENTS -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+      <!-- PANEL C: MONTE CARLO CAREER LONGEVITY SIMULATOR (6 COLS) -->
+      <div class="lg:col-span-6 glass-panel p-5 sm:p-6 rounded-3xl border border-slate-800 space-y-5">
+        
+        <div class="border-b border-slate-800 pb-3">
+          <h3 class="text-base font-bold text-white flex items-center gap-2">
+            <i class="fa-solid fa-calculator text-emerald-400"></i> Monte Carlo Career Simulator
+          </h3>
+          <p class="text-xs text-slate-400">Adjust athlete evaluation attributes to simulate career probabilities & earnings</p>
+        </div>
+
+        <!-- Sliders -->
+        <div class="space-y-3 bg-slate-950/60 p-4 rounded-2xl border border-slate-800/80 text-xs font-mono">
+          
+          <div>
+            <div class="flex justify-between mb-1">
+              <span class="text-slate-300">Skating Mechanics & Edge Velocity</span>
+              <span id="skatingVal" class="text-emerald-400 font-bold">88</span>
+            </div>
+            <input id="skatingSlider" type="range" min="50" max="99" value="88" class="w-full h-1.5 bg-slate-900 rounded-lg appearance-none cursor-pointer accent-emerald-500">
+          </div>
+
+          <div>
+            <div class="flex justify-between mb-1">
+              <span class="text-slate-300">Hockey IQ & Spatial Vision</span>
+              <span id="iqVal" class="text-sky-400 font-bold">92</span>
+            </div>
+            <input id="iqSlider" type="range" min="50" max="99" value="92" class="w-full h-1.5 bg-slate-900 rounded-lg appearance-none cursor-pointer accent-sky-500">
+          </div>
+
+          <div>
+            <div class="flex justify-between mb-1">
+              <span class="text-slate-300">Physicality & Frame Maturity</span>
+              <span id="physVal" class="text-amber-400 font-bold">78</span>
+            </div>
+            <input id="physSlider" type="range" min="50" max="99" value="78" class="w-full h-1.5 bg-slate-900 rounded-lg appearance-none cursor-pointer accent-amber-500">
+          </div>
+
+          <div>
+            <div class="flex justify-between mb-1">
+              <span class="text-slate-300">Compete Level & Wall Battle Motor</span>
+              <span id="competeVal" class="text-purple-400 font-bold">85</span>
+            </div>
+            <input id="competeSlider" type="range" min="50" max="99" value="85" class="w-full h-1.5 bg-slate-900 rounded-lg appearance-none cursor-pointer accent-purple-500">
+          </div>
+
+        </div>
+
+        <!-- Simulation Projections Grid -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 text-center">
+          <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800">
+            <span class="text-[9px] font-mono text-slate-500 block">NCAA D1 ODDS</span>
+            <span id="simNcaa" class="text-base font-mono font-black text-emerald-400">82%</span>
+          </div>
+          <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800">
+            <span class="text-[9px] font-mono text-slate-500 block">NHL DRAFT ODDS</span>
+            <span id="simDraft" class="text-base font-mono font-black text-sky-400">68%</span>
+          </div>
+          <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800">
+            <span class="text-[9px] font-mono text-slate-500 block">100+ NHL GAMES</span>
+            <span id="simGames100" class="text-base font-mono font-black text-indigo-400">46%</span>
+          </div>
+          <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800">
+            <span class="text-[9px] font-mono text-slate-500 block">EST. EARNINGS</span>
+            <span id="simEarnings" class="text-base font-mono font-black text-amber-400">$22.0M</span>
+          </div>
+        </div>
+
+        <!-- Recommended Trajectory Route Verdict -->
+        <div class="p-3.5 rounded-2xl bg-slate-950/80 border border-slate-800 space-y-1 text-xs">
+          <div class="flex items-center justify-between text-[11px] font-mono">
+            <span class="text-slate-400 uppercase font-bold">Scout Recommendation</span>
+            <span id="simArchetype" class="text-emerald-400 font-bold">Middle-6 Dynamic Contender</span>
+          </div>
+          <p id="simRecommendation" class="text-slate-300 leading-relaxed">
+            NCAA Route (High-volume strength & physical maturation prioritizes frame development).
+          </p>
+        </div>
+
+      </div>
+
+      <!-- PANEL D: SUPERSTAR DEVELOPMENTAL PRECEDENTS (6 COLS) -->
+      <div class="lg:col-span-6 glass-panel p-5 sm:p-6 rounded-3xl border border-slate-800 space-y-4">
+        
+        <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+          <div>
+            <h3 class="text-base font-bold text-white flex items-center gap-2">
+              <i class="fa-solid fa-medal text-amber-400"></i> Superstar Precedent Case Studies
+            </h3>
+            <p class="text-xs text-slate-400">How modern generational NHL stars navigated their amateur milestones</p>
+          </div>
+          
+          <select id="superstarSelect" class="bg-slate-900 border border-slate-700 text-xs font-bold text-white rounded-xl px-2.5 py-1 focus:outline-none">
+            <!-- Populated by JavaScript -->
+          </select>
+        </div>
+
+        <!-- Superstar Precedent Display Card -->
+        <div id="superstarCard" class="space-y-4">
+          <!-- Rendered by JavaScript -->
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- Notification Toast -->
+  <div id="toastNotification" class="fixed bottom-6 right-6 z-50 px-4 py-2.5 rounded-2xl text-xs font-bold shadow-2xl flex items-center gap-2 transition-all duration-300 transform translate-y-10 opacity-0 pointer-events-none"></div>
+
+  <!-- Client-Side Scripts -->
+  <script src="static/js/bundle_data.js"></script>
+  <script src="static/js/master_players.js"></script>
+  <script src="static/js/pathway_engine.js"></script>
+  <script src="static/js/telemetry.js"></script>
+
+  <!-- Orchestrator Script -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      let activeStageId = "stage_1";
+
+      // 1. Render Stage Detail
+      function renderStage(stageId) {
+        const stage = window.PathwayEngine.stages.find(s => s.id === stageId) || window.PathwayEngine.stages[0];
+        const container = document.getElementById("stageDetailContainer");
+
+        container.innerHTML = `
+          <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-b border-slate-800 pb-4">
+            <div class="flex items-center gap-3">
+              <span class="text-3xl">${stage.icon}</span>
+              <div>
+                <h3 class="text-lg font-black text-white">${stage.title}</h3>
+                <p class="text-xs text-emerald-400 font-mono font-bold">${stage.ageRange}</p>
+              </div>
+            </div>
+            <span class="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 font-mono text-xs font-bold">${stage.badge}</span>
+          </div>
+
+          <p class="text-xs text-slate-300 leading-relaxed"><span class="font-bold text-white">Strategic Objective:</span> ${stage.focus}</p>
+
+          <!-- Key Metrics Grid -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs font-mono">
+            <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800">
+              <span class="text-[10px] text-slate-500 block uppercase">Weekly Ice Time</span>
+              <span class="text-slate-200 font-bold">${stage.keyMetrics.iceHoursWeekly || stage.keyMetrics.elcSalaryCeiling || stage.keyMetrics.peakPerformanceAge}</span>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800">
+              <span class="text-[10px] text-slate-500 block uppercase">Practice/Game Ratio</span>
+              <span class="text-emerald-400 font-bold">${stage.keyMetrics.practiceGameRatio || stage.keyMetrics.slideRule || stage.keyMetrics.averageCareerLength}</span>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800">
+              <span class="text-[10px] text-slate-500 block uppercase">Dryland & Athleticism</span>
+              <span class="text-sky-300 font-bold">${stage.keyMetrics.drylandFocus || stage.keyMetrics.waiverExemption || stage.keyMetrics.contractEfficiency}</span>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800">
+              <span class="text-[10px] text-slate-500 block uppercase">Scouting Evaluation Focus</span>
+              <span class="text-amber-300 font-bold">${stage.keyMetrics.scoutingFocus || stage.keyMetrics.veteranLongevity}</span>
+            </div>
+          </div>
+
+          <!-- Chronological Milestones -->
+          <div class="space-y-2">
+            <h4 class="text-xs font-mono font-bold uppercase tracking-wider text-slate-400">Critical Stage Milestones</h4>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs">
+              ${stage.milestones.map(m => `
+                <div class="p-3 rounded-xl bg-slate-900/50 border border-slate-800/80 flex items-start gap-2">
+                  <span class="px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-mono text-[10px] font-bold shrink-0">${m.age}</span>
+                  <span class="text-slate-300">${m.event}</span>
+                </div>
+              `).join("")}
+            </div>
+          </div>
+
+          <!-- Family & Advisor Guidance -->
+          <div class="p-3.5 rounded-xl bg-emerald-950/30 border border-emerald-800/40 text-xs leading-relaxed flex items-start gap-2.5">
+            <i class="fa-solid fa-compass text-emerald-400 mt-0.5"></i>
+            <p class="text-slate-200"><span class="font-bold text-emerald-300">Advisor Note:</span> ${stage.guidance}</p>
+          </div>
+        `;
+      }
+
+      // Stage Tab Buttons Event
+      document.querySelectorAll(".stage-tab-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          document.querySelectorAll(".stage-tab-btn").forEach(b => {
+            b.classList.remove("bg-emerald-600", "text-white");
+            b.classList.add("bg-slate-900", "text-slate-300");
+          });
+          btn.classList.add("bg-emerald-600", "text-white");
+          btn.classList.remove("bg-slate-900", "text-slate-300");
+          activeStageId = btn.dataset.stage;
+          renderStage(activeStageId);
+        });
+      });
+
+      // 2. Monte Carlo Simulator Logic
+      const skatingSlider = document.getElementById("skatingSlider");
+      const iqSlider = document.getElementById("iqSlider");
+      const physSlider = document.getElementById("physSlider");
+      const competeSlider = document.getElementById("competeSlider");
+
+      function updateSimulation() {
+        const s = parseInt(skatingSlider.value, 10);
+        const q = parseInt(iqSlider.value, 10);
+        const p = parseInt(physSlider.value, 10);
+        const c = parseInt(competeSlider.value, 10);
+
+        document.getElementById("skatingVal").textContent = s;
+        document.getElementById("iqVal").textContent = q;
+        document.getElementById("physVal").textContent = p;
+        document.getElementById("competeVal").textContent = c;
+
+        const res = window.PathwayEngine.simulateCareerTrajectory(s, q, p, c, "Tier 1 AAA");
+
+        document.getElementById("simNcaa").textContent = res.ncaaD1Probability;
+        document.getElementById("simDraft").textContent = res.nhlDraftProbability;
+        document.getElementById("simGames100").textContent = res.games100Probability;
+        document.getElementById("simEarnings").textContent = res.projectedCareerEarnings;
+        document.getElementById("simArchetype").textContent = res.archetype;
+        document.getElementById("simRecommendation").textContent = res.recommendedRoute;
+      }
+
+      [skatingSlider, iqSlider, physSlider, competeSlider].forEach(slider => {
+        slider.addEventListener("input", updateSimulation);
+      });
+
+      // 3. Superstar Precedent Selector
+      const ssSelect = document.getElementById("superstarSelect");
+      window.PathwayEngine.superstars.forEach(ss => {
+        const opt = document.createElement("option");
+        opt.value = ss.name;
+        opt.textContent = `${ss.name} (${ss.position})`;
+        ssSelect.appendChild(opt);
+      });
+
+      function renderSuperstar(name) {
+        const ss = window.PathwayEngine.superstars.find(s => s.name === name) || window.PathwayEngine.superstars[0];
+        const card = document.getElementById("superstarCard");
+
+        card.innerHTML = `
+          <div class="p-4 rounded-2xl bg-slate-950/60 border border-slate-800 space-y-3">
+            <div class="flex items-start justify-between">
+              <div>
+                <h4 class="text-base font-black text-white">${ss.name}</h4>
+                <p class="text-xs text-sky-400 font-mono">${ss.team} • ${ss.position}</p>
+              </div>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-bold">${ss.trophies.split(",")[0]}</span>
+            </div>
+            
+            <div class="text-xs font-mono p-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-300">
+              <span class="text-slate-500 text-[10px] block">LIFELONG DEVELOPMENT PATHWAY:</span>
+              <span class="text-emerald-400 font-bold">${ss.pathSummary}</span>
+            </div>
+
+            <!-- Milestone Timeline -->
+            <div class="space-y-2 text-xs font-mono">
+              ${ss.milestones.map(m => `
+                <div class="p-2.5 rounded-xl bg-slate-900/50 border border-slate-800/80 flex items-center justify-between gap-2">
+                  <span class="text-slate-400 font-bold shrink-0">${m.age}</span>
+                  <span class="text-sky-300 font-semibold truncate">${m.league}</span>
+                  <span class="text-slate-400 text-[11px] text-right truncate max-w-[200px]">${m.stats}</span>
+                </div>
+              `).join("")}
+            </div>
+
+            <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800 text-xs italic text-slate-300">
+              "${ss.lesson}"
+            </div>
+          </div>
+        `;
+      }
+
+      ssSelect.addEventListener("change", (e) => renderSuperstar(e.target.value));
+
+      // 4. Broadcast to The Wire
+      document.getElementById("broadcastPathwayBtn").addEventListener("click", () => {
+        const s = parseInt(skatingSlider.value, 10);
+        const q = parseInt(iqSlider.value, 10);
+        const p = parseInt(physSlider.value, 10);
+        const c = parseInt(competeSlider.value, 10);
+        const sim = window.PathwayEngine.simulateCareerTrajectory(s, q, p, c, "Tier 1 AAA");
+        
+        const payload = {
+          name: "Projected 16U Athlete",
+          tier: "Tier 1 USHL / NCAA Prospect",
+          compositeScore: sim.compositeScore,
+          archetype: sim.archetype,
+          ncaaD1Probability: sim.ncaaD1Probability,
+          nhlDraftProbability: sim.nhlDraftProbability,
+          games100Probability: sim.games100Probability,
+          projectedCareerEarnings: sim.projectedCareerEarnings,
+          recommendedRoute: sim.recommendedRoute
+        };
+
+        window.PathwayEngine.broadcastPathwayDossier(payload);
+        showToast("🛣️ Published Career Pathway Dossier to The BlueLine Wire!");
+      });
+
+      function showToast(msg) {
+        const toast = document.getElementById("toastNotification");
+        toast.textContent = msg;
+        toast.className = "fixed bottom-6 right-6 z-50 px-4 py-2.5 rounded-2xl text-xs font-bold shadow-2xl flex items-center gap-2 bg-emerald-600 text-white transition-all duration-300 transform translate-y-0 opacity-100";
+        setTimeout(() => {
+          toast.className = "fixed bottom-6 right-6 z-50 px-4 py-2.5 rounded-2xl text-xs font-bold shadow-2xl flex items-center gap-2 transition-all duration-300 transform translate-y-10 opacity-0 pointer-events-none";
+        }, 2800);
+      }
+
+      // Initial Render
+      renderStage("stage_1");
+      updateSimulation();
+      renderSuperstar("Cale Makar");
+    });
+  </script>
+
+  <!-- Service Worker Registration for Offline Rinkside PWA -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js').then(reg => {
+          console.log('BlueLine Pathway Service Worker registered:', reg.scope);
+          const pill = document.getElementById('pwaStatusPill');
+          if (pill) pill.textContent = '⚡ Rinkside Offline Ready';
+        }).catch(err => {
+          console.warn('Service Worker registration skipped:', err);
+        });
+      });
+    }
+  </script>
+
+</body>
+</html>
