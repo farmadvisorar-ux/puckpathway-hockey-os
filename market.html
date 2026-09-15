@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-slate-950 text-slate-100">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pro Scouting, Trade Machine & Market War Room | BlueLine DataWorks</title>
+  
+  <!-- SEO & Social Meta -->
+  <meta name="description" content="BlueLine DataWorks is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory. Build multi-team NHL trades with salary retention, draft pick point valuations, RFA offer sheet simulations, and UFA contract forecasting.">
+  <meta name="keywords" content="NHL trade machine, salary retention, draft pick value chart, RFA offer sheet calculator, NHL salary cap, BlueLine DataWorks">
+  <meta property="og:title" content="Pro Scouting, Trade Machine & Market War Room | BlueLine DataWorks">
+  <meta property="og:description" content="Multi-team trade machine with 50% double salary retention, draft pick value points, and RFA offer sheet simulator.">
+  <meta property="og:type" content="website">
+
+  <!-- PWA Manifest & Icons -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#f59e0b">
+  <link rel="apple-touch-icon" href="static/icons/icon-192.png">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Font Awesome Pro/Free CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Google Fonts Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            brand: {
+              gold: '#f59e0b',
+              ice: '#38bdf8',
+              navy: '#0f172a',
+              market: '#f59e0b',
+              emerald: '#10b981',
+              red: '#ef4444'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #020617;
+    }
+    .glass-panel {
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #090d16;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #1e293b;
+      border-radius: 9999px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: #334155;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-amber-500 selection:text-slate-950">
+
+  <!-- Top Enterprise Header Navigation Bar (Unified 18-Module Ecosystem) -->
+  <header class="sticky top-0 z-50 glass-panel border-b border-slate-800/80 bg-slate-950/90">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+      
+      <!-- Brand Logo & Title -->
+      <div class="flex items-center gap-3">
+        <a href="index.html" class="flex items-center gap-2.5 group">
+          <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-amber-500 via-orange-500 to-rose-600 p-0.5 shadow-lg shadow-amber-500/20 group-hover:scale-105 transition duration-200">
+            <div class="w-full h-full bg-slate-950 rounded-[14px] flex items-center justify-center">
+              <span class="text-xl">💼</span>
+            </div>
+          </div>
+          <div>
+            <div class="flex items-center gap-1.5">
+              <span class="font-extrabold text-sm sm:text-base tracking-tight text-white group-hover:text-amber-400 transition">BlueLine</span>
+              <span class="text-[10px] uppercase font-mono tracking-widest px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 font-bold">Trade Desk</span>
+            </div>
+            <p class="text-[10px] text-slate-400 hidden sm:block">Pro Scouting & NHL Market War Room</p>
+          </div>
+        </a>
+      </div>
+
+      <!-- Unified 18-Module Navigation Pills -->
+      <div class="flex items-center gap-1 sm:gap-1.5 overflow-x-auto py-1 max-w-[66%] sm:max-w-none text-xs font-mono custom-scrollbar">
+        <a href="index.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>🏒</span> <span class="hidden md:inline">Main OS</span>
+        </a>
+        <a href="database.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-sky-400 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>📊</span> <span class="hidden md:inline">Directory</span>
+        </a>
+        <a href="scoreboard.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-rose-300 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>📡</span> <span class="hidden md:inline">Game Center</span>
+        </a>
+        <a href="rink3d.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-sky-300 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>🧊</span> <span class="hidden md:inline">3D Rink</span>
+        </a>
+        <a href="film.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-cyan-300 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>🎬</span> <span class="hidden md:inline">Film Studio</span>
+        </a>
+        <a href="portal.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-amber-300 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>⚡</span> <span class="hidden md:inline">Portal & NIL</span>
+        </a>
+        <a href="draft.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>🎯</span> <span class="hidden md:inline">Draft Room</span>
+        </a>
+        <a href="combine.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-amber-300 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>🧬</span> <span class="hidden md:inline">Combine Lab</span>
+        </a>
+        <a href="caplab.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-emerald-400 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>💼</span> <span class="hidden md:inline">Cap Lab</span>
+        </a>
+        <a href="tournament.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-amber-400 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>🏆</span> <span class="hidden md:inline">Tournaments</span>
+        </a>
+        <a href="tactics.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-sky-400 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>📋</span> <span class="hidden md:inline">Tactics</span>
+        </a>
+        <a href="compare.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-sky-400 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>⚖️</span> <span class="hidden md:inline">Compare</span>
+        </a>
+        <a href="international.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-rose-300 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>🌍</span> <span class="hidden md:inline">International</span>
+        </a>
+        <a href="crease.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-sky-300 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>🥅</span> <span class="hidden md:inline">Crease Lab</span>
+        </a>
+        <a href="pathway.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-emerald-300 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>🛣️</span> <span class="hidden md:inline">Pathway</span>
+        </a>
+        <a href="market.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-gradient-to-r from-amber-600 via-orange-600 to-rose-600 text-white font-bold border border-amber-400/50 shadow-md shadow-amber-500/20 flex items-center gap-1">
+          <span>💼</span> <span class="hidden md:inline">Trade Desk</span>
+        </a>
+        <a href="community.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>🌐</span> <span class="hidden md:inline">The Wire</span>
+        </a>
+        <a href="agents.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-emerald-400 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>🤖</span> <span class="hidden md:inline">Swarm</span>
+        </a>
+      </div>
+
+    </div>
+
+    <!-- Mandatory Lifelong Tracking Mission Statement Banner -->
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-2 border-t border-slate-800/80 bg-slate-950/90 flex flex-wrap items-center justify-between gap-2 text-xs">
+      <div class="flex items-center gap-2 min-w-0">
+        <span class="px-2 py-0.5 rounded-md bg-amber-500/20 text-amber-300 font-mono text-[10px] font-bold shrink-0">MISSION</span>
+        <p class="text-[11px] text-slate-400 truncate">
+          BlueLine DataWorks is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory.
+        </p>
+      </div>
+      <div class="flex items-center gap-2 shrink-0">
+        <span id="pwaStatusPill" class="text-[10px] font-mono text-emerald-400 bg-emerald-950/60 border border-emerald-800/50 px-2 py-0.5 rounded-full">⚡ Rinkside Offline Ready</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Trade Desk Workspace -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 py-6 space-y-6">
+
+    <!-- Hero Strip -->
+    <div class="glass-panel p-5 sm:p-6 rounded-3xl relative overflow-hidden border border-slate-800">
+      <div class="absolute -right-20 -top-20 w-80 h-80 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-5 relative z-10">
+        
+        <div class="space-y-1.5">
+          <div class="flex items-center gap-2">
+            <span class="px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 text-xs font-mono font-bold">NHL PRO SCOUTING & TRADE DESK</span>
+            <span class="text-xs text-slate-500">•</span>
+            <span class="text-xs text-slate-400 font-mono">32 NHL Clubs • Salary Cap $88.0M</span>
+          </div>
+          <h1 class="text-2xl sm:text-3xl font-black tracking-tight text-white flex items-center gap-3">
+            <span>Trade Machine & Free Agency War Room</span>
+          </h1>
+          <p class="text-xs sm:text-sm text-slate-400 max-w-3xl leading-relaxed">
+            Construct 2-team and 3-team multi-player trades with up to 50% broker salary retention, verify real-time cap compliance, value draft assets using empirical point curves, and simulate RFA offer sheet compensation.
+          </p>
+        </div>
+
+        <button id="broadcastTradeBtn" class="px-4 py-2.5 rounded-2xl bg-gradient-to-r from-amber-600 via-orange-600 to-rose-600 hover:from-amber-500 hover:to-rose-500 text-white text-xs font-bold shadow-lg shadow-amber-600/30 transition flex items-center gap-2 shrink-0">
+          <i class="fa-solid fa-satellite-dish"></i> Broadcast Trade to The Wire
+        </button>
+
+      </div>
+    </div>
+
+    <!-- PANEL A: THE MULTI-TEAM TRADE MACHINE -->
+    <div class="glass-panel p-5 sm:p-6 rounded-3xl border border-slate-800 space-y-5">
+      
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-b border-slate-800 pb-4">
+        <div>
+          <h2 class="text-base font-bold text-white flex items-center gap-2">
+            <i class="fa-solid fa-right-left text-amber-400"></i> Multi-Team NHL Trade Builder
+          </h2>
+          <p class="text-xs text-slate-400">Add assets to each side, adjust retained salary, and evaluate trade equilibrium</p>
+        </div>
+        
+        <!-- Quick Preset Scenario Selector -->
+        <div class="flex items-center gap-2 text-xs font-mono">
+          <span class="text-slate-400">Blockbuster Preset:</span>
+          <select id="tradePresetSelect" class="bg-slate-900 border border-slate-700 text-amber-300 font-bold rounded-xl px-2.5 py-1 focus:outline-none cursor-pointer">
+            <option value="custom">Custom Trade Proposal</option>
+            <option value="marner_col">Mitch Marner to Colorado (50% Retained)</option>
+            <option value="boeser_edm">Brock Boeser to Edmonton (Broker 25%)</option>
+            <option value="theodore_tor">Shea Theodore to Toronto Blue-Line</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Trade Builder Columns: Team A, Broker Team, Team B -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+        
+        <!-- TEAM A (5 COLS) -->
+        <div class="lg:col-span-5 p-4 rounded-2xl bg-slate-950/60 border border-slate-800 space-y-4">
+          <div class="flex items-center justify-between border-b border-slate-800/80 pb-2.5">
+            <div>
+              <span class="text-[10px] font-mono uppercase text-slate-400 block font-semibold">Team A (Sending Assets)</span>
+              <select id="teamASelect" class="bg-transparent text-white font-black text-base focus:outline-none cursor-pointer">
+                <!-- Populated by JavaScript -->
+              </select>
+            </div>
+            <div class="text-right font-mono text-xs">
+              <span class="text-slate-500 text-[10px] block">Current Cap Space</span>
+              <span id="teamACapSpaceLabel" class="text-emerald-400 font-bold">$1.65M</span>
+            </div>
+          </div>
+
+          <!-- Team A Assets Selector -->
+          <div class="space-y-2">
+            <label class="text-[11px] font-mono text-slate-400 uppercase font-semibold">Available Trade Assets</label>
+            <div id="teamAAssetList" class="space-y-1.5 max-h-48 overflow-y-auto custom-scrollbar">
+              <!-- Populated by JavaScript -->
+            </div>
+          </div>
+
+          <!-- Team A Salary Retention Slider -->
+          <div class="p-3 rounded-xl bg-slate-900/70 border border-slate-800 space-y-1 text-xs font-mono">
+            <div class="flex items-center justify-between">
+              <span class="text-slate-300">Team A Salary Retention:</span>
+              <span id="retentionValA" class="text-amber-400 font-bold">0% ($0)</span>
+            </div>
+            <input id="retentionSliderA" type="range" min="0" max="50" step="5" value="0" class="w-full h-1.5 bg-slate-900 rounded-lg appearance-none cursor-pointer accent-amber-500">
+            <span class="text-[9px] text-slate-500 block">CBA limit: Maximum 50% retained per transaction</span>
+          </div>
+
+        </div>
+
+        <!-- TRADE ARROW & BROKER (2 COLS) -->
+        <div class="lg:col-span-2 flex flex-col justify-between items-center p-4 rounded-2xl bg-slate-950/30 border border-slate-800 text-center space-y-4">
+          
+          <div class="w-10 h-10 rounded-full bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 text-lg">
+            <i class="fa-solid fa-arrows-left-right"></i>
+          </div>
+
+          <!-- Optional 3rd Party Broker Toggle -->
+          <div class="w-full space-y-2 text-xs font-mono">
+            <span class="text-[10px] text-slate-400 uppercase block font-semibold">3rd Party Cap Broker</span>
+            <select id="brokerSelect" class="w-full bg-slate-900 border border-slate-700/80 rounded-xl px-2 py-1.5 text-[11px] font-bold text-white focus:outline-none cursor-pointer">
+              <option value="none">None (Direct 2-Team Trade)</option>
+              <option value="sjs">San Jose Sharks ($14.8M Space)</option>
+              <option value="chi">Chicago Blackhawks ($16.5M Space)</option>
+              <option value="ana">Anaheim Ducks ($18.2M Space)</option>
+            </select>
+
+            <!-- Broker Retention -->
+            <div id="brokerRetentionBox" class="hidden text-left p-2 rounded-lg bg-slate-900/90 border border-slate-800 text-[10px]">
+              <div class="flex justify-between text-slate-300">
+                <span>Broker Retains:</span>
+                <span id="brokerRetentionLabel" class="text-amber-400 font-bold">25%</span>
+              </div>
+              <input id="brokerRetentionSlider" type="range" min="0" max="50" step="5" value="25" class="w-full h-1 bg-slate-800 rounded appearance-none cursor-pointer accent-amber-500 mt-1">
+            </div>
+          </div>
+
+          <!-- Execute / Evaluate Button -->
+          <button id="evaluateTradeBtn" class="w-full py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs transition border border-slate-700">
+            Re-Calculate
+          </button>
+
+        </div>
+
+        <!-- TEAM B (5 COLS) -->
+        <div class="lg:col-span-5 p-4 rounded-2xl bg-slate-950/60 border border-slate-800 space-y-4">
+          <div class="flex items-center justify-between border-b border-slate-800/80 pb-2.5">
+            <div>
+              <span class="text-[10px] font-mono uppercase text-slate-400 block font-semibold">Team B (Acquiring Club)</span>
+              <select id="teamBSelect" class="bg-transparent text-white font-black text-base focus:outline-none cursor-pointer">
+                <!-- Populated by JavaScript -->
+              </select>
+            </div>
+            <div class="text-right font-mono text-xs">
+              <span class="text-slate-500 text-[10px] block">Current Cap Space</span>
+              <span id="teamBCapSpaceLabel" class="text-emerald-400 font-bold">$2.45M</span>
+            </div>
+          </div>
+
+          <!-- Team B Assets Selector -->
+          <div class="space-y-2">
+            <label class="text-[11px] font-mono text-slate-400 uppercase font-semibold">Assets Offered in Return</label>
+            <div id="teamBAssetList" class="space-y-1.5 max-h-48 overflow-y-auto custom-scrollbar">
+              <!-- Populated by JavaScript -->
+            </div>
+          </div>
+
+          <!-- Post-Trade Cap Balance Preview -->
+          <div class="p-3 rounded-xl bg-slate-900/70 border border-slate-800 flex items-center justify-between text-xs font-mono">
+            <span class="text-slate-300">Team B Post-Trade Cap:</span>
+            <span id="teamBPostCapPreview" class="text-emerald-400 font-bold">$1.85M (Compliant)</span>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Trade Verdict & Value Barometer Strip -->
+      <div id="tradeVerdictStrip" class="p-4 rounded-2xl bg-slate-950/80 border border-slate-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs font-mono">
+        <div class="flex items-center gap-2.5">
+          <span id="tradeComplianceBadge" class="px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-300 font-bold">
+            ✅ 100% CAP COMPLIANT
+          </span>
+          <span id="tradeVerdictText" class="text-slate-200 font-medium">
+            Balanced & Equitable Exchange (Net difference: 40 points)
+          </span>
+        </div>
+        <div class="flex items-center gap-3 text-slate-400 text-[11px]">
+          <span>Team A Package: <strong id="teamAPackageVal" class="text-white">680 pts</strong></span>
+          <span>•</span>
+          <span>Team B Package: <strong id="teamBPackageVal" class="text-white">640 pts</strong></span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- PANEL C & D: DRAFT PICK VALUES & UFA/RFA CONTRACT PROJECTOR -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+      
+      <!-- PANEL C: DRAFT PICK VALUE BAROMETER (6 COLS) -->
+      <div class="lg:col-span-6 glass-panel p-5 sm:p-6 rounded-3xl border border-slate-800 space-y-5">
+        
+        <div class="border-b border-slate-800 pb-3">
+          <h3 class="text-base font-bold text-white flex items-center gap-2">
+            <i class="fa-solid fa-chart-simple text-sky-400"></i> Draft Pick Valuation Barometer
+          </h3>
+          <p class="text-xs text-slate-400">Empirical point model quantifying the asset value of draft selections 1 to 224</p>
+        </div>
+
+        <!-- Pick Selector Controls -->
+        <div class="grid grid-cols-2 gap-3 text-xs font-mono">
+          <div>
+            <label class="text-slate-400 block mb-1">Draft Round:</label>
+            <select id="pickRoundSelect" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white font-bold focus:outline-none">
+              <option value="1">Round 1 (Picks 1 – 32)</option>
+              <option value="2">Round 2 (Picks 33 – 64)</option>
+              <option value="3">Round 3 (Picks 65 – 96)</option>
+              <option value="4">Round 4 (Picks 97 – 128)</option>
+              <option value="5">Round 5 (Picks 129 – 160)</option>
+              <option value="6">Round 6 (Picks 161 – 192)</option>
+              <option value="7">Round 7 (Picks 193 – 224)</option>
+            </select>
+          </div>
+          <div>
+            <label class="text-slate-400 block mb-1">Pick in Round:</label>
+            <select id="pickSlotSelect" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white font-bold focus:outline-none">
+              <!-- Populated by JS -->
+            </select>
+          </div>
+        </div>
+
+        <!-- Result Card -->
+        <div class="p-4 rounded-2xl bg-slate-950/70 border border-slate-800 space-y-3">
+          <div class="flex items-center justify-between">
+            <div>
+              <span class="text-[10px] font-mono uppercase text-slate-500 block">Overall Selection</span>
+              <h4 id="pickOverallDisplay" class="text-lg font-black text-white font-mono">Pick #1 Overall</h4>
+            </div>
+            <div class="text-right">
+              <span class="text-[10px] font-mono uppercase text-slate-500 block">Trade Points Value</span>
+              <span id="pickPointsDisplay" class="text-xl font-mono font-black text-amber-400">1,000 pts</span>
+            </div>
+          </div>
+
+          <div class="w-full bg-slate-900 rounded-full h-2 overflow-hidden">
+            <div id="pickPointBar" class="bg-gradient-to-r from-sky-500 to-amber-500 h-2 rounded-full" style="width: 100%"></div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-2 text-[11px] font-mono pt-1">
+            <div class="p-2 rounded-lg bg-slate-900/60 border border-slate-800">
+              <span class="text-slate-500 block text-[9px]">100+ NHL GP PROBABILITY</span>
+              <span id="pickGpProbDisplay" class="text-emerald-400 font-bold">88.5%</span>
+            </div>
+            <div class="p-2 rounded-lg bg-slate-900/60 border border-slate-800">
+              <span class="text-slate-500 block text-[9px]">EQUIVALENT ASSET TIER</span>
+              <span id="pickTierDisplay" class="text-sky-300 font-bold">Franchise Cornerstone</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- PANEL D: RFA OFFER SHEET SIMULATOR (6 COLS) -->
+      <div class="lg:col-span-6 glass-panel p-5 sm:p-6 rounded-3xl border border-slate-800 space-y-5">
+        
+        <div class="border-b border-slate-800 pb-3">
+          <h3 class="text-base font-bold text-white flex items-center gap-2">
+            <i class="fa-solid fa-file-signature text-rose-400"></i> RFA Offer Sheet Simulator
+          </h3>
+          <p class="text-xs text-slate-400">Calculate CBA draft pick compensation brackets and matching probabilities</p>
+        </div>
+
+        <!-- Sliders -->
+        <div class="space-y-3 bg-slate-950/60 p-4 rounded-2xl border border-slate-800/80 text-xs font-mono">
+          <div>
+            <div class="flex justify-between mb-1">
+              <span class="text-slate-300">Offered Contract AAV:</span>
+              <span id="offerAavVal" class="text-amber-400 font-bold">$7,500,000</span>
+            </div>
+            <input id="offerAavSlider" type="range" min="1200000" max="13500000" step="100000" value="7500000" class="w-full h-1.5 bg-slate-900 rounded-lg appearance-none cursor-pointer accent-amber-500">
+          </div>
+
+          <div>
+            <div class="flex justify-between mb-1">
+              <span class="text-slate-300">Contract Term:</span>
+              <span id="offerTermVal" class="text-sky-400 font-bold">5 Years</span>
+            </div>
+            <input id="offerTermSlider" type="range" min="1" max="7" step="1" value="5" class="w-full h-1.5 bg-slate-900 rounded-lg appearance-none cursor-pointer accent-sky-500">
+          </div>
+        </div>
+
+        <!-- Compensation Display -->
+        <div class="p-4 rounded-2xl bg-slate-950/70 border border-slate-800 space-y-2 font-mono text-xs">
+          <div class="flex items-center justify-between">
+            <span class="text-[10px] text-slate-500 uppercase">CBA Compensation Tier</span>
+            <span id="offerRiskBadge" class="px-2 py-0.5 rounded bg-rose-500/20 text-rose-300 text-[10px] font-bold">High Danger Tier</span>
+          </div>
+          <div id="offerCompensationDisplay" class="text-base font-black text-white">
+            1st, 2nd, and 3rd Round Draft Picks
+          </div>
+          <p class="text-[11px] text-slate-400 italic">
+            Acquiring club must own their own original draft picks in the upcoming draft.
+          </p>
+          <div class="pt-2 border-t border-slate-800/80 flex items-center justify-between text-[11px]">
+            <span class="text-slate-400">Original Club Match Probability:</span>
+            <span id="offerMatchProbDisplay" class="text-emerald-400 font-bold">56% Likelihood to Match</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- Notification Toast -->
+  <div id="toastNotification" class="fixed bottom-6 right-6 z-50 px-4 py-2.5 rounded-2xl text-xs font-bold shadow-2xl flex items-center gap-2 transition-all duration-300 transform translate-y-10 opacity-0 pointer-events-none"></div>
+
+  <!-- Client-Side Scripts -->
+  <script src="static/js/bundle_data.js"></script>
+  <script src="static/js/master_players.js"></script>
+  <script src="static/js/market_engine.js"></script>
+  <script src="static/js/telemetry.js"></script>
+
+  <!-- Orchestrator Script -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const teams = window.MarketEngine.teams;
+      let teamAKey = "tor";
+      let teamBKey = "col";
+      let brokerKey = "none";
+      let teamASelectedAssets = [window.MarketEngine.tradeAssets[0]]; // Mitch Marner
+      let teamBSelectedAssets = [
+        { name: "2025 1st Round Pick (COL)", capHit: 0, valuePoints: 170 },
+        { name: "2026 1st Round Pick (COL)", capHit: 0, valuePoints: 160 },
+        window.MarketEngine.tradeAssets[2] // Travis Konecny
+      ];
+
+      // 1. Populate Team Selectors
+      const teamASel = document.getElementById("teamASelect");
+      const teamBSel = document.getElementById("teamBSelect");
+
+      Object.values(teams).forEach(t => {
+        const optA = document.createElement("option");
+        optA.value = t.id;
+        optA.textContent = t.name;
+        teamASel.appendChild(optA);
+
+        const optB = document.createElement("option");
+        optB.value = t.id;
+        optB.textContent = t.name;
+        teamBSel.appendChild(optB);
+      });
+
+      teamASel.value = teamAKey;
+      teamBSel.value = teamBKey;
+
+      teamASel.addEventListener("change", (e) => {
+        teamAKey = e.target.value;
+        updateTeamDisplays();
+        recalculateTrade();
+      });
+
+      teamBSel.addEventListener("change", (e) => {
+        teamBKey = e.target.value;
+        updateTeamDisplays();
+        recalculateTrade();
+      });
+
+      // 2. Broker Selector
+      const brokerSel = document.getElementById("brokerSelect");
+      brokerSel.addEventListener("change", (e) => {
+        brokerKey = e.target.value;
+        const box = document.getElementById("brokerRetentionBox");
+        if (brokerKey !== "none") {
+          box.classList.remove("hidden");
+        } else {
+          box.classList.add("hidden");
+        }
+        recalculateTrade();
+      });
+
+      // 3. Retention Sliders
+      const retSliderA = document.getElementById("retentionSliderA");
+      retSliderA.addEventListener("input", (e) => {
+        const pct = parseInt(e.target.value, 10);
+        document.getElementById("retentionValA").textContent = `${pct}%`;
+        recalculateTrade();
+      });
+
+      const retSliderBroker = document.getElementById("brokerRetentionSlider");
+      retSliderBroker.addEventListener("input", (e) => {
+        document.getElementById("brokerRetentionLabel").textContent = `${e.target.value}%`;
+        recalculateTrade();
+      });
+
+      // 4. Populate Asset Checklists
+      function renderAssetLists() {
+        const listA = document.getElementById("teamAAssetList");
+        listA.innerHTML = window.MarketEngine.tradeAssets.map(a => `
+          <div class="p-2 rounded-xl bg-slate-900/80 border border-slate-800 flex items-center justify-between text-xs font-mono">
+            <div class="flex items-center gap-2">
+              <input type="checkbox" class="asset-cb-a" data-id="${a.id}" ${teamASelectedAssets.some(x => x.id === a.id) ? 'checked' : ''}>
+              <div>
+                <span class="font-bold text-white">${a.name}</span>
+                <span class="text-[10px] text-slate-500 block">${a.pos} • Cap: $${(a.capHit / 1000000).toFixed(2)}M</span>
+              </div>
+            </div>
+            <span class="text-amber-400 font-bold">${a.valuePoints} pts</span>
+          </div>
+        `).join("");
+
+        const listB = document.getElementById("teamBAssetList");
+        listB.innerHTML = `
+          <div class="p-2 rounded-xl bg-slate-900/80 border border-slate-800 flex items-center justify-between text-xs font-mono">
+            <div class="flex items-center gap-2">
+              <input type="checkbox" checked class="asset-cb-b-fixed">
+              <div>
+                <span class="font-bold text-white">2025 1st Round Pick (COL)</span>
+                <span class="text-[10px] text-slate-500 block">Top-32 Protected</span>
+              </div>
+            </div>
+            <span class="text-sky-300 font-bold">170 pts</span>
+          </div>
+          <div class="p-2 rounded-xl bg-slate-900/80 border border-slate-800 flex items-center justify-between text-xs font-mono">
+            <div class="flex items-center gap-2">
+              <input type="checkbox" checked class="asset-cb-b-fixed">
+              <div>
+                <span class="font-bold text-white">2026 1st Round Pick (COL)</span>
+                <span class="text-[10px] text-slate-500 block">Unprotected 1st</span>
+              </div>
+            </div>
+            <span class="text-sky-300 font-bold">160 pts</span>
+          </div>
+          <div class="p-2 rounded-xl bg-slate-900/80 border border-slate-800 flex items-center justify-between text-xs font-mono">
+            <div class="flex items-center gap-2">
+              <input type="checkbox" checked class="asset-cb-b-fixed">
+              <div>
+                <span class="font-bold text-white">Travis Konecny (RW)</span>
+                <span class="text-[10px] text-slate-500 block">Cap: $5.50M</span>
+              </div>
+            </div>
+            <span class="text-amber-400 font-bold">510 pts</span>
+          </div>
+        `;
+
+        document.querySelectorAll(".asset-cb-a").forEach(cb => {
+          cb.addEventListener("change", () => {
+            const id = cb.dataset.id;
+            const asset = window.MarketEngine.tradeAssets.find(x => x.id === id);
+            if (cb.checked) {
+              if (!teamASelectedAssets.some(x => x.id === id)) teamASelectedAssets.push(asset);
+            } else {
+              teamASelectedAssets = teamASelectedAssets.filter(x => x.id !== id);
+            }
+            recalculateTrade();
+          });
+        });
+      }
+
+      function updateTeamDisplays() {
+        const teamA = teams[teamAKey];
+        const teamB = teams[teamBKey];
+        document.getElementById("teamACapSpaceLabel").textContent = `$${(teamA.capSpace / 1000000).toFixed(2)}M`;
+        document.getElementById("teamBCapSpaceLabel").textContent = `$${(teamB.capSpace / 1000000).toFixed(2)}M`;
+      }
+
+      function recalculateTrade() {
+        const retA = parseInt(retSliderA.value, 10);
+        const retB = brokerKey !== "none" ? parseInt(retSliderBroker.value, 10) : 0;
+        const broker = brokerKey !== "none" ? brokerKey : null;
+
+        const result = window.MarketEngine.evaluateTrade(
+          teamAKey, teamBKey, teamASelectedAssets, teamBSelectedAssets, retA, broker, retB
+        );
+
+        // Update displays
+        document.getElementById("teamBPostCapPreview").textContent = `$${(result.teamB.postCapSpace / 1000000).toFixed(2)}M (${result.teamB.isCompliant ? 'Compliant' : 'Over Cap!'})`;
+        document.getElementById("teamBPostCapPreview").className = result.teamB.isCompliant ? "text-emerald-400 font-bold" : "text-rose-400 font-bold";
+
+        document.getElementById("teamAPackageVal").textContent = `${result.teamA.totalValuePoints} pts`;
+        document.getElementById("teamBPackageVal").textContent = `${result.teamB.totalValuePoints} pts`;
+
+        const badge = document.getElementById("tradeComplianceBadge");
+        if (result.isTradeValid) {
+          badge.className = "px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-300 font-bold";
+          badge.textContent = "✅ 100% CAP COMPLIANT";
+        } else {
+          badge.className = "px-2.5 py-1 rounded-full bg-rose-500/20 text-rose-300 font-bold";
+          badge.textContent = "❌ SALARY CAP VIOLATION";
+        }
+
+        document.getElementById("tradeVerdictText").textContent = result.verdict;
+      }
+
+      document.getElementById("evaluateTradeBtn").addEventListener("click", recalculateTrade);
+
+      // 5. Preset Trades
+      document.getElementById("tradePresetSelect").addEventListener("change", (e) => {
+        if (e.target.value === "marner_col") {
+          teamASel.value = "tor";
+          teamBSel.value = "col";
+          retSliderA.value = 50;
+          document.getElementById("retentionValA").textContent = "50%";
+          teamAKey = "tor";
+          teamBKey = "col";
+          updateTeamDisplays();
+          recalculateTrade();
+        }
+      });
+
+      // 6. Draft Pick Barometer Slots
+      const roundSel = document.getElementById("pickRoundSelect");
+      const slotSel = document.getElementById("pickSlotSelect");
+
+      for (let i = 1; i <= 32; i++) {
+        const opt = document.createElement("option");
+        opt.value = i;
+        opt.textContent = `Pick #${i} in Round`;
+        slotSel.appendChild(opt);
+      }
+
+      function updatePickBarometer() {
+        const r = parseInt(roundSel.value, 10);
+        const s = parseInt(slotSel.value, 10);
+        const overall = (r - 1) * 32 + s;
+        const pts = window.MarketEngine.getDraftPickValue(r, s);
+
+        document.getElementById("pickOverallDisplay").textContent = `Pick #${overall} Overall (Round ${r}, #${s})`;
+        document.getElementById("pickPointsDisplay").textContent = `${pts} pts`;
+        document.getElementById("pickPointBar").style.width = `${Math.min((pts / 1000) * 100, 100)}%`;
+
+        let gpProb = "24.5%";
+        let tier = "Depth Flyer";
+        if (overall <= 3) { gpProb = "94.2%"; tier = "Franchise Cornerstone"; }
+        else if (overall <= 10) { gpProb = "82.0%"; tier = "Top-Line / Top-Pair Star"; }
+        else if (overall <= 32) { gpProb = "64.5%"; tier = "Middle-6 NHL Regular"; }
+        else if (overall <= 64) { gpProb = "41.0%"; tier = "Roster Asset / Role Player"; }
+
+        document.getElementById("pickGpProbDisplay").textContent = gpProb;
+        document.getElementById("pickTierDisplay").textContent = tier;
+      }
+
+      roundSel.addEventListener("change", updatePickBarometer);
+      slotSel.addEventListener("change", updatePickBarometer);
+
+      // 7. RFA Offer Sheet Slider
+      const aavSlider = document.getElementById("offerAavSlider");
+      const termSlider = document.getElementById("offerTermSlider");
+
+      function updateOfferSheet() {
+        const aav = parseInt(aavSlider.value, 10);
+        const term = parseInt(termSlider.value, 10);
+        document.getElementById("offerAavVal").textContent = `$${(aav / 1000000).toFixed(2)}M`;
+        document.getElementById("offerTermVal").textContent = `${term} Years`;
+
+        const res = window.MarketEngine.calculateOfferSheet(aav, term);
+        document.getElementById("offerCompensationDisplay").textContent = res.compensationRequired;
+        document.getElementById("offerRiskBadge").textContent = `${res.riskLevel} Tier`;
+        document.getElementById("offerMatchProbDisplay").textContent = `${res.matchProbabilityPct}% Likelihood to Match`;
+      }
+
+      aavSlider.addEventListener("input", updateOfferSheet);
+      termSlider.addEventListener("input", updateOfferSheet);
+
+      // 8. Broadcast to The Wire
+      document.getElementById("broadcastTradeBtn").addEventListener("click", () => {
+        const retA = parseInt(retSliderA.value, 10);
+        const retB = brokerKey !== "none" ? parseInt(retSliderBroker.value, 10) : 0;
+        const broker = brokerKey !== "none" ? brokerKey : null;
+        const result = window.MarketEngine.evaluateTrade(
+          teamAKey, teamBKey, teamASelectedAssets, teamBSelectedAssets, retA, broker, retB
+        );
+
+        window.MarketEngine.broadcastTradeProposal(result);
+        showToast("💼 Published Blockbuster Trade Proposal to The BlueLine Wire!");
+      });
+
+      function showToast(msg) {
+        const toast = document.getElementById("toastNotification");
+        toast.textContent = msg;
+        toast.className = "fixed bottom-6 right-6 z-50 px-4 py-2.5 rounded-2xl text-xs font-bold shadow-2xl flex items-center gap-2 bg-amber-600 text-white transition-all duration-300 transform translate-y-0 opacity-100";
+        setTimeout(() => {
+          toast.className = "fixed bottom-6 right-6 z-50 px-4 py-2.5 rounded-2xl text-xs font-bold shadow-2xl flex items-center gap-2 transition-all duration-300 transform translate-y-10 opacity-0 pointer-events-none";
+        }, 2800);
+      }
+
+      // Initial Render
+      renderAssetLists();
+      updateTeamDisplays();
+      recalculateTrade();
+      updatePickBarometer();
+      updateOfferSheet();
+    });
+  </script>
+
+  <!-- Service Worker Registration for Offline Rinkside PWA -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js').then(reg => {
+          console.log('BlueLine Market Service Worker registered:', reg.scope);
+          const pill = document.getElementById('pwaStatusPill');
+          if (pill) pill.textContent = '⚡ Rinkside Offline Ready';
+        }).catch(err => {
+          console.warn('Service Worker registration skipped:', err);
+        });
+      });
+    }
+  </script>
+
+</body>
+</html>

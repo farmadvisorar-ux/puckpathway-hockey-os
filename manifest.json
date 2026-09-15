@@ -16,6 +16,7 @@
   ],
   "categories": ["sports", "productivity", "utilities"],
   "shortcuts": [
+    { "name": "Trade Desk", "url": "market.html", "description": "NHL Trade Machine & Free Agency" },
     { "name": "Career Pathway", "url": "pathway.html", "description": "Lifelong Trajectory & NCAA vs CHL" },
     { "name": "Crease Lab", "url": "crease.html", "description": "Goalie Crease Geometry & GSAx Studio" },
     { "name": "International War Room", "url": "international.html", "description": "4 Nations & Olympic Hub" },
