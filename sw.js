@@ -3,7 +3,7 @@
  * Enables full offline-first usage inside cold arenas and metal basements without cellular connectivity.
  */
 
-const CACHE_NAME = 'blueline-rinkside-v11';
+const CACHE_NAME = 'blueline-rinkside-v12';
 
 const PRECACHE_ASSETS = [
   'index.html',
@@ -51,7 +51,8 @@ const PRECACHE_ASSETS = [
   'static/js/ai_film_studio.js',
   'static/js/agent_mesh_engine.js',
   'static/js/telemetry.js',
-  'static/js/global_nav.js'
+  'static/js/global_nav.js',
+  'static/js/faceoff_engine.js'
 ];
 
 self.addEventListener('install', (event) => {

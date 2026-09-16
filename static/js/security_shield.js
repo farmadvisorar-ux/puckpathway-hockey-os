@@ -178,7 +178,9 @@
     const originalDefineProperty = Object.defineProperty;
     Object.defineProperty = function(obj, prop, descriptor) {
       defenseState.agents.cipherBravo.eventsScanned++;
-      if (prop === "__proto__" || prop === "constructor" || prop === "prototype") {
+      // Guard against prototype pollution: only block attempts targeting global root prototypes
+      if ((obj === Object.prototype || obj === Function.prototype || obj === Array.prototype) && 
+          (prop === "__proto__" || prop === "prototype" || prop === "constructor")) {
         logSecurityEvent("cipherBravo", "Prototype Pollution Attack Vector", "HIGH", `Unauthorized attempt to alter global prototype property '${prop}'.`, prop);
         return obj;
       }
@@ -240,6 +242,11 @@
     "gstatic.com",
     "cdnjs.cloudflare.com",
     "cdn.tailwindcss.com",
+    "tailwindcss.com",
+    "jsdelivr.net",
+    "unpkg.com",
+    "cloudflare.com",
+    "fontawesome.com",
     "api.ipify.org",
     "api64.ipify.org",
     "ipapi.co",
@@ -256,7 +263,9 @@
       if (urlStr && urlStr.startsWith("http")) {
         try {
           const urlObj = new URL(urlStr);
-          const isAllowed = ALLOWED_ORIGIN_DOMAINS.some(domain => urlObj.hostname.endsWith(domain));
+          const isAllowed = ALLOWED_ORIGIN_DOMAINS.some(domain => 
+            urlObj.hostname === domain || urlObj.hostname.endsWith("." + domain)
+          );
           if (!isAllowed) {
             logSecurityEvent("vanguardDelta", "Unauthorized Cross-Origin Data Exfiltration Intercepted", "CRITICAL", `Network request to unauthorized external host '${urlObj.hostname}' blocked by zero-trust egress firewall.`, urlStr);
             return Promise.reject(new Error("[Aegis Shield] Blocked by Egress Firewall"));
@@ -279,6 +288,7 @@
   }, 15000);
 
   function notifyVisualHud(incident) {
+    if (!document || !document.body || typeof document.createElement !== "function") return;
     let hud = document.getElementById("aegis-threat-hud");
     if (!hud) {
       hud = document.createElement("div");
