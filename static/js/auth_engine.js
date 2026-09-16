@@ -195,6 +195,8 @@
       action: action,
       diff: diff,
       hash: blockHash,
+      algo: "HMAC-SHA256 (Cipher-Bravo)",
+      block_index: (playerObj.audit_ledger ? playerObj.audit_ledger.length : 0) + 1,
       verified: true,
       status: "CRYPTOGRAPHICALLY VERIFIED & LOCKED"
     };
@@ -392,6 +394,28 @@
                 <div>
                   <label class="block text-xs font-bold text-slate-300 mb-1">Password</label>
                   <input id="signupPassword" type="password" placeholder="••••••••" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-sky-400">
+                </div>
+              </div>
+
+              <!-- Athlete Roster Details (Auto-mints real player backend dossier) -->
+              <div id="signupAthleteFields" class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 p-3 rounded-2xl bg-sky-950/30 border border-sky-500/20">
+                <div>
+                  <label class="block text-[11px] font-bold text-slate-300 mb-1">Jersey Number</label>
+                  <input id="signupNum" type="number" placeholder="17" value="17" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1.5 text-xs text-white font-mono focus:outline-none focus:border-sky-400">
+                </div>
+                <div>
+                  <label class="block text-[11px] font-bold text-slate-300 mb-1">Position</label>
+                  <select id="signupPos" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-2 py-1.5 text-xs text-white focus:outline-none focus:border-sky-400">
+                    <option value="C">Center (C)</option>
+                    <option value="LW">Left Wing (LW)</option>
+                    <option value="RW">Right Wing (RW)</option>
+                    <option value="D">Defense (D)</option>
+                    <option value="G">Goaltender (G)</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="block text-[11px] font-bold text-slate-300 mb-1">League / Level</label>
+                  <input id="signupLeague" type="text" placeholder="e.g. USHL / Tier 1 AAA" value="Tier 1 AAA" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1.5 text-xs text-white focus:outline-none focus:border-sky-400">
                 </div>
               </div>
 
@@ -727,6 +751,16 @@
           title.classList.remove("text-slate-300");
           title.classList.add("text-white");
         }
+
+        const role = lbl.getAttribute("data-role");
+        const athleteFields = document.getElementById("signupAthleteFields");
+        if (athleteFields) {
+          if (role === "athlete") {
+            athleteFields.classList.remove("hidden");
+          } else {
+            athleteFields.classList.add("hidden");
+          }
+        }
       });
     });
 
@@ -751,13 +785,16 @@
         const name = document.getElementById("signupFullName").value.trim();
         const email = document.getElementById("signupEmail").value.trim();
         const team = document.getElementById("signupTeam").value.trim();
+        const num = parseInt(document.getElementById("signupNum")?.value) || 17;
+        const pos = document.getElementById("signupPos")?.value || "C";
+        const league = document.getElementById("signupLeague")?.value.trim() || "Tier 1 AAA";
 
         if (!name || !email) {
           showAlert("Please enter your name and email address.");
           return;
         }
 
-        window.BlueLineAuth.signUp({ name, email, role, team });
+        window.BlueLineAuth.signUp({ name, email, role, team, num, pos, league });
       });
     }
 
@@ -904,6 +941,94 @@
     `).join("");
   }
 
+  // Helper to mint an official Athlete Dossier in the player backend
+  function mintNewAthleteDossier(data, user) {
+    const newId = "cust_" + Date.now().toString(36) + "_" + Math.random().toString(36).substring(2, 6);
+    
+    // Calculate BlueLine Composite Trajectory Score
+    const speed = parseFloat(data.speed) || 3.85;
+    const jump = parseFloat(data.jump) || 98;
+    const gpa = parseFloat(data.gpa) || 3.85;
+    const speedScore = Math.max(40, Math.min(99, 100 - (speed - 3.8) * 60));
+    const jumpScore = Math.max(40, Math.min(99, (jump / 100) * 88));
+    const athleticIndex = parseFloat((speedScore * 0.6 + jumpScore * 0.4).toFixed(1));
+    const kpiIndex = 86.0;
+    const acad = Math.min(100, (gpa / 4.0) * 100);
+    const composite = parseFloat((athleticIndex * 0.35 + kpiIndex * 0.45 + acad * 0.20).toFixed(1));
+    const ht = parseInt(data.ht || data.height) || 71;
+    const wt = parseInt(data.wt || data.weight) || 180;
+    const num = parseInt(data.num || data.jersey) || 17;
+    const pos = data.pos || data.position || "C";
+    const primaryRole = pos === "G" ? "Goaltender" : (pos === "D" ? "Defenseman" : "Forward");
+    const hometown = data.hometown || data.origin || "North America";
+    const priorTeam = data.prior_team || data.priorTeam || data.pathway || "Tier 1 AAA / Junior";
+
+    const newPlayer = {
+      id: newId,
+      entity_type: "player",
+      name: data.name,
+      num: num,
+      jersey: `#${num}`,
+      pos: pos,
+      position: pos,
+      primary_role: primaryRole,
+      role_title: `${primaryRole} (#${num})`,
+      team: data.team || "Independent Amateur",
+      league: data.league || "Tier 1 AAA",
+      hometown: hometown,
+      prior_team: priorTeam,
+      pathway: data.pathway || priorTeam,
+      draft_status: composite >= 90 ? "NCAA D1 / NHL Draft Watch" : "NCAA Tier 1 Development",
+      height_in: ht,
+      height_str: typeof data.height === "string" && data.height.includes("'") ? data.height : `${Math.floor(ht / 12)}'${ht % 12}"`,
+      height: typeof data.height === "string" && data.height.includes("'") ? data.height : `${Math.floor(ht / 12)}'${ht % 12}"`,
+      weight_lbs: wt,
+      weight: `${wt} lbs`,
+      handed: data.hand || "L",
+      gpa: gpa,
+      grad_year: parseInt(data.grad) || 2027,
+      age: 18,
+      status_badge: "Tier 1 Verified Prospect",
+      avatar_gradient: "from-indigo-600 to-sky-700",
+      composite_score: composite,
+      combine: {
+        flying_30m_sec: speed,
+        broad_jump_in: jump,
+        bench_press_reps: 12
+      },
+      micro_kpis: {
+        controlled_exit_pct: 84,
+        shoulder_scans_per_possession: 4.5
+      },
+      projection: {
+        composite_trajectory_score: composite,
+        ceiling_label: composite >= 90 ? "Top-Tier Prospect" : "High-Potential Development Candidate",
+        probabilities: {
+          ncaa_d1: composite >= 88 ? 85 : 60,
+          ushl_tier1: 80,
+          nahl_tier2: 90,
+          ncaa_d3_acha: 98
+        }
+      },
+      audit_ledger: []
+    };
+
+    // Stamp genesis block on the ledger
+    const genesisBlock = stampImmutableLedger(
+      newPlayer,
+      "Genesis Ledger Stamping",
+      "Athlete Passport Minted",
+      `Initial biometric & developmental trajectory parameters registered: Flying 30m ${speed}s, Broad Jump ${jump}in, GPA ${gpa}. Initial Trajectory Score: ${composite}.`,
+      user
+    );
+
+    newPlayer.ledger_hash = genesisBlock ? genesisBlock.hash : generateBlockHash(newId + "genesis");
+    newPlayer.ledger_stamped_at = genesisBlock ? genesisBlock.timestamp : new Date().toISOString();
+
+    saveCustomPlayer(newPlayer);
+    return newPlayer;
+  }
+
   // =========================================================================
   // PUBLIC API EXPORT
   // =========================================================================
@@ -971,20 +1096,48 @@
     },
 
     signUp: (data) => {
+      const num = parseInt(data.num) || 17;
+      const pos = data.pos || "C";
+      const league = data.league || "Tier 1 AAA";
+      const primaryRole = pos === "G" ? "Goaltender" : (pos === "D" ? "Defenseman" : "Forward");
+
       const newUser = {
         id: "usr_" + Date.now().toString(36),
         username: data.email.split("@")[0],
         name: data.name,
         email: data.email,
         role: data.role,
-        role_title: data.role === "athlete" ? "Registered Athlete" : (data.role === "coach" ? "Team Staff / Coach" : (data.role === "scout" ? "Scout / Recruiter" : "Parent / Advisor")),
-        badge: data.role === "athlete" ? "ATHLETE (REGISTERED)" : (data.role === "coach" ? "COACH" : (data.role === "scout" ? "SCOUT" : "FAMILY ADVISOR")),
+        role_title: data.role === "athlete" ? `${primaryRole} (#${num})` : (data.role === "coach" ? "Team Staff / Coach" : (data.role === "scout" ? "Scout / Recruiter" : "Parent / Advisor")),
+        badge: data.role === "athlete" ? "VERIFIED ATHLETE" : (data.role === "coach" ? "COACH" : (data.role === "scout" ? "SCOUT" : "FAMILY ADVISOR")),
         team: data.team,
+        league: league,
+        num: num,
+        pos: pos,
         avatar: data.role === "athlete" ? "⚡" : (data.role === "coach" ? "🏒" : (data.role === "scout" ? "🔍" : "👨‍👩‍👦")),
         avatar_gradient: "from-cyan-600 to-blue-800",
         verified: true,
         created_at: new Date().toISOString()
       };
+
+      if (data.role === "athlete") {
+        // Mint real player backend dossier immediately with biometrics and genesis ledger block
+        const newPlayer = mintNewAthleteDossier({
+          name: data.name,
+          num: num,
+          pos: pos,
+          hand: "L",
+          ht: 71,
+          wt: 180,
+          team: data.team,
+          league: league,
+          gpa: 3.85,
+          grad: 2027,
+          speed: 3.85,
+          jump: 98
+        }, newUser);
+
+        newUser.linked_player_id = newPlayer.id;
+      }
 
       // Save to registered accounts list
       try {
@@ -995,13 +1148,11 @@
       } catch (e) {}
 
       setCurrentUser(newUser);
+      window.closeAuthModal();
 
       if (data.role === "athlete") {
-        // Offer claim or create profile
-        switchAuthTab("claim");
-        showAlert(`Account created for ${newUser.name}! Next, search to claim your profile, or mint a new one.`);
+        showAlert(`🎉 Welcome, ${newUser.name}! Your verified athlete dossier has been minted (#${num}, ${data.team}) with initial BlueLine Trajectory Score and stamped on the tamper-evident ledger.`);
       } else {
-        window.closeAuthModal();
         showAlert(`Account created! Logged in as ${newUser.name} (${newUser.badge}).`);
       }
     },
@@ -1063,81 +1214,67 @@
       }
     },
 
-    createNewProfile: (data) => {
-      const newId = "cust_" + Date.now().toString(36);
-      
-      // Calculate BlueLine Composite Trajectory Score
-      const speedScore = Math.max(40, Math.min(99, 100 - (data.speed - 3.8) * 60));
-      const jumpScore = Math.max(40, Math.min(99, (data.jump / 100) * 88));
-      const athleticIndex = parseFloat((speedScore * 0.6 + jumpScore * 0.4).toFixed(1));
-      const kpiIndex = 86.0;
-      const acad = Math.min(100, (data.gpa / 4.0) * 100);
-      const composite = parseFloat((athleticIndex * 0.35 + kpiIndex * 0.45 + acad * 0.20).toFixed(1));
-
-      const newPlayer = {
-        id: newId,
-        entity_type: "player",
-        name: data.name,
-        num: data.num,
-        pos: data.pos,
-        primary_role: data.pos === "G" ? "Goaltender" : (data.pos === "D" ? "Defenseman" : "Forward"),
-        team: data.team,
-        league: data.league,
-        height_in: data.ht,
-        weight_lbs: data.wt,
-        handed: data.hand,
-        gpa: data.gpa,
-        grad_year: data.grad,
-        age: 18,
-        status_badge: "Tier 1 Verified Prospect",
-        avatar_gradient: "from-indigo-600 to-sky-700",
-        composite_score: composite,
-        combine: {
-          flying_30m_sec: data.speed,
-          broad_jump_in: data.jump
-        },
-        micro_kpis: {
-          controlled_exit_pct: 84,
-          shoulder_scans_per_possession: 4.5
-        },
-        projection: {
-          composite_trajectory_score: composite,
-          ceiling_label: composite >= 90 ? "Top-Tier Prospect" : "High-Potential Development Candidate",
-          probabilities: {
-            ncaa_d1: composite >= 88 ? 85 : 60,
-            ushl_tier1: 80,
-            nahl_tier2: 90,
-            ncaa_d3_acha: 98
-          }
-        },
-        audit_ledger: []
-      };
-
+    createNewProfile: (data, stayOnPage) => {
       const user = getCurrentUser();
-      user.linked_player_id = newId;
+      const newPlayer = mintNewAthleteDossier(data, user);
+
+      user.linked_player_id = newPlayer.id;
       user.name = data.name;
       user.role = "athlete";
-      user.role_title = "Verified Athlete";
+      user.role_title = newPlayer.role_title;
       user.badge = "VERIFIED ATHLETE";
       user.team = data.team;
-      user.league = data.league;
+      user.league = data.league || "Tier 1 AAA";
       user.avatar = "⚡";
+      user.num = newPlayer.num;
+      user.pos = newPlayer.pos;
 
-      // Stamp genesis block on the ledger
-      stampImmutableLedger(
-        newPlayer,
-        "Genesis Ledger Stamping",
-        "Athlete Passport Minted",
-        `Initial biometric & developmental trajectory parameters registered: Flying 30m ${data.speed}s, Broad Jump ${data.jump}in, GPA ${data.gpa}. Initial Trajectory Score: ${composite}.`,
-        user
-      );
-
-      saveCustomPlayer(newPlayer);
       setCurrentUser(user);
       window.closeAuthModal();
 
-      showAlert(`Athlete Dossier Minted! Composite Trajectory: ${composite}. Navigating to your new Player Passport...`);
-      window.location.href = `player.html?id=${newId}`;
+      showAlert(`Athlete Dossier Minted! Composite Trajectory: ${newPlayer.composite_score}. Stamped on the tamper-evident ledger.`);
+      if (!stayOnPage) {
+        window.location.href = `player.html?id=${newPlayer.id}`;
+      }
+    },
+
+    getAthleteDossier: (idOrUser) => {
+      let id = typeof idOrUser === "string" ? idOrUser : (idOrUser?.linked_player_id || idOrUser?.id);
+      if (!id) return null;
+
+      // 1. Check custom players
+      const customList = getCustomPlayers();
+      let found = customList.find(p => p.id === id || p.userId === id);
+      if (found) return found;
+
+      // 2. Check universal master registry
+      const masterList = (typeof window !== "undefined" && (window.MASTER_ALL_REGISTRY || window.MASTER_PLAYERS || window.SMRP_ALL_REGISTRY || window.SMRP_MASTER_PLAYERS)) || [];
+      found = masterList.find(p => p.id === id);
+      if (found) return found;
+
+      // 3. Check demo personas if linked
+      const demo = DEMO_PERSONAS.find(d => d.id === id);
+      if (demo && demo.linked_player_id) {
+        return masterList.find(p => p.id === demo.linked_player_id) || null;
+      }
+      return null;
+    },
+
+    stampLedgerForUser: (category, action, diff, playerObj) => {
+      const user = getCurrentUser();
+      let targetPlayer = playerObj;
+      if (!targetPlayer && user && user.linked_player_id) {
+        targetPlayer = window.BlueLineAuth.getAthleteDossier(user.linked_player_id);
+      }
+      if (targetPlayer) {
+        return stampImmutableLedger(targetPlayer, category, action, diff, user);
+      }
+      return null;
+    },
+
+    mintNewAthleteDossier: (data) => {
+      const user = getCurrentUser();
+      return mintNewAthleteDossier(data, user);
     },
 
     signOut: () => {

@@ -11,4 +11,7 @@
   window.MASTER_STAFF = SMRP_STAFF;     // Coaching & staff directory
   window.MASTER_NON_PRO_REGISTRY = SMRP_ALL_REGISTRY; // Backward compatibility
   window.MASTER_ALL_REGISTRY = SMRP_ALL_REGISTRY;     // Universal SMRP registry
+  window.SMRP_PLAYERS = SMRP_PLAYERS;
+  window.SMRP_MASTER_PLAYERS = SMRP_PLAYERS;
+  window.SMRP_ALL_REGISTRY = SMRP_ALL_REGISTRY;
 })();

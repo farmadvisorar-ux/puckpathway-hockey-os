@@ -18,9 +18,10 @@
   // ==========================================
   const BADGES = {
     SCOUT: { type: 'scout', icon: '⭐', label: 'Verified Recruiter', color: 'bg-amber-500/20 text-amber-300 border-amber-500/40' },
-    ATHLETE: { type: 'athlete', icon: '✓', label: 'Verified Athlete', color: 'bg-sky-500/20 text-sky-300 border-sky-500/40' },
+    ATHLETE: { type: 'athlete', icon: '⚡', label: 'Verified Athlete', color: 'bg-sky-500/20 text-sky-300 border-sky-500/40' },
     COACH: { type: 'coach', icon: '👑', label: 'Verified Coach', color: 'bg-purple-500/20 text-purple-300 border-purple-500/40' },
-    TEAM: { type: 'team', icon: '🛡️', label: 'Verified Organization', color: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40' }
+    TEAM: { type: 'team', icon: '🛡️', label: 'Verified Organization', color: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40' },
+    PARENT: { type: 'parent', icon: '👨‍👩‍👦', label: 'Family Advisor', color: 'bg-pink-500/20 text-pink-300 border-pink-500/40' }
   };
 
   const DEFAULT_USERS = [
@@ -270,6 +271,67 @@
     return "from-slate-700 to-slate-800 text-slate-300 border-slate-600/40";
   }
 
+  // Helper to format authenticated user into social profile
+  function formatUserFromAuth(authUser) {
+    if (!authUser) return null;
+    let badge = BADGES.ATHLETE;
+    if (authUser.role === 'coach') badge = BADGES.COACH;
+    else if (authUser.role === 'scout') badge = BADGES.SCOUT;
+    else if (authUser.role === 'parent') badge = BADGES.PARENT;
+    else if (authUser.role === 'team') badge = BADGES.TEAM;
+
+    let dossier = null;
+    if (typeof window !== 'undefined' && window.BlueLineAuth && typeof window.BlueLineAuth.getAthleteDossier === 'function') {
+      dossier = window.BlueLineAuth.getAthleteDossier(authUser);
+    }
+
+    const name = authUser.name || "Hockey Athlete";
+    const handle = authUser.username || name.toLowerCase().replace(/[^a-z0-9_]/g, '_');
+    const title = authUser.role_title || (dossier ? `${dossier.primary_role} (#${dossier.num})` : (authUser.num ? `Forward (#${authUser.num})` : "Verified Athlete"));
+    const org = authUser.team || (dossier ? dossier.team : "BlueLine DataWorks");
+    const loc = authUser.location || (dossier ? (dossier.hometown || dossier.league) : "USA / Canada");
+    const bio = authUser.bio || (dossier ? `Verified athlete dossier for ${dossier.name}. Competing in ${dossier.league || 'Amateur'} for ${dossier.team || 'Amateur Club'}.` : "BlueLine DataWorks registered member.");
+    const avatar = authUser.avatarImg || "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=250&q=80";
+
+    return {
+      id: authUser.id,
+      name: name,
+      handle: handle,
+      role: authUser.role || "athlete",
+      badge: badge,
+      title: title,
+      organization: org,
+      location: loc,
+      bio: bio,
+      avatar: avatar,
+      avatarColor: authUser.avatar_gradient || "from-sky-500 to-indigo-600",
+      banner: authUser.banner || "https://images.unsplash.com/photo-1580748141549-71748dbe0bdc?auto=format&fit=crop&w=1200&q=80",
+      level: authUser.level || (dossier ? Math.min(99, Math.max(1, Math.round(dossier.composite_score || 72))) : 72),
+      xp: authUser.xp || 68500,
+      xpNext: authUser.xpNext || 75000,
+      stats: dossier ? {
+        height: dossier.height_str || `${dossier.height_in}"`,
+        weight: `${dossier.weight_lbs || 180} lbs`,
+        score: dossier.composite_score || 88.5
+      } : (authUser.stats || { gp: 34, g: 18, a: 22, pts: 40 }),
+      linked_player_id: authUser.linked_player_id,
+      following: ["usr_scout_director"],
+      followers: 140,
+      isAuthUser: true
+    };
+  }
+
+  function getCurrentUser() {
+    if (typeof window !== 'undefined' && window.BlueLineAuth && typeof window.BlueLineAuth.getCurrentUser === 'function') {
+      const authUser = window.BlueLineAuth.getCurrentUser();
+      if (authUser) {
+        return formatUserFromAuth(authUser);
+      }
+    }
+    const state = loadState();
+    return state.currentUser || DEFAULT_USERS[0];
+  }
+
   // ==========================================
   // 5. SOCIAL STATE MANAGER
   // ==========================================
@@ -297,6 +359,15 @@
       };
       saveState(state);
     }
+
+    // Always keep active currentUser bound to BlueLineAuth session
+    if (typeof window !== 'undefined' && window.BlueLineAuth && typeof window.BlueLineAuth.getCurrentUser === 'function') {
+      const authUser = window.BlueLineAuth.getCurrentUser();
+      if (authUser) {
+        state.currentUser = formatUserFromAuth(authUser);
+      }
+    }
+
     return state;
   }
 
@@ -446,7 +517,7 @@
   // Post to The BlueLine Wire
   function createPost(content, tags, media) {
     const state = loadState();
-    const author = state.currentUser;
+    const author = getCurrentUser();
     if (!author || !content.trim()) return null;
 
     const newPost = {
@@ -467,6 +538,214 @@
     addXP(50, "Published to BlueLine Wire");
     saveState(state);
     return newPost;
+  }
+
+  // Post Commitment to The BlueLine Wire with Ledger Stamping
+  function createCommitmentPost(data) {
+    const author = getCurrentUser();
+    if (!author) return null;
+
+    const school = data.school || "NCAA Division I Program";
+    const level = data.level || "NCAA Division I";
+    const classYear = data.classYear || "2026";
+    const status = data.status || "Committed";
+    const notes = data.notes || `Extremely proud and honored to announce my commitment to play college hockey at ${school}!`;
+
+    let blockHash = null;
+    if (typeof window !== 'undefined' && window.BlueLineAuth && typeof window.BlueLineAuth.generateBlockHash === 'function') {
+      blockHash = window.BlueLineAuth.generateBlockHash(`${author.name}_commitment_${school}_${Date.now()}`);
+      window.BlueLineAuth.stampLedgerForUser(
+        "Recruiting & Commitment",
+        "Official Commitment Wire Dispatch",
+        `Athlete ${author.name} announced official commitment to ${school} (${level}, Class of ${classYear}). Cryptographic block stamped.`
+      );
+    } else {
+      blockHash = "0x" + Math.random().toString(16).substring(2, 10) + "a7f4";
+    }
+
+    const content = `🚨 **OFFICIAL COMMITMENT ANNOUNCEMENT**\n\nProud to announce my commitment to continue my athletic and academic journey at **${school}** (${level})! Huge thank you to my coaches, teammates, and family for the lifelong support.\n\n*${notes}*\n\n#Commitment #${level.replace(/[^a-zA-Z0-9]/g, '')} #BlueLineWire #NextChapter`;
+
+    const post = {
+      id: `post_commit_${Date.now()}`,
+      authorId: author.id,
+      timestamp: "Just now",
+      content: content,
+      tags: ["#Commitment", `#${level.replace(/[^a-zA-Z0-9]/g, '')}`, "#BlueLineWire", "#NextChapter"],
+      likes: 42,
+      reposts: 14,
+      replies: 8,
+      likedByMe: true,
+      pinned: true,
+      media: {
+        type: "commitment_card",
+        playerName: author.name,
+        school: school,
+        level: level,
+        classYear: classYear,
+        status: status,
+        hash: blockHash,
+        ledgerHash: blockHash,
+        stampedAt: new Date().toISOString(),
+        verified: true,
+        date: new Date().toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })
+      }
+    };
+
+    const state = loadState();
+    state.posts.unshift(post);
+    addXP(150, "Announced Official Commitment on The Wire");
+    saveState(state);
+    return post;
+  }
+
+  // Post Combine Biometrics to The Wire with Ledger Stamping
+  function createCombinePost(data) {
+    const author = getCurrentUser();
+    if (!author) return null;
+
+    const speed = parseFloat(data.flying30m || data.speed) || 3.85;
+    const jump = parseFloat(data.broadJump || data.jump) || 98;
+    const bench = parseInt(data.bench150 || data.benchPress || data.bench) || 14;
+    const wt = parseInt(data.weight || data.weightLbs) || 185;
+    const notes = data.notes || "New personal best logged during off-season combine battery.";
+
+    let blockHash = null;
+    if (typeof window !== 'undefined' && window.BlueLineAuth && typeof window.BlueLineAuth.generateBlockHash === 'function') {
+      blockHash = window.BlueLineAuth.generateBlockHash(`${author.name}_combine_${Date.now()}`);
+      window.BlueLineAuth.stampLedgerForUser(
+        "Combine Certification",
+        "Biometrics Telemetry Logged",
+        `Athlete ${author.name} registered verified combine metrics: Flying 30m ${speed}s, Broad Jump ${jump}in, Bench ${bench} reps. Ledger stamped.`
+      );
+    } else {
+      blockHash = "0x" + Math.random().toString(16).substring(2, 10) + "b8c1";
+    }
+
+    const content = `🧬 **COMBINE TESTING BENCHMARK: ${author.name.toUpperCase()}**\n\nOfficial laser biometrics stamped into the BlueLine verification ledger: Flying 30m Laser Sprint at **${speed}s**, Standing Broad Jump at **${jump}in**, Bench Press **${bench} reps**.\n\n*${notes}*\n\n#CombineReport #Biometrics #LaserTelemetry #AthleteTesting #BlueLineDataWorks`;
+
+    const post = {
+      id: `post_combine_${Date.now()}`,
+      authorId: author.id,
+      timestamp: "Just now",
+      content: content,
+      tags: ["#CombineReport", "#Biometrics", "#LaserTelemetry", "#AthleteTesting"],
+      likes: 28,
+      reposts: 6,
+      replies: 4,
+      likedByMe: true,
+      pinned: false,
+      media: {
+        type: "combine_card",
+        playerName: author.name,
+        speed: `${speed}s`,
+        flying30m: speed,
+        jump: `${jump}"`,
+        broadJump: jump,
+        bench: `${bench} reps`,
+        bench150: bench,
+        weight: wt,
+        hash: blockHash,
+        ledgerHash: blockHash,
+        stampedAt: new Date().toISOString(),
+        verified: true
+      }
+    };
+
+    const state = loadState();
+    state.posts.unshift(post);
+    addXP(100, "Published Combine Telemetry to The Wire");
+    saveState(state);
+    return post;
+  }
+
+  // Post Game Log / Performance to The Wire
+  function createGameLogPost(data) {
+    const author = getCurrentUser();
+    if (!author) return null;
+
+    const opp = data.opponent || "Conference Opponent";
+    const g = parseInt(data.goals) || 0;
+    const a = parseInt(data.assists) || 0;
+    const pts = typeof data.points !== 'undefined' ? parseInt(data.points) : (g + a);
+    const pm = data.plusMinus || "+1";
+    const sog = parseInt(data.shots) || 4;
+    const notes = data.notes || "Solid 60-minute team effort and clean execution on the forecheck.";
+
+    const content = `📊 **GAME PERFORMANCE LOG vs ${opp.toUpperCase()}**\n\nFinal Statline: **${pts} PTS (${g}G, ${a}A)** | **${pm}** | **${sog} SOG**.\n\n*${notes}*\n\n#GameDay #BoxScore #PlayerStats #HockeyPerformance`;
+
+    const post = {
+      id: `post_gamelog_${Date.now()}`,
+      authorId: author.id,
+      timestamp: "Just now",
+      content: content,
+      tags: ["#GameDay", "#BoxScore", "#PlayerStats", "#HockeyPerformance"],
+      likes: 35,
+      reposts: 8,
+      replies: 5,
+      likedByMe: true,
+      pinned: false,
+      media: {
+        type: "game_log_card",
+        playerName: author.name,
+        opponent: opp,
+        goals: g,
+        assists: a,
+        points: pts,
+        plusMinus: pm,
+        shots: sog,
+        stat1: `${g} G`,
+        stat2: `${a} A`,
+        stat3: `${pts} PTS`,
+        stat4: `${pm} / ${sog} SOG`
+      }
+    };
+
+    const state = loadState();
+    state.posts.unshift(post);
+    addXP(75, "Logged Game Performance on The Wire");
+    saveState(state);
+    return post;
+  }
+
+  // Post Scouting Film / Drill to The Wire
+  function createFilmPost(data) {
+    const author = getCurrentUser();
+    if (!author) return null;
+
+    const title = data.title || data.clipTitle || "Game Film Breakdown";
+    const cat = data.category || "Transition Play";
+    const url = data.url || data.videoUrl || "https://youtu.be/sample_hockey_cut";
+    const notes = data.notes || "Film room breakdown showing puck protection along the half-wall and deception on the blue line.";
+
+    const content = `🎬 **SCOUTING FILM & TACTICAL BREAKDOWN: ${title}**\n\nCategory: **${cat}**\n\n*${notes}*\n\nFilm Source: ${url}\n\n#FilmRoom #VideoAnalysis #HockeyIQ #ScoutingFilm`;
+
+    const post = {
+      id: `post_film_${Date.now()}`,
+      authorId: author.id,
+      timestamp: "Just now",
+      content: content,
+      tags: ["#FilmRoom", "#VideoAnalysis", "#HockeyIQ", "#ScoutingFilm"],
+      likes: 22,
+      reposts: 5,
+      replies: 3,
+      likedByMe: true,
+      pinned: false,
+      media: {
+        type: "film_card",
+        playerName: author.name,
+        title: title,
+        category: cat,
+        url: url,
+        videoUrl: url,
+        notes: notes
+      }
+    };
+
+    const state = loadState();
+    state.posts.unshift(post);
+    addXP(60, "Shared Scouting Film on The Wire");
+    saveState(state);
+    return post;
   }
 
   // Like a post
@@ -603,9 +882,40 @@
     const userId = USER_ALIASES[rawUserId] || rawUserId;
     if (SPECIAL_ACCOUNTS[userId]) return SPECIAL_ACCOUNTS[userId];
 
+    // Check if matching currently active user
+    const cur = getCurrentUser();
+    if (cur && (cur.id === userId || cur.handle === userId || cur.linked_player_id === userId)) {
+      return cur;
+    }
+
     const state = loadState();
-    let found = state.users.find(u => u.id === userId);
+    let found = state.users.find(u => u.id === userId || u.handle === userId);
     if (found) return found;
+
+    // Check BlueLineAuth athlete dossier (resolves custom players, demo personas, and master players)
+    if (typeof window !== 'undefined' && window.BlueLineAuth && typeof window.BlueLineAuth.getAthleteDossier === 'function') {
+      const dossier = window.BlueLineAuth.getAthleteDossier(userId);
+      if (dossier) {
+        const isStaff = dossier.entity_type === 'coach' || (dossier.id && dossier.id.startsWith('mc_'));
+        return {
+          id: dossier.id,
+          name: dossier.name,
+          handle: dossier.name.toLowerCase().replace(/[^a-z0-9]/g, '_'),
+          role: isStaff ? "coach" : "athlete",
+          badge: isStaff ? BADGES.COACH : BADGES.ATHLETE,
+          title: dossier.role_title || (isStaff ? "Coach / Hockey Ops" : `${dossier.primary_role || 'Forward'} (#${dossier.num || '--'})`),
+          organization: dossier.team || dossier.institution || 'Amateur Hockey',
+          location: dossier.hometown || dossier.league || 'USA / Canada',
+          bio: `Verified prospect dossier for ${dossier.name}. Competing in ${dossier.league || 'Amateur'} for ${dossier.team || 'Amateur Club'}.`,
+          avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=250&q=80',
+          banner: 'https://images.unsplash.com/photo-1580748141549-71748dbe0bdc?auto=format&fit=crop&w=1200&q=80',
+          level: Math.min(99, Math.max(1, Math.round(dossier.composite_score || 72))),
+          xp: 65000,
+          xpNext: 75000,
+          stats: { height: dossier.height_str || `${dossier.height_in}"`, weight: `${dossier.weight_lbs || 180} lbs`, score: dossier.composite_score }
+        };
+      }
+    }
 
     // If caller provided fallback author object (e.g. from post.author)
     if (fallbackObj && fallbackObj.name) {
@@ -629,25 +939,27 @@
     }
 
     // Check if it's a roster player from master_players
-    if (window.SMRP_MASTER_PLAYERS) {
-      const p = window.SMRP_MASTER_PLAYERS.find(x => x.id === userId);
+    const masterList = (typeof window !== 'undefined' && (window.MASTER_ALL_REGISTRY || window.MASTER_PLAYERS || window.SMRP_ALL_REGISTRY || window.SMRP_MASTER_PLAYERS)) || [];
+    if (masterList.length > 0) {
+      const p = masterList.find(x => x.id === userId);
       if (p) {
+        const isStaff = p.entity_type === 'coach' || (p.id && p.id.startsWith('mc_'));
         return {
           id: p.id,
           name: p.name,
           handle: p.name.toLowerCase().replace(/[^a-z0-9]/g, '_'),
-          role: "athlete",
-          badge: BADGES.ATHLETE,
-          title: `${p.role_title} (#${p.num})`,
-          organization: p.team || p.institution,
-          location: p.hometown || "USA",
-          bio: `Verified prospect dossier for ${p.name}. Competing in ${p.league} for ${p.team}.`,
+          role: isStaff ? "coach" : "athlete",
+          badge: isStaff ? BADGES.COACH : BADGES.ATHLETE,
+          title: p.role_title || (isStaff ? "Coach / Staff" : `${p.pos || 'Forward'} (#${p.num || '--'})`),
+          organization: p.team || p.institution || "Amateur Hockey",
+          location: p.hometown || p.league || "USA / Canada",
+          bio: `Verified dossier for ${p.name}. Competing in ${p.league || 'Collegiate/Junior'} for ${p.team || 'Program'}.`,
           avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=250&q=80",
           banner: "https://images.unsplash.com/photo-1580748141549-71748dbe0bdc?auto=format&fit=crop&w=1200&q=80",
-          level: 68,
-          xp: 54000,
-          xpNext: 60000,
-          stats: { height: p.height_str, weight: `${p.weight_lbs} lbs`, score: p.composite_score }
+          level: Math.min(99, Math.max(1, Math.round(p.composite_score || 70))),
+          xp: 58000,
+          xpNext: 65000,
+          stats: { height: p.height_str || `${p.height_in}"`, weight: `${p.weight_lbs || 180} lbs`, score: p.composite_score }
         };
       }
     }
@@ -669,12 +981,17 @@
     getLevelTitle: getLevelTitle,
     getLevelBadgeColor: getLevelBadgeColor,
     getState: loadState,
+    getCurrentUser: getCurrentUser,
     registerUser: registerUser,
     switchUser: switchUser,
     updateProfile: updateProfile,
     addXP: addXP,
     sendMessage: sendMessage,
     createPost: createPost,
+    createCommitmentPost: createCommitmentPost,
+    createCombinePost: createCombinePost,
+    createGameLogPost: createGameLogPost,
+    createFilmPost: createFilmPost,
     toggleLikePost: toggleLikePost,
     toggleBookmarkPost: toggleBookmarkPost,
     repostPost: repostPost,
