@@ -21,6 +21,7 @@
     { "name": "Career Pathway", "url": "pathway.html", "description": "Lifelong Trajectory & NCAA vs CHL" },
     { "name": "Crease Lab", "url": "crease.html", "description": "Goalie Crease Geometry & GSAx Studio" },
     { "name": "International War Room", "url": "international.html", "description": "4 Nations & Olympic Hub" },
+    { "name": "Microstat Studio", "url": "tracking.html", "description": "Microstats & Spatial Passing Network" },
     { "name": "Compare Lab", "url": "compare.html", "description": "Player Radar & Head-to-Head Matrix" },
     { "name": "Tactics Lab", "url": "tactics.html", "description": "AI Lineup Optimizer & Tactics" },
     { "name": "Tournament Bracketology", "url": "tournament.html", "description": "Championship War Room" },

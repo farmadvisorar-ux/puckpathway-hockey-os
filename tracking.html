@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-slate-950 text-slate-100">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Microstat & Spatial Passing Network Studio | BlueLine DataWorks</title>
+  
+  <!-- SEO & Social Meta -->
+  <meta name="description" content="BlueLine DataWorks is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory. Experience granular microstat tracking, controlled zone transition metrics, 2D spatial passing network webs, and Royal Road cross-slot analytics.">
+  <meta name="keywords" content="hockey microstats, zone entries, carry-in percentage, blue-line denial rate, Royal Road cross-slot pass, spatial passing web, hockey analytics, BlueLine DataWorks">
+  <meta property="og:title" content="Microstat & Spatial Passing Network Studio | BlueLine DataWorks">
+  <meta property="og:description" content="Granular sequence tracking, controlled transition metrics, 2D spatial passing network web, and Royal Road cross-slot finishing analytics.">
+  <meta property="og:type" content="website">
+
+  <!-- PWA Manifest & Icons -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0d9488">
+  <link rel="apple-touch-icon" href="static/icons/icon-192.png">
+
+  <!-- Pre-Execution Active Runtime Security Shield -->
+  <script src="static/js/security_shield.js"></script>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Font Awesome Free CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Google Fonts Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            brand: {
+              gold: '#f59e0b',
+              ice: '#38bdf8',
+              navy: '#0f172a',
+              teal: '#0d9488',
+              emerald: '#10b981',
+              royal: '#3b82f6',
+              royalroad: '#eab308'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #020617;
+    }
+    .glass-panel {
+      background: rgba(15, 23, 42, 0.78);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #090d16;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #1e293b;
+      border-radius: 9999px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: #334155;
+    }
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 0.8; filter: drop-shadow(0 0 6px rgba(234, 179, 8, 0.8)); }
+      50% { opacity: 0.3; filter: drop-shadow(0 0 2px rgba(234, 179, 8, 0.4)); }
+    }
+    .royal-road-glow {
+      animation: pulseGlow 2.5s infinite;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-teal-500 selection:text-slate-950">
+
+  <!-- Top Enterprise Header Navigation Bar (Unified Ecosystem) -->
+  <header class="sticky top-0 z-50 glass-panel border-b border-slate-800/80 bg-slate-950/90">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+      
+      <!-- Brand Logo & Title -->
+      <div class="flex items-center gap-3">
+        <a href="index.html" class="flex items-center gap-2.5 group">
+          <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-teal-500 via-emerald-400 to-cyan-500 p-0.5 shadow-lg shadow-teal-500/20 group-hover:scale-105 transition duration-200">
+            <div class="w-full h-full bg-slate-950 rounded-[14px] flex items-center justify-center">
+              <span class="text-xl">🔬</span>
+            </div>
+          </div>
+          <div>
+            <div class="flex items-center gap-1.5">
+              <span class="font-extrabold text-sm sm:text-base tracking-tight text-white group-hover:text-teal-400 transition">BlueLine</span>
+              <span class="text-[10px] uppercase font-mono tracking-widest px-1.5 py-0.5 rounded bg-teal-500/20 text-teal-300 font-bold">Microstats</span>
+            </div>
+            <p class="text-[10px] text-slate-400 hidden sm:block">Spatial Passing & Transition Studio</p>
+          </div>
+        </a>
+      </div>
+
+      <!-- Unified Navigation Pills -->
+      <div class="flex items-center gap-1 sm:gap-1.5 overflow-x-auto py-1 max-w-[66%] sm:max-w-none text-xs font-mono custom-scrollbar">
+        <a href="index.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>🏒</span> <span class="hidden md:inline">Main OS</span>
+        </a>
+        <a href="database.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-sky-400 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>📊</span> <span class="hidden md:inline">Directory</span>
+        </a>
+        <a href="scoreboard.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-rose-300 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>📡</span> <span class="hidden md:inline">Game Center</span>
+        </a>
+        <a href="rink3d.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-sky-300 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>🧊</span> <span class="hidden md:inline">3D Rink</span>
+        </a>
+        <a href="film.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-cyan-300 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>🎬</span> <span class="hidden md:inline">Film Studio</span>
+        </a>
+        <a href="portal.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-amber-300 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>⚡</span> <span class="hidden md:inline">Portal & NIL</span>
+        </a>
+        <a href="draft.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>🎯</span> <span class="hidden md:inline">Draft Room</span>
+        </a>
+        <a href="combine.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-amber-300 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>🧬</span> <span class="hidden md:inline">Combine Lab</span>
+        </a>
+        <a href="caplab.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-emerald-400 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>💼</span> <span class="hidden md:inline">Cap Lab</span>
+        </a>
+        <a href="tournament.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-amber-400 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>🏆</span> <span class="hidden md:inline">Tournaments</span>
+        </a>
+        <a href="tactics.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-sky-400 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>📋</span> <span class="hidden md:inline">Tactics</span>
+        </a>
+        <a href="compare.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-sky-400 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>⚖️</span> <span class="hidden md:inline">Compare</span>
+        </a>
+        <a href="tracking.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-gradient-to-r from-teal-600 via-emerald-600 to-cyan-600 text-white font-bold border border-teal-400/50 shadow-md shadow-teal-500/20 flex items-center gap-1">
+          <span>🔬</span> <span class="hidden md:inline">Microstats</span>
+        </a>
+        <a href="international.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-rose-300 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>🌍</span> <span class="hidden md:inline">International</span>
+        </a>
+        <a href="crease.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-sky-300 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>🥅</span> <span class="hidden md:inline">Crease Lab</span>
+        </a>
+        <a href="pathway.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-emerald-300 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>🛣️</span> <span class="hidden md:inline">Pathway</span>
+        </a>
+        <a href="market.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-amber-300 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>💼</span> <span class="hidden md:inline">Trade Desk</span>
+        </a>
+        <a href="security.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-emerald-400 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>🛡️</span> <span class="hidden md:inline">Security</span>
+        </a>
+        <a href="community.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>🌐</span> <span class="hidden md:inline">The Wire</span>
+        </a>
+        <a href="agents.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-emerald-400 font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>🤖</span> <span class="hidden md:inline">Swarm</span>
+        </a>
+      </div>
+
+    </div>
+
+    <!-- Mandatory Lifelong Tracking Mission Statement Banner -->
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-2 border-t border-slate-800/80 bg-slate-950/90 flex flex-wrap items-center justify-between gap-2 text-xs">
+      <div class="flex items-center gap-2 min-w-0">
+        <span class="px-2 py-0.5 rounded-md bg-teal-500/20 text-teal-300 font-mono text-[10px] font-bold shrink-0">MISSION</span>
+        <p class="text-[11px] text-slate-400 truncate">
+          BlueLine DataWorks is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory.
+        </p>
+      </div>
+      <div class="flex items-center gap-2 shrink-0">
+        <span id="pwaStatusPill" class="text-[10px] font-mono text-teal-400 bg-teal-950/60 border border-teal-800/50 px-2 py-0.5 rounded-full">⚡ Rinkside Offline Ready</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Studio Content -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
+    
+    <!-- Hero Header & Quantitative Impact Strip -->
+    <div class="glass-panel p-6 rounded-3xl border border-teal-500/20 bg-gradient-to-br from-slate-900/90 via-teal-950/20 to-slate-950 relative overflow-hidden">
+      <div class="absolute -top-24 -right-24 w-96 h-96 bg-teal-500/10 rounded-full blur-3xl pointer-events-none"></div>
+      
+      <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 relative z-10">
+        <div>
+          <div class="flex items-center gap-2.5 mb-2">
+            <span class="px-3 py-1 rounded-full bg-teal-500/20 text-teal-300 font-mono text-xs font-bold uppercase tracking-wider border border-teal-500/30 flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-teal-400 animate-ping"></span>
+              Spatial Microstat Engine Active
+            </span>
+            <span class="px-2.5 py-0.5 rounded-full bg-amber-500/10 text-amber-300 font-mono text-[11px] border border-amber-500/20">
+              Royal Road Analytics
+            </span>
+          </div>
+          <h1 class="text-2xl sm:text-3xl font-black text-white tracking-tight flex items-center gap-3">
+            <span>Microstat & Spatial Passing Network Studio</span>
+          </h1>
+          <p class="text-sm text-slate-400 mt-1 max-w-3xl leading-relaxed">
+            Quantifying granular sequence events that drive expected goals: controlled carry-ins vs dump-ins, neutral zone blue-line denials, 5-man passing geometry, and high-danger Royal Road cross-slot distribution.
+          </p>
+        </div>
+
+        <!-- 1-Click Wire Broadcast Trigger -->
+        <div class="flex items-center gap-3 shrink-0">
+          <button id="broadcastWireBtn" class="px-4 py-2.5 rounded-2xl bg-gradient-to-r from-teal-500 to-emerald-600 hover:from-teal-400 hover:to-emerald-500 text-slate-950 font-bold text-xs uppercase tracking-wider flex items-center gap-2 shadow-lg shadow-teal-500/20 hover:scale-[1.02] transition">
+            <i class="fa-solid fa-tower-broadcast"></i>
+            <span>Broadcast Dossier to The Wire</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Quick Metrics Strip -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-6 pt-5 border-t border-slate-800/80 text-xs">
+        <div class="p-3 rounded-2xl bg-slate-950/60 border border-slate-800/60">
+          <div class="text-[10px] uppercase font-mono text-slate-400">Carry-In Conversion</div>
+          <div class="text-lg font-black text-teal-300 font-mono mt-0.5">3.2x xG Multiplier</div>
+          <p class="text-[10px] text-slate-500">vs Dump-and-Chase entries</p>
+        </div>
+        <div class="p-3 rounded-2xl bg-slate-950/60 border border-slate-800/60">
+          <div class="text-[10px] uppercase font-mono text-slate-400">Royal Road Impact</div>
+          <div class="text-lg font-black text-amber-300 font-mono mt-0.5">+32.4% Finishing</div>
+          <p class="text-[10px] text-slate-500">Cross-slot seam conversion rate</p>
+        </div>
+        <div class="p-3 rounded-2xl bg-slate-950/60 border border-slate-800/60">
+          <div class="text-[10px] uppercase font-mono text-slate-400">Denial Rate Benchmark</div>
+          <div class="text-lg font-black text-emerald-300 font-mono mt-0.5">73.5% Elite Peak</div>
+          <p class="text-[10px] text-slate-500">Cale Makar blue-line defense</p>
+        </div>
+        <div class="p-3 rounded-2xl bg-slate-950/60 border border-slate-800/60">
+          <div class="text-[10px] uppercase font-mono text-sky-300 font-mono mt-0.5">7 Microstat Dossiers</div>
+          <p class="text-[10px] text-slate-500">High-resolution transition profiles</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Skater Selector Carousel / Tabs -->
+    <div class="space-y-2">
+      <div class="flex items-center justify-between">
+        <h2 class="text-xs font-mono uppercase tracking-wider text-slate-400 font-bold flex items-center gap-1.5">
+          <i class="fa-solid fa-users text-teal-400"></i>
+          Select Microstat Athlete Profile
+        </h2>
+        <span class="text-[11px] text-slate-500 font-mono">Real-time adjacency matrix & zone metrics</span>
+      </div>
+
+      <div id="playerSelectorList" class="flex gap-2.5 overflow-x-auto pb-2 custom-scrollbar">
+        <!-- Dynamically injected player cards -->
+      </div>
+    </div>
+
+    <!-- Active Player Microstat Dossier & Spatial Network Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+      
+      <!-- Left Column: Interactive 2D Spatial Passing Network Web (7 Cols) -->
+      <div class="lg:col-span-7 space-y-6">
+        
+        <!-- Passing Web Canvas Panel -->
+        <div class="glass-panel p-5 rounded-3xl border border-slate-800 space-y-4">
+          <div class="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-slate-800/80">
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="text-base font-black text-white" id="rinkTitle">Spatial Passing Network Web</span>
+                <span class="px-2 py-0.5 rounded bg-teal-500/20 text-teal-300 font-mono text-[10px] font-bold">5-Man Offensive Structure</span>
+              </div>
+              <p class="text-xs text-slate-400 mt-0.5">Connecting high-frequency puck rotation & Royal Road cross-slot feeds</p>
+            </div>
+
+            <!-- View Filters -->
+            <div class="flex items-center gap-1.5 text-xs font-mono">
+              <button id="filterAllPasses" class="px-2.5 py-1 rounded-lg bg-teal-500/20 text-teal-300 border border-teal-500/30 font-bold transition">All Links</button>
+              <button id="filterRoyalRoad" class="px-2.5 py-1 rounded-lg bg-slate-900 text-amber-400 hover:bg-slate-800 border border-slate-800 font-bold transition">Royal Road Only</button>
+              <button id="togglePuckFlow" class="px-2.5 py-1 rounded-lg bg-slate-900 text-sky-300 hover:bg-slate-800 border border-slate-800 font-bold transition">
+                <i class="fa-solid fa-play mr-1"></i> Animate
+              </button>
+            </div>
+          </div>
+
+          <!-- Rink Web Container -->
+          <div class="relative bg-slate-950 rounded-2xl border border-slate-800 p-3 overflow-hidden">
+            <!-- Royal Road Legend Indicator -->
+            <div class="absolute top-3 left-3 z-20 flex items-center gap-3 bg-slate-900/90 backdrop-blur px-3 py-1.5 rounded-xl border border-slate-800 text-[11px] font-mono">
+              <div class="flex items-center gap-1.5">
+                <div class="w-3 h-0.5 bg-amber-400 royal-road-glow"></div>
+                <span class="text-amber-300 font-bold">The Royal Road</span>
+              </div>
+              <div class="flex items-center gap-1.5 text-slate-400">
+                <div class="w-3 h-0.5 bg-teal-400"></div>
+                <span>Cycle Pass</span>
+              </div>
+            </div>
+
+            <!-- Interactive Canvas -->
+            <canvas id="passingNetworkCanvas" width="620" height="400" class="w-full h-auto rounded-xl block bg-gradient-to-b from-slate-950 to-slate-900/80 cursor-crosshair"></canvas>
+            
+            <!-- Dynamic Link Inspector Tooltip / Box -->
+            <div id="linkInspectorCard" class="mt-3 p-3 rounded-xl bg-slate-900/90 border border-slate-800 text-xs flex flex-wrap items-center justify-between gap-2">
+              <div class="flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+                <span class="font-mono text-slate-300" id="linkInspectorTitle">Hover over any skater node or pass line</span>
+              </div>
+              <div class="font-mono text-teal-400 font-bold" id="linkInspectorMetric">Pass Connection Frequency & Completion %</div>
+            </div>
+          </div>
+
+          <!-- Skater Node Summary Cards -->
+          <div class="grid grid-cols-5 gap-2 text-center text-xs">
+            <div class="p-2 rounded-xl bg-slate-900/80 border border-slate-800">
+              <div class="font-mono text-[10px] text-teal-400 font-bold">LW</div>
+              <div class="font-semibold text-slate-200 text-[11px] truncate">Left Flank</div>
+              <div class="text-[10px] text-slate-400 font-mono mt-0.5" id="lwPassSummary">Cycle Hub</div>
+            </div>
+            <div class="p-2 rounded-xl bg-slate-900/80 border border-slate-800">
+              <div class="font-mono text-[10px] text-amber-400 font-bold">C</div>
+              <div class="font-semibold text-slate-200 text-[11px] truncate">Low-High Pivot</div>
+              <div class="text-[10px] text-slate-400 font-mono mt-0.5" id="cPassSummary">Distribution</div>
+            </div>
+            <div class="p-2 rounded-xl bg-slate-900/80 border border-slate-800">
+              <div class="font-mono text-[10px] text-teal-400 font-bold">RW</div>
+              <div class="font-semibold text-slate-200 text-[11px] truncate">Right Flank</div>
+              <div class="text-[10px] text-slate-400 font-mono mt-0.5" id="rwPassSummary">Finisher</div>
+            </div>
+            <div class="p-2 rounded-xl bg-slate-900/80 border border-slate-800">
+              <div class="font-mono text-[10px] text-sky-400 font-bold">LD</div>
+              <div class="font-semibold text-slate-200 text-[11px] truncate">Left Point</div>
+              <div class="text-[10px] text-slate-400 font-mono mt-0.5" id="ldPassSummary">Blue-Line Walker</div>
+            </div>
+            <div class="p-2 rounded-xl bg-slate-900/80 border border-slate-800">
+              <div class="font-mono text-[10px] text-sky-400 font-bold">RD</div>
+              <div class="font-semibold text-slate-200 text-[11px] truncate">Right Point</div>
+              <div class="text-[10px] text-slate-400 font-mono mt-0.5" id="rdPassSummary">D-to-D Trigger</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Panel C: Interactive 5-Step Transition & Possession Sequence Player -->
+        <div class="glass-panel p-5 rounded-3xl border border-slate-800 space-y-4">
+          <div class="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-slate-800/80">
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="text-base font-black text-white">5-Step Transition & Scoring Sequence Player</span>
+                <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-mono text-[10px] font-bold">Step-by-Step Tactical Breakdown</span>
+              </div>
+              <p class="text-xs text-slate-400 mt-0.5">Chronological flow from D-zone recovery to Royal Road one-timer</p>
+            </div>
+
+            <!-- Sequence Player Controls -->
+            <div class="flex items-center gap-2 text-xs font-mono">
+              <button id="prevSeqStepBtn" class="w-8 h-8 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800 flex items-center justify-center transition">
+                <i class="fa-solid fa-backward-step"></i>
+              </button>
+              <button id="playPauseSeqBtn" class="px-3 py-1.5 rounded-lg bg-teal-600 hover:bg-teal-500 text-white font-bold flex items-center gap-1.5 transition">
+                <i class="fa-solid fa-play" id="playIcon"></i>
+                <span id="playBtnLabel">Play</span>
+              </button>
+              <button id="nextSeqStepBtn" class="w-8 h-8 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800 flex items-center justify-center transition">
+                <i class="fa-solid fa-forward-step"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Step Progression Timeline Bar -->
+          <div class="grid grid-cols-5 gap-2 text-center text-xs font-mono">
+            <button class="seq-step-pill p-2 rounded-xl bg-teal-500/20 border border-teal-400/40 text-teal-300 font-bold transition" data-step="1">
+              Step 1: Exit
+            </button>
+            <button class="seq-step-pill p-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-400 font-bold hover:bg-slate-800 transition" data-step="2">
+              Step 2: Regroup
+            </button>
+            <button class="seq-step-pill p-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-400 font-bold hover:bg-slate-800 transition" data-step="3">
+              Step 3: Entry
+            </button>
+            <button class="seq-step-pill p-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-400 font-bold hover:bg-slate-800 transition" data-step="4">
+              Step 4: Cycle
+            </button>
+            <button class="seq-step-pill p-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-400 font-bold hover:bg-slate-800 transition" data-step="5">
+              Step 5: Finish
+            </button>
+          </div>
+
+          <!-- Active Sequence Detail Card -->
+          <div class="p-4 rounded-2xl bg-slate-950/70 border border-teal-500/20 space-y-3">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <span class="px-2 py-0.5 rounded bg-teal-500/20 text-teal-300 font-mono text-[11px] font-bold" id="activeStepBadge">STEP 1 / 5</span>
+                <h3 class="text-sm font-bold text-white" id="activeStepTitle">Defensive Zone Wall Battle & Controlled Exit</h3>
+              </div>
+              <span class="text-xs font-mono text-slate-400" id="activeStepZone">Defensive Zone</span>
+            </div>
+
+            <p class="text-xs text-slate-300 leading-relaxed" id="activeStepDesc">
+              Left Defenseman pins oncoming forechecker to the half-wall, executes a clean reverse rim to Center, who wheels with full speed.
+            </p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t border-slate-800/80 text-xs">
+              <div class="p-2.5 rounded-xl bg-slate-900/80 border border-slate-800">
+                <div class="text-[10px] uppercase font-mono text-teal-400 font-bold">Quantitative Microstat</div>
+                <div class="text-xs font-semibold text-slate-200 mt-0.5" id="activeStepStat">
+                  Controlled Exit with Possession: 84% success rate vs 18% on glass clears.
+                </div>
+              </div>
+              <div class="p-2.5 rounded-xl bg-slate-900/80 border border-slate-800">
+                <div class="text-[10px] uppercase font-mono text-amber-400 font-bold">Scouting Takeaway</div>
+                <div class="text-xs font-semibold text-slate-200 mt-0.5" id="activeStepTactical">
+                  Avoiding blind panic clears preserves continuous offensive momentum.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right Column: Microstat Dossier, Transition Gauges & Recovery Matrix (5 Cols) -->
+      <div class="lg:col-span-5 space-y-6">
+        
+        <!-- Active Athlete Profile Card -->
+        <div class="glass-panel p-5 rounded-3xl border border-slate-800 space-y-4">
+          <div class="flex items-center justify-between pb-3 border-b border-slate-800/80">
+            <div class="flex items-center gap-3">
+              <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-teal-500 to-emerald-600 p-0.5 shadow-lg shadow-teal-500/20">
+                <div class="w-full h-full bg-slate-950 rounded-[14px] flex items-center justify-center font-mono font-black text-teal-300 text-lg" id="profilePosBadge">
+                  C
+                </div>
+              </div>
+              <div>
+                <h2 class="text-lg font-black text-white" id="profilePlayerName">Macklin Celebrini</h2>
+                <p class="text-xs text-slate-400 font-mono" id="profileTeamLeague">San Jose Sharks • NHL / NCAA Alum (BU)</p>
+              </div>
+            </div>
+            <span class="px-2.5 py-1 rounded-full bg-teal-500/10 text-teal-300 border border-teal-500/30 text-xs font-mono font-bold" id="profileIdBadge">
+              VERIFIED #1
+            </span>
+          </div>
+
+          <p class="text-xs text-slate-300 leading-relaxed italic" id="profileScoutingBlurb">
+            "Elite two-way transition engine. Drives blue-line entries through speed deception and immediately targets the weak-side flank."
+          </p>
+
+          <!-- Core Transition Metric Gauges -->
+          <div class="space-y-3 pt-2">
+            
+            <!-- Controlled Entry % -->
+            <div class="space-y-1">
+              <div class="flex items-center justify-between text-xs">
+                <span class="text-slate-400 font-medium">Controlled Zone Entry Rate</span>
+                <span class="font-mono font-black text-teal-300" id="gaugeEntryPct">76.4%</span>
+              </div>
+              <div class="h-2 w-full bg-slate-900 rounded-full overflow-hidden border border-slate-800">
+                <div id="barEntryPct" class="h-full bg-gradient-to-r from-teal-500 to-emerald-400 rounded-full" style="width: 76.4%"></div>
+              </div>
+              <div class="flex justify-between text-[10px] text-slate-500 font-mono">
+                <span>Dump-in Heavy (<50%)</span>
+                <span>NHL Avg (58%)</span>
+                <span>Elite (>75%)</span>
+              </div>
+            </div>
+
+            <!-- Controlled Exit % -->
+            <div class="space-y-1">
+              <div class="flex items-center justify-between text-xs">
+                <span class="text-slate-400 font-medium">Controlled Zone Exit with Possession</span>
+                <span class="font-mono font-black text-emerald-300" id="gaugeExitPct">81.5%</span>
+              </div>
+              <div class="h-2 w-full bg-slate-900 rounded-full overflow-hidden border border-slate-800">
+                <div id="barExitPct" class="h-full bg-gradient-to-r from-emerald-500 to-cyan-400 rounded-full" style="width: 81.5%"></div>
+              </div>
+              <div class="flex justify-between text-[10px] text-slate-500 font-mono">
+                <span>Glass/Rim clears</span>
+                <span>NHL Avg (64%)</span>
+                <span>Elite (>80%)</span>
+              </div>
+            </div>
+
+            <!-- Defensive Blue-Line Denial Rate -->
+            <div class="space-y-1">
+              <div class="flex items-center justify-between text-xs">
+                <span class="text-slate-400 font-medium">Defensive Blue-Line Denial Rate</span>
+                <span class="font-mono font-black text-sky-300" id="gaugeDenialRate">62.0%</span>
+              </div>
+              <div class="h-2 w-full bg-slate-900 rounded-full overflow-hidden border border-slate-800">
+                <div id="barDenialRate" class="h-full bg-gradient-to-r from-sky-500 to-indigo-400 rounded-full" style="width: 62.0%"></div>
+              </div>
+              <div class="flex justify-between text-[10px] text-slate-500 font-mono">
+                <span>Passive Gap</span>
+                <span>NHL Avg (52%)</span>
+                <span>Elite (>65%)</span>
+              </div>
+            </div>
+
+            <!-- Royal Road Seams Per 60 -->
+            <div class="space-y-1">
+              <div class="flex items-center justify-between text-xs">
+                <span class="text-slate-400 font-medium">Royal Road Cross-Slot Passes / 60</span>
+                <span class="font-mono font-black text-amber-300" id="gaugeRoyalRoad">4.35 / 60</span>
+              </div>
+              <div class="h-2 w-full bg-slate-900 rounded-full overflow-hidden border border-slate-800">
+                <div id="barRoyalRoad" class="h-full bg-gradient-to-r from-amber-500 to-yellow-400 rounded-full" style="width: 72%"></div>
+              </div>
+              <div class="flex justify-between text-[10px] text-slate-500 font-mono">
+                <span>Perimeter Heavy</span>
+                <span>NHL Avg (2.4)</span>
+                <span>Elite (>4.0)</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Secondary Microstat Tiles -->
+          <div class="grid grid-cols-2 gap-3 pt-3 border-t border-slate-800/80 text-xs">
+            <div class="p-3 rounded-2xl bg-slate-900/80 border border-slate-800">
+              <div class="text-[10px] uppercase font-mono text-slate-400">Carry-In xG Generated / 60</div>
+              <div class="text-base font-black text-teal-300 font-mono mt-0.5" id="metricXg60">3.12 xG</div>
+              <p class="text-[10px] text-slate-500 mt-0.5">Rush chance production</p>
+            </div>
+            <div class="p-3 rounded-2xl bg-slate-900/80 border border-slate-800">
+              <div class="text-[10px] uppercase font-mono text-slate-400">Puck Recoveries / 60</div>
+              <div class="text-base font-black text-emerald-300 font-mono mt-0.5" id="metricRecoveries60">19.8 / 60</div>
+              <p class="text-[10px] text-slate-500 mt-0.5">Loose puck retrievals</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Panel D: Puck Battle & Forecheck Pressure Matrix -->
+        <div class="glass-panel p-5 rounded-3xl border border-slate-800 space-y-4">
+          <div class="flex items-center justify-between pb-3 border-b border-slate-800/80">
+            <div class="flex items-center gap-2">
+              <span class="text-base font-black text-white">Battle & Pressure Index</span>
+              <span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-mono text-[10px] font-bold">Physical Microstats</span>
+            </div>
+            <div class="font-mono text-xs text-amber-400 font-bold" id="forecheckScoreBadge">Score: 94/100</div>
+          </div>
+
+          <div class="space-y-3 text-xs">
+            <div class="p-3 rounded-2xl bg-slate-950/60 border border-slate-800 flex items-center justify-between">
+              <div class="flex items-center gap-2.5">
+                <span class="text-lg">🛡️</span>
+                <div>
+                  <div class="font-semibold text-slate-200">Offensive Zone Corner Retrieval</div>
+                  <div class="text-[10px] text-slate-400">First-touch wins after dump-ins or deflections</div>
+                </div>
+              </div>
+              <div class="font-mono font-bold text-teal-400 text-sm">64.2%</div>
+            </div>
+
+            <div class="p-3 rounded-2xl bg-slate-950/60 border border-slate-800 flex items-center justify-between">
+              <div class="flex items-center gap-2.5">
+                <span class="text-lg">⚡</span>
+                <div>
+                  <div class="font-semibold text-slate-200">Neutral Zone Stick-Check Turnover Rate</div>
+                  <div class="text-[10px] text-slate-400">Dispossessing puck carriers prior to red line</div>
+                </div>
+              </div>
+              <div class="font-mono font-bold text-emerald-400 text-sm">3.8 / 60</div>
+            </div>
+
+            <div class="p-3 rounded-2xl bg-slate-950/60 border border-slate-800 flex items-center justify-between">
+              <div class="flex items-center gap-2.5">
+                <span class="text-lg">🧱</span>
+                <div>
+                  <div class="font-semibold text-slate-200">D-Zone Half-Wall Pin Win %</div>
+                  <div class="text-[10px] text-slate-400">Preserving possession under heavy cycle pressure</div>
+                </div>
+              </div>
+              <div class="font-mono font-bold text-sky-400 text-sm">71.5%</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Wire Broadcast Preview Toast Card -->
+        <div id="wirePreviewCard" class="hidden glass-panel p-4 rounded-2xl border border-teal-500/30 bg-teal-950/20 text-xs space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="text-teal-300 font-mono font-bold flex items-center gap-1.5">
+              <i class="fa-solid fa-circle-check text-teal-400"></i>
+              Broadcast Live on The Wire
+            </span>
+            <a href="community.html" class="text-[10px] font-mono text-slate-400 hover:text-teal-300 underline">View The Wire →</a>
+          </div>
+          <p class="text-slate-300 text-[11px]" id="wirePreviewSnippet"></p>
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- Enterprise Footer -->
+  <footer class="mt-auto border-t border-slate-800/80 bg-slate-950/90 py-8 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-slate-400">
+      <div class="flex items-center gap-3">
+        <div class="w-7 h-7 rounded-xl bg-teal-500/20 border border-teal-500/30 flex items-center justify-center text-teal-300 font-mono font-bold text-xs">
+          🔬
+        </div>
+        <div>
+          <span class="font-bold text-slate-200">BlueLine DataWorks</span>
+          <span class="text-slate-500"> • Microstat & Spatial Passing Network Studio</span>
+        </div>
+      </div>
+
+      <!-- Mandatory Lifelong Tracking Mission Statement in Footer -->
+      <div class="text-center md:text-right max-w-xl text-[11px] text-slate-500">
+        BlueLine DataWorks is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory.
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="static/js/tracking_engine.js"></script>
+  <script>
+    (function() {
+      "use strict";
+
+      // 1. Data Reference
+      const players = window.TrackingEngine ? window.TrackingEngine.players : [];
+      const sequenceSteps = window.TrackingEngine ? window.TrackingEngine.sequenceSteps : [];
+      let selectedPlayerIndex = 0;
+      let activeStepIndex = 0;
+      let playInterval = null;
+      let royalRoadOnly = false;
+      let animateFlow = true;
+      let flowOffset = 0;
+
+      // 2. Skater Nodes Coordinates on Rink Canvas (620 x 400)
+      // Offensive Zone Rink (Top is Blue Line, Bottom is Goal Line/Net)
+      const NODE_COORDINATES = {
+        "LD": { x: 190, y: 70, label: "LD (Left Point)", role: "Point / Walking" },
+        "RD": { x: 430, y: 70, label: "RD (Right Point)", role: "Point / Trigger" },
+        "LW": { x: 130, y: 240, label: "LW (Left Flank)", role: "Half-Wall Cycle" },
+        "C":  { x: 310, y: 190, label: "C (High Slot / Bumper)", role: "Seam Pivot" },
+        "RW": { x: 490, y: 240, label: "RW (Right Flank)", role: "Weak-Side Flank" }
+      };
+
+      // 3. Initialize Skater Selector Cards
+      const playerSelectorList = document.getElementById("playerSelectorList");
+      function renderPlayerCards() {
+        if (!playerSelectorList) return;
+        playerSelectorList.innerHTML = "";
+
+        players.forEach((p, idx) => {
+          const isSelected = idx === selectedPlayerIndex;
+          const card = document.createElement("button");
+          card.className = `flex-shrink-0 p-3 rounded-2xl border text-left transition duration-150 min-w-[200px] ${
+            isSelected 
+              ? "bg-slate-900 border-teal-500 shadow-md shadow-teal-500/10 text-white" 
+              : "bg-slate-950/70 border-slate-800 text-slate-400 hover:bg-slate-900/80 hover:text-slate-200"
+          }`;
+          card.innerHTML = `
+            <div class="flex items-center justify-between">
+              <span class="font-mono text-[10px] font-bold px-1.5 py-0.5 rounded ${isSelected ? 'bg-teal-500/20 text-teal-300' : 'bg-slate-800 text-slate-400'}">${p.pos}</span>
+              <span class="text-[10px] font-mono text-amber-400">${p.royalRoadPassesPer60} RR/60</span>
+            </div>
+            <div class="font-bold text-xs text-white mt-1 truncate">${p.name}</div>
+            <div class="text-[10px] text-slate-400 truncate">${p.team}</div>
+            <div class="mt-2 pt-2 border-t border-slate-800/80 flex items-center justify-between text-[10px] font-mono">
+              <span class="text-teal-400">Entry: ${p.controlledEntryPct}</span>
+              <span class="text-sky-400">Denial: ${p.denialRate}</span>
+            </div>
+          `;
+          card.addEventListener("click", () => {
+            selectedPlayerIndex = idx;
+            renderPlayerCards();
+            updateDossierView();
+            drawPassingWeb();
+          });
+          playerSelectorList.appendChild(card);
+        });
+      }
+
+      // 4. Update Dossier View
+      function updateDossierView() {
+        const p = players[selectedPlayerIndex];
+        if (!p) return;
+
+        document.getElementById("profilePosBadge").textContent = p.pos;
+        document.getElementById("profilePlayerName").textContent = p.name;
+        document.getElementById("profileTeamLeague").textContent = `${p.team} • ${p.league}`;
+        document.getElementById("profileIdBadge").textContent = `PASSES: ${p.passingLinks.length} LINKS`;
+        document.getElementById("profileScoutingBlurb").textContent = `"${p.profile}"`;
+
+        // Gauges
+        document.getElementById("gaugeEntryPct").textContent = p.controlledEntryPct;
+        document.getElementById("barEntryPct").style.width = p.controlledEntryPct;
+
+        document.getElementById("gaugeExitPct").textContent = p.controlledExitPct;
+        document.getElementById("barExitPct").style.width = p.controlledExitPct;
+
+        document.getElementById("gaugeDenialRate").textContent = p.denialRate;
+        document.getElementById("barDenialRate").style.width = p.denialRate;
+
+        document.getElementById("gaugeRoyalRoad").textContent = `${p.royalRoadPassesPer60} / 60`;
+        const rrVal = parseFloat(p.royalRoadPassesPer60) || 3.5;
+        document.getElementById("barRoyalRoad").style.width = `${Math.min(100, Math.round((rrVal / 6.5) * 100))}%`;
+
+        document.getElementById("metricXg60").textContent = `${p.carryInXgPer60} xG`;
+        document.getElementById("metricRecoveries60").textContent = `${p.puckRecoveriesPer60} / 60`;
+        document.getElementById("forecheckScoreBadge").textContent = `Score: ${p.forecheckPressureScore}/100`;
+
+        document.getElementById("rinkTitle").textContent = `${p.name} • Spatial Passing Web`;
+      }
+
+      // 5. Canvas Passing Web Visualizer
+      const canvas = document.getElementById("passingNetworkCanvas");
+      const ctx = canvas ? canvas.getContext("2d") : null;
+
+      function drawRink() {
+        if (!ctx) return;
+        const w = canvas.width;
+        const h = canvas.height;
+
+        // Background Ice
+        ctx.fillStyle = "#030712";
+        ctx.fillRect(0, 0, w, h);
+
+        // Boards Border
+        ctx.strokeStyle = "#1e293b";
+        ctx.lineWidth = 4;
+        ctx.strokeRect(10, 10, w - 20, h - 20);
+
+        // Blue Line (Near Top)
+        ctx.strokeStyle = "rgba(56, 189, 248, 0.4)";
+        ctx.lineWidth = 4;
+        ctx.beginPath();
+        ctx.moveTo(10, 50);
+        ctx.lineTo(w - 10, 50);
+        ctx.stroke();
+
+        // Goal Line (Near Bottom)
+        ctx.strokeStyle = "rgba(244, 63, 94, 0.4)";
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(10, 350);
+        ctx.lineTo(w - 10, 350);
+        ctx.stroke();
+
+        // Goal Crease
+        ctx.fillStyle = "rgba(56, 189, 248, 0.15)";
+        ctx.strokeStyle = "rgba(244, 63, 94, 0.6)";
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.arc(w / 2, 350, 34, Math.PI, 0, false);
+        ctx.fill();
+        ctx.stroke();
+
+        // Net
+        ctx.fillStyle = "rgba(255, 255, 255, 0.2)";
+        ctx.fillRect(w / 2 - 25, 350, 50, 14);
+
+        // Face-Off Dots & Circles
+        // Left Circle
+        ctx.strokeStyle = "rgba(244, 63, 94, 0.25)";
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.arc(140, 260, 48, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.fillStyle = "#ef4444";
+        ctx.beginPath();
+        ctx.arc(140, 260, 4, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Right Circle
+        ctx.beginPath();
+        ctx.arc(w - 140, 260, 48, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.arc(w - 140, 260, 4, 0, Math.PI * 2);
+        ctx.fill();
+
+        // THE ROYAL ROAD (Longitudinal center line from goal mouth through top of slot)
+        ctx.strokeStyle = "rgba(234, 179, 8, 0.75)";
+        ctx.lineWidth = 2;
+        ctx.setLineDash([6, 6]);
+        ctx.beginPath();
+        ctx.moveTo(w / 2, 50);
+        ctx.lineTo(w / 2, 350);
+        ctx.stroke();
+        ctx.setLineDash([]); // reset
+
+        // Royal Road Text Indicator
+        ctx.fillStyle = "rgba(234, 179, 8, 0.9)";
+        ctx.font = "bold 9px 'JetBrains Mono', monospace";
+        ctx.textAlign = "center";
+        ctx.fillText("ROYAL ROAD (HIGH DANGER DIVIDER)", w / 2, 130);
+      }
+
+      function drawPassingWeb() {
+        if (!ctx) return;
+        drawRink();
+
+        const p = players[selectedPlayerIndex];
+        if (!p) return;
+
+        const links = p.passingLinks;
+
+        // 1. Draw Links
+        links.forEach((l) => {
+          if (royalRoadOnly && !l.royalRoad) return;
+
+          const fromCoord = NODE_COORDINATES[l.from];
+          const toCoord = NODE_COORDINATES[l.to];
+          if (!fromCoord || !toCoord) return;
+
+          const isRR = l.royalRoad;
+          const strokeWidth = Math.max(2, Math.min(7, l.passes / 4));
+
+          ctx.beginPath();
+          ctx.moveTo(fromCoord.x, fromCoord.y);
+          ctx.lineTo(toCoord.x, toCoord.y);
+
+          if (isRR) {
+            ctx.strokeStyle = "rgba(234, 179, 8, 0.85)";
+            ctx.shadowColor = "rgba(234, 179, 8, 0.8)";
+            ctx.shadowBlur = 10;
+          } else {
+            ctx.strokeStyle = "rgba(20, 184, 166, 0.55)";
+            ctx.shadowColor = "rgba(20, 184, 166, 0.4)";
+            ctx.shadowBlur = 4;
+          }
+
+          ctx.lineWidth = strokeWidth;
+          ctx.stroke();
+          ctx.shadowBlur = 0; // reset
+
+          // Animated particle flow along links
+          if (animateFlow) {
+            const dx = toCoord.x - fromCoord.x;
+            const dy = toCoord.y - fromCoord.y;
+            const progress = (flowOffset % 100) / 100;
+            const px = fromCoord.x + dx * progress;
+            const py = fromCoord.y + dy * progress;
+
+            ctx.fillStyle = isRR ? "#fef08a" : "#99f6e4";
+            ctx.beginPath();
+            ctx.arc(px, py, isRR ? 3.5 : 2.5, 0, Math.PI * 2);
+            ctx.fill();
+          }
+        });
+
+        // 2. Draw Skater Nodes
+        Object.keys(NODE_COORDINATES).forEach((key) => {
+          const node = NODE_COORDINATES[key];
+          
+          // Node Outer Glow Ring
+          ctx.beginPath();
+          ctx.arc(node.x, node.y, 16, 0, Math.PI * 2);
+          ctx.fillStyle = "rgba(15, 23, 42, 0.9)";
+          ctx.fill();
+          ctx.strokeStyle = key === "C" ? "#eab308" : (key === "LW" || key === "RW" ? "#14b8a6" : "#38bdf8");
+          ctx.lineWidth = 2.5;
+          ctx.stroke();
+
+          // Node Text
+          ctx.fillStyle = "#ffffff";
+          ctx.font = "bold 11px 'JetBrains Mono', monospace";
+          ctx.textAlign = "center";
+          ctx.textBaseline = "middle";
+          ctx.fillText(key, node.x, node.y);
+
+          // Role Subtext
+          ctx.font = "8px 'Inter', sans-serif";
+          ctx.fillStyle = "#94a3b8";
+          ctx.fillText(node.role, node.x, node.y + 24);
+        });
+      }
+
+      // Animation Loop for puck flow
+      function animationLoop() {
+        if (animateFlow) {
+          flowOffset += 0.8;
+          drawPassingWeb();
+        }
+        requestAnimationFrame(animationLoop);
+      }
+      requestAnimationFrame(animationLoop);
+
+      // Filter Handlers
+      const filterAllPassesBtn = document.getElementById("filterAllPasses");
+      const filterRoyalRoadBtn = document.getElementById("filterRoyalRoad");
+      const togglePuckFlowBtn = document.getElementById("togglePuckFlow");
+
+      if (filterAllPassesBtn && filterRoyalRoadBtn) {
+        filterAllPassesBtn.addEventListener("click", () => {
+          royalRoadOnly = false;
+          filterAllPassesBtn.className = "px-2.5 py-1 rounded-lg bg-teal-500/20 text-teal-300 border border-teal-500/30 font-bold transition";
+          filterRoyalRoadBtn.className = "px-2.5 py-1 rounded-lg bg-slate-900 text-amber-400 hover:bg-slate-800 border border-slate-800 font-bold transition";
+          drawPassingWeb();
+        });
+
+        filterRoyalRoadBtn.addEventListener("click", () => {
+          royalRoadOnly = true;
+          filterRoyalRoadBtn.className = "px-2.5 py-1 rounded-lg bg-amber-500/20 text-amber-300 border border-amber-500/30 font-bold transition";
+          filterAllPassesBtn.className = "px-2.5 py-1 rounded-lg bg-slate-900 text-teal-400 hover:bg-slate-800 border border-slate-800 font-bold transition";
+          drawPassingWeb();
+        });
+      }
+
+      if (togglePuckFlowBtn) {
+        togglePuckFlowBtn.addEventListener("click", () => {
+          animateFlow = !animateFlow;
+          togglePuckFlowBtn.innerHTML = animateFlow ? '<i class="fa-solid fa-pause mr-1"></i> Pause' : '<i class="fa-solid fa-play mr-1"></i> Animate';
+        });
+      }
+
+      // Canvas Hover Interaction
+      if (canvas) {
+        canvas.addEventListener("mousemove", (e) => {
+          const rect = canvas.getBoundingClientRect();
+          const scaleX = canvas.width / rect.width;
+          const scaleY = canvas.height / rect.height;
+          const mouseX = (e.clientX - rect.left) * scaleX;
+          const mouseY = (e.clientY - rect.top) * scaleY;
+
+          const p = players[selectedPlayerIndex];
+          if (!p) return;
+
+          let hoveredNode = null;
+          Object.keys(NODE_COORDINATES).forEach((k) => {
+            const coord = NODE_COORDINATES[k];
+            const dist = Math.hypot(mouseX - coord.x, mouseY - coord.y);
+            if (dist < 20) hoveredNode = { key: k, ...coord };
+          });
+
+          const titleEl = document.getElementById("linkInspectorTitle");
+          const metricEl = document.getElementById("linkInspectorMetric");
+
+          if (hoveredNode) {
+            titleEl.textContent = `Node: ${hoveredNode.label} (${hoveredNode.role})`;
+            const related = p.passingLinks.filter(l => l.from === hoveredNode.key || l.to === hoveredNode.key);
+            metricEl.textContent = `${related.length} Active Passing Lanes | Microstat Focal Point`;
+          } else {
+            titleEl.textContent = `${p.name}: ${p.passingLinks.length} Tracked Spatial Connections`;
+            metricEl.textContent = `Royal Road Seam Rate: ${p.royalRoadPassesPer60} / 60`;
+          }
+        });
+      }
+
+      // 6. 5-Step Sequence Player
+      function updateSequenceStep(index) {
+        activeStepIndex = (index + sequenceSteps.length) % sequenceSteps.length;
+        const s = sequenceSteps[activeStepIndex];
+        if (!s) return;
+
+        document.getElementById("activeStepBadge").textContent = `STEP ${s.step} / ${sequenceSteps.length}`;
+        document.getElementById("activeStepTitle").textContent = s.title;
+        document.getElementById("activeStepZone").textContent = s.zone;
+        document.getElementById("activeStepDesc").textContent = s.description;
+        document.getElementById("activeStepStat").textContent = s.statHighlight;
+        document.getElementById("activeStepTactical").textContent = s.tacticalNote;
+
+        // Update step pills
+        const pills = document.querySelectorAll(".seq-step-pill");
+        pills.forEach((pill, idx) => {
+          if (idx === activeStepIndex) {
+            pill.className = "seq-step-pill p-2 rounded-xl bg-teal-500/20 border border-teal-400/40 text-teal-300 font-bold transition";
+          } else {
+            pill.className = "seq-step-pill p-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-400 font-bold hover:bg-slate-800 transition";
+          }
+        });
+      }
+
+      const prevSeqStepBtn = document.getElementById("prevSeqStepBtn");
+      const nextSeqStepBtn = document.getElementById("nextSeqStepBtn");
+      const playPauseSeqBtn = document.getElementById("playPauseSeqBtn");
+      const playIcon = document.getElementById("playIcon");
+      const playBtnLabel = document.getElementById("playBtnLabel");
+
+      if (prevSeqStepBtn) prevSeqStepBtn.addEventListener("click", () => updateSequenceStep(activeStepIndex - 1));
+      if (nextSeqStepBtn) nextSeqStepBtn.addEventListener("click", () => updateSequenceStep(activeStepIndex + 1));
+
+      document.querySelectorAll(".seq-step-pill").forEach((pill, idx) => {
+        pill.addEventListener("click", () => updateSequenceStep(idx));
+      });
+
+      if (playPauseSeqBtn) {
+        playPauseSeqBtn.addEventListener("click", () => {
+          if (playInterval) {
+            clearInterval(playInterval);
+            playInterval = null;
+            playIcon.className = "fa-solid fa-play";
+            playBtnLabel.textContent = "Play";
+          } else {
+            playInterval = setInterval(() => {
+              updateSequenceStep(activeStepIndex + 1);
+            }, 3000);
+            playIcon.className = "fa-solid fa-pause";
+            playBtnLabel.textContent = "Pause";
+          }
+        });
+      }
+
+      // 7. Wire Broadcast Button
+      const broadcastWireBtn = document.getElementById("broadcastWireBtn");
+      const wirePreviewCard = document.getElementById("wirePreviewCard");
+      const wirePreviewSnippet = document.getElementById("wirePreviewSnippet");
+
+      if (broadcastWireBtn) {
+        broadcastWireBtn.addEventListener("click", () => {
+          const p = players[selectedPlayerIndex];
+          if (!p || !window.TrackingEngine) return;
+
+          const post = window.TrackingEngine.broadcastMicrostatReport(p);
+          if (wirePreviewCard && wirePreviewSnippet) {
+            wirePreviewCard.classList.remove("hidden");
+            wirePreviewSnippet.textContent = `${p.name} microstat dossier successfully broadcasted to The Wire with verified spatial pass links!`;
+          }
+
+          broadcastWireBtn.innerHTML = '<i class="fa-solid fa-check mr-1 text-teal-300"></i> Broadcasted!';
+          setTimeout(() => {
+            broadcastWireBtn.innerHTML = '<i class="fa-solid fa-tower-broadcast mr-1"></i> Broadcast Dossier to The Wire';
+          }, 3500);
+        });
+      }
+
+      // 8. Initial Execution
+      renderPlayerCards();
+      updateDossierView();
+      updateSequenceStep(0);
+      drawPassingWeb();
+
+    })();
+  </script>
+
+  <!-- PWA Offline Service Worker Registration -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js')
+          .then((reg) => {
+            const pwaPill = document.getElementById('pwaStatusPill');
+            if (pwaPill) pwaPill.textContent = '⚡ Rinkside Offline Active';
+          })
+          .catch((err) => {
+            console.log('[PWA] ServiceWorker registration error:', err);
+          });
+      });
+    }
+  </script>
+
+</body>
+</html>
