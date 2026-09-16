@@ -296,7 +296,7 @@
             📝 Create Account
           </button>
           <button class="auth-tab-btn px-3 py-2 border-b-2 border-transparent text-slate-400 hover:text-white transition" data-tab="claim">
-            ⚡ Claim Profile (2,833+)
+            ⚡ Claim Profile (3,050+)
           </button>
           <button class="auth-tab-btn px-3 py-2 border-b-2 border-transparent text-slate-400 hover:text-white transition" data-tab="create-profile">
             ➕ Create Athlete Dossier
@@ -415,7 +415,7 @@
             <div class="space-y-3">
               <div class="p-3 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-xs">
                 <div class="font-bold text-amber-300 flex items-center gap-1.5">
-                  <span>⚡</span> Claim Existing Dossier from 2,833+ Athlete Database
+                  <span>⚡</span> Claim Existing Dossier from 3,050+ Athlete Database
                 </div>
                 <p class="text-[11px] text-slate-300 mt-1">
                   Search by your name, jersey number, or program. Once verified, this official athlete dossier is linked permanently to your login account, giving you full control over your combine updates, video film, and development logs.
@@ -469,7 +469,7 @@
                 <span>➕</span> Mint New Athlete Passport Dossier
               </div>
               <p class="text-[11px] text-slate-300 mt-1">
-                Not listed in our 2,833+ collegiate/junior database yet? Enter your biometrics and playing profile to mint a new official dossier with an initial composite trajectory score and genesis ledger block.
+                Not listed in our 3,050+ collegiate/junior database yet? Enter your biometrics and playing profile to mint a new official dossier with an initial composite trajectory score and genesis ledger block.
               </p>
             </div>
 
@@ -856,7 +856,7 @@
     if (!query || query.length < 2) {
       container.innerHTML = `
         <div class="text-center py-6 text-slate-500 text-xs">
-          Type at least 2 letters of your name or team to search the 2,833+ player registry.
+          Type at least 2 letters of your name or team to search the 3,050+ player registry.
         </div>
       `;
       return;

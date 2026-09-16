@@ -3,7 +3,7 @@
  * Enables full offline-first usage inside cold arenas and metal basements without cellular connectivity.
  */
 
-const CACHE_NAME = 'blueline-rinkside-v13';
+const CACHE_NAME = 'blueline-rinkside-v16';
 
 const PRECACHE_ASSETS = [
   'index.html',
