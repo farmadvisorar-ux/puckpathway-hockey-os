@@ -86,109 +86,85 @@
 <body class="min-h-screen flex flex-col selection:bg-sky-500 selection:text-slate-950">
 
   <!-- Top Enterprise Header Navigation Bar (Unified 13-Module Ecosystem) -->
-  <header class="sticky top-0 z-50 glass-panel border-b border-slate-800/80 bg-slate-950/90">
+    <!-- Top Enterprise Header Navigation Bar (Clean, Zero-Overflow, 22-Module Ecosystem) -->
+  <header class="sticky top-0 z-50 glass-panel border-b border-slate-800/80 bg-slate-950/95 backdrop-blur-xl">
     <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
       
       <!-- Brand Logo & Title -->
-      <div class="flex items-center gap-3">
+      <div class="flex items-center gap-3 min-w-0">
         <a href="index.html" class="flex items-center gap-2.5 group">
-          <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-sky-600 via-cyan-500 to-emerald-400 p-0.5 shadow-lg shadow-sky-500/20 group-hover:scale-105 transition duration-200">
-            <div class="w-full h-full bg-slate-950 rounded-[14px] flex items-center justify-center">
-              <span class="text-xl">📋</span>
+          <img src="static/img/blueline_logo.jpg" alt="BlueLine DataWorks Logo" class="w-9 h-9 sm:w-10 sm:h-10 shrink-0 rounded-xl border border-sky-400/50 object-cover shadow-lg shadow-sky-500/20 group-hover:scale-105 transition">
+          <div class="min-w-0">
+            <div class="flex items-center gap-1.5 sm:gap-2">
+              <span class="font-extrabold text-sm sm:text-base md:text-lg tracking-tight text-white group-hover:text-sky-400 transition truncate">BlueLine DataWorks</span>
+              <span class="text-[10px] uppercase font-mono tracking-widest px-1.5 py-0.5 rounded bg-sky-500/20 text-sky-300 font-bold shrink-0">TACTICS LAB</span>
             </div>
-          </div>
-          <div>
-            <div class="flex items-center gap-1.5">
-              <span class="font-extrabold text-sm sm:text-base tracking-tight text-white group-hover:text-sky-400 transition">BlueLine</span>
-              <span class="text-[10px] uppercase font-mono tracking-widest px-1.5 py-0.5 rounded bg-sky-500/20 text-sky-300 font-bold">Tactics Lab</span>
-            </div>
-            <p class="text-[10px] text-slate-400 hidden sm:block">Lineup Optimizer & Chemistry Systems Matrix</p>
+            <p class="text-[10px] text-slate-400 hidden sm:block truncate">Lifelong Athlete Trajectory & Hockey Analytics</p>
           </div>
         </a>
       </div>
 
-      <!-- Unified 13-Module Navigation Pills -->
-      <div class="flex items-center gap-1 sm:gap-1.5 overflow-x-auto py-1 max-w-[64%] sm:max-w-none text-xs font-mono custom-scrollbar">
-        <a href="index.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 font-semibold border border-slate-800 transition flex items-center gap-1">
-          <span>🏒</span> <span class="hidden md:inline">Main OS</span>
+      <!-- Center Primary Navigation (5 Core Hubs - Clean, Responsive, Never Overflows) -->
+      <nav class="hidden lg:flex items-center gap-1 sm:gap-1.5 text-xs font-mono">
+        <a href="index.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white font-semibold border border-slate-800 transition flex items-center gap-1.5">
+          <span>🏒</span> <span>Main OS</span>
         </a>
-        <a href="database.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-sky-400 font-semibold border border-slate-800 transition flex items-center gap-1">
-          <span>📊</span> <span class="hidden md:inline">Directory</span>
+        <a href="database.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white font-semibold border border-slate-800 transition flex items-center gap-1.5">
+          <span>📊</span> <span>Directory</span>
         </a>
-        <a href="scoreboard.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-rose-300 font-semibold border border-slate-800 transition flex items-center gap-1">
-          <span>📡</span> <span class="hidden md:inline">Game Center</span>
+        <a href="scoreboard.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white font-semibold border border-slate-800 transition flex items-center gap-1.5">
+          <span>📡</span> <span>Game Center</span>
         </a>
-        <a href="rink3d.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-sky-300 font-semibold border border-slate-800 transition flex items-center gap-1">
-          <span>🧊</span> <span class="hidden md:inline">3D Rink</span>
+        <a href="community.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white font-semibold border border-slate-800 transition flex items-center gap-1.5">
+          <span>🌐</span> <span>The Wire</span>
         </a>
-        <a href="film.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-cyan-300 font-semibold border border-slate-800 transition flex items-center gap-1">
-          <span>🎬</span> <span class="hidden md:inline">Film Studio</span>
+        <a href="security.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white font-semibold border border-slate-800 transition flex items-center gap-1.5">
+          <span>🛡️</span> <span>Cyber Shield</span>
         </a>
-        <a href="portal.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-amber-300 font-semibold border border-slate-800 transition flex items-center gap-1">
-          <span>⚡</span> <span class="hidden md:inline">Portal & NIL</span>
-        </a>
-        <a href="draft.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 font-semibold border border-slate-800 transition flex items-center gap-1">
-          <span>🎯</span> <span class="hidden md:inline">Draft Room</span>
-        </a>
-        <a href="combine.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-amber-300 font-semibold border border-slate-800 transition flex items-center gap-1">
-          <span>🧬</span> <span class="hidden md:inline">Combine Lab</span>
-        </a>
-        <a href="caplab.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-emerald-400 font-semibold border border-slate-800 transition flex items-center gap-1">
-          <span>💼</span> <span class="hidden md:inline">Cap Lab</span>
-        </a>
-        <a href="tournament.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-amber-400 font-semibold border border-slate-800 transition flex items-center gap-1">
-          <span>🏆</span> <span class="hidden md:inline">Tournaments</span>
-        </a>
-        <a href="tactics.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-gradient-to-r from-sky-600 to-cyan-600 text-white font-bold border border-sky-400/50 shadow-md shadow-sky-500/20 flex items-center gap-1">
-          <span>📋</span> <span class="hidden md:inline">Tactics</span>
-        </a>
-        <a href="compare.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-sky-400 font-semibold border border-slate-800 transition flex items-center gap-1">
-          <span>⚖️</span> <span class="hidden md:inline">Compare</span>
-        </a>
-        <a href="tracking.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-teal-300 font-semibold border border-slate-800 transition flex items-center gap-1">
-          <span>🔬</span> <span class="hidden md:inline">Microstats</span>
-        </a>
-        <a href="international.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-rose-300 font-semibold border border-slate-800 transition flex items-center gap-1">
-          <span>🌍</span> <span class="hidden md:inline">International</span>
-        </a>
-        <a href="crease.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-sky-300 font-semibold border border-slate-800 transition flex items-center gap-1">
-          <span>🥅</span> <span class="hidden md:inline">Crease Lab</span>
-        </a>
-        <a href="pathway.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-emerald-300 font-semibold border border-slate-800 transition flex items-center gap-1">
-          <span>🛣️</span> <span class="hidden md:inline">Pathway</span>
-        </a>
-        <a href="market.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-amber-300 font-semibold border border-slate-800 transition flex items-center gap-1">
-          <span>💼</span> <span class="hidden md:inline">Trade Desk</span>
-        </a>
-        <a href="security.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-emerald-400 font-semibold border border-slate-800 transition flex items-center gap-1">
-          <span>🛡️</span> <span class="hidden md:inline">Security</span>
-        </a>
-        <a href="community.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 font-semibold border border-slate-800 transition flex items-center gap-1">
-          <span>🌐</span> <span class="hidden md:inline">The Wire</span>
-        </a>
-        <a href="agents.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-emerald-400 font-semibold border border-slate-800 transition flex items-center gap-1">
-          <span>🤖</span> <span class="hidden md:inline">Swarm</span>
-        </a>
+      </nav>
+
+      <!-- Right Controls: All Modules Launcher Button + User Profile + Mobile Toggle -->
+      <div class="flex items-center gap-2 sm:gap-3 shrink-0">
+        
+        <!-- All Modules App Launcher Button (Triggers 22-Module Command Modal & Cmd+K) -->
+        <button onclick="toggleAppLauncher()" class="px-3 py-1.5 rounded-xl bg-gradient-to-r from-sky-600/30 via-indigo-600/30 to-purple-600/30 hover:from-sky-600/50 hover:to-purple-600/50 text-sky-200 border border-sky-400/40 hover:border-sky-300 font-bold text-xs flex items-center gap-1.5 shadow-lg shadow-sky-500/10 transition active:scale-95 cursor-pointer" title="Open All 22 Enterprise Modules (Ctrl+K)">
+          <span class="text-sm">❖</span>
+          <span class="hidden sm:inline font-sans font-semibold">All Modules</span>
+          <span class="px-1.5 py-0.2 rounded-full bg-sky-400/20 text-sky-300 font-mono text-[10px] font-bold">22</span>
+          <span class="text-sky-400 text-[10px]">▾</span>
+        </button>
+
+        <!-- User Profile Avatar/Chip -->
+        <div class="flex items-center gap-1.5 sm:gap-2 bg-slate-900/90 border border-slate-700/80 rounded-xl px-2.5 py-1 cursor-pointer hover:border-amber-500 transition shadow-inner" onclick="typeof openLoginModal === 'function' ? openLoginModal() : toggleAppLauncher()" title="Director of Scouting">
+          <div class="w-6 h-6 rounded-full bg-gradient-to-tr from-amber-500 to-indigo-600 text-white font-black flex items-center justify-center text-[10px]">
+            👤
+          </div>
+          <div class="text-left leading-none hidden xl:block">
+            <span class="text-xs font-bold text-white block">Director of Scouting</span>
+            <span class="text-[9px] text-amber-400 font-medium">Head Recruiter</span>
+          </div>
+        </div>
+
+        <!-- Mobile Menu Toggle Button -->
+        <button onclick="toggleAppLauncher()" class="lg:hidden p-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 hover:text-white transition flex items-center justify-center cursor-pointer" aria-label="Toggle All Modules Menu">
+          <span class="text-base leading-none">☰</span>
+        </button>
       </div>
 
     </div>
 
     <!-- Mandatory Lifelong Tracking Mission Statement Banner -->
-    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-2 border-t border-slate-800/80 bg-slate-950/90 flex flex-wrap items-center justify-between gap-2 text-xs">
-      <div class="flex items-center gap-2 min-w-0">
-        <span class="px-2 py-0.5 rounded-md bg-sky-500/20 text-sky-300 font-mono text-[10px] font-bold shrink-0">MISSION</span>
-        <p class="text-[11px] text-slate-400 truncate">
-          BlueLine DataWorks is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory.
-        </p>
-      </div>
-      <div class="flex items-center gap-3 shrink-0 text-[11px] font-mono text-slate-400">
-        <span class="flex items-center gap-1.5 text-sky-400">
-          <span class="w-2 h-2 rounded-full bg-sky-400 animate-pulse"></span>
-          <span id="tacticsActivePresetText">Preset: Boston College Eagles</span>
-        </span>
-        <span id="pwaStatusPill" class="px-2 py-0.5 rounded bg-sky-950 text-sky-400 border border-sky-500/30 text-[10px]">
-          ⚡ Rinkside PWA Cached
-        </span>
+    <div class="border-t border-slate-800/80 bg-slate-950/90">
+      <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-1.5 flex flex-wrap items-center justify-between gap-2 text-xs">
+        <div class="flex items-center gap-2 min-w-0">
+          <span class="px-2 py-0.5 rounded-md bg-sky-500/20 text-sky-300 font-mono text-[10px] font-bold shrink-0">MISSION</span>
+          <p class="text-[11px] text-slate-400 truncate">
+            BlueLine DataWorks is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory.
+          </p>
+        </div>
+        <div class="flex items-center gap-2 shrink-0">
+          <span id="pwaStatusPill" class="text-[10px] font-mono text-emerald-400 bg-emerald-950/60 border border-emerald-800/50 px-2 py-0.5 rounded-full">⚡ Rinkside Offline Ready</span>
+        </div>
       </div>
     </div>
   </header>
@@ -742,5 +718,6 @@
   </script>
 
   <script src="static/js/telemetry.js"></script>
+  <script src="static/js/global_nav.js"></script>
 </body>
 </html>

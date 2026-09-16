@@ -61,136 +61,105 @@
 
   <!-- Top Global Header -->
   <header class="border-b border-sky-500/20 bg-slate-950/95 backdrop-blur-xl sticky top-0 z-50 shadow-2xl shadow-black/60">
-    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-14 sm:h-16 flex items-center justify-between gap-2">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
       
       <!-- Brand Logo & App Name -->
-      <div class="flex items-center gap-2 sm:gap-3 min-w-0">
-        <img src="static/img/blueline_logo.jpg" alt="BlueLine DataWorks Logo" class="w-9 h-9 sm:w-10 sm:h-10 shrink-0 rounded-xl border border-sky-400/50 object-cover shadow-lg shadow-sky-500/30">
-        <div class="min-w-0">
-          <div class="flex items-center gap-1.5 sm:gap-2">
-            <h1 class="font-black text-xs sm:text-base md:text-lg tracking-tight bg-gradient-to-r from-sky-400 via-cyan-200 to-blue-400 bg-clip-text text-transparent truncate">
-              BLUELINE DATAWORKS
-            </h1>
-            <span class="hidden sm:inline-block px-2 py-0.5 text-[9px] font-extrabold rounded-full bg-sky-500/20 text-sky-300 border border-sky-500/40 tracking-wide uppercase shrink-0">
-              DATAWORKS PRO
-            </span>
+      <div class="flex items-center gap-2.5 sm:gap-3 min-w-0">
+        <a href="index.html" class="flex items-center gap-2.5 group">
+          <img src="static/img/blueline_logo.jpg" alt="BlueLine DataWorks Logo" class="w-9 h-9 sm:w-10 sm:h-10 shrink-0 rounded-xl border border-sky-400/50 object-cover shadow-lg shadow-sky-500/30 group-hover:scale-105 transition">
+          <div class="min-w-0">
+            <div class="flex items-center gap-1.5 sm:gap-2">
+              <h1 class="font-black text-xs sm:text-base md:text-lg tracking-tight bg-gradient-to-r from-sky-400 via-cyan-200 to-blue-400 bg-clip-text text-transparent truncate">
+                BLUELINE DATAWORKS
+              </h1>
+              <span class="hidden sm:inline-block px-2 py-0.5 text-[9px] font-extrabold rounded-full bg-sky-500/20 text-sky-300 border border-sky-500/40 tracking-wide uppercase shrink-0">
+                PRO OS
+              </span>
+            </div>
+            <p class="text-[10px] sm:text-[11px] text-slate-400 truncate hidden md:block">Lifelong Athlete Trajectory & Recruiting Intelligence • 2,974 Active Profiles</p>
           </div>
-          <p class="text-[10px] sm:text-[11px] text-slate-400 truncate hidden md:block">Lifelong Athlete Trajectory & Recruiting Intelligence • 2,974 Active Profiles</p>
-        </div>
+        </a>
       </div>
 
+      <!-- Center Primary Navigation Hubs (Clean, Fixed, Never Overflows) -->
+      <nav class="hidden lg:flex items-center gap-1 sm:gap-1.5 text-xs font-mono">
+        <a href="index.html" class="px-3 py-1.5 rounded-xl bg-sky-500/20 text-sky-300 border border-sky-400/40 font-bold flex items-center gap-1">
+          <span>🏒</span> <span>Main OS</span>
+        </a>
+        <a href="database.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>📊</span> <span>Directory</span>
+        </a>
+        <a href="scoreboard.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>📡</span> <span>Game Center</span>
+        </a>
+        <a href="community.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>🌐</span> <span>The Wire</span>
+        </a>
+        <a href="security.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white font-semibold border border-slate-800 transition flex items-center gap-1">
+          <span>🛡️</span> <span>Cyber Shield</span>
+        </a>
+      </nav>
+
       <!-- Controls & Persona Switcher -->
-      <div class="flex items-center gap-1.5 sm:gap-3 shrink-0">
+      <div class="flex items-center gap-2 sm:gap-3 shrink-0">
         
-        <!-- League Level Selector (Desktop only; also present in mobile drawer) -->
+        <!-- League Level Selector (Desktop only) -->
         <select id="levelSelector" class="hidden sm:block bg-slate-900 border border-sky-500/40 text-sky-300 text-xs rounded-lg px-2.5 py-1.5 focus:ring-2 focus:ring-sky-500 focus:outline-none font-semibold">
-          <option value="all" selected>All Non-Pro Leagues (U8 to NCAA)</option>
-          <option value="u8">U8 / Mite (ADM Grassroots)</option>
+          <option value="all" selected>All Leagues (U8-NCAA)</option>
+          <option value="u8">U8 / Mite</option>
           <option value="u10">U10 / Squirt AAA</option>
           <option value="u12">U12 / Peewee AAA</option>
           <option value="u14">U14 / Bantam AAA</option>
-          <option value="u16_u18">U16/U18 AAA & High School/Prep</option>
-          <option value="junior">Junior (Tier 1 USHL / Tier 2 NAHL/BCHL)</option>
-          <option value="collegiate">Collegiate (NCAA D1/D3 & ACHA)</option>
+          <option value="u16_u18">U16/U18 AAA & Prep</option>
+          <option value="junior">Junior (USHL/NAHL)</option>
+          <option value="collegiate">Collegiate (NCAA)</option>
         </select>
 
-        <!-- Current User Profile Chip: Compact on mobile -->
-        <a href="scoreboard.html" class="hidden lg:flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-rose-950/60 border border-rose-500/40 text-[10px] font-bold text-rose-300 hover:border-rose-400 transition" title="Live Multi-Game Scouting War Room & Game Center">
-          <span>📡</span> <span>Game Center</span>
-        </a>
-        <a href="rink3d.html" class="hidden lg:flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-sky-950/60 border border-sky-500/40 text-[10px] font-bold text-sky-300 hover:border-sky-400 transition" title="3D Interactive Virtual Rink & Practice Simulator">
-          <span>🧊</span> <span>3D Rink</span>
-        </a>
-        <a href="film.html" class="hidden lg:flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-cyan-950/60 border border-cyan-500/40 text-[10px] font-bold text-cyan-300 hover:border-cyan-400 transition" title="Enterprise AI Video Telestration Studio">
-          <span>🎬</span> <span>Film Studio</span>
-        </a>
-        <a href="portal.html" class="hidden lg:flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-amber-950/60 border border-amber-500/40 text-[10px] font-bold text-amber-300 hover:border-amber-400 transition" title="NCAA Transfer Portal & NIL War Room">
-          <span>⚡</span> <span>Portal & NIL</span>
-        </a>
-        <a href="draft.html" class="hidden lg:flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-sky-600/30 border border-sky-400/50 text-[10px] font-bold text-sky-300 hover:border-sky-300 transition" title="Enterprise Draft Board & Mock Draft Simulator">
-          <span>🎯</span> <span>Draft Room</span>
-        </a>
-        <a href="combine.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-amber-300 font-semibold border border-slate-800 transition flex items-center gap-1">
-          <span>🧬</span> <span class="hidden md:inline">Combine Lab</span>
-        </a>
-        <a href="caplab.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-emerald-400 font-semibold border border-slate-800 transition flex items-center gap-1">
-          <span>💼</span> <span class="hidden md:inline">Cap Lab</span>
-        </a>
-        <a href="tournament.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-amber-300 font-semibold border border-slate-800 transition flex items-center gap-1">
-          <span>🏆</span> <span class="hidden md:inline">Tournaments</span>
-        </a>
-        <a href="tactics.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-sky-400 font-semibold border border-slate-800 transition flex items-center gap-1">
-          <span>📋</span> <span class="hidden md:inline">Tactics</span>
-        </a>
-        <a href="compare.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-sky-400 font-semibold border border-slate-800 transition flex items-center gap-1">
-          <span>⚖️</span> <span class="hidden md:inline">Compare</span>
-        </a>
-        <a href="tracking.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-teal-300 font-semibold border border-slate-800 transition flex items-center gap-1">
-          <span>🔬</span> <span class="hidden md:inline">Microstats</span>
-        </a>
-        <a href="international.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-rose-300 font-semibold border border-slate-800 transition flex items-center gap-1">
-          <span>🌍</span> <span class="hidden md:inline">International</span>
-        </a>
-        <a href="crease.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-sky-300 font-semibold border border-slate-800 transition flex items-center gap-1">
-          <span>🥅</span> <span class="hidden md:inline">Crease Lab</span>
-        </a>
-        <a href="pathway.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-emerald-300 font-semibold border border-slate-800 transition flex items-center gap-1">
-          <span>🛣️</span> <span class="hidden md:inline">Pathway</span>
-        </a>
-        <a href="market.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-amber-300 font-semibold border border-slate-800 transition flex items-center gap-1">
-          <span>💼</span> <span class="hidden md:inline">Trade Desk</span>
-        </a>
-        <a href="security.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-emerald-400 font-semibold border border-slate-800 transition flex items-center gap-1">
-          <span>🛡️</span> <span class="hidden md:inline">Security</span>
-        </a>
-        <a href="community.html" class="hidden lg:flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-gradient-to-r from-sky-950 to-indigo-950 border border-sky-500/40 text-[10px] font-bold text-sky-300 hover:border-sky-400 transition" title="Open The BlueLine Wire">
-          <span>🌐</span> <span>The Wire</span>
-        </a>
-        <a href="community.html" class="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-cyan-950/60 border border-cyan-500/40 text-[10px] font-bold text-cyan-300 hover:border-cyan-400 transition" title="Direct Messages">
-          <span>💬</span> <span>Messages</span>
-          <span class="px-1.5 py-0.2 rounded-full bg-cyan-500 text-slate-950 font-black text-[9px]">1</span>
-        </a>
-        <a href="agents.html" class="hidden xl:flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-slate-900 border border-cyan-500/30 text-[10px] font-mono text-cyan-300 hover:border-cyan-400 transition" title="24-Agent Swarm Active">
-          <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
-          <span>Swarm: 24 Nodes Active</span>
-        </a>
-        <div id="currentUserBadgeContainer" class="flex items-center gap-1.5 sm:gap-2 bg-slate-900/90 border border-slate-700/80 rounded-xl px-2 sm:px-3 py-1 cursor-pointer hover:border-amber-500 transition shadow-inner" onclick="openLoginModal()" title="Switch User Profile">
+        <!-- All Modules App Launcher Button (Triggers 22-Module Mega-Menu & Cmd+K) -->
+        <button onclick="toggleAppLauncher()" class="px-3 py-1.5 rounded-xl bg-gradient-to-r from-sky-600/30 via-indigo-600/30 to-purple-600/30 hover:from-sky-600/50 hover:to-purple-600/50 text-sky-200 border border-sky-400/40 hover:border-sky-300 font-bold text-xs flex items-center gap-1.5 shadow-lg shadow-sky-500/10 transition active:scale-95 cursor-pointer" title="Open All 22 Enterprise Modules (Ctrl+K)">
+          <span class="text-sm">❖</span>
+          <span class="hidden sm:inline font-sans font-semibold">All Modules</span>
+          <span class="px-1.5 py-0.2 rounded-full bg-sky-400/20 text-sky-300 font-mono text-[10px] font-bold">22</span>
+          <span class="text-sky-400 text-[10px]">▾</span>
+        </button>
+
+        <!-- Current User Profile Chip -->
+        <div id="currentUserBadgeContainer" class="flex items-center gap-1.5 sm:gap-2 bg-slate-900/90 border border-slate-700/80 rounded-xl px-2 sm:px-2.5 py-1 cursor-pointer hover:border-amber-500 transition shadow-inner" onclick="openLoginModal()" title="Switch User Profile">
           <div id="currentUserAvatar" class="w-6 h-6 rounded-full bg-gradient-to-tr from-amber-500 to-indigo-600 text-white font-black flex items-center justify-center text-[10px]">
             👤
           </div>
-          <div class="text-left leading-none hidden sm:block">
+          <div class="text-left leading-none hidden xl:block">
             <span id="currentUserName" class="text-xs font-bold text-white block">Director of Scouting</span>
             <span id="currentUserRole" class="text-[9px] text-amber-400 font-medium">Head Recruiter</span>
           </div>
-          <span class="text-slate-400 text-[10px] sm:text-xs">▾</span>
+          <span class="text-slate-400 text-[10px]">▾</span>
         </div>
 
         <!-- Switch / Logout Button (Desktop only) -->
-        <button onclick="openLoginModal()" class="hidden md:flex px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-xs font-bold text-slate-300 hover:text-white hover:border-amber-500/50 transition items-center gap-1">
+        <button onclick="openLoginModal()" class="hidden md:flex px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-xs font-bold text-slate-300 hover:text-white hover:border-amber-500/50 transition items-center gap-1 cursor-pointer">
           <span>🔄</span> <span>Switch</span>
         </button>
 
-        <!-- Mobile Menu Toggle Button (Prominent touch target with icon & text label) -->
-        <button id="mobileMenuToggleBtn" class="lg:hidden px-2.5 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-sky-500/40 text-sky-400 hover:text-white active:scale-95 transition flex items-center gap-1.5 text-xs font-bold shadow-md shrink-0" aria-label="Toggle Navigation Menu">
-          <span id="mobileMenuIcon" class="text-base leading-none">☰</span>
-          <span class="text-[11px] font-bold text-slate-200">Menu</span>
+        <!-- Mobile Menu Toggle Button -->
+        <button onclick="toggleAppLauncher()" class="lg:hidden p-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 hover:text-white transition flex items-center justify-center cursor-pointer" aria-label="Toggle All Modules Menu">
+          <span class="text-base leading-none">☰</span>
         </button>
       </div>
 
     </div>
 
-        <!-- BlueLine DataWorks Mission Statement Ribbon -->
-    <div id="bluelineMissionRibbon" class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-1.5">
+    <!-- BlueLine DataWorks Lifelong Tracking Mission Statement Ribbon -->
+    <div id="bluelineMissionRibbon" class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-1.5 border-t border-slate-800/80">
       <div class="flex items-center justify-between gap-3 bg-gradient-to-r from-sky-950/80 via-slate-900/90 to-blue-950/80 border border-sky-500/30 rounded-xl px-3 py-1.5 shadow-lg">
         <div class="flex items-center gap-2 min-w-0">
-          <span class="px-1.5 py-0.5 rounded bg-sky-500/20 text-sky-300 font-mono text-[9px] font-bold tracking-wider uppercase shrink-0 border border-sky-400/30">TRAJECTORY OS</span>
+          <span class="px-1.5 py-0.5 rounded bg-sky-500/20 text-sky-300 font-mono text-[9px] font-bold tracking-wider uppercase shrink-0 border border-sky-400/30">MISSION</span>
           <p class="text-[11px] sm:text-xs text-slate-300 truncate font-medium">
-            <strong class="text-sky-300">BlueLine DataWorks:</strong> The only hockey analytics platform tracking athletes from earliest competitive stages through pro careers.
+            BlueLine DataWorks is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory.
           </p>
         </div>
-        <a href="database.html" class="shrink-0 px-2.5 py-0.5 rounded-lg bg-sky-600/30 hover:bg-sky-600/60 border border-sky-500/40 text-sky-200 text-[10px] font-bold transition flex items-center gap-1">
-          <span>Explore 2,974 Profiles</span> <span>&rarr;</span>
-        </a>
+        <div class="flex items-center gap-2 shrink-0">
+          <span class="text-[10px] font-mono text-emerald-400 bg-emerald-950/60 border border-emerald-800/50 px-2 py-0.5 rounded-full">⚡ Rinkside Offline Ready</span>
+        </div>
       </div>
     </div>
     <!-- Active User Role HUD Banner -->
@@ -2578,5 +2547,6 @@
   <script src="static/js/film_telestration.js"></script>
   <script src="static/js/app.js"></script>
   <script src="static/js/telemetry.js"></script>
+  <script src="static/js/global_nav.js"></script>
 </body>
 </html>
