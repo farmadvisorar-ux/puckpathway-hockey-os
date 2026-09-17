@@ -24,6 +24,10 @@ jobs:
         with:
           node-version: 20
 
+      - name: Execute 24-Agent Autonomous Swarm Relay
+        run: |
+          node scripts/run_24_agent_swarm.js
+
       - name: Execute Gemini Team-by-Team Web Scraper Cycle
         run: |
           node scripts/gemini_team_scraper.js --once
@@ -51,9 +55,9 @@ jobs:
         run: |
           git config --global user.name "BlueLine-Gemini-Swarm[bot]"
           git config --global user.email "gemini-swarm@bluelinedataworks.com"
-          git add static/js/master_players.js static/js/gemini_scraper_audit.json
+          git add static/js/master_players.js static/js/gemini_scraper_audit.json static/js/agent_collective_state.json
           if ! git diff --cached --quiet; then
-            git commit -m "chore(swarm): automated 4-hour gemini player ingestion [skip ci]"
+            git commit -m "chore(swarm): automated 4-hour gemini player ingestion & 24-agent swarm sync [skip ci]"
             git push origin main
           else
             echo "No new roster changes to commit this cycle."

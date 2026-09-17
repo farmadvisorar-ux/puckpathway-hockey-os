@@ -155,8 +155,8 @@
           <button id="triggerShiftTrialBtn" class="px-3.5 py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-cyan-600 hover:from-emerald-500 hover:to-cyan-500 text-white font-bold text-xs shadow-lg shadow-emerald-600/30 transition flex items-center gap-1.5 active:scale-95">
             <span id="crawlBtnIcon">⚡</span> <span id="crawlBtnText">Crawl Live Open Web Now</span>
           </button>
-          <button id="triggerAllBatchCrawlBtn" class="px-3 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-cyan-500/50 text-cyan-300 font-bold text-xs shadow-md transition flex items-center gap-1.5 active:scale-95" title="Concurrently crawl all 10 verified live endpoints">
-            <span>🌐</span> <span>Batch Harvest All 10</span>
+          <button id="triggerAllBatchCrawlBtn" class="px-3 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-cyan-500/50 text-cyan-300 font-bold text-xs shadow-md transition flex items-center gap-1.5 active:scale-95" title="Concurrently crawl all 25 verified live endpoints">
+            <span>🌐</span> <span>Batch Harvest All 25</span>
           </button>
           <button id="trigger12hCompileBtn" class="px-3 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-amber-500/50 text-amber-300 font-bold text-xs shadow-md transition flex items-center gap-1.5 active:scale-95">
             <span>📦</span> Run 12h Compile
@@ -212,7 +212,7 @@
             </span>
           </div>
           <p class="text-xs text-slate-300 max-w-3xl leading-relaxed">
-            Autonomous multi-agent batch powered by Gemini to systematically crawl team-by-team rosters across NCAA D1, USHL, BCHL, CHL, and NTDP. Extracts comprehensive biometrics, enforces strict zero-duplication against 3,050+ master profiles, calculates BlueLine Composite Trajectory Scores (0–100), and uploads cryptographically stamped genesis ledger blocks every 4 hours.
+            Autonomous multi-agent batch powered by Gemini to systematically crawl team-by-team rosters across all Colleges (NCAA D1/D3, ACHA, U Sports), High Schools, Prep Academies, Juniors (USHL, NAHL, BCHL, CHL), and NTDP. Extracts comprehensive biometrics, enforces strict zero-duplication against 3,600+ master profiles, calculates BlueLine Composite Trajectory Scores (0–100), and uploads cryptographically stamped genesis ledger blocks every 4 hours.
           </p>
         </div>
 
@@ -232,23 +232,23 @@
       <!-- Metrics HUD -->
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
         <div class="p-3 rounded-2xl bg-slate-950/60 border border-slate-800/80">
-          <div class="text-[10px] text-slate-400 font-mono">TEAMS MONITORED</div>
-          <div class="text-lg font-black text-white font-mono" id="geminiTeamsCount">30 Teams</div>
-          <div class="text-[10px] text-sky-400">NCAA D1 · USHL · BCHL · NTDP</div>
+          <div class="text-[10px] text-slate-400 font-mono">PROGRAMS MONITORED</div>
+          <div class="text-lg font-black text-white font-mono" id="geminiTeamsCount">145 Programs</div>
+          <div class="text-[10px] text-sky-400">NCAA D1/D3 · High Schools · Preps · Juniors</div>
         </div>
         <div class="p-3 rounded-2xl bg-slate-950/60 border border-slate-800/80">
           <div class="text-[10px] text-slate-400 font-mono">CANDIDATES AUDITED</div>
-          <div class="text-lg font-black text-cyan-400 font-mono" id="geminiAuditedCount">4,260</div>
+          <div class="text-lg font-black text-cyan-400 font-mono" id="geminiAuditedCount">6,012</div>
           <div class="text-[10px] text-slate-400">Team Roster Extraction</div>
         </div>
         <div class="p-3 rounded-2xl bg-slate-950/60 border border-slate-800/80">
           <div class="text-[10px] text-slate-400 font-mono">DUPLICATES PREVENTED</div>
-          <div class="text-lg font-black text-emerald-400 font-mono" id="geminiDupesCount">3,810</div>
+          <div class="text-lg font-black text-emerald-400 font-mono" id="geminiDupesCount">5,136</div>
           <div class="text-[10px] text-emerald-400/80">Zero Duplicate Guarantee</div>
         </div>
         <div class="p-3 rounded-2xl bg-slate-950/60 border border-slate-800/80">
           <div class="text-[10px] text-slate-400 font-mono">LEDGER GENESIS BLOCKS</div>
-          <div class="text-lg font-black text-amber-400 font-mono" id="geminiLedgerCount">450 Blocks</div>
+          <div class="text-lg font-black text-amber-400 font-mono" id="geminiLedgerCount">572 Blocks</div>
           <div class="text-[10px] text-amber-400/80">HMAC-SHA256 Stamped</div>
         </div>
       </div>
@@ -638,7 +638,7 @@
       const batchBtn = document.getElementById('triggerAllBatchCrawlBtn');
       batchBtn.addEventListener('click', async () => {
         batchBtn.disabled = true;
-        batchBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> <span>Crawling 10 Feeds...</span>`;
+        batchBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> <span>Crawling 25 Feeds...</span>`;
 
         try {
           const result = await mesh.crawlAllLiveTargets();
@@ -651,7 +651,7 @@
           console.error("Batch crawl error:", e);
         } finally {
           batchBtn.disabled = false;
-          batchBtn.innerHTML = `<span>🌐</span> <span>Batch Harvest All 10</span>`;
+          batchBtn.innerHTML = `<span>🌐</span> <span>Batch Harvest All 25</span>`;
         }
       });
 

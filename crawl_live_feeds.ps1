@@ -14,7 +14,7 @@ Write-Host " BLUELINE DATAWORKS: REAL LIVE HOCKEY WEB CRAWLER ENGINE" -Foregroun
 Write-Host " Swarm Protocol: 24-Agent Staggered Relay Ingestion" -ForegroundColor White
 Write-Host "==========================================================" -ForegroundColor Cyan
 
-# Real Live Open-Source Hockey Targets
+# Real Live Open-Source Hockey Targets (25 Universal Feeds)
 $liveTargets = @(
     @{
         Id = "ncaa_d1_wiki"
@@ -22,6 +22,13 @@ $liveTargets = @(
         Category = "NCAA Division I"
         Url = "https://en.wikipedia.org/w/api.php?action=parse&page=2024%E2%80%9325_NCAA_Division_I_men%27s_ice_hockey_season&prop=text&format=json"
         Type = "Wikimedia JSON API"
+    },
+    @{
+        Id = "uscho_live_rss"
+        Name = "USCHO Live NCAA D1 News & Scores Wire"
+        Category = "NCAA D1 / News"
+        Url = "https://api.rss2json.com/v1/api.json?rss_url=https://www.uscho.com/feed/"
+        Type = "Live RSS JSON"
     },
     @{
         Id = "ushl_season_wiki"
@@ -38,24 +45,10 @@ $liveTargets = @(
         Type = "Wikimedia JSON API"
     },
     @{
-        Id = "uscho_live_rss"
-        Name = "USCHO Live NCAA D1 News & Scores Wire"
-        Category = "NCAA D1 / News"
-        Url = "https://api.rss2json.com/v1/api.json?rss_url=https://www.uscho.com/feed/"
-        Type = "Live RSS JSON"
-    },
-    @{
-        Id = "ahl_season_wiki"
-        Name = "AHL Minor Pro Season Registry & Transactions"
-        Category = "AHL Minor Pro"
-        Url = "https://en.wikipedia.org/w/api.php?action=parse&page=2024%E2%80%9325_AHL_season&prop=text&format=json"
-        Type = "Wikimedia JSON API"
-    },
-    @{
-        Id = "echl_season_wiki"
-        Name = "ECHL Minor Pro Season Registry & Scoring"
-        Category = "ECHL Minor Pro"
-        Url = "https://en.wikipedia.org/w/api.php?action=parse&page=2024%E2%80%9325_ECHL_season&prop=text&format=json"
+        Id = "usntdp_wiki"
+        Name = "USA Hockey NTDP U17/U18 Radar & Alumni"
+        Category = "USNTDP / USA Hockey"
+        Url = "https://en.wikipedia.org/w/api.php?action=parse&page=USA_Hockey_National_Team_Development_Program&prop=text&format=json"
         Type = "Wikimedia JSON API"
     },
     @{
@@ -80,10 +73,122 @@ $liveTargets = @(
         Type = "Wikimedia JSON API"
     },
     @{
-        Id = "usntdp_wiki"
-        Name = "USA Hockey NTDP U17/U18 Radar & Alumni"
-        Category = "USNTDP / USA Hockey"
-        Url = "https://en.wikipedia.org/w/api.php?action=parse&page=USA_Hockey_National_Team_Development_Program&prop=text&format=json"
+        Id = "ahl_season_wiki"
+        Name = "AHL Minor Pro Season Registry & Transactions"
+        Category = "AHL Minor Pro"
+        Url = "https://en.wikipedia.org/w/api.php?action=parse&page=2024%E2%80%9325_AHL_season&prop=text&format=json"
+        Type = "Wikimedia JSON API"
+    },
+    @{
+        Id = "echl_season_wiki"
+        Name = "ECHL Minor Pro Season Registry & Scoring"
+        Category = "ECHL Minor Pro"
+        Url = "https://en.wikipedia.org/w/api.php?action=parse&page=2024%E2%80%9325_ECHL_season&prop=text&format=json"
+        Type = "Wikimedia JSON API"
+    },
+    @{
+        Id = "ncaa_women_wiki"
+        Name = "NCAA Division I Women's Championship Roster Feed"
+        Category = "NCAA D1 Women"
+        Url = "https://en.wikipedia.org/w/api.php?action=parse&page=2024%E2%80%9325_NCAA_Division_I_women%27s_ice_hockey_season&prop=text&format=json"
+        Type = "Wikimedia JSON API"
+    },
+    @{
+        Id = "ncaa_d3_wiki"
+        Name = "NCAA Division III Men's Season Registry"
+        Category = "NCAA Division III"
+        Url = "https://en.wikipedia.org/w/api.php?action=parse&page=2024%E2%80%9325_NCAA_Division_III_men%27s_ice_hockey_season&prop=text&format=json"
+        Type = "Wikimedia JSON API"
+    },
+    @{
+        Id = "chn_scores_rss"
+        Name = "College Hockey News (CHN) National Scores RSS"
+        Category = "NCAA D1 / CHN"
+        Url = "https://api.rss2json.com/v1/api.json?rss_url=https://www.collegehockeynews.com/rss/news.xml"
+        Type = "Live RSS JSON"
+    },
+    @{
+        Id = "ncaa_rankings_wiki"
+        Name = "NCAA D1 Official National Rankings & PairWise"
+        Category = "NCAA D1 Analytics"
+        Url = "https://en.wikipedia.org/w/api.php?action=parse&page=2024%E2%80%9325_NCAA_Division_I_men%27s_ice_hockey_rankings&prop=text&format=json"
+        Type = "Wikimedia JSON API"
+    },
+    @{
+        Id = "nahl_season_wiki"
+        Name = "NAHL Tier 2 Junior Season Registry & Scoring"
+        Category = "NAHL Tier 2"
+        Url = "https://en.wikipedia.org/w/api.php?action=parse&page=2024%E2%80%9325_NAHL_season&prop=text&format=json"
+        Type = "Wikimedia JSON API"
+    },
+    @{
+        Id = "ncdc_feeder_wiki"
+        Name = "NCDC National Collegiate Development Conference"
+        Category = "NCDC Tier 2"
+        Url = "https://en.wikipedia.org/w/api.php?action=parse&page=National_Collegiate_Development_Conference&prop=text&format=json"
+        Type = "Wikimedia JSON API"
+    },
+    @{
+        Id = "ushl_clark_cup_wiki"
+        Name = "USHL Clark Cup Championship & Bracketology"
+        Category = "USHL Tier 1"
+        Url = "https://en.wikipedia.org/w/api.php?action=parse&page=Clark_Cup&prop=text&format=json"
+        Type = "Wikimedia JSON API"
+    },
+    @{
+        Id = "nepsac_prep_wiki"
+        Name = "NEPSAC New England Prep Hockey Championship"
+        Category = "NEPSAC Prep"
+        Url = "https://en.wikipedia.org/w/api.php?action=parse&page=New_England_Preparatory_School_Athletic_Council&prop=text&format=json"
+        Type = "Wikimedia JSON API"
+    },
+    @{
+        Id = "mshsl_state_wiki"
+        Name = "Minnesota State High School League Hockey"
+        Category = "MSHSL High School"
+        Url = "https://en.wikipedia.org/w/api.php?action=parse&page=Minnesota_State_High_School_League&prop=text&format=json"
+        Type = "Wikimedia JSON API"
+    },
+    @{
+        Id = "u_sports_wiki"
+        Name = "Canadian U Sports University Cup National Stream"
+        Category = "Canadian U Sports"
+        Url = "https://en.wikipedia.org/w/api.php?action=parse&page=U_Sports_men%27s_ice_hockey_championship&prop=text&format=json"
+        Type = "Wikimedia JSON API"
+    },
+    @{
+        Id = "ajhl_stream_wiki"
+        Name = "AJHL Alberta Junior Hockey League Scoring Stream"
+        Category = "AJHL Junior A"
+        Url = "https://en.wikipedia.org/w/api.php?action=parse&page=Alberta_Junior_Hockey_League&prop=text&format=json"
+        Type = "Wikimedia JSON API"
+    },
+    @{
+        Id = "sjhl_stream_wiki"
+        Name = "SJHL Saskatchewan Junior Hockey League Stream"
+        Category = "SJHL Junior A"
+        Url = "https://en.wikipedia.org/w/api.php?action=parse&page=Saskatchewan_Junior_Hockey_League&prop=text&format=json"
+        Type = "Wikimedia JSON API"
+    },
+    @{
+        Id = "cchl_stream_wiki"
+        Name = "CCHL Central Canada Junior A Scouting Stream"
+        Category = "CCHL Junior A"
+        Url = "https://en.wikipedia.org/w/api.php?action=parse&page=Central_Canada_Hockey_League&prop=text&format=json"
+        Type = "Wikimedia JSON API"
+    },
+    @{
+        Id = "usa_hockey_wiki"
+        Name = "USA Hockey Youth Tier 1 National Championship"
+        Category = "USA Hockey AAA"
+        Url = "https://en.wikipedia.org/w/api.php?action=parse&page=USA_Hockey&prop=text&format=json"
+        Type = "Wikimedia JSON API"
+    },
+    @{
+        Id = "iihf_u20_wiki"
+        Name = "IIHF World Junior U20 Championship Registry"
+        Category = "International U20"
+        Url = "https://en.wikipedia.org/w/api.php?action=parse&page=2025_World_Junior_Ice_Hockey_Championships&prop=text&format=json"
         Type = "Wikimedia JSON API"
     }
 )
