@@ -1,0 +1,26 @@
+[
+  {
+    "id": "srv_mu4stt89",
+    "timestamp": "2026-09-17T00:36:05.049Z",
+    "mailOptions": {
+      "from": "DraftLineup Security <noreply@draftlineup.com>",
+      "to": "furrhjohn10@gmail.com",
+      "replyTo": "furrhjohn10@gmail.com",
+      "subject": "Reset Your DraftLineup Password (Code: 965273)",
+      "text": "Hello Scouting Administrator,\n\nYour DraftLineup password reset code is: 965273\n\nReset online: https://draftlineup.com/reset-password?email=furrhjohn10%40gmail.com&code=965273&token=tk_mu4stt86_yuknzrkz\n\nIf you did not request this, contact furrhjohn10@gmail.com.\nDraftLineup Team",
+      "html": "\n      <div style=\"font-family:sans-serif;max-width:600px;margin:auto;background:#0f172a;color:#e2e8f0;padding:24px;border-radius:16px;border:1px solid #1e293b;\">\n        <div style=\"text-align:center;padding:16px 0;border-bottom:1px solid #334155;\">\n          <h1 style=\"color:#fbbf24;margin:0;font-size:24px;text-transform:uppercase;\">DraftLineup Security</h1>\n          <p style=\"color:#94a3b8;font-size:12px;margin:4px 0 0 0;\">Password Reset Request · draftlineup.com</p>\n        </div>\n        <div style=\"padding:24px 0;\">\n          <h2 style=\"color:#ffffff;margin-top:0;\">Password Reset Code</h2>\n          <p style=\"color:#cbd5e1;line-height:1.5;\">Enter the following 6-digit code on <strong>draftlineup.com</strong> to reset your password:</p>\n          <div style=\"background:#f59e0b1a;border:2px dashed #f59e0b;border-radius:12px;padding:20px;text-align:center;margin:24px 0;\">\n            <div style=\"font-size:11px;color:#fbbf24;font-weight:bold;letter-spacing:1px;text-transform:uppercase;\">Reset Code</div>\n            <div style=\"font-size:32px;font-family:monospace;font-weight:900;color:#ffffff;letter-spacing:6px;margin:8px 0;\">965273</div>\n            <div style=\"font-size:11px;color:#94a3b8;\">Expires in 15 minutes · Keep secure</div>\n          </div>\n          <div style=\"text-align:center;margin:24px 0;\">\n            <a href=\"https://draftlineup.com/reset-password?email=furrhjohn10%40gmail.com&code=965273&token=tk_mu4stt86_yuknzrkz\" style=\"display:inline-block;background:#d97706;color:#ffffff;font-weight:bold;padding:12px 28px;border-radius:8px;text-decoration:none;\">Reset Password Now &rarr;</a>\n          </div>\n        </div>\n        <div style=\"border-top:1px solid #334155;padding-top:16px;text-align:center;font-size:11px;color:#64748b;\">\n          Sent via furrhjohn10@gmail.com · Support: furrhjohn10@gmail.com · © 2026 DraftLineup\n        </div>\n      </div>\n    "
+    }
+  },
+  {
+    "id": "srv_mu4stlwz",
+    "timestamp": "2026-09-17T00:35:55.571Z",
+    "mailOptions": {
+      "from": "DraftLineup Security <noreply@draftlineup.com>",
+      "to": "furrhjohn10@gmail.com",
+      "replyTo": "furrhjohn10@gmail.com",
+      "subject": "Verify Your DraftLineup Account (Code: 508453)",
+      "text": "Welcome to DraftLineup, Scouting Prospect!\n\nYour 6-digit confirmation code is: 508453\n\nThis code expires in 15 minutes.\nVerify online: https://draftlineup.com/verify?email=furrhjohn10%40gmail.com&code=508453&token=tk_mu4stlww_pln885d1\n\nOperations: furrhjohn10@gmail.com\nDraftLineup Team",
+      "html": "\n      <div style=\"font-family:sans-serif;max-width:600px;margin:auto;background:#0f172a;color:#e2e8f0;padding:24px;border-radius:16px;border:1px solid #1e293b;\">\n        <div style=\"text-align:center;padding:16px 0;border-bottom:1px solid #334155;\">\n          <h1 style=\"color:#38bdf8;margin:0;font-size:24px;text-transform:uppercase;\">DraftLineup</h1>\n          <p style=\"color:#94a3b8;font-size:12px;margin:4px 0 0 0;\">Official Scouting & Athlete Verification · draftlineup.com</p>\n        </div>\n        <div style=\"padding:24px 0;\">\n          <h2 style=\"color:#ffffff;margin-top:0;\">Welcome, Scouting Prospect!</h2>\n          <p style=\"color:#cbd5e1;line-height:1.5;\">Please verify your email address to activate your official hockey passport on <strong>draftlineup.com</strong>:</p>\n          <div style=\"background:#0284c71a;border:2px dashed #38bdf8;border-radius:12px;padding:20px;text-align:center;margin:24px 0;\">\n            <div style=\"font-size:11px;color:#38bdf8;font-weight:bold;letter-spacing:1px;text-transform:uppercase;\">Verification Code</div>\n            <div style=\"font-size:32px;font-family:monospace;font-weight:900;color:#ffffff;letter-spacing:6px;margin:8px 0;\">508453</div>\n            <div style=\"font-size:11px;color:#94a3b8;\">Expires in 15 minutes · Never share this code</div>\n          </div>\n          <div style=\"text-align:center;margin:24px 0;\">\n            <a href=\"https://draftlineup.com/verify?email=furrhjohn10%40gmail.com&code=508453&token=tk_mu4stlww_pln885d1\" style=\"display:inline-block;background:#0284c7;color:#ffffff;font-weight:bold;padding:12px 28px;border-radius:8px;text-decoration:none;\">Confirm Account &rarr;</a>\n          </div>\n        </div>\n        <div style=\"border-top:1px solid #334155;padding-top:16px;text-align:center;font-size:11px;color:#64748b;\">\n          Sent via furrhjohn10@gmail.com · Reply directly for support · © 2026 DraftLineup\n        </div>\n      </div>\n    "
+    }
+  }
+]

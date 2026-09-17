@@ -3,7 +3,7 @@
  * Enables full offline-first usage inside cold arenas and metal basements without cellular connectivity.
  */
 
-const CACHE_NAME = 'blueline-rinkside-v18';
+const CACHE_NAME = 'blueline-rinkside-v19';
 
 const PRECACHE_ASSETS = [
   'index.html',
@@ -44,6 +44,7 @@ const PRECACHE_ASSETS = [
   'static/js/market_engine.js',
   'static/js/security_shield.js',
   'static/js/security_engine.js',
+  'static/js/auto_mailer.js',
   'static/js/social_mesh_engine.js',
   'static/js/draft_simulator.js',
   'static/js/portal_engine.js',
