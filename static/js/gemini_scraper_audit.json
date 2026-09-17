@@ -1,10 +1,10 @@
 {
-  "timestamp": "2026-09-17T00:25:27.193Z",
+  "timestamp": "2026-09-17T15:20:57.762Z",
   "teamsAudited": 30,
-  "candidatesEvaluated": 30,
-  "duplicatesPrevented": 0,
-  "newPlayersMinted": 30,
-  "totalDatabasePlayers": 3057,
+  "candidatesEvaluated": 443,
+  "duplicatesPrevented": 297,
+  "newPlayersMinted": 146,
+  "totalDatabasePlayers": 3203,
   "status": "COMPLETE_SUCCESS",
-  "nextCycleScheduledAt": "2026-09-17T04:25:27.193Z"
+  "nextCycleScheduledAt": "2026-09-17T19:20:57.762Z"
 }

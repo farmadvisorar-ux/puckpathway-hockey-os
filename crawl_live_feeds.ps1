@@ -6,7 +6,7 @@ param(
     [int]$IntervalMinutes = 15
 )
 
-$projectDir = "C:\Users\furrh\.gemini\antigravity\scratch\puckpathway-hockey-os"
+$projectDir = if ($PSScriptRoot) { $PSScriptRoot } else { Split-Path -Parent $MyInvocation.MyCommand.Path }
 $stateFile = "$projectDir\static\js\agent_collective_state.json"
 
 Write-Host "==========================================================" -ForegroundColor Cyan

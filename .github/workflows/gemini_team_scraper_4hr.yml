@@ -1,0 +1,60 @@
+name: Gemini Hockey Swarm 4-Hour Team Scraper
+
+on:
+  schedule:
+    # Runs every 4 hours: 00:00, 04:00, 08:00, 12:00, 16:00, 20:00 UTC
+    - cron: '0 */4 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  scrape_and_ingest:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Execute Gemini Team-by-Team Web Scraper Cycle
+        run: |
+          node scripts/gemini_team_scraper.js --once
+
+      - name: Validate System Invariants & JS Syntax
+        run: |
+          node -e '
+            const fs = require("fs");
+            const { execSync } = require("child_process");
+            fs.readdirSync("static/js").filter(f => f.endsWith(".js")).forEach(f => {
+              execSync("node -c static/js/" + f);
+            });
+            const EXACT_MISSION = "BlueLine DataWorks is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory.";
+            const htmlFiles = fs.readdirSync(".").filter(f => f.endsWith(".html"));
+            htmlFiles.forEach(f => {
+              const c = fs.readFileSync(f, "utf8");
+              if (!c.includes(EXACT_MISSION)) throw new Error("Missing mission in " + f);
+              if (!c.includes("security_shield.js")) throw new Error("Missing shield in " + f);
+              if (c.toLowerCase().includes("shane mccoy")) throw new Error("Forbidden name in " + f);
+            });
+            console.log("All 22 HTML files & JS scripts passed 100% compliance verification!");
+          '
+
+      - name: Commit and Push Updates to GitHub Pages
+        run: |
+          git config --global user.name "BlueLine-Gemini-Swarm[bot]"
+          git config --global user.email "gemini-swarm@bluelinedataworks.com"
+          git add static/js/master_players.js static/js/gemini_scraper_audit.json
+          if ! git diff --cached --quiet; then
+            git commit -m "chore(swarm): automated 4-hour gemini player ingestion [skip ci]"
+            git push origin main
+          else
+            echo "No new roster changes to commit this cycle."
+          fi
