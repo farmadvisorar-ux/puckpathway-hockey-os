@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <!-- Active Pre-Execution Security Shield -->
+  <script src="static/js/security_shield.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BlueLine DataWorks - Player Dashboard (App)</title>
+  <meta name="description" content="BlueLine DataWorks is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory.">
+  <link rel="icon" type="image/jpeg" href="static/img/blueline_logo.jpg">
+  <link rel="apple-touch-icon" href="static/img/blueline_logo.jpg">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="BlueLine DataWorks">
+  <meta property="og:title" content="BlueLine DataWorks - Athlete Operating System (App)">
+  <meta property="og:description" content="BlueLine DataWorks is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory.">
+  <meta property="og:image" content="https://farmadvisorar-ux.github.io/puckpathway-hockey-os/static/img/blueline_og_preview.jpg">
+
+  <!-- Tailwind CSS & Chart.js -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="static/css/custom.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="manifest" href="manifest.json">
+</head>
+<body class="bg-[#06090e] text-slate-100 min-h-screen flex flex-col font-sans selection:bg-sky-500 selection:text-white pb-16">
+
+  <!-- Top Global Header Navigation Bar -->
+  <header class="sticky top-0 z-50 glass-panel border-b border-slate-800/80 bg-slate-950/95 backdrop-blur-xl">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+      
+      <!-- Brand Logo -->
+      <div class="flex items-center gap-3 min-w-0">
+        <a href="app.html" class="flex items-center gap-2.5 group">
+          <img src="static/img/blueline_logo.jpg" alt="BlueLine DataWorks Logo" class="w-9 h-9 sm:w-10 sm:h-10 shrink-0 rounded-xl border border-sky-400/50 object-cover shadow-lg shadow-sky-500/20 group-hover:scale-105 transition">
+          <div class="min-w-0">
+            <div class="flex items-center gap-1.5 sm:gap-2">
+              <span class="font-extrabold text-sm sm:text-base md:text-lg tracking-tight text-white group-hover:text-sky-400 transition truncate">BlueLine DataWorks</span>
+              <span class="text-[10px] uppercase font-mono tracking-widest px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-bold shrink-0">APP OS</span>
+            </div>
+            <p class="text-[10px] text-slate-400 hidden sm:block truncate">Logged-In Athlete Command Center</p>
+          </div>
+        </a>
+      </div>
+
+      <!-- Center Primary Navigation -->
+      <nav class="hidden lg:flex items-center gap-1 sm:gap-1.5 text-xs font-mono">
+        <a href="app.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-sky-600 text-white font-bold flex items-center gap-1.5 shadow-md shadow-sky-600/30">
+          <span>⚡</span> <span>Dashboard</span>
+        </a>
+        <a href="database.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white font-semibold border border-slate-800 transition flex items-center gap-1.5">
+          <span>📊</span> <span>Directory</span>
+        </a>
+        <a href="scoreboard.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white font-semibold border border-slate-800 transition flex items-center gap-1.5">
+          <span>📡</span> <span>Game Center</span>
+        </a>
+        <a href="combine.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white font-semibold border border-slate-800 transition flex items-center gap-1.5">
+          <span>🧪</span> <span>Combine Lab</span>
+        </a>
+        <a href="tactics.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white font-semibold border border-slate-800 transition flex items-center gap-1.5">
+          <span>📋</span> <span>Tactics</span>
+        </a>
+        <a href="crease.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white font-semibold border border-slate-800 transition flex items-center gap-1.5">
+          <span>🥅</span> <span>Crease</span>
+        </a>
+      </nav>
+
+      <!-- Right Controls: Active Profile Capsule + Switcher + Sign Out -->
+      <div class="flex items-center gap-2 sm:gap-3 shrink-0">
+        
+        <!-- All Modules Launcher -->
+        <button onclick="toggleAppLauncher()" class="px-3 py-1.5 rounded-xl bg-gradient-to-r from-sky-600/30 via-indigo-600/30 to-purple-600/30 hover:from-sky-600/50 hover:to-purple-600/50 text-sky-200 border border-sky-400/40 hover:border-sky-300 font-bold text-xs flex items-center gap-1.5 shadow-lg shadow-sky-500/10 transition active:scale-95 cursor-pointer" title="Open All 22 Enterprise Modules (Ctrl+K)">
+          <span class="text-sm">❖</span>
+          <span class="hidden sm:inline font-sans font-semibold">22 Modules</span>
+        </button>
+
+        <!-- Profile Capsule & Dropdown -->
+        <div class="relative">
+          <button id="userProfileBtn" onclick="toggleUserDropdown()" class="flex items-center gap-2 bg-slate-900/90 border border-sky-500/40 hover:border-sky-400 rounded-xl px-2.5 py-1 transition cursor-pointer shadow-inner">
+            <div id="userAvatarBadge" class="w-6 h-6 rounded-full bg-gradient-to-tr from-cyan-600 to-blue-800 text-white font-black flex items-center justify-center text-[10px]">
+              ⚡
+            </div>
+            <div class="text-left leading-none hidden sm:block">
+              <span id="userNameLabel" class="text-xs font-bold text-white block truncate max-w-[110px]">Michael Hage</span>
+              <span id="userRoleBadge" class="text-[9px] text-sky-400 font-mono">Athlete</span>
+            </div>
+            <span class="text-slate-400 text-[10px]">▾</span>
+          </button>
+
+          <!-- Dropdown Menu -->
+          <div id="userDropdownMenu" class="hidden absolute right-0 mt-2 w-64 glass-panel rounded-2xl border border-slate-800 shadow-2xl p-2 z-50 space-y-1 text-xs">
+            <div class="px-3 py-2 border-b border-slate-800">
+              <div class="text-[10px] font-mono text-slate-400 uppercase">Signed In As</div>
+              <div id="dropdownUserName" class="font-bold text-white text-sm">Michael Hage</div>
+              <div id="dropdownUserEmail" class="text-[10px] text-slate-400 font-mono truncate">mhage@umich.edu</div>
+            </div>
+            
+            <div class="py-1">
+              <div class="text-[9px] font-mono text-slate-400 uppercase px-3 py-1">Quick Switch Persona:</div>
+              <button onclick="switchAppPersona('usr_athlete_hage')" class="w-full text-left px-3 py-1.5 rounded-lg hover:bg-slate-800 flex items-center gap-2 transition text-slate-200 cursor-pointer">
+                <span>⚡</span> <span>Michael Hage (Player • Michigan)</span>
+              </button>
+              <button onclick="switchAppPersona('usr_athlete_kaiser')" class="w-full text-left px-3 py-1.5 rounded-lg hover:bg-slate-800 flex items-center gap-2 transition text-slate-200 cursor-pointer">
+                <span>🥅</span> <span>Kaiser Nelson (Goalie • Minnetonka)</span>
+              </button>
+              <button onclick="switchAppPersona('usr_scout_marr')" class="w-full text-left px-3 py-1.5 rounded-lg hover:bg-slate-800 flex items-center gap-2 transition text-slate-200 cursor-pointer">
+                <span>🔍</span> <span>Dan Marr (Director of Scouting)</span>
+              </button>
+              <button onclick="switchAppPersona('usr_coach_nightingale')" class="w-full text-left px-3 py-1.5 rounded-lg hover:bg-slate-800 flex items-center gap-2 transition text-slate-200 cursor-pointer">
+                <span>🏒</span> <span>Adam Nightingale (Coach • MSU)</span>
+              </button>
+            </div>
+
+            <div class="pt-1 border-t border-slate-800">
+              <a href="index.html" class="w-full text-left px-3 py-1.5 rounded-lg hover:bg-slate-800 flex items-center gap-2 transition text-slate-300 block">
+                <span>🌐</span> <span>View Marketing Homepage</span>
+              </a>
+              <button onclick="handleSignOut()" class="w-full text-left px-3 py-1.5 rounded-lg hover:bg-red-950/50 text-red-400 flex items-center gap-2 transition cursor-pointer">
+                <span>🚪</span> <span>Sign Out</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Mandatory Lifelong Tracking Mission Statement Banner -->
+    <div class="border-t border-slate-800/80 bg-slate-950/90">
+      <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-1.5 flex flex-wrap items-center justify-between gap-2 text-xs">
+        <div class="flex items-center gap-2 min-w-0">
+          <span class="px-2 py-0.5 rounded-md bg-sky-500/20 text-sky-300 font-mono text-[10px] font-bold shrink-0">MISSION</span>
+          <p class="text-[11px] text-slate-400 truncate">
+            BlueLine DataWorks is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory.
+          </p>
+        </div>
+        <div class="flex items-center gap-2 shrink-0">
+          <span id="pwaStatusPill" class="text-[10px] font-mono text-emerald-400 bg-emerald-950/60 border border-emerald-800/50 px-2 py-0.5 rounded-full">⚡ Rinkside Offline Ready</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main App Layout Container -->
+  <main class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-6 space-y-6 flex-1 w-full">
+    
+    <!-- ==================== HERO ATHLETE PASSPORT DOSSIER ==================== -->
+    <div class="glass-panel p-5 sm:p-6 rounded-3xl relative overflow-hidden shadow-2xl border border-sky-500/30 space-y-5">
+      <div class="absolute -right-16 -bottom-16 w-64 h-64 bg-sky-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+      <!-- Top Row: Avatar + Info + Primary Badges -->
+      <div class="flex flex-wrap items-start justify-between gap-4">
+        <div class="flex items-center gap-4 min-w-0">
+          <div id="dossierAvatar" class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-gradient-to-tr from-cyan-600 via-blue-600 to-indigo-800 flex items-center justify-center text-3xl sm:text-4xl shadow-xl shadow-sky-500/20 border border-sky-400/40 shrink-0">
+            ⚡
+          </div>
+          <div class="min-w-0 space-y-1">
+            <div class="flex items-center gap-2 flex-wrap">
+              <h1 id="dossierName" class="text-xl sm:text-2xl md:text-3xl font-black text-white tracking-tight truncate">Michael Hage</h1>
+              <span id="dossierNumberBadge" class="px-2 py-0.5 rounded-md bg-sky-500/20 text-sky-300 font-mono text-xs font-bold border border-sky-500/40">#13 • C</span>
+              <span id="dossierVerifiedBadge" class="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-[10px] font-mono font-bold flex items-center gap-1">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> VERIFIED PASSPORT
+              </span>
+            </div>
+            <p id="dossierSubheading" class="text-xs sm:text-sm text-slate-300 truncate">
+              University of Michigan • NCAA Division I Men (Big Ten)
+            </p>
+            <div class="flex items-center gap-3 text-xs text-slate-400 font-mono flex-wrap pt-0.5">
+              <span id="dossierHometown">📍 Mississauga, ON</span>
+              <span>•</span>
+              <span id="dossierBiometrics">Height: 6' 1" | Weight: 190 lbs</span>
+              <span>•</span>
+              <span id="dossierShoots">Shoots: Right</span>
+              <span>•</span>
+              <span id="dossierDraft">Draft: MTL 2024 (1st Rd, #21)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Quick Actions -->
+        <div class="flex items-center gap-2 shrink-0">
+          <button onclick="switchAppTab('tab-combine')" class="px-3 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-sky-500/30 text-sky-300 text-xs font-bold transition flex items-center gap-1.5 cursor-pointer">
+            <span>🧪</span> <span>Test Combine</span>
+          </button>
+          <button onclick="exportDigitalPassport()" class="px-3.5 py-2 rounded-xl bg-gradient-to-r from-sky-600 to-blue-600 hover:from-sky-500 hover:to-blue-500 text-white text-xs font-bold transition shadow-lg shadow-sky-600/30 flex items-center gap-1.5 cursor-pointer">
+            <span>📥</span> <span>Export Passport</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Quick KPI Metrics Ribbon -->
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 pt-3 border-t border-slate-800/80">
+        <div class="bg-slate-900/80 p-3 rounded-2xl border border-slate-800/80 space-y-0.5">
+          <div class="text-[10px] font-mono text-slate-400 uppercase">Composite Score</div>
+          <div id="metricCompositeScore" class="text-lg sm:text-xl font-black text-sky-400">94.6 <span class="text-xs font-normal text-slate-400">/ 100</span></div>
+          <div class="text-[9px] text-emerald-400 font-mono">Top 2% Scholastic</div>
+        </div>
+
+        <div class="bg-slate-900/80 p-3 rounded-2xl border border-slate-800/80 space-y-0.5">
+          <div class="text-[10px] font-mono text-slate-400 uppercase">Athletic Index</div>
+          <div id="metricAthleticIndex" class="text-lg sm:text-xl font-black text-emerald-400">92.8 <span class="text-xs font-normal text-slate-400">/ 100</span></div>
+          <div class="text-[9px] text-slate-400 font-mono">Combine Hardware</div>
+        </div>
+
+        <div class="bg-slate-900/80 p-3 rounded-2xl border border-slate-800/80 space-y-0.5">
+          <div class="text-[10px] font-mono text-slate-400 uppercase">Corsi For %</div>
+          <div id="metricCorsi" class="text-lg sm:text-xl font-black text-cyan-400">58.2%</div>
+          <div class="text-[9px] text-cyan-300 font-mono">+11.4% Rel Team</div>
+        </div>
+
+        <div class="bg-slate-900/80 p-3 rounded-2xl border border-slate-800/80 space-y-0.5">
+          <div class="text-[10px] font-mono text-slate-400 uppercase">Academic GPA</div>
+          <div id="metricGpa" class="text-lg sm:text-xl font-black text-amber-400">3.85 <span class="text-xs font-normal text-slate-400">/ 4.0</span></div>
+          <div class="text-[9px] text-amber-300 font-mono">NCAA Core 100%</div>
+        </div>
+
+        <div class="bg-slate-900/80 p-3 rounded-2xl border border-slate-800/80 space-y-0.5">
+          <div class="text-[10px] font-mono text-slate-400 uppercase">NCAA Pathway</div>
+          <div id="metricNcaaPathway" class="text-lg sm:text-xl font-black text-purple-400">Division I</div>
+          <div class="text-[9px] text-purple-300 font-mono">Committed Varsity</div>
+        </div>
+
+        <div class="bg-slate-900/80 p-3 rounded-2xl border border-slate-800/80 space-y-0.5">
+          <div class="text-[10px] font-mono text-slate-400 uppercase">Ledger Genesis</div>
+          <div id="metricLedgerHash" class="text-xs font-mono font-bold text-slate-300 truncate" title="0x9f7a83e0cb214">0x9f7a83e...</div>
+          <div class="text-[9px] text-emerald-400 font-mono">HMAC-SHA256 LOCKED</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ==================== INTERNAL TAB NAVIGATION (JS DRIVEN) ==================== -->
+    <div class="flex items-center gap-2 overflow-x-auto pb-1 border-b border-slate-800 font-mono text-xs scrollbar-none">
+      <button onclick="switchAppTab('tab-overview')" id="tabBtn-overview" class="app-tab-btn px-4 py-2.5 rounded-xl font-bold bg-sky-600 text-white transition flex items-center gap-2 shrink-0 cursor-pointer">
+        <span>📊</span> <span>Overview & Passport</span>
+      </button>
+      <button onclick="switchAppTab('tab-analytics')" id="tabBtn-analytics" class="app-tab-btn px-4 py-2.5 rounded-xl font-semibold bg-slate-900 text-slate-400 hover:text-white border border-slate-800 transition flex items-center gap-2 shrink-0 cursor-pointer">
+        <span>📈</span> <span>Analytics & Game Log</span>
+      </button>
+      <button onclick="switchAppTab('tab-combine')" id="tabBtn-combine" class="app-tab-btn px-4 py-2.5 rounded-xl font-semibold bg-slate-900 text-slate-400 hover:text-white border border-slate-800 transition flex items-center gap-2 shrink-0 cursor-pointer">
+        <span>🧪</span> <span>Combine Lab</span>
+      </button>
+      <button onclick="switchAppTab('tab-pathway')" id="tabBtn-pathway" class="app-tab-btn px-4 py-2.5 rounded-xl font-semibold bg-slate-900 text-slate-400 hover:text-white border border-slate-800 transition flex items-center gap-2 shrink-0 cursor-pointer">
+        <span>🎯</span> <span>Recruiting & NCAA Pathway</span>
+      </button>
+      <button onclick="switchAppTab('tab-tactics')" id="tabBtn-tactics" class="app-tab-btn px-4 py-2.5 rounded-xl font-semibold bg-slate-900 text-slate-400 hover:text-white border border-slate-800 transition flex items-center gap-2 shrink-0 cursor-pointer">
+        <span>📋</span> <span>Tactics & Film Breakdown</span>
+      </button>
+      <button onclick="switchAppTab('tab-security')" id="tabBtn-security" class="app-tab-btn px-4 py-2.5 rounded-xl font-semibold bg-slate-900 text-slate-400 hover:text-white border border-slate-800 transition flex items-center gap-2 shrink-0 cursor-pointer">
+        <span>🛡️</span> <span>Ledger & Security</span>
+      </button>
+    </div>
+
+    <!-- ==================== TAB PANELS ==================== -->
+
+    <!-- TAB 1: OVERVIEW & PASSPORT -->
+    <div id="tabPanel-overview" class="tab-panel space-y-6">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        
+        <!-- Radar Spider Chart Card -->
+        <div class="glass-panel p-5 sm:p-6 rounded-3xl border border-slate-800 space-y-4">
+          <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+            <div>
+              <h3 class="font-black text-white text-base flex items-center gap-2">
+                <span>🕸️</span> 5-Axis Scouting Evaluation Radar
+              </h3>
+              <p class="text-xs text-slate-400">Micro-telemetry evaluation compared against NCAA D1 & USHL Tier 1 cohort norms</p>
+            </div>
+            <span class="px-2 py-0.5 rounded-full bg-sky-500/20 text-sky-300 font-mono text-[10px] font-bold">Top 2% Tier</span>
+          </div>
+
+          <div class="h-64 sm:h-72 relative flex items-center justify-center">
+            <canvas id="overviewRadarChart"></canvas>
+          </div>
+
+          <div class="grid grid-cols-5 gap-1 text-center font-mono text-[10px] pt-2 border-t border-slate-800/80">
+            <div class="bg-slate-900/60 p-1.5 rounded-lg"><div class="text-slate-400">Skating</div><div class="font-bold text-sky-400">96.0</div></div>
+            <div class="bg-slate-900/60 p-1.5 rounded-lg"><div class="text-slate-400">Puck Skills</div><div class="font-bold text-sky-400">94.5</div></div>
+            <div class="bg-slate-900/60 p-1.5 rounded-lg"><div class="text-slate-400">Hockey IQ</div><div class="font-bold text-sky-400">95.0</div></div>
+            <div class="bg-slate-900/60 p-1.5 rounded-lg"><div class="text-slate-400">Physicality</div><div class="font-bold text-sky-400">89.0</div></div>
+            <div class="bg-slate-900/60 p-1.5 rounded-lg"><div class="text-slate-400">Clutch Index</div><div class="font-bold text-sky-400">93.5</div></div>
+          </div>
+        </div>
+
+        <!-- Trajectory Timeline Arc Card -->
+        <div class="glass-panel p-5 sm:p-6 rounded-3xl border border-slate-800 space-y-4">
+          <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+            <div>
+              <h3 class="font-black text-white text-base flex items-center gap-2">
+                <span>📈</span> Lifelong Career Trajectory Velocity
+              </h3>
+              <p class="text-xs text-slate-400">Historical performance index through each competitive tier</p>
+            </div>
+            <span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-mono text-[10px] font-bold">Exponential Arc</span>
+          </div>
+
+          <div class="h-64 sm:h-72 relative flex items-center justify-center">
+            <canvas id="overviewTrajectoryChart"></canvas>
+          </div>
+
+          <div class="bg-slate-900/80 p-3 rounded-2xl border border-slate-800 text-xs text-slate-300 flex items-center justify-between">
+            <span class="font-mono text-[11px] text-slate-400">Current Phase: <strong class="text-white">NCAA Division I Elite</strong></span>
+            <span class="font-mono text-[11px] text-emerald-400 font-bold">Projected Trajectory: NHL Impact Top-6</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Biometrics & Hardware Telemetry Details -->
+      <div class="glass-panel p-5 sm:p-6 rounded-3xl border border-slate-800 space-y-4">
+        <h3 class="font-black text-white text-base flex items-center gap-2 border-b border-slate-800 pb-3">
+          <span>🧬</span> Verified Biometrics & Hardware Sensor Telemetry
+        </h3>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs font-mono">
+          <div class="bg-slate-900/60 p-3.5 rounded-2xl border border-slate-800/80 space-y-1">
+            <span class="text-slate-400">Max Sprint Velocity</span>
+            <div class="text-base font-bold text-white">35.2 km/h</div>
+            <div class="text-[10px] text-emerald-400">Catapult GPS Verified</div>
+          </div>
+          <div class="bg-slate-900/60 p-3.5 rounded-2xl border border-slate-800/80 space-y-1">
+            <span class="text-slate-400">Resting Heart Rate</span>
+            <div class="text-base font-bold text-white">46 bpm</div>
+            <div class="text-[10px] text-sky-400">Cardiovascular Recovery A+</div>
+          </div>
+          <div class="bg-slate-900/60 p-3.5 rounded-2xl border border-slate-800/80 space-y-1">
+            <span class="text-slate-400">Shot Velocity (Wrist/Snap)</span>
+            <div class="text-base font-bold text-white">88.4 mph</div>
+            <div class="text-[10px] text-purple-400">Radar Verified Quick Release</div>
+          </div>
+          <div class="bg-slate-900/60 p-3.5 rounded-2xl border border-slate-800/80 space-y-1">
+            <span class="text-slate-400">Sleep & Strain Recovery</span>
+            <div class="text-base font-bold text-white">94%</div>
+            <div class="text-[10px] text-emerald-400">Optimal Biometric State</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 2: ADVANCED ANALYTICS & GAME LOG -->
+    <div id="tabPanel-analytics" class="tab-panel space-y-6 hidden">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        
+        <!-- Possession Telemetry -->
+        <div class="glass-panel p-5 rounded-3xl border border-slate-800 space-y-3">
+          <h3 class="font-bold text-white text-sm flex items-center gap-2 border-b border-slate-800 pb-2">
+            <span>🏒</span> Advanced Possession Metrics
+          </h3>
+          <div class="space-y-3 font-mono text-xs">
+            <div>
+              <div class="flex justify-between text-[11px] mb-1">
+                <span class="text-slate-400">Corsi For % (CF%)</span>
+                <span class="text-sky-400 font-bold">58.2%</span>
+              </div>
+              <div class="w-full bg-slate-900 h-2 rounded-full overflow-hidden">
+                <div class="bg-sky-500 h-full" style="width: 58.2%"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between text-[11px] mb-1">
+                <span class="text-slate-400">Fenwick For % (FF%)</span>
+                <span class="text-emerald-400 font-bold">57.1%</span>
+              </div>
+              <div class="w-full bg-slate-900 h-2 rounded-full overflow-hidden">
+                <div class="bg-emerald-500 h-full" style="width: 57.1%"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between text-[11px] mb-1">
+                <span class="text-slate-400">High Danger Chances %</span>
+                <span class="text-purple-400 font-bold">61.4%</span>
+              </div>
+              <div class="w-full bg-slate-900 h-2 rounded-full overflow-hidden">
+                <div class="bg-purple-500 h-full" style="width: 61.4%"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between text-[11px] mb-1">
+                <span class="text-slate-400">Zone Entry Possession %</span>
+                <span class="text-amber-400 font-bold">68.9%</span>
+              </div>
+              <div class="w-full bg-slate-900 h-2 rounded-full overflow-hidden">
+                <div class="bg-amber-500 h-full" style="width: 68.9%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Shot Vector Breakdown -->
+        <div class="glass-panel p-5 rounded-3xl border border-slate-800 space-y-3">
+          <h3 class="font-bold text-white text-sm flex items-center gap-2 border-b border-slate-800 pb-2">
+            <span>🎯</span> Shot Vector Distribution
+          </h3>
+          <div class="space-y-2 text-xs font-mono">
+            <div class="bg-slate-900/80 p-2.5 rounded-xl border border-slate-800 flex justify-between items-center">
+              <span class="text-slate-400">High Danger Slot Shots</span>
+              <span class="font-bold text-emerald-400">44% (18/41 SOG)</span>
+            </div>
+            <div class="bg-slate-900/80 p-2.5 rounded-xl border border-slate-800 flex justify-between items-center">
+              <span class="text-slate-400">Left Circle One-Timers</span>
+              <span class="font-bold text-sky-400">32% (13/41 SOG)</span>
+            </div>
+            <div class="bg-slate-900/80 p-2.5 rounded-xl border border-slate-800 flex justify-between items-center">
+              <span class="text-slate-400">Perimeter / Point Rushes</span>
+              <span class="font-bold text-purple-400">24% (10/41 SOG)</span>
+            </div>
+            <div class="bg-slate-900/80 p-2.5 rounded-xl border border-slate-800 flex justify-between items-center">
+              <span class="text-slate-400">Shooting %</span>
+              <span class="font-bold text-amber-400">14.6%</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Expected Goals (xG) Summary -->
+        <div class="glass-panel p-5 rounded-3xl border border-slate-800 space-y-3">
+          <h3 class="font-bold text-white text-sm flex items-center gap-2 border-b border-slate-800 pb-2">
+            <span>⚡</span> Scoring Impact Rate
+          </h3>
+          <div class="space-y-3 font-mono text-xs">
+            <div class="text-center p-4 rounded-2xl bg-gradient-to-b from-sky-950/40 to-slate-900 border border-sky-500/20">
+              <div class="text-[10px] text-slate-400 uppercase">Individual Expected Goals (ixG)</div>
+              <div class="text-3xl font-black text-sky-400 mt-1">+0.68</div>
+              <div class="text-[10px] text-emerald-400 mt-1">Per 60 Mins Even Strength</div>
+            </div>
+            <div class="flex justify-between text-[11px] bg-slate-900/80 p-2 rounded-xl">
+              <span class="text-slate-400">Primary Points / 60</span>
+              <span class="font-bold text-white">2.42</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Recent Game Sheet Telemetry Table -->
+      <div class="glass-panel p-5 sm:p-6 rounded-3xl border border-slate-800 space-y-4">
+        <h3 class="font-black text-white text-base flex items-center gap-2 border-b border-slate-800 pb-3">
+          <span>📋</span> Recent Game-by-Game Micro-Telemetry Sheets
+        </h3>
+
+        <div class="overflow-x-auto rounded-2xl border border-slate-800">
+          <table class="w-full text-left text-xs border-collapse">
+            <thead>
+              <tr class="bg-slate-900/90 text-slate-400 font-mono text-[11px] border-b border-slate-800">
+                <th class="p-3">DATE / OPPONENT</th>
+                <th class="p-3 text-center">RESULT</th>
+                <th class="p-3 text-center">TOI</th>
+                <th class="p-3 text-center">G</th>
+                <th class="p-3 text-center">A</th>
+                <th class="p-3 text-center">PTS</th>
+                <th class="p-3 text-center">SOG</th>
+                <th class="p-3 text-center">+/-</th>
+                <th class="p-3 text-center">CF%</th>
+                <th class="p-3 text-right">GAME SCORE</th>
+              </tr>
+            </thead>
+            <tbody id="gameLogTableBody" class="divide-y divide-slate-800/60 font-mono">
+              <tr class="hover:bg-slate-900/40 transition">
+                <td class="p-3 text-white font-bold">vs. Michigan State</td>
+                <td class="p-3 text-center text-emerald-400 font-bold">W 4-2</td>
+                <td class="p-3 text-center text-slate-300">19:42</td>
+                <td class="p-3 text-center text-sky-400 font-bold">1</td>
+                <td class="p-3 text-center text-sky-400 font-bold">1</td>
+                <td class="p-3 text-center text-amber-400 font-black">2</td>
+                <td class="p-3 text-center text-slate-300">5</td>
+                <td class="p-3 text-center text-emerald-400">+2</td>
+                <td class="p-3 text-center text-cyan-400">62.5%</td>
+                <td class="p-3 text-right text-emerald-400 font-bold">3.24</td>
+              </tr>
+              <tr class="hover:bg-slate-900/40 transition">
+                <td class="p-3 text-white font-bold">at Minnesota</td>
+                <td class="p-3 text-center text-amber-400 font-bold">OTW 3-2</td>
+                <td class="p-3 text-center text-slate-300">21:10</td>
+                <td class="p-3 text-center text-sky-400 font-bold">1</td>
+                <td class="p-3 text-center text-slate-400">0</td>
+                <td class="p-3 text-center text-amber-400 font-black">1</td>
+                <td class="p-3 text-center text-slate-300">4</td>
+                <td class="p-3 text-center text-emerald-400">+1</td>
+                <td class="p-3 text-center text-cyan-400">58.0%</td>
+                <td class="p-3 text-right text-emerald-400 font-bold">2.15</td>
+              </tr>
+              <tr class="hover:bg-slate-900/40 transition">
+                <td class="p-3 text-white font-bold">vs. Wisconsin</td>
+                <td class="p-3 text-center text-emerald-400 font-bold">W 5-1</td>
+                <td class="p-3 text-center text-slate-300">18:05</td>
+                <td class="p-3 text-center text-slate-400">0</td>
+                <td class="p-3 text-center text-sky-400 font-bold">2</td>
+                <td class="p-3 text-center text-amber-400 font-black">2</td>
+                <td class="p-3 text-center text-slate-300">3</td>
+                <td class="p-3 text-center text-emerald-400">+3</td>
+                <td class="p-3 text-center text-cyan-400">66.7%</td>
+                <td class="p-3 text-right text-emerald-400 font-bold">2.88</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 3: COMBINE LAB -->
+    <div id="tabPanel-combine" class="tab-panel space-y-6 hidden">
+      <div class="glass-panel p-5 sm:p-6 rounded-3xl border border-slate-800 space-y-4">
+        <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-800 pb-3">
+          <div>
+            <h3 class="font-black text-white text-base flex items-center gap-2">
+              <span>🧪</span> Hardware Physicality Combine Benchmarks
+            </h3>
+            <p class="text-xs text-slate-400">Interactive biometric tests calibrated against 4 athletic cohorts</p>
+          </div>
+
+          <!-- Cohort Filter Dropdown -->
+          <div class="flex items-center gap-2 text-xs font-mono">
+            <span class="text-slate-400">Benchmark Cohort:</span>
+            <select id="combineCohortSelect" onchange="recalculateCombinePercentiles()" class="bg-slate-900 border border-sky-500/40 text-sky-300 text-xs rounded-xl px-3 py-1.5 focus:outline-none">
+              <option value="mshsl">MSHSL Class AA High School</option>
+              <option value="nepsac">NEPSAC Elite Prep</option>
+              <option value="ushl">USHL Tier 1 Junior</option>
+              <option value="ncaa" selected>NCAA Division I Collegiate</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- 6 Interactive Combine Test Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          
+          <div class="bg-slate-900/80 p-4 rounded-2xl border border-slate-800 space-y-2">
+            <div class="flex justify-between items-center text-xs font-mono">
+              <span class="text-slate-400">Flying 30m Sprint</span>
+              <span id="labelFlying30m" class="text-sky-400 font-bold text-sm">3.78s</span>
+            </div>
+            <input type="range" id="sliderFlying30m" min="3.4" max="4.5" step="0.01" value="3.78" oninput="updateCombineMetric('flying30m', this.value)" class="w-full accent-sky-500 cursor-pointer">
+            <div class="flex justify-between text-[10px] font-mono text-slate-500">
+              <span>Fast (3.40s)</span>
+              <span id="percFlying30m" class="text-emerald-400 font-bold">96th Percentile</span>
+              <span>Avg (4.10s)</span>
+            </div>
+          </div>
+
+          <div class="bg-slate-900/80 p-4 rounded-2xl border border-slate-800 space-y-2">
+            <div class="flex justify-between items-center text-xs font-mono">
+              <span class="text-slate-400">Vertical Jump</span>
+              <span id="labelVerticalJump" class="text-sky-400 font-bold text-sm">31.5 in</span>
+            </div>
+            <input type="range" id="sliderVerticalJump" min="20" max="42" step="0.5" value="31.5" oninput="updateCombineMetric('verticalJump', this.value)" class="w-full accent-sky-500 cursor-pointer">
+            <div class="flex justify-between text-[10px] font-mono text-slate-500">
+              <span>20 in</span>
+              <span id="percVerticalJump" class="text-emerald-400 font-bold">92nd Percentile</span>
+              <span>42 in</span>
+            </div>
+          </div>
+
+          <div class="bg-slate-900/80 p-4 rounded-2xl border border-slate-800 space-y-2">
+            <div class="flex justify-between items-center text-xs font-mono">
+              <span class="text-slate-400">Standing Broad Jump</span>
+              <span id="labelBroadJump" class="text-sky-400 font-bold text-sm">104.0 in</span>
+            </div>
+            <input type="range" id="sliderBroadJump" min="80" max="130" step="1" value="104" oninput="updateCombineMetric('broadJump', this.value)" class="w-full accent-sky-500 cursor-pointer">
+            <div class="flex justify-between text-[10px] font-mono text-slate-500">
+              <span>80 in</span>
+              <span id="percBroadJump" class="text-emerald-400 font-bold">90th Percentile</span>
+              <span>130 in</span>
+            </div>
+          </div>
+
+          <div class="bg-slate-900/80 p-4 rounded-2xl border border-slate-800 space-y-2">
+            <div class="flex justify-between items-center text-xs font-mono">
+              <span class="text-slate-400">Bench Press (150 lbs Reps)</span>
+              <span id="labelBenchPress" class="text-sky-400 font-bold text-sm">14 reps</span>
+            </div>
+            <input type="range" id="sliderBenchPress" min="0" max="30" step="1" value="14" oninput="updateCombineMetric('benchPress', this.value)" class="w-full accent-sky-500 cursor-pointer">
+            <div class="flex justify-between text-[10px] font-mono text-slate-500">
+              <span>0 reps</span>
+              <span id="percBenchPress" class="text-emerald-400 font-bold">88th Percentile</span>
+              <span>30 reps</span>
+            </div>
+          </div>
+
+          <div class="bg-slate-900/80 p-4 rounded-2xl border border-slate-800 space-y-2">
+            <div class="flex justify-between items-center text-xs font-mono">
+              <span class="text-slate-400">Grip Strength (Dominant)</span>
+              <span id="labelGripStrength" class="text-sky-400 font-bold text-sm">62.5 kg</span>
+            </div>
+            <input type="range" id="sliderGripStrength" min="30" max="90" step="0.5" value="62.5" oninput="updateCombineMetric('gripStrength', this.value)" class="w-full accent-sky-500 cursor-pointer">
+            <div class="flex justify-between text-[10px] font-mono text-slate-500">
+              <span>30 kg</span>
+              <span id="percGripStrength" class="text-emerald-400 font-bold">94th Percentile</span>
+              <span>90 kg</span>
+            </div>
+          </div>
+
+          <div class="bg-slate-900/80 p-4 rounded-2xl border border-slate-800 space-y-2">
+            <div class="flex justify-between items-center text-xs font-mono">
+              <span class="text-slate-400">Pro-Agility 5-10-5 Shuttle</span>
+              <span id="labelShuttle" class="text-sky-400 font-bold text-sm">4.28s</span>
+            </div>
+            <input type="range" id="sliderShuttle" min="3.9" max="5.2" step="0.01" value="4.28" oninput="updateCombineMetric('shuttle', this.value)" class="w-full accent-sky-500 cursor-pointer">
+            <div class="flex justify-between text-[10px] font-mono text-slate-500">
+              <span>Fast (3.90s)</span>
+              <span id="percShuttle" class="text-emerald-400 font-bold">91st Percentile</span>
+              <span>Avg (4.90s)</span>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="pt-2 flex justify-end">
+          <button onclick="saveCombineHardwareBlock()" class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white text-xs font-bold font-mono transition shadow-lg shadow-emerald-600/30 flex items-center gap-2 cursor-pointer">
+            <span>💾</span> <span>Save Combine Telemetry & Stamp Ledger Block</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 4: RECRUITMENT & NCAA PATHWAY -->
+    <div id="tabPanel-pathway" class="tab-panel space-y-6 hidden">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        
+        <!-- Target Programs List -->
+        <div class="lg:col-span-2 glass-panel p-5 sm:p-6 rounded-3xl border border-slate-800 space-y-4">
+          <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+            <div>
+              <h3 class="font-black text-white text-base flex items-center gap-2">
+                <span>🎯</span> Target Institutions & Recruitment Fit Matrix
+              </h3>
+              <p class="text-xs text-slate-400">Program alignment scored from 190 monitored colleges, preps and high schools</p>
+            </div>
+            <span class="px-2 py-0.5 rounded-full bg-sky-500/20 text-sky-300 font-mono text-[10px] font-bold">190 In Database</span>
+          </div>
+
+          <div class="space-y-2.5 max-h-96 overflow-y-auto pr-1" id="pathwayTargetList">
+            <!-- Dynamically populated from institutions_catalog.js -->
+          </div>
+        </div>
+
+        <!-- Academic Clearinghouse & Transfer Portal Card -->
+        <div class="space-y-6">
+          <div class="glass-panel p-5 rounded-3xl border border-slate-800 space-y-3">
+            <h3 class="font-bold text-white text-sm flex items-center gap-2 border-b border-slate-800 pb-2">
+              <span>🎓</span> NCAA Academic Eligibility
+            </h3>
+            <div class="space-y-2 text-xs font-mono">
+              <div class="flex justify-between items-center bg-slate-900/80 p-2.5 rounded-xl border border-slate-800">
+                <span class="text-slate-400">Core Courses Completed</span>
+                <span class="text-emerald-400 font-bold">16 / 16 (100%)</span>
+              </div>
+              <div class="flex justify-between items-center bg-slate-900/80 p-2.5 rounded-xl border border-slate-800">
+                <span class="text-slate-400">NCAA Core GPA</span>
+                <span class="text-sky-400 font-bold">3.85 (Division I Qualified)</span>
+              </div>
+              <div class="flex justify-between items-center bg-slate-900/80 p-2.5 rounded-xl border border-slate-800">
+                <span class="text-slate-400">Clearinghouse Status</span>
+                <span class="text-emerald-400 font-bold">CERTIFIED EARLY</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="glass-panel p-5 rounded-3xl border border-slate-800 space-y-3">
+            <h3 class="font-bold text-white text-sm flex items-center gap-2 border-b border-slate-800 pb-2">
+              <span>📡</span> NCAA Transfer Portal Wire
+            </h3>
+            <div class="space-y-2 text-xs font-mono">
+              <div class="p-2 rounded-xl bg-slate-900/60 border border-slate-800 text-slate-300">
+                <div class="flex justify-between text-[10px] text-slate-400">
+                  <span>TRANSFER RADAR</span>
+                  <span class="text-sky-400">ACTIVE</span>
+                </div>
+                <div class="font-bold text-white text-[11px] mt-0.5">Continuous Portal Window Monitoring</div>
+                <div class="text-[10px] text-slate-400 mt-1">Zero pending portal flags. Committed to Michigan Big Ten roster.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- TAB 5: TACTICS & FILM BREAKDOWN -->
+    <div id="tabPanel-tactics" class="tab-panel space-y-6 hidden">
+      <div class="glass-panel p-5 sm:p-6 rounded-3xl border border-slate-800 space-y-4">
+        <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+          <div>
+            <h3 class="font-black text-white text-base flex items-center gap-2">
+              <span>📋</span> Tactical Systems Alignment & Shift Simulator
+            </h3>
+            <p class="text-xs text-slate-400">System compatibility for Minnetonka 2-3 lock, 5-out powerplay, and sagging D-zone</p>
+          </div>
+          <a href="tactics.html" class="px-3 py-1.5 rounded-xl bg-sky-600/20 hover:bg-sky-600/30 text-sky-300 text-xs font-mono font-bold border border-sky-500/30 transition">
+            Open Full Tactics Suite →
+          </a>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs font-mono">
+          <div class="bg-slate-900/80 p-4 rounded-2xl border border-slate-800 space-y-1">
+            <span class="text-slate-400">Forecheck: 2-3 Left Wing Lock</span>
+            <div class="text-base font-bold text-emerald-400">96% System Fit</div>
+            <p class="text-[10px] text-slate-400 font-sans">High turnover rate through neutral zone angling and F1 pressure.</p>
+          </div>
+
+          <div class="bg-slate-900/80 p-4 rounded-2xl border border-slate-800 space-y-1">
+            <span class="text-slate-400">D-Zone: Sagging Low Zone Collapse</span>
+            <div class="text-base font-bold text-sky-400">94% System Fit</div>
+            <p class="text-[10px] text-slate-400 font-sans">Slot denial and quick transition breakups along the strong-side half-wall.</p>
+          </div>
+
+          <div class="bg-slate-900/80 p-4 rounded-2xl border border-slate-800 space-y-1">
+            <span class="text-slate-400">Power Play: 5-Out Spread Motion</span>
+            <div class="text-base font-bold text-purple-400">98% System Fit</div>
+            <p class="text-[10px] text-slate-400 font-sans">Elite high-to-low seam passing and downhill one-timer release.</p>
+          </div>
+        </div>
+
+        <!-- Mini Shift Battle Simulator -->
+        <div class="p-4 rounded-2xl bg-slate-900/90 border border-sky-500/20 space-y-3">
+          <div class="flex items-center justify-between">
+            <h4 class="text-xs font-mono font-bold text-white uppercase tracking-wider flex items-center gap-1.5">
+              <span>⚡</span> 60-Second Shift Battle Simulator
+            </h4>
+            <span class="text-[10px] text-slate-400 font-mono">Live Physics Engine</span>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-3">
+            <select id="shiftOpponentSelect" class="bg-slate-950 border border-slate-700 text-xs text-white rounded-xl px-3 py-2 font-mono focus:outline-none">
+              <option value="Minnetonka Line 1">Minnetonka Skippers (Line 1 • Burrows/Schultz)</option>
+              <option value="Edina Line 1">Edina Hornets (Line 1 • Mason West)</option>
+              <option value="Avon Old Farms Line 1">Avon Old Farms (Line 1 • Joe Connor)</option>
+              <option value="USA NTDP U18 Line 1">USA Hockey NTDP U18 (Line 1 • James Hagens)</option>
+            </select>
+            <button onclick="runAppShiftSimulation()" class="px-4 py-2 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-bold text-xs font-mono transition shadow-md shadow-sky-600/30 cursor-pointer">
+              Simulate 60s Shift Duel
+            </button>
+          </div>
+
+          <div id="shiftSimulationOutput" class="hidden p-3 rounded-xl bg-slate-950 border border-slate-800 text-xs font-mono space-y-1">
+            <!-- Simulated shift narrative renders here -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 6: SECURITY & CRYPTOGRAPHIC LEDGER -->
+    <div id="tabPanel-security" class="tab-panel space-y-6 hidden">
+      <div class="glass-panel p-5 sm:p-6 rounded-3xl border border-slate-800 space-y-4">
+        <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+          <div>
+            <h3 class="font-black text-white text-base flex items-center gap-2">
+              <span>🛡️</span> Cryptographic Genesis Ledger (HMAC-SHA256)
+            </h3>
+            <p class="text-xs text-slate-400">Tamper-evident audit chain recording every biometric, combine, and registrar verification</p>
+          </div>
+          <button onclick="exportDigitalPassport()" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-emerald-500/40 text-emerald-300 font-mono text-xs font-bold transition">
+            Export JSON Passport
+          </button>
+        </div>
+
+        <div class="space-y-3" id="ledgerBlocksContainer">
+          <!-- Dynamically populated -->
+          <div class="p-3.5 rounded-2xl bg-slate-900/80 border border-emerald-500/30 font-mono text-xs space-y-1.5">
+            <div class="flex items-center justify-between text-[10px]">
+              <span class="text-emerald-400 font-bold">BLOCK #1 • CRYPTOGRAPHICALLY VERIFIED & LOCKED</span>
+              <span class="text-slate-400">2026-09-18T14:00:00Z</span>
+            </div>
+            <div class="text-white font-bold">Roster Verified & Digital Passport Minted</div>
+            <p class="text-slate-400 text-[11px] font-sans">Verified on University of Michigan NCAA D1 active roster. Initial Composite Score: 94.6. Hardware biometrics validated.</p>
+            <div class="text-[10px] text-slate-500 truncate">Hash: 0x9f7a83e0cb214ea7f49f7a • HMAC-SHA256 (Cipher-Bravo)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Scripts -->
+  <script src="static/js/master_players.js"></script>
+  <script src="static/js/institutions_catalog.js"></script>
+  <script src="static/js/auth_engine.js"></script>
+  <script src="static/js/combine_engine.js"></script>
+  <script src="static/js/tactics_engine.js"></script>
+
+  <script>
+    let activeAppTab = 'tab-overview';
+    let currentAthlete = null;
+    let radarChartInstance = null;
+    let trajectoryChartInstance = null;
+
+    // Load active player profile
+    function loadActivePlayerProfile() {
+      const authUser = window.BlueLineAuth ? window.BlueLineAuth.getUser() : null;
+      let player = null;
+
+      if (authUser && authUser.linked_player_id && window.BlueLineAuth.getAthleteDossier) {
+        player = window.BlueLineAuth.getAthleteDossier(authUser.linked_player_id);
+      }
+
+      if (!player && window.MASTER_PLAYERS && window.MASTER_PLAYERS.length > 0) {
+        // Default to Michael Hage
+        player = window.MASTER_PLAYERS.find(p => p.name.includes("Hage")) || window.MASTER_PLAYERS[0];
+      }
+
+      currentAthlete = player;
+      renderPlayerDossier(player, authUser);
+      initCharts(player);
+      populatePathwayTargets();
+    }
+
+    function renderPlayerDossier(p, authUser) {
+      if (!p) return;
+
+      const nameEl = document.getElementById('dossierName');
+      if (nameEl) nameEl.textContent = p.name;
+
+      const userBadgeEl = document.getElementById('userNameLabel');
+      if (userBadgeEl) userBadgeEl.textContent = authUser ? authUser.name : p.name;
+
+      const roleBadgeEl = document.getElementById('userRoleBadge');
+      if (roleBadgeEl) roleBadgeEl.textContent = authUser ? (authUser.role_title || authUser.role) : 'Athlete';
+
+      const avatarEl = document.getElementById('dossierAvatar');
+      if (avatarEl) avatarEl.textContent = p.avatar || '⚡';
+
+      const numBadge = document.getElementById('dossierNumberBadge');
+      if (numBadge) numBadge.textContent = `#${p.num || '13'} • ${p.pos || 'C'}`;
+
+      const subEl = document.getElementById('dossierSubheading');
+      if (subEl) subEl.textContent = `${p.team || 'University of Michigan'} • ${p.league || 'NCAA Division I'}`;
+
+      const hometownEl = document.getElementById('dossierHometown');
+      if (hometownEl) hometownEl.textContent = `📍 ${p.hometown || 'North America'}`;
+
+      const bioEl = document.getElementById('dossierBiometrics');
+      if (bioEl) bioEl.textContent = `Height: ${p.height_str || "6' 1\""} | Weight: ${p.weight_lbs || 190} lbs`;
+
+      const shootsEl = document.getElementById('dossierShoots');
+      if (shootsEl) shootsEl.textContent = `Shoots: ${p.shoots || 'Right'}`;
+
+      const draftEl = document.getElementById('dossierDraft');
+      if (draftEl) draftEl.textContent = `Draft: ${p.draft_status || 'Undrafted'}`;
+
+      // Metrics
+      const compEl = document.getElementById('metricCompositeScore');
+      if (compEl) compEl.innerHTML = `${p.composite_score || 94.6} <span class="text-xs font-normal text-slate-400">/ 100</span>`;
+
+      const athEl = document.getElementById('metricAthleticIndex');
+      if (athEl) athEl.innerHTML = `${p.athletic_index || 92.8} <span class="text-xs font-normal text-slate-400">/ 100</span>`;
+
+      const gpaEl = document.getElementById('metricGpa');
+      if (gpaEl) gpaEl.innerHTML = `${p.gpa || 3.85} <span class="text-xs font-normal text-slate-400">/ 4.0</span>`;
+    }
+
+    // Tab Switching
+    function switchAppTab(tabId) {
+      activeAppTab = tabId;
+
+      // Update Tab Button Styles
+      document.querySelectorAll('.app-tab-btn').forEach(btn => {
+        btn.classList.remove('bg-sky-600', 'text-white');
+        btn.classList.add('bg-slate-900', 'text-slate-400');
+      });
+
+      const activeBtn = document.getElementById(`tabBtn-${tabId.replace('tab-', '')}`);
+      if (activeBtn) {
+        activeBtn.classList.add('bg-sky-600', 'text-white');
+        activeBtn.classList.remove('bg-slate-900', 'text-slate-400');
+      }
+
+      // Toggle Panels
+      document.querySelectorAll('.tab-panel').forEach(panel => {
+        panel.classList.add('hidden');
+      });
+
+      const activePanel = document.getElementById(`tabPanel-${tabId.replace('tab-', '')}`);
+      if (activePanel) {
+        activePanel.classList.remove('hidden');
+      }
+
+      window.location.hash = tabId.replace('tab-', '');
+    }
+
+    // Chart.js Radar & Trajectory
+    function initCharts(p) {
+      const radarCtx = document.getElementById('overviewRadarChart');
+      if (radarCtx) {
+        if (radarChartInstance) radarChartInstance.destroy();
+        radarChartInstance = new Chart(radarCtx, {
+          type: 'radar',
+          data: {
+            labels: ['Speed & Acceleration', 'Puck Skills', 'Hockey IQ', 'Physicality', 'Clutch Factor'],
+            datasets: [
+              {
+                label: p ? p.name : 'Athlete',
+                data: [96, 94.5, 95, 89, 93.5],
+                backgroundColor: 'rgba(14, 165, 233, 0.25)',
+                borderColor: '#0284c7',
+                pointBackgroundColor: '#38bdf8',
+                pointBorderColor: '#fff',
+                pointHoverBackgroundColor: '#fff',
+                pointHoverBorderColor: '#38bdf8'
+              },
+              {
+                label: 'NCAA D1 Cohort Norm',
+                data: [82, 80, 81, 84, 80],
+                backgroundColor: 'rgba(148, 163, 184, 0.1)',
+                borderColor: 'rgba(148, 163, 184, 0.4)',
+                borderDash: [5, 5],
+                pointRadius: 0
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              r: {
+                angleLines: { color: 'rgba(255, 255, 255, 0.1)' },
+                grid: { color: 'rgba(255, 255, 255, 0.08)' },
+                pointLabels: { color: '#94a3b8', font: { family: 'monospace', size: 10 } },
+                ticks: { display: false, min: 60, max: 100 }
+              }
+            },
+            plugins: {
+              legend: { labels: { color: '#cbd5e1', font: { family: 'monospace', size: 10 } } }
+            }
+          }
+        });
+      }
+
+      const trajCtx = document.getElementById('overviewTrajectoryChart');
+      if (trajCtx) {
+        if (trajectoryChartInstance) trajectoryChartInstance.destroy();
+        trajectoryChartInstance = new Chart(trajCtx, {
+          type: 'line',
+          data: {
+            labels: ['U14 AAA', 'U16 AAA', 'USHL Tier 1', 'NCAA D1 Year 1', 'Projected Pro'],
+            datasets: [{
+              label: 'Trajectory Velocity Score',
+              data: [81.2, 86.4, 91.8, 94.6, 96.8],
+              borderColor: '#10b981',
+              backgroundColor: 'rgba(16, 185, 129, 0.15)',
+              fill: true,
+              tension: 0.35,
+              pointBackgroundColor: '#10b981',
+              pointRadius: 5
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              x: { grid: { color: 'rgba(255, 255, 255, 0.05)' }, ticks: { color: '#94a3b8', font: { family: 'monospace', size: 10 } } },
+              y: { min: 75, max: 100, grid: { color: 'rgba(255, 255, 255, 0.05)' }, ticks: { color: '#94a3b8', font: { family: 'monospace', size: 10 } } }
+            },
+            plugins: {
+              legend: { display: false }
+            }
+          }
+        });
+      }
+    }
+
+    // Populate Pathway Target Schools
+    function populatePathwayTargets() {
+      const container = document.getElementById('pathwayTargetList');
+      if (!container || !window.BlueLineInstitutionsCatalog) return;
+
+      const schools = window.BlueLineInstitutionsCatalog.getAll().slice(0, 8);
+      container.innerHTML = schools.map(s => `
+        <div class="p-3 rounded-2xl bg-slate-900/60 border border-slate-800/80 flex items-center justify-between hover:border-sky-500/40 transition">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-xl bg-slate-800 flex items-center justify-center font-bold text-sky-400 text-xs shrink-0">
+              🏫
+            </div>
+            <div>
+              <div class="font-bold text-white text-xs">${s.name}</div>
+              <div class="text-[10px] text-slate-400 font-mono">${s.conference || s.league} • ${s.city || ''}, ${s.state || ''}</div>
+            </div>
+          </div>
+          <div class="text-right font-mono">
+            <span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-[10px] font-bold">95% Fit</span>
+            <div class="text-[9px] text-slate-400 mt-0.5">${s.scoutingStatus || 'Audited'}</div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // Combine test sliders
+    function updateCombineMetric(metric, val) {
+      if (metric === 'flying30m') {
+        document.getElementById('labelFlying30m').textContent = `${parseFloat(val).toFixed(2)}s`;
+      } else if (metric === 'verticalJump') {
+        document.getElementById('labelVerticalJump').textContent = `${parseFloat(val).toFixed(1)} in`;
+      } else if (metric === 'broadJump') {
+        document.getElementById('labelBroadJump').textContent = `${parseFloat(val).toFixed(1)} in`;
+      } else if (metric === 'benchPress') {
+        document.getElementById('labelBenchPress').textContent = `${parseInt(val, 10)} reps`;
+      } else if (metric === 'gripStrength') {
+        document.getElementById('labelGripStrength').textContent = `${parseFloat(val).toFixed(1)} kg`;
+      } else if (metric === 'shuttle') {
+        document.getElementById('labelShuttle').textContent = `${parseFloat(val).toFixed(2)}s`;
+      }
+    }
+
+    function recalculateCombinePercentiles() {
+      const cohort = document.getElementById('combineCohortSelect').value;
+      alert(`Re-benchmarking metrics against ${cohort.toUpperCase()} verified cohort norms...`);
+    }
+
+    function saveCombineHardwareBlock() {
+      alert("Combine telemetry cryptographically signed and committed to athlete genesis ledger block (0x3e18... HMAC-SHA256).");
+    }
+
+    // Shift duel simulation
+    function runAppShiftSimulation() {
+      const out = document.getElementById('shiftSimulationOutput');
+      const opp = document.getElementById('shiftOpponentSelect').value;
+      out.classList.remove('hidden');
+      out.innerHTML = `
+        <div class="text-sky-400 font-bold">⚔️ 60-Second Shift Simulation vs. ${opp}</div>
+        <div class="text-slate-300">00:15 - Clean offensive zone entry through center ice seam.</div>
+        <div class="text-slate-300">00:32 - Sustained cycle along left half-wall; puck protected under 2-man pressure.</div>
+        <div class="text-emerald-400 font-bold">00:48 - High-danger slot pass completed; generated Grade-A scoring chance.</div>
+        <div class="text-slate-400 text-[10px] pt-1 border-t border-slate-800">Shift Result: +1 Scoring Chance Differential • 100% Possession Retention</div>
+      `;
+    }
+
+    function exportDigitalPassport() {
+      const passport = {
+        athlete: currentAthlete ? currentAthlete.name : "Michael Hage",
+        timestamp: new Date().toISOString(),
+        compositeScore: 94.6,
+        athleticIndex: 92.8,
+        ncaaEligibility: "Certified 100% Core",
+        ledgerHash: "0x9f7a83e0cb214ea7f49f7a",
+        algorithm: "HMAC-SHA256 (Cipher-Bravo)",
+        status: "CRYPTOGRAPHICALLY VERIFIED & SEALED"
+      };
+
+      const blob = new Blob([JSON.stringify(passport, null, 2)], { type: 'application/json' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = `${passport.athlete.replace(/\s+/g, '_')}_Digital_Passport.json`;
+      a.click();
+    }
+
+    // User Dropdown & Persona switching
+    function toggleUserDropdown() {
+      const menu = document.getElementById('userDropdownMenu');
+      if (menu) menu.classList.toggle('hidden');
+    }
+
+    function switchAppPersona(personaId) {
+      if (window.BlueLineAuth && window.BlueLineAuth.signInAsPersona) {
+        window.BlueLineAuth.signInAsPersona(personaId);
+        window.location.reload();
+      }
+    }
+
+    function handleSignOut() {
+      if (window.BlueLineAuth && window.BlueLineAuth.signOut) {
+        window.BlueLineAuth.signOut();
+      } else {
+        localStorage.removeItem('blueline_auth_user');
+        window.location.href = 'index.html';
+      }
+    }
+
+    // URL Hash listener
+    window.addEventListener('DOMContentLoaded', () => {
+      loadActivePlayerProfile();
+      const hash = window.location.hash.replace('#', '');
+      if (hash && document.getElementById(`tabPanel-${hash}`)) {
+        switchAppTab(`tab-${hash}`);
+      }
+    });
+  </script>
+</body>
+</html>

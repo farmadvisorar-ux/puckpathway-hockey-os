@@ -15,7 +15,8 @@
   // Master registry of all 22 enterprise modules
   const MODULES = [
     // 1. Rink & Game Simulation
-    { id: "index", name: "Main OS", icon: "🏒", url: "index.html", cat: "rink", desc: "Enterprise Command Center & ADM Practice Planner" },
+    { id: "app", name: "Player OS", icon: "⚡", url: "app.html", cat: "rink", desc: "Logged-In Athlete Command Center & Passport" },
+    { id: "index", name: "Public Home", icon: "🌐", url: "index.html", cat: "rink", desc: "Public Marketing Homepage & Platform Overview" },
     { id: "scoreboard", name: "Game Center", icon: "📡", url: "scoreboard.html", cat: "rink", desc: "Live multi-game scoreboard, shot tracking & xG feeds" },
     { id: "rink3d", name: "3D Virtual Rink", icon: "🧊", url: "rink3d.html", cat: "rink", desc: "Interactive WebGL 3D rink simulator & physics" },
     { id: "film", name: "AI Film Studio", icon: "🎬", url: "film.html", cat: "rink", desc: "Telestration, video breakdown & play tagging" },
