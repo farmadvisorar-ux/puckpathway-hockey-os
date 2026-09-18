@@ -63,6 +63,14 @@
         xGFAwareness: "+6.1% Transition Disruption",
         turnoverRate: "Maximum Middle Lane Denials",
         recommendedFor: "Disciplined European-style puck containment."
+      },
+      "2-3-lock": {
+        name: "2-3 Left Wing Lock (MSHSL / Prep Trap)",
+        description: "F1 and F2 pressure strong side puck carrier while F3 (LW) drops back into defensive line creating a 3-man blue line wall.",
+        tempo: "Stifling Transition Trap",
+        xGFAwareness: "+7.2% Middle Lane Denial",
+        turnoverRate: "Elite Neutral Zone Interceptions",
+        recommendedFor: "Protecting leads, countering high-flying rush attacks."
       }
     },
     defensiveZone: {
@@ -86,6 +94,13 @@
         dRating: "+8.0% Rush Denial",
         reboundSafety: "Moderate",
         vuln: "Vulnerable to cycle picks."
+      },
+      "sagging-zone": {
+        name: "Sagging Zone Net-Front Containment",
+        description: "Strong-side wing challenges half-wall while weak-side wing sags down to net-front to deny slot tip-ins and back-door passes.",
+        dRating: "+6.9% Low Slot Denial",
+        reboundSafety: "Elite",
+        vuln: "Exposes weak-side point."
       }
     },
     powerPlay: {
@@ -100,6 +115,12 @@
         description: "Three players work one half-wall board to create numerical superiority and quick 2v1s.",
         goalExpectancy: "23.1%",
         strength: "Puck recovery and cycle grinding."
+      },
+      "five-out": {
+        name: "Five-Out Perimeter Spread Motion",
+        description: "All five skaters operate outside the faceoff dots with continuous high-low interchange and quick weak-side dive bombs.",
+        goalExpectancy: "24.8%",
+        strength: "Disorganizes penalty kill diamond and creates cross-ice seam openings."
       }
     }
   };
@@ -296,6 +317,102 @@
         goalies: [
           { name: "Trey Augustine", pos: "G", hand: "L", arch: "HYBRID", overall: 96, svPct: ".936", gaa: "1.75", record: "7-0-0" },
           { name: "Jacob Fowler", pos: "G", hand: "L", arch: "POSITIONAL", overall: 94, svPct: ".926", gaa: "2.14", record: "3-0-0" }
+        ]
+      }
+    },
+
+    minnetonka: {
+      id: "minnetonka",
+      name: "Minnetonka Skippers",
+      league: "MSHSL Class AA State Champions",
+      logo: "⚓",
+      primaryColor: "#0284c7",
+      coach: "Sean Goldsworthy",
+      systems: { forecheck: "2-3-lock", defensiveZone: "sagging-zone", powerPlay: "1-3-1" },
+      lines: {
+        f1: [
+          { name: "Javon Moore", pos: "LW", hand: "L", arch: "POWER_FORWARD", overall: 91, speed: 91, shot: 90, iq: 91, def: 86 },
+          { name: "Ashton Schultz", pos: "C", hand: "L", arch: "PLAYMAKER", overall: 89, speed: 90, shot: 87, iq: 93, def: 87 },
+          { name: "Hagen Burrows", pos: "RW", hand: "R", arch: "SNIPER", overall: 94, speed: 92, shot: 95, iq: 96, def: 88 }
+        ],
+        f2: [
+          { name: "Sam Scheetz", pos: "LW", hand: "L", arch: "SNIPER", overall: 86, speed: 88, shot: 88, iq: 86, def: 82 },
+          { name: "Alex Lunski", pos: "C", hand: "R", arch: "TWO_WAY", overall: 85, speed: 87, shot: 84, iq: 88, def: 89 },
+          { name: "Gavin Garry", pos: "RW", hand: "R", arch: "ENERGY", overall: 84, speed: 89, shot: 82, iq: 84, def: 85 }
+        ],
+        f3: [
+          { name: "Luke Garry", pos: "LW", hand: "L", arch: "ENERGY", overall: 82, speed: 86, shot: 80, iq: 83, def: 85 },
+          { name: "Mason Minor", pos: "C", hand: "L", arch: "TWO_WAY", overall: 81, speed: 85, shot: 79, iq: 84, def: 86 },
+          { name: "Caden Zamboni", pos: "RW", hand: "R", arch: "POWER_FORWARD", overall: 80, speed: 84, shot: 81, iq: 81, def: 83 }
+        ],
+        f4: [
+          { name: "Wyatt Geller", pos: "LW", hand: "L", arch: "ENERGY", overall: 78, speed: 83, shot: 76, iq: 80, def: 84 },
+          { name: "Carson Steinhoff", pos: "C", hand: "R", arch: "ENERGY", overall: 77, speed: 84, shot: 75, iq: 80, def: 83 },
+          { name: "Ty Osterhaug", pos: "RW", hand: "L", arch: "ENERGY", overall: 76, speed: 82, shot: 74, iq: 79, def: 82 }
+        ],
+        d1: [
+          { name: "John Stout", pos: "LD", hand: "L", arch: "SHUTDOWN_D", overall: 91, speed: 89, shot: 84, iq: 93, def: 94 },
+          { name: "Hunter Bauer", pos: "RD", hand: "R", arch: "TWO_WAY_D", overall: 87, speed: 88, shot: 83, iq: 89, def: 89 }
+        ],
+        d2: [
+          { name: "Liam Hupila", pos: "LD", hand: "L", arch: "OFFENSIVE_D", overall: 84, speed: 87, shot: 85, iq: 86, def: 81 },
+          { name: "Danny Browning", pos: "RD", hand: "R", arch: "SHUTDOWN_D", overall: 83, speed: 84, shot: 78, iq: 85, def: 88 }
+        ],
+        d3: [
+          { name: "Max Aronson", pos: "LD", hand: "L", arch: "SHUTDOWN_D", overall: 80, speed: 82, shot: 75, iq: 82, def: 85 },
+          { name: "Cole Hanson", pos: "RD", hand: "R", arch: "TWO_WAY_D", overall: 79, speed: 83, shot: 76, iq: 81, def: 84 }
+        ],
+        goalies: [
+          { name: "Kaiser Nelson", pos: "G", hand: "L", arch: "POSITIONAL", overall: 90, svPct: ".928", gaa: "1.65", record: "23-2-2" },
+          { name: "Jackson Coatta", pos: "G", hand: "L", arch: "HYBRID", overall: 81, svPct: ".910", gaa: "2.10", record: "6-1-0" }
+        ]
+      }
+    },
+
+    avon: {
+      id: "avon",
+      name: "Avon Old Farms Winged Beavers",
+      league: "NEPSAC Founders League (Elite 8 Champions)",
+      logo: "🦫",
+      primaryColor: "#7c2d12",
+      coach: "John Gardner",
+      systems: { forecheck: "2-1-2", defensiveZone: "box-plus-1", powerPlay: "five-out" },
+      lines: {
+        f1: [
+          { name: "Joe Connor", pos: "LW", hand: "L", arch: "ENERGY", overall: 93, speed: 94, shot: 91, iq: 95, def: 90 },
+          { name: "Alex Bales", pos: "C", hand: "L", arch: "PLAYMAKER", overall: 89, speed: 90, shot: 88, iq: 93, def: 86 },
+          { name: "Charlie Gollob", pos: "RW", hand: "R", arch: "POWER_FORWARD", overall: 88, speed: 89, shot: 90, iq: 87, def: 85 }
+        ],
+        f2: [
+          { name: "Brennan Cail", pos: "LW", hand: "L", arch: "SNIPER", overall: 86, speed: 88, shot: 89, iq: 85, def: 82 },
+          { name: "Gabe Watson", pos: "C", hand: "R", arch: "TWO_WAY", overall: 85, speed: 87, shot: 84, iq: 88, def: 88 },
+          { name: "Cory Alissi", pos: "RW", hand: "R", arch: "ENERGY", overall: 84, speed: 89, shot: 82, iq: 83, def: 84 }
+        ],
+        f3: [
+          { name: "Cooper Snee", pos: "LW", hand: "L", arch: "TWO_WAY", overall: 82, speed: 85, shot: 81, iq: 84, def: 86 },
+          { name: "Nick Capasso", pos: "C", hand: "L", arch: "PLAYMAKER", overall: 83, speed: 86, shot: 80, iq: 87, def: 81 },
+          { name: "Sam LeDrew", pos: "RW", hand: "L", arch: "SNIPER", overall: 84, speed: 87, shot: 88, iq: 84, def: 80 }
+        ],
+        f4: [
+          { name: "Michael Munroe", pos: "LW", hand: "L", arch: "ENERGY", overall: 79, speed: 83, shot: 77, iq: 81, def: 84 },
+          { name: "Jack Sadowski", pos: "C", hand: "R", arch: "TWO_WAY", overall: 81, speed: 85, shot: 80, iq: 83, def: 85 },
+          { name: "Owen Leahy", pos: "RW", hand: "R", arch: "ENERGY", overall: 78, speed: 82, shot: 76, iq: 80, def: 82 }
+        ],
+        d1: [
+          { name: "Matt Wright", pos: "LD", hand: "L", arch: "TWO_WAY_D", overall: 90, speed: 90, shot: 86, iq: 92, def: 91 },
+          { name: "Hudson Miller", pos: "RD", hand: "R", arch: "SHUTDOWN_D", overall: 87, speed: 87, shot: 80, iq: 88, def: 92 }
+        ],
+        d2: [
+          { name: "Magnus Osterhus", pos: "LD", hand: "L", arch: "OFFENSIVE_D", overall: 85, speed: 88, shot: 85, iq: 87, def: 82 },
+          { name: "Chase Pirtle", pos: "RD", hand: "R", arch: "TWO_WAY_D", overall: 84, speed: 86, shot: 82, iq: 86, def: 87 }
+        ],
+        d3: [
+          { name: "Luke Dow", pos: "LD", hand: "L", arch: "SHUTDOWN_D", overall: 81, speed: 83, shot: 76, iq: 82, def: 86 },
+          { name: "Connor Gately", pos: "RD", hand: "R", arch: "SHUTDOWN_D", overall: 80, speed: 82, shot: 75, iq: 81, def: 85 }
+        ],
+        goalies: [
+          { name: "Stephen Peck", pos: "G", hand: "L", arch: "POSITIONAL", overall: 91, svPct: ".924", gaa: "1.85", record: "21-3-1" },
+          { name: "Kyle Ozgun", pos: "G", hand: "L", arch: "HYBRID", overall: 83, svPct: ".912", gaa: "2.25", record: "5-1-0" }
         ]
       }
     }
