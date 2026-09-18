@@ -197,6 +197,29 @@
   <!-- MAIN WAR ROOM CONTAINER -->
   <main class="max-w-7xl mx-auto px-4 py-6">
 
+    <!-- PRIMARY HUB SWITCHER (TRANSFER PORTAL VS HIGH SCHOOL & PREP COMMITMENTS) -->
+    <div class="flex items-center justify-between flex-wrap gap-3 mb-6 bg-slate-900/90 p-2 rounded-2xl border border-slate-800 shadow-xl">
+      <div class="flex items-center gap-2">
+        <button id="tabPortalModeBtn" onclick="switchPortalTab('portal')" class="px-4 py-2 rounded-xl bg-cyan-600 text-white font-bold text-xs flex items-center gap-2 transition shadow-sm cursor-pointer active">
+          <i class="fa-solid fa-bolt text-cyan-200"></i>
+          <span>NCAA Transfer Portal</span>
+          <span class="px-2 py-0.5 rounded-full bg-cyan-400/20 text-cyan-200 text-[10px] font-mono font-bold">142 Active</span>
+        </button>
+        <button id="tabCommitmentsModeBtn" onclick="switchPortalTab('commitments')" class="px-4 py-2 rounded-xl text-slate-400 hover:text-white font-bold text-xs flex items-center gap-2 transition cursor-pointer">
+          <i class="fa-solid fa-graduation-cap text-emerald-400"></i>
+          <span>High School & Prep Commitments Radar</span>
+          <span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-[10px] font-mono font-bold">Classes 2025–2027</span>
+        </button>
+      </div>
+      <div class="flex items-center gap-2 text-xs font-mono text-slate-400 px-2">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span>170 Monitored Programs · Zero NHL Mandate</span>
+      </div>
+    </div>
+
+    <!-- ==================== WRAPPER 1: NCAA TRANSFER PORTAL ==================== -->
+    <div id="portalViewSection">
+
     <!-- KPI STATS OVERVIEW CARDS -->
     <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
       
@@ -326,6 +349,134 @@
         Clear All Filters
       </button>
     </div>
+
+    </div> <!-- /portalViewSection -->
+
+    <!-- ==================== WRAPPER 2: HIGH SCHOOL & PREP COMMITMENTS RADAR ==================== -->
+    <div id="commitmentsViewSection" class="hidden space-y-6">
+      
+      <!-- Commitments KPI Stats Strip -->
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+        <div class="bg-slate-900/70 border border-emerald-500/30 rounded-xl p-4 flex items-center justify-between">
+          <div>
+            <p class="text-[11px] font-mono text-slate-400 uppercase tracking-wider">Tracked Commits</p>
+            <p id="kpiCommitsTotal" class="text-2xl font-display font-bold text-emerald-400 mt-1">26 Verified</p>
+            <span class="text-[10px] text-emerald-300/80 flex items-center gap-1 mt-0.5">
+              <i class="fa-solid fa-graduation-cap"></i> Classes 2025–2027
+            </span>
+          </div>
+          <div class="w-10 h-10 rounded-lg bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
+            <i class="fa-solid fa-pen-nib text-lg"></i>
+          </div>
+        </div>
+
+        <div class="bg-slate-900/70 border border-slate-800 rounded-xl p-4 flex items-center justify-between">
+          <div>
+            <p class="text-[11px] font-mono text-slate-400 uppercase tracking-wider">NLI Signed</p>
+            <p id="kpiCommitsNli" class="text-2xl font-display font-bold text-white mt-1">20 Signed</p>
+            <span class="text-[10px] text-slate-400 mt-0.5">National Letter of Intent</span>
+          </div>
+          <div class="w-10 h-10 rounded-lg bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400">
+            <i class="fa-solid fa-file-contract text-lg"></i>
+          </div>
+        </div>
+
+        <div class="bg-slate-900/70 border border-slate-800 rounded-xl p-4 flex items-center justify-between">
+          <div>
+            <p class="text-[11px] font-mono text-slate-400 uppercase tracking-wider">Top Feeder Academies</p>
+            <p class="text-2xl font-display font-bold text-amber-400 mt-1">52 Monitored</p>
+            <span class="text-[10px] text-amber-300/80 mt-0.5">Shattuck, Edina, Avon, Culver</span>
+          </div>
+          <div class="w-10 h-10 rounded-lg bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400">
+            <i class="fa-solid fa-school text-lg"></i>
+          </div>
+        </div>
+
+        <div class="bg-slate-900/70 border border-slate-800 rounded-xl p-4 flex items-center justify-between">
+          <div>
+            <p class="text-[11px] font-mono text-slate-400 uppercase tracking-wider">Avg Trajectory Score</p>
+            <p class="text-2xl font-display font-bold text-purple-400 mt-1">92.4 / 100</p>
+            <span class="text-[10px] text-purple-300/80 mt-0.5">D1 Projected Impact</span>
+          </div>
+          <div class="w-10 h-10 rounded-lg bg-purple-500/10 border border-purple-500/30 flex items-center justify-center text-purple-400">
+            <i class="fa-solid fa-chart-line text-lg"></i>
+          </div>
+        </div>
+      </div>
+
+      <!-- Commitments Filters Strip -->
+      <div class="bg-slate-900/80 border border-emerald-500/30 rounded-xl p-4 backdrop-blur-sm">
+        <div class="flex flex-col md:flex-row gap-3 items-center justify-between">
+          <div class="relative w-full md:w-80">
+            <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-slate-400 text-xs"></i>
+            <input type="text" id="commitSearchInput" oninput="applyCommitmentFilters()" 
+                   placeholder="Search recruit, high school, or college..." 
+                   class="w-full bg-slate-950 border border-slate-800 rounded-lg pl-9 pr-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-emerald-400 transition-colors">
+          </div>
+
+          <div class="flex flex-wrap items-center gap-2 w-full md:w-auto">
+            <!-- Class Year -->
+            <select id="commitClassFilter" onchange="applyCommitmentFilters()" class="bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-slate-300 focus:outline-none focus:border-emerald-400">
+              <option value="ALL">All Classes (2025–2027)</option>
+              <option value="2025">Class of 2025</option>
+              <option value="2026">Class of 2026</option>
+              <option value="2027">Class of 2027</option>
+            </select>
+
+            <!-- Feeder Category -->
+            <select id="commitFeederFilter" onchange="applyCommitmentFilters()" class="bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-slate-300 focus:outline-none focus:border-emerald-400">
+              <option value="ALL">All Feeder Types</option>
+              <option value="High School Varsity">High School Varsity</option>
+              <option value="Prep Academy">Elite Prep Academy</option>
+              <option value="Junior Feeder">Junior Feeder / USNTDP</option>
+            </select>
+
+            <!-- Destination Conference -->
+            <select id="commitConfFilter" onchange="applyCommitmentFilters()" class="bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-slate-300 focus:outline-none focus:border-emerald-400">
+              <option value="ALL">All Destination Conferences</option>
+              <option value="Big Ten">Big Ten</option>
+              <option value="NCHC">NCHC</option>
+              <option value="Hockey East">Hockey East</option>
+              <option value="ECAC">ECAC Hockey</option>
+              <option value="CCHA">CCHA</option>
+              <option value="WCHA">WCHA (Women)</option>
+              <option value="NCAA Division III">NCAA Division III</option>
+            </select>
+
+            <!-- Position -->
+            <select id="commitPosFilter" onchange="applyCommitmentFilters()" class="bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-slate-300 focus:outline-none focus:border-emerald-400">
+              <option value="ALL">All Positions</option>
+              <option value="F">Forwards (F)</option>
+              <option value="D">Defensemen (D)</option>
+              <option value="G">Goaltenders (G)</option>
+            </select>
+
+            <!-- Reset Filter -->
+            <button onclick="resetCommitmentFilters()" class="p-2 text-xs text-slate-400 hover:text-white rounded-lg bg-slate-950 border border-slate-800 hover:bg-slate-800 transition-colors" title="Reset Filters">
+              <i class="fa-solid fa-rotate-left"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Commitments Cards Grid -->
+      <div id="commitmentsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <!-- Injected via JavaScript -->
+      </div>
+
+      <!-- Empty State for Commitments -->
+      <div id="commitmentsEmptyState" class="hidden text-center py-16 bg-slate-900/40 border border-slate-800/80 rounded-2xl">
+        <div class="w-16 h-16 rounded-full bg-slate-800/60 flex items-center justify-center mx-auto mb-3 text-slate-500">
+          <i class="fa-solid fa-graduation-cap text-2xl"></i>
+        </div>
+        <h3 class="text-base font-bold text-white mb-1">No Commitments Found</h3>
+        <p class="text-xs text-slate-400 max-w-sm mx-auto mb-4">No recruit commitments match your current filter parameters. Try adjusting conference or class year.</p>
+        <button onclick="resetCommitmentFilters()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-emerald-400 text-xs font-semibold rounded-lg transition-colors">
+          Clear Filters
+        </button>
+      </div>
+
+    </div> <!-- /commitmentsViewSection -->
 
   </main>
 
@@ -559,10 +710,428 @@
   </div>
 
   <!-- SCRIPTS -->
+  <script src="static/js/institutions_catalog.js"></script>
   <script src="static/js/social_mesh_engine.js"></script>
   <script src="static/js/portal_engine.js"></script>
   <script>
     let activeRecipient = null;
+    let currentPortalTab = 'portal';
+
+    const HIGH_SCHOOL_PREP_COMMITS = [
+      {
+        id: "commit_1",
+        name: "Mason Moe",
+        pos: "F",
+        classYear: 2025,
+        feederSchool: "Eden Prairie High School",
+        feederId: "edenprairie",
+        feederType: "High School Varsity",
+        collegeName: "University of Minnesota",
+        collegeId: "minnesota",
+        collegeConference: "Big Ten",
+        mascot: "Golden Gophers",
+        status: "NLI Signed",
+        stars: 5,
+        height: "6'1\"",
+        weight: "185 lbs",
+        hometown: "Eden Prairie, MN",
+        score: 93.4,
+        nilValue: "$52,000/yr",
+        scoutNote: "Explosive north-south winger with elite release; led Eden Prairie to MSHSL Section 2AA Final.",
+        avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150"
+      },
+      {
+        id: "commit_2",
+        name: "Jackson Smithkors",
+        pos: "F",
+        classYear: 2025,
+        feederSchool: "Edina High School",
+        feederId: "edina",
+        feederType: "High School Varsity",
+        collegeName: "University of Wisconsin",
+        collegeId: "wisconsin",
+        collegeConference: "Big Ten",
+        mascot: "Badgers",
+        status: "NLI Signed",
+        stars: 5,
+        height: "6'0\"",
+        weight: "180 lbs",
+        hometown: "Edina, MN",
+        score: 92.8,
+        nilValue: "$48,000/yr",
+        scoutNote: "High-IQ playmaking center from MN Class AA State Champions; exceptional hockey sense in heavy traffic.",
+        avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150"
+      },
+      {
+        id: "commit_3",
+        name: "Brodie Ziemer",
+        pos: "F",
+        classYear: 2025,
+        feederSchool: "Shattuck-St. Mary's",
+        feederId: "shattuck",
+        feederType: "Prep Academy",
+        collegeName: "University of Minnesota",
+        collegeId: "minnesota",
+        collegeConference: "Big Ten",
+        mascot: "Golden Gophers",
+        status: "NLI Signed",
+        stars: 5,
+        height: "5'11\"",
+        weight: "192 lbs",
+        hometown: "Hutchinson, MN",
+        score: 94.2,
+        nilValue: "$75,000/yr",
+        scoutNote: "USNTDP U18 Captain and Shattuck product; physical 200-foot center with tournament leadership pedigree.",
+        avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150"
+      },
+      {
+        id: "commit_4",
+        name: "Cole McKinney",
+        pos: "C",
+        classYear: 2025,
+        feederSchool: "Shattuck-St. Mary's",
+        feederId: "shattuck",
+        feederType: "Prep Academy",
+        collegeName: "University of Michigan",
+        collegeId: "michigan",
+        collegeConference: "Big Ten",
+        mascot: "Wolverines",
+        status: "NLI Signed",
+        stars: 5,
+        height: "6'0\"",
+        weight: "185 lbs",
+        hometown: "Hastings, MN",
+        score: 93.8,
+        nilValue: "$70,000/yr",
+        scoutNote: "Tenacious two-way forward; dynamic faceoff specialist and top penalty killer for USNTDP / Shattuck.",
+        avatar: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?w=150"
+      },
+      {
+        id: "commit_5",
+        name: "John Stout",
+        pos: "D",
+        classYear: 2025,
+        feederSchool: "Minnetonka High School",
+        feederId: "minnetonka",
+        feederType: "High School Varsity",
+        collegeName: "University of Minnesota Duluth",
+        collegeId: "umd",
+        collegeConference: "NCHC",
+        mascot: "Bulldogs",
+        status: "NLI Signed",
+        stars: 4,
+        height: "6'1\"",
+        weight: "188 lbs",
+        hometown: "Minnetonka, MN",
+        score: 91.5,
+        nilValue: "$42,000/yr",
+        scoutNote: "Smooth-skating mobile defenseman; anchor of the Minnetonka Skippers blue line with rapid breakout ability.",
+        avatar: "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=150"
+      },
+      {
+        id: "commit_6",
+        name: "Ryder Betzold",
+        pos: "F",
+        classYear: 2025,
+        feederSchool: "Andover High School",
+        feederId: "andover_mn",
+        feederType: "High School Varsity",
+        collegeName: "University of Denver",
+        collegeId: "denver",
+        collegeConference: "NCHC",
+        mascot: "Pioneers",
+        status: "NLI Signed",
+        stars: 5,
+        height: "6'0\"",
+        weight: "185 lbs",
+        hometown: "Andover, MN",
+        score: 92.5,
+        nilValue: "$55,000/yr",
+        scoutNote: "Prolific prep goal scorer committing to national powerhouse Denver; high shooting volume and rapid release.",
+        avatar: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=150"
+      },
+      {
+        id: "commit_7",
+        name: "Colin Frank",
+        pos: "F",
+        classYear: 2025,
+        feederSchool: "Avon Old Farms",
+        feederId: "avon",
+        feederType: "Prep Academy",
+        collegeName: "University of Connecticut",
+        collegeId: "uconn",
+        collegeConference: "Hockey East",
+        mascot: "Huskies",
+        status: "NLI Signed",
+        stars: 4,
+        height: "5'10\"",
+        weight: "175 lbs",
+        hometown: "San Diego, CA",
+        score: 91.2,
+        nilValue: "$38,000/yr",
+        scoutNote: "Key offensive producer from NEPSAC powerhouse Avon Old Farms; electric edge work and puck protection.",
+        avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150"
+      },
+      {
+        id: "commit_8",
+        name: "Hudson Hausmann",
+        pos: "D",
+        classYear: 2025,
+        feederSchool: "Salisbury School",
+        feederId: "salisbury",
+        feederType: "Prep Academy",
+        collegeName: "Quinnipiac University",
+        collegeId: "quinnipiac",
+        collegeConference: "ECAC",
+        mascot: "Bobcats",
+        status: "NLI Signed",
+        stars: 4,
+        height: "6'2\"",
+        weight: "195 lbs",
+        hometown: "Greenwich, CT",
+        score: 91.7,
+        nilValue: "$44,000/yr",
+        scoutNote: "Towering shutdown defenseman with physical reach; disciplined rush defense tailored for Quinnipiac's system.",
+        avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150"
+      },
+      {
+        id: "commit_9",
+        name: "Drew Schock",
+        pos: "D",
+        classYear: 2026,
+        feederSchool: "Culver Military Academy",
+        feederId: "culver",
+        feederType: "Prep Academy",
+        collegeName: "University of Michigan",
+        collegeId: "michigan",
+        collegeConference: "Big Ten",
+        mascot: "Wolverines",
+        status: "Verbal",
+        stars: 4,
+        height: "6'1\"",
+        weight: "185 lbs",
+        hometown: "Green Bay, WI",
+        score: 91.0,
+        nilValue: "$40,000/yr",
+        scoutNote: "Culver Academy standout blueliner; exceptional passing accuracy and power-play quarterback upside.",
+        avatar: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=150"
+      },
+      {
+        id: "commit_10",
+        name: "Max Plante",
+        pos: "F",
+        classYear: 2025,
+        feederSchool: "Hermantown High School",
+        feederId: "hermantown",
+        feederType: "High School Varsity",
+        collegeName: "University of Minnesota Duluth",
+        collegeId: "umd",
+        collegeConference: "NCHC",
+        mascot: "Bulldogs",
+        status: "NLI Signed",
+        stars: 5,
+        height: "5'10\"",
+        weight: "172 lbs",
+        hometown: "Hermantown, MN",
+        score: 94.0,
+        nilValue: "$65,000/yr",
+        scoutNote: "Hermantown Hawks legacy and USNTDP forward; premier vision, deception, and creative passing.",
+        avatar: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=150"
+      },
+      {
+        id: "commit_11",
+        name: "Cora Webber",
+        pos: "F",
+        classYear: 2025,
+        feederSchool: "Shattuck-St. Mary's",
+        feederId: "shattuck",
+        feederType: "Prep Academy",
+        collegeName: "University of Wisconsin (Women)",
+        collegeId: "wisconsin_w",
+        collegeConference: "WCHA",
+        mascot: "Badgers",
+        status: "NLI Signed",
+        stars: 5,
+        height: "5'8\"",
+        weight: "155 lbs",
+        hometown: "Minneapolis, MN",
+        score: 94.5,
+        nilValue: "$45,000/yr",
+        scoutNote: "National U18 standout from Shattuck girls prep; lethal scoring instincts joining national champion Wisconsin.",
+        avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150"
+      },
+      {
+        id: "commit_12",
+        name: "Bauer Swift",
+        pos: "D",
+        classYear: 2025,
+        feederSchool: "Belmont Hill School",
+        feederId: "belmonthill",
+        feederType: "Prep Academy",
+        collegeName: "Hobart College",
+        collegeId: "hobart",
+        collegeConference: "NCAA Division III",
+        mascot: "Statesmen",
+        status: "NLI Signed",
+        stars: 4,
+        height: "6'0\"",
+        weight: "185 lbs",
+        hometown: "Boston, MA",
+        score: 90.1,
+        nilValue: "$20,000/yr",
+        scoutNote: "ISL All-League defenseman joining NCAA D3 national champion Hobart; disciplined positional defender.",
+        avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150"
+      }
+    ];
+
+    function switchPortalTab(tab) {
+      currentPortalTab = tab;
+      const portalBtn = document.getElementById('tabPortalModeBtn');
+      const commitBtn = document.getElementById('tabCommitmentsModeBtn');
+      const portalSection = document.getElementById('portalViewSection');
+      const commitSection = document.getElementById('commitmentsViewSection');
+
+      if (tab === 'commitments') {
+        commitBtn.className = 'px-4 py-2 rounded-xl bg-emerald-600 text-white font-bold text-xs flex items-center gap-2 transition shadow-sm cursor-pointer active';
+        portalBtn.className = 'px-4 py-2 rounded-xl text-slate-400 hover:text-white font-bold text-xs flex items-center gap-2 transition cursor-pointer';
+        portalSection.classList.add('hidden');
+        commitSection.classList.remove('hidden');
+        renderCommitments();
+      } else {
+        portalBtn.className = 'px-4 py-2 rounded-xl bg-cyan-600 text-white font-bold text-xs flex items-center gap-2 transition shadow-sm cursor-pointer active';
+        commitBtn.className = 'px-4 py-2 rounded-xl text-slate-400 hover:text-white font-bold text-xs flex items-center gap-2 transition cursor-pointer';
+        portalSection.classList.remove('hidden');
+        commitSection.classList.add('hidden');
+      }
+    }
+
+    function renderCommitments() {
+      const grid = document.getElementById('commitmentsGrid');
+      const empty = document.getElementById('commitmentsEmptyState');
+      if (!grid) return;
+
+      const q = (document.getElementById('commitSearchInput')?.value || '').toLowerCase().trim();
+      const yr = document.getElementById('commitClassFilter')?.value || 'ALL';
+      const feeder = document.getElementById('commitFeederFilter')?.value || 'ALL';
+      const conf = document.getElementById('commitConfFilter')?.value || 'ALL';
+      const pos = document.getElementById('commitPosFilter')?.value || 'ALL';
+
+      const filtered = HIGH_SCHOOL_PREP_COMMITS.filter(c => {
+        if (yr !== 'ALL' && String(c.classYear) !== yr) return false;
+        if (feeder !== 'ALL' && c.feederType !== feeder) return false;
+        if (conf !== 'ALL' && c.collegeConference !== conf) return false;
+        if (pos !== 'ALL' && c.pos !== pos) return false;
+        if (q) {
+          const match = c.name.toLowerCase().includes(q) ||
+                        c.feederSchool.toLowerCase().includes(q) ||
+                        c.collegeName.toLowerCase().includes(q) ||
+                        c.collegeConference.toLowerCase().includes(q) ||
+                        c.hometown.toLowerCase().includes(q);
+          if (!match) return false;
+        }
+        return true;
+      });
+
+      if (filtered.length === 0) {
+        grid.innerHTML = '';
+        if (empty) empty.classList.remove('hidden');
+        return;
+      }
+
+      if (empty) empty.classList.add('hidden');
+      grid.innerHTML = filtered.map(c => {
+        const starStr = '★'.repeat(c.stars) + '☆'.repeat(5 - c.stars);
+        return `
+          <div class="bg-slate-900/85 border border-emerald-500/30 hover:border-emerald-400 rounded-2xl p-4 transition-all duration-200 flex flex-col justify-between group shadow-lg shadow-emerald-950/20">
+            <div>
+              <!-- Header -->
+              <div class="flex items-start justify-between gap-3 mb-3">
+                <div class="flex items-center gap-3">
+                  <img src="${c.avatar}" alt="${c.name}" class="w-12 h-12 rounded-xl object-cover border border-emerald-500/40">
+                  <div>
+                    <h4 class="font-bold text-sm text-white group-hover:text-emerald-300 transition-colors flex items-center gap-1.5">
+                      <span>${c.name}</span>
+                      <span class="text-[10px] font-mono px-1.5 py-0.2 rounded bg-emerald-950 text-emerald-300 border border-emerald-800">${c.pos}</span>
+                    </h4>
+                    <div class="text-[11px] text-amber-400 font-mono tracking-wider">${starStr} <span class="text-slate-400">Class of ${c.classYear}</span></div>
+                  </div>
+                </div>
+                <span class="px-2 py-0.5 text-[10px] font-mono font-bold rounded-full ${c.status === 'NLI Signed' ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40' : 'bg-amber-500/20 text-amber-300 border border-amber-500/40'}">
+                  ${c.status === 'NLI Signed' ? '✓ NLI Signed' : '🔒 Verbal Commit'}
+                </span>
+              </div>
+
+              <!-- Feeder -> College Journey Row -->
+              <div class="space-y-1.5 p-3 rounded-xl bg-slate-950/80 border border-slate-800 mb-3 text-xs font-mono">
+                <div class="flex items-center justify-between gap-2">
+                  <span class="text-slate-500 text-[10px]">ORIGIN FEEDER:</span>
+                  <a href="database.html?inst=${encodeURIComponent(c.feederId)}&q=${encodeURIComponent(c.feederSchool)}" class="font-bold text-slate-200 hover:text-emerald-300 truncate">
+                    🏫 ${c.feederSchool}
+                  </a>
+                </div>
+                <div class="flex items-center justify-between gap-2 border-t border-slate-900 pt-1.5">
+                  <span class="text-emerald-400 text-[10px] font-bold">COLLEGE COMMIT:</span>
+                  <a href="database.html?inst=${encodeURIComponent(c.collegeId)}&q=${encodeURIComponent(c.collegeName)}" class="font-bold text-emerald-300 hover:text-emerald-200 truncate">
+                    🎓 ${c.collegeName}
+                  </a>
+                </div>
+                <div class="flex items-center justify-between gap-2 text-[10px] text-slate-400 pt-0.5">
+                  <span>${c.collegeConference} (${c.mascot})</span>
+                  <span>${c.height} · ${c.weight}</span>
+                </div>
+              </div>
+
+              <!-- Metrics Strip -->
+              <div class="grid grid-cols-2 gap-2 mb-3 text-xs font-mono">
+                <div class="p-2 rounded-lg bg-slate-950 border border-slate-800 text-center">
+                  <span class="text-[9px] text-slate-500 block uppercase">Trajectory Score</span>
+                  <span class="text-amber-400 font-bold">${c.score.toFixed(1)} / 100</span>
+                </div>
+                <div class="p-2 rounded-lg bg-slate-950 border border-slate-800 text-center">
+                  <span class="text-[9px] text-slate-500 block uppercase">Projected NIL</span>
+                  <span class="text-cyan-300 font-bold">${c.nilValue}</span>
+                </div>
+              </div>
+
+              <!-- Scouting Summary -->
+              <p class="text-xs text-slate-400 line-clamp-2 mb-4 leading-relaxed">${c.scoutNote}</p>
+            </div>
+
+            <!-- Action Controls -->
+            <div class="flex items-center gap-2 pt-3 border-t border-slate-800/80">
+              <button onclick="initiateRecruitingDm(null, '${c.name}', '${c.feederSchool}')" class="flex-1 py-1.5 px-3 rounded-lg text-xs font-bold bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 hover:border-emerald-400 transition-colors flex items-center justify-center gap-1.5 cursor-pointer">
+                <i class="fa-solid fa-comment-dots"></i>
+                <span>Direct Inquiry</span>
+              </button>
+              <a href="database.html?inst=${encodeURIComponent(c.feederId)}" class="py-1.5 px-3 rounded-lg text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-300 transition-colors" title="Inspect School Dossier">
+                <i class="fa-solid fa-school"></i>
+              </a>
+              <a href="database.html?q=${encodeURIComponent(c.name)}" class="py-1.5 px-3 rounded-lg text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-300 transition-colors" title="Search in Directory">
+                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+              </a>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function applyCommitmentFilters() {
+      renderCommitments();
+    }
+
+    function resetCommitmentFilters() {
+      const s = document.getElementById('commitSearchInput');
+      if (s) s.value = '';
+      const c = document.getElementById('commitClassFilter');
+      if (c) c.value = 'ALL';
+      const f = document.getElementById('commitFeederFilter');
+      if (f) f.value = 'ALL';
+      const cf = document.getElementById('commitConfFilter');
+      if (cf) cf.value = 'ALL';
+      const p = document.getElementById('commitPosFilter');
+      if (p) p.value = 'ALL';
+      renderCommitments();
+    }
 
     document.addEventListener('DOMContentLoaded', () => {
       renderKPIs();
@@ -809,8 +1378,21 @@
       drawer.classList.toggle('translate-x-full');
     }
 
-    function initiateRecruitingDm(athleteId) {
-      const athlete = window.portalEngine.getAthleteById(athleteId);
+    function initiateRecruitingDm(athleteId, optName, optSchool) {
+      let athlete = null;
+      if (athleteId && window.portalEngine) {
+        athlete = window.portalEngine.getAthleteById(athleteId);
+      }
+      if (!athlete && optName) {
+        athlete = {
+          name: optName,
+          position: "Recruit",
+          originSchool: optSchool || "High School / Prep",
+          conference: "Commitment Radar",
+          eligibilityYears: 4,
+          avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150"
+        };
+      }
       if (!athlete) return;
 
       activeRecipient = athlete;
@@ -827,8 +1409,8 @@
         <div class="flex items-start gap-2.5">
           <img src="${athlete.avatar}" class="w-7 h-7 rounded-full object-cover">
           <div class="bg-slate-900 border border-slate-800 rounded-2xl rounded-tl-none p-3 max-w-[85%] text-xs text-slate-200">
-            <p class="font-bold text-cyan-400 mb-1 text-[11px]">${athlete.name}</p>
-            Hello Coach / Scout! Thank you for reviewing my transfer portal dossier. I am currently reviewing prospective collegiate systems with ${athlete.eligibilityYears} year(s) of eligibility remaining.
+            <p class="font-bold text-emerald-400 mb-1 text-[11px]">${athlete.name}</p>
+            Hello Coach / Recruiter! Thank you for reaching out via BlueLine DataWorks. I am currently evaluating prospective developmental opportunities with ${athlete.eligibilityYears} year(s) of collegiate eligibility.
           </div>
         </div>
       `;

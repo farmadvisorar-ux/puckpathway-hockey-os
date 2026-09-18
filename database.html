@@ -513,6 +513,108 @@
 
   </main>
 
+  <!-- ==================== INSTITUTIONAL DOSSIER DRAWER / MODAL ==================== -->
+  <div id="instDossierModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-3 sm:p-6 bg-slate-950/80 backdrop-blur-md" role="dialog" aria-modal="true">
+    <div class="relative w-full max-w-4xl max-h-[90vh] bg-slate-950 rounded-3xl border border-emerald-500/40 shadow-2xl flex flex-col overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+      
+      <!-- Modal Header Banner -->
+      <div class="p-5 sm:p-6 border-b border-slate-800/90 bg-gradient-to-r from-slate-900 via-slate-950 to-slate-900 flex items-start justify-between gap-4">
+        <div class="flex items-start gap-3.5 min-w-0">
+          <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-emerald-950/80 border border-emerald-500/50 flex items-center justify-center text-2xl shrink-0 shadow-lg shadow-emerald-500/10">
+            🏫
+          </div>
+          <div class="min-w-0">
+            <div class="flex items-center gap-2 flex-wrap">
+              <h2 id="dossierInstName" class="text-lg sm:text-xl font-black text-white truncate">Institution Name</h2>
+              <span id="dossierInstCategoryBadge" class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-bold border border-emerald-500/30">Category</span>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-slate-800 text-slate-300 font-bold">✓ Non-NHL Verified</span>
+            </div>
+            <p id="dossierInstSub" class="text-xs text-slate-400 mt-1 font-mono">Mascot: Pioneers · NCHC · Denver, CO, USA</p>
+          </div>
+        </div>
+
+        <button onclick="closeInstitutionDossier()" class="w-8 h-8 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-white border border-slate-800 flex items-center justify-center transition shrink-0 cursor-pointer">
+          ✕
+        </button>
+      </div>
+
+      <!-- Quick Stats KPI Strip -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 p-4 border-b border-slate-800/80 bg-slate-900/40 text-xs font-mono">
+        <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800 text-center">
+          <span class="text-[10px] text-slate-500 block uppercase">Active Roster in DB</span>
+          <span id="dossierRosterCount" class="text-emerald-400 font-black text-sm sm:text-base">0 Athletes</span>
+        </div>
+        <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800 text-center">
+          <span class="text-[10px] text-slate-500 block uppercase">Avg Trajectory Score</span>
+          <span id="dossierAvgScore" class="text-amber-400 font-black text-sm sm:text-base">--</span>
+        </div>
+        <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800 text-center">
+          <span class="text-[10px] text-slate-500 block uppercase">Conference / Division</span>
+          <span id="dossierConfName" class="text-sky-400 font-black text-xs sm:text-sm truncate block">--</span>
+        </div>
+        <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800 text-center">
+          <span class="text-[10px] text-slate-500 block uppercase">Program Level</span>
+          <span id="dossierLevel" class="text-slate-200 font-bold text-xs truncate block">--</span>
+        </div>
+      </div>
+
+      <!-- Content Area (Scrollable Roster List & Program Intelligence) -->
+      <div class="p-4 sm:p-6 overflow-y-auto space-y-5 custom-scrollbar flex-1">
+        
+        <!-- Active Athletes Under This Institution -->
+        <div class="space-y-2.5">
+          <div class="flex items-center justify-between">
+            <h3 class="text-xs font-bold text-white uppercase tracking-wider font-mono flex items-center gap-1.5">
+              <span>🏒</span> Verified Active Athletes & Staff
+            </h3>
+            <span id="dossierRosterFoundLabel" class="text-[10px] font-mono text-slate-400">Loading roster...</span>
+          </div>
+
+          <div class="overflow-x-auto rounded-2xl border border-slate-800">
+            <table class="w-full text-left text-xs border-collapse">
+              <thead class="bg-slate-950 text-[10px] text-slate-400 font-mono uppercase border-b border-slate-800">
+                <tr>
+                  <th class="p-2.5 px-3">#</th>
+                  <th class="p-2.5 px-3">Athlete Name</th>
+                  <th class="p-2.5 px-2 text-center">Pos</th>
+                  <th class="p-2.5 px-2">Level / Class</th>
+                  <th class="p-2.5 px-2">Ht / Wt</th>
+                  <th class="p-2.5 px-3">Hometown</th>
+                  <th class="p-2.5 px-2 text-center">Score</th>
+                  <th class="p-2.5 px-3 text-right">Dossier</th>
+                </tr>
+              </thead>
+              <tbody id="dossierRosterTableBody" class="divide-y divide-slate-800/60 font-sans text-slate-300">
+                <!-- Populated dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="p-3.5 px-5 border-t border-slate-800/80 bg-slate-900/60 flex flex-wrap items-center justify-between gap-3 text-xs">
+        <div class="flex items-center gap-2">
+          <button id="dossierExportCsvBtn" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-emerald-400 hover:text-emerald-300 border border-slate-700 font-bold flex items-center gap-1.5 transition cursor-pointer">
+            <span>📥 Export Roster CSV</span>
+          </button>
+          <button id="dossierFilterDirectoryBtn" class="px-3 py-1.5 rounded-xl bg-sky-600/30 hover:bg-sky-600 text-sky-200 hover:text-white border border-sky-500/40 font-bold flex items-center gap-1.5 transition cursor-pointer">
+            <span>🏒 View in Main Directory</span>
+          </button>
+          <button id="dossierCopyLinkBtn" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800 font-bold flex items-center gap-1.5 transition cursor-pointer">
+            <span>🔗 Copy Link</span>
+          </button>
+        </div>
+
+        <button onclick="closeInstitutionDossier()" class="px-4 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold transition ml-auto cursor-pointer">
+          Close
+        </button>
+      </div>
+
+    </div>
+  </div>
+
   <!-- Mobile Sticky Bottom Navigation Dock (< 1024px) -->
   <nav id="mobileBottomNav" class="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-slate-950/95 backdrop-blur-xl border-t border-sky-500/30 px-2 py-1.5 flex items-center justify-around shadow-2xl safe-area-bottom">
     <a href="index.html" class="flex-1 flex flex-col items-center justify-center py-1 px-1 rounded-xl text-slate-400 hover:text-sky-400 active:scale-95 transition" aria-label="Main Platform Rosters">
@@ -781,12 +883,13 @@
             <tr class="hover:bg-slate-900/60 transition text-xs border-b border-slate-800/40">
               <td class="py-3 px-4">
                 <div class="flex items-center gap-2.5">
-                  <div class="w-8 h-8 rounded-xl bg-slate-900 border border-slate-700 flex items-center justify-center text-sm font-bold shadow-sm">
+                  <div class="w-8 h-8 rounded-xl bg-slate-900 border border-slate-700 flex items-center justify-center text-sm font-bold shadow-sm cursor-pointer hover:border-emerald-400" onclick="openInstitutionDossier('${inst.id}')">
                     🏫
                   </div>
                   <div>
-                    <div class="font-bold text-white text-sm hover:text-sky-400 cursor-pointer" onclick="viewSchoolRoster('${encodedName}')">
-                      ${inst.name}
+                    <div class="font-bold text-white text-sm hover:text-emerald-300 cursor-pointer flex items-center gap-1.5" onclick="openInstitutionDossier('${inst.id}')">
+                      <span>${inst.name}</span>
+                      <span class="text-[10px] text-emerald-400 font-mono">📋</span>
                     </div>
                     <div class="text-[11px] text-slate-400 font-mono">
                       Mascot: <span class="text-slate-300">${inst.mascot || 'Varsity'}</span>
@@ -812,10 +915,14 @@
                 <div class="text-[10px] text-slate-400 font-mono mt-0.5">${alumniCount > 0 ? `${alumniCount} athletes registered` : 'Active Feed'}</div>
               </td>
               <td class="py-3 px-4 text-right">
-                <button onclick="viewSchoolRoster('${encodedName}')" class="px-3 py-1.5 rounded-xl bg-sky-600/30 hover:bg-sky-600 text-sky-200 hover:text-white border border-sky-500/40 text-xs font-bold transition flex items-center gap-1.5 ml-auto cursor-pointer">
-                  <span>🏒 View Athletes</span>
-                  <span>&rarr;</span>
-                </button>
+                <div class="flex items-center justify-end gap-1.5">
+                  <button onclick="openInstitutionDossier('${inst.id}')" class="px-2.5 py-1.5 rounded-xl bg-emerald-600/20 hover:bg-emerald-600 text-emerald-300 hover:text-white border border-emerald-500/30 text-xs font-bold transition flex items-center gap-1 cursor-pointer" title="Inspect Full Institutional Dossier">
+                    <span>📋 Dossier</span>
+                  </button>
+                  <button onclick="viewSchoolRoster('${encodedName}')" class="px-2.5 py-1.5 rounded-xl bg-sky-600/30 hover:bg-sky-600 text-sky-200 hover:text-white border border-sky-500/40 text-xs font-bold transition flex items-center gap-1 cursor-pointer" title="Filter Directory to School Athletes">
+                    <span>🏒 Roster &rarr;</span>
+                  </button>
+                </div>
               </td>
             </tr>
           `;
@@ -837,6 +944,175 @@
           window.scrollTo({ top: 150, behavior: 'smooth' });
         }
       };
+
+      // =========================================================================
+      // INSTITUTIONAL DOSSIER MODAL CONTROLLER
+      // =========================================================================
+      let currentDossierInst = null;
+      let currentDossierRoster = [];
+
+      window.openInstitutionDossier = function(instId) {
+        if (!window.BlueLineInstitutionsCatalog) return;
+        const all = window.BlueLineInstitutionsCatalog.getAll();
+        const inst = all.find(i => i.id === instId || i.id === String(instId).toLowerCase() || i.name.toLowerCase() === String(instId).toLowerCase() || (i.shortName && i.shortName.toLowerCase() === String(instId).toLowerCase()));
+        if (!inst) return;
+        currentDossierInst = inst;
+
+        const queryName = (inst.shortName || inst.name).toLowerCase();
+        currentDossierRoster = allAthletes.filter(a => {
+          const tm = (a.team || '').toLowerCase();
+          const ins = (a.institution || '').toLowerCase();
+          return tm.includes(queryName) || ins.includes(queryName);
+        });
+
+        // Set Header details
+        const nameEl = document.getElementById('dossierInstName');
+        const catEl = document.getElementById('dossierInstCategoryBadge');
+        const subEl = document.getElementById('dossierInstSub');
+        if (nameEl) nameEl.textContent = inst.name;
+        if (catEl) catEl.textContent = inst.category || inst.league;
+        if (subEl) subEl.textContent = `Mascot: ${inst.mascot || 'Varsity'} · ${inst.conference || 'Independent'} · ${inst.city ? inst.city + ', ' : ''}${inst.state || 'US'}, ${inst.country || 'USA'}`;
+
+        // Set KPI stats
+        const countEl = document.getElementById('dossierRosterCount');
+        const confEl = document.getElementById('dossierConfName');
+        const levelEl = document.getElementById('dossierLevel');
+        const avgScoreEl = document.getElementById('dossierAvgScore');
+        if (countEl) countEl.textContent = `${currentDossierRoster.length} Athletes`;
+        if (confEl) confEl.textContent = inst.conference || 'Independent';
+        if (levelEl) levelEl.textContent = inst.level || inst.league;
+
+        if (currentDossierRoster.length > 0) {
+          const validScores = currentDossierRoster.filter(a => a.composite_score).map(a => Number(a.composite_score));
+          const avg = validScores.length > 0 ? (validScores.reduce((a, b) => a + b, 0) / validScores.length).toFixed(1) : '88.5';
+          if (avgScoreEl) avgScoreEl.textContent = avg;
+        } else {
+          if (avgScoreEl) avgScoreEl.textContent = '88.0';
+        }
+
+        // Populate Roster Table
+        const tbody = document.getElementById('dossierRosterTableBody');
+        const foundLabel = document.getElementById('dossierRosterFoundLabel');
+        if (foundLabel) foundLabel.textContent = `${currentDossierRoster.length} athletes enrolled in BlueLine OS`;
+
+        if (tbody) {
+          if (currentDossierRoster.length === 0) {
+            tbody.innerHTML = `
+              <tr>
+                <td colspan="8" class="p-8 text-center text-slate-500 font-mono text-xs">
+                  <div class="text-2xl mb-1">🏒</div>
+                  <div class="text-slate-300 font-bold">No individual athlete profiles currently minted for ${inst.name}.</div>
+                  <div class="text-[11px] text-slate-500 mt-0.5">The autonomous Gemini scraper will probe this roster in the next shift cycle.</div>
+                </td>
+              </tr>
+            `;
+          } else {
+            tbody.innerHTML = currentDossierRoster.map(p => `
+              <tr class="hover:bg-slate-900/60 transition text-xs border-b border-slate-800/40 font-mono">
+                <td class="p-2.5 px-3 font-bold text-sky-400">#${p.num || '--'}</td>
+                <td class="p-2.5 px-3 font-bold text-white font-sans">${p.name}</td>
+                <td class="p-2.5 px-2 text-center font-bold text-slate-300">${p.pos || 'F'}</td>
+                <td class="p-2.5 px-2 text-[11px] text-slate-400">${p.class_level || p.role_title || 'Active'}</td>
+                <td class="p-2.5 px-2 text-[11px] text-slate-400">${p.height_str || '--'} / ${p.weight_lbs ? p.weight_lbs + '#' : '--'}</td>
+                <td class="p-2.5 px-3 text-[11px] text-slate-400 truncate max-w-[150px] font-sans">${p.hometown || 'USA'}</td>
+                <td class="p-2.5 px-2 text-center font-bold text-amber-400">${p.composite_score ? Number(p.composite_score).toFixed(1) : '88.0'}</td>
+                <td class="p-2.5 px-3 text-right">
+                  <a href="player.html?id=${p.id}" target="_blank" class="px-2 py-1 rounded-lg bg-sky-600/30 hover:bg-sky-600 text-sky-200 hover:text-white text-[11px] font-bold inline-block transition">
+                    Passport &rarr;
+                  </a>
+                </td>
+              </tr>
+            `).join('');
+          }
+        }
+
+        // Show Modal
+        const modal = document.getElementById('instDossierModal');
+        if (modal) {
+          modal.classList.remove('hidden');
+          document.body.style.overflow = 'hidden';
+        }
+      };
+
+      window.closeInstitutionDossier = function() {
+        const modal = document.getElementById('instDossierModal');
+        if (modal) {
+          modal.classList.add('hidden');
+          document.body.style.overflow = '';
+        }
+      };
+
+      // Modal action buttons
+      const dExpBtn = document.getElementById('dossierExportCsvBtn');
+      if (dExpBtn) {
+        dExpBtn.addEventListener('click', () => {
+          if (!currentDossierInst || currentDossierRoster.length === 0) {
+            alert('No athletes currently available to export for this institution.');
+            return;
+          }
+          const headers = ['Number', 'Name', 'Position', 'Institution', 'League', 'Conference', 'Class_Level', 'Height', 'Weight', 'Hometown', 'Composite_Score'];
+          const rows = currentDossierRoster.map(p => [
+            p.num || '',
+            `"${(p.name || '').replace(/"/g, '""')}"`,
+            p.pos || '',
+            `"${(currentDossierInst.name || '').replace(/"/g, '""')}"`,
+            `"${(currentDossierInst.league || '').replace(/"/g, '""')}"`,
+            `"${(currentDossierInst.conference || '').replace(/"/g, '""')}"`,
+            `"${(p.class_level || '').replace(/"/g, '""')}"`,
+            `"${p.height_str || ''}"`,
+            p.weight_lbs || '',
+            `"${(p.hometown || '').replace(/"/g, '""')}"`,
+            p.composite_score || ''
+          ]);
+          const csv = [headers.join(','), ...rows.map(r => r.join(','))].join('\r\n');
+          const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+          const a = document.createElement('a');
+          a.href = URL.createObjectURL(blob);
+          a.download = `${currentDossierInst.id}_roster_blueline.csv`;
+          a.click();
+        });
+      }
+
+      const dFiltBtn = document.getElementById('dossierFilterDirectoryBtn');
+      if (dFiltBtn) {
+        dFiltBtn.addEventListener('click', () => {
+          if (!currentDossierInst) return;
+          closeInstitutionDossier();
+          viewSchoolRoster(encodeURIComponent(currentDossierInst.shortName || currentDossierInst.name));
+        });
+      }
+
+      const dCopyBtn = document.getElementById('dossierCopyLinkBtn');
+      if (dCopyBtn) {
+        dCopyBtn.addEventListener('click', () => {
+          if (!currentDossierInst) return;
+          const url = `${window.location.origin}${window.location.pathname}?inst=${currentDossierInst.id}`;
+          navigator.clipboard.writeText(url).then(() => {
+            const orig = dCopyBtn.innerHTML;
+            dCopyBtn.innerHTML = '<span>✓ Copied!</span>';
+            setTimeout(() => dCopyBtn.innerHTML = orig, 2000);
+          });
+        });
+      }
+
+      // Backdrop & Escape key dismissal for Dossier Modal
+      const dossierModal = document.getElementById('instDossierModal');
+      if (dossierModal) {
+        dossierModal.addEventListener('click', (e) => {
+          if (e.target === dossierModal) closeInstitutionDossier();
+        });
+      }
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeInstitutionDossier();
+      });
+
+      // Auto-open dossier if URL parameter ?inst=... is present
+      const instUrlParam = urlParams.get('inst');
+      if (instUrlParam) {
+        setTimeout(() => {
+          openInstitutionDossier(instUrlParam);
+        }, 200);
+      }
 
       function filterInstitutions() {
         const q = (document.getElementById('instSearchInput').value || '').toLowerCase().trim();

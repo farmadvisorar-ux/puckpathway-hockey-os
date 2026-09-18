@@ -152,21 +152,26 @@
           </div>
         </div>
 
-        <!-- Real-Time Search Bar -->
+        <!-- Real-Time Omni-Search Bar -->
         <div class="px-4 sm:px-5 py-3 border-b border-slate-800/80 bg-slate-950">
           <div class="relative">
             <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-500 text-xs">
               🔍
             </span>
-            <input id="moduleSearchInput" type="text" placeholder="Quick find module... (e.g. 'cap', 'goalie', 'microstat', 'draft')" class="w-full pl-9 pr-4 py-2 bg-slate-900/80 border border-slate-800 rounded-xl text-xs text-white placeholder-slate-500 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition font-sans">
+            <input id="moduleSearchInput" type="text" placeholder="Search 22 modules, 170 colleges & high schools, or athletes... (e.g. 'Denver', 'Edina', 'Shattuck', 'draft', 'cap')" class="w-full pl-9 pr-4 py-2 bg-slate-900/80 border border-slate-800 rounded-xl text-xs text-white placeholder-slate-500 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition font-sans">
           </div>
         </div>
 
-        <!-- Scrollable Module Cards Grid -->
+        <!-- Scrollable Module & Entity Cards Grid -->
         <div id="moduleCardsContainer" class="p-4 sm:p-6 overflow-y-auto space-y-5 custom-scrollbar flex-1">
+          <!-- Dynamic Institutional & Player Matches Strip -->
+          <div id="omniSearchEntityResults" class="hidden space-y-4 pb-2 border-b border-slate-800/80">
+            <!-- Populated on live query -->
+          </div>
+
           ${sectionsHtml}
           <div id="noModulesFound" class="hidden text-center py-12 text-slate-500 text-xs font-mono">
-            No matching modules found. Try searching by keyword like "trade", "rink", "portal", or "tactics".
+            No matching modules or institutions found. Try searching by keyword like "Denver", "Edina", "Shattuck", "trade", "rink", or "portal".
           </div>
         </div>
 
@@ -201,8 +206,93 @@
         const query = e.target.value.toLowerCase().trim();
         const cards = modal.querySelectorAll(".module-card");
         const categoryGroups = modal.querySelectorAll(".category-group");
+        const entityContainer = document.getElementById("omniSearchEntityResults");
         let visibleCount = 0;
+        let entityMatchCount = 0;
 
+        // 1. Check Institutions & Athletes if query has at least 2 characters
+        if (query.length >= 2 && entityContainer) {
+          let entityHtml = "";
+
+          // Sourced from window.BlueLineInstitutionsCatalog
+          if (window.BlueLineInstitutionsCatalog && typeof window.BlueLineInstitutionsCatalog.search === "function") {
+            const matchingInsts = window.BlueLineInstitutionsCatalog.search(query).slice(0, 6);
+            if (matchingInsts.length > 0) {
+              entityMatchCount += matchingInsts.length;
+              entityHtml += `
+                <div class="space-y-2">
+                  <div class="flex items-center justify-between px-1">
+                    <span class="text-xs font-mono font-bold uppercase tracking-wider text-emerald-400 flex items-center gap-1.5">
+                      <span>🏫</span> COLLEGES & HIGH SCHOOLS (${matchingInsts.length} Matches)
+                    </span>
+                    <a href="database.html?q=${encodeURIComponent(query)}" class="text-[10px] text-sky-400 hover:text-sky-300 font-bold">View in Directory &rarr;</a>
+                  </div>
+                  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
+                    ${matchingInsts.map(inst => `
+                      <a href="database.html?inst=${encodeURIComponent(inst.id)}&q=${encodeURIComponent(inst.shortName || inst.name)}" class="p-2.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-emerald-500/30 hover:border-emerald-400 flex items-start gap-2.5 transition group">
+                        <div class="w-8 h-8 rounded-lg bg-emerald-950/80 border border-emerald-500/40 flex items-center justify-center text-sm shrink-0">
+                          🏫
+                        </div>
+                        <div class="min-w-0 flex-1">
+                          <div class="text-xs font-bold text-white group-hover:text-emerald-300 truncate">${inst.name}</div>
+                          <div class="text-[10px] text-slate-400 truncate">${inst.category || inst.league} · ${inst.city}, ${inst.state}</div>
+                        </div>
+                      </a>
+                    `).join('')}
+                  </div>
+                </div>
+              `;
+            }
+          }
+
+          // Check window.MASTER_PLAYERS if available
+          if (window.MASTER_PLAYERS && Array.isArray(window.MASTER_PLAYERS)) {
+            const matchingPlayers = window.MASTER_PLAYERS.filter(p => {
+              return (p.name && p.name.toLowerCase().includes(query)) ||
+                     (p.team && p.team.toLowerCase().includes(query));
+            }).slice(0, 4);
+
+            if (matchingPlayers.length > 0) {
+              entityMatchCount += matchingPlayers.length;
+              entityHtml += `
+                <div class="space-y-2">
+                  <div class="flex items-center justify-between px-1">
+                    <span class="text-xs font-mono font-bold uppercase tracking-wider text-sky-400 flex items-center gap-1.5">
+                      <span>🏒</span> VERIFIED ATHLETES (${matchingPlayers.length} Matches)
+                    </span>
+                    <a href="database.html?q=${encodeURIComponent(query)}" class="text-[10px] text-sky-400 hover:text-sky-300 font-bold">Search All Athletes &rarr;</a>
+                  </div>
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    ${matchingPlayers.map(p => `
+                      <a href="player.html?id=${p.id}" class="p-2.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-sky-500/30 hover:border-sky-400 flex items-center gap-2.5 transition group">
+                        <div class="w-8 h-8 rounded-lg bg-gradient-to-br ${p.avatar_gradient || 'from-sky-600 to-indigo-600'} text-white font-black text-xs flex items-center justify-center shrink-0">
+                          #${p.num || '--'}
+                        </div>
+                        <div class="min-w-0 flex-1">
+                          <div class="text-xs font-bold text-white group-hover:text-sky-300 truncate">${p.name}</div>
+                          <div class="text-[10px] text-slate-400 truncate">${p.pos} · ${p.team} · Score: ${p.composite_score ? p.composite_score.toFixed(1) : '88.0'}</div>
+                        </div>
+                      </a>
+                    `).join('')}
+                  </div>
+                </div>
+              `;
+            }
+          }
+
+          if (entityHtml) {
+            entityContainer.innerHTML = entityHtml;
+            entityContainer.classList.remove("hidden");
+          } else {
+            entityContainer.classList.add("hidden");
+            entityContainer.innerHTML = "";
+          }
+        } else if (entityContainer) {
+          entityContainer.classList.add("hidden");
+          entityContainer.innerHTML = "";
+        }
+
+        // 2. Filter standard module cards
         cards.forEach(card => {
           const name = card.getAttribute("data-name") || "";
           const desc = card.getAttribute("data-desc") || "";
@@ -229,7 +319,7 @@
 
         const noFoundEl = document.getElementById("noModulesFound");
         if (noFoundEl) {
-          if (visibleCount === 0) noFoundEl.classList.remove("hidden");
+          if (visibleCount === 0 && entityMatchCount === 0) noFoundEl.classList.remove("hidden");
           else noFoundEl.classList.add("hidden");
         }
       });
