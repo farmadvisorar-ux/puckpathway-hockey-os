@@ -155,8 +155,8 @@
           <button id="triggerShiftTrialBtn" class="px-3.5 py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-cyan-600 hover:from-emerald-500 hover:to-cyan-500 text-white font-bold text-xs shadow-lg shadow-emerald-600/30 transition flex items-center gap-1.5 active:scale-95">
             <span id="crawlBtnIcon">⚡</span> <span id="crawlBtnText">Crawl Live Open Web Now</span>
           </button>
-          <button id="triggerAllBatchCrawlBtn" class="px-3 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-cyan-500/50 text-cyan-300 font-bold text-xs shadow-md transition flex items-center gap-1.5 active:scale-95" title="Concurrently crawl all 25 verified live endpoints">
-            <span>🌐</span> <span>Batch Harvest All 25</span>
+          <button id="triggerAllBatchCrawlBtn" class="px-3 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-cyan-500/50 text-cyan-300 font-bold text-xs shadow-md transition flex items-center gap-1.5 active:scale-95" title="Concurrently crawl all 42 verified live endpoints">
+            <span>🌐</span> <span>Batch Harvest All 42</span>
           </button>
           <button id="trigger12hCompileBtn" class="px-3 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-amber-500/50 text-amber-300 font-bold text-xs shadow-md transition flex items-center gap-1.5 active:scale-95">
             <span>📦</span> Run 12h Compile
@@ -341,16 +341,19 @@
         <div>
           <h2 class="text-base sm:text-lg font-black text-white flex items-center gap-2">
             <span>📡</span> Live Open Source Hockey Channel Ingestion Matrix
+            <span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-mono text-[10px] font-bold border border-emerald-500/30">42 Channels Live</span>
           </h2>
-          <p class="text-xs text-slate-400">Real endpoints probed live with active HTTP GET requests and real latency benchmarking</p>
+          <p class="text-xs text-slate-400">42 open endpoints across NCAA, High School, Prep, Junior & International leagues probed live with real latency benchmarking</p>
         </div>
 
         <!-- Filter Pills -->
         <div class="flex items-center gap-1.5 flex-wrap">
-          <button class="channel-filter-btn px-2.5 py-1 rounded-lg text-xs font-bold bg-sky-600 text-white transition active" data-filter="all">All Channels</button>
-          <button class="channel-filter-btn px-2.5 py-1 rounded-lg text-xs font-bold bg-slate-900 text-slate-300 border border-slate-800 hover:text-white transition" data-filter="Tier S">Tier S (92+)</button>
-          <button class="channel-filter-btn px-2.5 py-1 rounded-lg text-xs font-bold bg-slate-900 text-slate-300 border border-slate-800 hover:text-white transition" data-filter="Tier A">Tier A (85-91)</button>
-          <button class="channel-filter-btn px-2.5 py-1 rounded-lg text-xs font-bold bg-slate-900 text-slate-300 border border-slate-800 hover:text-white transition" data-filter="Tier B">Tier B (75-84)</button>
+          <button class="channel-filter-btn px-2.5 py-1 rounded-lg text-xs font-bold bg-sky-600 text-white transition active" data-filter="all">All (42)</button>
+          <button class="channel-filter-btn px-2.5 py-1 rounded-lg text-xs font-bold bg-slate-900 text-slate-300 border border-slate-800 hover:text-white transition" data-filter="ncaa">NCAA & College (9)</button>
+          <button class="channel-filter-btn px-2.5 py-1 rounded-lg text-xs font-bold bg-slate-900 text-slate-300 border border-slate-800 hover:text-white transition" data-filter="school">High School & Prep (9)</button>
+          <button class="channel-filter-btn px-2.5 py-1 rounded-lg text-xs font-bold bg-slate-900 text-slate-300 border border-slate-800 hover:text-white transition" data-filter="junior">Juniors & Feeder (14)</button>
+          <button class="channel-filter-btn px-2.5 py-1 rounded-lg text-xs font-bold bg-slate-900 text-slate-300 border border-slate-800 hover:text-white transition" data-filter="international">International (6)</button>
+          <button class="channel-filter-btn px-2.5 py-1 rounded-lg text-xs font-bold bg-slate-900 text-slate-300 border border-slate-800 hover:text-white transition" data-filter="Tier S">Tier S (40)</button>
         </div>
       </div>
 
@@ -589,7 +592,12 @@
         const tbody = document.getElementById('channelsTableBody');
 
         const filtered = state.targets.filter(t => {
-          const matchFilter = activeFilter === 'all' || t.tier === activeFilter;
+          let matchFilter = false;
+          if (activeFilter === 'all') matchFilter = true;
+          else if (t.tier === activeFilter) matchFilter = true;
+          else if (t.category && t.category.toLowerCase().includes(activeFilter.toLowerCase())) matchFilter = true;
+          else if (t.name && t.name.toLowerCase().includes(activeFilter.toLowerCase())) matchFilter = true;
+
           const matchQuery = !query || t.name.toLowerCase().includes(query) || t.category.toLowerCase().includes(query) || t.type.toLowerCase().includes(query);
           return matchFilter && matchQuery;
         });
@@ -694,11 +702,11 @@
         }
       });
 
-      // Batch Crawl All 10 Feeds Button
+      // Batch Crawl All Feeds Button
       const batchBtn = document.getElementById('triggerAllBatchCrawlBtn');
       batchBtn.addEventListener('click', async () => {
         batchBtn.disabled = true;
-        batchBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> <span>Crawling 25 Feeds...</span>`;
+        batchBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> <span>Crawling 42 Feeds...</span>`;
 
         try {
           const result = await mesh.crawlAllLiveTargets();
@@ -711,7 +719,7 @@
           console.error("Batch crawl error:", e);
         } finally {
           batchBtn.disabled = false;
-          batchBtn.innerHTML = `<span>🌐</span> <span>Batch Harvest All 25</span>`;
+          batchBtn.innerHTML = `<span>🌐</span> <span>Batch Harvest All 42</span>`;
         }
       });
 

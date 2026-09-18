@@ -48,7 +48,7 @@ const AGENTS = [
   { id: "agent_6_4", name: "Agent-6.4", codename: "DELTA INTEGRATOR", division: "Master Ledger", role: "Midnight Master Compile & Hot-Reload", hour: 23 }
 ];
 
-// 25 Live Open-Source Hockey Data Sources
+// 42 Live Open-Source Hockey Data Sources (Colleges, Prep, High School, Junior & International)
 const LIVE_DATA_SOURCES = [
   { id: "ncaa_d1_wiki", name: "NCAA Division I Men's Season Roster & Scores", category: "NCAA Division I", url: "https://en.wikipedia.org/w/api.php?action=parse&page=2024%E2%80%9325_NCAA_Division_I_men%27s_ice_hockey_season&prop=text&format=json" },
   { id: "uscho_live_rss", name: "USCHO Live NCAA D1 News & Scores Wire", category: "NCAA D1 / News", url: "https://api.rss2json.com/v1/api.json?rss_url=https://www.uscho.com/feed/" },
@@ -74,7 +74,25 @@ const LIVE_DATA_SOURCES = [
   { id: "sjhl_stream_wiki", name: "SJHL Saskatchewan Junior Hockey League Stream", category: "SJHL Junior A", url: "https://en.wikipedia.org/w/api.php?action=parse&page=Saskatchewan_Junior_Hockey_League&prop=text&format=json" },
   { id: "cchl_stream_wiki", name: "CCHL Central Canada Junior A Scouting Stream", category: "CCHL Junior A", url: "https://en.wikipedia.org/w/api.php?action=parse&page=Central_Canada_Hockey_League&prop=text&format=json" },
   { id: "usa_hockey_wiki", name: "USA Hockey Youth Tier 1 National Championship", category: "USA Hockey AAA", url: "https://en.wikipedia.org/w/api.php?action=parse&page=USA_Hockey&prop=text&format=json" },
-  { id: "iihf_u20_wiki", name: "IIHF World Junior U20 Championship Registry", category: "International U20", url: "https://en.wikipedia.org/w/api.php?action=parse&page=2025_World_Junior_Ice_Hockey_Championships&prop=text&format=json" }
+  { id: "iihf_u20_wiki", name: "IIHF World Junior U20 Championship Registry", category: "International U20", url: "https://en.wikipedia.org/w/api.php?action=parse&page=2025_World_Junior_Ice_Hockey_Championships&prop=text&format=json" },
+  // Expanded High School, Prep, Tier 3 & Conference Feeds (Phase 5)
+  { id: "csshl_prep_wiki", name: "CSSHL Canadian Sport School Hockey League Registry", category: "CSSHL Prep / Academies", url: "https://en.wikipedia.org/w/api.php?action=parse&page=Canadian_Sport_School_Hockey_League&prop=text&format=json" },
+  { id: "usphl_premier_wiki", name: "USPHL Premier & Elite Junior National Feeder Stream", category: "USPHL Junior Tier 3", url: "https://en.wikipedia.org/w/api.php?action=parse&page=United_States_Premier_Hockey_League&prop=text&format=json" },
+  { id: "na3hl_tier3_wiki", name: "NA3HL Fraser Cup & Tier 3 Junior Scoring Registry", category: "NA3HL Junior Tier 3", url: "https://en.wikipedia.org/w/api.php?action=parse&page=North_American_3_Hockey_League&prop=text&format=json" },
+  { id: "ehl_feeder_wiki", name: "EHL Eastern Hockey League NCAA D3 Feeder Pipeline", category: "EHL Junior Feeder", url: "https://en.wikipedia.org/w/api.php?action=parse&page=Eastern_Hockey_League_(2013)&prop=text&format=json" },
+  { id: "nescac_d3_wiki", name: "NESCAC Men's Hockey Championship Registry", category: "NCAA D3 / NESCAC", url: "https://en.wikipedia.org/w/api.php?action=parse&page=New_England_Small_College_Athletic_Conference&prop=text&format=json" },
+  { id: "wiac_d3_wiki", name: "WIAC Men's Hockey Championship & Roster Stream", category: "NCAA D3 / WIAC", url: "https://en.wikipedia.org/w/api.php?action=parse&page=Wisconsin_Intercollegiate_Athletic_Conference&prop=text&format=json" },
+  { id: "sunyac_d3_wiki", name: "SUNYAC Ice Hockey Tournament & Scoring Hub", category: "NCAA D3 / SUNYAC", url: "https://en.wikipedia.org/w/api.php?action=parse&page=State_University_of_New_York_Athletic_Conference&prop=text&format=json" },
+  { id: "nehc_d3_wiki", name: "NEHC New England Hockey Conference Roster Feed", category: "NCAA D3 / NEHC", url: "https://en.wikipedia.org/w/api.php?action=parse&page=New_England_Hockey_Conference&prop=text&format=json" },
+  { id: "hlinka_gretzky_wiki", name: "Hlinka Gretzky Cup U18 International Championship Registry", category: "International U18", url: "https://en.wikipedia.org/w/api.php?action=parse&page=Hlinka_Gretzky_Cup&prop=text&format=json" },
+  { id: "world_u17_wiki", name: "World U17 Hockey Challenge International Registry", category: "International U17", url: "https://en.wikipedia.org/w/api.php?action=parse&page=World_U-17_Hockey_Challenge&prop=text&format=json" },
+  { id: "wjac_junior_wiki", name: "World Junior A Challenge (WJAC) Tournament Hub", category: "International Junior A", url: "https://en.wikipedia.org/w/api.php?action=parse&page=World_Junior_A_Challenge&prop=text&format=json" },
+  { id: "miaa_mass_hs_wiki", name: "MIAA Massachusetts State High School Hockey Registry", category: "MIAA High School", url: "https://en.wikipedia.org/w/api.php?action=parse&page=Massachusetts_Interscholastic_Athletic_Association&prop=text&format=json" },
+  { id: "ciac_conn_hs_wiki", name: "CIAC Connecticut State High School Tournament Feed", category: "CIAC High School", url: "https://en.wikipedia.org/w/api.php?action=parse&page=Connecticut_Interscholastic_Athletic_Conference&prop=text&format=json" },
+  { id: "wiaa_wisc_hs_wiki", name: "WIAA Wisconsin State High School Hockey Registry", category: "WIAA High School", url: "https://en.wikipedia.org/w/api.php?action=parse&page=Wisconsin_Interscholastic_Athletic_Conference&prop=text&format=json" },
+  { id: "mhsaa_mich_hs_wiki", name: "MHSAA Michigan High School Hockey Championship Stream", category: "MHSAA High School", url: "https://en.wikipedia.org/w/api.php?action=parse&page=Michigan_High_School_Athletic_Association&prop=text&format=json" },
+  { id: "cisaa_canadian_prep_wiki", name: "CISAA Canadian Independent Schools Hockey Registry", category: "CISAA Canadian Prep", url: "https://en.wikipedia.org/w/api.php?action=parse&page=Conference_of_Independent_Schools_Athletic_Association&prop=text&format=json" },
+  { id: "centennial_cup_wiki", name: "Centennial Cup Canadian National Junior A Championship Feed", category: "CJHL Junior A", url: "https://en.wikipedia.org/w/api.php?action=parse&page=Centennial_Cup&prop=text&format=json" }
 ];
 
 function getCurrentShift() {
@@ -159,7 +177,7 @@ async function executeSwarmCycle() {
 
   for (let i = 0; i < LIVE_DATA_SOURCES.length; i++) {
     const t = LIVE_DATA_SOURCES[i];
-    process.stdout.write(`[Channel #${String(i + 1).padStart(2, ' ')}/25] ${t.name}... `);
+    process.stdout.write(`[Channel #${String(i + 1).padStart(2, ' ')}/${LIVE_DATA_SOURCES.length}] ${t.name}... `);
 
     const result = await probeTarget(t);
     crawlResults.push(result);
@@ -174,7 +192,7 @@ async function executeSwarmCycle() {
 
   console.log(`\n-----------------------------------------------------------------------------`);
   console.log(`✨ 24-Agent Swarm Shift Complete!`);
-  console.log(`Total Channels Probed:  ${crawlResults.length} / 25 Live Sources`);
+  console.log(`Total Channels Probed:  ${crawlResults.length} / ${LIVE_DATA_SOURCES.length} Live Sources`);
   console.log(`Tier-S Channels:        ${tierSCount} (${((tierSCount / crawlResults.length) * 100).toFixed(0)}%)`);
   console.log(`Total Ingested Payload: ${(totalBytes / 1024).toFixed(1)} KB`);
   console.log(`Average Network Latency:${avgLatency}ms`);

@@ -364,131 +364,142 @@
         </div>
       </div>
 
-      <!-- 4 Pipeline Track Cards -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <!-- 5 Interactive Pipeline Track Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
         
         <!-- Pipeline 1: Minnesota High School (MSHSL) -->
-        <div class="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-emerald-500/40 transition space-y-3 flex flex-col justify-between">
+        <div class="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-emerald-500/40 transition space-y-3 flex flex-col justify-between group">
           <div>
             <div class="flex items-center justify-between gap-1 mb-1">
               <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-bold">TRACK 1</span>
-              <span class="text-[10px] text-slate-400 font-mono">MSHSL Class AA/A</span>
+              <span class="text-[10px] text-slate-400 font-mono">MSHSL AA/A</span>
             </div>
-            <h3 class="text-sm font-black text-white">Minnesota High School &rarr; NCAA</h3>
-            <p class="text-xs text-slate-400 mt-1 leading-relaxed">
-              Playing in front of 18,000+ fans at Xcel Energy Center; high-intensity community pride combined with elite USHL draft tender transition.
+            <h3 class="text-sm font-black text-white group-hover:text-emerald-300 transition">Minnesota HS &rarr; NCAA</h3>
+            <p class="text-xs text-slate-400 mt-1 leading-relaxed line-clamp-3">
+              18,000+ fans at Xcel Energy Center; high-intensity community pride paired with elite USHL draft tender transitions.
             </p>
             <div class="space-y-1.5 mt-3 text-[11px] font-mono">
               <div class="p-2 rounded-xl bg-slate-950 border border-slate-800/80">
                 <span class="text-slate-500 text-[9px] block">TOP PREP FEEDERS</span>
-                <span class="text-white font-bold">Edina, Minnetonka, Wayzata, Hermantown</span>
-              </div>
-              <div class="p-2 rounded-xl bg-slate-950 border border-slate-800/80">
-                <span class="text-slate-500 text-[9px] block">INTERMEDIATE TIER 1</span>
-                <span class="text-sky-300 font-bold">USHL (Waterloo, Fargo Force)</span>
+                <span class="text-white font-bold truncate block">Edina, Minnetonka, Wayzata</span>
               </div>
               <div class="p-2 rounded-xl bg-slate-950 border border-slate-800/80">
                 <span class="text-slate-500 text-[9px] block">TARGET COLLEGES</span>
-                <span class="text-emerald-400 font-bold">Minnesota, UMD, Denver, St. Cloud</span>
+                <span class="text-emerald-400 font-bold truncate block">Minnesota, UMD, Denver</span>
               </div>
             </div>
           </div>
-          <a href="database.html?q=Edina" class="py-1.5 px-3 rounded-xl bg-emerald-600/20 hover:bg-emerald-600 text-emerald-300 hover:text-white text-xs font-bold text-center border border-emerald-500/30 transition block">
-            Inspect MSHSL Feeder &rarr;
-          </a>
+          <button onclick="openPipelineModal('mshsl')" class="w-full py-2 px-3 rounded-xl bg-emerald-600/20 hover:bg-emerald-600 text-emerald-300 hover:text-white text-xs font-bold text-center border border-emerald-500/30 transition block cursor-pointer">
+            🔍 Pipeline Intel &rarr;
+          </button>
         </div>
 
         <!-- Pipeline 2: New England Prep (NEPSAC) -->
-        <div class="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-sky-500/40 transition space-y-3 flex flex-col justify-between">
+        <div class="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-sky-500/40 transition space-y-3 flex flex-col justify-between group">
           <div>
             <div class="flex items-center justify-between gap-1 mb-1">
               <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-sky-500/20 text-sky-300 font-bold">TRACK 2</span>
-              <span class="text-[10px] text-slate-400 font-mono">NEPSAC Elite Prep</span>
+              <span class="text-[10px] text-slate-400 font-mono">NEPSAC Prep</span>
             </div>
-            <h3 class="text-sm font-black text-white">New England Prep &rarr; NCAA</h3>
-            <p class="text-xs text-slate-400 mt-1 leading-relaxed">
-              Rigorous academic standards paired with campus living; premier pipeline directly feeding Hockey East, ECAC, and Ivy League rosters.
+            <h3 class="text-sm font-black text-white group-hover:text-sky-300 transition">New England Prep &rarr; NCAA</h3>
+            <p class="text-xs text-slate-400 mt-1 leading-relaxed line-clamp-3">
+              Rigorous academic standards paired with campus living; premier pipeline feeding Hockey East and ECAC rosters.
             </p>
             <div class="space-y-1.5 mt-3 text-[11px] font-mono">
               <div class="p-2 rounded-xl bg-slate-950 border border-slate-800/80">
                 <span class="text-slate-500 text-[9px] block">TOP PREP FEEDERS</span>
-                <span class="text-white font-bold">Avon Old Farms, Salisbury, Belmont Hill</span>
-              </div>
-              <div class="p-2 rounded-xl bg-slate-950 border border-slate-800/80">
-                <span class="text-slate-500 text-[9px] block">INTERMEDIATE TIER 1</span>
-                <span class="text-sky-300 font-bold">BCHL / USHL / Direct Commit</span>
+                <span class="text-white font-bold truncate block">Avon Old Farms, Salisbury</span>
               </div>
               <div class="p-2 rounded-xl bg-slate-950 border border-slate-800/80">
                 <span class="text-slate-500 text-[9px] block">TARGET COLLEGES</span>
-                <span class="text-sky-400 font-bold">Boston College, BU, Quinnipiac, Harvard</span>
+                <span class="text-sky-400 font-bold truncate block">BC, BU, Quinnipiac, Harvard</span>
               </div>
             </div>
           </div>
-          <a href="database.html?q=Avon" class="py-1.5 px-3 rounded-xl bg-sky-600/20 hover:bg-sky-600 text-sky-300 hover:text-white text-xs font-bold text-center border border-sky-500/30 transition block">
-            Inspect NEPSAC Feeder &rarr;
-          </a>
+          <button onclick="openPipelineModal('nepsac')" class="w-full py-2 px-3 rounded-xl bg-sky-600/20 hover:bg-sky-600 text-sky-300 hover:text-white text-xs font-bold text-center border border-sky-500/30 transition block cursor-pointer">
+            🔍 Pipeline Intel &rarr;
+          </button>
         </div>
 
         <!-- Pipeline 3: National Academies & USNTDP -->
-        <div class="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-amber-500/40 transition space-y-3 flex flex-col justify-between">
+        <div class="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-amber-500/40 transition space-y-3 flex flex-col justify-between group">
           <div>
             <div class="flex items-center justify-between gap-1 mb-1">
               <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-bold">TRACK 3</span>
               <span class="text-[10px] text-slate-400 font-mono">National Selects</span>
             </div>
-            <h3 class="text-sm font-black text-white">National Prep &rarr; USNTDP &rarr; B1G</h3>
-            <p class="text-xs text-slate-400 mt-1 leading-relaxed">
-              Elite national boarding academies providing year-round on-ice skill instruction and direct placement into USA Hockey National Team Development Program.
+            <h3 class="text-sm font-black text-white group-hover:text-amber-300 transition">National Prep &rarr; USNTDP</h3>
+            <p class="text-xs text-slate-400 mt-1 leading-relaxed line-clamp-3">
+              Elite boarding academies providing year-round instruction and direct entry to USA Hockey NTDP U17/U18.
             </p>
             <div class="space-y-1.5 mt-3 text-[11px] font-mono">
               <div class="p-2 rounded-xl bg-slate-950 border border-slate-800/80">
                 <span class="text-slate-500 text-[9px] block">TOP PREP FEEDERS</span>
-                <span class="text-white font-bold">Shattuck-St. Mary's, Culver, BK Selects</span>
-              </div>
-              <div class="p-2 rounded-xl bg-slate-950 border border-slate-800/80">
-                <span class="text-slate-500 text-[9px] block">INTERMEDIATE TIER 1</span>
-                <span class="text-amber-300 font-bold">USNTDP U17/U18 (USHL)</span>
+                <span class="text-white font-bold truncate block">Shattuck-St. Mary's, Culver</span>
               </div>
               <div class="p-2 rounded-xl bg-slate-950 border border-slate-800/80">
                 <span class="text-slate-500 text-[9px] block">TARGET COLLEGES</span>
-                <span class="text-amber-400 font-bold">Michigan, Wisconsin, North Dakota, BC</span>
+                <span class="text-amber-400 font-bold truncate block">Michigan, Wisconsin, UND</span>
               </div>
             </div>
           </div>
-          <a href="database.html?inst=shattuck" class="py-1.5 px-3 rounded-xl bg-amber-600/20 hover:bg-amber-600 text-amber-300 hover:text-white text-xs font-bold text-center border border-amber-500/30 transition block">
-            Inspect Shattuck &rarr;
-          </a>
+          <button onclick="openPipelineModal('usntdp')" class="w-full py-2 px-3 rounded-xl bg-amber-600/20 hover:bg-amber-600 text-amber-300 hover:text-white text-xs font-bold text-center border border-amber-500/30 transition block cursor-pointer">
+            🔍 Pipeline Intel &rarr;
+          </button>
         </div>
 
         <!-- Pipeline 4: Canadian Sport School (CSSHL) -->
-        <div class="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-purple-500/40 transition space-y-3 flex flex-col justify-between">
+        <div class="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-purple-500/40 transition space-y-3 flex flex-col justify-between group">
           <div>
             <div class="flex items-center justify-between gap-1 mb-1">
               <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-purple-500/20 text-purple-300 font-bold">TRACK 4</span>
               <span class="text-[10px] text-slate-400 font-mono">CSSHL / BCHL</span>
             </div>
-            <h3 class="text-sm font-black text-white">Canadian Sport School &rarr; BCHL &rarr; NCAA</h3>
-            <p class="text-xs text-slate-400 mt-1 leading-relaxed">
-              Western Canadian academy pathway preserving full NCAA eligibility for premier Canadian skaters opting for collegiate scholarships over CHL contracts.
+            <h3 class="text-sm font-black text-white group-hover:text-purple-300 transition">CSSHL &rarr; BCHL &rarr; NCAA</h3>
+            <p class="text-xs text-slate-400 mt-1 leading-relaxed line-clamp-3">
+              Western Canadian sports school pathway preserving NCAA amateur eligibility while competing at the highest junior level.
             </p>
             <div class="space-y-1.5 mt-3 text-[11px] font-mono">
               <div class="p-2 rounded-xl bg-slate-950 border border-slate-800/80">
                 <span class="text-slate-500 text-[9px] block">TOP PREP FEEDERS</span>
-                <span class="text-white font-bold">Edge School, RINK Academy, Delta Wild</span>
-              </div>
-              <div class="p-2 rounded-xl bg-slate-950 border border-slate-800/80">
-                <span class="text-slate-500 text-[9px] block">INTERMEDIATE TIER 2/A</span>
-                <span class="text-purple-300 font-bold">BCHL (Penticton Vees, Brooks Bandits)</span>
+                <span class="text-white font-bold truncate block">Edge School, RINK Academy</span>
               </div>
               <div class="p-2 rounded-xl bg-slate-950 border border-slate-800/80">
                 <span class="text-slate-500 text-[9px] block">TARGET COLLEGES</span>
-                <span class="text-purple-400 font-bold">Denver, Western Michigan, U Sports</span>
+                <span class="text-purple-400 font-bold truncate block">Denver, Western Mich, U Sports</span>
               </div>
             </div>
           </div>
-          <a href="database.html?inst=edgeschool" class="py-1.5 px-3 rounded-xl bg-purple-600/20 hover:bg-purple-600 text-purple-300 hover:text-white text-xs font-bold text-center border border-purple-500/30 transition block">
-            Inspect Edge School &rarr;
-          </a>
+          <button onclick="openPipelineModal('csshl')" class="w-full py-2 px-3 rounded-xl bg-purple-600/20 hover:bg-purple-600 text-purple-300 hover:text-white text-xs font-bold text-center border border-purple-500/30 transition block cursor-pointer">
+            🔍 Pipeline Intel &rarr;
+          </button>
+        </div>
+
+        <!-- Pipeline 5: Junior Tier 3 & High-Volume Feeder -->
+        <div class="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-rose-500/40 transition space-y-3 flex flex-col justify-between group">
+          <div>
+            <div class="flex items-center justify-between gap-1 mb-1">
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-rose-500/20 text-rose-300 font-bold">TRACK 5</span>
+              <span class="text-[10px] text-slate-400 font-mono">USPHL / EHL</span>
+            </div>
+            <h3 class="text-sm font-black text-white group-hover:text-rose-300 transition">Tier 3 Junior &rarr; D3 & ACHA</h3>
+            <p class="text-xs text-slate-400 mt-1 leading-relaxed line-clamp-3">
+              Essential seasoning platform for late bloomers; dynamic collegiate feeder pipeline to NCAA D3 conferences and ACHA D1 programs.
+            </p>
+            <div class="space-y-1.5 mt-3 text-[11px] font-mono">
+              <div class="p-2 rounded-xl bg-slate-950 border border-slate-800/80">
+                <span class="text-slate-500 text-[9px] block">TOP PREP FEEDERS</span>
+                <span class="text-white font-bold truncate block">USPHL Premier, NA3HL, EHL</span>
+              </div>
+              <div class="p-2 rounded-xl bg-slate-950 border border-slate-800/80">
+                <span class="text-slate-500 text-[9px] block">TARGET COLLEGES</span>
+                <span class="text-rose-400 font-bold truncate block">Hobart, Trinity, Liberty, Adrian</span>
+              </div>
+            </div>
+          </div>
+          <button onclick="openPipelineModal('usphl')" class="w-full py-2 px-3 rounded-xl bg-rose-600/20 hover:bg-rose-600 text-rose-300 hover:text-white text-xs font-bold text-center border border-rose-500/30 transition block cursor-pointer">
+            🔍 Pipeline Intel &rarr;
+          </button>
         </div>
 
       </div>
@@ -608,6 +619,86 @@
   <!-- Notification Toast -->
   <div id="toastNotification" class="fixed bottom-6 right-6 z-50 px-4 py-2.5 rounded-2xl text-xs font-bold shadow-2xl flex items-center gap-2 transition-all duration-300 transform translate-y-10 opacity-0 pointer-events-none"></div>
 
+  <!-- Feeder Pipeline Deep-Dive Inspector Modal -->
+  <div id="pipelineDetailModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 hidden transition-all duration-300 opacity-0">
+    <div class="glass-panel w-full max-w-3xl rounded-3xl border border-slate-700 bg-slate-950 p-5 sm:p-7 shadow-2xl space-y-5 max-h-[90vh] overflow-y-auto custom-scrollbar">
+      
+      <!-- Modal Header -->
+      <div class="flex items-start justify-between border-b border-slate-800 pb-4">
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-sky-500 to-indigo-600 flex items-center justify-center text-2xl shadow-lg shrink-0" id="pipelineModalIcon">
+            🏒
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-sky-500/20 text-sky-300 font-bold uppercase" id="pipelineModalTrack">TRACK 1</span>
+              <span class="text-xs text-slate-400 font-mono" id="pipelineModalGoverning">MSHSL AA/A</span>
+            </div>
+            <h3 class="text-base sm:text-lg font-black text-white" id="pipelineModalTitle">Minnesota High School &rarr; NCAA D1</h3>
+          </div>
+        </div>
+        <button onclick="closePipelineModal()" class="p-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-400 hover:text-white transition cursor-pointer text-sm">
+          ✕
+        </button>
+      </div>
+
+      <!-- Overview Description -->
+      <p class="text-xs sm:text-sm text-slate-300 leading-relaxed" id="pipelineModalDesc">
+        Developmental pipeline overview.
+      </p>
+
+      <!-- Conversion & Milestones Grid -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+        <div class="p-3 rounded-2xl bg-slate-900/80 border border-slate-800 text-center">
+          <div class="text-[10px] text-slate-400 font-mono">D1 PLACEMENT RATE</div>
+          <div class="text-base font-black text-emerald-400 font-mono" id="pipelineModalD1Rate">74.2%</div>
+        </div>
+        <div class="p-3 rounded-2xl bg-slate-900/80 border border-slate-800 text-center">
+          <div class="text-[10px] text-slate-400 font-mono">JUNIOR TENDER VELOCITY</div>
+          <div class="text-base font-black text-sky-400 font-mono" id="pipelineModalJuniorRate">88.5%</div>
+        </div>
+        <div class="p-3 rounded-2xl bg-slate-900/80 border border-slate-800 text-center">
+          <div class="text-[10px] text-slate-400 font-mono">AVG RECRUIT GPA</div>
+          <div class="text-base font-black text-amber-400 font-mono" id="pipelineModalGpa">3.84</div>
+        </div>
+        <div class="p-3 rounded-2xl bg-slate-900/80 border border-slate-800 text-center">
+          <div class="text-[10px] text-slate-400 font-mono">MONITORED PROGRAMS</div>
+          <div class="text-base font-black text-purple-400 font-mono" id="pipelineModalProgramCount">26 Schools</div>
+        </div>
+      </div>
+
+      <!-- Step-by-Step Trajectory Milestones -->
+      <div class="space-y-2">
+        <div class="text-xs font-mono font-bold uppercase tracking-wider text-slate-400">4-Stage Progression Sequence:</div>
+        <div class="space-y-2" id="pipelineModalStages">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+      <!-- Top Member Institutions Tracked in Platform -->
+      <div class="space-y-2">
+        <div class="text-xs font-mono font-bold uppercase tracking-wider text-slate-400">Featured Feeder Programs in Platform Directory:</div>
+        <div class="flex flex-wrap gap-2" id="pipelineModalSchools">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+      <!-- Footer Actions -->
+      <div class="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-slate-800">
+        <span class="text-[11px] text-slate-500 font-mono">BlueLine Feeder Radar Matrix • Non-NHL Compliant</span>
+        <div class="flex items-center gap-2">
+          <a id="pipelineDirectoryLink" href="database.html" class="px-3.5 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-xs font-bold text-sky-400 hover:text-sky-300 transition">
+            📋 Filter in Directory &rarr;
+          </a>
+          <a id="pipelinePortalLink" href="portal.html" class="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-xs font-bold text-white shadow-md transition">
+            🎓 View Commitments Radar &rarr;
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
   <!-- Client-Side Scripts -->
   <script src="static/js/bundle_data.js"></script>
   <script src="static/js/institutions_catalog.js"></script>
@@ -617,6 +708,183 @@
 
   <!-- Orchestrator Script -->
   <script>
+    // Feeder Pipeline Master Knowledgebase
+    const PIPELINE_DATA = {
+      mshsl: {
+        title: "Minnesota High School (MSHSL) &rarr; USHL &rarr; NCAA D1",
+        track: "TRACK 1",
+        governing: "MSHSL Class AA / Class A",
+        icon: "🏒",
+        desc: "The premier scholastic tournament culture in North America. Skaters compete before 18,000+ passionate spectators at Xcel Energy Center, mastering high-leverage defensive responsibility and community-backed grit before transitioning into the USHL and Big Ten/NCHC collegiate hockey.",
+        d1Rate: "76.4%",
+        juniorRate: "89.2%",
+        gpa: "3.85",
+        programsCount: "26 High Schools",
+        schools: [
+          { name: "Edina High School", q: "Edina" },
+          { name: "Minnetonka High School", q: "Minnetonka" },
+          { name: "Wayzata High School", q: "Wayzata" },
+          { name: "Hermantown High School", q: "Hermantown" },
+          { name: "Eden Prairie High School", q: "Eden Prairie" },
+          { name: "Hill-Murray School", q: "Hill-Murray" }
+        ],
+        stages: [
+          { stage: "Stage 1 (Ages 14-16)", detail: "Bantam AA / High School Junior Varsity initiation; Minnesota Bantam Elite League." },
+          { stage: "Stage 2 (Ages 16-18)", detail: "Varsity Class AA regular season (25 games) & Minnesota State Tournament (The Tourney)." },
+          { stage: "Stage 3 (Ages 18-20)", detail: "USHL Tier 1 Junior acceleration (Waterloo, Fargo, Green Bay, Sioux Falls)." },
+          { stage: "Stage 4 (Ages 20-24)", detail: "NCAA Division I varsity commitment (Minnesota, UMD, St. Cloud, Denver)." }
+        ],
+        dirQuery: "MSHSL"
+      },
+      nepsac: {
+        title: "New England Prep &rarr; BCHL/USHL &rarr; NCAA & Ivies",
+        track: "TRACK 2",
+        governing: "NEPSAC Martin & Earl Divisions",
+        icon: "🎓",
+        desc: "Combines Ivy-league academic rigors with a professional 30+ game boarding school hockey calendar. Direct, historic recruitment corridor into Hockey East, ECAC Hockey, and NESCAC Division III conferences.",
+        d1Rate: "71.8%",
+        juniorRate: "84.5%",
+        gpa: "3.92",
+        programsCount: "26 Academies",
+        schools: [
+          { name: "Avon Old Farms", q: "Avon" },
+          { name: "Salisbury School", q: "Salisbury" },
+          { name: "Belmont Hill School", q: "Belmont Hill" },
+          { name: "Kimball Union Academy", q: "Kimball Union" },
+          { name: "Cushing Academy", q: "Cushing" },
+          { name: "Dexter Southfield", q: "Dexter" }
+        ],
+        stages: [
+          { stage: "Stage 1 (Ages 14-15)", detail: "Boarding school matriculation; Fall AAA split-season showcase circuit." },
+          { stage: "Stage 2 (Ages 15-18)", detail: "NEPSAC Varsity 30-game season; Flood-Marr, Lawrenceville, and Belmont tournaments." },
+          { stage: "Stage 3 (Ages 18-19)", detail: "Direct NCAA commit or BCHL/USHL seasoning year to physically mature." },
+          { stage: "Stage 4 (Ages 19-23)", detail: "NCAA Division I (Boston College, BU, Quinnipiac, Harvard) or NESCAC D3." }
+        ],
+        dirQuery: "NEPSAC"
+      },
+      usntdp: {
+        title: "National Academies & USNTDP &rarr; NCAA D1 Frozen Four",
+        track: "TRACK 3",
+        governing: "USA Hockey National Selects",
+        icon: "🇺🇸",
+        desc: "The apex American amateur development route. Top national boarding academies funneled through the USA Hockey National Team Development Program (U17/U18) based in Plymouth, MI, competing in the USHL and international IIHF tournaments.",
+        d1Rate: "94.8%",
+        juniorRate: "99.0%",
+        gpa: "3.78",
+        programsCount: "14 Programs",
+        schools: [
+          { name: "USA Hockey NTDP U18/U17", q: "NTDP" },
+          { name: "Shattuck-St. Mary's", q: "Shattuck" },
+          { name: "Culver Military Academy", q: "Culver" },
+          { name: "Bishop Kearney Selects", q: "Bishop Kearney" },
+          { name: "Northwood School", q: "Northwood" }
+        ],
+        stages: [
+          { stage: "Stage 1 (Ages 14-15)", detail: "USA Hockey BioSteel National Player Development Camps (Amherst/Buffalo)." },
+          { stage: "Stage 2 (Ages 15-16)", detail: "Tier 1 AAA National Championship run / Shattuck-St. Mary's Prep season." },
+          { stage: "Stage 3 (Ages 16-18)", detail: "USNTDP Residency (Plymouth, MI); 60-game USHL & NCAA D1 exhibition slate." },
+          { stage: "Stage 4 (Ages 18-21)", detail: "NCAA D1 Blue-Blood collegiate powerhouses (Michigan, BC, BU, North Dakota, Wisconsin)." }
+        ],
+        dirQuery: "Prep"
+      },
+      csshl: {
+        title: "Canadian Sport School (CSSHL) &rarr; BCHL &rarr; NCAA",
+        track: "TRACK 4",
+        governing: "CSSHL & BCHL Non-Pro",
+        icon: "🍁",
+        desc: "Western & Eastern Canadian sports school system providing full daily on-ice academy training while intentionally preserving 100% amateur NCAA eligibility, bypassing CHL pro restrictions.",
+        d1Rate: "68.5%",
+        juniorRate: "82.0%",
+        gpa: "3.80",
+        programsCount: "18 Academies",
+        schools: [
+          { name: "Edge School", q: "Edge" },
+          { name: "RINK Hockey Academy", q: "RINK" },
+          { name: "Delta Hockey Academy", q: "Delta" },
+          { name: "St. Andrew's College", q: "St. Andrew" },
+          { name: "Penticton Vees (BCHL)", q: "Penticton" }
+        ],
+        stages: [
+          { stage: "Stage 1 (Ages 13-15)", detail: "CSSHL U15 Prep showcase tours across British Columbia, Alberta, and Ontario." },
+          { stage: "Stage 2 (Ages 15-17)", detail: "CSSHL U18 Prep Championship and Western Canada combine testing." },
+          { stage: "Stage 3 (Ages 17-19)", detail: "BCHL Tier 1 Junior A competition (Penticton Vees, Brooks Bandits)." },
+          { stage: "Stage 4 (Ages 19-23)", detail: "NCAA Division I (Denver, Western Michigan, Cornell) or U Sports University Cup." }
+        ],
+        dirQuery: "BCHL"
+      },
+      usphl: {
+        title: "USPHL Premier & Junior Tier 3 &rarr; NCAA Division III & ACHA",
+        track: "TRACK 5",
+        governing: "USPHL / EHL / NA3HL",
+        icon: "🛡️",
+        desc: "The high-volume developmental engine providing vital junior seasoning for athletes striving to play NCAA Division III collegiate hockey or elite ACHA Division 1 club programs.",
+        d1Rate: "42.0%",
+        juniorRate: "92.5%",
+        gpa: "3.75",
+        programsCount: "32 Programs",
+        schools: [
+          { name: "Hobart College", q: "Hobart" },
+          { name: "Trinity College (CT)", q: "Trinity" },
+          { name: "Utica University", q: "Utica" },
+          { name: "Adrian College", q: "Adrian" },
+          { name: "Liberty University (ACHA)", q: "Liberty" }
+        ],
+        stages: [
+          { stage: "Stage 1 (Ages 15-17)", detail: "Midget AAA and regional high school varsity competition." },
+          { stage: "Stage 2 (Ages 17-19)", detail: "USPHL Premier / EHL / NA3HL junior seasoning (44-game regular season)." },
+          { stage: "Stage 3 (Ages 19-21)", detail: "Top-line production; team captaincy; NCAA D3 / ACHA recruiting showcases." },
+          { stage: "Stage 4 (Ages 21-25)", detail: "NCAA Division III varsity roster (NESCAC, WIAC, SUNYAC) or ACHA Men D1." }
+        ],
+        dirQuery: "Division III"
+      }
+    };
+
+    window.openPipelineModal = function(trackKey) {
+      const data = PIPELINE_DATA[trackKey] || PIPELINE_DATA.mshsl;
+      const modal = document.getElementById("pipelineDetailModal");
+      if (!modal) return;
+
+      document.getElementById("pipelineModalIcon").textContent = data.icon;
+      document.getElementById("pipelineModalTrack").textContent = data.track;
+      document.getElementById("pipelineModalGoverning").textContent = data.governing;
+      document.getElementById("pipelineModalTitle").innerHTML = data.title;
+      document.getElementById("pipelineModalDesc").textContent = data.desc;
+      document.getElementById("pipelineModalD1Rate").textContent = data.d1Rate;
+      document.getElementById("pipelineModalJuniorRate").textContent = data.juniorRate;
+      document.getElementById("pipelineModalGpa").textContent = data.gpa;
+      document.getElementById("pipelineModalProgramCount").textContent = data.programsCount;
+
+      document.getElementById("pipelineModalStages").innerHTML = data.stages.map(s => `
+        <div class="p-2.5 rounded-xl bg-slate-900/80 border border-slate-800 flex items-start gap-2.5 text-xs">
+          <span class="font-bold text-sky-400 shrink-0 font-mono">${s.stage}:</span>
+          <span class="text-slate-300">${s.detail}</span>
+        </div>
+      `).join('');
+
+      document.getElementById("pipelineModalSchools").innerHTML = data.schools.map(sch => `
+        <a href="database.html?q=${encodeURIComponent(sch.q)}" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 hover:border-emerald-400 text-xs font-bold text-white transition flex items-center gap-1.5">
+          <span>🏫</span> <span>${sch.name}</span> &rarr;
+        </a>
+      `).join('');
+
+      document.getElementById("pipelineDirectoryLink").href = `database.html?q=${encodeURIComponent(data.dirQuery)}`;
+      document.getElementById("pipelinePortalLink").href = `portal.html`;
+
+      modal.classList.remove("hidden");
+      requestAnimationFrame(() => {
+        modal.classList.remove("opacity-0");
+      });
+    };
+
+    window.closePipelineModal = function() {
+      const modal = document.getElementById("pipelineDetailModal");
+      if (!modal) return;
+      modal.classList.add("opacity-0");
+      setTimeout(() => {
+        modal.classList.add("hidden");
+      }, 300);
+    };
+
     document.addEventListener("DOMContentLoaded", () => {
       let activeStageId = "stage_1";
 
