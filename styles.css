@@ -552,7 +552,8 @@ body {
   margin-bottom: -0.65rem;
 }
 
-.auth-form input {
+.auth-form input,
+.auth-form select {
   width: 100%;
   box-sizing: border-box;
   padding: 0.75rem 1rem;
@@ -566,7 +567,8 @@ body {
   font-family: inherit;
 }
 
-.auth-form input:focus {
+.auth-form input:focus,
+.auth-form select:focus {
   border-color: var(--accent-sky);
   box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2);
 }

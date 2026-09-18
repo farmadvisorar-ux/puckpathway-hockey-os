@@ -1,466 +1,140 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
 <head>
   <!-- Active Pre-Execution Security Shield -->
   <script src="static/js/security_shield.js"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BlueLine DataWorks - Register & Mint Passport | Athlete Operating System</title>
+  <title>Sign Up – PuckPathway</title>
   <meta name="description" content="BlueLine DataWorks is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory.">
   <link rel="icon" type="image/jpeg" href="static/img/blueline_logo.jpg">
   <link rel="apple-touch-icon" href="static/img/blueline_logo.jpg">
 
   <!-- Open Graph -->
   <meta property="og:type" content="website">
-  <meta property="og:site_name" content="BlueLine DataWorks">
-  <meta property="og:title" content="BlueLine DataWorks - Register & Mint Athlete Passport">
+  <meta property="og:site_name" content="PuckPathway Hockey OS">
+  <meta property="og:title" content="Sign Up – PuckPathway">
   <meta property="og:description" content="BlueLine DataWorks is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory.">
   <meta property="og:image" content="https://farmadvisorar-ux.github.io/puckpathway-hockey-os/static/img/blueline_og_preview.jpg">
 
-  <!-- Tailwind CSS & FontAwesome -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="static/css/custom.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="styles.css">
   <link rel="manifest" href="manifest.json">
 </head>
-<body class="bg-[#06090e] text-slate-100 min-h-screen flex flex-col font-sans selection:bg-sky-500 selection:text-white pb-16">
+<body>
 
-  <!-- Top Global Header -->
-  <header class="border-b border-slate-800/80 bg-slate-950/95 backdrop-blur-xl sticky top-0 z-50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
-      
-      <!-- Brand Logo -->
-      <a href="index.html" class="flex items-center gap-2.5 group">
-        <img src="static/img/blueline_logo.jpg" alt="BlueLine DataWorks Logo" class="w-9 h-9 sm:w-10 sm:h-10 shrink-0 rounded-xl border border-sky-400/50 object-cover shadow-lg shadow-sky-500/20 group-hover:scale-105 transition">
-        <div class="min-w-0">
-          <div class="flex items-center gap-2">
-            <span class="font-black text-sm sm:text-base md:text-lg tracking-tight text-white group-hover:text-sky-400 transition truncate">BlueLine DataWorks</span>
-            <span class="text-[10px] uppercase font-mono tracking-widest px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-bold shrink-0">REGISTER</span>
-          </div>
-          <p class="text-[10px] text-slate-400 hidden sm:block truncate">Mint Cryptographic Athlete Passport</p>
-        </div>
+  <!-- Mandatory Lifelong Tracking Mission Statement Banner -->
+  <div class="mission-banner">
+    <div class="mission-banner-inner">
+      <div style="display:flex; align-items:center; gap:0.5rem; overflow:hidden;">
+        <span class="mission-tag">MISSION</span>
+        <span style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">BlueLine DataWorks is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory.</span>
+      </div>
+      <div style="font-family:monospace; font-size:0.65rem; color:#38bdf8; white-space:nowrap;">
+        PASSPORT MINTING
+      </div>
+    </div>
+  </div>
+
+  <!-- TOP NAVIGATION BAR -->
+  <nav class="top-nav">
+    <div class="nav-container">
+      <a href="index.html" class="nav-brand">
+        <img src="static/img/blueline_logo.jpg" alt="PuckPathway Logo">
+        <span>PuckPathway <span style="color:#38bdf8; font-size:0.85rem; font-family:monospace;">OS</span></span>
       </a>
 
-      <!-- Right Navigation Links -->
-      <div class="flex items-center gap-3 text-xs font-mono">
-        <a href="index.html" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-800 transition flex items-center gap-1.5">
-          <span>←</span> <span class="hidden sm:inline">Marketing</span> <span>Homepage</span>
-        </a>
-        <a href="login.html" class="px-3.5 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-sky-500/30 hover:border-sky-400 text-sky-300 hover:text-white font-bold transition flex items-center gap-1.5">
-          <span>🔑</span> <span>Sign In</span>
-        </a>
-      </div>
-
-    </div>
-
-    <!-- Mandatory Lifelong Tracking Mission Statement Banner -->
-    <div class="border-t border-slate-800/80 bg-slate-950/90">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-1.5 flex flex-wrap items-center justify-between gap-2 text-xs">
-        <div class="flex items-center gap-2 min-w-0">
-          <span class="px-2 py-0.5 rounded-md bg-sky-500/20 text-sky-300 font-mono text-[10px] font-bold shrink-0">MISSION</span>
-          <p class="text-[11px] text-slate-400 truncate">
-            BlueLine DataWorks is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory.
-          </p>
-        </div>
-        <span class="text-[10px] font-mono text-emerald-400 shrink-0 hidden md:inline">190 Institutional Programs • 4,019+ Active Profiles</span>
+      <div class="nav-links">
+        <a href="index.html" style="color:#94a3b8; text-decoration:none; font-size:0.85rem; font-family:monospace;">← Home</a>
+        <a href="login.html" class="btn secondary" style="padding:0.45rem 1rem; font-size:0.85rem;">Log In</a>
       </div>
     </div>
-  </header>
+  </nav>
 
-  <!-- Main Registration Container -->
-  <main class="flex-1 max-w-4xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-8 relative">
-    
-    <!-- Hero Header -->
-    <div class="text-center space-y-3">
-      <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-sky-500/10 border border-sky-500/30 text-sky-300 text-xs font-mono">
-        <span>⚡ Genesis Block Minting</span>
-        <span>•</span>
-        <span>HMAC-SHA256 Cryptographic Sealed</span>
-      </div>
-      <h1 class="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight">
-        Join the <span class="bg-gradient-to-r from-sky-400 via-cyan-200 to-blue-400 bg-clip-text text-transparent">BlueLine Ecosystem</span>
-      </h1>
-      <p class="text-sm sm:text-base text-slate-300 max-w-2xl mx-auto leading-relaxed">
-        Mint your certified digital passport, log verified combine biometrics, and benchmark your developmental trajectory against national cohorts.
-      </p>
-    </div>
+  <main class="auth-page">
+    <h1>Start Your Hockey Pathway</h1>
+    <form class="auth-form" id="signupForm" onsubmit="handleSignupSubmit(event)">
+      <label for="signupName">Name</label>
+      <input type="text" id="signupName" name="name" required placeholder="e.g. Alex Carter">
 
-    <!-- Multi-Step Registration Form Card -->
-    <div class="glass-panel p-6 sm:p-8 md:p-10 rounded-3xl border border-sky-500/30 shadow-2xl shadow-black/80 space-y-8">
-      
-      <!-- Step 1: Role Selection -->
-      <div class="space-y-3">
-        <div class="flex items-center justify-between">
-          <label class="text-xs font-mono uppercase tracking-wider text-slate-400 font-bold">1. Select Your Platform Role</label>
-          <span class="text-[11px] text-sky-400 font-mono">Tailors Dashboard & Permissions</span>
-        </div>
-        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3" id="roleSelectorGrid">
-          
-          <button type="button" onclick="selectRole('athlete')" id="roleBtn-athlete" class="role-btn p-4 rounded-2xl bg-sky-600/20 border-2 border-sky-500 text-left transition flex flex-col justify-between h-28 cursor-pointer">
-            <div class="text-2xl">⚡</div>
-            <div>
-              <div class="font-bold text-white text-xs sm:text-sm">Athlete</div>
-              <div class="text-[10px] text-sky-300 leading-tight">Player Passport</div>
-            </div>
-          </button>
+      <label for="signupEmail">Email</label>
+      <input type="email" id="signupEmail" name="email" required placeholder="athlete@example.com">
 
-          <button type="button" onclick="selectRole('scout')" id="roleBtn-scout" class="role-btn p-4 rounded-2xl bg-slate-900/90 border border-slate-800 hover:border-slate-700 text-left transition flex flex-col justify-between h-28 cursor-pointer">
-            <div class="text-2xl">🔍</div>
-            <div>
-              <div class="font-bold text-white text-xs sm:text-sm">Scout / Pro</div>
-              <div class="text-[10px] text-slate-400 leading-tight">Evaluation Bureau</div>
-            </div>
-          </button>
+      <label for="signupPassword">Password</label>
+      <input type="password" id="signupPassword" name="password" required value="password123">
 
-          <button type="button" onclick="selectRole('coach')" id="roleBtn-coach" class="role-btn p-4 rounded-2xl bg-slate-900/90 border border-slate-800 hover:border-slate-700 text-left transition flex flex-col justify-between h-28 cursor-pointer">
-            <div class="text-2xl">🏒</div>
-            <div>
-              <div class="font-bold text-white text-xs sm:text-sm">Coach / Staff</div>
-              <div class="text-[10px] text-slate-400 leading-tight">NCAA / Junior Staff</div>
-            </div>
-          </button>
+      <label for="signupPosition">Position</label>
+      <select id="signupPosition" name="position">
+        <option>Forward</option>
+        <option>Defense</option>
+        <option>Goalie</option>
+      </select>
 
-          <button type="button" onclick="selectRole('parent')" id="roleBtn-parent" class="role-btn p-4 rounded-2xl bg-slate-900/90 border border-slate-800 hover:border-slate-700 text-left transition flex flex-col justify-between h-28 cursor-pointer">
-            <div class="text-2xl">👨‍👩‍👦</div>
-            <div>
-              <div class="font-bold text-white text-xs sm:text-sm">Family Advisor</div>
-              <div class="text-[10px] text-slate-400 leading-tight">NCAA Core & Health</div>
-            </div>
-          </button>
-
-        </div>
-      </div>
-
-      <!-- Registration Form -->
-      <form id="signupForm" onsubmit="handleRegistrationSubmit(event)" class="space-y-6">
-        
-        <!-- Step 2: Account Authentication Information -->
-        <div class="space-y-4 pt-2 border-t border-slate-800">
-          <label class="block text-xs font-mono uppercase tracking-wider text-slate-400 font-bold">2. Account Credentials</label>
-          
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
-              <label for="fullName" class="block text-xs font-mono text-slate-300 mb-1">Full Legal Name *</label>
-              <input type="text" id="fullName" required placeholder="e.g. Cole Eiserman or Michael Hage" oninput="updateGenesisHashPreview()" class="w-full px-3.5 py-2.5 bg-slate-900/90 border border-slate-800 rounded-xl text-xs text-white placeholder-slate-500 focus:outline-none focus:border-sky-500 transition font-mono">
-            </div>
-
-            <div>
-              <label for="email" class="block text-xs font-mono text-slate-300 mb-1">Official Email Address *</label>
-              <input type="email" id="email" required placeholder="athlete@umich.edu or personal@domain.com" class="w-full px-3.5 py-2.5 bg-slate-900/90 border border-slate-800 rounded-xl text-xs text-white placeholder-slate-500 focus:outline-none focus:border-sky-500 transition font-mono">
-            </div>
-          </div>
-
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
-              <label for="password" class="block text-xs font-mono text-slate-300 mb-1">Password *</label>
-              <input type="password" id="password" required value="password123" class="w-full px-3.5 py-2.5 bg-slate-900/90 border border-slate-800 rounded-xl text-xs text-white placeholder-slate-500 focus:outline-none focus:border-sky-500 transition font-mono">
-            </div>
-
-            <div>
-              <label for="confirmPassword" class="block text-xs font-mono text-slate-300 mb-1">Confirm Password *</label>
-              <input type="password" id="confirmPassword" required value="password123" class="w-full px-3.5 py-2.5 bg-slate-900/90 border border-slate-800 rounded-xl text-xs text-white placeholder-slate-500 focus:outline-none focus:border-sky-500 transition font-mono">
-            </div>
-          </div>
-        </div>
-
-        <!-- Step 3: Role Specific Details (Default: Athlete) -->
-        <div id="athleteFieldsContainer" class="space-y-4 pt-2 border-t border-slate-800">
-          <div class="flex items-center justify-between">
-            <label class="block text-xs font-mono uppercase tracking-wider text-slate-400 font-bold">3. Athlete Dossier & Biometrics</label>
-            <span class="text-[11px] font-mono text-emerald-400">Minted to Immutable Ledger</span>
-          </div>
-
-          <!-- Position, Jersey, Shot Hand -->
-          <div class="grid grid-cols-3 gap-3">
-            <div>
-              <label for="position" class="block text-xs font-mono text-slate-300 mb-1">Primary Position</label>
-              <select id="position" class="w-full px-3 py-2 bg-slate-900/90 border border-slate-800 rounded-xl text-xs text-white focus:outline-none focus:border-sky-500 font-mono">
-                <option value="C" selected>Center (C)</option>
-                <option value="LW">Left Wing (LW)</option>
-                <option value="RW">Right Wing (RW)</option>
-                <option value="LD">Left Defense (LD)</option>
-                <option value="RD">Right Defense (RD)</option>
-                <option value="G">Goaltender (G)</option>
-              </select>
-            </div>
-
-            <div>
-              <label for="jerseyNum" class="block text-xs font-mono text-slate-300 mb-1">Jersey #</label>
-              <input type="number" id="jerseyNum" value="19" min="1" max="99" class="w-full px-3 py-2 bg-slate-900/90 border border-slate-800 rounded-xl text-xs text-white focus:outline-none focus:border-sky-500 font-mono">
-            </div>
-
-            <div>
-              <label for="shotHand" class="block text-xs font-mono text-slate-300 mb-1">Shoots / Catches</label>
-              <select id="shotHand" class="w-full px-3 py-2 bg-slate-900/90 border border-slate-800 rounded-xl text-xs text-white focus:outline-none focus:border-sky-500 font-mono">
-                <option value="L" selected>Left (L)</option>
-                <option value="R">Right (R)</option>
-              </select>
-            </div>
-          </div>
-
-          <!-- Height, Weight, Grad Year, GPA -->
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-            <div>
-              <label for="heightInches" class="block text-xs font-mono text-slate-300 mb-1">Height (Inches)</label>
-              <input type="number" id="heightInches" value="73" min="55" max="84" class="w-full px-3 py-2 bg-slate-900/90 border border-slate-800 rounded-xl text-xs text-white focus:outline-none focus:border-sky-500 font-mono" title="73 in = 6'1">
-            </div>
-
-            <div>
-              <label for="weightLbs" class="block text-xs font-mono text-slate-300 mb-1">Weight (lbs)</label>
-              <input type="number" id="weightLbs" value="190" min="120" max="280" class="w-full px-3 py-2 bg-slate-900/90 border border-slate-800 rounded-xl text-xs text-white focus:outline-none focus:border-sky-500 font-mono">
-            </div>
-
-            <div>
-              <label for="gradYear" class="block text-xs font-mono text-slate-300 mb-1">Grad / Draft Class</label>
-              <select id="gradYear" class="w-full px-3 py-2 bg-slate-900/90 border border-slate-800 rounded-xl text-xs text-white focus:outline-none focus:border-sky-500 font-mono">
-                <option value="2025">2025</option>
-                <option value="2026">2026</option>
-                <option value="2027" selected>2027</option>
-                <option value="2028">2028</option>
-                <option value="2029">2029</option>
-              </select>
-            </div>
-
-            <div>
-              <label for="athleteGpa" class="block text-xs font-mono text-slate-300 mb-1">Cumulative GPA</label>
-              <input type="number" id="athleteGpa" value="3.82" step="0.01" min="1.0" max="4.0" class="w-full px-3 py-2 bg-slate-900/90 border border-slate-800 rounded-xl text-xs text-white focus:outline-none focus:border-sky-500 font-mono">
-            </div>
-          </div>
-
-          <!-- Team / Program Affiliation (190 Institutions Integrated) -->
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
-              <label for="currentTeam" class="block text-xs font-mono text-slate-300 mb-1">Current Team / Program *</label>
-              <input type="text" list="institutionsDatalist" id="currentTeam" required value="Chicago Steel" placeholder="Type or select from 190 programs..." class="w-full px-3.5 py-2.5 bg-slate-900/90 border border-slate-800 rounded-xl text-xs text-white placeholder-slate-500 focus:outline-none focus:border-sky-500 transition font-mono">
-              <datalist id="institutionsDatalist">
-                <option value="University of Michigan (NCAA D1)">
-                <option value="Michigan State University (NCAA D1)">
-                <option value="University of Minnesota (NCAA D1)">
-                <option value="Boston College (NCAA D1)">
-                <option value="Boston University (NCAA D1)">
-                <option value="University of North Dakota (NCAA D1)">
-                <option value="University of Denver (NCAA D1)">
-                <option value="Wisconsin Badgers (NCAA D1)">
-                <option value="Quinnipiac University (NCAA D1)">
-                <option value="Chicago Steel (USHL)">
-                <option value="Muskegon Lumberjacks (USHL)">
-                <option value="Fargo Force (USHL)">
-                <option value="Green Bay Gamblers (USHL)">
-                <option value="Sioux Falls Stampede (USHL)">
-                <option value="Dubuque Fighting Saints (USHL)">
-                <option value="USNTDP Juniors (USHL)">
-                <option value="Penticton Vees (BCHL)">
-                <option value="London Knights (OHL)">
-                <option value="Saginaw Spirit (OHL)">
-                <option value="Seattle Thunderbirds (WHL)">
-                <option value="Portland Winterhawks (WHL)">
-                <option value="Shattuck-St. Mary's Prep">
-              </datalist>
-            </div>
-
-            <div>
-              <label for="currentLeague" class="block text-xs font-mono text-slate-300 mb-1">Current League</label>
-              <select id="currentLeague" class="w-full px-3.5 py-2.5 bg-slate-900/90 border border-slate-800 rounded-xl text-xs text-white focus:outline-none focus:border-sky-500 font-mono">
-                <option value="USHL" selected>United States Hockey League (USHL)</option>
-                <option value="NCAA D1">NCAA Division I Men</option>
-                <option value="NCAA D3">NCAA Division III Men</option>
-                <option value="BCHL">British Columbia Hockey League (BCHL)</option>
-                <option value="OHL">Ontario Hockey League (OHL)</option>
-                <option value="WHL">Western Hockey League (WHL)</option>
-                <option value="QMJHL">Quebec Maritimes Junior Hockey League (QMJHL)</option>
-                <option value="NAHL">North American Hockey League (NAHL)</option>
-                <option value="Tier 1 AAA">Tier 1 AAA / Midget U18/U16</option>
-                <option value="Prep School">US/Canadian Prep School</option>
-              </select>
-            </div>
-          </div>
-
-          <!-- Baseline Combine Hardware Telemetry -->
-          <div class="grid grid-cols-2 gap-3 pt-2">
-            <div>
-              <label for="combineSpeed" class="block text-xs font-mono text-slate-300 mb-1">30m On-Ice Speed (sec)</label>
-              <input type="number" id="combineSpeed" value="3.88" step="0.01" min="3.4" max="5.0" class="w-full px-3 py-2 bg-slate-900/90 border border-slate-800 rounded-xl text-xs text-white focus:outline-none focus:border-sky-500 font-mono">
-            </div>
-            <div>
-              <label for="combineJump" class="block text-xs font-mono text-slate-300 mb-1">Vertical Jump (inches)</label>
-              <input type="number" id="combineJump" value="29.5" step="0.5" min="15" max="45" class="w-full px-3 py-2 bg-slate-900/90 border border-slate-800 rounded-xl text-xs text-white focus:outline-none focus:border-sky-500 font-mono">
-            </div>
-          </div>
-        </div>
-
-        <!-- Non-Athlete Alternative Fields Container (Scout / Coach / Parent) -->
-        <div id="nonAthleteFieldsContainer" class="hidden space-y-4 pt-2 border-t border-slate-800">
-          <label class="block text-xs font-mono uppercase tracking-wider text-slate-400 font-bold">3. Professional Affiliation & Accreditation</label>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
-              <label for="orgAffiliation" class="block text-xs font-mono text-slate-300 mb-1">Organization / Program Name</label>
-              <input type="text" id="orgAffiliation" placeholder="e.g. NHL Central Scouting, Michigan State, etc." class="w-full px-3.5 py-2.5 bg-slate-900/90 border border-slate-800 rounded-xl text-xs text-white placeholder-slate-500 focus:outline-none focus:border-sky-500 transition font-mono">
-            </div>
-            <div>
-              <label for="orgTitle" class="block text-xs font-mono text-slate-300 mb-1">Role Title / Designation</label>
-              <input type="text" id="orgTitle" placeholder="e.g. Director of Player Personnel, Head Coach" class="w-full px-3.5 py-2.5 bg-slate-900/90 border border-slate-800 rounded-xl text-xs text-white placeholder-slate-500 focus:outline-none focus:border-sky-500 transition font-mono">
-            </div>
-          </div>
-        </div>
-
-        <!-- Genesis Cryptographic Block Preview Banner -->
-        <div class="p-4 rounded-2xl bg-sky-950/40 border border-sky-500/30 flex items-center justify-between gap-4">
-          <div class="space-y-0.5 min-w-0">
-            <div class="text-[11px] font-mono text-sky-400 font-bold flex items-center gap-1.5">
-              <span>🧬</span> <span>Genesis Passport Hash (HMAC-SHA256):</span>
-            </div>
-            <div id="liveGenesisHash" class="text-xs font-mono text-slate-200 truncate">0x9f7a83e0cb214ea7f49f7a31b4028f...</div>
-          </div>
-          <span class="px-2.5 py-1 rounded-md bg-emerald-500/20 text-emerald-300 text-[10px] font-mono font-bold shrink-0">READY TO MINT</span>
-        </div>
-
-        <!-- Feedback Banner -->
-        <div id="signupFeedback" class="hidden p-3 rounded-xl text-xs font-mono"></div>
-
-        <!-- Submit Button -->
-        <button type="submit" id="signupSubmitBtn" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-sky-600 via-cyan-600 to-blue-600 hover:from-sky-500 hover:to-blue-500 text-white font-black text-sm shadow-xl shadow-sky-600/30 transition active:scale-[0.98] flex items-center justify-center gap-2 cursor-pointer">
-          <span>⚡ Mint Verified Passport & Launch Dashboard</span>
-          <span>→</span>
-        </button>
-
-      </form>
-
-      <!-- Bottom Redirect Link -->
-      <div class="pt-4 border-t border-slate-800/80 text-center text-xs text-slate-400">
-        Already registered with BlueLine?
-        <a href="login.html" class="text-sky-400 hover:text-sky-300 font-bold ml-1">Sign in with existing credentials →</a>
-      </div>
-
-    </div>
-
+      <button type="submit" class="btn primary">Start My Pathway</button>
+    </form>
+    <p>Already have an account? <a href="login.html">Log in</a></p>
   </main>
 
-  <!-- Footer -->
-  <footer class="border-t border-slate-800/80 bg-slate-950/95 py-6 text-xs text-slate-500">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-      <div class="flex items-center gap-2">
-        <img src="static/img/blueline_logo.jpg" alt="BlueLine DataWorks Logo" class="w-5 h-5 rounded-md object-cover">
-        <span>© 2026 BlueLine DataWorks, Inc. All rights reserved.</span>
-      </div>
-      <div class="flex items-center gap-4 text-slate-400 font-mono text-[11px]">
-        <a href="app.html" class="hover:text-white">Player OS</a>
-        <a href="database.html" class="hover:text-white">Directory</a>
-        <a href="combine.html" class="hover:text-white">Combine</a>
-        <a href="security.html" class="hover:text-white">Cyber Shield</a>
-        <a href="index.html" class="hover:text-white">Marketing</a>
-      </div>
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p>&copy; PuckPathway Hockey OS</p>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="login.html">Log In</a>
+      <a href="app.html">Player Dashboard</a>
+      <a href="database.html">Directory</a>
+      <a href="security.html">Security</a>
+    </nav>
+    <div class="footer-mission">
+      BlueLine DataWorks is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory.
     </div>
   </footer>
 
-  <!-- Scripts -->
   <script src="static/js/auth_engine.js"></script>
   <script>
-    let activeRole = 'athlete';
-
-    function selectRole(role) {
-      activeRole = role;
-      const roles = ['athlete', 'scout', 'coach', 'parent'];
-      roles.forEach(r => {
-        const btn = document.getElementById(`roleBtn-${r}`);
-        if (r === role) {
-          btn.className = 'role-btn p-4 rounded-2xl bg-sky-600/20 border-2 border-sky-500 text-left transition flex flex-col justify-between h-28 cursor-pointer shadow-lg shadow-sky-500/10';
-        } else {
-          btn.className = 'role-btn p-4 rounded-2xl bg-slate-900/90 border border-slate-800 hover:border-slate-700 text-left transition flex flex-col justify-between h-28 cursor-pointer';
-        }
-      });
-
-      const athleteContainer = document.getElementById('athleteFieldsContainer');
-      const nonAthleteContainer = document.getElementById('nonAthleteFieldsContainer');
-
-      if (role === 'athlete') {
-        athleteContainer.classList.remove('hidden');
-        nonAthleteContainer.classList.add('hidden');
-      } else {
-        athleteContainer.classList.add('hidden');
-        nonAthleteContainer.classList.remove('hidden');
-      }
-
-      updateGenesisHashPreview();
-    }
-
-    function updateGenesisHashPreview() {
-      const name = document.getElementById('fullName').value.trim() || 'PROSPECT';
-      let hash = 0x811c9dc5;
-      const str = activeRole + '_' + name + '_' + Date.now();
-      for (let i = 0; i < str.length; i++) {
-        hash ^= str.charCodeAt(i);
-        hash += (hash << 1) + (hash << 4) + (hash << 7) + (hash << 8) + (hash << 24);
-      }
-      const hex = (hash >>> 0).toString(16).padStart(8, '0');
-      document.getElementById('liveGenesisHash').textContent = `0x${hex}cb214ea7f4${hex.slice(0, 4)} (HMAC-SHA256)`;
-    }
-
-    function showFeedback(msg, isError = false) {
-      const fb = document.getElementById('signupFeedback');
-      if (!fb) return;
-      fb.className = isError 
-        ? 'p-3 rounded-xl text-xs font-mono bg-red-950/60 border border-red-800/60 text-red-300'
-        : 'p-3 rounded-xl text-xs font-mono bg-emerald-950/60 border border-emerald-800/60 text-emerald-300';
-      fb.textContent = msg;
-      fb.classList.remove('hidden');
-    }
-
-    function handleRegistrationSubmit(e) {
+    function handleSignupSubmit(e) {
       e.preventDefault();
-      const fullName = document.getElementById('fullName').value.trim();
-      const email = document.getElementById('email').value.trim();
-      const password = document.getElementById('password').value;
-      const confirmPassword = document.getElementById('confirmPassword').value;
+      const name = document.getElementById('signupName').value.trim();
+      const email = document.getElementById('signupEmail').value.trim();
+      const password = document.getElementById('signupPassword').value;
+      const position = document.getElementById('signupPosition').value;
 
-      if (!fullName || !email || !password) {
-        showFeedback("Please complete all required fields.", true);
-        return;
-      }
+      if (!name || !email || !password) return;
 
-      if (password !== confirmPassword) {
-        showFeedback("Passwords do not match. Please verify and re-try.", true);
-        return;
-      }
+      const posCode = position === 'Goalie' ? 'G' : (position === 'Defense' ? 'D' : 'C');
 
-      // Build registration payload
       const payload = {
-        name: fullName,
+        name: name,
         email: email,
         password: password,
-        role: activeRole,
-        team: activeRole === 'athlete' ? (document.getElementById('currentTeam').value.trim() || 'Independent AAA') : (document.getElementById('orgAffiliation').value.trim() || 'Independent'),
-        pos: activeRole === 'athlete' ? document.getElementById('position').value : 'F',
-        num: activeRole === 'athlete' ? parseInt(document.getElementById('jerseyNum').value, 10) || 19 : null,
-        league: activeRole === 'athlete' ? document.getElementById('currentLeague').value : 'Amateur / Scouting',
-        gpa: activeRole === 'athlete' ? parseFloat(document.getElementById('athleteGpa').value) || 3.8 : 3.9,
-        grad: activeRole === 'athlete' ? parseInt(document.getElementById('gradYear').value, 10) || 2027 : 2027,
-        speed: activeRole === 'athlete' ? parseFloat(document.getElementById('combineSpeed').value) || 3.88 : 3.85,
-        jump: activeRole === 'athlete' ? parseFloat(document.getElementById('combineJump').value) || 29.5 : 28.0,
-        height: activeRole === 'athlete' ? parseInt(document.getElementById('heightInches').value, 10) || 73 : 72,
-        weight: activeRole === 'athlete' ? parseInt(document.getElementById('weightLbs').value, 10) || 190 : 185
+        role: 'athlete',
+        pos: posCode,
+        team: 'Independent AAA / Pathway Track',
+        num: 17,
+        league: 'Tier 1 AAA',
+        gpa: 3.82,
+        grad: 2027
       };
 
-      // Call BlueLineAuth signUp or fallback to storage
       if (window.BlueLineAuth && window.BlueLineAuth.signUp) {
         window.BlueLineAuth.signUp(payload);
       } else {
         const newUser = {
           id: 'usr_' + Date.now().toString(36),
-          name: payload.name,
-          email: payload.email,
-          username: payload.email.split('@')[0],
-          role: payload.role,
-          badge: payload.role === 'athlete' ? 'VERIFIED ATHLETE' : (payload.role === 'coach' ? 'COACH' : 'SCOUT'),
-          team: payload.team,
-          league: payload.league,
-          pos: payload.pos,
-          num: payload.num,
+          name: name,
+          email: email,
+          username: email.split('@')[0],
+          role: 'athlete',
+          badge: 'VERIFIED ATHLETE',
+          team: 'Independent AAA / Pathway Track',
+          pos: posCode,
+          num: 17,
+          avatar: '⚡',
           verified: true,
           created_at: new Date().toISOString()
         };
         localStorage.setItem('blueline_auth_user', JSON.stringify(newUser));
 
-        // Save to registered accounts
         try {
           const raw = localStorage.getItem('blueline_registered_users');
           const list = raw ? JSON.parse(raw) : [];
@@ -469,10 +143,7 @@
         } catch(err) {}
       }
 
-      showFeedback(`Passport successfully minted for ${fullName}! Opening command center...`, false);
-      setTimeout(() => {
-        window.location.href = 'app.html';
-      }, 500);
+      window.location.href = 'app.html';
     }
   </script>
 </body>
