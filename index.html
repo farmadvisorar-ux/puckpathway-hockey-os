@@ -5,954 +5,235 @@
   <script src="static/js/security_shield.js"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BlueLine DataWorks - Lifelong Athlete Trajectory & Hockey Analytics OS</title>
+  <title>PuckPathway Hockey OS - Build Your Hockey Pathway</title>
   <meta name="description" content="BlueLine DataWorks is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory.">
   <link rel="icon" type="image/jpeg" href="static/img/blueline_logo.jpg">
   <link rel="apple-touch-icon" href="static/img/blueline_logo.jpg">
 
-  <!-- Open Graph / Social Link Preview -->
+  <!-- Open Graph -->
   <meta property="og:type" content="website">
-  <meta property="og:site_name" content="BlueLine DataWorks">
-  <meta property="og:title" content="BlueLine DataWorks - Lifelong Athlete Trajectory & Hockey Analytics">
+  <meta property="og:site_name" content="PuckPathway Hockey OS">
+  <meta property="og:title" content="PuckPathway Hockey OS - Build Your Hockey Pathway">
   <meta property="og:description" content="BlueLine DataWorks is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory.">
   <meta property="og:image" content="https://farmadvisorar-ux.github.io/puckpathway-hockey-os/static/img/blueline_og_preview.jpg">
-  <meta property="og:url" content="https://farmadvisorar-ux.github.io/puckpathway-hockey-os/">
 
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="BlueLine DataWorks - Lifelong Hockey Analytics">
-  <meta name="twitter:description" content="BlueLine DataWorks is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory.">
-  <meta name="twitter:image" content="https://farmadvisorar-ux.github.io/puckpathway-hockey-os/static/img/blueline_og_preview.jpg">
-
-  <!-- JSON-LD Structured Data -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "BlueLine DataWorks",
-    "applicationCategory": "SportsAnalyticsPlatform",
-    "operatingSystem": "Web",
-    "description": "BlueLine DataWorks is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory.",
-    "image": "https://farmadvisorar-ux.github.io/puckpathway-hockey-os/static/img/blueline_og_preview.jpg",
-    "logo": "https://farmadvisorar-ux.github.io/puckpathway-hockey-os/static/img/blueline_logo.jpg",
-    "url": "https://farmadvisorar-ux.github.io/puckpathway-hockey-os/"
-  }
-  </script>
-
-  <!-- Tailwind CSS & Chart.js -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="static/css/custom.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="manifest" href="manifest.json">
 </head>
-<body class="bg-[#06090e] text-slate-100 min-h-screen flex flex-col font-sans selection:bg-sky-500 selection:text-white">
+<body>
 
-  <!-- Top Dynamic Auth Detection Banner (Shown if user is already logged in) -->
-  <div id="loggedInUserBanner" class="hidden bg-gradient-to-r from-sky-900/90 via-blue-900/90 to-indigo-900/90 border-b border-sky-500/40 text-xs py-2 px-4 sticky top-0 z-50">
-    <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
-      <div class="flex items-center gap-2">
-        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-        <span class="text-sky-200">Welcome back, <strong id="loggedInBannerName" class="text-white font-bold">Athlete</strong>! You are currently logged in.</span>
+  <!-- Mandatory Lifelong Tracking Mission Statement Banner -->
+  <div class="mission-banner">
+    <div class="mission-banner-inner">
+      <div style="display:flex; align-items:center; gap:0.5rem; overflow:hidden;">
+        <span class="mission-tag">MISSION</span>
+        <span style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">BlueLine DataWorks is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory.</span>
       </div>
-      <div class="flex items-center gap-3">
-        <a href="app.html" class="px-3 py-1 rounded-lg bg-sky-500 hover:bg-sky-400 text-white font-bold text-xs shadow-md transition flex items-center gap-1.5">
-          <span>⚡ Open Player Dashboard</span> <span>→</span>
-        </a>
-        <button onclick="handleMarketingSignOut()" class="text-sky-300 hover:text-white text-xs underline font-mono cursor-pointer">Sign Out</button>
+      <div style="font-family:monospace; font-size:0.65rem; color:#38bdf8; white-space:nowrap;">
+        4,019+ ATHLETES • 190 PROGRAMS
       </div>
     </div>
   </div>
 
-  <!-- Top Global Header Navigation Bar -->
-  <header class="sticky top-0 z-40 glass-panel border-b border-slate-800/80 bg-slate-950/95 backdrop-blur-xl">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
-      
-      <!-- Brand Logo -->
-      <a href="index.html" class="flex items-center gap-2.5 sm:gap-3 group">
-        <img src="static/img/blueline_logo.jpg" alt="BlueLine DataWorks Logo" class="w-9 h-9 sm:w-10 sm:h-10 shrink-0 rounded-xl border border-sky-400/50 object-cover shadow-lg shadow-sky-500/20 group-hover:scale-105 transition">
-        <div class="min-w-0">
-          <div class="flex items-center gap-2">
-            <span class="font-extrabold text-sm sm:text-base md:text-lg tracking-tight text-white group-hover:text-sky-400 transition truncate">BlueLine DataWorks</span>
-            <span class="text-[10px] uppercase font-mono tracking-widest px-1.5 py-0.5 rounded bg-sky-500/20 text-sky-300 font-bold shrink-0">PLATFORM</span>
-          </div>
-          <p class="text-[10px] text-slate-400 hidden sm:block truncate">Lifelong Athlete Trajectory & Recruiting OS</p>
-        </div>
+  <!-- TOP NAVIGATION BAR -->
+  <nav class="top-nav">
+    <div class="nav-container">
+      <a href="index.html" class="nav-brand">
+        <img src="static/img/blueline_logo.jpg" alt="PuckPathway Logo">
+        <span>PuckPathway <span style="color:#38bdf8; font-size:0.85rem; font-family:monospace;">OS</span></span>
       </a>
 
-      <!-- Center Marketing Navigation Links -->
-      <nav class="hidden lg:flex items-center gap-6 text-xs font-mono text-slate-300">
-        <a href="#features" class="hover:text-sky-400 transition">Features</a>
-        <a href="#audiences" class="hover:text-sky-400 transition">Solutions</a>
-        <a href="#combine" class="hover:text-sky-400 transition">Combine Lab</a>
-        <a href="#modules" class="hover:text-sky-400 transition">22 Modules</a>
-        <a href="#institutions" class="hover:text-sky-400 transition">190 Programs</a>
-        <a href="database.html" class="hover:text-sky-400 transition flex items-center gap-1">
-          <span>📊</span> <span>4,019+ Directory</span>
-        </a>
-      </nav>
-
-      <!-- Right Action CTA Buttons -->
-      <div class="flex items-center gap-2 sm:gap-3 text-xs font-mono shrink-0">
-        <!-- If not logged in -->
-        <a href="login.html" id="navLoginBtn" class="px-3 sm:px-3.5 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-200 hover:text-white border border-slate-800 hover:border-slate-700 transition font-semibold flex items-center gap-1.5">
-          <span>🔑</span> <span>Sign In</span>
-        </a>
-        <a href="signup.html" id="navSignupBtn" class="px-3 sm:px-4 py-1.5 rounded-xl bg-gradient-to-r from-sky-600 to-blue-600 hover:from-sky-500 hover:to-blue-500 text-white font-bold transition shadow-lg shadow-sky-600/30 flex items-center gap-1.5">
-          <span>⚡</span> <span>Get Started Free</span>
-        </a>
-        <!-- Fast shortcut to app demo -->
-        <a href="app.html" class="hidden sm:flex px-3 py-1.5 rounded-xl bg-emerald-950/60 hover:bg-emerald-900/60 text-emerald-300 border border-emerald-800/60 transition font-bold items-center gap-1">
-          <span>🚀</span> <span>App Demo</span>
-        </a>
+      <div class="nav-links">
+        <a href="database.html" style="color:#94a3b8; text-decoration:none; font-size:0.85rem; font-family:monospace;">Directory</a>
+        <a href="combine.html" style="color:#94a3b8; text-decoration:none; font-size:0.85rem; font-family:monospace;">Combine</a>
+        <a href="login.html" class="btn secondary" style="padding:0.45rem 1rem; font-size:0.85rem;">Log In</a>
+        <a href="signup.html" class="btn primary" style="padding:0.45rem 1.1rem; font-size:0.85rem;">Sign Up</a>
       </div>
-
     </div>
+  </nav>
 
-    <!-- Mandatory Lifelong Tracking Mission Statement Banner -->
-    <div class="border-t border-slate-800/80 bg-slate-950/90">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-1.5 flex flex-wrap items-center justify-between gap-2 text-xs">
-        <div class="flex items-center gap-2 min-w-0">
-          <span class="px-2 py-0.5 rounded-md bg-sky-500/20 text-sky-300 font-mono text-[10px] font-bold shrink-0">MISSION</span>
-          <p class="text-[11px] text-slate-400 truncate">
-            BlueLine DataWorks is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory.
-          </p>
-        </div>
-        <div class="flex items-center gap-3 font-mono text-[10px] text-sky-400 shrink-0 hidden md:flex">
-          <span>52 Live Feeds</span>
-          <span>•</span>
-          <span>190 Monitored Programs</span>
-          <span>•</span>
-          <span>4,019+ Active Athletes</span>
-        </div>
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero-content">
+      <h1>Build Your Hockey Pathway. Level Up Your Game.</h1>
+      <p>Your skills. Your highlights. Your journey. One app.</p>
+      <div class="hero-buttons">
+        <a href="signup.html" class="btn primary">Start My Pathway</a>
+        <a href="login.html" class="btn secondary">Log In</a>
+        <a href="app.html" class="btn demo">⚡ Explore Live Dashboard</a>
       </div>
     </div>
   </header>
 
-  <!-- ==================== HERO SECTION ==================== -->
-  <section class="relative pt-12 sm:pt-20 pb-16 sm:pb-24 overflow-hidden border-b border-slate-800/80">
-    <!-- Ambient Background Glows -->
-    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-gradient-to-b from-sky-600/15 via-blue-600/5 to-transparent blur-3xl pointer-events-none"></div>
-    <div class="absolute top-1/3 -left-32 w-80 h-80 bg-cyan-600/10 rounded-full blur-3xl pointer-events-none"></div>
-    <div class="absolute top-1/4 -right-32 w-80 h-80 bg-indigo-600/10 rounded-full blur-3xl pointer-events-none"></div>
+  <!-- BLURRED DASHBOARD TEASER -->
+  <section class="section blurred-dashboard">
+    <h2>Your Personal Hockey Dashboard</h2>
+    <p>See your tier, XP, skills, missions, and highlights—all in one place.</p>
+    <div class="dashboard-preview locked">
+      <div class="overlay">
+        <span class="lock-icon">🔒</span>
+        <p>Log in to unlock your personal dashboard.</p>
+        <div style="display:flex; gap:0.75rem; flex-wrap:wrap; justify-content:center;">
+          <a href="login.html" class="btn primary">Log In Now</a>
+          <a href="signup.html" class="btn secondary">Sign Up Free</a>
+          <a href="app.html" class="btn demo">View App Demo</a>
+        </div>
+      </div>
+      <!-- Fake layout boxes with rich preview cards behind blur -->
+      <div class="preview-grid">
+        <div class="preview-card">
+          <div class="card-title">Tier Badge</div>
+          <div class="card-val">Tier 6</div>
+          <span style="font-size:0.75rem; color:#38bdf8; margin-top:0.25rem;">Varsity / USHL Track</span>
+        </div>
+        <div class="preview-card">
+          <div class="card-title">XP Bar</div>
+          <div class="card-val">14,850 XP</div>
+          <span style="font-size:0.75rem; color:#34d399; margin-top:0.25rem;">Level 24 • +350 Today</span>
+        </div>
+        <div class="preview-card">
+          <div class="card-title">Skill Rings</div>
+          <div class="card-val">94.6 OVR</div>
+          <span style="font-size:0.75rem; color:#a78bfa; margin-top:0.25rem;">Skating • IQ • Shot</span>
+        </div>
+        <div class="preview-card">
+          <div class="card-title">Daily Missions</div>
+          <div class="card-val">3 Active</div>
+          <span style="font-size:0.75rem; color:#f59e0b; margin-top:0.25rem;">50 Shots • 30m Sprint</span>
+        </div>
+        <div class="preview-card">
+          <div class="card-title">Highlight Reel</div>
+          <div class="card-val">12 Plays</div>
+          <span style="font-size:0.75rem; color:#ec4899; margin-top:0.25rem;">Zone Entries • xG</span>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-12">
+  <!-- DEMO PLAYER PREVIEW -->
+  <section class="section demo-player">
+    <h2>See What Your Profile Can Look Like</h2>
+    <div class="demo-card">
+      <h3>
+        <span>Alex Carter — Tier 6 Forward</span>
+        <span class="demo-badge">#17 • Chicago Mission AAA</span>
+      </h3>
+      <p>Skill rings, XP, highlights, combine results, and more.</p>
+      <div class="demo-stats locked">
+        <span class="lock-icon">🔒</span>
+        <p>Your profile will look like this once you log in.</p>
+        <div style="display:flex; gap:0.75rem; flex-wrap:wrap; justify-content:center;">
+          <a href="signup.html" class="btn primary" style="padding:0.6rem 1.25rem;">Create My Profile</a>
+          <a href="app.html" class="btn secondary" style="padding:0.6rem 1.25rem;">Preview Sample Profile</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOCKED FEATURE CARDS -->
+  <section class="section features">
+    <h2>Powerful Hockey Features</h2>
+    <div class="feature-grid">
       
-      <!-- Center Hero Copy -->
-      <div class="text-center max-w-3xl mx-auto space-y-6">
-        
-        <!-- Category Badge -->
-        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-sky-500/10 border border-sky-500/30 text-sky-300 text-xs font-mono">
-          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-          <span>THE LIFELONG ATHLETE OPERATING SYSTEM</span>
+      <div class="feature-card locked">
+        <div>
+          <h3>AI Video Breakdown</h3>
+          <p>Upload clips. Get instant feedback on your skating, shooting, and defense.</p>
         </div>
-
-        <!-- Headline -->
-        <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-white tracking-tight leading-[1.1]">
-          From First Competitive Stride <br class="hidden sm:block">
-          <span class="bg-gradient-to-r from-sky-400 via-cyan-200 to-blue-400 bg-clip-text text-transparent">To Pro Draft Day.</span>
-        </h1>
-
-        <!-- Subheadline -->
-        <p class="text-base sm:text-lg md:text-xl text-slate-300 leading-relaxed max-w-2xl mx-auto">
-          BlueLine DataWorks provides scouts, coaches, and athletes with a single, unbroken view of athletic evolution — blending 52 continuous feeds, 190 monitored programs, combine hardware telemetry, and tamper-evident genesis passports.
-        </p>
-
-        <!-- CTAs -->
-        <div class="flex flex-wrap items-center justify-center gap-3 sm:gap-4 pt-2 font-mono text-xs sm:text-sm">
-          <a href="signup.html" class="px-6 py-3.5 rounded-2xl bg-gradient-to-r from-sky-600 via-cyan-600 to-blue-600 hover:from-sky-500 hover:to-blue-500 text-white font-black shadow-xl shadow-sky-600/30 transition active:scale-95 flex items-center gap-2">
-            <span>⚡ Mint Free Athlete Passport</span>
-            <span>→</span>
-          </a>
-          <a href="login.html" class="px-6 py-3.5 rounded-2xl bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-slate-700 text-slate-200 font-bold transition flex items-center gap-2">
-            <span>🔑 Sign In</span>
-          </a>
-          <a href="app.html" class="px-6 py-3.5 rounded-2xl bg-emerald-950/60 hover:bg-emerald-900/70 border border-emerald-800/60 text-emerald-300 font-bold transition flex items-center gap-2">
-            <span>🚀 Explore App Dashboard</span>
-          </a>
-        </div>
-
-        <!-- Trust Subtext -->
-        <p class="text-[11px] text-slate-500 font-mono">
-          ✓ Zero credit card required • Active across NCAA D1, USHL, CHL & Tier 1 AAA • 100% Cryptographic Ledger Protected
-        </p>
-
+        <a href="login.html" class="lock-icon">🔒 Log in to unlock</a>
       </div>
 
-      <!-- Hero Interactive Preview Card (Michael Hage Sample Dossier) -->
-      <div class="max-w-5xl mx-auto glass-panel p-5 sm:p-8 rounded-3xl border border-sky-500/30 shadow-2xl shadow-black/80 relative overflow-hidden space-y-6">
-        <div class="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-slate-800">
-          <div class="flex items-center gap-3.5">
-            <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-cyan-600 to-blue-800 flex items-center justify-center text-2xl shadow-lg shadow-sky-500/20 shrink-0">
-              ⚡
-            </div>
-            <div>
-              <div class="flex items-center gap-2">
-                <h3 class="text-lg sm:text-xl font-bold text-white">Michael Hage</h3>
-                <span class="px-2 py-0.5 rounded bg-sky-500/20 text-sky-300 text-xs font-mono font-bold">#13 • C</span>
-                <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 text-[10px] font-mono font-bold">VERIFIED PASSPORT</span>
-              </div>
-              <p class="text-xs text-slate-400 font-mono">University of Michigan • NCAA Division I Men (Big Ten) • MTL 1st Rd (#21)</p>
-            </div>
-          </div>
-          <div class="flex items-center gap-2">
-            <span class="text-xs font-mono text-slate-400">Live Telemetry:</span>
-            <span class="px-2.5 py-1 rounded-lg bg-sky-950 border border-sky-500/40 text-sky-300 font-mono text-xs font-bold">94.6 Composite Index</span>
-            <a href="app.html" class="px-3 py-1 rounded-lg bg-sky-600 hover:bg-sky-500 text-white font-bold text-xs transition">Open in App →</a>
-          </div>
+      <div class="feature-card locked">
+        <div>
+          <h3>Hockey IQ Simulator</h3>
+          <p>Make the right decision in real game scenarios and earn IQ XP.</p>
         </div>
+        <a href="login.html" class="lock-icon">🔒 Log in to unlock</a>
+      </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
-          <!-- 6-Pillar Skill Wheel Radar Chart -->
-          <div class="md:col-span-6 bg-slate-900/60 p-4 rounded-2xl border border-slate-800/80 flex flex-col items-center">
-            <div class="text-xs font-mono text-slate-400 uppercase mb-2 flex items-center justify-between w-full">
-              <span>6-Pillar Biometric & Skill Wheel</span>
-              <span class="text-sky-400">95th Percentile Norm</span>
-            </div>
-            <div class="w-full max-w-xs h-60">
-              <canvas id="heroRadarChart"></canvas>
-            </div>
-          </div>
-
-          <!-- Quick Telemetry & Event Micro-Logs -->
-          <div class="md:col-span-6 space-y-3">
-            <div class="grid grid-cols-2 gap-3 font-mono text-xs">
-              <div class="bg-slate-900/80 p-3 rounded-xl border border-slate-800">
-                <span class="text-[10px] text-slate-400 block uppercase">30m On-Ice Speed</span>
-                <span class="text-base font-bold text-sky-400">3.82 sec</span>
-                <span class="text-[9px] text-emerald-400 block">Top 3% USHL/NCAA</span>
-              </div>
-              <div class="bg-slate-900/80 p-3 rounded-xl border border-slate-800">
-                <span class="text-[10px] text-slate-400 block uppercase">Vertical Jump</span>
-                <span class="text-base font-bold text-emerald-400">31.5 in</span>
-                <span class="text-[9px] text-emerald-400 block">Combine Hardware Norm</span>
-              </div>
-              <div class="bg-slate-900/80 p-3 rounded-xl border border-slate-800">
-                <span class="text-[10px] text-slate-400 block uppercase">Controlled Zone Entries</span>
-                <span class="text-base font-bold text-cyan-400">76.4%</span>
-                <span class="text-[9px] text-cyan-300 block">+14.2% Rel Benchmark</span>
-              </div>
-              <div class="bg-slate-900/80 p-3 rounded-xl border border-slate-800">
-                <span class="text-[10px] text-slate-400 block uppercase">NCAA Academic Core</span>
-                <span class="text-base font-bold text-amber-400">3.85 GPA</span>
-                <span class="text-[9px] text-amber-300 block">16/16 Core Courses</span>
-              </div>
-            </div>
-
-            <!-- Cryptographic Ledger Provenance Stamp -->
-            <div class="p-3 bg-slate-950/80 rounded-xl border border-slate-800 font-mono text-xs space-y-1">
-              <div class="flex items-center justify-between text-[10px] text-slate-400">
-                <span class="text-sky-400 font-bold">HMAC-SHA256 Genesis Ledger Block</span>
-                <span class="text-emerald-400">✓ Cryptographically Sealed</span>
-              </div>
-              <div class="text-[11px] text-slate-300 truncate">Hash: 0x9f7a83e0cb214ea7f49f7a31b4028fa7</div>
-              <div class="text-[10px] text-slate-500">Continuous hardware telemetry synced via Catapult & 1080 Sprint</div>
-            </div>
-          </div>
+      <div class="feature-card locked">
+        <div>
+          <h3>Tier Progression System</h3>
+          <p>Climb from Tier 1 to Tier 10 with clear goals and milestones.</p>
         </div>
+        <a href="login.html" class="lock-icon">🔒 Log in to unlock</a>
+      </div>
 
+      <div class="feature-card locked">
+        <div>
+          <h3>Daily Missions</h3>
+          <p>Personalized training tasks based on your position and weaknesses.</p>
+        </div>
+        <a href="login.html" class="lock-icon">🔒 Log in to unlock</a>
+      </div>
+
+      <div class="feature-card locked">
+        <div>
+          <h3>Combine Mode</h3>
+          <p>Run your own combine and track speed, agility, and shooting.</p>
+        </div>
+        <a href="login.html" class="lock-icon">🔒 Log in to unlock</a>
+      </div>
+
+      <div class="feature-card locked">
+        <div>
+          <h3>Recruiting Profile</h3>
+          <p>Showcase your skills, highlights, and combine results to scouts.</p>
+        </div>
+        <a href="login.html" class="lock-icon">🔒 Log in to unlock</a>
       </div>
 
     </div>
   </section>
 
-  <!-- ==================== LIVE ECOSYSTEM METRICS RIBBON ==================== -->
-  <section class="border-b border-slate-800/80 bg-slate-950/60 py-8">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-2 md:grid-cols-5 gap-6 text-center font-mono">
-        
-        <div class="space-y-1">
-          <div class="text-2xl sm:text-3xl font-black text-sky-400">4,019+</div>
-          <div class="text-xs text-slate-400 uppercase tracking-wider font-bold">Monitored Athletes</div>
-          <div class="text-[10px] text-slate-500">U14 AAA to NCAA / Minor-Pro</div>
-        </div>
-
-        <div class="space-y-1">
-          <div class="text-2xl sm:text-3xl font-black text-cyan-400">190</div>
-          <div class="text-xs text-slate-400 uppercase tracking-wider font-bold">Monitored Programs</div>
-          <div class="text-[10px] text-slate-500">NCAA D1/D3, USHL, CHL</div>
-        </div>
-
-        <div class="space-y-1">
-          <div class="text-2xl sm:text-3xl font-black text-emerald-400">52</div>
-          <div class="text-xs text-slate-400 uppercase tracking-wider font-bold">Live Data Feeds</div>
-          <div class="text-[10px] text-slate-500">NCAA, USHL, EliteProspects, InStat</div>
-        </div>
-
-        <div class="space-y-1">
-          <div class="text-2xl sm:text-3xl font-black text-amber-400">24</div>
-          <div class="text-xs text-slate-400 uppercase tracking-wider font-bold">Crawler Swarm Bots</div>
-          <div class="text-[10px] text-slate-500">Autonomous Ingestion Swarm</div>
-        </div>
-
-        <div class="col-span-2 md:col-span-1 space-y-1">
-          <div class="text-2xl sm:text-3xl font-black text-purple-400">100%</div>
-          <div class="text-xs text-slate-400 uppercase tracking-wider font-bold">Immutable Ledger</div>
-          <div class="text-[10px] text-slate-500">HMAC-SHA256 Provenance</div>
-        </div>
-
-      </div>
-    </div>
+  <!-- WHY SECTION -->
+  <section class="section why">
+    <h2>Why Players Use PuckPathway</h2>
+    <ul>
+      <li>Train smarter, not just harder.</li>
+      <li>See real progress in your skills.</li>
+      <li>Improve your hockey IQ.</li>
+      <li>Get feedback on your game.</li>
+      <li>Build a recruiting‑ready profile.</li>
+    </ul>
   </section>
 
-  <!-- ==================== WHO WE SERVE (SOLUTIONS BY PERSONA) ==================== -->
-  <section id="audiences" class="py-16 sm:py-24 border-b border-slate-800/80 relative">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-      
-      <div class="text-center max-w-2xl mx-auto space-y-3">
-        <h2 class="text-xs font-mono uppercase tracking-wider text-sky-400 font-bold">Comprehensive Solutions</h2>
-        <h3 class="text-3xl sm:text-4xl font-black text-white tracking-tight">Built for Every Hockey Stakeholder</h3>
-        <p class="text-sm sm:text-base text-slate-300">
-          Whether you are an aspiring athlete aiming for NCAA Division I, a head coach scouting the transfer portal, or an NHL scout grading draft prospects.
-        </p>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        
-        <!-- Persona 1: Athletes & Families -->
-        <div class="glass-panel p-6 rounded-3xl border border-sky-500/20 hover:border-sky-500/40 transition flex flex-col justify-between space-y-4">
-          <div class="space-y-3">
-            <div class="w-12 h-12 rounded-2xl bg-sky-600/20 text-sky-400 flex items-center justify-center text-2xl">⚡</div>
-            <h4 class="text-lg font-bold text-white">Athletes & Families</h4>
-            <p class="text-xs text-slate-400 leading-relaxed">
-              Take ownership of your verified hockey dossier. Track combine biometrics, protect your NCAA core eligibility, and benchmark your trajectory against national draft cohorts.
-            </p>
-            <ul class="text-xs text-slate-300 font-mono space-y-1.5 pt-2">
-              <li class="flex items-center gap-1.5"><span class="text-emerald-400">✓</span> Cryptographic Genesis Passport</li>
-              <li class="flex items-center gap-1.5"><span class="text-emerald-400">✓</span> 16 NCAA Core Course Tracker</li>
-              <li class="flex items-center gap-1.5"><span class="text-emerald-400">✓</span> Combine Biometric Norming</li>
-            </ul>
-          </div>
-          <a href="signup.html" class="w-full py-2.5 rounded-xl bg-sky-600/20 hover:bg-sky-600/30 text-sky-300 border border-sky-500/40 text-xs font-bold text-center block transition">
-            Create Athlete Passport →
-          </a>
-        </div>
-
-        <!-- Persona 2: NCAA & Junior Coaches -->
-        <div class="glass-panel p-6 rounded-3xl border border-emerald-500/20 hover:border-emerald-500/40 transition flex flex-col justify-between space-y-4">
-          <div class="space-y-3">
-            <div class="w-12 h-12 rounded-2xl bg-emerald-600/20 text-emerald-400 flex items-center justify-center text-2xl">🏒</div>
-            <h4 class="text-lg font-bold text-white">NCAA & Junior Coaches</h4>
-            <p class="text-xs text-slate-400 leading-relaxed">
-              Instant transfer portal radar across 190 institutions. Simulate 60-second shift duels, evaluate 200ft micro-events, and build championship roster depth with data confidence.
-            </p>
-            <ul class="text-xs text-slate-300 font-mono space-y-1.5 pt-2">
-              <li class="flex items-center gap-1.5"><span class="text-emerald-400">✓</span> Real-Time Transfer Portal Radar</li>
-              <li class="flex items-center gap-1.5"><span class="text-emerald-400">✓</span> 60-Second Shift Duel Simulator</li>
-              <li class="flex items-center gap-1.5"><span class="text-emerald-400">✓</span> 200ft Micro-Event Tracking</li>
-            </ul>
-          </div>
-          <a href="login.html" class="w-full py-2.5 rounded-xl bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-300 border border-emerald-500/40 text-xs font-bold text-center block transition">
-            Coach Portal Access →
-          </a>
-        </div>
-
-        <!-- Persona 3: Pro & Amateur Scouts -->
-        <div class="glass-panel p-6 rounded-3xl border border-amber-500/20 hover:border-amber-500/40 transition flex flex-col justify-between space-y-4">
-          <div class="space-y-3">
-            <div class="w-12 h-12 rounded-2xl bg-amber-600/20 text-amber-400 flex items-center justify-center text-2xl">🔍</div>
-            <h4 class="text-lg font-bold text-white">Pro & Amateur Scouts</h4>
-            <p class="text-xs text-slate-400 leading-relaxed">
-              Cut through marketing noise with objective hardware combine percentiles, comparable cohort finding, Catapult workload analytics, and immutable ledger verification.
-            </p>
-            <ul class="text-xs text-slate-300 font-mono space-y-1.5 pt-2">
-              <li class="flex items-center gap-1.5"><span class="text-emerald-400">✓</span> 4,019+ Player Master Registry</li>
-              <li class="flex items-center gap-1.5"><span class="text-emerald-400">✓</span> Catapult & 1080 Sprint Norms</li>
-              <li class="flex items-center gap-1.5"><span class="text-emerald-400">✓</span> Draft Projection Modeling</li>
-            </ul>
-          </div>
-          <a href="login.html" class="w-full py-2.5 rounded-xl bg-amber-600/20 hover:bg-amber-600/30 text-amber-300 border border-amber-500/40 text-xs font-bold text-center block transition">
-            Scouting Bureau Login →
-          </a>
-        </div>
-
-        <!-- Persona 4: Family Advisors -->
-        <div class="glass-panel p-6 rounded-3xl border border-purple-500/20 hover:border-purple-500/40 transition flex flex-col justify-between space-y-4">
-          <div class="space-y-3">
-            <div class="w-12 h-12 rounded-2xl bg-purple-600/20 text-purple-400 flex items-center justify-center text-2xl">👨‍👩‍👦</div>
-            <h4 class="text-lg font-bold text-white">Family Advisors</h4>
-            <p class="text-xs text-slate-400 leading-relaxed">
-              Navigate junior hockey rights, NCAA amateurism regulations, NIL market valuations, and long-term academic roadmaps with institutional clarity.
-            </p>
-            <ul class="text-xs text-slate-300 font-mono space-y-1.5 pt-2">
-              <li class="flex items-center gap-1.5"><span class="text-emerald-400">✓</span> NIL Valuation & Market Lab</li>
-              <li class="flex items-center gap-1.5"><span class="text-emerald-400">✓</span> NCAA Amateurism Compliance</li>
-              <li class="flex items-center gap-1.5"><span class="text-emerald-400">✓</span> Exportable Digital Passports</li>
-            </ul>
-          </div>
-          <a href="signup.html" class="w-full py-2.5 rounded-xl bg-purple-600/20 hover:bg-purple-600/30 text-purple-300 border border-purple-500/40 text-xs font-bold text-center block transition">
-            Family Advisor Access →
-          </a>
-        </div>
-
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ==================== 5 CORE ARCHITECTURAL PILLARS ==================== -->
-  <section id="features" class="py-16 sm:py-24 border-b border-slate-800/80 bg-slate-950/40">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-      
-      <div class="text-center max-w-2xl mx-auto space-y-3">
-        <h2 class="text-xs font-mono uppercase tracking-wider text-sky-400 font-bold">Platform Architecture</h2>
-        <h3 class="text-3xl sm:text-4xl font-black text-white tracking-tight">The 5 Pillars of Lifelong Trajectory</h3>
-        <p class="text-sm sm:text-base text-slate-300">
-          BlueLine DataWorks was engineered from the ice up to solve the fragmented nature of hockey development data.
-        </p>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        
-        <!-- Pillar 1 -->
-        <div class="glass-panel p-6 rounded-3xl border border-slate-800 space-y-3">
-          <div class="w-10 h-10 rounded-xl bg-sky-500/20 text-sky-400 flex items-center justify-center font-bold font-mono">01</div>
-          <h4 class="text-lg font-bold text-white">The Lifelong Trajectory Index</h4>
-          <p class="text-xs text-slate-400 leading-relaxed">
-            Multi-tier progression modeling connecting U14 AAA tournaments, junior leagues (USHL, BCHL, CHL), NCAA collegiate play, and professional draft boards into a single cohesive curve.
-          </p>
-        </div>
-
-        <!-- Pillar 2 -->
-        <div class="glass-panel p-6 rounded-3xl border border-slate-800 space-y-3">
-          <div class="w-10 h-10 rounded-xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center font-bold font-mono">02</div>
-          <h4 class="text-lg font-bold text-white">Combine Lab & Hardware Telemetry</h4>
-          <p class="text-xs text-slate-400 leading-relaxed">
-            Direct integration with 1080 Sprint, laser timing gates, force plates, and jump telemetry. Normalizes raw athlete physics against verified national age cohorts.
-          </p>
-        </div>
-
-        <!-- Pillar 3 -->
-        <div class="glass-panel p-6 rounded-3xl border border-slate-800 space-y-3">
-          <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold font-mono">03</div>
-          <h4 class="text-lg font-bold text-white">Transfer Portal & Institutional Radar</h4>
-          <p class="text-xs text-slate-400 leading-relaxed">
-            Monitors 190 institutional programs across NCAA D1, NCAA D3, and Major Junior. Real-time roster depth tracking, portal entries, and roster vacancy matching.
-          </p>
-        </div>
-
-        <!-- Pillar 4 -->
-        <div class="glass-panel p-6 rounded-3xl border border-slate-800 space-y-3">
-          <div class="w-10 h-10 rounded-xl bg-purple-500/20 text-purple-400 flex items-center justify-center font-bold font-mono">04</div>
-          <h4 class="text-lg font-bold text-white">200ft Micro-Events & Shift Duels</h4>
-          <p class="text-xs text-slate-400 leading-relaxed">
-            Goes far beyond basic goals and assists. Evaluates controlled zone entries, gap control, slot pass completions, puck battle win rates, and expected goal differential (xG).
-          </p>
-        </div>
-
-        <!-- Pillar 5 -->
-        <div class="glass-panel p-6 rounded-3xl border border-slate-800 space-y-3">
-          <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold font-mono">05</div>
-          <h4 class="text-lg font-bold text-white">Immutable Cryptographic Passports</h4>
-          <p class="text-xs text-slate-400 leading-relaxed">
-            Every verified biometric test, claim, and combine milestone is cryptographically sealed into an HMAC-SHA256 audit ledger block to guarantee data provenance and authenticity.
-          </p>
-        </div>
-
-        <!-- Callout Tile -->
-        <div class="glass-panel p-6 rounded-3xl border border-sky-500/40 bg-gradient-to-br from-sky-950/40 to-blue-950/40 flex flex-col justify-between space-y-3">
-          <div class="space-y-2">
-            <span class="text-[10px] font-mono uppercase tracking-widest text-sky-300 font-bold">READY TO TEST?</span>
-            <h4 class="text-lg font-bold text-white">Launch the Interactive Dashboard</h4>
-            <p class="text-xs text-slate-300">Experience the athlete command center with pre-loaded Michael Hage NCAA D1 telemetry.</p>
-          </div>
-          <a href="app.html" class="py-2.5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-bold text-xs text-center transition shadow-lg shadow-sky-600/30">
-            Open Player OS Dashboard →
-          </a>
-        </div>
-
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ==================== COMPLETE 22 ENTERPRISE MODULES DIRECTORY ==================== -->
-  <section id="modules" class="py-16 sm:py-24 border-b border-slate-800/80">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-      
-      <div class="text-center max-w-3xl mx-auto space-y-3">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 text-xs font-mono">
-          <span>❖ Complete Analytics Grid</span>
-        </div>
-        <h3 class="text-3xl sm:text-4xl font-black text-white tracking-tight">22 Interconnected Enterprise Modules</h3>
-        <p class="text-sm sm:text-base text-slate-300">
-          Every tool within the BlueLine DataWorks OS shares synchronized player states, biometric audit ledger blocks, and 190-institutional intelligence.
-        </p>
-      </div>
-
-      <!-- 22 Modules Grid -->
-      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 font-mono text-xs">
-        
-        <a href="app.html" class="glass-panel p-4 rounded-2xl border border-sky-500/30 hover:border-sky-400 transition group flex flex-col justify-between h-36">
-          <div class="text-2xl group-hover:scale-110 transition">⚡</div>
-          <div>
-            <span class="text-sky-400 font-bold block text-sm group-hover:text-sky-300">Player OS</span>
-            <span class="text-[10px] text-slate-400 line-clamp-2">Logged-in command dashboard with internal tabs.</span>
-          </div>
-        </a>
-
-        <a href="database.html" class="glass-panel p-4 rounded-2xl border border-slate-800 hover:border-sky-500/50 transition group flex flex-col justify-between h-36">
-          <div class="text-2xl group-hover:scale-110 transition">📊</div>
-          <div>
-            <span class="text-white font-bold block text-sm group-hover:text-sky-400">Master Directory</span>
-            <span class="text-[10px] text-slate-400 line-clamp-2">4,019+ amateur prospects & 190 programs.</span>
-          </div>
-        </a>
-
-        <a href="scoreboard.html" class="glass-panel p-4 rounded-2xl border border-slate-800 hover:border-sky-500/50 transition group flex flex-col justify-between h-36">
-          <div class="text-2xl group-hover:scale-110 transition">📡</div>
-          <div>
-            <span class="text-white font-bold block text-sm group-hover:text-sky-400">Live Game Center</span>
-            <span class="text-[10px] text-slate-400 line-clamp-2">Live score ticker & 200ft shift tracking.</span>
-          </div>
-        </a>
-
-        <a href="combine.html" class="glass-panel p-4 rounded-2xl border border-slate-800 hover:border-sky-500/50 transition group flex flex-col justify-between h-36">
-          <div class="text-2xl group-hover:scale-110 transition">🧪</div>
-          <div>
-            <span class="text-white font-bold block text-sm group-hover:text-sky-400">Combine Lab</span>
-            <span class="text-[10px] text-slate-400 line-clamp-2">1080 Sprint, laser gates & force plates.</span>
-          </div>
-        </a>
-
-        <a href="tactics.html" class="glass-panel p-4 rounded-2xl border border-slate-800 hover:border-sky-500/50 transition group flex flex-col justify-between h-36">
-          <div class="text-2xl group-hover:scale-110 transition">📋</div>
-          <div>
-            <span class="text-white font-bold block text-sm group-hover:text-sky-400">Tactics Board</span>
-            <span class="text-[10px] text-slate-400 line-clamp-2">60-second shift duel simulation & systems.</span>
-          </div>
-        </a>
-
-        <a href="crease.html" class="glass-panel p-4 rounded-2xl border border-slate-800 hover:border-sky-500/50 transition group flex flex-col justify-between h-36">
-          <div class="text-2xl group-hover:scale-110 transition">🥅</div>
-          <div>
-            <span class="text-white font-bold block text-sm group-hover:text-sky-400">Crease IQ</span>
-            <span class="text-[10px] text-slate-400 line-clamp-2">Goalie analytics, xGA & depth tracking.</span>
-          </div>
-        </a>
-
-        <a href="pathway.html" class="glass-panel p-4 rounded-2xl border border-slate-800 hover:border-sky-500/50 transition group flex flex-col justify-between h-36">
-          <div class="text-2xl group-hover:scale-110 transition">🗺️</div>
-          <div>
-            <span class="text-white font-bold block text-sm group-hover:text-sky-400">Pathway Engine</span>
-            <span class="text-[10px] text-slate-400 line-clamp-2">NCAA D1 eligibility & course tracking.</span>
-          </div>
-        </a>
-
-        <a href="portal.html" class="glass-panel p-4 rounded-2xl border border-slate-800 hover:border-sky-500/50 transition group flex flex-col justify-between h-36">
-          <div class="text-2xl group-hover:scale-110 transition">🔄</div>
-          <div>
-            <span class="text-white font-bold block text-sm group-hover:text-sky-400">Transfer Portal</span>
-            <span class="text-[10px] text-slate-400 line-clamp-2">Real-time collegiate portal entries & radar.</span>
-          </div>
-        </a>
-
-        <a href="draft.html" class="glass-panel p-4 rounded-2xl border border-slate-800 hover:border-sky-500/50 transition group flex flex-col justify-between h-36">
-          <div class="text-2xl group-hover:scale-110 transition">🎯</div>
-          <div>
-            <span class="text-white font-bold block text-sm group-hover:text-sky-400">Draft Board</span>
-            <span class="text-[10px] text-slate-400 line-clamp-2">NHL entry draft projections & scouting board.</span>
-          </div>
-        </a>
-
-        <a href="caplab.html" class="glass-panel p-4 rounded-2xl border border-slate-800 hover:border-sky-500/50 transition group flex flex-col justify-between h-36">
-          <div class="text-2xl group-hover:scale-110 transition">💰</div>
-          <div>
-            <span class="text-white font-bold block text-sm group-hover:text-sky-400">CapLab</span>
-            <span class="text-[10px] text-slate-400 line-clamp-2">Roster payroll, bonus modeling & contracts.</span>
-          </div>
-        </a>
-
-        <a href="rink3d.html" class="glass-panel p-4 rounded-2xl border border-slate-800 hover:border-sky-500/50 transition group flex flex-col justify-between h-36">
-          <div class="text-2xl group-hover:scale-110 transition">🧊</div>
-          <div>
-            <span class="text-white font-bold block text-sm group-hover:text-sky-400">3D Rink</span>
-            <span class="text-[10px] text-slate-400 line-clamp-2">Interactive 3D spatial event mapping.</span>
-          </div>
-        </a>
-
-        <a href="film.html" class="glass-panel p-4 rounded-2xl border border-slate-800 hover:border-sky-500/50 transition group flex flex-col justify-between h-36">
-          <div class="text-2xl group-hover:scale-110 transition">🎥</div>
-          <div>
-            <span class="text-white font-bold block text-sm group-hover:text-sky-400">Film Studio</span>
-            <span class="text-[10px] text-slate-400 line-clamp-2">Video telestration & shift tagging.</span>
-          </div>
-        </a>
-
-        <a href="tracking.html" class="glass-panel p-4 rounded-2xl border border-slate-800 hover:border-sky-500/50 transition group flex flex-col justify-between h-36">
-          <div class="text-2xl group-hover:scale-110 transition">🛰️</div>
-          <div>
-            <span class="text-white font-bold block text-sm group-hover:text-sky-400">Tracking Lab</span>
-            <span class="text-[10px] text-slate-400 line-clamp-2">Optical player & puck tracking sensors.</span>
-          </div>
-        </a>
-
-        <a href="compare.html" class="glass-panel p-4 rounded-2xl border border-slate-800 hover:border-sky-500/50 transition group flex flex-col justify-between h-36">
-          <div class="text-2xl group-hover:scale-110 transition">⚖️</div>
-          <div>
-            <span class="text-white font-bold block text-sm group-hover:text-sky-400">Compare Lab</span>
-            <span class="text-[10px] text-slate-400 line-clamp-2">Head-to-head prospect radar benchmarking.</span>
-          </div>
-        </a>
-
-        <a href="tournament.html" class="glass-panel p-4 rounded-2xl border border-slate-800 hover:border-sky-500/50 transition group flex flex-col justify-between h-36">
-          <div class="text-2xl group-hover:scale-110 transition">🏆</div>
-          <div>
-            <span class="text-white font-bold block text-sm group-hover:text-sky-400">Tournament Hub</span>
-            <span class="text-[10px] text-slate-400 line-clamp-2">NCAA Frozen Four & national brackets.</span>
-          </div>
-        </a>
-
-        <a href="market.html" class="glass-panel p-4 rounded-2xl border border-slate-800 hover:border-sky-500/50 transition group flex flex-col justify-between h-36">
-          <div class="text-2xl group-hover:scale-110 transition">📈</div>
-          <div>
-            <span class="text-white font-bold block text-sm group-hover:text-sky-400">Market & NIL</span>
-            <span class="text-[10px] text-slate-400 line-clamp-2">Collegiate NIL valuation & market indexes.</span>
-          </div>
-        </a>
-
-        <a href="community.html" class="glass-panel p-4 rounded-2xl border border-slate-800 hover:border-sky-500/50 transition group flex flex-col justify-between h-36">
-          <div class="text-2xl group-hover:scale-110 transition">🌐</div>
-          <div>
-            <span class="text-white font-bold block text-sm group-hover:text-sky-400">The Wire</span>
-            <span class="text-[10px] text-slate-400 line-clamp-2">Scouting intelligence & real-time feed.</span>
-          </div>
-        </a>
-
-        <a href="international.html" class="glass-panel p-4 rounded-2xl border border-slate-800 hover:border-sky-500/50 transition group flex flex-col justify-between h-36">
-          <div class="text-2xl group-hover:scale-110 transition">🌍</div>
-          <div>
-            <span class="text-white font-bold block text-sm group-hover:text-sky-400">International</span>
-            <span class="text-[10px] text-slate-400 line-clamp-2">World Juniors & European prospects.</span>
-          </div>
-        </a>
-
-        <a href="broadcast_ai.html" class="glass-panel p-4 rounded-2xl border border-slate-800 hover:border-sky-500/50 transition group flex flex-col justify-between h-36">
-          <div class="text-2xl group-hover:scale-110 transition">🎙️</div>
-          <div>
-            <span class="text-white font-bold block text-sm group-hover:text-sky-400">Broadcast AI</span>
-            <span class="text-[10px] text-slate-400 line-clamp-2">Automated commentary & game recap scripts.</span>
-          </div>
-        </a>
-
-        <a href="security.html" class="glass-panel p-4 rounded-2xl border border-slate-800 hover:border-sky-500/50 transition group flex flex-col justify-between h-36">
-          <div class="text-2xl group-hover:scale-110 transition">🛡️</div>
-          <div>
-            <span class="text-white font-bold block text-sm group-hover:text-sky-400">Cyber Shield</span>
-            <span class="text-[10px] text-slate-400 line-clamp-2">HMAC-SHA256 audit ledger verification.</span>
-          </div>
-        </a>
-
-        <a href="agents.html" class="glass-panel p-4 rounded-2xl border border-slate-800 hover:border-sky-500/50 transition group flex flex-col justify-between h-36">
-          <div class="text-2xl group-hover:scale-110 transition">🤖</div>
-          <div>
-            <span class="text-white font-bold block text-sm group-hover:text-sky-400">Crawler Swarm</span>
-            <span class="text-[10px] text-slate-400 line-clamp-2">24 autonomous agents & 52 live feeds.</span>
-          </div>
-        </a>
-
-        <a href="player.html" class="glass-panel p-4 rounded-2xl border border-slate-800 hover:border-sky-500/50 transition group flex flex-col justify-between h-36">
-          <div class="text-2xl group-hover:scale-110 transition">👤</div>
-          <div>
-            <span class="text-white font-bold block text-sm group-hover:text-sky-400">Profile Portal</span>
-            <span class="text-[10px] text-slate-400 line-clamp-2">Deep-linked standalone dossier view.</span>
-          </div>
-        </a>
-
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ==================== 190 MONITORED PROGRAMS DIRECTORY ==================== -->
-  <section id="institutions" class="py-16 sm:py-24 border-b border-slate-800/80 bg-slate-950/60">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-      
-      <div class="text-center max-w-3xl mx-auto space-y-3">
-        <h2 class="text-xs font-mono uppercase tracking-wider text-emerald-400 font-bold">Verified Institutional Network</h2>
-        <h3 class="text-3xl sm:text-4xl font-black text-white tracking-tight">190 Monitored Institutional Programs</h3>
-        <p class="text-sm sm:text-base text-slate-300">
-          BlueLine DataWorks ingests verified roster data, transfer portal commitments, and athletic telemetry from top amateur and collegiate leagues across North America.
-        </p>
-      </div>
-
-      <!-- League Badges & Categories -->
-      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 text-center font-mono text-xs">
-        <div class="glass-panel p-4 rounded-2xl border border-slate-800">
-          <div class="text-lg font-black text-sky-400">Big Ten</div>
-          <div class="text-[10px] text-slate-400">NCAA D1 Men</div>
-          <div class="text-[9px] text-slate-500 mt-1">7 Programs (Mich, MSU, Minn...)</div>
-        </div>
-        <div class="glass-panel p-4 rounded-2xl border border-slate-800">
-          <div class="text-lg font-black text-cyan-400">NCHC</div>
-          <div class="text-[10px] text-slate-400">NCAA D1 Men</div>
-          <div class="text-[9px] text-slate-500 mt-1">8 Programs (Denver, UND, UMD...)</div>
-        </div>
-        <div class="glass-panel p-4 rounded-2xl border border-slate-800">
-          <div class="text-lg font-black text-emerald-400">Hockey East</div>
-          <div class="text-[10px] text-slate-400">NCAA D1 Men</div>
-          <div class="text-[9px] text-slate-500 mt-1">11 Programs (BC, BU, Maine...)</div>
-        </div>
-        <div class="glass-panel p-4 rounded-2xl border border-slate-800">
-          <div class="text-lg font-black text-amber-400">ECAC Hockey</div>
-          <div class="text-[10px] text-slate-400">NCAA D1 Men</div>
-          <div class="text-[9px] text-slate-500 mt-1">12 Programs (Quinnipiac, Cornell...)</div>
-        </div>
-        <div class="glass-panel p-4 rounded-2xl border border-slate-800">
-          <div class="text-lg font-black text-purple-400">USHL</div>
-          <div class="text-[10px] text-slate-400">Tier 1 Junior</div>
-          <div class="text-[9px] text-slate-500 mt-1">16 Franchises (Steel, Fargo, NTDP...)</div>
-        </div>
-        <div class="glass-panel p-4 rounded-2xl border border-slate-800">
-          <div class="text-lg font-black text-rose-400">CHL / Prep</div>
-          <div class="text-[10px] text-slate-400">Major Jr & Elite Prep</div>
-          <div class="text-[9px] text-slate-500 mt-1">OHL, WHL, QMJHL, Shattuck</div>
-        </div>
-      </div>
-
-      <div class="text-center">
-        <a href="database.html" class="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-sky-400 font-mono text-xs font-bold transition">
-          <span>Explore All 190 Monitored Programs in Database</span> <span>→</span>
-        </a>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ==================== FAQ ACCORDION ==================== -->
-  <section id="faq" class="py-16 sm:py-24 border-b border-slate-800/80">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
-      
-      <div class="text-center space-y-3">
-        <h2 class="text-xs font-mono uppercase tracking-wider text-sky-400 font-bold">Frequently Asked Questions</h2>
-        <h3 class="text-3xl font-black text-white tracking-tight">Understanding BlueLine DataWorks</h3>
-      </div>
-
-      <div class="space-y-4 text-xs sm:text-sm">
-        
-        <details class="glass-panel p-5 rounded-2xl border border-slate-800 group cursor-pointer">
-          <summary class="font-bold text-white flex items-center justify-between">
-            <span>What makes BlueLine DataWorks different from existing scouting databases?</span>
-            <span class="text-sky-400 group-open:rotate-180 transition">▾</span>
-          </summary>
-          <p class="text-slate-300 mt-3 leading-relaxed">
-            Existing tools only show snapshots at a single point in time (e.g. just draft year or just college stats). BlueLine DataWorks is the only platform that tracks athletes from their earliest competitive stages through professional careers, giving a continuous 360° view of evolution, biometric test percentiles, and academic eligibility.
-          </p>
-        </details>
-
-        <details class="glass-panel p-5 rounded-2xl border border-slate-800 group cursor-pointer">
-          <summary class="font-bold text-white flex items-center justify-between">
-            <span>How does the cryptographic genesis ledger protect athlete data?</span>
-            <span class="text-sky-400 group-open:rotate-180 transition">▾</span>
-          </summary>
-          <p class="text-slate-300 mt-3 leading-relaxed">
-            Every biometric test, combine record, and profile claim generates an HMAC-SHA256 hash block. This ensures that verified combine numbers (such as 1080 Sprint speeds or vertical jump telemetry) cannot be retroactively altered, fabricated, or forged.
-          </p>
-        </details>
-
-        <details class="glass-panel p-5 rounded-2xl border border-slate-800 group cursor-pointer">
-          <summary class="font-bold text-white flex items-center justify-between">
-            <span>Can amateur athletes use BlueLine DataWorks without violating NCAA amateurism?</span>
-            <span class="text-sky-400 group-open:rotate-180 transition">▾</span>
-          </summary>
-          <p class="text-slate-300 mt-3 leading-relaxed">
-            Yes, 100%. BlueLine DataWorks is an analytics, combine tracking, and recruiting intelligence operating system. It complies strictly with NCAA bylaws regarding amateurism and recruitment tracking.
-          </p>
-        </details>
-
-        <details class="glass-panel p-5 rounded-2xl border border-slate-800 group cursor-pointer">
-          <summary class="font-bold text-white flex items-center justify-between">
-            <span>How does the 24-agent crawler swarm update data?</span>
-            <span class="text-sky-400 group-open:rotate-180 transition">▾</span>
-          </summary>
-          <p class="text-slate-300 mt-3 leading-relaxed">
-            Our mesh swarm operates 24 autonomous ingestion agents monitoring 52 live channels across NCAA, USHL, CHL, InStat, and Catapult telemetry. Data updates automatically with sub-second latency.
-          </p>
-        </details>
-
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ==================== FINAL CONVERSION CTA ==================== -->
-  <section class="py-20 relative overflow-hidden bg-gradient-to-b from-[#06090e] via-sky-950/30 to-[#06090e]">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6 relative z-10">
-      <div class="w-16 h-16 rounded-3xl bg-gradient-to-tr from-cyan-600 via-blue-600 to-indigo-700 flex items-center justify-center text-3xl mx-auto shadow-2xl shadow-sky-500/30 border border-sky-400/40">
-        ⚡
-      </div>
-      <h2 class="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight">
-        Take Command of Your Athletic Trajectory
-      </h2>
-      <p class="text-sm sm:text-base text-slate-300 max-w-xl mx-auto leading-relaxed">
-        Join 4,019+ athletes, NCAA coaches, and pro evaluators who trust BlueLine DataWorks for lifelong hockey analytics.
-      </p>
-      <div class="flex flex-wrap items-center justify-center gap-4 pt-2 font-mono text-xs sm:text-sm">
-        <a href="signup.html" class="px-8 py-4 rounded-2xl bg-gradient-to-r from-sky-600 via-cyan-600 to-blue-600 hover:from-sky-500 hover:to-blue-500 text-white font-black shadow-xl shadow-sky-600/40 transition active:scale-95 flex items-center gap-2">
-          <span>⚡ Mint Free Athlete Passport</span>
-          <span>→</span>
-        </a>
-        <a href="login.html" class="px-8 py-4 rounded-2xl bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-slate-700 text-slate-200 font-bold transition flex items-center gap-2">
-          <span>🔑 Sign In</span>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==================== FOOTER ==================== -->
-  <footer class="border-t border-slate-800/80 bg-slate-950/95 py-12 text-xs text-slate-400">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-      
-      <div class="grid grid-cols-1 md:grid-cols-12 gap-8">
-        
-        <!-- Brand & Mission Statement -->
-        <div class="md:col-span-6 space-y-3">
-          <div class="flex items-center gap-3">
-            <img src="static/img/blueline_logo.jpg" alt="BlueLine DataWorks Logo" class="w-8 h-8 rounded-xl object-cover border border-sky-500/40">
-            <span class="font-black text-base text-white tracking-tight">BlueLine DataWorks</span>
-          </div>
-          <p class="text-xs text-slate-400 leading-relaxed max-w-md">
-            BlueLine DataWorks is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory.
-          </p>
-          <div class="text-[11px] font-mono text-slate-500 pt-1">
-            HMAC-SHA256 Provenance Protection • 190 Monitored Institutional Programs
-          </div>
-        </div>
-
-        <!-- Quick Links: Platform -->
-        <div class="md:col-span-3 space-y-2 font-mono text-xs">
-          <div class="text-white font-bold uppercase tracking-wider text-[11px]">Platform Hubs</div>
-          <ul class="space-y-1.5 text-slate-400">
-            <li><a href="app.html" class="hover:text-sky-400 transition">Player OS Dashboard</a></li>
-            <li><a href="login.html" class="hover:text-sky-400 transition">Sign In Portal</a></li>
-            <li><a href="signup.html" class="hover:text-sky-400 transition">Register & Mint Passport</a></li>
-            <li><a href="database.html" class="hover:text-sky-400 transition">Master Registry (4,019+)</a></li>
-            <li><a href="combine.html" class="hover:text-sky-400 transition">Combine Hardware Lab</a></li>
-          </ul>
-        </div>
-
-        <!-- Quick Links: Analytics & Scouting -->
-        <div class="md:col-span-3 space-y-2 font-mono text-xs">
-          <div class="text-white font-bold uppercase tracking-wider text-[11px]">Analytics & Film</div>
-          <ul class="space-y-1.5 text-slate-400">
-            <li><a href="tactics.html" class="hover:text-sky-400 transition">Tactics Board & Shifts</a></li>
-            <li><a href="crease.html" class="hover:text-sky-400 transition">Crease IQ Goalie Engine</a></li>
-            <li><a href="portal.html" class="hover:text-sky-400 transition">Transfer Portal Radar</a></li>
-            <li><a href="security.html" class="hover:text-sky-400 transition">Cyber Shield & Ledger</a></li>
-            <li><a href="agents.html" class="hover:text-sky-400 transition">24-Agent Crawler Swarm</a></li>
-          </ul>
-        </div>
-
-      </div>
-
-      <div class="pt-6 border-t border-slate-900 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] font-mono text-slate-500">
-        <div>© 2026 BlueLine DataWorks, Inc. All rights reserved. Strict amateur & collegiate mandate.</div>
-        <div class="flex items-center gap-4">
-          <a href="security.html" class="hover:text-slate-400">Security & Integrity</a>
-          <span>•</span>
-          <a href="app.html" class="hover:text-slate-400">App OS</a>
-          <span>•</span>
-          <a href="index.html" class="hover:text-slate-400">Public Home</a>
-        </div>
-      </div>
-
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p>&copy; PuckPathway Hockey OS</p>
+    <nav>
+      <a href="database.html">FAQ</a>
+      <a href="community.html">Support</a>
+      <a href="security.html">Privacy</a>
+      <a href="security.html">Terms</a>
+      <a href="app.html">Player Dashboard</a>
+    </nav>
+    <div class="footer-mission">
+      BlueLine DataWorks is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory.
     </div>
   </footer>
 
-  <!-- Radar Chart & Auth Check Script -->
+  <!-- Dynamic Auth Detection Script -->
   <script>
-    // 1. Dynamic Logged In Check
-    function checkMarketingAuthState() {
+    (function() {
       try {
         const raw = localStorage.getItem('blueline_auth_user');
         if (raw) {
           const user = JSON.parse(raw);
           if (user && user.name) {
-            const banner = document.getElementById('loggedInUserBanner');
-            const bannerName = document.getElementById('loggedInBannerName');
-            const navLogin = document.getElementById('navLoginBtn');
-            const navSignup = document.getElementById('navSignupBtn');
-
-            if (banner && bannerName) {
-              bannerName.textContent = user.name;
-              banner.classList.remove('hidden');
-            }
-
-            if (navLogin) {
-              navLogin.textContent = '⚡ Dashboard';
-              navLogin.href = 'app.html';
-              navLogin.className = 'px-3.5 py-1.5 rounded-xl bg-sky-600 text-white font-bold transition flex items-center gap-1.5';
+            const heroButtons = document.querySelector('.hero-buttons');
+            if (heroButtons) {
+              heroButtons.innerHTML = `
+                <a href="app.html" class="btn primary">⚡ Welcome Back, ${user.name}! Open Dashboard</a>
+                <button onclick="localStorage.removeItem('blueline_auth_user'); window.location.reload();" class="btn secondary">Sign Out</button>
+              `;
             }
           }
         }
       } catch(e) {}
-    }
-
-    function handleMarketingSignOut() {
-      localStorage.removeItem('blueline_auth_user');
-      window.location.reload();
-    }
-
-    // 2. Render Hero Radar Chart
-    function renderHeroRadar() {
-      const ctx = document.getElementById('heroRadarChart');
-      if (!ctx || typeof Chart === 'undefined') return;
-
-      new Chart(ctx, {
-        type: 'radar',
-        data: {
-          labels: ['Skating & Speed', 'Shot Mechanics', 'Hockey IQ', 'Puck Battles', 'Transition Rush', 'Defense'],
-          datasets: [{
-            label: 'Michael Hage (Percentile)',
-            data: [94, 96, 95, 91, 97, 88],
-            backgroundColor: 'rgba(56, 189, 248, 0.25)',
-            borderColor: 'rgba(56, 189, 248, 1)',
-            borderWidth: 2,
-            pointBackgroundColor: 'rgba(56, 189, 248, 1)',
-            pointRadius: 3
-          }, {
-            label: 'NCAA D1 Benchmark Norm',
-            data: [82, 80, 81, 79, 83, 78],
-            backgroundColor: 'rgba(148, 163, 184, 0.1)',
-            borderColor: 'rgba(148, 163, 184, 0.4)',
-            borderWidth: 1.5,
-            borderDash: [4, 4],
-            pointRadius: 2
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          scales: {
-            r: {
-              angleLines: { color: 'rgba(255, 255, 255, 0.1)' },
-              grid: { color: 'rgba(255, 255, 255, 0.08)' },
-              pointLabels: {
-                color: '#94a3b8',
-                font: { size: 10, family: 'monospace' }
-              },
-              ticks: { display: false, min: 50, max: 100 }
-            }
-          },
-          plugins: {
-            legend: {
-              display: true,
-              position: 'bottom',
-              labels: {
-                color: '#cbd5e1',
-                boxWidth: 10,
-                font: { size: 10 }
-              }
-            }
-          }
-        }
-      });
-    }
-
-    window.addEventListener('DOMContentLoaded', () => {
-      checkMarketingAuthState();
-      renderHeroRadar();
-    });
+    })();
   </script>
 </body>
 </html>
