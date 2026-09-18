@@ -641,11 +641,28 @@
 
       // 1. Populate Goalie Dropdown
       const quickSelect = document.getElementById("quickGoalieSelect");
-      window.CreaseEngine.benchmarks.forEach(g => {
-        const opt = document.createElement("option");
-        opt.value = g.id;
-        opt.textContent = `${g.name} (${g.team} • ${g.league})`;
-        quickSelect.appendChild(opt);
+      quickSelect.innerHTML = "";
+
+      const goalieCategories = [
+        { label: "Scholastic & Prep Champions", filter: g => g.league.includes("MSHSL") || g.league.includes("NEPSAC") },
+        { label: "USHL & Junior Tier 1", filter: g => g.league.includes("USHL") },
+        { label: "Collegiate NCAA Division I", filter: g => g.league.includes("NCAA") },
+        { label: "Pro & Elite Gold Standards", filter: g => g.league.includes("NHL") }
+      ];
+
+      goalieCategories.forEach(grp => {
+        const matches = window.CreaseEngine.benchmarks.filter(grp.filter);
+        if (matches.length > 0) {
+          const optGroup = document.createElement("optgroup");
+          optGroup.label = `--- ${grp.label} ---`;
+          matches.forEach(g => {
+            const opt = document.createElement("option");
+            opt.value = g.id;
+            opt.textContent = `${g.name} (${g.team} • ${g.league})`;
+            optGroup.appendChild(opt);
+          });
+          quickSelect.appendChild(optGroup);
+        }
       });
 
       quickSelect.addEventListener("change", (e) => {
@@ -660,11 +677,27 @@
 
       // 2. Populate Shootout Snipers
       const sniperSelect = document.getElementById("shootoutSniperSelect");
-      window.CreaseEngine.snipers.forEach(s => {
-        const opt = document.createElement("option");
-        opt.value = s.name;
-        opt.textContent = `${s.name} (${s.team} • Rating ${s.rating})`;
-        sniperSelect.appendChild(opt);
+      sniperSelect.innerHTML = "";
+
+      const sniperCategories = [
+        { label: "Scholastic & Prep Snipers", filter: s => s.team.includes("MSHSL") || s.team.includes("NEPSAC") },
+        { label: "Top Draft & Collegiate Snipers", filter: s => s.team.includes("Boston") || s.team.includes("San Jose") },
+        { label: "NHL Superstar Benchmarks", filter: s => !s.team.includes("MSHSL") && !s.team.includes("NEPSAC") && !s.team.includes("Boston") && !s.team.includes("San Jose") }
+      ];
+
+      sniperCategories.forEach(grp => {
+        const matches = window.CreaseEngine.snipers.filter(grp.filter);
+        if (matches.length > 0) {
+          const optGroup = document.createElement("optgroup");
+          optGroup.label = `--- ${grp.label} ---`;
+          matches.forEach(s => {
+            const opt = document.createElement("option");
+            opt.value = s.name;
+            opt.textContent = `${s.name} (${s.team} • Rating ${s.rating})`;
+            optGroup.appendChild(opt);
+          });
+          sniperSelect.appendChild(optGroup);
+        }
       });
 
       // 3. Post Seal Mode Buttons
