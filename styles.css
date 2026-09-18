@@ -516,3 +516,126 @@ body {
   color: #64748b;
   line-height: 1.6;
 }
+
+/* AUTH PAGES */
+.auth-page {
+  max-width: 440px;
+  margin: 3.5rem auto 4rem;
+  padding: 2.5rem 2rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 1.75rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+  text-align: center;
+  position: relative;
+}
+
+.auth-page h1 {
+  font-size: 2.25rem;
+  font-weight: 800;
+  margin: 0 0 1.5rem;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  text-align: left;
+}
+
+.auth-form label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #cbd5e1;
+  margin-bottom: -0.65rem;
+}
+
+.auth-form input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.75rem 1rem;
+  border-radius: 0.85rem;
+  background: rgba(11, 17, 28, 0.95);
+  border: 1px solid rgba(71, 85, 105, 0.7);
+  color: #ffffff;
+  font-size: 0.95rem;
+  outline: none;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.auth-form input:focus {
+  border-color: var(--accent-sky);
+  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2);
+}
+
+.auth-form .btn.primary {
+  width: 100%;
+  margin-top: 0.5rem;
+  padding: 0.85rem;
+  font-size: 1rem;
+  border-radius: 0.85rem;
+}
+
+.auth-page p {
+  margin-top: 1.5rem;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.auth-page a {
+  color: var(--accent-sky);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.auth-page a:hover {
+  text-decoration: underline;
+}
+
+/* QUICK PERSONAS COMPONENT */
+.quick-personas {
+  margin-top: 1.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(51, 65, 85, 0.4);
+  text-align: left;
+}
+
+.quick-personas-title {
+  font-size: 0.75rem;
+  font-family: monospace;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin-bottom: 0.75rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.persona-chips {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+}
+
+.persona-chip {
+  padding: 0.55rem 0.75rem;
+  border-radius: 0.75rem;
+  background: rgba(30, 41, 59, 0.6);
+  border: 1px solid rgba(71, 85, 105, 0.4);
+  color: #e2e8f0;
+  font-size: 0.75rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.2s ease;
+}
+
+.persona-chip:hover {
+  border-color: var(--accent-sky);
+  background: rgba(30, 41, 59, 0.95);
+  transform: translateY(-1px);
+}

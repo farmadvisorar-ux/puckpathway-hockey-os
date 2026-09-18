@@ -1,288 +1,116 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
 <head>
   <!-- Active Pre-Execution Security Shield -->
   <script src="static/js/security_shield.js"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BlueLine DataWorks - Sign In | Athlete Operating System</title>
+  <title>Log In – PuckPathway</title>
   <meta name="description" content="BlueLine DataWorks is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory.">
   <link rel="icon" type="image/jpeg" href="static/img/blueline_logo.jpg">
   <link rel="apple-touch-icon" href="static/img/blueline_logo.jpg">
 
   <!-- Open Graph -->
   <meta property="og:type" content="website">
-  <meta property="og:site_name" content="BlueLine DataWorks">
-  <meta property="og:title" content="BlueLine DataWorks - Sign In">
+  <meta property="og:site_name" content="PuckPathway Hockey OS">
+  <meta property="og:title" content="Log In – PuckPathway">
   <meta property="og:description" content="BlueLine DataWorks is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory.">
   <meta property="og:image" content="https://farmadvisorar-ux.github.io/puckpathway-hockey-os/static/img/blueline_og_preview.jpg">
 
-  <!-- Tailwind CSS & FontAwesome -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="static/css/custom.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="styles.css">
   <link rel="manifest" href="manifest.json">
 </head>
-<body class="bg-[#06090e] text-slate-100 min-h-screen flex flex-col font-sans selection:bg-sky-500 selection:text-white">
+<body>
 
-  <!-- Top Global Header -->
-  <header class="border-b border-slate-800/80 bg-slate-950/95 backdrop-blur-xl sticky top-0 z-50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
-      
-      <!-- Brand Logo -->
-      <a href="index.html" class="flex items-center gap-2.5 group">
-        <img src="static/img/blueline_logo.jpg" alt="BlueLine DataWorks Logo" class="w-9 h-9 sm:w-10 sm:h-10 shrink-0 rounded-xl border border-sky-400/50 object-cover shadow-lg shadow-sky-500/20 group-hover:scale-105 transition">
-        <div class="min-w-0">
-          <div class="flex items-center gap-2">
-            <span class="font-black text-sm sm:text-base md:text-lg tracking-tight text-white group-hover:text-sky-400 transition truncate">BlueLine DataWorks</span>
-            <span class="text-[10px] uppercase font-mono tracking-widest px-1.5 py-0.5 rounded bg-sky-500/20 text-sky-300 font-bold shrink-0">AUTH</span>
-          </div>
-          <p class="text-[10px] text-slate-400 hidden sm:block truncate">Unified Identity & Access Portal</p>
-        </div>
+  <!-- Mandatory Lifelong Tracking Mission Statement Banner -->
+  <div class="mission-banner">
+    <div class="mission-banner-inner">
+      <div style="display:flex; align-items:center; gap:0.5rem; overflow:hidden;">
+        <span class="mission-tag">MISSION</span>
+        <span style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">BlueLine DataWorks is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory.</span>
+      </div>
+      <div style="font-family:monospace; font-size:0.65rem; color:#38bdf8; white-space:nowrap;">
+        IDENTITY AUTH
+      </div>
+    </div>
+  </div>
+
+  <!-- TOP NAVIGATION BAR -->
+  <nav class="top-nav">
+    <div class="nav-container">
+      <a href="index.html" class="nav-brand">
+        <img src="static/img/blueline_logo.jpg" alt="PuckPathway Logo">
+        <span>PuckPathway <span style="color:#38bdf8; font-size:0.85rem; font-family:monospace;">OS</span></span>
       </a>
 
-      <!-- Right Navigation Links -->
-      <div class="flex items-center gap-3 text-xs font-mono">
-        <a href="index.html" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-800 transition flex items-center gap-1.5">
-          <span>←</span> <span class="hidden sm:inline">Marketing</span> <span>Homepage</span>
-        </a>
-        <a href="signup.html" class="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-sky-600 to-blue-600 hover:from-sky-500 hover:to-blue-500 text-white font-bold transition shadow-lg shadow-sky-600/30 flex items-center gap-1.5">
-          <span>⚡</span> <span>Create Account</span>
-        </a>
-      </div>
-
-    </div>
-
-    <!-- Mandatory Lifelong Tracking Mission Statement Banner -->
-    <div class="border-t border-slate-800/80 bg-slate-950/90">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-1.5 flex flex-wrap items-center justify-between gap-2 text-xs">
-        <div class="flex items-center gap-2 min-w-0">
-          <span class="px-2 py-0.5 rounded-md bg-sky-500/20 text-sky-300 font-mono text-[10px] font-bold shrink-0">MISSION</span>
-          <p class="text-[11px] text-slate-400 truncate">
-            BlueLine DataWorks is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory.
-          </p>
-        </div>
-        <span class="text-[10px] font-mono text-sky-400 shrink-0 hidden md:inline">256-Bit Cryptographic Ledger Protection</span>
+      <div class="nav-links">
+        <a href="index.html" style="color:#94a3b8; text-decoration:none; font-size:0.85rem; font-family:monospace;">← Home</a>
+        <a href="signup.html" class="btn primary" style="padding:0.45rem 1rem; font-size:0.85rem;">Sign Up</a>
       </div>
     </div>
-  </header>
+  </nav>
 
-  <!-- Main Login Container -->
-  <main class="flex-1 flex items-center justify-center p-4 sm:p-6 lg:p-12 relative overflow-hidden">
-    <!-- Ambient Glow Effects -->
-    <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-sky-600/10 rounded-full blur-3xl pointer-events-none"></div>
-    <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl pointer-events-none"></div>
-
-    <div class="w-full max-w-5xl grid grid-cols-1 lg:grid-cols-12 gap-8 items-center z-10">
-      
-      <!-- Left Column: Value Prop & Live Stats (Desktop) -->
-      <div class="lg:col-span-6 space-y-6">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-500/10 border border-sky-500/30 text-sky-300 text-xs font-mono">
-          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-          <span>4,019+ Monitored Athletes Across 190 Programs</span>
-        </div>
-
-        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight leading-tight">
-          Sign In to Your <br>
-          <span class="bg-gradient-to-r from-sky-400 via-cyan-200 to-blue-400 bg-clip-text text-transparent">Athlete Command Center</span>
-        </h1>
-
-        <p class="text-sm sm:text-base text-slate-300 leading-relaxed">
-          Access lifelong developmental trajectories, combine biometric norming, 200ft micro-event analytics, and tamper-evident genesis passports.
-        </p>
-
-        <!-- Feature Pillars -->
-        <div class="grid grid-cols-2 gap-3 pt-2 font-mono text-xs">
-          <div class="glass-panel p-3 rounded-2xl border border-slate-800/80">
-            <div class="text-sky-400 font-bold flex items-center gap-1.5 mb-1">
-              <span>🧬</span> <span>Genesis Ledger</span>
-            </div>
-            <p class="text-[11px] text-slate-400">HMAC-SHA256 verified biometric blocks.</p>
-          </div>
-          <div class="glass-panel p-3 rounded-2xl border border-slate-800/80">
-            <div class="text-cyan-400 font-bold flex items-center gap-1.5 mb-1">
-              <span>📡</span> <span>52 Live Feeds</span>
-            </div>
-            <p class="text-[11px] text-slate-400">Continuous 24-agent crawler ingestion.</p>
-          </div>
-          <div class="glass-panel p-3 rounded-2xl border border-slate-800/80">
-            <div class="text-emerald-400 font-bold flex items-center gap-1.5 mb-1">
-              <span>🧪</span> <span>Combine Lab</span>
-            </div>
-            <p class="text-[11px] text-slate-400">1080 Sprint & force plate percentiles.</p>
-          </div>
-          <div class="glass-panel p-3 rounded-2xl border border-slate-800/80">
-            <div class="text-amber-400 font-bold flex items-center gap-1.5 mb-1">
-              <span>🏛️</span> <span>190 Programs</span>
-            </div>
-            <p class="text-[11px] text-slate-400">NCAA D1/D3 & Major Junior network.</p>
-          </div>
-        </div>
-
-        <div class="text-xs text-slate-400 flex items-center gap-2 pt-2">
-          <span>Need direct access to public registry?</span>
-          <a href="database.html" class="text-sky-400 hover:text-sky-300 underline font-mono">Browse Master Registry →</a>
-        </div>
+  <main class="auth-page">
+    <h1>Log In</h1>
+    <form class="auth-form" id="loginForm" onsubmit="handleLoginSubmit(event)">
+      <label for="loginEmail">Email</label>
+      <input type="email" id="loginEmail" name="email" required placeholder="name@example.com" value="mhage@umich.edu">
+      <label for="loginPassword">Password</label>
+      <input type="password" id="loginPassword" name="password" required value="password123">
+      <button type="submit" class="btn primary">Log In</button>
+    </form>
+    
+    <!-- 1-Click Instant Demo Personas -->
+    <div class="quick-personas">
+      <div class="quick-personas-title">
+        <span>⚡ 1-Click Demo Personas</span>
+        <span style="color:#38bdf8;">Instant Access</span>
       </div>
-
-      <!-- Right Column: Login Card with 1-Click Personas + Credentials Form -->
-      <div class="lg:col-span-6">
-        <div class="glass-panel p-6 sm:p-8 rounded-3xl border border-sky-500/30 shadow-2xl shadow-black/80 space-y-6">
-          
-          <div>
-            <h2 class="text-xl font-bold text-white tracking-tight">Identity Authentication</h2>
-            <p class="text-xs text-slate-400 mt-1">Sign in with an email account or select an instant demo persona.</p>
-          </div>
-
-          <!-- 1-Click Instant Demo Personas -->
-          <div class="space-y-2">
-            <div class="flex items-center justify-between text-[11px] font-mono text-slate-400">
-              <span class="uppercase tracking-wider">⚡ Instant 1-Click Evaluation Personas:</span>
-              <span class="text-sky-400">Pre-Configured</span>
-            </div>
-            <div class="grid grid-cols-2 gap-2">
-              <!-- Persona: Michael Hage -->
-              <button type="button" onclick="quickLoginPersona('usr_athlete_hage')" class="p-2.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-sky-500/30 hover:border-sky-400 text-left transition group cursor-pointer">
-                <div class="flex items-center gap-2">
-                  <div class="w-7 h-7 rounded-lg bg-gradient-to-tr from-cyan-600 to-blue-800 flex items-center justify-center text-xs shrink-0">⚡</div>
-                  <div class="min-w-0">
-                    <div class="text-xs font-bold text-white group-hover:text-sky-300 truncate">Michael Hage</div>
-                    <div class="text-[10px] text-sky-400 font-mono truncate">Player • Michigan</div>
-                  </div>
-                </div>
-              </button>
-
-              <!-- Persona: Dan Marr -->
-              <button type="button" onclick="quickLoginPersona('usr_scout_marr')" class="p-2.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-slate-800 hover:border-amber-400 text-left transition group cursor-pointer">
-                <div class="flex items-center gap-2">
-                  <div class="w-7 h-7 rounded-lg bg-gradient-to-tr from-amber-500 to-indigo-600 flex items-center justify-center text-xs shrink-0">🔍</div>
-                  <div class="min-w-0">
-                    <div class="text-xs font-bold text-white group-hover:text-amber-300 truncate">Dan Marr</div>
-                    <div class="text-[10px] text-amber-400 font-mono truncate">Chief Scout • NHL CSB</div>
-                  </div>
-                </div>
-              </button>
-
-              <!-- Persona: Adam Nightingale -->
-              <button type="button" onclick="quickLoginPersona('usr_coach_nightingale')" class="p-2.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-slate-800 hover:border-emerald-400 text-left transition group cursor-pointer">
-                <div class="flex items-center gap-2">
-                  <div class="w-7 h-7 rounded-lg bg-gradient-to-tr from-emerald-600 to-teal-800 flex items-center justify-center text-xs shrink-0">🏒</div>
-                  <div class="min-w-0">
-                    <div class="text-xs font-bold text-white group-hover:text-emerald-300 truncate">A. Nightingale</div>
-                    <div class="text-[10px] text-emerald-400 font-mono truncate">Head Coach • MSU</div>
-                  </div>
-                </div>
-              </button>
-
-              <!-- Persona: Sarah Hage -->
-              <button type="button" onclick="quickLoginPersona('usr_parent_hage')" class="p-2.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-slate-800 hover:border-purple-400 text-left transition group cursor-pointer">
-                <div class="flex items-center gap-2">
-                  <div class="w-7 h-7 rounded-lg bg-gradient-to-tr from-purple-600 to-pink-700 flex items-center justify-center text-xs shrink-0">👨‍👩‍👦</div>
-                  <div class="min-w-0">
-                    <div class="text-xs font-bold text-white group-hover:text-purple-300 truncate">Sarah Hage</div>
-                    <div class="text-[10px] text-purple-400 font-mono truncate">Family Advisor</div>
-                  </div>
-                </div>
-              </button>
-            </div>
-          </div>
-
-          <!-- Divider -->
-          <div class="relative flex items-center justify-center">
-            <div class="border-t border-slate-800 w-full"></div>
-            <span class="bg-[#0a0f18] px-3 text-[11px] font-mono text-slate-500 uppercase tracking-widest relative z-10 shrink-0">or sign in with email</span>
-          </div>
-
-          <!-- Credentials Form -->
-          <form id="loginForm" onsubmit="handleCredentialsSubmit(event)" class="space-y-4">
-            <div>
-              <label for="loginEmail" class="block text-xs font-mono text-slate-300 mb-1.5">Email Address or Username</label>
-              <div class="relative">
-                <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-500 text-xs">✉</span>
-                <input type="text" id="loginEmail" required placeholder="mhage@umich.edu or athlete@blueline.com" class="w-full pl-9 pr-3 py-2.5 bg-slate-900/90 border border-slate-800 rounded-xl text-xs text-white placeholder-slate-500 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition font-mono">
-              </div>
-            </div>
-
-            <div>
-              <div class="flex items-center justify-between mb-1.5">
-                <label for="loginPassword" class="text-xs font-mono text-slate-300">Password</label>
-                <button type="button" onclick="triggerPasswordResetHelper()" class="text-[11px] text-sky-400 hover:text-sky-300 font-mono cursor-pointer">Forgot password?</button>
-              </div>
-              <div class="relative">
-                <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-500 text-xs">🔒</span>
-                <input type="password" id="loginPassword" required placeholder="••••••••" value="password123" class="w-full pl-9 pr-3 py-2.5 bg-slate-900/90 border border-slate-800 rounded-xl text-xs text-white placeholder-slate-500 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition font-mono">
-              </div>
-            </div>
-
-            <div class="flex items-center justify-between text-xs">
-              <label class="flex items-center gap-2 text-slate-400 cursor-pointer">
-                <input type="checkbox" id="rememberMe" checked class="rounded bg-slate-900 border-slate-800 text-sky-500 focus:ring-0">
-                <span>Keep session active</span>
-              </label>
-              <span class="text-[10px] font-mono text-emerald-400">SSL Encrypted</span>
-            </div>
-
-            <button type="submit" id="loginSubmitBtn" class="w-full py-3 rounded-xl bg-gradient-to-r from-sky-600 via-cyan-600 to-blue-600 hover:from-sky-500 hover:to-blue-500 text-white font-bold text-sm shadow-xl shadow-sky-600/30 transition active:scale-[0.98] flex items-center justify-center gap-2 cursor-pointer">
-              <span>Sign In to Command Center</span>
-              <span>→</span>
-            </button>
-          </form>
-
-          <!-- Notification Banner Area -->
-          <div id="loginFeedback" class="hidden p-3 rounded-xl text-xs font-mono"></div>
-
-          <!-- Bottom Prompt to Sign Up -->
-          <div class="pt-4 border-t border-slate-800/80 text-center text-xs text-slate-400">
-            Don't have a BlueLine account yet?
-            <a href="signup.html" class="text-sky-400 hover:text-sky-300 font-bold ml-1">Create your athlete passport →</a>
-          </div>
-
-        </div>
+      <div class="persona-chips">
+        <button type="button" onclick="loginPersona('usr_athlete_hage')" class="persona-chip">
+          <span>⚡</span>
+          <span style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Michael Hage (Player)</span>
+        </button>
+        <button type="button" onclick="loginPersona('usr_scout_marr')" class="persona-chip">
+          <span>🔍</span>
+          <span style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Dan Marr (Scout)</span>
+        </button>
+        <button type="button" onclick="loginPersona('usr_coach_nightingale')" class="persona-chip">
+          <span>🏒</span>
+          <span style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">A. Nightingale (Coach)</span>
+        </button>
+        <button type="button" onclick="loginPersona('usr_parent_hage')" class="persona-chip">
+          <span>👨‍👩‍👦</span>
+          <span style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Sarah Hage (Parent)</span>
+        </button>
       </div>
-
     </div>
+
+    <p>Don’t have an account? <a href="signup.html">Sign up</a></p>
   </main>
 
-  <!-- Footer -->
-  <footer class="border-t border-slate-800/80 bg-slate-950/95 py-6 text-xs text-slate-500">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-      <div class="flex items-center gap-2">
-        <img src="static/img/blueline_logo.jpg" alt="BlueLine DataWorks Logo" class="w-5 h-5 rounded-md object-cover">
-        <span>© 2026 BlueLine DataWorks, Inc. All rights reserved.</span>
-      </div>
-      <div class="flex items-center gap-4 text-slate-400 font-mono text-[11px]">
-        <a href="app.html" class="hover:text-white">Player OS</a>
-        <a href="database.html" class="hover:text-white">Directory</a>
-        <a href="combine.html" class="hover:text-white">Combine</a>
-        <a href="security.html" class="hover:text-white">Cyber Shield</a>
-        <a href="index.html" class="hover:text-white">Marketing</a>
-      </div>
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p>&copy; PuckPathway Hockey OS</p>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="signup.html">Sign Up</a>
+      <a href="app.html">Player Dashboard</a>
+      <a href="database.html">Directory</a>
+      <a href="security.html">Security</a>
+    </nav>
+    <div class="footer-mission">
+      BlueLine DataWorks is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory.
     </div>
   </footer>
 
-  <!-- Scripts -->
   <script src="static/js/auth_engine.js"></script>
   <script>
-    function showFeedback(msg, isError = false) {
-      const fb = document.getElementById('loginFeedback');
-      if (!fb) return;
-      fb.className = isError 
-        ? 'p-3 rounded-xl text-xs font-mono bg-red-950/60 border border-red-800/60 text-red-300'
-        : 'p-3 rounded-xl text-xs font-mono bg-emerald-950/60 border border-emerald-800/60 text-emerald-300';
-      fb.textContent = msg;
-      fb.classList.remove('hidden');
-    }
-
-    // 1-Click Persona Login
-    function quickLoginPersona(personaId) {
+    function loginPersona(personaId) {
       if (window.BlueLineAuth && window.BlueLineAuth.selectPersona) {
         window.BlueLineAuth.selectPersona(personaId);
-        showFeedback("Redirecting to logged-in dashboard...", false);
-        setTimeout(() => {
-          window.location.href = 'app.html';
-        }, 300);
       } else {
-        // Fallback
         const demoUser = {
           id: personaId,
           name: personaId.includes('hage') ? "Michael Hage" : (personaId.includes('marr') ? "Dan Marr" : "Adam Nightingale"),
@@ -293,87 +121,58 @@
           verified: true
         };
         localStorage.setItem('blueline_auth_user', JSON.stringify(demoUser));
-        window.location.href = 'app.html';
       }
+      window.location.href = 'app.html';
     }
 
-    // Standard Credentials Submission
-    function handleCredentialsSubmit(e) {
+    const quickLoginPersona = loginPersona;
+
+    function handleLoginSubmit(e) {
       e.preventDefault();
       const email = document.getElementById('loginEmail').value.trim();
       const pass = document.getElementById('loginPassword').value;
 
-      if (!email) {
-        showFeedback("Please enter a valid email or username.", true);
-        return;
-      }
+      if (!email) return;
 
-      // Check registered accounts in localStorage
-      let matchedUser = null;
+      // Check registered accounts
       try {
-        const rawAccounts = localStorage.getItem('blueline_registered_users');
-        if (rawAccounts) {
-          const accounts = JSON.parse(rawAccounts);
-          matchedUser = accounts.find(a => 
-            (a.email && a.email.toLowerCase() === email.toLowerCase()) || 
-            (a.username && a.username.toLowerCase() === email.toLowerCase())
-          );
+        const raw = localStorage.getItem('blueline_registered_users');
+        if (raw) {
+          const accounts = JSON.parse(raw);
+          const found = accounts.find(a => (a.email && a.email.toLowerCase() === email.toLowerCase()) || (a.username && a.username.toLowerCase() === email.toLowerCase()));
+          if (found) {
+            localStorage.setItem('blueline_auth_user', JSON.stringify(found));
+            window.location.href = 'app.html';
+            return;
+          }
         }
       } catch(err) {}
 
-      // If matched in registered accounts
-      if (matchedUser) {
-        localStorage.setItem('blueline_auth_user', JSON.stringify(matchedUser));
-        showFeedback(`Welcome back, ${matchedUser.name}! Opening command center...`, false);
-        setTimeout(() => {
-          window.location.href = 'app.html';
-        }, 400);
+      // Default / Demo matching
+      if (email.toLowerCase().includes('hage')) {
+        loginPersona('usr_athlete_hage');
+        return;
+      } else if (email.toLowerCase().includes('marr')) {
+        loginPersona('usr_scout_marr');
+        return;
+      } else if (email.toLowerCase().includes('nightingale')) {
+        loginPersona('usr_coach_nightingale');
         return;
       }
 
-      // Check if it matches any demo persona
-      const demoMatches = [
-        { key: 'hage', id: 'usr_athlete_hage', name: 'Michael Hage', role: 'athlete', badge: 'VERIFIED ATHLETE', team: 'University of Michigan', avatar: '⚡' },
-        { key: 'marr', id: 'usr_scout_marr', name: 'Dan Marr', role: 'scout', badge: 'DIRECTOR OF SCOUTING', team: 'NHL Central Scouting Benchmark', avatar: '🔍' },
-        { key: 'nightingale', id: 'usr_coach_nightingale', name: 'Adam Nightingale', role: 'coach', badge: 'COACH (NCAA D1)', team: 'Michigan State University', avatar: '🏒' },
-        { key: 'sarah', id: 'usr_parent_hage', name: 'Sarah Hage', role: 'parent', badge: 'FAMILY ADVISOR', team: 'Parent of Michael Hage', avatar: '👨‍👩‍👦' }
-      ];
-
-      const foundDemo = demoMatches.find(d => email.toLowerCase().includes(d.key));
-      if (foundDemo) {
-        quickLoginPersona(foundDemo.id);
-        return;
-      }
-
-      // If generic new sign-in, mint a session
-      const customUser = {
-        id: "usr_" + Date.now().toString(36),
-        name: email.split('@')[0].replace('.', ' ').toUpperCase(),
+      // Generic login session
+      const user = {
+        id: 'usr_' + Date.now().toString(36),
+        name: email.split('@')[0].toUpperCase(),
         email: email,
-        username: email.split('@')[0],
-        role: "athlete",
-        role_title: "Verified Athlete",
-        badge: "VERIFIED ATHLETE",
-        team: "Independent / AAA",
-        league: "Tier 1 AAA",
-        avatar: "⚡",
-        avatar_gradient: "from-sky-500 to-indigo-600",
-        verified: true,
-        created_at: new Date().toISOString()
+        role: 'athlete',
+        badge: 'VERIFIED ATHLETE',
+        team: 'Independent AAA',
+        avatar: '⚡',
+        verified: true
       };
-
-      localStorage.setItem('blueline_auth_user', JSON.stringify(customUser));
-      showFeedback(`Session authenticated as ${customUser.name}. Launching dashboard...`, false);
-      setTimeout(() => {
-        window.location.href = 'app.html';
-      }, 400);
-    }
-
-    function triggerPasswordResetHelper() {
-      const email = prompt("Enter your registered account email to receive a password reset verification code:");
-      if (email && email.includes('@')) {
-        alert(`Verification token dispatched to ${email}. Follow the instructions to reset credentials.`);
-      }
+      localStorage.setItem('blueline_auth_user', JSON.stringify(user));
+      window.location.href = 'app.html';
     }
   </script>
 </body>
