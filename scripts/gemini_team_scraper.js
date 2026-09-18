@@ -196,7 +196,27 @@ const HIGH_SCHOOLS_AND_PREP = [
   { team: "St. John's Prep", league: "High School Varsity", conference: "MIAA", category: "High School & Prep Academy", wikiPage: "St._John%27s_Preparatory_School_(Danvers,_Massachusetts)" },
   { team: "Boston College High School", league: "High School Varsity", conference: "MIAA", category: "High School & Prep Academy", wikiPage: "Boston_College_High_School" },
   { team: "Catholic Memorial School", league: "High School Varsity", conference: "MIAA", category: "High School & Prep Academy", wikiPage: "Catholic_Memorial_School" },
-  { team: "Notre Dame Academy (Green Bay)", league: "High School Varsity", conference: "WIAA", category: "High School & Prep Academy", wikiPage: "Notre_Dame_de_la_Baie_Academy" }
+  { team: "Notre Dame Academy (Green Bay)", league: "High School Varsity", conference: "WIAA", category: "High School & Prep Academy", wikiPage: "Notre_Dame_de_la_Baie_Academy" },
+  { team: "Verona Area High School", league: "High School Varsity", conference: "WIAA", category: "High School & Prep Academy", wikiPage: "Verona_Area_High_School" },
+  { team: "St. Mary's Springs Academy", league: "High School Varsity", conference: "WIAA", category: "High School & Prep Academy", wikiPage: "St._Mary%27s_Springs_Academy" },
+  { team: "New Trier High School", league: "High School Varsity", conference: "AHAI / CCHL", category: "High School & Prep Academy", wikiPage: "New_Trier_High_School" },
+  { team: "Stevenson High School", league: "High School Varsity", conference: "AHAI / SHL", category: "High School & Prep Academy", wikiPage: "Adlai_E._Stevenson_High_School_(Illinois)" },
+  { team: "St. Ignatius College Prep", league: "High School Varsity", conference: "AHAI / CCHL", category: "High School & Prep Academy", wikiPage: "St._Ignatius_College_Prep" },
+  { team: "St. Joseph's Collegiate Institute", league: "High School Varsity", conference: "NYSPHSAA / Catholic", category: "High School & Prep Academy", wikiPage: "St._Joseph%27s_Collegiate_Institute" },
+  { team: "Regis Jesuit High School", league: "High School Varsity", conference: "CHSAA", category: "High School & Prep Academy", wikiPage: "Regis_Jesuit_High_School" },
+  { team: "St. Edward High School", league: "High School Varsity", conference: "OHSAA", category: "High School & Prep Academy", wikiPage: "St._Edward_High_School_(Lakewood,_Ohio)" },
+  { team: "St. Ignatius High School", league: "High School Varsity", conference: "OHSAA", category: "High School & Prep Academy", wikiPage: "Saint_Ignatius_High_School_(Cleveland)" },
+  { team: "Christian Brothers Academy", league: "High School Varsity", conference: "NJSIAA", category: "High School & Prep Academy", wikiPage: "Christian_Brothers_Academy_(New_Jersey)" },
+  { team: "St. Augustine Prep", league: "High School Varsity", conference: "NJSIAA", category: "High School & Prep Academy", wikiPage: "St._Augustine_Preparatory_School" },
+  { team: "Marquette University High School", league: "High School Varsity", conference: "WIAA", category: "High School & Prep Academy", wikiPage: "Marquette_University_High_School" },
+  { team: "Orchard Lake St. Mary's", league: "High School Varsity", conference: "MHSAA / MIHL", category: "High School & Prep Academy", wikiPage: "St._Mary%27s_Preparatory" },
+  { team: "Hartland High School", league: "High School Varsity", conference: "MHSAA", category: "High School & Prep Academy", wikiPage: "Hartland_High_School" },
+  { team: "Grandville High School", league: "High School Varsity", conference: "MHSAA", category: "High School & Prep Academy", wikiPage: "Grandville_High_School" },
+  { team: "Lakeville South High School", league: "High School Varsity", conference: "MSHSL", category: "High School & Prep Academy", wikiPage: "Lakeville_South_High_School" },
+  { team: "Rogers High School", league: "High School Varsity", conference: "MSHSL", category: "High School & Prep Academy", wikiPage: "Rogers_High_School_(Minnesota)" },
+  { team: "Centennial High School", league: "High School Varsity", conference: "MSHSL", category: "High School & Prep Academy", wikiPage: "Centennial_High_School_(Circle_Pines,_Minnesota)" },
+  { team: "Chaska High School", league: "High School Varsity", conference: "MSHSL", category: "High School & Prep Academy", wikiPage: "Chaska_High_School" },
+  { team: "Eastview High School", league: "High School Varsity", conference: "MSHSL", category: "High School & Prep Academy", wikiPage: "Eastview_High_School" }
 ];
 
 // --- E. JUNIOR & DEVELOPMENT FEEDERS ---

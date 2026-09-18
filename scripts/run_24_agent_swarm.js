@@ -1,7 +1,7 @@
 /**
  * BlueLine DataWorks: 24-Agent Autonomous Swarm Runner (Node.js Engine)
  * 
- * Executes real live HTTP crawls across 25 open hockey feeds,
+ * Executes real live HTTP crawls across 52 open hockey feeds,
  * benchmarks millisecond latencies, calculates Signal Quality Metrics (SQM 0-100),
  * enforces the 1-hour staggered relay & co-pilot handoff rule,
  * and updates static/js/agent_collective_state.json.
@@ -15,6 +15,7 @@ const STATE_FILE = path.join(PROJECT_ROOT, 'static', 'js', 'agent_collective_sta
 
 // 24 Agents across 6 Divisions
 const AGENTS = [
+
   // Division 1: Alpha Clones
   { id: "agent_1_1", name: "Agent-1.1", codename: "ALPHA PIONEER", division: "Channel Discovery", role: "Primary HTTP/JSON Endpoint Scraper", hour: 0 },
   { id: "agent_2_1", name: "Agent-2.1", codename: "ALPHA AUDITOR", division: "Veracity & Schema", role: "Biometric & Registrar Cross-Verification", hour: 1 },
@@ -48,7 +49,7 @@ const AGENTS = [
   { id: "agent_6_4", name: "Agent-6.4", codename: "DELTA INTEGRATOR", division: "Master Ledger", role: "Midnight Master Compile & Hot-Reload", hour: 23 }
 ];
 
-// 42 Live Open-Source Hockey Data Sources (Colleges, Prep, High School, Junior & International)
+// 52 Live Open-Source Hockey Data Sources (Colleges, Prep, High School, Junior & International)
 const LIVE_DATA_SOURCES = [
   { id: "ncaa_d1_wiki", name: "NCAA Division I Men's Season Roster & Scores", category: "NCAA Division I", url: "https://en.wikipedia.org/w/api.php?action=parse&page=2024%E2%80%9325_NCAA_Division_I_men%27s_ice_hockey_season&prop=text&format=json" },
   { id: "uscho_live_rss", name: "USCHO Live NCAA D1 News & Scores Wire", category: "NCAA D1 / News", url: "https://api.rss2json.com/v1/api.json?rss_url=https://www.uscho.com/feed/" },
@@ -92,7 +93,18 @@ const LIVE_DATA_SOURCES = [
   { id: "wiaa_wisc_hs_wiki", name: "WIAA Wisconsin State High School Hockey Registry", category: "WIAA High School", url: "https://en.wikipedia.org/w/api.php?action=parse&page=Wisconsin_Interscholastic_Athletic_Conference&prop=text&format=json" },
   { id: "mhsaa_mich_hs_wiki", name: "MHSAA Michigan High School Hockey Championship Stream", category: "MHSAA High School", url: "https://en.wikipedia.org/w/api.php?action=parse&page=Michigan_High_School_Athletic_Association&prop=text&format=json" },
   { id: "cisaa_canadian_prep_wiki", name: "CISAA Canadian Independent Schools Hockey Registry", category: "CISAA Canadian Prep", url: "https://en.wikipedia.org/w/api.php?action=parse&page=Conference_of_Independent_Schools_Athletic_Association&prop=text&format=json" },
-  { id: "centennial_cup_wiki", name: "Centennial Cup Canadian National Junior A Championship Feed", category: "CJHL Junior A", url: "https://en.wikipedia.org/w/api.php?action=parse&page=Centennial_Cup&prop=text&format=json" }
+  { id: "centennial_cup_wiki", name: "Centennial Cup Canadian National Junior A Championship Feed", category: "CJHL Junior A", url: "https://en.wikipedia.org/w/api.php?action=parse&page=Centennial_Cup&prop=text&format=json" },
+  // Regional High School Associations & Feeder Pipelines (Phase 10)
+  { id: "ahai_illinois_hs", name: "AHAI Illinois High School Hockey & Blackhawk Cup Registry", category: "AHAI High School", url: "https://en.wikipedia.org/w/api.php?action=parse&page=Blackhawk_Cup&prop=text&format=json" },
+  { id: "nysphsaa_ny_hs", name: "NYSPHSAA New York State High School Ice Hockey Registry", category: "NYSPHSAA High School", url: "https://en.wikipedia.org/w/api.php?action=parse&page=New_York_State_Public_High_School_Athletic_Association&prop=text&format=json" },
+  { id: "ohsaa_ohio_hs", name: "OHSAA Ohio State High School Ice Hockey Championship Feed", category: "OHSAA High School", url: "https://en.wikipedia.org/w/api.php?action=parse&page=Ohio_High_School_Athletic_Association&prop=text&format=json" },
+  { id: "pihl_penn_hs", name: "PIHL Pennsylvania High School State Championship Stream", category: "PIHL High School", url: "https://en.wikipedia.org/w/api.php?action=parse&page=Pennsylvania_Interscholastic_Hockey_League&prop=text&format=json" },
+  { id: "chsaa_colo_hs", name: "CHSAA Colorado High School State Ice Hockey Registry", category: "CHSAA High School", url: "https://en.wikipedia.org/w/api.php?action=parse&page=Colorado_High_School_Activities_Association&prop=text&format=json" },
+  { id: "njsiaa_nj_hs", name: "NJSIAA New Jersey State Championship & Gordon Cup Stream", category: "NJSIAA High School", url: "https://en.wikipedia.org/w/api.php?action=parse&page=New_Jersey_State_Interscholastic_Athletic_Association&prop=text&format=json" },
+  { id: "ndhsaa_nd_hs", name: "NDHSAA North Dakota High School Hockey Championship Feed", category: "NDHSAA High School", url: "https://en.wikipedia.org/w/api.php?action=parse&page=North_Dakota_High_School_Activities_Association&prop=text&format=json" },
+  { id: "cjhl_national_pipeline", name: "CJHL Canadian Junior Hockey League National Pipeline", category: "CJHL Junior A", url: "https://en.wikipedia.org/w/api.php?action=parse&page=Canadian_Junior_Hockey_League&prop=text&format=json" },
+  { id: "ushl_fall_classic", name: "USHL Fall Classic Official Scouting Showcase Registry", category: "USHL Showcase", url: "https://en.wikipedia.org/w/api.php?action=parse&page=United_States_Hockey_League&prop=text&format=json" },
+  { id: "ncaa_d3_frozenfour", name: "NCAA Division III Men's Ice Hockey Frozen Four Hub", category: "NCAA D3 / Frozen Four", url: "https://en.wikipedia.org/w/api.php?action=parse&page=NCAA_Division_III_men%27s_ice_hockey_tournament&prop=text&format=json" }
 ];
 
 function getCurrentShift() {
@@ -223,7 +235,7 @@ async function executeSwarmCycle() {
     event: "LIVE_HTTP_CRAWL_COMPLETE",
     agent: shift.lead.name,
     copilot: shift.copilot.name,
-    targetId: "ALL_25_LIVE_TARGETS",
+    targetId: `ALL_${crawlResults.length}_LIVE_TARGETS`,
     msg: `24-AGENT SWARM HARVEST: ${shift.lead.name} & Co-Pilot ${shift.copilot.name} crawled all ${crawlResults.length} live data sources. Ingested ${(totalBytes / 1024).toFixed(1)} KB at ${avgLatency}ms avg latency. ${tierSCount} channels ranked Tier-S. Non-NHL registry verified.`
   };
 
