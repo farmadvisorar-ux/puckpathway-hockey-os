@@ -197,9 +197,35 @@
         </div>
       </div>
 
+      <!-- Primary Directory Mode Switcher (Athletes & Staff vs Colleges & High Schools) -->
+      <div class="flex items-center justify-between flex-wrap gap-3 pt-3 border-t border-slate-800">
+        <div class="flex items-center gap-1.5 bg-slate-950 p-1.5 rounded-2xl border border-slate-800">
+          <button id="modeAthletesBtn" class="px-4 py-2 rounded-xl bg-sky-600 text-white font-bold text-xs flex items-center gap-2 transition active shadow-sm">
+            <span>🏒</span> <span>Athletes & Staff Directory</span>
+            <span class="px-2 py-0.5 rounded-full bg-sky-400/20 text-sky-200 text-[10px] font-mono font-bold" id="badgeAthletesCount">3,770</span>
+          </button>
+          <button id="modeInstitutionsBtn" class="px-4 py-2 rounded-xl text-slate-400 hover:text-white font-bold text-xs flex items-center gap-2 transition">
+            <span>🏫</span> <span>Colleges & High Schools Registry</span>
+            <span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-[10px] font-mono font-bold" id="badgeInstitutionsCount">170 Programs</span>
+          </button>
+        </div>
+        <div class="flex items-center gap-2 text-xs font-mono text-slate-400">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span>100% Non-NHL Verified (All Colleges & High Schools)</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- WRAPPER 1: ATHLETES & STAFF DIRECTORY -->
+    <div id="athletesDirectorySection" class="space-y-6">
+
+      <!-- Faceted Search & Filters Panel -->
+      <div class="glass-panel p-5 rounded-3xl space-y-4 shadow-xl border border-slate-800">
+
       <!-- Quick Search Bar -->
       <div class="relative">
-        <input type="text" id="masterSearchInput" placeholder="🔍 Search across 3,190+ players, coaches, staff, schools (e.g. Director of Scouting, David Carle, Michigan, Hershey Bears, Lincoln Stars)..." class="w-full bg-slate-950/90 border border-sky-500/40 rounded-2xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-sky-400 focus:ring-2 focus:ring-sky-400/20 transition shadow-inner">
+        <input type="text" id="masterSearchInput" placeholder="🔍 Search across 3,770+ players, coaches, staff, schools (e.g. Director of Scouting, David Carle, Edina, Shattuck, Michigan, Hershey Bears, Lincoln Stars)..." class="w-full bg-slate-950/90 border border-sky-500/40 rounded-2xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-sky-400 focus:ring-2 focus:ring-sky-400/20 transition shadow-inner">
         <button id="clearMasterSearchBtn" class="absolute right-3.5 top-3.5 text-slate-400 hover:text-white text-xs hidden" title="Clear search">✕</button>
       </div>
 
@@ -308,15 +334,19 @@
       <!-- Quick Filter Pills -->
       <div class="flex flex-wrap items-center gap-1.5 pt-1 border-t border-slate-800 text-xs overflow-x-auto">
         <span class="text-[10px] uppercase font-bold text-slate-500 mr-1">Quick Select:</span>
-        <button class="quick-team-pill px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-sky-400 border border-slate-800 font-bold text-[11px]" data-search="Michigan">Michigan Wolverines</button>
-        <button class="quick-team-pill px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-sky-400 border border-slate-800 font-bold text-[11px]" data-search="Denver">Denver Pioneers</button>
+        <button class="quick-team-pill px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-sky-400 border border-slate-800 font-bold text-[11px]" data-search="Michigan">Michigan</button>
+        <button class="quick-team-pill px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-sky-400 border border-slate-800 font-bold text-[11px]" data-search="Denver">Denver</button>
         <button class="quick-team-pill px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-sky-400 border border-slate-800 font-bold text-[11px]" data-search="Boston College">Boston College</button>
-        <button class="quick-team-pill px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-sky-400 border border-slate-800 font-bold text-[11px]" data-search="Boston University">Boston Univ</button>
-        <button class="quick-team-pill px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-sky-400 border border-slate-800 font-bold text-[11px]" data-search="Minnesota">Minnesota Gophers</button>
-        <button class="quick-team-pill px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-sky-400 border border-slate-800 font-bold text-[11px]" data-search="North Dakota">North Dakota</button>
+        <button class="quick-team-pill px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-sky-400 border border-slate-800 font-bold text-[11px]" data-search="Minnesota">Minnesota</button>
+        <button class="quick-team-pill px-2.5 py-1 rounded-lg bg-emerald-950/60 hover:bg-emerald-900/60 text-emerald-300 border border-emerald-700/60 font-bold text-[11px]" data-search="Shattuck">Shattuck-St. Mary's (Prep)</button>
+        <button class="quick-team-pill px-2.5 py-1 rounded-lg bg-emerald-950/60 hover:bg-emerald-900/60 text-emerald-300 border border-emerald-700/60 font-bold text-[11px]" data-search="Edina">Edina HS (MN)</button>
+        <button class="quick-team-pill px-2.5 py-1 rounded-lg bg-emerald-950/60 hover:bg-emerald-900/60 text-emerald-300 border border-emerald-700/60 font-bold text-[11px]" data-search="Avon Old Farms">Avon Old Farms (Prep)</button>
+        <button class="quick-team-pill px-2.5 py-1 rounded-lg bg-emerald-950/60 hover:bg-emerald-900/60 text-emerald-300 border border-emerald-700/60 font-bold text-[11px]" data-search="Minnetonka">Minnetonka HS (MN)</button>
+        <button class="quick-team-pill px-2.5 py-1 rounded-lg bg-emerald-950/60 hover:bg-emerald-900/60 text-emerald-300 border border-emerald-700/60 font-bold text-[11px]" data-search="Culver">Culver Academy (Prep)</button>
+        <button class="quick-team-pill px-2.5 py-1 rounded-lg bg-emerald-950/60 hover:bg-emerald-900/60 text-emerald-300 border border-emerald-700/60 font-bold text-[11px]" data-search="Salisbury">Salisbury (Prep)</button>
+        <button class="quick-team-pill px-2.5 py-1 rounded-lg bg-emerald-950/60 hover:bg-emerald-900/60 text-emerald-300 border border-emerald-700/60 font-bold text-[11px]" data-search="Hermantown">Hermantown HS (MN)</button>
         <button class="quick-team-pill px-2.5 py-1 rounded-lg bg-amber-950/60 hover:bg-amber-900/60 text-amber-300 border border-amber-700/60 font-bold text-[11px]" data-search="David Carle">David Carle (Denver)</button>
         <button class="quick-team-pill px-2.5 py-1 rounded-lg bg-amber-950/60 hover:bg-amber-900/60 text-amber-300 border border-amber-700/60 font-bold text-[11px]" data-search="Brandon Naurato">Brandon Naurato (Mich)</button>
-        <button class="quick-team-pill px-2.5 py-1 rounded-lg bg-amber-950/60 hover:bg-amber-900/60 text-amber-300 border border-amber-700/60 font-bold text-[11px]" data-search="Rocky Russo">Rocky Russo (USHL)</button>
         <button class="quick-team-pill px-2.5 py-1 rounded-lg bg-emerald-950/60 hover:bg-emerald-900/60 text-emerald-300 border border-emerald-700/60 font-bold text-[11px]" data-search="Director of Scouting">Scouting Bureau</button>
         <button id="resetFiltersBtn" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-[11px] ml-auto">Reset Filters</button>
       </div>
@@ -390,6 +420,96 @@
         </button>
       </div>
     </div>
+    </div> <!-- /athletesDirectorySection -->
+
+    <!-- ==================== WRAPPER 2: INSTITUTIONS (COLLEGES & HIGH SCHOOLS) DIRECTORY ==================== -->
+    <div id="institutionsDirectorySection" class="hidden space-y-6">
+      
+      <!-- Institutional Controls Panel -->
+      <div class="glass-panel p-6 rounded-3xl space-y-4 shadow-2xl relative overflow-hidden border border-emerald-500/30">
+        <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-800 pb-3">
+          <div>
+            <h2 class="text-lg font-black text-white flex items-center gap-2">
+              <span>🏫</span> Canonical Colleges & High Schools Registry
+            </h2>
+            <p class="text-xs text-slate-400">
+              Complete index of 170 monitored hockey institutions: NCAA Division I Men & Women, NCAA Division III, ACHA Club, Elite High Schools, Prep Academies, and Junior Feeder Programs.
+            </p>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-[11px] font-mono px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-bold flex items-center gap-1.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
+              170 INSTITUTIONS ACTIVE
+            </span>
+          </div>
+        </div>
+
+        <!-- Institutional Search Input -->
+        <div class="relative">
+          <input type="text" id="instSearchInput" placeholder="🔍 Search all 170 colleges, high schools, preps (e.g. Edina, Shattuck, Denver, Michigan, Avon Old Farms, Trinity, Minnetonka, Prior Lake)..." class="w-full bg-slate-950 border border-emerald-500/40 rounded-2xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-emerald-400 focus:ring-2 focus:ring-emerald-400/20 transition shadow-inner">
+          <button id="clearInstSearchBtn" class="absolute right-3.5 top-3.5 text-slate-400 hover:text-white text-xs hidden" title="Clear search">✕</button>
+        </div>
+
+        <!-- Category Filter Pills -->
+        <div class="flex flex-wrap items-center gap-1.5 text-xs">
+          <button class="inst-cat-btn px-3 py-1.5 rounded-xl font-bold bg-emerald-600 text-white transition active" data-cat="all">All (170)</button>
+          <button class="inst-cat-btn px-3 py-1.5 rounded-xl font-bold bg-slate-900 text-slate-300 border border-slate-800 hover:text-white transition" data-cat="NCAA Division I Men">NCAA D1 Men (64)</button>
+          <button class="inst-cat-btn px-3 py-1.5 rounded-xl font-bold bg-slate-900 text-slate-300 border border-slate-800 hover:text-white transition" data-cat="NCAA Division I Women">NCAA D1 Women (12)</button>
+          <button class="inst-cat-btn px-3 py-1.5 rounded-xl font-bold bg-slate-900 text-slate-300 border border-slate-800 hover:text-white transition" data-cat="NCAA Division III">NCAA D3 (20)</button>
+          <button class="inst-cat-btn px-3 py-1.5 rounded-xl font-bold bg-slate-900 text-slate-300 border border-slate-800 hover:text-white transition" data-cat="ACHA Club Hockey">ACHA Club (8)</button>
+          <button class="inst-cat-btn px-3 py-1.5 rounded-xl font-bold bg-slate-900 text-slate-300 border border-slate-800 hover:text-white transition" data-cat="High School Varsity">High Schools (26)</button>
+          <button class="inst-cat-btn px-3 py-1.5 rounded-xl font-bold bg-slate-900 text-slate-300 border border-slate-800 hover:text-white transition" data-cat="Prep Academy">Prep Academies (26)</button>
+          <button class="inst-cat-btn px-3 py-1.5 rounded-xl font-bold bg-slate-900 text-slate-300 border border-slate-800 hover:text-white transition" data-cat="Junior Feeder Program">Junior Feeders (14)</button>
+        </div>
+
+        <!-- Quick Select Pills for Institutions -->
+        <div class="flex flex-wrap items-center gap-1.5 pt-2 border-t border-slate-800 text-xs overflow-x-auto">
+          <span class="text-[10px] uppercase font-bold text-slate-500 mr-1">Quick School:</span>
+          <button class="quick-inst-pill px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-emerald-400 border border-slate-800 font-bold text-[11px]" data-query="Denver">Denver</button>
+          <button class="quick-inst-pill px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-emerald-400 border border-slate-800 font-bold text-[11px]" data-query="Michigan">Michigan</button>
+          <button class="quick-inst-pill px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-emerald-400 border border-slate-800 font-bold text-[11px]" data-query="Boston College">Boston College</button>
+          <button class="quick-inst-pill px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-emerald-400 border border-slate-800 font-bold text-[11px]" data-query="Minnesota">Minnesota</button>
+          <button class="quick-inst-pill px-2.5 py-1 rounded-lg bg-emerald-950/60 hover:bg-emerald-900/60 text-emerald-300 border border-emerald-700/60 font-bold text-[11px]" data-query="Shattuck">Shattuck-St. Mary's</button>
+          <button class="quick-inst-pill px-2.5 py-1 rounded-lg bg-emerald-950/60 hover:bg-emerald-900/60 text-emerald-300 border border-emerald-700/60 font-bold text-[11px]" data-query="Edina">Edina HS</button>
+          <button class="quick-inst-pill px-2.5 py-1 rounded-lg bg-emerald-950/60 hover:bg-emerald-900/60 text-emerald-300 border border-emerald-700/60 font-bold text-[11px]" data-query="Avon Old Farms">Avon Old Farms</button>
+          <button class="quick-inst-pill px-2.5 py-1 rounded-lg bg-emerald-950/60 hover:bg-emerald-900/60 text-emerald-300 border border-emerald-700/60 font-bold text-[11px]" data-query="Minnetonka">Minnetonka HS</button>
+          <button class="quick-inst-pill px-2.5 py-1 rounded-lg bg-emerald-950/60 hover:bg-emerald-900/60 text-emerald-300 border border-emerald-700/60 font-bold text-[11px]" data-query="Culver">Culver Academy</button>
+          <button class="quick-inst-pill px-2.5 py-1 rounded-lg bg-emerald-950/60 hover:bg-emerald-900/60 text-emerald-300 border border-emerald-700/60 font-bold text-[11px]" data-query="Hobart">Hobart (D3)</button>
+          <button class="quick-inst-pill px-2.5 py-1 rounded-lg bg-emerald-950/60 hover:bg-emerald-900/60 text-emerald-300 border border-emerald-700/60 font-bold text-[11px]" data-query="Liberty">Liberty (ACHA)</button>
+        </div>
+
+      </div>
+
+      <!-- Institutions Table Container -->
+      <div class="glass-panel rounded-2xl border border-slate-800 overflow-hidden shadow-2xl">
+        <div class="p-4 border-b border-slate-800 flex items-center justify-between text-xs text-slate-400">
+          <div>
+            <span class="font-bold text-white text-sm" id="instResultCountLabel">Showing 170 Institutions</span>
+          </div>
+          <div class="font-mono text-[11px] text-emerald-400">
+            Click 'View Roster' to inspect all personnel
+          </div>
+        </div>
+        <div class="overflow-x-auto max-h-[700px] overflow-y-auto">
+          <table class="w-full text-left text-xs border-collapse">
+            <thead class="sticky top-0 z-20 bg-slate-950/95 backdrop-blur border-b border-slate-800 text-[10px] text-slate-400 uppercase tracking-wider font-mono">
+              <tr>
+                <th class="py-3 px-4">INSTITUTION / PROGRAM</th>
+                <th class="py-3 px-3">LEAGUE / TIER</th>
+                <th class="py-3 px-3">CONFERENCE</th>
+                <th class="py-3 px-3">LOCATION</th>
+                <th class="py-3 px-3 text-center">SCOUTING INTEGRITY</th>
+                <th class="py-3 px-4 text-right">ACTION</th>
+              </tr>
+            </thead>
+            <tbody id="institutionsTableBody" class="divide-y divide-slate-800/60 font-sans text-slate-200">
+              <!-- Dynamically populated from static/js/institutions_catalog.js -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
 
   </main>
 
@@ -420,6 +540,7 @@
   <!-- Scripts -->
   <script src="static/js/bundle_data.js"></script>
   <script src="static/js/master_players.js"></script>
+  <script src="static/js/institutions_catalog.js"></script>
   <script>
     let allAthletes = [];
     let filteredAthletes = [];
@@ -602,6 +723,221 @@
       }
       if (urlParams.get('league')) {
         document.getElementById('filterLeague').value = urlParams.get('league');
+      }
+
+      // =========================================================================
+      // INSTITUTIONS DIRECTORY CONTROLLER (ALL COLLEGES & HIGH SCHOOLS)
+      // =========================================================================
+      let allInstitutions = [];
+      let filteredInstitutions = [];
+      let activeInstCategory = 'all';
+
+      if (window.BlueLineInstitutionsCatalog) {
+        allInstitutions = window.BlueLineInstitutionsCatalog.getAll();
+        filteredInstitutions = [...allInstitutions];
+      }
+
+      function renderInstitutions() {
+        const tbody = document.getElementById('institutionsTableBody');
+        const countLabel = document.getElementById('instResultCountLabel');
+        if (countLabel) {
+          countLabel.textContent = `Showing ${filteredInstitutions.length} of ${allInstitutions.length} Institutions`;
+        }
+
+        if (!tbody) return;
+
+        if (filteredInstitutions.length === 0) {
+          tbody.innerHTML = `
+            <tr>
+              <td colspan="6" class="p-8 text-center text-slate-400">
+                <div class="text-3xl mb-2">🏫</div>
+                <div class="text-sm font-bold text-white">No institutions match your search query.</div>
+                <p class="text-xs text-slate-500 mt-1">Try broadening your search term or select another category filter.</p>
+              </td>
+            </tr>
+          `;
+          return;
+        }
+
+        tbody.innerHTML = filteredInstitutions.map((inst) => {
+          let badgeColor = "bg-sky-500/20 text-sky-300 border-sky-500/30";
+          if (inst.category && inst.category.includes("Women")) badgeColor = "bg-pink-500/20 text-pink-300 border-pink-500/30";
+          else if (inst.category && inst.category.includes("Division III")) badgeColor = "bg-amber-500/20 text-amber-300 border-amber-500/30";
+          else if (inst.category && inst.category.includes("ACHA")) badgeColor = "bg-purple-500/20 text-purple-300 border-purple-500/30";
+          else if (inst.level === "Prep Academy") badgeColor = "bg-emerald-500/20 text-emerald-300 border-emerald-500/30";
+          else if (inst.level === "High School Varsity") badgeColor = "bg-teal-500/20 text-teal-300 border-teal-500/30";
+          else if (inst.category && inst.category.includes("Junior")) badgeColor = "bg-cyan-500/20 text-cyan-300 border-cyan-500/30";
+
+          const queryName = (inst.shortName || inst.name).toLowerCase();
+          const alumniCount = allAthletes.filter(a => {
+            const tm = (a.team || '').toLowerCase();
+            const ins = (a.institution || '').toLowerCase();
+            return tm.includes(queryName) || ins.includes(queryName);
+          }).length;
+
+          const encodedName = encodeURIComponent(inst.shortName || inst.name);
+
+          return `
+            <tr class="hover:bg-slate-900/60 transition text-xs border-b border-slate-800/40">
+              <td class="py-3 px-4">
+                <div class="flex items-center gap-2.5">
+                  <div class="w-8 h-8 rounded-xl bg-slate-900 border border-slate-700 flex items-center justify-center text-sm font-bold shadow-sm">
+                    🏫
+                  </div>
+                  <div>
+                    <div class="font-bold text-white text-sm hover:text-sky-400 cursor-pointer" onclick="viewSchoolRoster('${encodedName}')">
+                      ${inst.name}
+                    </div>
+                    <div class="text-[11px] text-slate-400 font-mono">
+                      Mascot: <span class="text-slate-300">${inst.mascot || 'Varsity'}</span>
+                    </div>
+                  </div>
+                </div>
+              </td>
+              <td class="py-3 px-3">
+                <span class="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold border ${badgeColor}">
+                  ${inst.category || inst.league}
+                </span>
+              </td>
+              <td class="py-3 px-3 font-mono text-xs text-slate-300">
+                ${inst.conference || 'Independent'}
+              </td>
+              <td class="py-3 px-3 text-slate-300 font-mono text-xs">
+                ${inst.city ? `${inst.city}, ` : ''}<strong class="text-white">${inst.state || 'US'}</strong> · ${inst.country || 'USA'}
+              </td>
+              <td class="py-3 px-3 text-center">
+                <span class="px-2 py-0.5 rounded-full text-[10px] font-mono text-emerald-300 bg-emerald-950/60 border border-emerald-700/50 font-bold">
+                  ✓ Verified Non-NHL
+                </span>
+                <div class="text-[10px] text-slate-400 font-mono mt-0.5">${alumniCount > 0 ? `${alumniCount} athletes registered` : 'Active Feed'}</div>
+              </td>
+              <td class="py-3 px-4 text-right">
+                <button onclick="viewSchoolRoster('${encodedName}')" class="px-3 py-1.5 rounded-xl bg-sky-600/30 hover:bg-sky-600 text-sky-200 hover:text-white border border-sky-500/40 text-xs font-bold transition flex items-center gap-1.5 ml-auto cursor-pointer">
+                  <span>🏒 View Athletes</span>
+                  <span>&rarr;</span>
+                </button>
+              </td>
+            </tr>
+          `;
+        }).join('');
+      }
+
+      window.viewSchoolRoster = function(schoolEncoded) {
+        const schoolName = decodeURIComponent(schoolEncoded);
+        const mAthletes = document.getElementById('modeAthletesBtn');
+        if (mAthletes) mAthletes.click();
+        
+        const sInput = document.getElementById('masterSearchInput');
+        if (sInput) {
+          sInput.value = schoolName;
+          const cBtn = document.getElementById('clearMasterSearchBtn');
+          if (cBtn) cBtn.classList.remove('hidden');
+          currentPage = 1;
+          applyFilters();
+          window.scrollTo({ top: 150, behavior: 'smooth' });
+        }
+      };
+
+      function filterInstitutions() {
+        const q = (document.getElementById('instSearchInput').value || '').toLowerCase().trim();
+        filteredInstitutions = allInstitutions.filter(inst => {
+          if (activeInstCategory !== 'all') {
+            if (activeInstCategory === 'High School Varsity') {
+              if (inst.level !== 'High School Varsity' && inst.category !== 'High School Varsity') return false;
+            } else if (activeInstCategory === 'Prep Academy') {
+              if (inst.level !== 'Prep Academy' && inst.category !== 'Prep Academy') return false;
+            } else if (inst.category !== activeInstCategory && inst.league !== activeInstCategory) {
+              return false;
+            }
+          }
+          if (q) {
+            const matches = (inst.name && inst.name.toLowerCase().includes(q)) ||
+                            (inst.shortName && inst.shortName.toLowerCase().includes(q)) ||
+                            (inst.city && inst.city.toLowerCase().includes(q)) ||
+                            (inst.state && inst.state.toLowerCase().includes(q)) ||
+                            (inst.conference && inst.conference.toLowerCase().includes(q)) ||
+                            (inst.mascot && inst.mascot.toLowerCase().includes(q));
+            if (!matches) return false;
+          }
+          return true;
+        });
+        renderInstitutions();
+      }
+
+      // Hook up mode switcher buttons
+      const modeAthletesBtn = document.getElementById('modeAthletesBtn');
+      const modeInstitutionsBtn = document.getElementById('modeInstitutionsBtn');
+      const athletesSection = document.getElementById('athletesDirectorySection');
+      const instSection = document.getElementById('institutionsDirectorySection');
+
+      if (modeAthletesBtn && modeInstitutionsBtn) {
+        modeAthletesBtn.addEventListener('click', () => {
+          modeAthletesBtn.classList.add('bg-sky-600', 'text-white');
+          modeAthletesBtn.classList.remove('text-slate-400');
+          modeInstitutionsBtn.classList.remove('bg-sky-600', 'text-white');
+          modeInstitutionsBtn.classList.add('text-slate-400');
+          if (athletesSection) athletesSection.classList.remove('hidden');
+          if (instSection) instSection.classList.add('hidden');
+        });
+
+        modeInstitutionsBtn.addEventListener('click', () => {
+          modeInstitutionsBtn.classList.add('bg-sky-600', 'text-white');
+          modeInstitutionsBtn.classList.remove('text-slate-400');
+          modeAthletesBtn.classList.remove('bg-sky-600', 'text-white');
+          modeAthletesBtn.classList.add('text-slate-400');
+          if (athletesSection) athletesSection.classList.add('hidden');
+          if (instSection) instSection.classList.remove('hidden');
+          renderInstitutions();
+        });
+      }
+
+      const instSearchInput = document.getElementById('instSearchInput');
+      const clearInstSearchBtn = document.getElementById('clearInstSearchBtn');
+      if (instSearchInput) {
+        instSearchInput.addEventListener('input', () => {
+          if (instSearchInput.value.trim()) {
+            if (clearInstSearchBtn) clearInstSearchBtn.classList.remove('hidden');
+          } else {
+            if (clearInstSearchBtn) clearInstSearchBtn.classList.add('hidden');
+          }
+          filterInstitutions();
+        });
+      }
+
+      if (clearInstSearchBtn) {
+        clearInstSearchBtn.addEventListener('click', () => {
+          instSearchInput.value = '';
+          clearInstSearchBtn.classList.add('hidden');
+          filterInstitutions();
+        });
+      }
+
+      document.querySelectorAll('.inst-cat-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          document.querySelectorAll('.inst-cat-btn').forEach(b => {
+            b.classList.remove('bg-emerald-600', 'text-white');
+            b.classList.add('bg-slate-900', 'text-slate-300');
+          });
+          e.target.classList.add('bg-emerald-600', 'text-white');
+          e.target.classList.remove('bg-slate-900', 'text-slate-300');
+          activeInstCategory = e.target.dataset.cat;
+          filterInstitutions();
+        });
+      });
+
+      document.querySelectorAll('.quick-inst-pill').forEach(pill => {
+        pill.addEventListener('click', () => {
+          if (instSearchInput) {
+            instSearchInput.value = pill.dataset.query;
+            if (clearInstSearchBtn) clearInstSearchBtn.classList.remove('hidden');
+            filterInstitutions();
+          }
+        });
+      });
+
+      // Check URL query parameters for tab
+      if (urlParams.get('tab') === 'institutions') {
+        if (modeInstitutionsBtn) modeInstitutionsBtn.click();
       }
 
       // Initial Filter & Render

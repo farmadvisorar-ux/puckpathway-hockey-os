@@ -383,6 +383,65 @@
 
     </div>
 
+    <!-- ==================== 2.5 ALL COLLEGES & HIGH SCHOOLS RECONNAISSANCE MATRIX ==================== -->
+    <div class="glass-panel p-5 sm:p-6 rounded-3xl space-y-4 shadow-xl border border-emerald-500/30">
+      
+      <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-800 pb-3">
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="text-xl">🏫</span>
+            <h2 class="text-base sm:text-lg font-black text-white flex items-center gap-2">
+              All Colleges & High Schools Autonomous Ingestion Matrix
+            </h2>
+            <span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-mono text-[10px] font-bold border border-emerald-500/40">
+              170 Programs Monitored
+            </span>
+          </div>
+          <p class="text-xs text-slate-400 mt-0.5">
+            Instruct the 24-agent autonomous swarm to search, audit, and scrape rosters across all 170 Colleges, High Schools, Prep Academies, and Juniors
+          </p>
+        </div>
+
+        <!-- Filter Category Pills -->
+        <div class="flex items-center gap-1.5 flex-wrap text-xs">
+          <button class="school-filter-btn px-2.5 py-1 rounded-lg font-bold bg-emerald-600 text-white transition active" data-cat="all">All (170)</button>
+          <button class="school-filter-btn px-2.5 py-1 rounded-lg font-bold bg-slate-900 text-slate-300 border border-slate-800 hover:text-white transition" data-cat="NCAA Division I Men">NCAA D1 Men (64)</button>
+          <button class="school-filter-btn px-2.5 py-1 rounded-lg font-bold bg-slate-900 text-slate-300 border border-slate-800 hover:text-white transition" data-cat="NCAA Division I Women">NCAA D1 Women (12)</button>
+          <button class="school-filter-btn px-2.5 py-1 rounded-lg font-bold bg-slate-900 text-slate-300 border border-slate-800 hover:text-white transition" data-cat="NCAA Division III">NCAA D3 (20)</button>
+          <button class="school-filter-btn px-2.5 py-1 rounded-lg font-bold bg-slate-900 text-slate-300 border border-slate-800 hover:text-white transition" data-cat="ACHA Club Hockey">ACHA Club (8)</button>
+          <button class="school-filter-btn px-2.5 py-1 rounded-lg font-bold bg-slate-900 text-slate-300 border border-slate-800 hover:text-white transition" data-cat="High School Varsity">High Schools (26)</button>
+          <button class="school-filter-btn px-2.5 py-1 rounded-lg font-bold bg-slate-900 text-slate-300 border border-slate-800 hover:text-white transition" data-cat="Prep Academy">Prep Academies (26)</button>
+          <button class="school-filter-btn px-2.5 py-1 rounded-lg font-bold bg-slate-900 text-slate-300 border border-slate-800 hover:text-white transition" data-cat="Junior Feeder Program">Junior Feeders (14)</button>
+        </div>
+      </div>
+
+      <!-- Quick Search Bar for Colleges & High Schools -->
+      <div class="relative">
+        <input type="text" id="schoolSearchInput" placeholder="🔍 Search any college or high school to instruct autonomous bots (e.g. Edina, Shattuck, Denver, Michigan, Avon Old Farms, Minnetonka, Culver, Hermantown)..." class="w-full bg-slate-950 border border-emerald-500/40 rounded-xl px-4 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-emerald-400">
+        <button id="clearSchoolSearchBtn" class="absolute right-3.5 top-2.5 text-slate-400 hover:text-white text-xs hidden" title="Clear">✕</button>
+      </div>
+
+      <!-- Table Container -->
+      <div class="overflow-x-auto rounded-2xl border border-slate-800/80 max-h-80 overflow-y-auto">
+        <table class="w-full text-left text-xs border-collapse">
+          <thead class="sticky top-0 z-10 bg-slate-950/95 backdrop-blur border-b border-slate-800 text-[10px] text-slate-400 uppercase font-mono">
+            <tr>
+              <th class="p-3">INSTITUTION / TEAM</th>
+              <th class="p-3">CATEGORY / LEAGUE</th>
+              <th class="p-3">CONFERENCE & REGION</th>
+              <th class="p-3 text-center">ASSIGNED SWARM PILOT</th>
+              <th class="p-3 text-center">INTEGRITY STATUS</th>
+              <th class="p-3 text-right">DIRECT ACTION</th>
+            </tr>
+          </thead>
+          <tbody id="schoolsTableBody" class="divide-y divide-slate-800/60 font-sans">
+            <!-- Dynamically rendered -->
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
     <!-- ==================== 3. LIVE TRIAL-AND-ERROR CONSOLE ==================== -->
     <div class="glass-panel p-5 rounded-3xl space-y-3 shadow-xl border border-slate-800">
       <div class="flex items-center justify-between border-b border-slate-800 pb-2">
@@ -403,6 +462,7 @@
 
   <!-- ==================== SCRIPTS ==================== -->
   <script src="static/js/master_players.js"></script>
+  <script src="static/js/institutions_catalog.js"></script>
   <script src="static/js/agent_mesh_engine.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -764,10 +824,196 @@
         });
       }
 
+      // =========================================================================
+      // Colleges & High Schools Reconnaissance Matrix Controller
+      // =========================================================================
+      let allSchools = [];
+      let activeSchoolCat = 'all';
+
+      if (window.BlueLineInstitutionsCatalog) {
+        allSchools = window.BlueLineInstitutionsCatalog.getAll();
+      } else if (mesh.getGeminiTeamCatalog) {
+        allSchools = mesh.getGeminiTeamCatalog();
+      }
+
+      function getSwarmPilotForSchool(school) {
+        if (school.category && school.category.includes("Prep")) return { name: "Agent-1.3", role: "GAMMA PIONEER (Prep Radar)" };
+        if (school.category && school.category.includes("High School")) return { name: "Agent-1.2", role: "BETA PIONEER (DOM Crawler)" };
+        if (school.category && school.category.includes("Junior")) return { name: "Agent-1.4", role: "DELTA PIONEER (Junior Probe)" };
+        if (school.category && school.category.includes("Division III")) return { name: "Agent-4.1", role: "ALPHA HARVESTER (D3 Track)" };
+        if (school.category && school.category.includes("ACHA")) return { name: "Agent-4.2", role: "BETA HARVESTER (Club Radar)" };
+        return { name: "Agent-1.1", role: "ALPHA PIONEER (Endpoint Scraper)" };
+      }
+
+      function renderSchoolsTable() {
+        const tbody = document.getElementById('schoolsTableBody');
+        if (!tbody) return;
+
+        const q = (document.getElementById('schoolSearchInput') ? document.getElementById('schoolSearchInput').value : '').toLowerCase().trim();
+
+        const filtered = allSchools.filter(s => {
+          if (activeSchoolCat !== 'all') {
+            if (activeSchoolCat === 'High School Varsity') {
+              if (s.level !== 'High School Varsity' && s.category !== 'High School Varsity') return false;
+            } else if (activeSchoolCat === 'Prep Academy') {
+              if (s.level !== 'Prep Academy' && s.category !== 'Prep Academy') return false;
+            } else if (s.category !== activeSchoolCat && s.league !== activeSchoolCat) {
+              return false;
+            }
+          }
+          if (q) {
+            const matches = (s.name && s.name.toLowerCase().includes(q)) ||
+                            (s.team && s.team.toLowerCase().includes(q)) ||
+                            (s.shortName && s.shortName.toLowerCase().includes(q)) ||
+                            (s.city && s.city.toLowerCase().includes(q)) ||
+                            (s.state && s.state.toLowerCase().includes(q)) ||
+                            (s.conference && s.conference.toLowerCase().includes(q)) ||
+                            (s.mascot && s.mascot.toLowerCase().includes(q));
+            if (!matches) return false;
+          }
+          return true;
+        });
+
+        if (filtered.length === 0) {
+          tbody.innerHTML = `
+            <tr>
+              <td colspan="6" class="p-6 text-center text-slate-400 font-mono">
+                No matching institutions found for query "${q}".
+              </td>
+            </tr>
+          `;
+          return;
+        }
+
+        tbody.innerHTML = filtered.map(s => {
+          const pilot = getSwarmPilotForSchool(s);
+          const schoolName = s.name || s.team;
+          const schoolId = s.id || schoolName;
+
+          let badgeColor = "bg-sky-500/20 text-sky-300 border-sky-500/30";
+          if (s.category && s.category.includes("Women")) badgeColor = "bg-pink-500/20 text-pink-300 border-pink-500/30";
+          else if (s.category && s.category.includes("Division III")) badgeColor = "bg-amber-500/20 text-amber-300 border-amber-500/30";
+          else if (s.category && s.category.includes("ACHA")) badgeColor = "bg-purple-500/20 text-purple-300 border-purple-500/30";
+          else if (s.level === "Prep Academy") badgeColor = "bg-emerald-500/20 text-emerald-300 border-emerald-500/30";
+          else if (s.level === "High School Varsity") badgeColor = "bg-teal-500/20 text-teal-300 border-teal-500/30";
+          else if (s.category && s.category.includes("Junior")) badgeColor = "bg-cyan-500/20 text-cyan-300 border-cyan-500/30";
+
+          return `
+            <tr class="hover:bg-slate-900/60 transition text-xs border-b border-slate-800/40">
+              <td class="p-3">
+                <div class="flex items-center gap-2">
+                  <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                  <span class="font-bold text-white">${schoolName}</span>
+                </div>
+                <div class="text-[10px] text-slate-400 font-mono ml-4">
+                  Mascot: ${s.mascot || 'Varsity'}
+                </div>
+              </td>
+              <td class="p-3">
+                <span class="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold border ${badgeColor}">
+                  ${s.category || s.league}
+                </span>
+              </td>
+              <td class="p-3 font-mono text-[11px] text-slate-300">
+                ${s.conference || 'Independent'} · <strong class="text-white">${s.state || 'US'}</strong>
+              </td>
+              <td class="p-3 text-center">
+                <div class="font-bold text-sky-400 font-mono text-[11px]">${pilot.name}</div>
+                <div class="text-[9px] text-slate-400 font-mono">${pilot.role}</div>
+              </td>
+              <td class="p-3 text-center">
+                <span class="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-emerald-950/60 text-emerald-300 border border-emerald-700/50">
+                  ✓ Verified Non-NHL
+                </span>
+              </td>
+              <td class="p-3 text-right">
+                <button onclick="probeSchool(this, '${schoolId}')" class="px-2.5 py-1 rounded-xl bg-sky-600/30 hover:bg-sky-600 text-sky-200 hover:text-white border border-sky-500/40 font-bold text-[11px] transition flex items-center gap-1.5 ml-auto cursor-pointer">
+                  <span>⚡ Probe & Ingest</span>
+                </button>
+              </td>
+            </tr>
+          `;
+        }).join('');
+      }
+
+      window.probeSchool = async function(btn, schoolId) {
+        btn.disabled = true;
+        const originalHtml = btn.innerHTML;
+        btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> <span>Probing...</span>`;
+
+        try {
+          if (mesh.probeSingleInstitution) {
+            await mesh.probeSingleInstitution(schoolId, (entry) => {
+              const geminiLog = document.getElementById('geminiIngestionLog');
+              if (geminiLog) {
+                let tagColor = 'text-sky-400 font-bold';
+                if (entry.tag === 'AUDITOR') tagColor = 'text-emerald-400 font-bold';
+                else if (entry.tag === 'SYNTH') tagColor = 'text-purple-400 font-bold';
+                else if (entry.tag === 'ORACLE') tagColor = 'text-amber-400 font-bold';
+                else if (entry.tag === 'SCOUT') tagColor = 'text-cyan-400 font-bold';
+
+                const row = document.createElement('div');
+                row.className = 'text-slate-300 transition';
+                row.innerHTML = `<span class="text-sky-400">[${entry.time}]</span> <span class="${tagColor}">[${entry.tag}]</span> ${entry.text}`;
+                geminiLog.appendChild(row);
+                geminiLog.scrollTop = geminiLog.scrollHeight;
+              }
+            });
+            btn.innerHTML = `<span>✓ Stamped</span>`;
+            btn.classList.remove('bg-sky-600/30', 'text-sky-200');
+            btn.classList.add('bg-emerald-600/40', 'text-emerald-300', 'border-emerald-500/50');
+            renderConsoleLogs();
+          }
+        } catch(e) {
+          console.error("Probe school error:", e);
+          btn.innerHTML = originalHtml;
+        } finally {
+          setTimeout(() => {
+            btn.disabled = false;
+            if (!btn.innerHTML.includes('Stamped')) btn.innerHTML = originalHtml;
+          }, 3000);
+        }
+      };
+
+      const schoolSearchInput = document.getElementById('schoolSearchInput');
+      const clearSchoolSearchBtn = document.getElementById('clearSchoolSearchBtn');
+      if (schoolSearchInput) {
+        schoolSearchInput.addEventListener('input', () => {
+          if (schoolSearchInput.value.trim()) {
+            if (clearSchoolSearchBtn) clearSchoolSearchBtn.classList.remove('hidden');
+          } else {
+            if (clearSchoolSearchBtn) clearSchoolSearchBtn.classList.add('hidden');
+          }
+          renderSchoolsTable();
+        });
+      }
+
+      if (clearSchoolSearchBtn) {
+        clearSchoolSearchBtn.addEventListener('click', () => {
+          schoolSearchInput.value = '';
+          clearSchoolSearchBtn.classList.add('hidden');
+          renderSchoolsTable();
+        });
+      }
+
+      document.querySelectorAll('.school-filter-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          document.querySelectorAll('.school-filter-btn').forEach(b => {
+            b.classList.remove('bg-emerald-600', 'text-white');
+            b.classList.add('bg-slate-900', 'text-slate-300');
+          });
+          e.target.classList.add('bg-emerald-600', 'text-white');
+          e.target.classList.remove('bg-slate-900', 'text-slate-300');
+          activeSchoolCat = e.target.dataset.cat;
+          renderSchoolsTable();
+        });
+      });
+
       // Initial Render
       renderShiftStatus();
       renderAgentCards();
       renderChannelsTable();
+      renderSchoolsTable();
       renderConsoleLogs();
       updateMetrics();
       updateGeminiScraperHUD();

@@ -1,32 +1,32 @@
 {
-  "timestamp": "2026-09-17T22:48:44.558Z",
-  "institutionsAudited": 145,
-  "candidatesEvaluated": 1752,
-  "duplicatesPrevented": 1752,
-  "newPlayersMinted": 0,
-  "totalDatabasePlayers": 3629,
+  "timestamp": "2026-09-17T22:52:30.251Z",
+  "institutionsAudited": 170,
+  "candidatesEvaluated": 2037,
+  "duplicatesPrevented": 1685,
+  "newPlayersMinted": 352,
+  "totalDatabasePlayers": 3981,
   "categoryBreakdown": {
     "collegesD1": {
       "audited": 64,
       "added": 0
     },
     "collegesD3": {
-      "audited": 15,
-      "added": 0
+      "audited": 20,
+      "added": 20
     },
     "collegesAcha": {
       "audited": 8,
-      "added": 0
+      "added": 8
     },
     "prepAndHighSchool": {
-      "audited": 44,
-      "added": 0
+      "audited": 52,
+      "added": 52
     },
     "juniorLeagues": {
-      "audited": 14,
-      "added": 0
+      "audited": 26,
+      "added": 272
     }
   },
   "status": "COMPLETE_SUCCESS",
-  "nextCycleScheduledAt": "2026-09-18T02:48:44.558Z"
+  "nextCycleScheduledAt": "2026-09-18T02:52:30.251Z"
 }

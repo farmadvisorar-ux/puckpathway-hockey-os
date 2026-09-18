@@ -217,14 +217,26 @@ const JUNIOR_AND_FEEDERS = [
   { team: "USA Hockey NTDP (U17)", league: "USHL / IIHF U17", conference: "USHL Eastern", category: "National Development Program", wikiPage: "USA_Hockey_National_Team_Development_Program" }
 ];
 
-// Combine all into Master Catalog
-const MASTER_CATALOG = [
-  ...NCAA_D1_COLLEGES,
-  ...NCAA_D3_COLLEGES,
-  ...ACHA_COLLEGES,
-  ...HIGH_SCHOOLS_AND_PREP,
-  ...JUNIOR_AND_FEEDERS
-];
+// Combine all into Master Catalog (All Colleges, Prep Academies & High Schools)
+let MASTER_CATALOG = [];
+try {
+  const cat = require(path.join(PROJECT_ROOT, 'static', 'js', 'institutions_catalog.js'));
+  MASTER_CATALOG = cat.getAll().map(i => ({
+    team: i.name,
+    league: i.league,
+    conference: i.conference,
+    category: i.category,
+    wikiPage: i.wikiPage
+  }));
+} catch(e) {
+  MASTER_CATALOG = [
+    ...NCAA_D1_COLLEGES,
+    ...NCAA_D3_COLLEGES,
+    ...ACHA_COLLEGES,
+    ...HIGH_SCHOOLS_AND_PREP,
+    ...JUNIOR_AND_FEEDERS
+  ];
+}
 
 // Helper: Generate Cryptographic Block Hash
 function generateBlockHash(input) {

@@ -1,15 +1,15 @@
 {
-  "activeSquadron": 23,
-  "lastSyncTimestamp": "2026-09-17T22:48:17.948Z",
+  "activeSquadron": 18,
+  "lastSyncTimestamp": "2026-09-17T22:53:01.369Z",
   "totalTrialsConducted": 5330,
   "recentLogs": [
     {
-      "timestamp": "22:48:17",
+      "timestamp": "17:53:01",
       "event": "LIVE_HTTP_CRAWL_COMPLETE",
-      "agent": "Agent-5.4",
-      "copilot": "Agent-4.4",
+      "agent": "Agent-6.3",
+      "copilot": "Agent-5.3",
       "targetId": "ALL_25_LIVE_TARGETS",
-      "msg": "24-AGENT SWARM HARVEST: Agent-5.4 & Co-Pilot Agent-4.4 crawled all 25 live data sources. Ingested 5670.8 KB at 139ms avg latency. 25 channels ranked Tier-S. Non-NHL registry verified."
+      "msg": "24-AGENT SWARM HARVEST: Agent-6.3 & Co-Pilot Agent-5.3 crawled all 25 live data sources. Ingested 5670.8 KB at 836ms avg latency. 22 channels ranked Tier-S. Non-NHL registry verified."
     },
     {
       "timestamp": "15:09:22",
