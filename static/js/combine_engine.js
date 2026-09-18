@@ -105,6 +105,14 @@
       sprint30m: 3.98, wingatePeak: 16.2, verticalJump: 25.8,
       proAgility: 4.32, pullUps: 13, gripStrength: 59, vo2Max: 59.8, broadJump: 107
     },
+    "MSHSL Class AA Varsity Norm": {
+      sprint30m: 4.05, wingatePeak: 15.6, verticalJump: 24.5,
+      proAgility: 4.38, pullUps: 12, gripStrength: 56, vo2Max: 58.2, broadJump: 104
+    },
+    "NEPSAC Elite Prep Norm": {
+      sprint30m: 3.95, wingatePeak: 16.4, verticalJump: 26.2,
+      proAgility: 4.29, pullUps: 14, gripStrength: 60, vo2Max: 60.4, broadJump: 109
+    },
     "NCAA D1": {
       sprint30m: 3.90, wingatePeak: 16.9, verticalJump: 27.2,
       proAgility: 4.24, pullUps: 15, gripStrength: 63, vo2Max: 61.5, broadJump: 111
@@ -316,6 +324,66 @@
         broadJump: 115
       },
       scoutingNote: "Heavy, intimidating frame with sharp offensive instincts and heavy slap shot release point."
+    },
+    {
+      id: "prospect-11",
+      name: "Hagen Burrows",
+      pos: "RW/C",
+      team: "Minnetonka Skippers / Sioux City Musketeers",
+      league: "MSHSL / USHL",
+      height: "6'2\"",
+      weight: 176,
+      metrics: {
+        sprint30m: 3.96,
+        wingatePeak: 16.3,
+        verticalJump: 26.5,
+        proAgility: 4.28,
+        pullUps: 14,
+        gripStrength: 61,
+        vo2Max: 61.2,
+        broadJump: 109
+      },
+      scoutingNote: "2024 Minnesota Mr. Hockey winner. High hockey sense, lethal catch-and-release snap shot, and deceptive length along the perimeter."
+    },
+    {
+      id: "prospect-12",
+      name: "Joe Connor",
+      pos: "LW",
+      team: "Avon Old Farms / Muskegon Lumberjacks",
+      league: "NEPSAC / USHL",
+      height: "5'10\"",
+      weight: 175,
+      metrics: {
+        sprint30m: 3.88,
+        wingatePeak: 16.8,
+        verticalJump: 27.4,
+        proAgility: 4.19,
+        pullUps: 16,
+        gripStrength: 59,
+        vo2Max: 63.8,
+        broadJump: 112
+      },
+      scoutingNote: "High-octane prep winger with relentless forecheck pressure, high-speed puck recovery, and tenacious motor."
+    },
+    {
+      id: "prospect-13",
+      name: "Dean Letourneau",
+      pos: "C",
+      team: "St. Andrew's College / Boston College",
+      league: "Prep / NCAA D1",
+      height: "6'7\"",
+      weight: 214,
+      metrics: {
+        sprint30m: 3.99,
+        wingatePeak: 17.4,
+        verticalJump: 28.1,
+        proAgility: 4.34,
+        pullUps: 15,
+        gripStrength: 72,
+        vo2Max: 59.5,
+        broadJump: 114
+      },
+      scoutingNote: "Rare 6-foot-7 frame with elite puck skills, exceptional reach on poke checks, and dynamic net-front power play presence."
     }
   ];
 

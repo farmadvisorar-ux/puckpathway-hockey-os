@@ -184,7 +184,7 @@
       </div>
       <div class="flex items-center gap-2 text-[11px] font-mono bg-slate-950/80 px-3 py-1 rounded-full border border-red-500/30 text-red-400">
         <i class="fa-solid fa-satellite-dish"></i>
-        <span>SCOUTING RADAR: <strong>4 CONCURRENT BROADCAST FEEDS SYNCED</strong></span>
+        <span>SCOUTING RADAR: <strong>6 CONCURRENT BROADCAST FEEDS SYNCED</strong></span>
       </div>
     </div>
   </div>
@@ -192,11 +192,26 @@
   <!-- MAIN MULTI-GAME WAR ROOM CONTAINER -->
   <main class="max-w-7xl mx-auto px-4 py-6 space-y-6 flex-1 w-full">
 
-    <!-- TOP QUAD-GAME MATCHUP STRIP (4 CARDS) -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
+    <!-- MULTI-LEAGUE FILTER CONTROLS -->
+    <div class="flex items-center justify-between flex-wrap gap-2">
+      <div class="flex items-center gap-1.5 font-mono text-xs overflow-x-auto pb-1" id="leagueFilterPills">
+        <span class="text-slate-400 font-semibold mr-1">Filter League:</span>
+        <button onclick="filterLeague('all', this)" class="league-filter active px-3 py-1.5 rounded-xl bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 font-bold transition">All Matchups (6)</button>
+        <button onclick="filterLeague('ncaa', this)" class="league-filter px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-white border border-slate-800 font-medium transition">NCAA Division I (3)</button>
+        <button onclick="filterLeague('ushl', this)" class="league-filter px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-white border border-slate-800 font-medium transition">USHL Junior (1)</button>
+        <button onclick="filterLeague('prep', this)" class="league-filter px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-white border border-slate-800 font-medium transition">High School & Prep (2)</button>
+      </div>
+      <div class="flex items-center gap-2 text-[11px] font-mono text-slate-400">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span>6 Active FEEDS SYNCED</span>
+      </div>
+    </div>
+
+    <!-- TOP MULTI-LEAGUE MATCHUP STRIP (6 CARDS) -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-3" id="matchupStrip">
       
-      <!-- Game 1: Michigan vs Minnesota -->
-      <div onclick="selectGame(0, this)" class="game-card active p-3 rounded-2xl bg-slate-900/80 border border-cyan-500/50 cursor-pointer transition-all hover:bg-slate-900 flex flex-col justify-between">
+      <!-- Game 0: Michigan vs Minnesota -->
+      <div onclick="selectGame(0, this)" data-league="ncaa" class="game-card active p-3 rounded-2xl bg-slate-900/80 border border-cyan-500/50 cursor-pointer transition-all hover:bg-slate-900 flex flex-col justify-between">
         <div>
           <div class="flex items-center justify-between text-[11px] font-mono mb-2">
             <span class="px-2 py-0.5 rounded bg-red-500/20 text-red-400 font-bold border border-red-500/30 flex items-center gap-1">
@@ -225,8 +240,8 @@
         </div>
       </div>
 
-      <!-- Game 2: Denver vs North Dakota -->
-      <div onclick="selectGame(1, this)" class="game-card p-3 rounded-2xl bg-slate-900/80 border border-slate-800 cursor-pointer transition-all hover:bg-slate-900 flex flex-col justify-between">
+      <!-- Game 1: Denver vs North Dakota -->
+      <div onclick="selectGame(1, this)" data-league="ncaa" class="game-card p-3 rounded-2xl bg-slate-900/80 border border-slate-800 cursor-pointer transition-all hover:bg-slate-900 flex flex-col justify-between">
         <div>
           <div class="flex items-center justify-between text-[11px] font-mono mb-2">
             <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-400 font-bold border border-slate-700">FINAL</span>
@@ -251,8 +266,8 @@
         </div>
       </div>
 
-      <!-- Game 3: Boston College vs Boston University -->
-      <div onclick="selectGame(2, this)" class="game-card p-3 rounded-2xl bg-slate-900/80 border border-slate-800 cursor-pointer transition-all hover:bg-slate-900 flex flex-col justify-between">
+      <!-- Game 2: Boston College vs Boston University -->
+      <div onclick="selectGame(2, this)" data-league="ncaa" class="game-card p-3 rounded-2xl bg-slate-900/80 border border-slate-800 cursor-pointer transition-all hover:bg-slate-900 flex flex-col justify-between">
         <div>
           <div class="flex items-center justify-between text-[11px] font-mono mb-2">
             <span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-bold border border-amber-500/30 flex items-center gap-1">
@@ -280,8 +295,8 @@
         </div>
       </div>
 
-      <!-- Game 4: Chicago Steel vs Fargo Force -->
-      <div onclick="selectGame(3, this)" class="game-card p-3 rounded-2xl bg-slate-900/80 border border-slate-800 cursor-pointer transition-all hover:bg-slate-900 flex flex-col justify-between">
+      <!-- Game 3: Chicago Steel vs Fargo Force -->
+      <div onclick="selectGame(3, this)" data-league="ushl" class="game-card p-3 rounded-2xl bg-slate-900/80 border border-slate-800 cursor-pointer transition-all hover:bg-slate-900 flex flex-col justify-between">
         <div>
           <div class="flex items-center justify-between text-[11px] font-mono mb-2">
             <span class="px-2 py-0.5 rounded bg-red-500/20 text-red-400 font-bold border border-red-500/30 flex items-center gap-1">
@@ -309,6 +324,61 @@
         </div>
       </div>
 
+      <!-- Game 4: Edina Hornets vs Minnetonka Skippers -->
+      <div onclick="selectGame(4, this)" data-league="prep" class="game-card p-3 rounded-2xl bg-slate-900/80 border border-slate-800 cursor-pointer transition-all hover:bg-slate-900 flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between text-[11px] font-mono mb-2">
+            <span class="px-2 py-0.5 rounded bg-red-500/20 text-red-400 font-bold border border-red-500/30 flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-red-400 animate-pulse"></span>
+              <span>3RD 02:15</span>
+            </span>
+            <span class="text-amber-400 font-bold">MSHSL AA</span>
+          </div>
+
+          <div class="space-y-1.5 mb-2">
+            <div class="flex items-center justify-between text-xs font-bold">
+              <span class="text-white flex items-center gap-1.5">🐝 Edina Hornets</span>
+              <span class="text-cyan-300 font-display text-base">3</span>
+            </div>
+            <div class="flex items-center justify-between text-xs font-bold">
+              <span class="text-slate-300 flex items-center gap-1.5">⚓ Minnetonka</span>
+              <span class="text-slate-300 font-display text-base">2</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="pt-2 border-t border-slate-800/80 text-[10px] text-slate-400 flex items-center justify-between font-mono">
+          <span>SOG: 32-30</span>
+          <span class="text-amber-400">Burrows: 1G, 1A</span>
+        </div>
+      </div>
+
+      <!-- Game 5: Avon Old Farms vs Salisbury Knights -->
+      <div onclick="selectGame(5, this)" data-league="prep" class="game-card p-3 rounded-2xl bg-slate-900/80 border border-slate-800 cursor-pointer transition-all hover:bg-slate-900 flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between text-[11px] font-mono mb-2">
+            <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-400 font-bold border border-slate-700">FINAL</span>
+            <span class="text-purple-400 font-bold">NEPSAC Prep</span>
+          </div>
+
+          <div class="space-y-1.5 mb-2">
+            <div class="flex items-center justify-between text-xs font-bold">
+              <span class="text-white flex items-center gap-1.5">🦫 Avon Old Farms</span>
+              <span class="text-cyan-300 font-display text-base">4</span>
+            </div>
+            <div class="flex items-center justify-between text-xs font-bold">
+              <span class="text-slate-400 flex items-center gap-1.5">🛡️ Salisbury</span>
+              <span class="text-slate-400 font-display text-base">2</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="pt-2 border-t border-slate-800/80 text-[10px] text-slate-400 flex items-center justify-between font-mono">
+          <span>SOG: 36-24</span>
+          <span class="text-emerald-400">Connor: 2G, 1A</span>
+        </div>
+      </div>
+
     </div>
 
     <!-- ACTIVE GAME EXPANDED SCOUTING WAR ROOM -->
@@ -328,7 +398,7 @@
               </div>
               <div>
                 <h2 id="activeHomeName" class="font-display font-bold text-lg text-white">#3 Michigan Wolverines</h2>
-                <p class="text-xs text-slate-400 font-mono">Home • Big Ten (21-8-3)</p>
+                <p id="activeHomeSub" class="text-xs text-slate-400 font-mono">Home • Big Ten (21-8-3)</p>
               </div>
             </div>
 
@@ -350,37 +420,37 @@
               </div>
               <div>
                 <h2 id="activeAwayName" class="font-display font-bold text-lg text-white">#5 Minnesota Gophers</h2>
-                <p class="text-xs text-slate-400 font-mono">Away • Big Ten (20-9-4)</p>
+                <p id="activeAwaySub" class="text-xs text-slate-400 font-mono">Away • Big Ten (20-9-4)</p>
               </div>
             </div>
 
           </div>
 
           <!-- Period Breakdown Grid -->
-          <div class="mt-5 pt-4 border-t border-slate-800/80 grid grid-cols-4 sm:grid-cols-6 gap-2 text-center font-mono text-xs">
+          <div class="mt-5 pt-4 border-t border-slate-800/80 grid grid-cols-3 sm:grid-cols-6 gap-2 text-center font-mono text-xs">
             <div class="p-2 bg-slate-950/60 rounded-lg border border-slate-800">
               <span class="text-[10px] text-slate-500 block">1ST</span>
-              <strong class="text-white">1 - 1</strong>
+              <strong class="text-white" id="stat1st">1 - 1</strong>
             </div>
             <div class="p-2 bg-slate-950/60 rounded-lg border border-slate-800">
               <span class="text-[10px] text-slate-500 block">2ND</span>
-              <strong class="text-white">2 - 1</strong>
+              <strong class="text-white" id="stat2nd">2 - 1</strong>
             </div>
             <div class="p-2 bg-slate-950/60 rounded-lg border border-slate-800">
               <span class="text-[10px] text-slate-500 block">3RD</span>
-              <strong class="text-cyan-300">1 - 1</strong>
+              <strong class="text-cyan-300" id="stat3rd">1 - 1</strong>
             </div>
             <div class="p-2 bg-slate-950/60 rounded-lg border border-slate-800">
               <span class="text-[10px] text-slate-500 block">SHOTS</span>
-              <strong class="text-emerald-400">34 - 31</strong>
+              <strong class="text-emerald-400" id="statShots">34 - 31</strong>
             </div>
             <div class="p-2 bg-slate-950/60 rounded-lg border border-slate-800">
               <span class="text-[10px] text-slate-500 block">POWER PLAY</span>
-              <strong class="text-amber-300">1/3 - 0/2</strong>
+              <strong class="text-amber-300" id="statPP">1/3 - 0/2</strong>
             </div>
             <div class="p-2 bg-slate-950/60 rounded-lg border border-slate-800">
               <span class="text-[10px] text-slate-500 block">FACEOFFS</span>
-              <strong class="text-white">54.2%</strong>
+              <strong class="text-white" id="statFO">54.2%</strong>
             </div>
           </div>
         </div>
@@ -442,7 +512,7 @@
             <span>Tracked Athlete Shift Telemetry</span>
           </h3>
 
-          <div class="space-y-2 text-xs">
+          <div class="space-y-2 text-xs" id="athleteTelemetryContainer">
             <!-- Athlete 1 -->
             <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800">
               <div class="flex items-center justify-between mb-1">
@@ -511,59 +581,319 @@
   </main>
 
   <script>
+    let activeGameIndex = 0;
+
     const GAMES_DATA = [
       {
         homeName: "#3 Michigan Wolverines",
         awayName: "#5 Minnesota Gophers",
+        homeSub: "Home • Big Ten (21-8-3)",
+        awaySub: "Away • Big Ten (20-9-4)",
         homeLogo: "〽️",
         awayLogo: "〽️",
         score: "4 - 3",
-        clock: "3RD PERIOD • 04:12"
+        clock: "3RD PERIOD • 04:12",
+        category: "ncaa",
+        stats: {
+          first: "1 - 1",
+          second: "2 - 1",
+          third: "1 - 1",
+          shots: "34 - 31",
+          pp: "1/3 - 0/2",
+          fo: "54.2%"
+        },
+        events: [
+          { time: "15:48", tag: "🚨 GOAL (MICH 4 - MINN 3)", tagColor: "cyan", text: "Michael Hage (#19) snipes top-shelf over glove off rush transition. Assists: Chesley, Hughes." },
+          { time: "13:20", tag: "🧤 BIG SAVE", tagColor: "amber", text: "Logan Stein turns aside high-danger slot one-timer from hashmarks. Rebound steered to corner." },
+          { time: "09:15", tag: "⚠️ PENALTY", tagColor: "red", text: "Minnesota 2-minute minor for Hooking. Michigan on Power Play (1:14 remaining)." },
+          { time: "06:40", tag: "🛡️ CONTROLLED EXIT", tagColor: "emerald", text: "Ryan Chesley breaks cycle with stick lift, banks first-pass off boards to spring 2-on-1 rush." }
+        ],
+        athletes: [
+          { name: "Michael Hage (C #19)", statBadge: "1G, 1A", badgeColor: "cyan", details: ["TOI: 19:42", "Top Spd: 22.8 MPH", "FO%: 62.5%"] },
+          { name: "Ryan Chesley (RD #2)", statBadge: "+2, 1A", badgeColor: "amber", details: ["TOI: 23:15", "Blocks: 4", "Hits: 5"] },
+          { name: "Logan Stein (G #31)", statBadge: ".912 SV%", badgeColor: "emerald", details: ["Saves: 31/34", "xGA: 3.82", "GSAA: +0.82"] }
+        ],
+        wireReport: "Michael Hage showcased elite dynamic burst off rush entries (22.8 MPH) with 1G, 1A. Ryan Chesley commanded defensive gap control with 4 blocked shots.",
+        tags: ["#GameNight", "#ScoutingReport", "#BigTenHockey"]
       },
       {
         homeName: "#1 Denver Pioneers",
         awayName: "#4 North Dakota Fighting Hawks",
+        homeSub: "Home • NCHC (28-7-2)",
+        awaySub: "Away • NCHC (24-10-2)",
         homeLogo: "🏔️",
         awayLogo: "🦅",
         score: "5 - 2",
-        clock: "FINAL (NCHC SHOWDOWN)"
+        clock: "FINAL (NCHC SHOWDOWN)",
+        category: "ncaa",
+        stats: {
+          first: "2 - 0",
+          second: "2 - 1",
+          third: "1 - 1",
+          shots: "38 - 26",
+          pp: "2/4 - 1/3",
+          fo: "58.1%"
+        },
+        events: [
+          { time: "FINAL", tag: "🏆 FINAL HORN", tagColor: "cyan", text: "Denver secures 5-2 victory behind Devine's 3-point night and stingy neutral-zone trap." },
+          { time: "16:30", tag: "🚨 EMPTY NET GOAL (DEN 5 - UND 2)", tagColor: "cyan", text: "Jack Devine seals the game from center ice after unselfish feed from Zeev Buium." },
+          { time: "11:05", tag: "🧤 GLOVE SAVE", tagColor: "amber", text: "Matt Davis robs Jackson Blake on back-door one-timer during 6-on-5 delayed penalty." },
+          { time: "04:18", tag: "🚨 POWER PLAY GOAL (DEN 4 - UND 1)", tagColor: "cyan", text: "Zeev Buium walks the blue line and threads a wrist shot through traffic." }
+        ],
+        athletes: [
+          { name: "Jack Devine (RW #4)", statBadge: "2G, 1A", badgeColor: "cyan", details: ["TOI: 20:05", "Top Spd: 21.9 MPH", "Shots: 6"] },
+          { name: "Zeev Buium (LD #28)", statBadge: "1G, 2A", badgeColor: "amber", details: ["TOI: 24:30", "Zone Exits: 14/15", "+3"] },
+          { name: "Matt Davis (G #35)", statBadge: ".923 SV%", badgeColor: "emerald", details: ["Saves: 24/26", "High-Danger: 7/8", "GSAA: +1.45"] }
+        ],
+        wireReport: "Denver commanded all three zones behind Jack Devine's 3-point performance and Zeev Buium's flawless puck management (14/15 zone exits).",
+        tags: ["#GameNight", "#ScoutingReport", "#NCHCHockey", "#DenverPioneers"]
       },
       {
         homeName: "#2 Boston College Eagles",
         awayName: "#6 Boston University Terriers",
+        homeSub: "Home • Hockey East (27-5-1)",
+        awaySub: "Away • Hockey East (25-8-2)",
         homeLogo: "🦅",
         awayLogo: "🐾",
         score: "3 - 3",
-        clock: "OVERTIME • 02:45"
+        clock: "OVERTIME • 02:45",
+        category: "ncaa",
+        stats: {
+          first: "1 - 0",
+          second: "1 - 2",
+          third: "1 - 1",
+          shots: "29 - 29",
+          pp: "1/2 - 1/3",
+          fo: "51.5%"
+        },
+        events: [
+          { time: "02:45 OT", tag: "⚡ 3-ON-3 RUSH", tagColor: "amber", text: "Ryan Leonard hits post on partial breakaway; BU counter-attacks with Celebrini-Hutson exchange." },
+          { time: "18:42 3RD", tag: "🚨 GAME-TYING GOAL (BC 3 - BU 3)", tagColor: "cyan", text: "Gabe Perreault finishes backhand deke after cross-seam dish from Will Smith." },
+          { time: "12:10 3RD", tag: "🚨 GOAL (BU 3 - BC 2)", tagColor: "red", text: "Macklin Celebrini snaps short-side wrister bar-down off left circle faceoff win." },
+          { time: "07:15 2ND", tag: "🥊 OPEN ICE HIT", tagColor: "emerald", text: "Ryan Leonard delivers clean shoulder check along half-wall to separate carrier from puck." }
+        ],
+        athletes: [
+          { name: "Ryan Leonard (RW #9)", statBadge: "1G, 1A", badgeColor: "cyan", details: ["TOI: 21:10", "Hits: 6", "Top Spd: 23.1 MPH"] },
+          { name: "Gabe Perreault (LW #19)", statBadge: "1G, 1A", badgeColor: "amber", details: ["TOI: 19:40", "Primary Ast: 1", "Shot Ast: 5"] },
+          { name: "Jacob Fowler (G #1)", statBadge: ".897 SV%", badgeColor: "emerald", details: ["Saves: 26/29", "xGA: 3.55", "GSAA: +0.55"] }
+        ],
+        wireReport: "Classic Battle of Boston thriller tied in OT. High-octane transition play with Leonard and Perreault applying lethal pressure.",
+        tags: ["#BattleOfBoston", "#HockeyEast", "#ScoutingReport", "#NCAAHockey"]
       },
       {
         homeName: "Chicago Steel",
         awayName: "Fargo Force",
+        homeSub: "Home • USHL Eastern (29-18-4)",
+        awaySub: "Away • USHL Western (42-9-2)",
         homeLogo: "⚙️",
         awayLogo: "⚡",
         score: "3 - 2",
-        clock: "2ND PERIOD • 11:30"
+        clock: "2ND PERIOD • 11:30",
+        category: "ushl",
+        stats: {
+          first: "2 - 1",
+          second: "1 - 1",
+          third: "0 - 0",
+          shots: "21 - 19",
+          pp: "1/2 - 0/1",
+          fo: "48.6%"
+        },
+        events: [
+          { time: "11:30 2ND", tag: "🚨 GOAL (CHI 3 - FAR 2)", tagColor: "cyan", text: "Tobias Osterhaug finishes tape-to-tape cross-crease pass on the man advantage." },
+          { time: "06:14 2ND", tag: "🚨 SHORT-HANDED GOAL (CHI 2 - FAR 2)", tagColor: "amber", text: "Fargo forechecker forces turnover behind Chicago net and wraps puck around post." },
+          { time: "18:22 1ST", tag: "🧤 PHOENIX DEFENSE", tagColor: "emerald", text: "Chicago penalty kill denies 3 consecutive cross-slot one-timer attempts." }
+        ],
+        athletes: [
+          { name: "Tobias Osterhaug (C #14)", statBadge: "1G, 1A", badgeColor: "cyan", details: ["TOI: 12:40", "FO%: 58.3%", "SOG: 4"] },
+          { name: "Louka Cloutier (G #30)", statBadge: ".905 SV%", badgeColor: "emerald", details: ["Saves: 19/21", "Rebound Ctrl: 92%"] },
+          { name: "Mac Swanson (LW #17)", statBadge: "1A", badgeColor: "amber", details: ["TOI: 13:15", "Entries: 6/7", "Battles: 75%"] }
+        ],
+        wireReport: "High-skill USHL showcase match. Chicago Steel dynamic power play execution and Cloutier's sharp rebound control holding the edge.",
+        tags: ["#USHL", "#JuniorHockey", "#ChicagoSteel", "#FargoForce"]
+      },
+      {
+        homeName: "Edina Hornets",
+        awayName: "Minnetonka Skippers",
+        homeSub: "Braemar Arena • MSHSL Class AA (22-4-1)",
+        awaySub: "Visitor • MSHSL Class AA (23-3-2)",
+        homeLogo: "🐝",
+        awayLogo: "⚓",
+        score: "3 - 2",
+        clock: "3RD PERIOD • 02:15",
+        category: "prep",
+        stats: {
+          first: "1 - 0",
+          second: "1 - 2",
+          third: "1 - 0",
+          shots: "32 - 30",
+          pp: "1/2 - 1/3",
+          fo: "52.8%"
+        },
+        events: [
+          { time: "02:15 3RD", tag: "🚨 GOAL (EDINA 3 - TONKA 2)", tagColor: "cyan", text: "Bobby Cowan rips laser from high slot off clean draw win in offensive zone." },
+          { time: "08:40 3RD", tag: "🧤 INCREDIBLE PAD SAVE", tagColor: "amber", text: "Edina goaltender slides post-to-post to rob Hagen Burrows on one-timer from left circle." },
+          { time: "14:22 2ND", tag: "🚨 POWER PLAY GOAL (TONKA 2 - EDINA 2)", tagColor: "cyan", text: "Hagen Burrows walks off the half-wall and roofs snapshot top corner." },
+          { time: "04:10 2ND", tag: "🚨 SHORT-HANDED GOAL (TONKA 1 - EDINA 1)", tagColor: "emerald", text: "John Stout strips blue line defenseman and buries breakaway five-hole." }
+        ],
+        athletes: [
+          { name: "Bobby Cowan (F #18, Edina)", statBadge: "1G, 1A", badgeColor: "cyan", details: ["TOI: 18:50", "SOG: 5", "Top Spd: 22.4 MPH"] },
+          { name: "Hagen Burrows (RW #11, Minnetonka)", statBadge: "1G, 1A", badgeColor: "amber", details: ["TOI: 20:15", "Shot Ast: 4", "FO%: 65.0%"] },
+          { name: "John Stout (D #4, Minnetonka)", statBadge: "1G, +1", badgeColor: "emerald", details: ["TOI: 22:40", "Takeaways: 4", "Blocks: 5"] }
+        ],
+        wireReport: "MSHSL Class AA State Championship preview at packed Braemar Arena. Hagen Burrows and Bobby Cowan delivering clutch offensive mastery.",
+        tags: ["#TheTourney", "#MSHSL", "#MinnesotaHighSchoolHockey", "#ScoutingReport"]
+      },
+      {
+        homeName: "Avon Old Farms Winged Beavers",
+        awayName: "Salisbury Crimson Knights",
+        homeSub: "Jennings Fairchild Rink • Founders League (21-2-1)",
+        awaySub: "Visitor • NEPSAC Prep (20-3-2)",
+        homeLogo: "🦫",
+        awayLogo: "🛡️",
+        score: "4 - 2",
+        clock: "FINAL (NEPSAC ELITE 8)",
+        category: "prep",
+        stats: {
+          first: "2 - 0",
+          second: "1 - 1",
+          third: "1 - 1",
+          shots: "36 - 24",
+          pp: "2/3 - 0/2",
+          fo: "56.4%"
+        },
+        events: [
+          { time: "FINAL", tag: "🏆 FINAL HORN", tagColor: "cyan", text: "Avon Old Farms captures New England Prep victory behind dominant physical forecheck." },
+          { time: "15:10 3RD", tag: "🚨 EMPTY NET GOAL (AOF 4 - SAL 2)", tagColor: "cyan", text: "Joe Connor forces defensive turnover and slides puck into open net." },
+          { time: "09:45 3RD", tag: "🚨 POWER PLAY GOAL (SAL 2 - AOF 3)", tagColor: "red", text: "Salisbury capitalizes on screen with point deflection from high slot." },
+          { time: "12:18 2ND", tag: "🚨 POWER PLAY GOAL (AOF 3 - SAL 1)", tagColor: "cyan", text: "Joe Connor snaps one-timer off tic-tac-toe sequence from the circle." }
+        ],
+        athletes: [
+          { name: "Joe Connor (LW #10, Avon)", statBadge: "2G, 1A", badgeColor: "cyan", details: ["TOI: 19:30", "Top Spd: 22.7 MPH", "Hits: 5"] },
+          { name: "Matt Wright (D #6, Avon)", statBadge: "2A, +3", badgeColor: "amber", details: ["TOI: 23:50", "Exits: 11/12", "Blocks: 4"] },
+          { name: "Stephen Peck (G #30, Avon)", statBadge: ".917 SV%", badgeColor: "emerald", details: ["Saves: 22/24", "Rebound Ctrl: 95%"] }
+        ],
+        wireReport: "NEPSAC Elite 8 heavyweight clash. Joe Connor propelled Avon Old Farms with relentless forechecking energy and a 2-goal performance.",
+        tags: ["#NEPSAC", "#Elite8", "#PrepHockey", "#AvonOldFarms", "#ScoutingReport"]
       }
     ];
 
     function selectGame(index, card) {
+      activeGameIndex = index;
       document.querySelectorAll('.game-card').forEach(c => c.classList.remove('active', 'border-cyan-500/50'));
-      card.classList.add('active', 'border-cyan-500/50');
+      if (card) {
+        card.classList.add('active', 'border-cyan-500/50');
+      } else {
+        const cards = document.querySelectorAll('.game-card');
+        if (cards[index]) cards[index].classList.add('active', 'border-cyan-500/50');
+      }
 
       const g = GAMES_DATA[index];
+      if (!g) return;
+
       document.getElementById('activeHomeName').textContent = g.homeName;
       document.getElementById('activeAwayName').textContent = g.awayName;
+      if (document.getElementById('activeHomeSub')) document.getElementById('activeHomeSub').textContent = g.homeSub;
+      if (document.getElementById('activeAwaySub')) document.getElementById('activeAwaySub').textContent = g.awaySub;
       document.getElementById('activeHomeLogo').textContent = g.homeLogo;
       document.getElementById('activeAwayLogo').textContent = g.awayLogo;
       document.getElementById('activeScore').textContent = g.score;
       document.getElementById('activeClock').textContent = g.clock;
+
+      // Period breakdown
+      if (g.stats) {
+        if (document.getElementById('stat1st')) document.getElementById('stat1st').textContent = g.stats.first;
+        if (document.getElementById('stat2nd')) document.getElementById('stat2nd').textContent = g.stats.second;
+        if (document.getElementById('stat3rd')) document.getElementById('stat3rd').textContent = g.stats.third;
+        if (document.getElementById('statShots')) document.getElementById('statShots').textContent = g.stats.shots;
+        if (document.getElementById('statPP')) document.getElementById('statPP').textContent = g.stats.pp;
+        if (document.getElementById('statFO')) document.getElementById('statFO').textContent = g.stats.fo;
+      }
+
+      // Events stream
+      const stream = document.getElementById('eventsStream');
+      if (stream && g.events) {
+        stream.innerHTML = g.events.map(ev => {
+          let badgeBg = "bg-slate-800 text-slate-300";
+          let tagColor = "text-cyan-300";
+          let borderBox = "bg-slate-950 border-slate-800";
+          if (ev.tagColor === 'cyan') {
+            badgeBg = "bg-cyan-500 text-slate-950";
+            tagColor = "text-cyan-300";
+            borderBox = "bg-cyan-950/30 border-cyan-500/30";
+          } else if (ev.tagColor === 'amber') {
+            tagColor = "text-amber-400";
+          } else if (ev.tagColor === 'red') {
+            tagColor = "text-red-400";
+          } else if (ev.tagColor === 'emerald') {
+            tagColor = "text-emerald-400";
+          }
+          return `
+            <div class="p-2.5 rounded-xl ${borderBox} border flex items-start gap-3">
+              <span class="px-2 py-0.5 rounded ${badgeBg} font-bold text-[10px] shrink-0">${ev.time}</span>
+              <div class="flex-1">
+                <span class="${tagColor} font-bold">${ev.tag}:</span>
+                <span class="text-slate-300">${ev.text}</span>
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      // Athlete Telemetry
+      const athleteContainer = document.getElementById('athleteTelemetryContainer');
+      if (athleteContainer && g.athletes) {
+        athleteContainer.innerHTML = g.athletes.map(ath => {
+          let colorCls = "text-cyan-300 bg-cyan-500/20";
+          if (ath.badgeColor === 'amber') colorCls = "text-amber-300 bg-amber-500/20";
+          if (ath.badgeColor === 'emerald') colorCls = "text-emerald-300 bg-emerald-500/20";
+
+          return `
+            <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800">
+              <div class="flex items-center justify-between mb-1">
+                <strong class="${colorCls.split(' ')[0]}">${ath.name}</strong>
+                <span class="text-[10px] font-mono px-1.5 py-0.5 rounded ${colorCls}">${ath.statBadge}</span>
+              </div>
+              <div class="grid grid-cols-3 gap-1 text-[10px] font-mono text-slate-400">
+                <span>${ath.details[0]}</span>
+                <span>${ath.details[1]}</span>
+                <span>${ath.details[2]}</span>
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+    }
+
+    function filterLeague(cat, btn) {
+      document.querySelectorAll('.league-filter').forEach(b => {
+        b.classList.remove('active', 'bg-cyan-500/20', 'text-cyan-300', 'border-cyan-500/40', 'font-bold');
+        b.classList.add('bg-slate-900', 'text-slate-400', 'border-slate-800', 'font-medium');
+      });
+      btn.classList.add('active', 'bg-cyan-500/20', 'text-cyan-300', 'border-cyan-500/40', 'font-bold');
+      btn.classList.remove('bg-slate-900', 'text-slate-400', 'border-slate-800', 'font-medium');
+
+      const cards = document.querySelectorAll('.game-card');
+      let firstVisibleIndex = -1;
+      cards.forEach((card, idx) => {
+        const cardLeague = card.getAttribute('data-league');
+        if (cat === 'all' || cardLeague === cat) {
+          card.classList.remove('hidden');
+          if (firstVisibleIndex === -1) firstVisibleIndex = idx;
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+
+      if (cards[activeGameIndex] && cards[activeGameIndex].classList.contains('hidden') && firstVisibleIndex !== -1) {
+        selectGame(firstVisibleIndex, cards[firstVisibleIndex]);
+      }
     }
 
     function publishGameReportToWire() {
-      const g = GAMES_DATA[0];
+      const g = GAMES_DATA[activeGameIndex] || GAMES_DATA[0];
       const wireStateRaw = localStorage.getItem('blueline_social_state');
       if (!wireStateRaw) {
-        alert("🎉 Game Scouting Brief generated and dispatched!");
+        alert(`🎉 Live Scouting Report for ${g.homeName} vs ${g.awayName} generated and dispatched!`);
         return;
       }
 
@@ -578,25 +908,25 @@
           avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80',
           verifiedBadge: 'verified-gold',
           timestamp: 'Just now',
-          content: `📡 **LIVE GAME EVALUATION REPORT: ${g.homeName} vs ${g.awayName} (${g.score})**\n\n📌 **Scouting Bureau Takeaways**:\n- **Michael Hage**: Dynamic first-step burst off rush entry (22.8 MPH), 1G, 1A.\n- **Ryan Chesley**: Lockdown gap discipline, 4 blocked shots, heavy physical presence.\n- **Pace of Play**: High-tempo transition (68 total shots). NCAA Tournament intensity.\n\n#GameNight #ScoutingReport #BigTenHockey #BlueLineDataWorks`,
-          likes: 38,
-          reposts: 16,
-          comments: 9,
+          content: `📡 **LIVE GAME EVALUATION REPORT: ${g.homeName} vs ${g.awayName} (${g.score})**\n\n📌 **Scouting Bureau Takeaways**:\n${g.wireReport}\n\n${g.tags.join(' ')} #BlueLineDataWorks`,
+          likes: 42,
+          reposts: 19,
+          comments: 11,
           userLiked: false,
           userReposted: false,
-          tags: ['#GameNight', '#ScoutingReport', '#BigTenHockey'],
+          tags: g.tags,
           playerBadge: {
             name: `${g.homeName} vs ${g.awayName}`,
             team: 'Game Center Live',
-            pos: 'Quad War Room',
-            stats: `Final Score: ${g.score} • 68 SOG`,
+            pos: 'Multi-League War Room',
+            stats: `Score: ${g.score} • SOG: ${g.stats ? g.stats.shots : 'Live'}`,
             nilVal: 'Official BlueLine Game Brief'
           }
         };
 
         wireState.posts.unshift(reportPost);
         localStorage.setItem('blueline_social_state', JSON.stringify(wireState));
-        alert(`🎉 Live Scouting Report for ${g.homeName} vs ${g.awayName} broadcasted to The BlueLine Wire (#GameNight)!`);
+        alert(`🎉 Live Scouting Report for ${g.homeName} vs ${g.awayName} broadcasted to The BlueLine Wire!`);
       } catch (e) {
         console.error('Error posting to Wire:', e);
       }
