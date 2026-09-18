@@ -266,13 +266,28 @@
             <span class="text-[11px] font-mono text-cyan-400" id="availCount">32 Available</span>
           </div>
 
-          <!-- Filter Pills -->
-          <div class="flex items-center gap-1.5 flex-wrap text-[11px]">
-            <button class="filter-pos-btn px-2.5 py-1 rounded-lg font-bold bg-sky-600 text-white transition active" data-pos="all">All</button>
-            <button class="filter-pos-btn px-2.5 py-1 rounded-lg font-bold bg-slate-900 text-slate-300 border border-slate-800 hover:text-white transition" data-pos="C">Centers</button>
-            <button class="filter-pos-btn px-2.5 py-1 rounded-lg font-bold bg-slate-900 text-slate-300 border border-slate-800 hover:text-white transition" data-pos="W">Wingers</button>
-            <button class="filter-pos-btn px-2.5 py-1 rounded-lg font-bold bg-slate-900 text-slate-300 border border-slate-800 hover:text-white transition" data-pos="D">Defense</button>
-            <button class="filter-pos-btn px-2.5 py-1 rounded-lg font-bold bg-slate-900 text-slate-300 border border-slate-800 hover:text-white transition" data-pos="G">Goalies</button>
+          <!-- Dual Filter Ribbons: Positional & Institutional Feeder Pipeline -->
+          <div class="space-y-2 pb-1 border-b border-slate-800/80">
+            <!-- Pipeline Filter Pills -->
+            <div class="flex items-center gap-1.5 flex-wrap text-[11px]">
+              <span class="text-[9px] font-mono text-slate-400 font-bold uppercase">Pipeline:</span>
+              <button class="filter-pipe-btn px-2 py-0.5 rounded-lg font-bold bg-amber-500 text-slate-950 transition active" data-pipe="all">All</button>
+              <button class="filter-pipe-btn px-2 py-0.5 rounded-lg font-bold bg-slate-900 text-slate-300 border border-slate-800 hover:text-white transition" data-pipe="NCAA">🎓 NCAA</button>
+              <button class="filter-pipe-btn px-2 py-0.5 rounded-lg font-bold bg-slate-900 text-slate-300 border border-slate-800 hover:text-white transition" data-pipe="USHL">🛡️ USHL</button>
+              <button class="filter-pipe-btn px-2 py-0.5 rounded-lg font-bold bg-slate-900 text-slate-300 border border-slate-800 hover:text-white transition" data-pipe="PREP">🏛️ Prep Academies</button>
+              <button class="filter-pipe-btn px-2 py-0.5 rounded-lg font-bold bg-slate-900 text-slate-300 border border-slate-800 hover:text-white transition" data-pipe="CHL">🍁 Canadian Jr</button>
+              <button class="filter-pipe-btn px-2 py-0.5 rounded-lg font-bold bg-slate-900 text-slate-300 border border-slate-800 hover:text-white transition" data-pipe="EURO">🌍 European</button>
+            </div>
+
+            <!-- Positional Filter Pills -->
+            <div class="flex items-center gap-1.5 flex-wrap text-[11px]">
+              <span class="text-[9px] font-mono text-slate-400 font-bold uppercase">Position:</span>
+              <button class="filter-pos-btn px-2 py-0.5 rounded-lg font-bold bg-sky-600 text-white transition active" data-pos="all">All</button>
+              <button class="filter-pos-btn px-2 py-0.5 rounded-lg font-bold bg-slate-900 text-slate-300 border border-slate-800 hover:text-white transition" data-pos="C">Centers</button>
+              <button class="filter-pos-btn px-2 py-0.5 rounded-lg font-bold bg-slate-900 text-slate-300 border border-slate-800 hover:text-white transition" data-pos="W">Wingers</button>
+              <button class="filter-pos-btn px-2.5 py-0.5 rounded-lg font-bold bg-slate-900 text-slate-300 border border-slate-800 hover:text-white transition" data-pos="D">Defense</button>
+              <button class="filter-pos-btn px-2.5 py-0.5 rounded-lg font-bold bg-slate-900 text-slate-300 border border-slate-800 hover:text-white transition" data-pos="G">Goalies</button>
+            </div>
           </div>
 
           <!-- Big Board List -->
@@ -377,6 +392,7 @@
 
       let state = engine.getState();
       let activePosFilter = 'all';
+      let activePipeFilter = 'all';
 
       // 1. Populate User Team Select Dropdown
       const userTeamSelect = document.getElementById('userTeamSelect');
@@ -449,9 +465,10 @@
             content = `
               <div class="flex items-center justify-between gap-2 min-w-0 flex-1">
                 <div class="min-w-0">
-                  <div class="flex items-center gap-1.5">
+                  <div class="flex items-center gap-1.5 flex-wrap">
                     <span class="font-black text-xs text-white truncate cursor-pointer hover:text-sky-400" onclick="inspectProspect('${p.id}')">${p.name}</span>
                     <span class="px-1.5 py-0.2 rounded text-[9px] font-mono font-bold bg-slate-800 text-cyan-300">${p.pos}</span>
+                    <span class="px-1.5 py-0.2 rounded text-[8px] font-mono font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">${p.primaryPipeline || p.league}</span>
                   </div>
                   <p class="text-[10px] text-slate-400 truncate">${p.team} (${p.league}) • ${p.feeder}</p>
                 </div>
@@ -504,10 +521,17 @@
       function renderBigBoard() {
         const container = document.getElementById('bigBoardContainer');
         const available = state.availableProspects.filter(p => {
-          if (activePosFilter === 'all') return true;
-          if (activePosFilter === 'W') return p.pos === 'LW' || p.pos === 'RW';
-          if (activePosFilter === 'D') return p.pos === 'LD' || p.pos === 'RD';
-          return p.pos === activePosFilter;
+          let matchesPos = true;
+          if (activePosFilter === 'W') matchesPos = (p.pos === 'LW' || p.pos === 'RW');
+          else if (activePosFilter === 'D') matchesPos = (p.pos === 'LD' || p.pos === 'RD');
+          else if (activePosFilter !== 'all') matchesPos = (p.pos === activePosFilter);
+
+          let matchesPipe = true;
+          if (activePipeFilter !== 'all') {
+            matchesPipe = Array.isArray(p.pipelines) && p.pipelines.includes(activePipeFilter);
+          }
+
+          return matchesPos && matchesPipe;
         });
 
         document.getElementById('availCount').textContent = `${available.length} Available`;
@@ -526,11 +550,12 @@
               <div class="flex items-center gap-2 min-w-0">
                 <span class="w-5 text-center text-[11px] font-mono font-bold text-slate-400">#${p.rank}</span>
                 <div class="min-w-0">
-                  <div class="flex items-center gap-1.5">
+                  <div class="flex items-center gap-1.5 flex-wrap">
                     <strong class="text-xs text-white truncate">${p.name}</strong>
                     <span class="px-1 py-0.2 rounded text-[8px] font-mono font-bold bg-slate-800 text-sky-300">${p.pos}</span>
+                    <span class="px-1.5 py-0.2 rounded text-[8px] font-mono font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">${p.primaryPipeline || p.league}</span>
                   </div>
-                  <p class="text-[9px] text-slate-400 truncate">${p.team} • ${p.league}</p>
+                  <p class="text-[9px] text-slate-400 truncate">${p.team} • ${p.feeder}</p>
                 </div>
               </div>
 
@@ -612,10 +637,21 @@
             </div>
 
             <!-- Feeder Pathway -->
-            <div class="space-y-1">
-              <div class="text-[10px] font-mono text-slate-400 uppercase tracking-wider">Feeder Pathway & Alumni Pedigree</div>
+            <div class="space-y-1.5">
+              <div class="flex items-center justify-between text-[10px] font-mono text-slate-400 uppercase tracking-wider">
+                <span>Feeder Pathway & Alumni Pedigree</span>
+                <span class="text-amber-400 font-bold">${p.primaryPipeline || ''}</span>
+              </div>
               <div class="p-2 rounded-xl bg-slate-950 border border-slate-800/80 text-xs text-slate-300 flex items-center gap-1.5">
-                <span class="text-cyan-400">🏒</span> ${p.feeder}
+                <span class="text-cyan-400">🏒</span> <span class="font-medium">${p.feeder}</span>
+              </div>
+              <div class="flex items-center gap-2 pt-0.5">
+                <a href="database.html?q=${encodeURIComponent(p.team)}" class="flex-1 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700 text-sky-400 text-center text-[10px] font-mono font-bold flex items-center justify-center gap-1.5 transition">
+                  <span>🏫</span> <span>Directory Passport</span>
+                </a>
+                <a href="compare.html" class="flex-1 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700 text-amber-400 text-center text-[10px] font-mono font-bold flex items-center justify-center gap-1.5 transition">
+                  <span>⚔️</span> <span>Compare Program</span>
+                </a>
               </div>
             </div>
 
@@ -708,6 +744,19 @@
       });
 
       // 10. Filter Big Board
+      document.querySelectorAll('.filter-pipe-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          document.querySelectorAll('.filter-pipe-btn').forEach(b => {
+            b.classList.remove('bg-amber-500', 'text-slate-950', 'active');
+            b.classList.add('bg-slate-900', 'text-slate-300');
+          });
+          btn.classList.add('bg-amber-500', 'text-slate-950', 'active');
+          btn.classList.remove('bg-slate-900', 'text-slate-300');
+          activePipeFilter = btn.dataset.pipe;
+          renderBigBoard();
+        });
+      });
+
       document.querySelectorAll('.filter-pos-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
           document.querySelectorAll('.filter-pos-btn').forEach(b => {

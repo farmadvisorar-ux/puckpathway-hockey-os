@@ -721,6 +721,48 @@
     }
   ];
 
+  // 1.1 Enrich Prospects with Feeder Pipeline Taxonomy
+  DRAFT_PROSPECTS.forEach(p => {
+    const pipelines = [];
+    const text = `${p.league} ${p.feeder} ${p.team}`.toLowerCase();
+    
+    if (text.includes('ncaa') || text.includes('university') || text.includes('college') || text.includes('boston') || text.includes('michigan') || text.includes('denver') || text.includes('dakota') || text.includes('providence')) {
+      pipelines.push('NCAA');
+    }
+    if (text.includes('ushl') || text.includes('usntdp') || text.includes('steel') || text.includes('gamblers') || text.includes('storm') || text.includes('lumberjacks') || text.includes('black hawks')) {
+      pipelines.push('USHL');
+    }
+    if (text.includes('shattuck') || text.includes('prep') || text.includes('academy') || text.includes('csshl') || text.includes('cisaa') || text.includes('mount st. charles') || text.includes("st. andrew's") || text.includes('edge school') || text.includes('rink hockey')) {
+      pipelines.push('PREP');
+    }
+    if (text.includes('mshsl') || text.includes('minnesota') || text.includes('shattuck') || text.includes('edina') || text.includes('minnetonka') || text.includes('wayzata')) {
+      pipelines.push('MSHSL');
+    }
+    if (/\b(ohl|whl|qmjhl|chl)\b/i.test(text) || text.includes('knights') || text.includes('tigers') || text.includes('spirit') || text.includes('chiefs') || text.includes('hitmen') || text.includes('rockets') || text.includes('spitfires') || text.includes('wheat kings') || text.includes('colts') || text.includes('bulldogs') || text.includes('blazers') || text.includes('attack')) {
+      pipelines.push('CHL');
+    }
+    if (/\b(khl|mhl|liiga|shl|ska|tps|loko)\b/i.test(text) || text.includes('finland') || text.includes('sweden') || text.includes('norway') || text.includes('russia') || text.includes('europe') || text.includes('torpedo') || text.includes('jukurit') || text.includes('färjestad') || text.includes('växjö')) {
+      pipelines.push('EURO');
+    }
+
+    // Assign badge label
+    if (pipelines.includes('PREP')) {
+      p.primaryPipeline = 'Prep Academy';
+    } else if (pipelines.includes('NCAA')) {
+      p.primaryPipeline = 'NCAA D1';
+    } else if (pipelines.includes('USHL')) {
+      p.primaryPipeline = 'USHL Tier 1';
+    } else if (pipelines.includes('CHL')) {
+      p.primaryPipeline = 'Major Junior (CHL)';
+    } else if (pipelines.includes('EURO')) {
+      p.primaryPipeline = 'European Pro';
+    } else {
+      p.primaryPipeline = 'Amateur Pipeline';
+    }
+
+    p.pipelines = pipelines;
+  });
+
   // 2. 32 NHL FRANCHISES & NEEDS MATRIX
   const NHL_TEAMS = [
     {

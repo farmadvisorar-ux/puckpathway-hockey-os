@@ -182,6 +182,8 @@
             <option value="ushl">🛡️ USHL Clark Cup Playoffs (Tier 1 Junior - 12 Teams)</option>
             <option value="wjc">🥇 IIHF World Junior Championship (U20 - 10 Nations)</option>
             <option value="memorial">🍁 CHL Memorial Cup (Major Junior - 4 Teams)</option>
+            <option value="mshsl">🌲 MSHSL Boys State Tournament ("The Tourney" - 8 Teams)</option>
+            <option value="nepsac">🏛️ NEPSAC Elite 8 Prep Championship (8 Teams)</option>
           </select>
         </div>
 
@@ -429,6 +431,10 @@
           renderWjcBracket(container);
         } else if (activeTourney === 'memorial') {
           renderMemorialBracket(container);
+        } else if (activeTourney === 'mshsl') {
+          renderMshslBracket(container);
+        } else if (activeTourney === 'nepsac') {
+          renderNepsacBracket(container);
         }
       }
 
@@ -1001,6 +1007,323 @@
         container.innerHTML = memHtml;
       }
 
+      // 5. MSHSL Render ("The Tourney")
+      function renderMshslBracket(container) {
+        const p = engine.MSHSL_PLAYOFFS;
+        const champ = simResults[0].team;
+
+        // Resolve semifinalists based on QF picks or defaults
+        const qf1Pick = userPicks['mshsl_qf1'] || 'edina';
+        const qf2Pick = userPicks['mshsl_qf2'] || 'hermantown';
+        const qf3Pick = userPicks['mshsl_qf3'] || 'minnetonka';
+        const qf4Pick = userPicks['mshsl_qf4'] || 'wayzata';
+
+        const sf1TeamA = engine.MSHSL_TEAMS.find(t => t.id === qf1Pick) || engine.MSHSL_TEAMS[0];
+        const sf1TeamB = engine.MSHSL_TEAMS.find(t => t.id === qf2Pick) || engine.MSHSL_TEAMS[3];
+        const sf2TeamA = engine.MSHSL_TEAMS.find(t => t.id === qf3Pick) || engine.MSHSL_TEAMS[1];
+        const sf2TeamB = engine.MSHSL_TEAMS.find(t => t.id === qf4Pick) || engine.MSHSL_TEAMS[2];
+
+        const sf1Pick = userPicks['mshsl_sf1'] || sf1TeamA.id;
+        const sf2Pick = userPicks['mshsl_sf2'] || sf2TeamA.id;
+
+        const finalTeamA = engine.MSHSL_TEAMS.find(t => t.id === sf1Pick) || sf1TeamA;
+        const finalTeamB = engine.MSHSL_TEAMS.find(t => t.id === sf2Pick) || sf2TeamA;
+        const finalPick = userPicks['mshsl_final'] || finalTeamA.id;
+
+        let mshslHtml = `
+          <!-- MSHSL State Tournament Hero Ribbon -->
+          <div class="p-3 rounded-2xl bg-gradient-to-r from-emerald-950/60 via-slate-900 to-amber-950/40 border border-emerald-500/30 flex flex-wrap items-center justify-between gap-2 text-xs">
+            <div class="flex items-center gap-2">
+              <span class="text-xl">🌲</span>
+              <div>
+                <span class="font-black text-white">MSHSL Boys Hockey State Tournament ("The Tourney"):</span>
+                <strong class="text-emerald-400 font-bold ml-1">Xcel Energy Center • St. Paul, MN (135,000+ Fans)</strong>
+              </div>
+            </div>
+            <span class="text-[10px] font-mono text-amber-300">Class AA Championship (8 Section Winners)</span>
+          </div>
+
+          <!-- Quarterfinals Grid -->
+          <div class="p-4 rounded-2xl bg-slate-950/80 border border-slate-800 space-y-3">
+            <div class="flex justify-between items-center text-xs font-mono border-b border-slate-800 pb-1.5">
+              <span class="font-bold text-emerald-400">Quarterfinals • Xcel Energy Center (Thursday)</span>
+              <span class="text-[10px] text-slate-500">Day & Night Sessions • Single Elimination</span>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs font-mono">
+              ${p.quarterfinals.map(q => {
+                const tA = engine.MSHSL_TEAMS.find(t => t.id === q.teamA);
+                const tB = engine.MSHSL_TEAMS.find(t => t.id === q.teamB);
+                const pick = userPicks[q.id] || tA.id;
+                return `
+                  <div class="p-2.5 rounded-xl bg-slate-900 border border-slate-800 space-y-1.5">
+                    <div class="text-[10px] text-slate-500 flex justify-between">
+                      <span class="text-amber-400 font-bold">${q.session}</span>
+                      <span>${q.note}</span>
+                    </div>
+                    <div class="grid grid-cols-2 gap-1.5">
+                      <div class="p-2 rounded-lg border ${pick === tA.id ? 'bg-emerald-950/80 border-emerald-400 text-white font-bold' : 'bg-slate-950 border-slate-800 text-slate-400'} cursor-pointer text-[11px] flex justify-between items-center transition" onclick="selectWinner('${q.id}', '${tA.id}')">
+                        <span class="truncate">${tA.logo} ${tA.name}</span>
+                        <span class="text-[9px] px-1 rounded bg-slate-800 font-bold text-amber-300 ml-1">#${tA.seed}</span>
+                      </div>
+                      <div class="p-2 rounded-lg border ${pick === tB.id ? 'bg-emerald-950/80 border-emerald-400 text-white font-bold' : 'bg-slate-950 border-slate-800 text-slate-400'} cursor-pointer text-[11px] flex justify-between items-center transition" onclick="selectWinner('${q.id}', '${tB.id}')">
+                        <span class="truncate">${tB.logo} ${tB.name}</span>
+                        <span class="text-[9px] px-1 rounded bg-slate-800 font-bold text-amber-300 ml-1">#${tB.seed}</span>
+                      </div>
+                    </div>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          </div>
+
+          <!-- Semifinals Grid -->
+          <div class="p-4 rounded-2xl bg-slate-950/80 border border-slate-800 space-y-3">
+            <div class="flex justify-between items-center text-xs font-mono border-b border-slate-800 pb-1.5">
+              <span class="font-bold text-sky-400">Semifinals • Friday Night Prime Time</span>
+              <span class="text-[10px] text-slate-500">Televised Live Across Upper Midwest</span>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs font-mono">
+              <div class="p-2.5 rounded-xl bg-slate-900 border border-slate-800 space-y-1.5">
+                <div class="text-[10px] text-slate-400">Class AA Semifinal 1 (Upper Bracket):</div>
+                <div class="grid grid-cols-2 gap-1.5">
+                  <div class="p-2 rounded-lg border ${sf1Pick === sf1TeamA.id ? 'bg-sky-950/80 border-sky-400 text-white font-bold' : 'bg-slate-950 border-slate-800 text-slate-400'} cursor-pointer text-[11px] transition" onclick="selectWinner('mshsl_sf1', '${sf1TeamA.id}')">
+                    ${sf1TeamA.logo} ${sf1TeamA.name}
+                  </div>
+                  <div class="p-2 rounded-lg border ${sf1Pick === sf1TeamB.id ? 'bg-sky-950/80 border-sky-400 text-white font-bold' : 'bg-slate-950 border-slate-800 text-slate-400'} cursor-pointer text-[11px] transition" onclick="selectWinner('mshsl_sf1', '${sf1TeamB.id}')">
+                    ${sf1TeamB.logo} ${sf1TeamB.name}
+                  </div>
+                </div>
+              </div>
+
+              <div class="p-2.5 rounded-xl bg-slate-900 border border-slate-800 space-y-1.5">
+                <div class="text-[10px] text-slate-400">Class AA Semifinal 2 (Lower Bracket):</div>
+                <div class="grid grid-cols-2 gap-1.5">
+                  <div class="p-2 rounded-lg border ${sf2Pick === sf2TeamA.id ? 'bg-sky-950/80 border-sky-400 text-white font-bold' : 'bg-slate-950 border-slate-800 text-slate-400'} cursor-pointer text-[11px] transition" onclick="selectWinner('mshsl_sf2', '${sf2TeamA.id}')">
+                    ${sf2TeamA.logo} ${sf2TeamA.name}
+                  </div>
+                  <div class="p-2 rounded-lg border ${sf2Pick === sf2TeamB.id ? 'bg-sky-950/80 border-sky-400 text-white font-bold' : 'bg-slate-950 border-slate-800 text-slate-400'} cursor-pointer text-[11px] transition" onclick="selectWinner('mshsl_sf2', '${sf2TeamB.id}')">
+                    ${sf2TeamB.logo} ${sf2TeamB.name}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Championship Game Pedestal -->
+          <div class="p-4 rounded-2xl bg-gradient-to-r from-slate-950 via-emerald-950/30 to-slate-950 border border-emerald-500/40 space-y-3">
+            <div class="flex items-center justify-between text-xs font-mono border-b border-slate-800 pb-1.5">
+              <div class="flex items-center gap-1.5 font-bold text-emerald-400">
+                <span>🌲</span> <span>MSHSL CLASS AA STATE CHAMPIONSHIP • SATURDAY NIGHT</span>
+              </div>
+              <span class="text-[10px] text-slate-400">Xcel Energy Center • 19,000 Sold Out</span>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 items-center">
+              <div class="p-2.5 rounded-xl bg-slate-900/90 border border-slate-800 space-y-1 text-xs font-mono">
+                <div class="text-[10px] text-slate-400 uppercase">Class AA Finalist 1</div>
+                <div class="p-2 rounded-lg border ${finalPick === finalTeamA.id ? 'bg-emerald-950/80 border-emerald-400 text-white font-bold' : 'bg-slate-950 border-slate-800 text-slate-400'} cursor-pointer transition" onclick="selectWinner('mshsl_final', '${finalTeamA.id}'); inspectTeam('${finalTeamA.id}');">
+                  <span class="font-bold text-white">${finalTeamA.logo} ${finalTeamA.name}</span>
+                  <div class="text-[10px] text-emerald-400">${finalTeamA.record} • Elo ${finalTeamA.elo}</div>
+                </div>
+              </div>
+
+              <div class="p-3.5 rounded-2xl bg-gradient-to-b from-emerald-500/20 to-teal-600/10 border-2 border-emerald-400/60 text-center space-y-1.5">
+                <div class="text-[10px] font-mono font-black text-emerald-400 uppercase tracking-wider">STATE CHAMPION</div>
+                <div class="text-3xl">${champ.logo}</div>
+                <div class="text-sm font-black text-white">${champ.name}</div>
+                <div class="text-[10px] text-amber-400 font-mono font-bold">${champ.record} • Class AA Title</div>
+              </div>
+
+              <div class="p-2.5 rounded-xl bg-slate-900/90 border border-slate-800 space-y-1 text-xs font-mono">
+                <div class="text-[10px] text-slate-400 uppercase">Class AA Finalist 2</div>
+                <div class="p-2 rounded-lg border ${finalPick === finalTeamB.id ? 'bg-emerald-950/80 border-emerald-400 text-white font-bold' : 'bg-slate-950 border-slate-800 text-slate-400'} cursor-pointer transition" onclick="selectWinner('mshsl_final', '${finalTeamB.id}'); inspectTeam('${finalTeamB.id}');">
+                  <span class="font-bold text-white">${finalTeamB.logo} ${finalTeamB.name}</span>
+                  <div class="text-[10px] text-emerald-400">${finalTeamB.record} • Elo ${finalTeamB.elo}</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Herb Brooks Award / All-Tournament Vote -->
+            <div class="pt-2 border-t border-slate-800/80 flex flex-wrap items-center justify-between gap-2 text-xs">
+              <div class="flex items-center gap-2">
+                <span class="text-slate-400 font-mono text-[11px]">All-Tournament / Mr. Hockey Pick:</span>
+                <select id="mopSelect" class="bg-slate-900 text-white font-bold text-xs rounded-lg px-2 py-1 border border-slate-700 cursor-pointer">
+                  <option value="Hagen Burrows">Hagen Burrows (Minnetonka • F • Mr. Hockey)</option>
+                  <option value="Jackson Nevers">Jackson Nevers (Edina • C • Captain)</option>
+                  <option value="Joe Bertram">Joe Bertram (Edina • G • .928 Sv%)</option>
+                  <option value="Javon Moore">Javon Moore (Minnetonka • F • Power Forward)</option>
+                  <option value="Hunter Bauer">Hunter Bauer (Minnetonka • G • .931 Sv%)</option>
+                  <option value="Rhys Wallin">Rhys Wallin (Wayzata • F • Clutch Scorer)</option>
+                </select>
+              </div>
+              <span class="text-[11px] text-emerald-400 font-mono font-bold">MSHSL State Tournament Stamped</span>
+            </div>
+          </div>
+        `;
+
+        container.innerHTML = mshslHtml;
+      }
+
+      // 6. NEPSAC Render (Elite 8 New England Prep)
+      function renderNepsacBracket(container) {
+        const p = engine.NEPSAC_PLAYOFFS;
+        const champ = simResults[0].team;
+
+        const qf1Pick = userPicks['nepsac_qf1'] || 'avon';
+        const qf2Pick = userPicks['nepsac_qf2'] || 'kua';
+        const qf3Pick = userPicks['nepsac_qf3'] || 'shattuck';
+        const qf4Pick = userPicks['nepsac_qf4'] || 'salisbury';
+
+        const sf1TeamA = engine.NEPSAC_TEAMS.find(t => t.id === qf1Pick) || engine.NEPSAC_TEAMS[0];
+        const sf1TeamB = engine.NEPSAC_TEAMS.find(t => t.id === qf2Pick) || engine.NEPSAC_TEAMS[3];
+        const sf2TeamA = engine.NEPSAC_TEAMS.find(t => t.id === qf3Pick) || engine.NEPSAC_TEAMS[2];
+        const sf2TeamB = engine.NEPSAC_TEAMS.find(t => t.id === qf4Pick) || engine.NEPSAC_TEAMS[1];
+
+        const sf1Pick = userPicks['nepsac_sf1'] || sf1TeamA.id;
+        const sf2Pick = userPicks['nepsac_sf2'] || sf2TeamA.id;
+
+        const finalTeamA = engine.NEPSAC_TEAMS.find(t => t.id === sf1Pick) || sf1TeamA;
+        const finalTeamB = engine.NEPSAC_TEAMS.find(t => t.id === sf2Pick) || sf2TeamA;
+        const finalPick = userPicks['nepsac_final'] || finalTeamA.id;
+
+        let nepsacHtml = `
+          <!-- NEPSAC Elite 8 Hero Ribbon -->
+          <div class="p-3 rounded-2xl bg-gradient-to-r from-purple-950/60 via-slate-900 to-amber-950/40 border border-purple-500/30 flex flex-wrap items-center justify-between gap-2 text-xs">
+            <div class="flex items-center gap-2">
+              <span class="text-xl">🏛️</span>
+              <div>
+                <span class="font-black text-white">NEPSAC Martin / Earl Elite 8 Prep Championship:</span>
+                <strong class="text-purple-400 font-bold ml-1">Top 8 Prep Programs in New England & North America</strong>
+              </div>
+            </div>
+            <span class="text-[10px] font-mono text-amber-300">New England Prep School Athletic Council</span>
+          </div>
+
+          <!-- Quarterfinals Grid -->
+          <div class="p-4 rounded-2xl bg-slate-950/80 border border-slate-800 space-y-3">
+            <div class="flex justify-between items-center text-xs font-mono border-b border-slate-800 pb-1.5">
+              <span class="font-bold text-purple-400">Elite 8 Quarterfinals • Wednesday Campus Sites</span>
+              <span class="text-[10px] text-slate-500">Highest Seeds Host On Campus</span>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs font-mono">
+              ${p.quarterfinals.map(q => {
+                const tA = engine.NEPSAC_TEAMS.find(t => t.id === q.teamA);
+                const tB = engine.NEPSAC_TEAMS.find(t => t.id === q.teamB);
+                const pick = userPicks[q.id] || tA.id;
+                return `
+                  <div class="p-2.5 rounded-xl bg-slate-900 border border-slate-800 space-y-1.5">
+                    <div class="text-[10px] text-slate-500 flex justify-between">
+                      <span class="text-purple-400 font-bold">${q.match}</span>
+                      <span>${q.note}</span>
+                    </div>
+                    <div class="grid grid-cols-2 gap-1.5">
+                      <div class="p-2 rounded-lg border ${pick === tA.id ? 'bg-purple-950/80 border-purple-400 text-white font-bold' : 'bg-slate-950 border-slate-800 text-slate-400'} cursor-pointer text-[11px] flex justify-between items-center transition" onclick="selectWinner('${q.id}', '${tA.id}')">
+                        <span class="truncate">${tA.logo} ${tA.name}</span>
+                        <span class="text-[9px] px-1 rounded bg-slate-800 font-bold text-amber-300 ml-1">#${tA.seed}</span>
+                      </div>
+                      <div class="p-2 rounded-lg border ${pick === tB.id ? 'bg-purple-950/80 border-purple-400 text-white font-bold' : 'bg-slate-950 border-slate-800 text-slate-400'} cursor-pointer text-[11px] flex justify-between items-center transition" onclick="selectWinner('${q.id}', '${tB.id}')">
+                        <span class="truncate">${tB.logo} ${tB.name}</span>
+                        <span class="text-[9px] px-1 rounded bg-slate-800 font-bold text-amber-300 ml-1">#${tB.seed}</span>
+                      </div>
+                    </div>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          </div>
+
+          <!-- Semifinals Grid -->
+          <div class="p-4 rounded-2xl bg-slate-950/80 border border-slate-800 space-y-3">
+            <div class="flex justify-between items-center text-xs font-mono border-b border-slate-800 pb-1.5">
+              <span class="font-bold text-sky-400">Semifinals • Saturday Campus Sites</span>
+              <span class="text-[10px] text-slate-500">Winners Advance to Championship Sunday</span>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs font-mono">
+              <div class="p-2.5 rounded-xl bg-slate-900 border border-slate-800 space-y-1.5">
+                <div class="text-[10px] text-slate-400">Elite 8 Semifinal 1 (Upper Bracket):</div>
+                <div class="grid grid-cols-2 gap-1.5">
+                  <div class="p-2 rounded-lg border ${sf1Pick === sf1TeamA.id ? 'bg-sky-950/80 border-sky-400 text-white font-bold' : 'bg-slate-950 border-slate-800 text-slate-400'} cursor-pointer text-[11px] transition" onclick="selectWinner('nepsac_sf1', '${sf1TeamA.id}')">
+                    ${sf1TeamA.logo} ${sf1TeamA.name}
+                  </div>
+                  <div class="p-2 rounded-lg border ${sf1Pick === sf1TeamB.id ? 'bg-sky-950/80 border-sky-400 text-white font-bold' : 'bg-slate-950 border-slate-800 text-slate-400'} cursor-pointer text-[11px] transition" onclick="selectWinner('nepsac_sf1', '${sf1TeamB.id}')">
+                    ${sf1TeamB.logo} ${sf1TeamB.name}
+                  </div>
+                </div>
+              </div>
+
+              <div class="p-2.5 rounded-xl bg-slate-900 border border-slate-800 space-y-1.5">
+                <div class="text-[10px] text-slate-400">Elite 8 Semifinal 2 (Lower Bracket):</div>
+                <div class="grid grid-cols-2 gap-1.5">
+                  <div class="p-2 rounded-lg border ${sf2Pick === sf2TeamA.id ? 'bg-sky-950/80 border-sky-400 text-white font-bold' : 'bg-slate-950 border-slate-800 text-slate-400'} cursor-pointer text-[11px] transition" onclick="selectWinner('nepsac_sf2', '${sf2TeamA.id}')">
+                    ${sf2TeamA.logo} ${sf2TeamA.name}
+                  </div>
+                  <div class="p-2 rounded-lg border ${sf2Pick === sf2TeamB.id ? 'bg-sky-950/80 border-sky-400 text-white font-bold' : 'bg-slate-950 border-slate-800 text-slate-400'} cursor-pointer text-[11px] transition" onclick="selectWinner('nepsac_sf2', '${sf2TeamB.id}')">
+                    ${sf2TeamB.logo} ${sf2TeamB.name}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Championship Pedestal -->
+          <div class="p-4 rounded-2xl bg-gradient-to-r from-slate-950 via-purple-950/30 to-slate-950 border border-purple-500/40 space-y-3">
+            <div class="flex items-center justify-between text-xs font-mono border-b border-slate-800 pb-1.5">
+              <div class="flex items-center gap-1.5 font-bold text-purple-400">
+                <span>🏛️</span> <span>NEPSAC MARTIN / EARL ELITE 8 CHAMPIONSHIP • SUNDAY</span>
+              </div>
+              <span class="text-[10px] text-slate-400">New England Prep Showcase Final</span>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 items-center">
+              <div class="p-2.5 rounded-xl bg-slate-900/90 border border-slate-800 space-y-1 text-xs font-mono">
+                <div class="text-[10px] text-slate-400 uppercase">Prep Finalist 1</div>
+                <div class="p-2 rounded-lg border ${finalPick === finalTeamA.id ? 'bg-purple-950/80 border-purple-400 text-white font-bold' : 'bg-slate-950 border-slate-800 text-slate-400'} cursor-pointer transition" onclick="selectWinner('nepsac_final', '${finalTeamA.id}'); inspectTeam('${finalTeamA.id}');">
+                  <span class="font-bold text-white">${finalTeamA.logo} ${finalTeamA.name}</span>
+                  <div class="text-[10px] text-emerald-400">${finalTeamA.record} • Elo ${finalTeamA.elo}</div>
+                </div>
+              </div>
+
+              <div class="p-3.5 rounded-2xl bg-gradient-to-b from-purple-500/20 to-indigo-600/10 border-2 border-purple-400/60 text-center space-y-1.5">
+                <div class="text-[10px] font-mono font-black text-purple-400 uppercase tracking-wider">ELITE 8 PREP CHAMPION</div>
+                <div class="text-3xl">${champ.logo}</div>
+                <div class="text-sm font-black text-white">${champ.name}</div>
+                <div class="text-[10px] text-amber-400 font-mono font-bold">${champ.record} • NEPSAC Title</div>
+              </div>
+
+              <div class="p-2.5 rounded-xl bg-slate-900/90 border border-slate-800 space-y-1 text-xs font-mono">
+                <div class="text-[10px] text-slate-400 uppercase">Prep Finalist 2</div>
+                <div class="p-2 rounded-lg border ${finalPick === finalTeamB.id ? 'bg-purple-950/80 border-purple-400 text-white font-bold' : 'bg-slate-950 border-slate-800 text-slate-400'} cursor-pointer transition" onclick="selectWinner('nepsac_final', '${finalTeamB.id}'); inspectTeam('${finalTeamB.id}');">
+                  <span class="font-bold text-white">${finalTeamB.logo} ${finalTeamB.name}</span>
+                  <div class="text-[10px] text-emerald-400">${finalTeamB.record} • Elo ${finalTeamB.elo}</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tournament MVP Vote -->
+            <div class="pt-2 border-t border-slate-800/80 flex flex-wrap items-center justify-between gap-2 text-xs">
+              <div class="flex items-center gap-2">
+                <span class="text-slate-400 font-mono text-[11px]">Prep Tournament MVP:</span>
+                <select id="mopSelect" class="bg-slate-900 text-white font-bold text-xs rounded-lg px-2 py-1 border border-slate-700 cursor-pointer">
+                  <option value="Joe Connor">Joe Connor (Avon Old Farms • 1C)</option>
+                  <option value="Ryker Lee">Ryker Lee (Shattuck-St. Mary's • F)</option>
+                  <option value="Will Zellers">Will Zellers (Shattuck-St. Mary's • F)</option>
+                  <option value="Kyle Ozgun">Kyle Ozgun (Avon Old Farms • G • .934 Sv%)</option>
+                  <option value="Matt Wright">Matt Wright (Salisbury • G • .930 Sv%)</option>
+                  <option value="Sam LeDrew">Sam LeDrew (Kimball Union • F)</option>
+                </select>
+              </div>
+              <span class="text-[11px] text-purple-400 font-mono font-bold">NEPSAC Martin/Earl Stamped</span>
+            </div>
+          </div>
+        `;
+
+        container.innerHTML = nepsacHtml;
+      }
+
       // Tournament Dropdown Change Listener
       tournamentSelect.addEventListener('change', (e) => {
         activeTourney = e.target.value;
@@ -1041,6 +1364,16 @@
           engine.WJC_PLAYOFFS.quarterfinals.forEach(q => engine.makeUserPick(q.id, q.teamA, 'wjc'));
         } else if (activeTourney === 'memorial') {
           engine.makeUserPick('mem_semi', 'saginaw', 'memorial');
+        } else if (activeTourney === 'mshsl') {
+          engine.MSHSL_PLAYOFFS.quarterfinals.forEach(q => engine.makeUserPick(q.id, q.teamA, 'mshsl'));
+          engine.makeUserPick('mshsl_sf1', 'edina', 'mshsl');
+          engine.makeUserPick('mshsl_sf2', 'minnetonka', 'mshsl');
+          engine.makeUserPick('mshsl_final', 'edina', 'mshsl');
+        } else if (activeTourney === 'nepsac') {
+          engine.NEPSAC_PLAYOFFS.quarterfinals.forEach(q => engine.makeUserPick(q.id, q.teamA, 'nepsac'));
+          engine.makeUserPick('nepsac_sf1', 'avon', 'nepsac');
+          engine.makeUserPick('nepsac_sf2', 'shattuck', 'nepsac');
+          engine.makeUserPick('nepsac_final', 'avon', 'nepsac');
         }
 
         userPicks = engine.loadUserPicks(activeTourney);

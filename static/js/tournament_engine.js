@@ -798,6 +798,300 @@
     }
   };
 
+  // ==========================================
+  // 5. MSHSL BOYS STATE TOURNAMENT (CLASS AA - 8 TEAMS)
+  // "The Tourney" - St. Paul, MN (Xcel Energy Center)
+  // ==========================================
+  const MSHSL_TEAMS = [
+    {
+      id: "edina",
+      name: "Edina Hornets",
+      seed: 1,
+      conference: "Lake Conference / Section 6AA",
+      logo: "🐝",
+      record: "26-4-1",
+      elo: 1640,
+      offenseRating: 95,
+      defenseRating: 92,
+      goalieSvPct: ".928",
+      goalieName: "Joe Bertram",
+      keyProspects: ["Jackson Nevers", "Bobby Cowan", "Barrett Dexheimer"],
+      scoutingNote: "Defending Class AA State Champions. Relentless 3-line puck pursuit and lockdown defensive zone exits."
+    },
+    {
+      id: "minnetonka",
+      name: "Minnetonka Skippers",
+      seed: 2,
+      conference: "Lake Conference / Section 2AA",
+      logo: "⚓",
+      record: "25-3-2",
+      elo: 1630,
+      offenseRating: 94,
+      defenseRating: 93,
+      goalieSvPct: ".931",
+      goalieName: "Hunter Bauer",
+      keyProspects: ["Hagen Burrows", "Javon Moore", "John Stout"],
+      scoutingNote: "Mr. Hockey winner Hagen Burrows leads an explosive, heavy offensive core with unmatched neutral zone speed."
+    },
+    {
+      id: "wayzata",
+      name: "Wayzata Trojans",
+      seed: 3,
+      conference: "Lake Conference / Section 6AA",
+      logo: "🛡️",
+      record: "23-6-2",
+      elo: 1610,
+      offenseRating: 91,
+      defenseRating: 90,
+      goalieSvPct: ".922",
+      goalieName: "Evan Turek",
+      keyProspects: ["Rhys Wallin", "Cade De St. Phalle", "Hawke Huff"],
+      scoutingNote: "Stifling team structure under Pat O'Leary. Masterful at counter-attacking off opponent turnovers."
+    },
+    {
+      id: "hermantown",
+      name: "Hermantown Hawks",
+      seed: 4,
+      conference: "Lake Superior / Section 7AA",
+      logo: "🦅",
+      record: "21-8-2",
+      elo: 1600,
+      offenseRating: 90,
+      defenseRating: 89,
+      goalieSvPct: ".924",
+      goalieName: "Dane Callaway",
+      keyProspects: ["River Freeman", "AJ Francisco", "Henry Peterson"],
+      scoutingNote: "Legendary northern Minnesota pride. Physical board battles and relentless forecheck that wears out suburban powers."
+    },
+    {
+      id: "moorhead",
+      name: "Moorhead Spuds",
+      seed: 5,
+      conference: "Mariucci / Section 8AA",
+      logo: "🥔",
+      record: "20-9-1",
+      elo: 1590,
+      offenseRating: 89,
+      defenseRating: 88,
+      goalieSvPct: ".918",
+      goalieName: "Kai Weigel",
+      keyProspects: ["Mason Kraft", "Tyden Bergeson", "Brooks Cullen"],
+      scoutingNote: "Heavy Section 8 champions. Deep defense corps with heavy point shots and high-percentage cycle play."
+    },
+    {
+      id: "hillmurray",
+      name: "Hill-Murray Pioneers",
+      seed: 6,
+      conference: "Metro East / Section 4AA",
+      logo: "🟢",
+      record: "19-10-2",
+      elo: 1585,
+      offenseRating: 88,
+      defenseRating: 89,
+      goalieSvPct: ".925",
+      goalieName: "Grace Sneddon",
+      keyProspects: ["Boden Sampair", "Simon Seidl", "Landon Cottingham"],
+      scoutingNote: "Bill Lechner coached tradition of playoff excellence. Disciplined backchecking and clutch special teams."
+    },
+    {
+      id: "edenprairie",
+      name: "Eden Prairie Eagles",
+      seed: 7,
+      conference: "Lake Conference / Section 2AA",
+      logo: "🦅",
+      record: "18-10-3",
+      elo: 1575,
+      offenseRating: 87,
+      defenseRating: 87,
+      goalieSvPct: ".915",
+      goalieName: "Isaiah Paulnock",
+      keyProspects: ["Mason Moe", "Cole Saterdalen", "Nick Wiest"],
+      scoutingNote: "Speed-driven transition team capable of knocking off any #1 seed in an open-ice shootout."
+    },
+    {
+      id: "stthomas",
+      name: "St. Thomas Academy",
+      seed: 8,
+      conference: "Independent / Section 3AA",
+      logo: "⚔️",
+      record: "17-11-2",
+      elo: 1570,
+      offenseRating: 86,
+      defenseRating: 88,
+      goalieSvPct: ".920",
+      goalieName: "Cody Niesen",
+      keyProspects: ["Sam Crane", "Brody Dietz", "Lucas Mann"],
+      scoutingNote: "Cadet discipline and defensive tenacity. Exceptional penalty kill and shot-blocking willingness."
+    }
+  ];
+
+  const MSHSL_PLAYOFFS = {
+    quarterfinals: [
+      { id: "mshsl_qf1", match: "Class AA Quarterfinal 1", teamA: "edina", teamB: "stthomas", session: "Day Session", note: "#1 Edina vs #8 St. Thomas Academy • Xcel Energy Center" },
+      { id: "mshsl_qf2", match: "Class AA Quarterfinal 2", teamA: "hermantown", teamB: "moorhead", session: "Day Session", note: "#4 Hermantown vs #5 Moorhead • Northern Clash" },
+      { id: "mshsl_qf3", match: "Class AA Quarterfinal 3", teamA: "minnetonka", teamB: "edenprairie", session: "Night Session", note: "#2 Minnetonka vs #7 Eden Prairie • Lake Conf Rivalry" },
+      { id: "mshsl_qf4", match: "Class AA Quarterfinal 4", teamA: "wayzata", teamB: "hillmurray", session: "Night Session", note: "#3 Wayzata vs #6 Hill-Murray • Section 6AA vs 4AA" }
+    ],
+    semifinals: [
+      { id: "mshsl_sf1", match: "Class AA Semifinal 1", teamA: "edina", teamB: "hermantown", note: "Semifinal Friday • 18,000+ Fans at The X" },
+      { id: "mshsl_sf2", match: "Class AA Semifinal 2", teamA: "minnetonka", teamB: "wayzata", note: "Semifinal Friday • Lake Conference Showdown" }
+    ],
+    championship: {
+      id: "mshsl_final",
+      title: "MSHSL Class AA State Championship",
+      teamA: "edina",
+      teamB: "minnetonka",
+      note: "Championship Saturday • Xcel Energy Center, Saint Paul, MN"
+    }
+  };
+
+  // ==========================================
+  // 6. NEPSAC MARTIN / EARL ELITE 8 (8 TEAMS)
+  // New England Prep School Championship
+  // ==========================================
+  const NEPSAC_TEAMS = [
+    {
+      id: "avon",
+      name: "Avon Old Farms",
+      seed: 1,
+      conference: "Founder's League",
+      logo: "🦫",
+      record: "24-2-2",
+      elo: 1650,
+      offenseRating: 96,
+      defenseRating: 93,
+      goalieSvPct: ".934",
+      goalieName: "Kyle Ozgun",
+      keyProspects: ["Joe Connor", "Alex Bales", "Charlie Gollob"],
+      scoutingNote: "John Gardner's Winged Beavers. The undisputed benchmark of New England prep hockey with deep junior commitments."
+    },
+    {
+      id: "salisbury",
+      name: "Salisbury Crimson Knights",
+      seed: 2,
+      conference: "Western NE Prep",
+      logo: "⚔️",
+      record: "22-4-3",
+      elo: 1640,
+      offenseRating: 94,
+      defenseRating: 94,
+      goalieSvPct: ".930",
+      goalieName: "Matt Wright",
+      keyProspects: ["Ty Higgins", "Jared Mangan", "Nolan McElhaney"],
+      scoutingNote: "Physical, structured, relentless 200-foot team. Suffocates opposing top lines in the neutral zone."
+    },
+    {
+      id: "shattuck",
+      name: "Shattuck-St. Mary's",
+      seed: 3,
+      conference: "National Prep Showcase",
+      logo: "🦅",
+      record: "38-6-4",
+      elo: 1660,
+      offenseRating: 97,
+      defenseRating: 91,
+      goalieSvPct: ".926",
+      goalieName: "Harrison Boettiger",
+      keyProspects: ["Ryker Lee", "Will Zellers", "Aidan Park"],
+      scoutingNote: "Elite national prep academy. Has produced more 1st round NHL draft talent than any scholastic institution in North America."
+    },
+    {
+      id: "kua",
+      name: "Kimball Union Wildcats",
+      seed: 4,
+      conference: "Lakes Region",
+      logo: "🐱",
+      record: "23-6-1",
+      elo: 1625,
+      offenseRating: 93,
+      defenseRating: 89,
+      goalieSvPct: ".923",
+      goalieName: "Blake McMeniman",
+      keyProspects: ["Sam LeDrew", "Corwith Simmers", "Jack Sadowski"],
+      scoutingNote: "High-octane scoring powerhouse in New Hampshire with dynamic transition skill and power play efficiency."
+    },
+    {
+      id: "belmont",
+      name: "Belmont Hill Sextants",
+      seed: 5,
+      conference: "Independent School League",
+      logo: "⚓",
+      record: "20-7-3",
+      elo: 1615,
+      offenseRating: 90,
+      defenseRating: 91,
+      goalieSvPct: ".928",
+      goalieName: "Keagin Wilson",
+      keyProspects: ["Brock Cummings", "Jake McManus", "Dane Carter"],
+      scoutingNote: "ISL champions with relentless work ethic, disciplined defensive backchecking, and tactical poise."
+    },
+    {
+      id: "cushing",
+      name: "Cushing Academy Penguins",
+      seed: 6,
+      conference: "Central Mass Prep",
+      logo: "🐧",
+      record: "21-8-2",
+      elo: 1610,
+      offenseRating: 92,
+      defenseRating: 88,
+      goalieSvPct: ".921",
+      goalieName: "Cooper Rautenstrauch",
+      keyProspects: ["Landan Resendes", "Emerson Marshall", "AJ Sacco"],
+      scoutingNote: "Speed-oriented lineup with dynamic rush playmakers and aggressive pinches from the blue line."
+    },
+    {
+      id: "dexter",
+      name: "Dexter Southfield Shield",
+      seed: 7,
+      conference: "Independent Prep",
+      logo: "🛡️",
+      record: "19-8-4",
+      elo: 1600,
+      offenseRating: 89,
+      defenseRating: 89,
+      goalieSvPct: ".920",
+      goalieName: "Colin Davis",
+      keyProspects: ["Sean Keohane", "Cullen Emery", "Jonathan Lanza"],
+      scoutingNote: "Hard-nosed Boston-area program that thrives on physical board play and punishing transition counter-attacks."
+    },
+    {
+      id: "stsebs",
+      name: "St. Sebastian's Arrows",
+      seed: 8,
+      conference: "Independent School League",
+      logo: "🏹",
+      record: "18-9-3",
+      elo: 1590,
+      offenseRating: 88,
+      defenseRating: 88,
+      goalieSvPct: ".919",
+      goalieName: "Pelle Russo",
+      keyProspects: ["Teddy Mutryn", "Casey Mutryn", "Brendan Gorman"],
+      scoutingNote: "Storied ISL institution with high hockey IQ, puck control, and exceptional special teams execution."
+    }
+  ];
+
+  const NEPSAC_PLAYOFFS = {
+    quarterfinals: [
+      { id: "nepsac_qf1", match: "NEPSAC Quarterfinal 1", teamA: "avon", teamB: "stsebs", note: "#1 Avon Old Farms vs #8 St. Sebastian's" },
+      { id: "nepsac_qf2", match: "NEPSAC Quarterfinal 2", teamA: "kua", teamB: "belmont", note: "#4 Kimball Union vs #5 Belmont Hill" },
+      { id: "nepsac_qf3", match: "NEPSAC Quarterfinal 3", teamA: "shattuck", teamB: "cushing", note: "#3 Shattuck-St. Mary's vs #6 Cushing Academy" },
+      { id: "nepsac_qf4", match: "NEPSAC Quarterfinal 4", teamA: "salisbury", teamB: "dexter", note: "#2 Salisbury vs #7 Dexter Southfield" }
+    ],
+    semifinals: [
+      { id: "nepsac_sf1", match: "NEPSAC Semifinal 1", teamA: "avon", teamB: "kua", note: "Semifinal Saturday • Campus Sites" },
+      { id: "nepsac_sf2", match: "NEPSAC Semifinal 2", teamA: "shattuck", teamB: "salisbury", note: "Semifinal Saturday • Elite 8 Heavyweight Clash" }
+    ],
+    championship: {
+      id: "nepsac_final",
+      title: "NEPSAC Martin / Earl Elite 8 Championship",
+      teamA: "avon",
+      teamB: "shattuck",
+      note: "Championship Sunday • New England Prep Showcase"
+    }
+  };
+
   // Master Tournament Directory
   const TOURNAMENTS = {
     ncaa: {
@@ -831,6 +1125,22 @@
       trophy: "🍁",
       teams: MEMORIAL_TEAMS,
       playoffs: MEMORIAL_PLAYOFFS
+    },
+    mshsl: {
+      id: "mshsl",
+      name: "MSHSL Class AA State Tournament",
+      tagline: "8-Team Minnesota High School Championship ('The Tourney')",
+      trophy: "🌲",
+      teams: MSHSL_TEAMS,
+      playoffs: MSHSL_PLAYOFFS
+    },
+    nepsac: {
+      id: "nepsac",
+      name: "NEPSAC Elite 8 Prep Championship",
+      tagline: "8-Team New England Prep School Championship",
+      trophy: "🏛️",
+      teams: NEPSAC_TEAMS,
+      playoffs: NEPSAC_PLAYOFFS
     }
   };
 
@@ -988,6 +1298,10 @@
     WJC_PLAYOFFS,
     MEMORIAL_TEAMS,
     MEMORIAL_PLAYOFFS,
+    MSHSL_TEAMS,
+    MSHSL_PLAYOFFS,
+    NEPSAC_TEAMS,
+    NEPSAC_PLAYOFFS,
     getWinProbability,
     simulateGame,
     runMonteCarloSimulations,
