@@ -1,336 +1,523 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
   <!-- Active Pre-Execution Security Shield -->
   <script src="static/js/security_shield.js"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sign Up – PuckPathway</title>
+  <title>Sign Up & Tiered Subscription | BlueLine DataWorks OS</title>
   <meta name="description" content="BlueLine DataWorks is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory.">
   <link rel="icon" type="image/jpeg" href="static/img/blueline_logo.jpg">
   <link rel="apple-touch-icon" href="static/img/blueline_logo.jpg">
 
-  <!-- Open Graph -->
+  <!-- Canonical & Open Graph -->
+  <link rel="canonical" href="https://farmadvisorar-ux.github.io/puckpathway-hockey-os/signup.html">
   <meta property="og:type" content="website">
-  <meta property="og:site_name" content="PuckPathway Hockey OS">
-  
+  <meta property="og:site_name" content="BlueLine DataWorks OS">
   <meta property="og:url" content="https://farmadvisorar-ux.github.io/puckpathway-hockey-os/signup.html">
-  <meta property="og:title" content="Sign Up – PuckPathway">
+  <meta property="og:title" content="Sign Up & Tiered Subscription | BlueLine DataWorks OS">
   <meta property="og:description" content="BlueLine DataWorks is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory.">
   <meta property="og:image" content="https://farmadvisorar-ux.github.io/puckpathway-hockey-os/static/img/blueline_og_preview.jpg">
 
-  <!-- Stylesheets -->
-  <link rel="stylesheet" href="styles.css">
+  <!-- Tailwind CSS & Icons -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="static/css/custom.css">
   <link rel="manifest" href="manifest.json">
 
-  <link rel="canonical" href="https://farmadvisorar-ux.github.io/puckpathway-hockey-os/signup.html">
+  <style>
+    .glow-card {
+      background: rgba(11, 17, 32, 0.92);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7), 0 0 25px rgba(56, 189, 248, 0.1);
+    }
+    .glow-input:focus {
+      border-color: #38bdf8;
+      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.25);
+      outline: none;
+    }
+  </style>
 </head>
-<body>
+<body class="bg-[#06090e] text-slate-100 min-h-screen flex flex-col font-sans selection:bg-sky-500 selection:text-white pb-16">
 
   <!-- Mandatory Lifelong Tracking Mission Statement Banner -->
-  <div class="mission-banner">
-    <div class="mission-banner-inner">
-      <div style="display:flex; align-items:center; gap:0.5rem; overflow:hidden;">
-        <span class="mission-tag">MISSION</span>
-        <span style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">BlueLine DataWorks is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory.</span>
+  <div class="border-b border-slate-800/90 bg-slate-950/95 sticky top-0 z-50 backdrop-blur-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 flex flex-wrap items-center justify-between gap-3 text-xs">
+      <div class="flex items-center gap-2.5 min-w-0 flex-1">
+        <span class="px-2 py-0.5 rounded-md bg-sky-500/20 text-sky-300 font-mono text-[10px] font-extrabold uppercase tracking-wider shrink-0 border border-sky-500/30">MISSION</span>
+        <p class="text-[11px] text-slate-300 font-medium truncate">
+          BlueLine DataWorks is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory.
+        </p>
       </div>
-      <div style="font-family:monospace; font-size:0.65rem; color:#38bdf8; white-space:nowrap;">
-        PASSPORT MINTING
+      <div class="flex items-center gap-2.5 shrink-0 font-mono text-[11px]">
+        <span class="text-emerald-400 bg-emerald-950/70 border border-emerald-700/50 px-2 py-0.5 rounded-full flex items-center gap-1.5 font-semibold">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+          Passport Minting Online
+        </span>
+        <span class="text-sky-400 hidden sm:inline">● All Plans Include The Wire</span>
       </div>
     </div>
   </div>
 
-  <!-- TOP NAVIGATION BAR -->
-  <nav class="top-nav">
-    <div class="nav-container">
-      <a href="index.html" class="nav-brand">
-        <img src="static/img/blueline_logo.jpg" alt="PuckPathway Logo">
-        <span>PuckPathway <span style="color:#38bdf8; font-size:0.85rem; font-family:monospace;">OS</span></span>
+  <!-- Top Enterprise Header Navigation Bar -->
+  <header class="border-b border-slate-800/80 bg-slate-950/85 backdrop-blur-xl">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+      
+      <!-- Brand Logo -->
+      <a href="index.html" class="flex items-center gap-3 group">
+        <img src="static/img/blueline_logo.jpg" alt="BlueLine DataWorks Logo" class="w-10 h-10 rounded-xl border border-sky-400/50 object-cover shadow-lg shadow-sky-500/20 group-hover:scale-105 transition">
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="font-extrabold text-base sm:text-lg tracking-tight text-white group-hover:text-sky-400 transition">BlueLine DataWorks</span>
+            <span class="text-[10px] uppercase font-mono tracking-widest px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-bold">REGISTER</span>
+          </div>
+          <p class="text-[10px] text-slate-400 hidden sm:block">Role-Based Clearance & Passport Minting</p>
+        </div>
       </a>
 
-      <div class="nav-links">
-        <a href="index.html" style="color:#94a3b8; text-decoration:none; font-size:0.85rem; font-family:monospace;">← Home</a>
-        <a href="login.html" class="btn secondary" style="padding:0.45rem 1rem; font-size:0.85rem;">Log In</a>
+      <!-- Center Primary Navigation -->
+      <nav class="hidden md:flex items-center gap-2 text-xs font-mono">
+        <a href="index.html" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white font-semibold border border-slate-800 transition flex items-center gap-1.5">
+          <i class="fa-solid fa-house text-slate-400"></i> Home
+        </a>
+        <a href="scout.html" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white font-semibold border border-slate-800 transition flex items-center gap-1.5">
+          <i class="fa-solid fa-binoculars text-sky-400"></i> Scout Desk
+        </a>
+        <a href="database.html" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white font-semibold border border-slate-800 transition flex items-center gap-1.5">
+          <i class="fa-solid fa-users text-slate-400"></i> Directory
+        </a>
+        <a href="community.html" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white font-semibold border border-slate-800 transition flex items-center gap-1.5">
+          <i class="fa-solid fa-rss text-slate-400"></i> The Wire
+        </a>
+      </nav>
+
+      <!-- Right Action Controls -->
+      <div class="flex items-center gap-3">
+        <button onclick="toggleAppLauncher()" class="px-3 py-1.5 rounded-xl bg-gradient-to-r from-sky-600/30 via-indigo-600/30 to-purple-600/30 hover:from-sky-600/50 hover:to-purple-600/50 text-sky-200 border border-sky-400/40 hover:border-sky-300 font-bold text-xs flex items-center gap-1.5 shadow-lg transition cursor-pointer" title="Open All 26 Modules (Ctrl+K)">
+          <i class="fa-solid fa-table-cells text-sky-400"></i>
+          <span class="hidden sm:inline font-sans">All Modules</span>
+          <span class="px-1.5 py-0.2 rounded-full bg-sky-400/20 text-sky-300 font-mono text-[10px] font-bold">26</span>
+        </button>
+
+        <a href="login.html" class="px-3.5 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-200 hover:text-white font-bold text-xs border border-slate-700 transition flex items-center gap-1.5">
+          <i class="fa-solid fa-right-to-bracket text-sky-400"></i>
+          <span>Log In</span>
+        </a>
       </div>
+
     </div>
-  </nav>
+  </header>
 
-  <main class="auth-page">
-    <h1>Start Your Hockey Pathway</h1>
-    <p style="color:#94a3b8; font-size:0.9rem; margin-top:-0.5rem; margin-bottom:1.5rem; text-align:center;">
-      Choose your role to get targeted access tailored to your needs.
-    </p>
+  <!-- MAIN REGISTRATION STAGE -->
+  <main class="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full space-y-12">
 
-    <form class="auth-form" id="signupForm" onsubmit="handleSignupSubmit(event)">
-      <label for="signupRole">Select Your Role</label>
-      <select id="signupRole" name="role" onchange="handleRoleFieldChange(this.value)" style="background:#0f172a; color:#fff; border:1px solid #38bdf8; font-weight:600; padding:8px; border-radius:6px; margin-bottom:12px; width:100%;">
-        <option value="scout">🔭 Recruiter & Scout ($22.99/mo - All Features Combined)</option>
-        <option value="coach">📋 Coach ($22.99/mo - All Features Combined)</option>
-        <option value="athlete" selected>⚡ Player / Athlete ($4.99/mo - Passport & XP)</option>
-        <option value="parent">🛡️ Parent ($4.99/mo - Oversight & Comms)</option>
-      </select>
+    <!-- Registration Card -->
+    <div class="max-w-2xl mx-auto glow-card rounded-3xl p-6 sm:p-8 space-y-7 relative overflow-hidden">
+      <div class="absolute -top-20 -right-20 w-56 h-56 bg-sky-500/15 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="absolute -bottom-20 -left-20 w-56 h-56 bg-emerald-500/15 rounded-full blur-3xl pointer-events-none"></div>
 
-      <div style="background:rgba(56, 189, 248, 0.1); border:1px solid rgba(56, 189, 248, 0.3); border-radius:8px; padding:0.65rem 0.85rem; font-size:0.8rem; color:#cbd5e1; margin-bottom:1rem; line-height:1.4;">
-        <span style="color:#38bdf8; font-weight:700;">🌐 All Roles Include The Wire:</span> Full access to <strong>The Wire</strong> social network, direct messaging (DMs), and the crest logo stamping tool!
+      <!-- Header -->
+      <div class="text-center space-y-2">
+        <div class="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-tr from-emerald-600 to-sky-600 text-white shadow-xl shadow-emerald-500/20 border border-emerald-400/50 mb-1">
+          <i class="fa-solid fa-passport text-2xl"></i>
+        </div>
+        <h1 class="text-2xl sm:text-3xl font-black tracking-tight text-white">Start Your Hockey Pathway</h1>
+        <p class="text-xs sm:text-sm text-slate-300">
+          Choose your active role to configure tailored analytical clearances and instant payment authorization.
+        </p>
       </div>
 
-      <label for="signupName">Full Name</label>
-      <input type="text" id="signupName" name="name" required placeholder="e.g. Connor Vance or Coach Miller">
-
-      <label for="signupEmail">Email</label>
-      <input type="email" id="signupEmail" name="email" required placeholder="name@example.com">
-
-      <label for="signupPassword">Password</label>
-      <input type="password" id="signupPassword" name="password" required value="password123">
-
-      <div id="positionFieldContainer">
-        <label for="signupPosition">Position</label>
-        <select id="signupPosition" name="position">
-          <option>Forward</option>
-          <option>Defense</option>
-          <option>Goalie</option>
-        </select>
-      </div>
-
-      <!-- Integrated Payment Method Step -->
-      <div style="margin:1.25rem 0; padding:1rem; background:#0b1120; border:1px solid rgba(56,189,248,0.25); border-radius:10px;">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.75rem;">
-          <span style="font-size:0.8rem; font-weight:800; color:#38bdf8; text-transform:uppercase; letter-spacing:0.05em;">Payment Details</span>
-          <span style="font-family:monospace; font-size:0.75rem; color:#10b981;">🔒 256-bit SSL Encrypted</span>
-        </div>
-
-        <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:0.35rem; margin-bottom:0.75rem;">
-          <button type="button" class="btn secondary" id="signupPayCardBtn" onclick="setSignupPaymentMethod('card')" style="padding:0.4rem; font-size:0.75rem; border-color:#38bdf8; background:rgba(56,189,248,0.15); color:#38bdf8;">💳 Card</button>
-          <button type="button" class="btn secondary" id="signupPayAppleBtn" onclick="setSignupPaymentMethod('apple')" style="padding:0.4rem; font-size:0.75rem;">🍏 Apple Pay</button>
-          <button type="button" class="btn secondary" id="signupPayGoogleBtn" onclick="setSignupPaymentMethod('google')" style="padding:0.4rem; font-size:0.75rem;">📱 Google</button>
-        </div>
-
-        <div id="signupCardInputs">
-          <label for="signupCardNum" style="font-size:0.75rem;">Card Number</label>
-          <input type="text" id="signupCardNum" placeholder="4242 •••• •••• 4242" value="4242 4242 4242 4242" style="font-size:0.85rem; padding:0.5rem; margin-bottom:0.5rem;">
-
-          <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.5rem;">
-            <div>
-              <label for="signupCardExp" style="font-size:0.75rem;">Exp (MM/YY)</label>
-              <input type="text" id="signupCardExp" placeholder="08/28" value="12/28" style="font-size:0.85rem; padding:0.5rem;">
+      <!-- Role Selection Cards Grid -->
+      <div class="space-y-2">
+        <label class="block text-xs font-mono font-bold text-slate-300 uppercase tracking-wider">
+          1. Choose Your Active Subscription Plan:
+        </label>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          
+          <!-- Scout / Recruiter Plan Card -->
+          <div onclick="selectSignupRole('scout')" id="planCard_scout" class="p-4 rounded-2xl border-2 border-sky-400 bg-sky-950/60 cursor-pointer transition relative space-y-2 shadow-lg shadow-sky-500/20">
+            <div class="flex items-center justify-between">
+              <span class="text-base font-bold text-white flex items-center gap-1.5">
+                <span>🔭</span> Recruiter & Scout
+              </span>
+              <span class="text-xs font-black text-sky-300 font-mono">$22.99<span class="text-[10px] text-slate-400 font-normal">/mo</span></span>
             </div>
-            <div>
-              <label for="signupCardCvc" style="font-size:0.75rem;">CVC</label>
-              <input type="text" id="signupCardCvc" placeholder="123" value="982" style="font-size:0.85rem; padding:0.5rem;">
+            <p class="text-[11px] text-slate-300">
+              Full access to <strong>all 22+ modules combined</strong>, including the Lead Scout Desk, micro-telemetry, transfer portal, and The Wire DMs.
+            </p>
+            <div class="text-[10px] font-mono text-sky-400 font-bold flex items-center gap-1">
+              <span>✓ Auto-routes to Scout Desk (`scout.html`)</span>
             </div>
           </div>
-        </div>
 
-        <div id="signupWalletMsg" style="display:none; text-align:center; padding:0.5rem; font-size:0.8rem; color:#94a3b8;">
-          1-Touch biometric payment ready on submit.
-        </div>
+          <!-- Head Coach Plan Card -->
+          <div onclick="selectSignupRole('coach')" id="planCard_coach" class="p-4 rounded-2xl border border-slate-800 bg-slate-900/80 hover:border-slate-700 cursor-pointer transition relative space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-base font-bold text-white flex items-center gap-1.5">
+                <span>📋</span> Head Coach
+              </span>
+              <span class="text-xs font-black text-emerald-300 font-mono">$22.99<span class="text-[10px] text-slate-400 font-normal">/mo</span></span>
+            </div>
+            <p class="text-[11px] text-slate-300">
+              Full access to <strong>all 22+ modules combined</strong>, tactics diagrammer, lineup chemistry, tournament war rooms, and The Wire.
+            </p>
+            <div class="text-[10px] font-mono text-slate-400 font-medium">
+              ✓ Tactical playbooks & roster management
+            </div>
+          </div>
 
-        <div style="margin-top:0.75rem; padding-top:0.5rem; border-top:1px solid rgba(255,255,255,0.08); display:flex; justify-content:space-between; align-items:center; font-size:0.85rem;">
-          <span style="color:#94a3b8;">Due Today:</span>
-          <span id="signupPriceDisplay" style="color:#38bdf8; font-weight:800; font-family:monospace;">$4.99 / month</span>
+          <!-- Player / Athlete Plan Card -->
+          <div onclick="selectSignupRole('athlete')" id="planCard_athlete" class="p-4 rounded-2xl border border-slate-800 bg-slate-900/80 hover:border-slate-700 cursor-pointer transition relative space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-base font-bold text-white flex items-center gap-1.5">
+                <span>⚡</span> Player / Athlete
+              </span>
+              <span class="text-xs font-black text-amber-300 font-mono">$4.99<span class="text-[10px] text-slate-400 font-normal">/mo</span></span>
+            </div>
+            <p class="text-[11px] text-slate-300">
+              Verified Athlete Passport, developmental XP logs, combine biometrics, and full access to The Wire community with crest stamping.
+            </p>
+            <div class="text-[10px] font-mono text-amber-400 font-bold">
+              ✓ 360° Passport & drills tracker
+            </div>
+          </div>
+
+          <!-- Parent / Family Advisor Plan Card -->
+          <div onclick="selectSignupRole('parent')" id="planCard_parent" class="p-4 rounded-2xl border border-slate-800 bg-slate-900/80 hover:border-slate-700 cursor-pointer transition relative space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-base font-bold text-white flex items-center gap-1.5">
+                <span>👨‍👩‍👦</span> Family Advisor
+              </span>
+              <span class="text-xs font-black text-purple-300 font-mono">$4.99<span class="text-[10px] text-slate-400 font-normal">/mo</span></span>
+            </div>
+            <p class="text-[11px] text-slate-300">
+              Independent student-athlete oversight, eligibility compliance guardrails, direct communications with coaches, and The Wire.
+            </p>
+            <div class="text-[10px] font-mono text-purple-400 font-bold">
+              ✓ FERPA / COPPA protected oversight
+            </div>
+          </div>
+
         </div>
       </div>
 
-      <button type="submit" class="btn primary" id="signupSubmitBtn">💳 Pay & Start Player Passport ($4.99/mo)</button>
-    </form>
-    <p>Already have an account? <a href="login.html">Log in</a></p>
+      <!-- Banner: All Roles Include The Wire -->
+      <div class="p-3.5 rounded-2xl bg-gradient-to-r from-sky-950/70 to-indigo-950/70 border border-sky-500/30 text-xs text-slate-300 flex items-center gap-3">
+        <span class="text-xl shrink-0">🌐</span>
+        <div>
+          <strong class="text-white">The Wire Included with All Subscriptions:</strong> Every user gains verified access to hockey's dedicated social network, team bulletin boards, crest stamping on photos, and direct messaging (DMs).
+        </div>
+      </div>
+
+      <!-- Form Inputs -->
+      <form id="signupForm" onsubmit="handleSignupSubmit(event)" class="space-y-5">
+        
+        <input type="hidden" id="selectedRoleInput" name="role" value="scout">
+        <input type="hidden" id="planPriceInput" name="price" value="22.99">
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          
+          <div class="space-y-1.5">
+            <label for="signupName" class="block text-xs font-mono font-bold text-slate-300 uppercase">
+              Full Name
+            </label>
+            <input type="text" id="signupName" required placeholder="e.g. Connor Vance or Coach Miller" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-white placeholder-slate-500 glow-input text-xs font-sans">
+          </div>
+
+          <div class="space-y-1.5">
+            <label for="signupEmail" class="block text-xs font-mono font-bold text-slate-300 uppercase">
+              Email Address
+            </label>
+            <input type="email" id="signupEmail" required placeholder="name@team.org" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-white placeholder-slate-500 glow-input text-xs font-sans">
+          </div>
+
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          
+          <div class="space-y-1.5">
+            <label for="signupPassword" class="block text-xs font-mono font-bold text-slate-300 uppercase">
+              Password
+            </label>
+            <input type="password" id="signupPassword" required value="password123" placeholder="••••••••••••" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-white glow-input text-xs font-mono">
+          </div>
+
+          <div class="space-y-1.5">
+            <label for="signupOrg" class="block text-xs font-mono font-bold text-slate-300 uppercase">
+              Team, School or Organization
+            </label>
+            <input type="text" id="signupOrg" placeholder="e.g. Michigan State, USNTDP, Independent" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-white placeholder-slate-500 glow-input text-xs font-sans">
+          </div>
+
+        </div>
+
+        <!-- 256-Bit Payment Checkout Step -->
+        <div class="p-5 rounded-2xl bg-slate-950/90 border border-sky-500/30 space-y-4">
+          
+          <div class="flex items-center justify-between border-b border-slate-800 pb-2.5">
+            <div class="flex items-center gap-2">
+              <i class="fa-solid fa-credit-card text-sky-400"></i>
+              <span class="text-xs font-bold text-white uppercase tracking-wider font-mono">256-Bit SSL Instant Payment</span>
+            </div>
+            <span class="text-[10px] font-mono text-emerald-400 bg-emerald-950/60 border border-emerald-700/50 px-2 py-0.5 rounded-full">
+              🔒 Encrypted Gateway
+            </span>
+          </div>
+
+          <!-- Payment Method Switcher Tabs -->
+          <div class="grid grid-cols-3 gap-2 text-xs font-mono">
+            <button type="button" onclick="setPaymentMethod('card')" id="payBtn_card" class="p-2 rounded-xl bg-sky-600 text-white font-bold border border-sky-400 text-center">
+              Credit Card
+            </button>
+            <button type="button" onclick="setPaymentMethod('apple')" id="payBtn_apple" class="p-2 rounded-xl bg-slate-900 text-slate-300 hover:text-white border border-slate-800 text-center">
+              Apple Pay
+            </button>
+            <button type="button" onclick="setPaymentMethod('google')" id="payBtn_google" class="p-2 rounded-xl bg-slate-900 text-slate-300 hover:text-white border border-slate-800 text-center">
+              Google Pay
+            </button>
+          </div>
+
+          <!-- Card Form -->
+          <div id="creditCardForm" class="space-y-3">
+            <div class="space-y-1">
+              <label class="block text-[10px] font-mono text-slate-400 uppercase">Card Number</label>
+              <input type="text" value="4242 •••• •••• 4242" class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-800 text-white text-xs font-mono">
+            </div>
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="block text-[10px] font-mono text-slate-400 uppercase">Expiry (MM/YY)</label>
+                <input type="text" value="12/28" class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-800 text-white text-xs font-mono">
+              </div>
+              <div>
+                <label class="block text-[10px] font-mono text-slate-400 uppercase">CVC / Security Code</label>
+                <input type="text" value="882" class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-800 text-white text-xs font-mono">
+              </div>
+            </div>
+          </div>
+
+          <!-- Order Summary Line -->
+          <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 text-xs flex items-center justify-between font-mono">
+            <span class="text-slate-300" id="orderSummaryRole">Recruiter & Scout Plan:</span>
+            <span class="text-emerald-400 font-bold text-sm" id="orderSummaryDue">$22.99 / month</span>
+          </div>
+
+        </div>
+
+        <!-- Primary Action Button -->
+        <button type="submit" id="submitSignupBtn" class="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-emerald-600 via-teal-600 to-sky-600 hover:from-emerald-500 hover:to-sky-500 text-white font-extrabold text-sm shadow-xl shadow-emerald-600/30 border border-emerald-400/50 transition transform active:scale-[0.99] flex items-center justify-center gap-2 cursor-pointer">
+          <i class="fa-solid fa-lock"></i>
+          <span id="submitBtnText">Complete Clearance & Mint Passport ($22.99/mo)</span>
+          <i class="fa-solid fa-arrow-right text-xs"></i>
+        </button>
+
+      </form>
+
+      <div class="text-center pt-2 text-xs text-slate-400">
+        Already have a verified passport? 
+        <a href="login.html" class="text-sky-400 hover:text-sky-300 font-bold underline transition ml-1">Log in to your workspace</a>
+      </div>
+
+    </div>
+
+    <!-- ========================================================================= -->
+    <!-- COMPREHENSIVE 26-MODULE ECOSYSTEM DIRECTORY BUTTONS ("buttons at bottom") -->
+    <!-- ========================================================================= -->
+    <section class="space-y-6 pt-8 border-t border-slate-800">
+      
+      <div class="flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <div class="flex items-center gap-2 mb-1">
+            <span class="px-2 py-0.5 rounded-md bg-indigo-500/20 text-indigo-300 font-mono text-[10px] font-bold border border-indigo-500/30 uppercase tracking-wider">PLATFORM DIRECTORY</span>
+            <span class="text-xs text-slate-400 font-mono">26 Available Workspaces</span>
+          </div>
+          <h2 class="text-xl sm:text-2xl font-black text-white tracking-tight">
+            Direct Access to All Workspaces & Operations Desks
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-300">
+            Explore every analytical module, performance lab, and governance engine.
+          </p>
+        </div>
+        <div class="flex items-center gap-2">
+          <a href="scout.html" class="px-3.5 py-2 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-bold text-xs shadow-md transition flex items-center gap-1.5">
+            <i class="fa-solid fa-binoculars"></i>
+            <span>Scout Desk</span>
+          </a>
+          <button onclick="openSitemapModal()" class="px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 hover:text-white font-mono text-xs transition flex items-center gap-1.5 cursor-pointer">
+            <i class="fa-solid fa-sitemap text-sky-400"></i>
+            <span>Site Map</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Category Grid -->
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 text-xs">
+        <a href="scout.html" class="p-3 rounded-2xl bg-slate-900/90 hover:bg-slate-850 border border-amber-500/40 text-white font-bold transition flex flex-col justify-between">
+          <div><span class="text-lg">🔭</span><h4 class="text-amber-300 mt-1">Lead Scout Desk</h4><p class="text-[10px] text-slate-400 font-normal">Live micro-telemetry</p></div>
+        </a>
+        <a href="app.html" class="p-3 rounded-2xl bg-slate-900/90 hover:bg-slate-850 border border-slate-800 text-white font-bold transition flex flex-col justify-between">
+          <div><span class="text-lg">⚡</span><h4 class="text-white mt-1">Player OS</h4><p class="text-[10px] text-slate-400 font-normal">Passport & XP tracker</p></div>
+        </a>
+        <a href="database.html" class="p-3 rounded-2xl bg-slate-900/90 hover:bg-slate-850 border border-slate-800 text-white font-bold transition flex flex-col justify-between">
+          <div><span class="text-lg">📊</span><h4 class="text-white mt-1">Global Directory</h4><p class="text-[10px] text-slate-400 font-normal">5,000+ amateur dossiers</p></div>
+        </a>
+        <a href="community.html" class="p-3 rounded-2xl bg-slate-900/90 hover:bg-slate-850 border border-slate-800 text-white font-bold transition flex flex-col justify-between">
+          <div><span class="text-lg">🌐</span><h4 class="text-white mt-1">The Wire</h4><p class="text-[10px] text-slate-400 font-normal">Social network & DMs</p></div>
+        </a>
+        <a href="scoreboard.html" class="p-3 rounded-2xl bg-slate-900/90 hover:bg-slate-850 border border-slate-800 text-white font-bold transition flex flex-col justify-between">
+          <div><span class="text-lg">📡</span><h4 class="text-white mt-1">Game Center</h4><p class="text-[10px] text-slate-400 font-normal">Live rink scoreboard</p>
+        </a>
+        <a href="film.html" class="p-3 rounded-2xl bg-slate-900/90 hover:bg-slate-850 border border-slate-800 text-white font-bold transition flex flex-col justify-between">
+          <div><span class="text-lg">🎥</span><h4 class="text-white mt-1">AI Film Room</h4><p class="text-[10px] text-slate-400 font-normal">Video telestration</p></div>
+        </a>
+        <a href="rink3d.html" class="p-3 rounded-2xl bg-slate-900/90 hover:bg-slate-850 border border-slate-800 text-white font-bold transition flex flex-col justify-between">
+          <div><span class="text-lg">🧊</span><h4 class="text-white mt-1">3D Rink</h4><p class="text-[10px] text-slate-400 font-normal">Spatial heatmaps</p></div>
+        </a>
+        <a href="combine.html" class="p-3 rounded-2xl bg-slate-900/90 hover:bg-slate-850 border border-slate-800 text-white font-bold transition flex flex-col justify-between">
+          <div><span class="text-lg">🧬</span><h4 class="text-white mt-1">Combine Lab</h4><p class="text-[10px] text-slate-400 font-normal">Wingate anaerobic power</p></div>
+        </a>
+        <a href="compare.html" class="p-3 rounded-2xl bg-slate-900/90 hover:bg-slate-850 border border-slate-800 text-white font-bold transition flex flex-col justify-between">
+          <div><span class="text-lg">⚖️</span><h4 class="text-white mt-1">Compare Lab</h4><p class="text-[10px] text-slate-400 font-normal">Radar benchmark curves</p></div>
+        </a>
+        <a href="security.html" class="p-3 rounded-2xl bg-slate-900/90 hover:bg-slate-850 border border-slate-800 text-white font-bold transition flex flex-col justify-between">
+          <div><span class="text-lg">🛡️</span><h4 class="text-white mt-1">Cyber Shield</h4><p class="text-[10px] text-slate-400 font-normal">Visitor IP telemetry</p></div>
+        </a>
+      </div>
+    </section>
+
+    <!-- Governance & Modals Bar -->
+    <section class="p-6 rounded-3xl bg-slate-950/80 border border-slate-800/90 flex flex-wrap items-center justify-between gap-4">
+      <div>
+        <h3 class="text-sm font-bold text-white flex items-center gap-2">
+          <i class="fa-solid fa-scale-balanced text-sky-400"></i>
+          <span>Governance, Terms & Privacy Protection</span>
+        </h3>
+        <p class="text-xs text-slate-400">FERPA / COPPA compliant student-athlete protection.</p>
+      </div>
+      <div class="flex items-center gap-2">
+        <a href="login.html#terms" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-xs text-slate-300 hover:text-white">Terms of Service</a>
+        <a href="login.html#privacy" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-xs text-slate-300 hover:text-white">Privacy Policy</a>
+        <a href="security.html" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-xs text-slate-300 hover:text-white">Security Architecture</a>
+      </div>
+    </section>
+
   </main>
 
-  <!-- FOOTER -->
-  <footer class="footer">
-    <p>&copy; PuckPathway Hockey OS • BlueLine DataWorks</p>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="index.html#role-features">Role Matrix</a>
-      <a href="scout.html">Scout Desk</a>
-      <a href="login.html">Log In</a>
-      <a href="app.html">Dashboard</a>
-      <a href="database.html">Directory</a>
-      <a href="security.html">Security</a>
-    </nav>
-    <div class="footer-mission">
-      BlueLine DataWorks is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory.
+  <!-- Mandatory Footer -->
+  <footer class="border-t border-slate-800/80 bg-slate-950 mt-12 py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4 text-center text-xs text-slate-400">
+      <p class="max-w-4xl mx-auto leading-relaxed">
+        BlueLine DataWorks is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory.
+      </p>
+      <div class="flex flex-wrap items-center justify-between gap-4 pt-3 border-t border-slate-800/80 font-mono text-[11px]">
+        <span>&copy; 2026 BlueLine DataWorks OS. Passport Registration.</span>
+        <div class="flex items-center gap-4">
+          <span class="text-emerald-400">● 256-Bit SSL Encrypted</span>
+          <a href="login.html" class="text-sky-400 hover:underline">Log In to Workspace →</a>
+        </div>
+      </div>
     </div>
   </footer>
 
+  <!-- Scripts -->
   <script src="static/js/auth_engine.js"></script>
+  <script src="static/js/global_nav.js"></script>
+  <script src="static/js/blueline_ui_kit.js"></script>
   <script>
-    let signupPaymentMethod = 'card';
+    function selectSignupRole(role) {
+      document.getElementById('selectedRoleInput').value = role;
 
-    function setSignupPaymentMethod(method) {
-      signupPaymentMethod = method;
-      ['card', 'apple', 'google'].forEach(m => {
-        const btn = document.getElementById('signupPay' + m.charAt(0).toUpperCase() + m.slice(1) + 'Btn');
-        if (btn) {
-          btn.style.background = m === method ? 'rgba(56,189,248,0.15)' : 'transparent';
-          btn.style.borderColor = m === method ? '#38bdf8' : 'rgba(71,85,105,0.5)';
-          btn.style.color = m === method ? '#38bdf8' : '#cbd5e1';
+      const roles = {
+        scout: { title: "Recruiter & Scout Plan:", price: "22.99", dest: "scout.html", btn: "Complete Clearance & Mint Passport ($22.99/mo)" },
+        coach: { title: "Head Coach Enterprise Plan:", price: "22.99", dest: "scout.html", btn: "Complete Clearance & Mint Passport ($22.99/mo)" },
+        athlete: { title: "Player / Athlete Plan:", price: "4.99", dest: "app.html", btn: "Complete Clearance & Mint Passport ($4.99/mo)" },
+        parent: { title: "Family Advisor Plan:", price: "4.99", dest: "app.html", btn: "Complete Clearance & Mint Passport ($4.99/mo)" }
+      };
+
+      const meta = roles[role] || roles.scout;
+      document.getElementById('planPriceInput').value = meta.price;
+      document.getElementById('orderSummaryRole').textContent = meta.title;
+      document.getElementById('orderSummaryDue').textContent = `$${meta.price} / month`;
+      document.getElementById('submitBtnText').textContent = meta.btn;
+
+      ['scout', 'coach', 'athlete', 'parent'].forEach(r => {
+        const card = document.getElementById(`planCard_${r}`);
+        if (!card) return;
+        if (r === role) {
+          card.className = "p-4 rounded-2xl border-2 border-sky-400 bg-sky-950/60 cursor-pointer transition relative space-y-2 shadow-lg shadow-sky-500/20";
+        } else {
+          card.className = "p-4 rounded-2xl border border-slate-800 bg-slate-900/80 hover:border-slate-700 cursor-pointer transition relative space-y-2";
         }
       });
-
-      const cardInputs = document.getElementById('signupCardInputs');
-      const walletMsg = document.getElementById('signupWalletMsg');
-      if (method === 'card') {
-        if (cardInputs) cardInputs.style.display = 'block';
-        if (walletMsg) walletMsg.style.display = 'none';
-      } else {
-        if (cardInputs) cardInputs.style.display = 'none';
-        if (walletMsg) walletMsg.style.display = 'block';
-      }
     }
 
-    function handleRoleFieldChange(role) {
-      const posContainer = document.getElementById('positionFieldContainer');
-      const orgContainer = document.getElementById('organizationFieldContainer');
-      const submitBtn = document.getElementById('signupSubmitBtn');
-      const priceDisplay = document.getElementById('signupPriceDisplay');
-
-      if (role === 'athlete') {
-        if (posContainer) posContainer.style.display = 'block';
-        if (orgContainer) orgContainer.style.display = 'none';
-        if (submitBtn) submitBtn.textContent = '💳 Pay & Start Player Passport ($4.99/mo)';
-        if (priceDisplay) priceDisplay.textContent = '$4.99 / month';
-      } else if (role === 'coach') {
-        if (posContainer) posContainer.style.display = 'none';
-        if (orgContainer) orgContainer.style.display = 'block';
-        if (submitBtn) submitBtn.textContent = '💳 Pay & Start Coach Pro ($22.99/mo)';
-        if (priceDisplay) priceDisplay.textContent = '$22.99 / month';
-      } else if (role === 'scout') {
-        if (posContainer) posContainer.style.display = 'none';
-        if (orgContainer) orgContainer.style.display = 'block';
-        if (submitBtn) submitBtn.textContent = '💳 Pay & Start Recruiter Pro ($22.99/mo)';
-        if (priceDisplay) priceDisplay.textContent = '$22.99 / month';
-      } else if (role === 'parent') {
-        if (posContainer) posContainer.style.display = 'none';
-        if (orgContainer) orgContainer.style.display = 'none';
-        if (submitBtn) submitBtn.textContent = '💳 Pay & Start Parent Plan ($4.99/mo)';
-        if (priceDisplay) priceDisplay.textContent = '$4.99 / month';
-      }
-    }
-
-    // Pre-select role from URL parameters (e.g. signup.html?role=scout)
-    (function checkUrlRoleParam() {
-      const params = new URLSearchParams(window.location.search);
-      const roleParam = params.get('role');
-      if (roleParam) {
-        const select = document.getElementById('signupRole');
-        if (select) {
-          select.value = roleParam;
-          handleRoleFieldChange(roleParam);
+    function setPaymentMethod(method) {
+      ['card', 'apple', 'google'].forEach(m => {
+        const btn = document.getElementById(`payBtn_${m}`);
+        if (btn) {
+          if (m === method) {
+            btn.className = "p-2 rounded-xl bg-sky-600 text-white font-bold border border-sky-400 text-center";
+          } else {
+            btn.className = "p-2 rounded-xl bg-slate-900 text-slate-300 hover:text-white border border-slate-800 text-center";
+          }
         }
-      }
-    })();
+      });
+    }
 
     function handleSignupSubmit(e) {
       e.preventDefault();
-      const role = document.getElementById('signupRole') ? document.getElementById('signupRole').value : 'athlete';
+
       const name = document.getElementById('signupName').value.trim();
       const email = document.getElementById('signupEmail').value.trim();
-      const password = document.getElementById('signupPassword').value;
-      const position = document.getElementById('signupPosition') ? document.getElementById('signupPosition').value : 'Forward';
-      const organization = document.getElementById('signupOrganization') ? document.getElementById('signupOrganization').value.trim() : '';
+      const role = document.getElementById('selectedRoleInput').value || 'scout';
+      const org = document.getElementById('signupOrg').value.trim() || 'Independent';
 
-      if (!name || !email || !password) return;
-
-      const posCode = position === 'Goalie' ? 'G' : (position === 'Defense' ? 'D' : 'C');
-
-      let badge = 'VERIFIED ATHLETE';
-      let team = 'Independent AAA / Pathway Track';
-      let avatar = '⚡';
-
-      if (role === 'coach') {
-        badge = 'HEAD COACH';
-        team = organization || 'Elite Academy Varsity';
-        avatar = '📋';
-      } else if (role === 'scout') {
-        badge = 'LEAD RECRUITER / SCOUT';
-        team = organization || 'NHL / NCAA Scouting Service';
-        avatar = '🔭';
-      } else if (role === 'parent') {
-        badge = 'PARENT GUARDIAN';
-        team = 'Family Member';
-        avatar = '🛡️';
-      }
-
-      const payload = {
-        name: name,
-        email: email,
-        password: password,
-        role: role,
-        pos: posCode,
-        team: team,
-        num: role === 'athlete' ? 17 : 0,
-        league: 'Tier 1 AAA',
-        gpa: 3.82,
-        grad: 2027
-      };
+      if (!name || !email) return;
 
       const newUser = {
         id: 'usr_' + Date.now().toString(36),
         name: name,
         email: email,
-        username: email.split('@')[0],
         role: role,
-        badge: badge,
-        team: team,
-        pos: posCode,
-        num: role === 'athlete' ? 17 : 0,
-        avatar: avatar,
-        verified: true,
-        subscription: {
-          plan: (role === 'scout' || role === 'coach') ? 'Pro Suite ($22.99/mo)' : 'Standard Plan ($4.99/mo)',
-          amount: (role === 'scout' || role === 'coach') ? 22.99 : 4.99,
-          paymentMethod: signupPaymentMethod,
-          status: 'active',
-          paidAt: new Date().toISOString()
-        },
-        created_at: new Date().toISOString()
+        badge: role === 'scout' ? "DIRECTOR OF SCOUTING" : (role === 'coach' ? "VERIFIED COACH" : (role === 'parent' ? "FAMILY ADVISOR" : "VERIFIED ATHLETE")),
+        team: org,
+        avatar: role === 'scout' ? "🔍" : (role === 'coach' ? "📋" : (role === 'parent' ? "👨‍👩‍👦" : "⚡")),
+        verified: true
       };
 
-      // Always persist authenticated user immediately and clear signed-out sentinel
       try {
         localStorage.removeItem('blueline_signed_out');
-      } catch(e) {}
-      localStorage.setItem('blueline_auth_user', JSON.stringify(newUser));
+        localStorage.setItem('blueline_auth_user', JSON.stringify(newUser));
 
-      try {
+        // Append to registered accounts
         const raw = localStorage.getItem('blueline_registered_users');
-        const list = raw ? JSON.parse(raw) : [];
-        const existingIdx = list.findIndex(u => u.email && u.email.toLowerCase() === email.toLowerCase());
-        if (existingIdx >= 0) {
-          list[existingIdx] = newUser;
-        } else {
-          list.push(newUser);
-        }
-        localStorage.setItem('blueline_registered_users', JSON.stringify(list));
-
-        // Record audit event
-        const auditRaw = localStorage.getItem('blueline_audit_events');
-        const auditList = auditRaw ? JSON.parse(auditRaw) : [];
-        auditList.push({
-          timestamp: new Date().toISOString(),
-          type: 'PAYMENT_SUCCESS',
-          user: email,
-          role: role,
-          amount: (role === 'scout' || role === 'coach') ? '$22.99' : '$4.99',
-          txId: 'tx_signup_' + Date.now().toString(36)
-        });
-        localStorage.setItem('blueline_audit_events', JSON.stringify(auditList));
+        let accs = raw ? JSON.parse(raw) : [];
+        accs.push(newUser);
+        localStorage.setItem('blueline_registered_users', JSON.stringify(accs));
       } catch(err) {}
 
-      if (window.BlueLineAuth && window.BlueLineAuth.signUp) {
-        try {
-          window.BlueLineAuth.signUp(payload);
-        } catch(err) {
-          console.warn('[SignUp] BlueLineAuth.signUp notice:', err);
-        }
-      }
+      BlueLineUI.showToast(`Passport Minted for ${name}! Clearance active.`, 'success');
 
-      if (role === 'scout') {
-        window.location.href = 'scout.html';
+      // Redirect to appropriate workspace
+      setTimeout(() => {
+        window.location.href = (role === 'scout' || role === 'coach') ? 'scout.html' : 'app.html';
+      }, 500);
+    }
+
+    // Auto-select role based on URL query (?role=...)
+    document.addEventListener('DOMContentLoaded', () => {
+      const params = new URLSearchParams(window.location.search);
+      const r = params.get('role');
+      if (r && ['scout', 'coach', 'athlete', 'parent'].includes(r)) {
+        selectSignupRole(r);
       } else {
-        window.location.href = 'app.html';
+        selectSignupRole('scout');
       }
+    });
+
+    function openSitemapModal() {
+      window.location.href = 'login.html#sitemap';
     }
   </script>
 </body>

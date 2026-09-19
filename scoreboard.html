@@ -928,7 +928,7 @@
 
         wireState.posts.unshift(reportPost);
         localStorage.setItem('blueline_social_state', JSON.stringify(wireState));
-        alert(`🎉 Live Scouting Report for ${g.homeName} vs ${g.awayName} broadcasted to The BlueLine Wire!`);
+        BlueLineUI.showToast(`Live Scouting Report for ${g.homeName} vs ${g.awayName} broadcasted to The Wire!`, "success");
       } catch (e) {
         console.error('Error posting to Wire:', e);
       }
@@ -937,5 +937,6 @@
   <script src="static/js/telemetry.js"></script>
   <script src="static/js/auth_engine.js"></script>
   <script src="static/js/global_nav.js"></script>
+  <script src="static/js/blueline_ui_kit.js"></script>
 </body>
 </html>

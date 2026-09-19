@@ -1,545 +1,1338 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BlueLine DataWorks OS | Scout Workspace</title>
-    <!-- Security Shield Script Required by Invariants -->
-    <script src="static/js/security_shield.js"></script>
-    <!-- Tailwind CSS for modern, rapid UI styling -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome for standard icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        blueline: { dark: '#0b1120', panel: '#1e293b', accent: '#3b82f6', text: '#94a3b8' }
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        /* Custom scrollbar for data tables */
-        ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: #0b1120; }
-        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
-        ::-webkit-scrollbar-thumb:hover { background: #475569; }
-    </style>
+  <!-- Active Pre-Execution Security Shield -->
+  <script src="static/js/security_shield.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BlueLine DataWorks OS | Lead Scout Workspace & Prospect Desk</title>
+  <meta name="description" content="BlueLine DataWorks is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory.">
+  <link rel="icon" type="image/jpeg" href="static/img/blueline_logo.jpg">
+  <link rel="apple-touch-icon" href="static/img/blueline_logo.jpg">
 
+  <!-- Canonical & Open Graph -->
   <link rel="canonical" href="https://farmadvisorar-ux.github.io/puckpathway-hockey-os/scout.html">
-
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="BlueLine DataWorks">
   <meta property="og:url" content="https://farmadvisorar-ux.github.io/puckpathway-hockey-os/scout.html">
+  <meta property="og:title" content="BlueLine DataWorks OS | Lead Scout Workspace & Prospect Desk">
+  <meta property="og:description" content="BlueLine DataWorks is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory.">
+  <meta property="og:image" content="https://farmadvisorar-ux.github.io/puckpathway-hockey-os/static/img/blueline_og_preview.jpg">
+
+  <!-- Tailwind CSS & Icons -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="static/css/custom.css">
+  <link rel="manifest" href="manifest.json">
+
+  <style>
+    .glass-card {
+      background: rgba(15, 23, 42, 0.82);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(56, 189, 248, 0.2);
+    }
+    .hover-glow:hover {
+      border-color: #38bdf8;
+      box-shadow: 0 0 20px rgba(56, 189, 248, 0.25);
+    }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #06090e; }
+    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #475569; }
+  </style>
 </head>
-<body class="bg-blueline-dark text-slate-200 font-sans h-screen flex flex-col overflow-hidden">
+<body class="bg-[#06090e] text-slate-100 min-h-screen flex flex-col font-sans selection:bg-sky-500 selection:text-white pb-16">
 
-    <div class="flex-1 flex overflow-hidden">
-      <!-- Sidebar Navigation -->
-      <aside class="w-20 lg:w-64 bg-blueline-panel border-r border-slate-800 flex flex-col justify-between transition-all duration-300">
-          <div>
-              <div class="h-16 flex items-center justify-center lg:justify-start lg:px-6 border-b border-slate-800">
-                  <a href="index.html" class="flex items-center">
-                    <i class="fa-solid fa-hockey-puck text-blue-500 text-2xl"></i>
-                    <span class="ml-3 font-bold text-xl hidden lg:block tracking-wider text-white">BLUELINE</span>
-                  </a>
-              </div>
-              <nav class="mt-6 flex flex-col space-y-2 px-3">
-                  <button type="button" id="sideNavDashboard" class="flex items-center px-3 py-2.5 bg-blue-600 text-white rounded-lg group text-left w-full" onclick="switchTab('dashboard')">
-                      <i class="fa-solid fa-chart-line text-lg w-6"></i>
-                      <span class="ml-3 font-medium hidden lg:block">My Workspace</span>
-                  </button>
-                  <button type="button" id="sideNavDirectory" class="flex items-center px-3 py-2.5 text-slate-400 hover:bg-slate-800 hover:text-white rounded-lg group text-left w-full" onclick="switchTab('directory')">
-                      <i class="fa-solid fa-users text-lg w-6"></i>
-                      <span class="ml-3 font-medium hidden lg:block">Global Directory</span>
-                  </button>
-                  <a href="film.html" class="flex items-center px-3 py-2.5 text-slate-400 hover:bg-slate-800 hover:text-white rounded-lg group">
-                      <i class="fa-solid fa-video text-lg w-6"></i>
-                      <span class="ml-3 font-medium hidden lg:block">Film Room</span>
-                  </a>
-                  <a href="draft.html" class="flex items-center px-3 py-2.5 text-slate-400 hover:bg-slate-800 hover:text-white rounded-lg group">
-                      <i class="fa-solid fa-bullseye text-lg w-6"></i>
-                      <span class="ml-3 font-medium hidden lg:block">Draft Simulator</span>
-                  </a>
-                  <a href="app.html#thewire" class="flex items-center px-3 py-2.5 text-slate-400 hover:bg-slate-800 hover:text-white rounded-lg group">
-                      <i class="fa-solid fa-satellite text-lg w-6"></i>
-                      <span class="ml-3 font-medium hidden lg:block">The Wire & DMs</span>
-                  </a>
-                  <a href="app.html" class="flex items-center px-3 py-2.5 text-slate-400 hover:bg-slate-800 hover:text-white rounded-lg group">
-                      <i class="fa-solid fa-gauge-high text-lg w-6"></i>
-                      <span class="ml-3 font-medium hidden lg:block">Master Dashboard</span>
-                  </a>
-              </nav>
+  <!-- Mandatory Lifelong Tracking Mission Statement Banner -->
+  <div class="border-b border-slate-800/90 bg-slate-950/95 sticky top-0 z-50 backdrop-blur-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-1.5 flex flex-wrap items-center justify-between gap-3 text-xs">
+      <div class="flex items-center gap-2.5 min-w-0 flex-1">
+        <span class="px-2 py-0.5 rounded-md bg-sky-500/20 text-sky-300 font-mono text-[10px] font-extrabold uppercase tracking-wider shrink-0 border border-sky-500/30">MISSION</span>
+        <p class="text-[11px] text-slate-300 font-medium truncate">
+          BlueLine DataWorks is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory.
+        </p>
+      </div>
+      <div class="flex items-center gap-3 shrink-0 font-mono text-[11px]">
+        <span class="text-emerald-400 bg-emerald-950/70 border border-emerald-700/50 px-2 py-0.5 rounded-full flex items-center gap-1.5 font-semibold">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+          Live Scout Consensus Online
+        </span>
+        <span class="text-sky-400 hidden sm:inline">● Non-NHL Amateur Mandate</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Top Enterprise Header Navigation Bar -->
+  <header class="border-b border-slate-800/80 bg-slate-950/85 backdrop-blur-xl">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+      
+      <!-- Brand Logo -->
+      <div class="flex items-center gap-3 min-w-0">
+        <a href="index.html" class="flex items-center gap-2.5 group">
+          <img src="static/img/blueline_logo.jpg" alt="BlueLine DataWorks Logo" class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl border border-sky-400/50 object-cover shadow-lg shadow-sky-500/20 group-hover:scale-105 transition shrink-0">
+          <div class="min-w-0">
+            <div class="flex items-center gap-1.5">
+              <span class="font-extrabold text-sm sm:text-base md:text-lg tracking-tight text-white group-hover:text-sky-400 transition truncate">BlueLine DataWorks</span>
+              <span class="text-[10px] uppercase font-mono tracking-widest px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 font-bold shrink-0 border border-amber-500/30">SCOUT DESK</span>
+            </div>
+            <p class="text-[10px] text-slate-400 hidden sm:block truncate">Lead Scout Workspace & Micro-Telemetry Terminal</p>
           </div>
-          
-          <!-- Personal User Profile Snippet -->
-          <div class="p-4 border-t border-slate-800 flex items-center justify-center lg:justify-start">
-              <div class="w-10 h-10 rounded-full bg-slate-700 border-2 border-blue-500 flex items-center justify-center text-white font-bold">
-                  MA
-              </div>
-              <div class="ml-3 hidden lg:block">
-                  <p class="text-sm font-semibold text-white">Mike Adams</p>
-                  <p class="text-xs text-blue-400">Lead Scout, USHL • Pro ($22.99)</p>
-              </div>
+        </a>
+      </div>
+
+      <!-- Center Primary Navigation -->
+      <nav class="hidden lg:flex items-center gap-1 sm:gap-1.5 text-xs font-mono">
+        <a href="index.html" class="px-2.5 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white font-semibold border border-slate-800 transition flex items-center gap-1.5">
+          <span>🏒</span> <span>Main OS</span>
+        </a>
+        <a href="database.html" class="px-2.5 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white font-semibold border border-slate-800 transition flex items-center gap-1.5">
+          <span>📊</span> <span>Directory</span>
+        </a>
+        <a href="scoreboard.html" class="px-2.5 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white font-semibold border border-slate-800 transition flex items-center gap-1.5">
+          <span>📡</span> <span>Game Center</span>
+        </a>
+        <a href="community.html" class="px-2.5 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white font-semibold border border-slate-800 transition flex items-center gap-1.5">
+          <span>🌐</span> <span>The Wire</span>
+        </a>
+        <a href="security.html" class="px-2.5 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white font-semibold border border-slate-800 transition flex items-center gap-1.5">
+          <span>🛡️</span> <span>Cyber Shield</span>
+        </a>
+      </nav>
+
+      <!-- Right Action Controls: All Modules Launcher Button + User Profile -->
+      <div class="flex items-center gap-2.5 shrink-0">
+        <button onclick="toggleAppLauncher()" class="px-3 py-1.5 rounded-xl bg-gradient-to-r from-sky-600/30 via-indigo-600/30 to-purple-600/30 hover:from-sky-600/50 hover:to-purple-600/50 text-sky-200 border border-sky-400/40 hover:border-sky-300 font-bold text-xs flex items-center gap-1.5 shadow-lg transition cursor-pointer" title="Open All 26 Enterprise Modules (Ctrl+K)">
+          <i class="fa-solid fa-table-cells text-sky-400"></i>
+          <span class="hidden sm:inline font-sans">All Modules</span>
+          <span class="px-1.5 py-0.2 rounded-full bg-sky-400/20 text-sky-300 font-mono text-[10px] font-bold">26</span>
+        </button>
+
+        <!-- User Profile Chip -->
+        <a href="login.html" id="userProfileChip" class="flex items-center gap-2 bg-slate-900/90 border border-slate-700 hover:border-amber-500 rounded-xl px-2.5 py-1 transition shadow-inner group">
+          <div class="w-6 h-6 rounded-full bg-gradient-to-tr from-amber-500 to-indigo-600 text-white font-black flex items-center justify-center text-[11px]" id="userAvatarText">
+            🔍
           </div>
-      </aside>
+          <div class="text-left leading-none hidden sm:block">
+            <span class="text-xs font-bold text-white group-hover:text-amber-300 block truncate" id="userNameText">Dan Marr</span>
+            <span class="text-[9px] text-amber-400 font-medium" id="userRoleText">Director of Scouting</span>
+          </div>
+        </a>
+      </div>
 
-      <!-- Main Content Area -->
-      <main class="flex-1 flex flex-col h-screen overflow-hidden">
+    </div>
+  </header>
+
+  <!-- Workspace Sub-Header Tab Switcher -->
+  <div class="border-b border-slate-800/80 bg-slate-900/40 backdrop-blur-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2.5 flex flex-wrap items-center justify-between gap-3">
+      
+      <!-- Primary Workspace Tabs -->
+      <div class="flex items-center gap-2 text-xs font-semibold">
+        <button type="button" id="tabBtn_workspace" onclick="switchScoutTab('workspace')" class="px-3.5 py-1.5 rounded-xl bg-sky-600 text-white font-bold border border-sky-400/50 shadow-md shadow-sky-600/20 flex items-center gap-2 transition cursor-pointer">
+          <i class="fa-solid fa-chart-line"></i>
+          <span>Live Micro-Telemetry Desk</span>
+        </button>
+        <button type="button" id="tabBtn_directory" onclick="switchScoutTab('directory')" class="px-3.5 py-1.5 rounded-xl bg-slate-900/80 text-slate-300 hover:text-white hover:bg-slate-800 border border-slate-800 flex items-center gap-2 transition cursor-pointer">
+          <i class="fa-solid fa-users"></i>
+          <span>Global 5,000+ Prospect Roster</span>
+        </button>
+        <button type="button" id="tabBtn_shortlist" onclick="switchScoutTab('shortlist')" class="px-3.5 py-1.5 rounded-xl bg-slate-900/80 text-slate-300 hover:text-white hover:bg-slate-800 border border-slate-800 flex items-center gap-2 transition cursor-pointer">
+          <i class="fa-solid fa-star text-amber-400"></i>
+          <span>Target Watchlist (<span id="shortlistCountBadge">4</span>)</span>
+        </button>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="flex items-center gap-2 text-xs">
+        <button onclick="syncOfflineTelemetry()" class="px-3 py-1.5 rounded-xl bg-emerald-950/60 hover:bg-emerald-900/80 text-emerald-300 border border-emerald-700/50 font-mono text-[11px] font-bold flex items-center gap-1.5 transition cursor-pointer">
+          <i class="fa-solid fa-rotate text-emerald-400"></i>
+          <span>Sync Cryptographic Consensus</span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- MAIN SCOUT DESK CONTAINER -->
+  <main class="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 w-full space-y-8">
+
+    <!-- ========================================================================= -->
+    <!-- VIEW 1: LIVE MICRO-TELEMETRY WORKSPACE (DEFAULT) -->
+    <!-- ========================================================================= -->
+    <div id="view_workspace" class="space-y-6">
+
+      <!-- Active Athlete Dossier Hero Card -->
+      <div class="glass-card rounded-3xl p-5 sm:p-6 relative overflow-hidden border border-sky-500/30 shadow-2xl">
+        <div class="absolute -right-16 -top-16 w-64 h-64 bg-sky-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="flex flex-wrap items-start justify-between gap-6">
           
-          <!-- Topbar -->
-          <header class="h-16 bg-blueline-panel border-b border-slate-800 flex items-center justify-between px-6 z-10">
-              <div class="flex items-center bg-slate-800 rounded-md px-3 py-1.5 w-64 lg:w-96">
-                  <i class="fa-solid fa-search text-slate-400 text-sm"></i>
-                  <input type="text" id="globalScoutSearch" oninput="handleGlobalProspectFilter(this.value)" placeholder="Search prospects, teams, or leagues..." class="bg-transparent border-none outline-none text-sm text-white ml-2 w-full focus:ring-0">
+          <!-- Athlete Bio & Selector Dropdown -->
+          <div class="flex items-start gap-4 min-w-0 max-w-2xl">
+            <div id="activeAthleteAvatar" class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-gradient-to-tr from-cyan-600 to-blue-800 text-white flex items-center justify-center text-3xl font-black shadow-xl shrink-0 border border-sky-400/50">
+              ⚡
+            </div>
+            
+            <div class="space-y-2 min-w-0">
+              <div class="flex items-center gap-2 flex-wrap">
+                <span id="activeAthleteBadge" class="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-[10px] font-mono font-bold uppercase tracking-wider">
+                  VERIFIED NCAA D1
+                </span>
+                <span id="activeAthleteDraft" class="px-2.5 py-0.5 rounded-full bg-sky-500/20 text-sky-300 border border-sky-500/40 text-[10px] font-mono font-bold">
+                  2024 Round 1 (#21 Overall)
+                </span>
+                <span class="text-xs text-amber-300 font-mono flex items-center gap-1">
+                  ● Star Rating: 5/5
+                </span>
               </div>
-              <div class="flex items-center space-x-4">
-                  <button class="relative text-slate-400 hover:text-white transition-colors" onclick="syncOfflineLedger()">
-                      <i class="fa-solid fa-bolt text-green-400"></i>
-                      <span class="absolute -top-1 -right-1 w-2.5 h-2.5 bg-green-500 rounded-full border border-blueline-panel"></span>
-                      <span class="text-xs ml-1 hidden lg:inline text-green-400 font-medium">Offline Sync Ready</span>
-                  </button>
-                  <button class="text-slate-400 hover:text-white relative" onclick="alert('3 new high-danger shot telemetry alerts from Apex North Stars 14U AAA.')">
-                      <i class="fa-regular fa-bell text-lg"></i>
-                      <span class="absolute -top-1 -right-1 flex h-3 w-3">
-                          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-                          <span class="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
-                      </span>
-                  </button>
-                  <a href="app.html" class="px-3 py-1.5 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-xs font-bold transition flex items-center gap-1.5">
-                    <span>⚡ Hockey OS</span>
-                  </a>
-              </div>
-          </header>
 
-          <!-- Scrollable Workspace -->
-          <div class="flex-1 overflow-y-auto p-6 scroll-smooth" id="dashboard-view">
+              <div class="flex items-center gap-3">
+                <h1 id="activeAthleteName" class="text-2xl sm:text-3xl font-black text-white tracking-tight truncate">
+                  Michael Hage
+                </h1>
+                <span id="activeAthletePos" class="text-xs font-mono font-bold px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-slate-700">
+                  C / F
+                </span>
+              </div>
+
+              <p id="activeAthleteDetails" class="text-xs sm:text-sm text-slate-300">
+                <strong class="text-white">University of Michigan</strong> (NCAA Big Ten) · 6'1" · 190 lbs · Hometown: Mississauga, ON · Born: 2006
+              </p>
+
+              <!-- Quick Athlete Search & Selector Dropdown -->
+              <div class="pt-1 flex items-center gap-2 max-w-md">
+                <label for="athleteQuickSelect" class="text-[11px] font-mono text-slate-400 shrink-0">Switch Athlete:</label>
+                <select id="athleteQuickSelect" onchange="handleAthleteSelectChange(this.value)" class="w-full bg-slate-950 border border-sky-500/40 text-white rounded-xl px-3 py-1.5 text-xs font-sans focus:border-sky-400 focus:outline-none transition cursor-pointer">
+                  <!-- Populated dynamically from master_players.js -->
+                </select>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Cross-Module Deep-Link Action Center -->
+          <div class="flex flex-col sm:items-end gap-2 shrink-0">
+            <span class="text-[10px] font-mono uppercase tracking-wider text-slate-400 font-bold">Direct Lab Inspection:</span>
+            <div class="flex flex-wrap gap-2">
+              <button onclick="launchCurrentAthlete('film')" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-850 text-slate-200 hover:text-white border border-slate-700 hover:border-sky-400 text-xs font-semibold transition flex items-center gap-1.5 cursor-pointer shadow-md">
+                <i class="fa-solid fa-video text-sky-400"></i>
+                <span>AI Film Room</span>
+              </button>
+              <button onclick="launchCurrentAthlete('rink3d')" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-850 text-slate-200 hover:text-white border border-slate-700 hover:border-sky-400 text-xs font-semibold transition flex items-center gap-1.5 cursor-pointer shadow-md">
+                <i class="fa-solid fa-cube text-cyan-400"></i>
+                <span>3D Virtual Rink</span>
+              </button>
+              <button onclick="launchCurrentAthlete('compare')" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-850 text-slate-200 hover:text-white border border-slate-700 hover:border-sky-400 text-xs font-semibold transition flex items-center gap-1.5 cursor-pointer shadow-md">
+                <i class="fa-solid fa-scale-balanced text-teal-400"></i>
+                <span>Compare Lab</span>
+              </button>
+              <button onclick="launchCurrentAthlete('player')" class="px-3 py-1.5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white border border-sky-400/50 text-xs font-bold transition flex items-center gap-1.5 cursor-pointer shadow-md">
+                <i class="fa-solid fa-id-card"></i>
+                <span>Full Passport</span>
+              </button>
+            </div>
+
+            <!-- Trajectory Score Pill with Formula Modal Trigger -->
+            <div class="mt-2 p-2.5 rounded-2xl bg-slate-950/80 border border-sky-500/30 flex items-center gap-3">
+              <div>
+                <div class="flex items-center gap-1 text-[10px] font-mono text-slate-400 uppercase">
+                  <span>Development Trajectory:</span>
+                  <button type="button" onclick="BlueLineUI.openMetricModal('nhle')" class="text-sky-400 hover:underline cursor-pointer">
+                    <i class="fa-solid fa-circle-question"></i>
+                  </button>
+                </div>
+                <span id="vanceTrajectoryBadge" class="text-sm font-black text-emerald-400 font-mono">
+                  88.4 / 100
+                </span>
+              </div>
+              <div class="h-8 w-px bg-slate-800"></div>
+              <div>
+                <div class="flex items-center gap-1 text-[10px] font-mono text-slate-400 uppercase">
+                  <span>NCAA D1 / Pro Impact:</span>
+                  <button type="button" onclick="BlueLineUI.openMetricModal('xg')" class="text-sky-400 hover:underline cursor-pointer">
+                    <i class="fa-solid fa-circle-question"></i>
+                  </button>
+                </div>
+                <span id="trajNcaaPct" class="text-sm font-black text-sky-400 font-mono">
+                  64.2% (Tier 1)
+                </span>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Real-Time Metrics & Micro-Telemetry Logging Console -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        
+        <!-- Left 2 Cols: Live Micro-Telemetry Event Input -->
+        <div class="lg:col-span-2 space-y-6">
+          
+          <!-- Rinkside Micro-Telemetry Input Card -->
+          <div class="glass-card rounded-3xl p-5 sm:p-6 border border-slate-800 space-y-5 shadow-xl">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+              <div class="flex items-center gap-2.5">
+                <div class="w-3 h-3 rounded-full bg-emerald-400 animate-pulse"></div>
+                <h2 class="text-sm sm:text-base font-bold text-white tracking-wide uppercase font-mono">
+                  Rinkside Microstat Event Logger
+                </h2>
+              </div>
+              <span class="text-[10px] font-mono text-slate-400 bg-slate-900 px-2 py-1 rounded-lg border border-slate-800">
+                Cryptographic Consensus Stamping
+              </span>
+            </div>
+
+            <!-- Form Controls -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
               
-              <!-- Personalized Greeting -->
-              <div class="mb-8 flex justify-between items-start flex-wrap gap-4">
-                  <div>
-                    <h1 class="text-2xl font-bold text-white">Welcome back, Mike.</h1>
-                    <p class="text-slate-400 text-sm mt-1">Here is your customized scouting brief and priority pipeline for today.</p>
-                  </div>
-                  <div class="flex items-center gap-2">
-                    <span class="px-3 py-1 bg-blue-500/20 text-blue-400 border border-blue-500/30 text-xs font-bold rounded-full uppercase tracking-wider">Scout Pro Tier ($22.99/mo)</span>
-                    <span class="px-3 py-1 bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs font-bold rounded-full uppercase tracking-wider">All 22 Modules Unlocked</span>
-                  </div>
+              <!-- Event Outcome -->
+              <div class="space-y-1.5">
+                <label for="telemetryOutcome" class="block text-xs font-mono font-bold text-slate-300 uppercase">
+                  Event Outcome:
+                </label>
+                <select id="telemetryOutcome" class="w-full bg-slate-950 border border-slate-700 text-white rounded-xl px-3 py-2 text-xs font-sans focus:border-sky-400 focus:outline-none">
+                  <option value="GOAL">⚽ Goal Scored (Inner Slot)</option>
+                  <option value="SOG" selected>🎯 Shot on Goal (SOG)</option>
+                  <option value="BLOCKED">🛡️ Shot Blocked</option>
+                  <option value="MISSED">⭕ Missed Net</option>
+                  <option value="ROYAL_ROAD">⚡ Royal Road Lateral Pass</option>
+                  <option value="ZONE_EXIT">🏒 Clean Controlled Zone Exit</option>
+                  <option value="TURNOVER_FORCED">🔒 Defensive Turnover Forced</option>
+                </select>
               </div>
 
-              <!-- Top KPIs -->
-              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-                  <div class="bg-blueline-panel p-5 rounded-xl border border-slate-800 shadow-sm">
-                      <p class="text-slate-400 text-xs font-semibold uppercase tracking-wider mb-1">My Tracked Athletes</p>
-                      <div class="flex items-end justify-between">
-                          <h2 class="text-3xl font-bold text-white">42</h2>
-                          <span class="text-green-400 text-sm font-medium"><i class="fa-solid fa-arrow-up mr-1"></i>+3 this week</span>
-                      </div>
-                  </div>
-                  <div class="bg-blueline-panel p-5 rounded-xl border border-slate-800 shadow-sm">
-                      <p class="text-slate-400 text-xs font-semibold uppercase tracking-wider mb-1">NCAA D1 Projected</p>
-                      <div class="flex items-end justify-between">
-                          <h2 class="text-3xl font-bold text-white">28</h2>
-                          <span class="text-blue-400 text-sm"><i class="fa-solid fa-graduation-cap"></i></span>
-                      </div>
-                  </div>
-                  <div class="bg-blueline-panel p-5 rounded-xl border border-slate-800 shadow-sm">
-                      <p class="text-slate-400 text-xs font-semibold uppercase tracking-wider mb-1">Priority Targets (Tier 1)</p>
-                      <div class="flex items-end justify-between">
-                          <h2 class="text-3xl font-bold text-amber-400">12</h2>
-                          <span class="text-amber-400 text-sm"><i class="fa-solid fa-bolt"></i> Action Req</span>
-                      </div>
-                  </div>
-                  <div class="bg-blueline-panel p-5 rounded-xl border border-slate-800 shadow-sm">
-                      <p class="text-slate-400 text-xs font-semibold uppercase tracking-wider mb-1">Active Free Agents</p>
-                      <div class="flex items-end justify-between">
-                          <h2 class="text-3xl font-bold text-white">8</h2>
-                          <span class="text-purple-400 text-sm"><i class="fa-solid fa-globe"></i> Portal Ready</span>
-                      </div>
-                  </div>
+              <!-- Shot Type -->
+              <div class="space-y-1.5">
+                <label for="telemetryShotType" class="block text-xs font-mono font-bold text-slate-300 uppercase">
+                  Mechanic / Shot Type:
+                </label>
+                <select id="telemetryShotType" class="w-full bg-slate-950 border border-slate-700 text-white rounded-xl px-3 py-2 text-xs font-sans focus:border-sky-400 focus:outline-none">
+                  <option value="Wrist" selected>Wrist Shot (Quick Release)</option>
+                  <option value="Snap">Snap Shot (In-Stride)</option>
+                  <option value="Slap">One-Timer / Slap Shot</option>
+                  <option value="Backhand">Backhand Deceit</option>
+                  <option value="Tip">High/Low Slot Deflection</option>
+                  <option value="Wrap">RVH Post-Seal Wrap</option>
+                </select>
               </div>
 
-              <div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
-                  <!-- Left Column: Active Scouting & Telemetry (Takes 2 columns on large screens) -->
-                  <div class="xl:col-span-2 space-y-6">
-                      
-                      <!-- Active Prospect Focus Card -->
-                      <div class="bg-blueline-panel rounded-xl border border-blue-900 shadow-lg overflow-hidden relative">
-                          <div class="absolute top-0 right-0 p-4">
-                              <span class="bg-blue-600/20 text-blue-400 text-xs font-bold px-2.5 py-1 rounded border border-blue-500/30">Target: USHL Futures</span>
-                          </div>
-                          <div class="p-6 border-b border-slate-800 flex items-center space-x-4">
-                              <div class="w-16 h-16 rounded-lg bg-slate-800 flex items-center justify-center text-2xl font-bold text-slate-500 border border-slate-700">
-                                  #9
-                              </div>
-                              <div>
-                                  <h3 class="text-xl font-bold text-white flex items-center">Connor Vance <i class="fa-solid fa-circle-check text-blue-500 text-sm ml-2" title="Verified Data"></i></h3>
-                                  <p class="text-sm text-slate-400">200-Foot Playmaking Center • Apex North Stars 14U AAA</p>
-                                  <div class="mt-2 flex space-x-4 text-xs font-medium text-slate-300 flex-wrap gap-y-1">
-                                      <span><i class="fa-solid fa-ruler-vertical text-slate-500"></i> 5'8"</span>
-                                      <span><i class="fa-solid fa-weight-scale text-slate-500"></i> 145 lbs</span>
-                                      <span><i class="fa-solid fa-hockey-stick-puck text-slate-500"></i> Left</span>
-                                      <span><i class="fa-solid fa-graduation-cap text-slate-500"></i> Class of 2030 (GPA: 3.88)</span>
-                                  </div>
-                              </div>
-                          </div>
-
-                          <!-- Live Telemetry Section -->
-                          <div class="p-6 bg-gradient-to-b from-blueline-panel to-slate-900">
-                              <div class="flex justify-between items-center mb-4">
-                                  <h4 class="text-sm font-bold text-white uppercase tracking-wide"><i class="fa-solid fa-satellite-dish text-red-500 animate-pulse mr-2"></i>Live Micro-Telemetry Logger</h4>
-                                  <span id="vanceTrajectoryBadge" class="text-xs text-green-400 font-medium bg-green-400/10 px-2 py-1 rounded">Trajectory Score: 86.6/100</span>
-                              </div>
-                              
-                              <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-                                  <div class="bg-slate-800/50 p-3 rounded-lg border border-slate-700/50 text-center">
-                                      <div class="text-xs text-slate-400 mb-1">Avg Puck Hold</div>
-                                      <div class="text-lg font-bold text-white" id="telemetryPuckHold">2.9s</div>
-                                  </div>
-                                  <div class="bg-slate-800/50 p-3 rounded-lg border border-slate-700/50 text-center">
-                                      <div class="text-xs text-slate-400 mb-1">Wall Usage Rate</div>
-                                      <div class="text-lg font-bold text-white" id="telemetryWallUsage">66.5%</div>
-                                  </div>
-                                  <div class="bg-slate-800/50 p-3 rounded-lg border border-slate-700/50 text-center">
-                                      <div class="text-xs text-slate-400 mb-1">Passing Acc</div>
-                                      <div class="text-lg font-bold text-green-400" id="telemetryPassAcc">88.1%</div>
-                                  </div>
-                                  <div class="bg-slate-800/50 p-3 rounded-lg border border-slate-700/50 text-center">
-                                      <div class="text-xs text-slate-400 mb-1">Avg Shot Dist</div>
-                                      <div class="text-lg font-bold text-white" id="telemetryShotDist">17.5 ft</div>
-                                  </div>
-                              </div>
-
-                              <!-- Rapid Entry Form -->
-                              <form class="space-y-4" onsubmit="event.preventDefault(); logTelemetryEvent('shot');">
-                                  <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                      <div>
-                                          <label class="block text-xs font-medium text-slate-400 mb-1">Shot Type</label>
-                                          <select id="telemetryShotType" class="w-full bg-slate-800 border border-slate-700 rounded-md text-sm text-white py-2 px-3 focus:ring-blue-500 focus:border-blue-500">
-                                              <option>Snap Shot (Quick Release)</option>
-                                              <option>Wrist Shot (In-Stride)</option>
-                                              <option>One-Timer (Royal Road)</option>
-                                              <option>Deflection / Tip</option>
-                                          </select>
-                                      </div>
-                                      <div>
-                                          <label class="block text-xs font-medium text-slate-400 mb-1">Distance (ft)</label>
-                                          <input type="number" step="0.1" id="telemetryDistance" value="16.5" class="w-full bg-slate-800 border border-slate-700 rounded-md text-sm text-white py-2 px-3 focus:ring-blue-500 focus:border-blue-500">
-                                      </div>
-                                      <div>
-                                          <label class="block text-xs font-medium text-slate-400 mb-1">Outcome</label>
-                                          <select id="telemetryOutcome" class="w-full bg-slate-800 border border-slate-700 rounded-md text-sm text-white py-2 px-3 focus:ring-blue-500 focus:border-blue-500">
-                                              <option value="SOG">SAVE / SOG</option>
-                                              <option value="GOAL" class="text-red-400 font-bold">GOAL 🚨</option>
-                                              <option value="WIDE">Missed Net / Wide</option>
-                                          </select>
-                                      </div>
-                                  </div>
-                                  <div class="flex items-center space-x-2">
-                                      <input type="checkbox" id="wallUsed" class="rounded bg-slate-800 border-slate-700 text-blue-500 focus:ring-blue-500">
-                                      <label for="wallUsed" class="text-sm text-slate-300">Wall Used Prior to Event (Bank / Pinch Escape)</label>
-                                  </div>
-                                  <div class="flex space-x-3 pt-2">
-                                      <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md text-sm transition-colors w-full md:w-auto">
-                                          <i class="fa-solid fa-plus mr-2"></i> Log Shot & Recalculate
-                                      </button>
-                                      <button type="button" onclick="logTelemetryEvent('pass')" class="bg-slate-700 hover:bg-slate-600 text-white font-medium py-2 px-4 rounded-md text-sm transition-colors">
-                                          Log Pass
-                                      </button>
-                                  </div>
-                              </form>
-                          </div>
-                      </div>
-
-                      <!-- AI Trajectory Card -->
-                      <div class="bg-blueline-panel p-6 rounded-xl border border-slate-800 shadow-sm">
-                          <h4 class="text-sm font-bold text-white uppercase tracking-wide mb-4">AI Future Trajectory Probabilities</h4>
-                          <p class="text-xs text-blue-400 font-medium mb-4">Ceiling: NCAA D1 Contender / Top Tier 2 NAHL</p>
-                          
-                          <div class="space-y-4">
-                              <div>
-                                  <div class="flex justify-between text-sm mb-1">
-                                      <span class="text-slate-300 font-medium">NCAA Division I</span>
-                                      <span class="text-white font-bold" id="trajNcaaPct">60.8%</span>
-                                  </div>
-                                  <div class="w-full bg-slate-800 rounded-full h-2">
-                                      <div class="bg-blue-500 h-2 rounded-full transition-all duration-500" id="trajNcaaBar" style="width: 60.8%"></div>
-                                  </div>
-                              </div>
-                              <div>
-                                  <div class="flex justify-between text-sm mb-1">
-                                      <span class="text-slate-300 font-medium">USHL Tier 1 Junior</span>
-                                      <span class="text-white font-bold" id="trajUshlPct">55.8%</span>
-                                  </div>
-                                  <div class="w-full bg-slate-800 rounded-full h-2">
-                                      <div class="bg-green-500 h-2 rounded-full transition-all duration-500" id="trajUshlBar" style="width: 55.8%"></div>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-
-                  <!-- Right Column: Audit Ledger & Watchlist -->
-                  <div class="space-y-6">
-                      <!-- My Watchlist Mini-directory -->
-                      <div class="bg-blueline-panel rounded-xl border border-slate-800 shadow-sm flex flex-col h-[400px]">
-                          <div class="p-4 border-b border-slate-800 flex justify-between items-center">
-                              <h4 class="text-sm font-bold text-white uppercase tracking-wide">My Watchlist</h4>
-                              <button class="text-xs text-blue-400 hover:text-blue-300 font-medium" onclick="switchTab('directory')">View All</button>
-                          </div>
-                          <div class="flex-1 overflow-y-auto p-2 space-y-1">
-                              <!-- Watchlist Item -->
-                              <a href="app.html#playerdatabase" class="block p-3 rounded-lg hover:bg-slate-800 transition-colors border border-transparent hover:border-slate-700">
-                                  <div class="flex justify-between items-start">
-                                      <div>
-                                          <h5 class="text-sm font-bold text-white">#19 Jaxson Sterling</h5>
-                                          <p class="text-xs text-slate-400">Chicago Steel (USHL) • C</p>
-                                      </div>
-                                      <span class="text-xs font-bold text-blue-400">79% D1</span>
-                                  </div>
-                              </a>
-                              <!-- Watchlist Item -->
-                              <a href="app.html#playerdatabase" class="block p-3 rounded-lg hover:bg-slate-800 transition-colors border border-transparent hover:border-slate-700">
-                                  <div class="flex justify-between items-start">
-                                      <div>
-                                          <h5 class="text-sm font-bold text-white">#21 Braeden O'Reilly</h5>
-                                          <p class="text-xs text-slate-400">Salisbury Prep • C</p>
-                                      </div>
-                                      <span class="text-xs font-bold text-blue-400">63.8% D1</span>
-                                  </div>
-                              </a>
-                              <!-- Watchlist Item -->
-                              <a href="app.html#playerdatabase" class="block p-3 rounded-lg hover:bg-slate-800 transition-colors border border-transparent hover:border-slate-700">
-                                  <div class="flex justify-between items-start">
-                                      <div>
-                                          <h5 class="text-sm font-bold text-white">#31 Tyler Novak</h5>
-                                          <p class="text-xs text-slate-400">Chicago Mission 10U • G</p>
-                                      </div>
-                                      <span class="text-xs font-bold text-blue-400">22.7% D1</span>
-                                  </div>
-                              </a>
-                              <a href="app.html#playerdatabase" class="block p-3 rounded-lg hover:bg-slate-800 transition-colors border border-transparent hover:border-slate-700">
-                                  <div class="flex justify-between items-start">
-                                      <div>
-                                          <h5 class="text-sm font-bold text-white">#4 Brody Tremblay</h5>
-                                          <p class="text-xs text-slate-400">Boston Jr. Eagles • LD</p>
-                                      </div>
-                                      <span class="text-xs font-bold text-blue-400">48.2% D1</span>
-                                  </div>
-                              </a>
-                          </div>
-                      </div>
-
-                      <!-- Personal Activity Ledger -->
-                      <div class="bg-blueline-panel p-5 rounded-xl border border-slate-800 shadow-sm">
-                          <h4 class="text-sm font-bold text-white uppercase tracking-wide mb-4">My Activity Ledger</h4>
-                          <div class="space-y-4" id="scoutActivityLedgerList">
-                              <div class="relative pl-4 border-l-2 border-blue-500">
-                                  <div class="absolute -left-[5px] top-1.5 w-2 h-2 rounded-full bg-blue-500"></div>
-                                  <p class="text-xs text-slate-400 mb-0.5">Today, 19:10</p>
-                                  <p class="text-sm font-medium text-white">Logged Game: Beast Series G1</p>
-                                  <p class="text-xs text-slate-400 mt-1">Recorded 9 shots, 3 goals, 37 completed passes for Connor Vance.</p>
-                              </div>
-                              <div class="relative pl-4 border-l-2 border-slate-600">
-                                  <div class="absolute -left-[5px] top-1.5 w-2 h-2 rounded-full bg-slate-600"></div>
-                                  <p class="text-xs text-slate-400 mb-0.5">Aug 30, 14:45</p>
-                                  <p class="text-sm font-medium text-white">Updated Bio: Stick Flex</p>
-                                  <p class="text-xs text-slate-400 mt-1">Recalibrated flex to 77 for C. Vance.</p>
-                              </div>
-                          </div>
-                          <div class="mt-4 pt-4 border-t border-slate-800 flex gap-2">
-                              <input type="text" id="quickScoutNoteInput" placeholder="Add quick scout note..." class="w-full bg-slate-800 border border-slate-700 rounded-md text-sm text-white py-2 px-3 focus:ring-blue-500 outline-none">
-                              <button type="button" onclick="addScoutNote()" class="bg-blue-600 hover:bg-blue-500 text-white font-bold px-3 rounded-md text-xs">Post</button>
-                          </div>
-                      </div>
-                  </div>
+              <!-- Distance to Net -->
+              <div class="space-y-1.5">
+                <div class="flex items-center justify-between">
+                  <label for="telemetryDistance" class="block text-xs font-mono font-bold text-slate-300 uppercase">
+                    Distance: <span id="distDisplay" class="text-sky-400 font-mono">18.5 ft</span>
+                  </label>
+                </div>
+                <input type="range" id="telemetryDistance" min="4" max="65" value="18.5" step="0.5" oninput="document.getElementById('distDisplay').textContent = this.value + ' ft'" class="w-full accent-sky-500 bg-slate-950 h-2 rounded-lg cursor-pointer">
               </div>
-          </div>
 
-          <!-- Hidden Directory View (For Tab Switching Example) -->
-          <div class="hidden flex-1 overflow-y-auto p-6 scroll-smooth" id="directory-view">
-               <div class="mb-6 flex justify-between items-end flex-wrap gap-4">
-                  <div>
-                      <h1 class="text-2xl font-bold text-white">Global Player Directory</h1>
-                      <p class="text-slate-400 text-sm mt-1">Search and filter all 3,050+ tracked athletes across 41 worldwide leagues.</p>
-                  </div>
-                  <div class="flex gap-2">
-                    <button class="bg-blue-600 hover:bg-blue-500 text-white font-medium py-2 px-4 rounded-md text-sm transition-colors" onclick="switchTab('dashboard')">
-                        <i class="fa-solid fa-arrow-left mr-2"></i> Back to Workspace
+            </div>
+
+            <!-- Toggles: Wall Play & High-Danger -->
+            <div class="flex flex-wrap items-center justify-between gap-4 pt-2 border-t border-slate-800/80 text-xs">
+              <div class="flex items-center gap-5">
+                <label class="flex items-center gap-2 cursor-pointer text-slate-300 select-none">
+                  <input type="checkbox" id="wallUsed" checked class="w-4 h-4 rounded bg-slate-950 border-slate-700 text-sky-600 focus:ring-sky-500">
+                  <span>Wall / Rim Protection Engaged</span>
+                </label>
+                <label class="flex items-center gap-2 cursor-pointer text-slate-300 select-none">
+                  <input type="checkbox" id="royalRoadCrossed" checked class="w-4 h-4 rounded bg-slate-950 border-slate-700 text-sky-600 focus:ring-sky-500">
+                  <span class="flex items-center gap-1">
+                    <span>Royal Road Crossed (2.4x xG)</span>
+                    <button type="button" onclick="BlueLineUI.openMetricModal('royal_road')" class="text-sky-400 hover:underline">
+                      <i class="fa-solid fa-circle-question"></i>
                     </button>
-                    <a href="app.html#playerdatabase" class="bg-slate-700 hover:bg-slate-600 text-white font-medium py-2 px-4 rounded-md text-sm transition-colors">
-                        <i class="fa-solid fa-expand mr-2"></i> Master Database (3,050+)
-                    </a>
-                  </div>
+                  </span>
+                </label>
               </div>
-              
-              <!-- Table Container -->
-              <div class="bg-blueline-panel rounded-xl border border-slate-800 shadow-sm overflow-hidden">
-                  <table class="w-full text-left border-collapse">
-                      <thead>
-                          <tr class="bg-slate-800/50 text-xs uppercase tracking-wider text-slate-400 border-b border-slate-700">
-                              <th class="py-3 px-4">Player</th>
-                              <th class="py-3 px-4">Pos</th>
-                              <th class="py-3 px-4">Current Club / League</th>
-                              <th class="py-3 px-4">Age/Class</th>
-                              <th class="py-3 px-4 text-right">D1 Proj</th>
-                          </tr>
-                      </thead>
-                      <tbody id="directoryTableBody" class="text-sm text-white divide-y divide-slate-800">
-                          <tr class="hover:bg-slate-800/50 transition-colors cursor-pointer" onclick="switchTab('dashboard')">
-                              <td class="py-3 px-4 font-bold flex items-center">#9 Connor Vance</td>
-                              <td class="py-3 px-4 text-slate-300">C</td>
-                              <td class="py-3 px-4 text-slate-300">Apex North Stars • Tier 1 Elite</td>
-                              <td class="py-3 px-4 text-slate-300">14 (2030)</td>
-                              <td class="py-3 px-4 text-right font-medium text-blue-400">60.8%</td>
-                          </tr>
-                          <tr class="hover:bg-slate-800/50 transition-colors cursor-pointer" onclick="window.location.href='app.html#playerdatabase'">
-                              <td class="py-3 px-4 font-bold">#28 Jack Devine</td>
-                              <td class="py-3 px-4 text-slate-300">RW</td>
-                              <td class="py-3 px-4 text-slate-300">Denver Pioneers • NCAA D1</td>
-                              <td class="py-3 px-4 text-slate-300">22 (2025)</td>
-                              <td class="py-3 px-4 text-right font-medium text-green-400">99.0%</td>
-                          </tr>
-                          <tr class="hover:bg-slate-800/50 transition-colors cursor-pointer" onclick="window.location.href='app.html#playerdatabase'">
-                              <td class="py-3 px-4 font-bold">#30 Nate Callahan</td>
-                              <td class="py-3 px-4 text-slate-300">G</td>
-                              <td class="py-3 px-4 text-slate-300 text-purple-400">Free Agent (24-26)</td>
-                              <td class="py-3 px-4 text-slate-300">23 (2023)</td>
-                              <td class="py-3 px-4 text-right font-medium text-slate-400">Portal</td>
-                          </tr>
-                           <tr class="hover:bg-slate-800/50 transition-colors cursor-pointer" onclick="window.location.href='app.html#playerdatabase'">
-                              <td class="py-3 px-4 font-bold">#8 Leo Lindstrom</td>
-                              <td class="py-3 px-4 text-slate-300">C</td>
-                              <td class="py-3 px-4 text-slate-300">Minnesota Frost • ADM Mites</td>
-                              <td class="py-3 px-4 text-slate-300">7 (2037)</td>
-                              <td class="py-3 px-4 text-right font-medium text-slate-400">22.3%</td>
-                          </tr>
-                          <tr class="hover:bg-slate-800/50 transition-colors cursor-pointer" onclick="window.location.href='app.html#playerdatabase'">
-                              <td class="py-3 px-4 font-bold">#13 Michael Hage</td>
-                              <td class="py-3 px-4 text-slate-300">C</td>
-                              <td class="py-3 px-4 text-slate-300">Michigan Wolverines • NCAA D1</td>
-                              <td class="py-3 px-4 text-slate-300">18 (2024 MTL)</td>
-                              <td class="py-3 px-4 text-right font-medium text-emerald-400">99.4%</td>
-                          </tr>
-                      </tbody>
-                  </table>
+
+              <div class="flex items-center gap-2">
+                <button type="button" onclick="logScoutTelemetryEvent('shot')" class="px-4 py-2 rounded-xl bg-gradient-to-r from-sky-600 to-blue-600 hover:from-sky-500 hover:to-blue-500 text-white font-bold text-xs shadow-lg shadow-sky-600/30 border border-sky-400/40 transition flex items-center gap-2 cursor-pointer active:scale-95">
+                  <i class="fa-solid fa-hockey-puck"></i>
+                  <span>Log Shot Mechanic</span>
+                </button>
+                <button type="button" onclick="logScoutTelemetryEvent('pass')" class="px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-200 hover:text-white border border-slate-700 font-bold text-xs transition flex items-center gap-2 cursor-pointer active:scale-95">
+                  <i class="fa-solid fa-arrows-split-up-and-left"></i>
+                  <span>Log Passing Play</span>
+                </button>
               </div>
+            </div>
+
           </div>
 
-      </main>
+          <!-- Real-Time Calibrated Metrics Matrix -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            
+            <div class="p-4 rounded-2xl bg-slate-950/80 border border-slate-800 space-y-1">
+              <div class="flex items-center justify-between">
+                <span class="text-[10px] font-mono uppercase text-slate-400">Puck Possession Hold:</span>
+                <span class="text-xs text-sky-400">⏱️</span>
+              </div>
+              <div id="telemetryPuckHold" class="text-xl font-black text-white font-mono">2.9s</div>
+              <span class="text-[9px] text-emerald-400 font-mono block">89th percentile forward</span>
+            </div>
+
+            <div class="p-4 rounded-2xl bg-slate-950/80 border border-slate-800 space-y-1">
+              <div class="flex items-center justify-between">
+                <span class="text-[10px] font-mono uppercase text-slate-400">Passing Accuracy:</span>
+                <span class="text-xs text-teal-400">🎯</span>
+              </div>
+              <div id="telemetryPassAcc" class="text-xl font-black text-white font-mono">88.4%</div>
+              <span class="text-[9px] text-teal-400 font-mono block">Zone entry target match</span>
+            </div>
+
+            <div class="p-4 rounded-2xl bg-slate-950/80 border border-slate-800 space-y-1">
+              <div class="flex items-center justify-between">
+                <span class="text-[10px] font-mono uppercase text-slate-400">Wall Play Success:</span>
+                <span class="text-xs text-amber-400">🛡️</span>
+              </div>
+              <div id="telemetryWallUsage" class="text-xl font-black text-white font-mono">68.2%</div>
+              <span class="text-[9px] text-amber-400 font-mono block">Cycle retention rate</span>
+            </div>
+
+            <div class="p-4 rounded-2xl bg-slate-950/80 border border-slate-800 space-y-1">
+              <div class="flex items-center justify-between">
+                <span class="text-[10px] font-mono uppercase text-slate-400">Avg Shot Distance:</span>
+                <span class="text-xs text-indigo-400">📍</span>
+              </div>
+              <div id="telemetryShotDist" class="text-xl font-black text-white font-mono">18.5 ft</div>
+              <span class="text-[9px] text-sky-400 font-mono block">Inner slot danger zone</span>
+            </div>
+
+          </div>
+
+          <!-- Quick Scout Note Card -->
+          <div class="glass-card rounded-3xl p-5 border border-slate-800 space-y-3">
+            <h3 class="text-xs font-mono font-bold text-slate-300 uppercase tracking-wider flex items-center gap-2">
+              <i class="fa-solid fa-pen-nib text-sky-400"></i>
+              <span>Rinkside Scouting Evaluation Note</span>
+            </h3>
+            <div class="flex gap-2">
+              <input type="text" id="quickScoutNoteInput" placeholder="e.g. Exceptional head-up vision through neutral zone transition, forced weak-side gap..." class="flex-1 bg-slate-950 border border-slate-700 rounded-xl px-4 py-2.5 text-xs text-white placeholder-slate-500 focus:border-sky-400 focus:outline-none font-sans">
+              <button type="button" onclick="addScoutNote()" class="px-4 py-2.5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-bold text-xs shadow-md transition cursor-pointer shrink-0">
+                Add to Dossier
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right 1 Col: Live Activity Ledger & Cryptographic Stamps -->
+        <div class="glass-card rounded-3xl p-5 border border-slate-800 space-y-4 flex flex-col justify-between">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+              <h3 class="text-xs font-mono font-bold text-white uppercase tracking-wider flex items-center gap-2">
+                <i class="fa-solid fa-fingerprint text-emerald-400"></i>
+                <span>Live Scout Ledger Feed</span>
+              </h3>
+              <span class="text-[9px] font-mono text-emerald-400">SHA-256</span>
+            </div>
+
+            <!-- Ledger Activity Entries -->
+            <div id="scoutActivityLedgerList" class="space-y-3 max-h-[460px] overflow-y-auto pr-1">
+              
+              <div class="relative pl-4 border-l-2 border-emerald-500 text-xs space-y-0.5">
+                <div class="absolute -left-[5px] top-1.5 w-2 h-2 rounded-full bg-emerald-500"></div>
+                <div class="flex items-center justify-between text-[10px] text-slate-400 font-mono">
+                  <span>Just now</span>
+                  <span class="text-emerald-400">BLOCK #1492</span>
+                </div>
+                <p class="font-bold text-white text-xs">Logged Shot (Wrist): GOAL</p>
+                <p class="text-slate-400 text-[11px]">Distance: 16.5 ft • Royal Road: Yes • Trajectory: 88.4.</p>
+              </div>
+
+              <div class="relative pl-4 border-l-2 border-sky-400 text-xs space-y-0.5">
+                <div class="absolute -left-[5px] top-1.5 w-2 h-2 rounded-full bg-sky-400"></div>
+                <div class="flex items-center justify-between text-[10px] text-slate-400 font-mono">
+                  <span>2 mins ago</span>
+                  <span class="text-sky-400">SCOUT NOTE</span>
+                </div>
+                <p class="font-bold text-white text-xs">Dan Marr (Chief Scout)</p>
+                <p class="text-slate-400 text-[11px]">Elite first-step acceleration in 3-on-3 extra session; high compete level along wall.</p>
+              </div>
+
+              <div class="relative pl-4 border-l-2 border-indigo-400 text-xs space-y-0.5">
+                <div class="absolute -left-[5px] top-1.5 w-2 h-2 rounded-full bg-indigo-400"></div>
+                <div class="flex items-center justify-between text-[10px] text-slate-400 font-mono">
+                  <span>14 mins ago</span>
+                  <span class="text-indigo-400">VERIFICATION</span>
+                </div>
+                <p class="font-bold text-white text-xs">NCAA Registrar Sync Verified</p>
+                <p class="text-slate-400 text-[11px]">100% Non-NHL amateur status confirmed for 2026-27 season.</p>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="pt-3 border-t border-slate-800 text-center">
+            <span class="text-[10px] text-slate-400 font-mono">Active Workstation: Chief Amateur Scout Terminal</span>
+          </div>
+        </div>
+
+      </div>
+
     </div>
 
-    <!-- Required System Footer with Exact Mission Statement -->
-    <footer class="bg-blueline-panel border-t border-slate-800 px-6 py-3 text-xs text-slate-400 flex flex-col md:flex-row items-center justify-between gap-2 z-20">
-      <div class="flex items-center gap-4">
-        <span>&copy; PuckPathway Hockey OS • Scout Command</span>
-        <a href="index.html" class="hover:text-white underline">Home</a>
-        <a href="app.html" class="hover:text-white underline">Dashboard</a>
-        <a href="database.html" class="hover:text-white underline">Directory</a>
-        <a href="security.html" class="hover:text-white underline">Security</a>
+    <!-- ========================================================================= -->
+    <!-- VIEW 2: GLOBAL 5,000+ PROSPECT ROSTER (INTEGRATED FROM MASTER_PLAYERS) -->
+    <!-- ========================================================================= -->
+    <div id="view_directory" class="space-y-5 hidden">
+      
+      <div class="glass-card rounded-3xl p-5 border border-slate-800 space-y-4">
+        
+        <!-- Directory Header & Controls -->
+        <div class="flex flex-wrap items-center justify-between gap-4">
+          <div>
+            <h2 class="text-lg font-black text-white tracking-tight flex items-center gap-2">
+              <i class="fa-solid fa-users text-sky-400"></i>
+              <span>Global Non-NHL Amateur Prospect Directory</span>
+            </h2>
+            <p class="text-xs text-slate-400">
+              Live database of <strong class="text-white" id="directoryTotalCount">4,019</strong> verified collegiate, junior, and prep prospects.
+            </p>
+          </div>
+
+          <!-- Search Bar -->
+          <div class="w-full sm:w-80 relative">
+            <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+              <i class="fa-solid fa-magnifying-glass text-xs"></i>
+            </div>
+            <input type="text" id="directorySearchInput" oninput="filterDirectoryTable()" placeholder="Search by name, team, or league..." class="w-full pl-9 pr-4 py-2 rounded-xl bg-slate-950 border border-slate-700 text-white placeholder-slate-500 text-xs focus:border-sky-400 focus:outline-none font-sans">
+          </div>
+        </div>
+
+        <!-- Filter Buttons: League & Position -->
+        <div class="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-slate-800 text-xs font-mono">
+          <div class="flex flex-wrap items-center gap-1.5" id="leagueFilterGroup">
+            <span class="text-slate-400 mr-1 text-[11px]">League:</span>
+            <button onclick="setDirectoryLeague('all')" class="dir-league-btn px-2.5 py-1 rounded-lg bg-sky-600 text-white font-bold text-[11px]" data-league="all">All</button>
+            <button onclick="setDirectoryLeague('NCAA')" class="dir-league-btn px-2.5 py-1 rounded-lg bg-slate-900 text-slate-300 hover:text-white text-[11px]" data-league="NCAA">NCAA D1/D3</button>
+            <button onclick="setDirectoryLeague('USHL')" class="dir-league-btn px-2.5 py-1 rounded-lg bg-slate-900 text-slate-300 hover:text-white text-[11px]" data-league="USHL">USHL</button>
+            <button onclick="setDirectoryLeague('BCHL')" class="dir-league-btn px-2.5 py-1 rounded-lg bg-slate-900 text-slate-300 hover:text-white text-[11px]" data-league="BCHL">BCHL</button>
+            <button onclick="setDirectoryLeague('CHL')" class="dir-league-btn px-2.5 py-1 rounded-lg bg-slate-900 text-slate-300 hover:text-white text-[11px]" data-league="CHL">Major Junior</button>
+            <button onclick="setDirectoryLeague('Prep')" class="dir-league-btn px-2.5 py-1 rounded-lg bg-slate-900 text-slate-300 hover:text-white text-[11px]" data-league="Prep">Prep / High School</button>
+          </div>
+
+          <div class="flex items-center gap-1.5" id="posFilterGroup">
+            <span class="text-slate-400 mr-1 text-[11px]">Position:</span>
+            <button onclick="setDirectoryPos('all')" class="dir-pos-btn px-2.5 py-1 rounded-lg bg-sky-600 text-white font-bold text-[11px]" data-pos="all">All</button>
+            <button onclick="setDirectoryPos('F')" class="dir-pos-btn px-2.5 py-1 rounded-lg bg-slate-900 text-slate-300 hover:text-white text-[11px]" data-pos="F">Forwards</button>
+            <button onclick="setDirectoryPos('D')" class="dir-pos-btn px-2.5 py-1 rounded-lg bg-slate-900 text-slate-300 hover:text-white text-[11px]" data-pos="D">Defense</button>
+            <button onclick="setDirectoryPos('G')" class="dir-pos-btn px-2.5 py-1 rounded-lg bg-slate-900 text-slate-300 hover:text-white text-[11px]" data-pos="G">Goalies</button>
+          </div>
+        </div>
+
       </div>
-      <div class="text-[11px] text-slate-500 max-w-2xl text-center md:text-right">
+
+      <!-- Real Dynamic Table Container -->
+      <div class="glass-card rounded-3xl border border-slate-800 overflow-hidden shadow-xl">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs text-slate-300 font-sans">
+            <thead class="bg-slate-950/90 text-slate-400 font-mono text-[11px] uppercase tracking-wider border-b border-slate-800">
+              <tr>
+                <th class="p-3.5">Athlete / Dossier</th>
+                <th class="p-3.5">Position</th>
+                <th class="p-3.5">Team & League</th>
+                <th class="p-3.5">Physicals</th>
+                <th class="p-3.5">Hometown</th>
+                <th class="p-3.5">Score</th>
+                <th class="p-3.5 text-right">Scout Action</th>
+              </tr>
+            </thead>
+            <tbody id="directoryTableBody" class="divide-y divide-slate-800/60 font-sans">
+              <!-- Dynamically Rendered by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ========================================================================= -->
+    <!-- VIEW 3: TARGET WATCHLIST & SHORTLIST BOARD -->
+    <!-- ========================================================================= -->
+    <div id="view_shortlist" class="space-y-5 hidden">
+      <div class="glass-card rounded-3xl p-5 border border-slate-800 space-y-4">
+        <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+          <div>
+            <h2 class="text-base font-black text-white tracking-tight flex items-center gap-2">
+              <i class="fa-solid fa-star text-amber-400"></i>
+              <span>Priority Scouting Target Board</span>
+            </h2>
+            <p class="text-xs text-slate-400">Prospects flagged for ongoing draft tracking and video breakdown.</p>
+          </div>
+          <button onclick="BlueLineUI.showToast('Watchlist synchronized with cloud consensus.', 'success')" class="px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-slate-300 hover:text-white">
+            Export Board (CSV)
+          </button>
+        </div>
+
+        <div id="shortlistCardsContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <!-- Dynamically populated -->
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================================================= -->
+    <!-- COMPREHENSIVE 26-MODULE BUTTON DIRECTORY ("buttons at the bottom") -->
+    <!-- ========================================================================= -->
+    <section class="space-y-6 pt-8 border-t border-slate-800">
+      
+      <div class="flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <div class="flex items-center gap-2 mb-1">
+            <span class="px-2 py-0.5 rounded-md bg-sky-500/20 text-sky-300 font-mono text-[10px] font-bold border border-sky-500/30 uppercase tracking-wider">ALL 26 WORKSPACES</span>
+            <span class="text-xs text-slate-400 font-mono">Full Ecosystem Directory</span>
+          </div>
+          <h2 class="text-xl sm:text-2xl font-black text-white tracking-tight">
+            Direct Access to All Operational Desks & Analytics Labs
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-300">
+            Jump instantly to any module with verified cross-platform authentication.
+          </p>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="openSitemapModal()" class="px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 hover:text-white font-mono text-xs transition flex items-center gap-1.5 cursor-pointer">
+            <i class="fa-solid fa-sitemap text-sky-400"></i>
+            <span>Interactive Site Map</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 5-Category Module Grid -->
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 text-xs">
+        
+        <!-- Category 1: Rink & Operations -->
+        <a href="scoreboard.html" class="p-3 rounded-2xl bg-slate-900/90 hover:bg-slate-850 border border-slate-800 hover:border-sky-500/50 transition flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between text-base mb-1"><span>📡</span><span class="text-[10px] font-mono text-sky-400">Open →</span></div>
+            <h4 class="font-bold text-white">Game Center</h4>
+            <p class="text-[10px] text-slate-400 mt-0.5">Live scoreboard & shot charts</p>
+          </div>
+        </a>
+
+        <a href="film.html" class="p-3 rounded-2xl bg-slate-900/90 hover:bg-slate-850 border border-slate-800 hover:border-sky-500/50 transition flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between text-base mb-1"><span>🎥</span><span class="text-[10px] font-mono text-sky-400">Open →</span></div>
+            <h4 class="font-bold text-white">AI Film Room</h4>
+            <p class="text-[10px] text-slate-400 mt-0.5">Video telestration & play clips</p>
+          </div>
+        </a>
+
+        <a href="rink3d.html" class="p-3 rounded-2xl bg-slate-900/90 hover:bg-slate-850 border border-slate-800 hover:border-sky-500/50 transition flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between text-base mb-1"><span>🧊</span><span class="text-[10px] font-mono text-sky-400">Open →</span></div>
+            <h4 class="font-bold text-white">3D Virtual Rink</h4>
+            <p class="text-[10px] text-slate-400 mt-0.5">WebGL spatial shot simulator</p>
+          </div>
+        </a>
+
+        <a href="tracking.html" class="p-3 rounded-2xl bg-slate-900/90 hover:bg-slate-850 border border-slate-800 hover:border-sky-500/50 transition flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between text-base mb-1"><span>🎯</span><span class="text-[10px] font-mono text-sky-400">Open →</span></div>
+            <h4 class="font-bold text-white">CV Tracking</h4>
+            <p class="text-[10px] text-slate-400 mt-0.5">Microstats & passing network</p>
+          </div>
+        </a>
+
+        <a href="broadcast_ai.html" class="p-3 rounded-2xl bg-slate-900/90 hover:bg-slate-850 border border-slate-800 hover:border-sky-500/50 transition flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between text-base mb-1"><span>🎙️</span><span class="text-[10px] font-mono text-sky-400">Open →</span></div>
+            <h4 class="font-bold text-white">AI Play-by-Play</h4>
+            <p class="text-[10px] text-slate-400 mt-0.5">Voice commentary synthesizer</p>
+          </div>
+        </a>
+
+        <!-- Category 2: Performance Labs -->
+        <a href="player.html" class="p-3 rounded-2xl bg-slate-900/90 hover:bg-slate-850 border border-slate-800 hover:border-teal-500/50 transition flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between text-base mb-1"><span>👤</span><span class="text-[10px] font-mono text-teal-400">Open →</span></div>
+            <h4 class="font-bold text-white">Player Passport</h4>
+            <p class="text-[10px] text-slate-400 mt-0.5">360° athlete dossier & logs</p>
+          </div>
+        </a>
+
+        <a href="combine.html" class="p-3 rounded-2xl bg-slate-900/90 hover:bg-slate-850 border border-slate-800 hover:border-teal-500/50 transition flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between text-base mb-1"><span>🧬</span><span class="text-[10px] font-mono text-teal-400">Open →</span></div>
+            <h4 class="font-bold text-white">Combine Lab</h4>
+            <p class="text-[10px] text-slate-400 mt-0.5">Wingate power & bio-metrics</p>
+          </div>
+        </a>
+
+        <a href="compare.html" class="p-3 rounded-2xl bg-slate-900/90 hover:bg-slate-850 border border-slate-800 hover:border-teal-500/50 transition flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between text-base mb-1"><span>⚖️</span><span class="text-[10px] font-mono text-teal-400">Open →</span></div>
+            <h4 class="font-bold text-white">Compare Lab</h4>
+            <p class="text-[10px] text-slate-400 mt-0.5">8-axis radar benchmark curves</p>
+          </div>
+        </a>
+
+        <a href="crease.html" class="p-3 rounded-2xl bg-slate-900/90 hover:bg-slate-850 border border-slate-800 hover:border-teal-500/50 transition flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between text-base mb-1"><span>🥅</span><span class="text-[10px] font-mono text-teal-400">Open →</span></div>
+            <h4 class="font-bold text-white">Crease Lab</h4>
+            <p class="text-[10px] text-slate-400 mt-0.5">Goalie RVH post-seals & GSAx</p>
+          </div>
+        </a>
+
+        <a href="app.html" class="p-3 rounded-2xl bg-slate-900/90 hover:bg-slate-850 border border-slate-800 hover:border-amber-500/50 transition flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between text-base mb-1"><span>⚡</span><span class="text-[10px] font-mono text-amber-400">Open →</span></div>
+            <h4 class="font-bold text-white">Player OS</h4>
+            <p class="text-[10px] text-slate-400 mt-0.5">Athlete development portal</p>
+          </div>
+        </a>
+
+        <!-- Category 3: Coaching & Front Office -->
+        <a href="tactics.html" class="p-3 rounded-2xl bg-slate-900/90 hover:bg-slate-850 border border-slate-800 hover:border-amber-500/50 transition flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between text-base mb-1"><span>📋</span><span class="text-[10px] font-mono text-amber-400">Open →</span></div>
+            <h4 class="font-bold text-white">Tactics Lab</h4>
+            <p class="text-[10px] text-slate-400 mt-0.5">AI lineup chemistry & forecheck</p>
+          </div>
+        </a>
+
+        <a href="tournament.html" class="p-3 rounded-2xl bg-slate-900/90 hover:bg-slate-850 border border-slate-800 hover:border-amber-500/50 transition flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between text-base mb-1"><span>🏆</span><span class="text-[10px] font-mono text-amber-400">Open →</span></div>
+            <h4 class="font-bold text-white">Tournaments</h4>
+            <p class="text-[10px] text-slate-400 mt-0.5">Frozen Four & WJC war room</p>
+          </div>
+        </a>
+
+        <a href="community.html" class="p-3 rounded-2xl bg-slate-900/90 hover:bg-slate-850 border border-slate-800 hover:border-amber-500/50 transition flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between text-base mb-1"><span>🌐</span><span class="text-[10px] font-mono text-amber-400">Open →</span></div>
+            <h4 class="font-bold text-white">The Wire</h4>
+            <p class="text-[10px] text-slate-400 mt-0.5">Hockey social net & DMs</p>
+          </div>
+        </a>
+
+        <a href="database.html" class="p-3 rounded-2xl bg-slate-900/90 hover:bg-slate-850 border border-slate-800 hover:border-emerald-500/50 transition flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between text-base mb-1"><span>📊</span><span class="text-[10px] font-mono text-emerald-400">Open →</span></div>
+            <h4 class="font-bold text-white">Directory</h4>
+            <p class="text-[10px] text-slate-400 mt-0.5">5,000+ amateur dossiers</p>
+          </div>
+        </a>
+
+        <a href="portal.html" class="p-3 rounded-2xl bg-slate-900/90 hover:bg-slate-850 border border-slate-800 hover:border-emerald-500/50 transition flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between text-base mb-1"><span>🔄</span><span class="text-[10px] font-mono text-emerald-400">Open →</span></div>
+            <h4 class="font-bold text-white">Portal & NIL</h4>
+            <p class="text-[10px] text-slate-400 mt-0.5">NCAA transfer radar & values</p>
+          </div>
+        </a>
+
+        <a href="draft.html" class="p-3 rounded-2xl bg-slate-900/90 hover:bg-slate-850 border border-slate-800 hover:border-emerald-500/50 transition flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between text-base mb-1"><span>🎯</span><span class="text-[10px] font-mono text-emerald-400">Open →</span></div>
+            <h4 class="font-bold text-white">Draft Simulator</h4>
+            <p class="text-[10px] text-slate-400 mt-0.5">7-round Monte Carlo board</p>
+          </div>
+        </a>
+
+        <a href="caplab.html" class="p-3 rounded-2xl bg-slate-900/90 hover:bg-slate-850 border border-slate-800 hover:border-emerald-500/50 transition flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between text-base mb-1"><span>💵</span><span class="text-[10px] font-mono text-emerald-400">Open →</span></div>
+            <h4 class="font-bold text-white">NIL Cap Lab</h4>
+            <p class="text-[10px] text-slate-400 mt-0.5">Roster cap & contract values</p>
+          </div>
+        </a>
+
+        <a href="international.html" class="p-3 rounded-2xl bg-slate-900/90 hover:bg-slate-850 border border-slate-800 hover:border-emerald-500/50 transition flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between text-base mb-1"><span>🌍</span><span class="text-[10px] font-mono text-emerald-400">Open →</span></div>
+            <h4 class="font-bold text-white">International</h4>
+            <p class="text-[10px] text-slate-400 mt-0.5">European junior radar & Olympic</p>
+          </div>
+        </a>
+
+        <a href="market.html" class="p-3 rounded-2xl bg-slate-900/90 hover:bg-slate-850 border border-slate-800 hover:border-emerald-500/50 transition flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between text-base mb-1"><span>💼</span><span class="text-[10px] font-mono text-emerald-400">Open →</span></div>
+            <h4 class="font-bold text-white">Trade Desk</h4>
+            <p class="text-[10px] text-slate-400 mt-0.5">Multi-team roster trade machine</p>
+          </div>
+        </a>
+
+        <a href="pathway.html" class="p-3 rounded-2xl bg-slate-900/90 hover:bg-slate-850 border border-slate-800 hover:border-emerald-500/50 transition flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between text-base mb-1"><span>🛣️</span><span class="text-[10px] font-mono text-emerald-400">Open →</span></div>
+            <h4 class="font-bold text-white">Career Pathway</h4>
+            <p class="text-[10px] text-slate-400 mt-0.5">NCAA vs Major Junior model</p>
+          </div>
+        </a>
+
+        <!-- Category 4: Security & Platform -->
+        <a href="security.html" class="p-3 rounded-2xl bg-slate-900/90 hover:bg-slate-850 border border-slate-800 hover:border-indigo-500/50 transition flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between text-base mb-1"><span>🛡️</span><span class="text-[10px] font-mono text-indigo-400">Open →</span></div>
+            <h4 class="font-bold text-white">Cyber Shield</h4>
+            <p class="text-[10px] text-slate-400 mt-0.5">Real-time visitor IP defense</p>
+          </div>
+        </a>
+
+        <a href="agents.html" class="p-3 rounded-2xl bg-slate-900/90 hover:bg-slate-850 border border-slate-800 hover:border-indigo-500/50 transition flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between text-base mb-1"><span>🤖</span><span class="text-[10px] font-mono text-indigo-400">Open →</span></div>
+            <h4 class="font-bold text-white">24-Agent Swarm</h4>
+            <p class="text-[10px] text-slate-400 mt-0.5">Autonomous crawler engine</p>
+          </div>
+        </a>
+
+        <a href="signup.html" class="p-3 rounded-2xl bg-slate-900/90 hover:bg-slate-850 border border-slate-800 hover:border-indigo-500/50 transition flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between text-base mb-1"><span>📝</span><span class="text-[10px] font-mono text-indigo-400">Open →</span></div>
+            <h4 class="font-bold text-white">Sign Up & Pricing</h4>
+            <p class="text-[10px] text-slate-400 mt-0.5">$4.99 / $22.99 plan selection</p>
+          </div>
+        </a>
+
+        <a href="index.html" class="p-3 rounded-2xl bg-slate-900/90 hover:bg-slate-850 border border-slate-800 hover:border-indigo-500/50 transition flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between text-base mb-1"><span>🏠</span><span class="text-[10px] font-mono text-indigo-400">Open →</span></div>
+            <h4 class="font-bold text-white">Home & Checkout</h4>
+            <p class="text-[10px] text-slate-400 mt-0.5">Instant checkout modal</p>
+          </div>
+        </a>
+
+        <a href="login.html" class="p-3 rounded-2xl bg-slate-900/90 hover:bg-slate-850 border border-indigo-500/50 transition flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between text-base mb-1"><span>🔑</span><span class="text-[10px] font-mono text-indigo-400">Open →</span></div>
+            <h4 class="font-bold text-white">Identity Gateway</h4>
+            <p class="text-[10px] text-slate-400 mt-0.5">Sign in & 1-click personas</p>
+          </div>
+        </a>
+
+      </div>
+
+    </section>
+
+    <!-- Governance & Site Map Triggers -->
+    <section class="p-6 rounded-3xl bg-slate-950/80 border border-slate-800/90 flex flex-wrap items-center justify-between gap-4">
+      <div>
+        <h3 class="text-sm font-bold text-white flex items-center gap-2">
+          <i class="fa-solid fa-scale-balanced text-sky-400"></i>
+          <span>Scout Governance & Compliance Directory</span>
+        </h3>
+        <p class="text-xs text-slate-400">FERPA / COPPA compliant amateur data protection and terms of service.</p>
+      </div>
+      <div class="flex items-center gap-2">
+        <button onclick="openSitemapModal()" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-xs text-slate-300 hover:text-white cursor-pointer">
+          Site Map
+        </button>
+        <button onclick="openTermsModal()" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-xs text-slate-300 hover:text-white cursor-pointer">
+          Terms
+        </button>
+        <button onclick="openPrivacyModal()" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-xs text-slate-300 hover:text-white cursor-pointer">
+          Privacy
+        </button>
+        <button onclick="openSecurityModal()" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-xs text-slate-300 hover:text-white cursor-pointer">
+          Security RASP
+        </button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ========================================================================= -->
+  <!-- MODALS: SITEMAP, TERMS, PRIVACY, SECURITY -->
+  <!-- ========================================================================= -->
+  <div id="scoutSitemapModal" class="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-md hidden flex items-center justify-center p-4">
+    <div class="bg-slate-950 border border-slate-800 rounded-3xl max-w-3xl w-full max-h-[85vh] flex flex-col shadow-2xl overflow-hidden text-xs text-slate-300">
+      <div class="p-4 border-b border-slate-800 flex items-center justify-between bg-slate-900/60">
+        <h3 class="text-sm font-bold text-white flex items-center gap-2">
+          <i class="fa-solid fa-sitemap text-sky-400"></i> BlueLine DataWorks OS Sitemap
+        </h3>
+        <button onclick="document.getElementById('scoutSitemapModal').classList.add('hidden')" class="text-slate-400 hover:text-white text-base">✕</button>
+      </div>
+      <div class="p-5 overflow-y-auto space-y-3 font-mono">
+        <p class="text-sky-300">https://farmadvisorar-ux.github.io/puckpathway-hockey-os/</p>
+        <div class="grid grid-cols-2 gap-2 text-[11px]">
+          <a href="scout.html" class="text-amber-300 font-bold hover:underline">scout.html (Scout Workspace)</a>
+          <a href="index.html" class="hover:underline">index.html (Home)</a>
+          <a href="app.html" class="hover:underline">app.html (Player OS)</a>
+          <a href="database.html" class="hover:underline">database.html (Directory)</a>
+          <a href="scoreboard.html" class="hover:underline">scoreboard.html (Game Center)</a>
+          <a href="film.html" class="hover:underline">film.html (Film Room)</a>
+          <a href="rink3d.html" class="hover:underline">rink3d.html (3D Rink)</a>
+          <a href="combine.html" class="hover:underline">combine.html (Combine Lab)</a>
+          <a href="compare.html" class="hover:underline">compare.html (Compare Lab)</a>
+          <a href="crease.html" class="hover:underline">crease.html (Crease Lab)</a>
+          <a href="community.html" class="hover:underline">community.html (The Wire)</a>
+          <a href="security.html" class="hover:underline">security.html (Cyber Shield)</a>
+          <a href="agents.html" class="hover:underline">agents.html (AI Swarm)</a>
+          <a href="signup.html" class="hover:underline">signup.html (Sign Up)</a>
+          <a href="login.html" class="hover:underline">login.html (Identity Auth)</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mandatory Footer -->
+  <footer class="border-t border-slate-800/80 bg-slate-950 mt-12 py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4 text-center text-xs text-slate-400">
+      <p class="max-w-4xl mx-auto leading-relaxed">
         BlueLine DataWorks is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory.
+      </p>
+      <div class="flex flex-wrap items-center justify-between gap-4 pt-3 border-t border-slate-800/80 font-mono text-[11px]">
+        <span>&copy; 2026 BlueLine DataWorks OS. Lead Scout Workspace.</span>
+        <div class="flex items-center gap-4">
+          <span class="text-emerald-400">● Consensus Synchronized</span>
+          <span>SHA-256 Verified</span>
+          <a href="login.html" class="text-sky-400 hover:underline">Switch Roster Persona →</a>
+        </div>
       </div>
-    </footer>
+    </div>
+  </footer>
 
-    <!-- Interactive Workspace Logic -->
-    <script>
-        function switchTab(tabId) {
-            const dash = document.getElementById('dashboard-view');
-            const dir = document.getElementById('directory-view');
-            const btnDash = document.getElementById('sideNavDashboard');
-            const btnDir = document.getElementById('sideNavDirectory');
+  <!-- ========================================================================= -->
+  <!-- SCRIPTS & DYNAMIC DATA BINDING -->
+  <!-- ========================================================================= -->
+  <script src="static/js/master_players.js"></script>
+  <script src="static/js/institutions_catalog.js"></script>
+  <script src="static/js/auth_engine.js"></script>
+  <script src="static/js/global_nav.js"></script>
+  <script src="static/js/blueline_ui_kit.js"></script>
+  <script>
+    // Master In-Memory Data Pool
+    let allAthletes = [];
+    let activeAthlete = null;
+    let currentLeagueFilter = 'all';
+    let currentPosFilter = 'all';
 
-            if (tabId === 'directory') {
-              dash.classList.add('hidden');
-              dir.classList.remove('hidden');
-              btnDash.className = "flex items-center px-3 py-2.5 text-slate-400 hover:bg-slate-800 hover:text-white rounded-lg group text-left w-full";
-              btnDir.className = "flex items-center px-3 py-2.5 bg-blue-600 text-white rounded-lg group text-left w-full";
-            } else {
-              dir.classList.add('hidden');
-              dash.classList.remove('hidden');
-              btnDir.className = "flex items-center px-3 py-2.5 text-slate-400 hover:bg-slate-800 hover:text-white rounded-lg group text-left w-full";
-              btnDash.className = "flex items-center px-3 py-2.5 bg-blue-600 text-white rounded-lg group text-left w-full";
-            }
+    // Priority Shortlist Mock IDs
+    const shortlistIds = ['mp_0013', 'mp_0001', 'mp_0002', 'mp_0015'];
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // 1. Initialize Auth User Chip
+      if (window.BlueLineAuth) {
+        const user = window.BlueLineAuth.getCurrentUser();
+        if (user && !user.isGuest) {
+          const nameEl = document.getElementById('userNameText');
+          const roleEl = document.getElementById('userRoleText');
+          const avatarEl = document.getElementById('userAvatarText');
+          if (nameEl) nameEl.textContent = user.name;
+          if (roleEl) roleEl.textContent = user.badge || user.role_title || "Chief Scout";
+          if (avatarEl) avatarEl.textContent = user.avatar || "🔍";
+        }
+      }
+
+      // 2. Load Master Athletes
+      if (window.MASTER_PLAYERS && Array.isArray(window.MASTER_PLAYERS)) {
+        allAthletes = window.MASTER_PLAYERS;
+      } else if (window.BlueLinePlayers && Array.isArray(window.BlueLinePlayers)) {
+        allAthletes = window.BlueLinePlayers;
+      } else if (window.PuckData && Array.isArray(window.PuckData.players)) {
+        allAthletes = window.PuckData.players;
+      }
+
+      const totalCountEl = document.getElementById('directoryTotalCount');
+      if (totalCountEl) totalCountEl.textContent = allAthletes.length.toLocaleString();
+
+      // 3. Populate Quick Select Dropdown
+      populateAthleteSelectDropdown();
+
+      // 4. Check for URL Parameter ?player=...
+      const urlPlayerId = BlueLineUI.getActivePlayerIdFromUrl();
+      if (urlPlayerId) {
+        const found = allAthletes.find(p => p.id === urlPlayerId || (p.name && p.name.toLowerCase().includes(urlPlayerId.toLowerCase())));
+        if (found) {
+          setActiveAthlete(found);
+        } else {
+          setDefaultAthlete();
+        }
+      } else {
+        setDefaultAthlete();
+      }
+
+      // 5. Render Initial Directory & Shortlist
+      renderDirectoryTable();
+      renderShortlistBoard();
+    });
+
+    function setDefaultAthlete() {
+      // Look for Michael Hage (mp_0013) or first player
+      const defaultAthlete = allAthletes.find(p => p.id === 'mp_0013' || (p.name && p.name.includes('Hage'))) || allAthletes[0];
+      setActiveAthlete(defaultAthlete);
+    }
+
+    function populateAthleteSelectDropdown() {
+      const select = document.getElementById('athleteQuickSelect');
+      if (!select) return;
+
+      // Select top 30 notable prospects for rapid switching
+      const notable = allAthletes.slice(0, 35);
+      select.innerHTML = notable.map(p => `
+        <option value="${p.id}">${p.name} (${p.team || 'Independent'} · ${p.pos || 'F'})</option>
+      `).join('');
+    }
+
+    function setActiveAthlete(athlete) {
+      if (!athlete) return;
+      activeAthlete = athlete;
+
+      // Update UI Header
+      document.getElementById('activeAthleteName').textContent = athlete.name;
+      document.getElementById('activeAthletePos').textContent = `${athlete.pos || 'F'} / #${athlete.num || '17'}`;
+      
+      const teamStr = athlete.team || athlete.institution || "Tier 1 AAA";
+      const leagueStr = athlete.league || "NCAA Division I";
+      const ht = athlete.height_str || (athlete.height_in ? `${Math.floor(athlete.height_in/12)}'${athlete.height_in%12}"` : "6'0\"");
+      const wt = athlete.weight_lbs ? `${athlete.weight_lbs} lbs` : "185 lbs";
+      const hometown = athlete.hometown || "North America";
+      const dob = athlete.date_of_birth ? athlete.date_of_birth.split('-')[0] : "2006";
+
+      document.getElementById('activeAthleteDetails').innerHTML = `
+        <strong class="text-white">${teamStr}</strong> (${leagueStr}) · ${ht} · ${wt} · Hometown: ${hometown} · Born: ${dob}
+      `;
+
+      // Badge & Draft
+      const badgeEl = document.getElementById('activeAthleteBadge');
+      if (badgeEl) badgeEl.textContent = `VERIFIED ${leagueStr.toUpperCase()}`;
+
+      const draftEl = document.getElementById('activeAthleteDraft');
+      if (draftEl) draftEl.textContent = athlete.draft_status || "2025/26 Draft Eligible";
+
+      // Avatar Gradient
+      const avatarEl = document.getElementById('activeAthleteAvatar');
+      if (avatarEl) {
+        avatarEl.textContent = athlete.pos === 'G' ? '🥅' : (athlete.pos === 'D' ? '🛡️' : '⚡');
+      }
+
+      // Sync select dropdown
+      const select = document.getElementById('athleteQuickSelect');
+      if (select && select.value !== athlete.id) {
+        select.value = athlete.id;
+      }
+
+      // Recalibrate Trajectory & Metrics
+      const baseScore = athlete.composite_score || 88.4;
+      document.getElementById('vanceTrajectoryBadge').textContent = `${baseScore.toFixed(1)} / 100`;
+      
+      const d1Pct = Math.min(98.5, Math.max(45.0, baseScore * 0.72)).toFixed(1);
+      document.getElementById('trajNcaaPct').textContent = `${d1Pct}% (Tier 1)`;
+    }
+
+    function handleAthleteSelectChange(athleteId) {
+      const found = allAthletes.find(p => p.id === athleteId);
+      if (found) {
+        setActiveAthlete(found);
+        BlueLineUI.showToast(`Switched active desk evaluation to ${found.name}.`, 'success');
+      }
+    }
+
+    function launchCurrentAthlete(moduleName) {
+      if (!activeAthlete) return;
+      BlueLineUI.launchAthleteInModule(moduleName, activeAthlete.id);
+    }
+
+    // =========================================================================
+    // Micro-Telemetry Event Logging (Replaces alerts with HUD toasts)
+    // =========================================================================
+    function logScoutTelemetryEvent(eventType) {
+      if (!activeAthlete) return;
+
+      const outcome = document.getElementById('telemetryOutcome').value;
+      const dist = parseFloat(document.getElementById('telemetryDistance').value) || 18.5;
+      const shotType = document.getElementById('telemetryShotType').value;
+      const wallUsed = document.getElementById('wallUsed').checked;
+      const royalRoad = document.getElementById('royalRoadCrossed').checked;
+
+      // Calculate realistic metric variance
+      const puckHold = (2.6 + Math.random() * 0.5).toFixed(1) + 's';
+      const passAcc = (86.0 + Math.random() * 2.5).toFixed(1) + '%';
+      const wallRate = wallUsed ? '69.4%' : '65.2%';
+      const shotDist = dist.toFixed(1) + ' ft';
+
+      document.getElementById('telemetryPuckHold').textContent = puckHold;
+      document.getElementById('telemetryPassAcc').textContent = passAcc;
+      document.getElementById('telemetryWallUsage').textContent = wallRate;
+      document.getElementById('telemetryShotDist').textContent = shotDist;
+
+      // Recalibrate score
+      let delta = outcome === 'GOAL' ? 0.6 : (outcome === 'SOG' ? 0.2 : (outcome === 'ROYAL_ROAD' ? 0.4 : -0.1));
+      const currentScore = parseFloat(document.getElementById('vanceTrajectoryBadge').textContent) || 88.4;
+      const newScore = Math.min(99.4, Math.max(72.0, currentScore + delta)).toFixed(1);
+      document.getElementById('vanceTrajectoryBadge').textContent = `${newScore} / 100`;
+
+      const newD1 = Math.min(99.0, Math.max(50.0, newScore * 0.73)).toFixed(1);
+      document.getElementById('trajNcaaPct').textContent = `${newD1}% (Tier 1)`;
+
+      // Prepend to Activity Ledger
+      const ledger = document.getElementById('scoutActivityLedgerList');
+      if (ledger) {
+        const entry = document.createElement('div');
+        entry.className = "relative pl-4 border-l-2 border-emerald-500 text-xs space-y-0.5 animate-fade";
+        entry.innerHTML = `
+          <div class="absolute -left-[5px] top-1.5 w-2 h-2 rounded-full bg-emerald-500"></div>
+          <div class="flex items-center justify-between text-[10px] text-slate-400 font-mono">
+            <span>Just now</span>
+            <span class="text-emerald-400">BLOCK #${Math.floor(1000 + Math.random() * 9000)}</span>
+          </div>
+          <p class="font-bold text-white text-xs">Logged ${eventType === 'shot' ? 'Shot (' + shotType + ')' : 'Passing Play'}: ${outcome}</p>
+          <p class="text-slate-400 text-[11px]">${activeAthlete.name} · Dist: ${shotDist} · Royal Road: ${royalRoad ? 'Yes' : 'No'} · Trajectory: ${newScore}.</p>
+        `;
+        ledger.insertBefore(entry, ledger.firstChild);
+      }
+
+      // Non-blocking Enterprise HUD Toast
+      BlueLineUI.showToast(`✓ Telemetry event logged! Recalibrated ${activeAthlete.name} Trajectory to ${newScore}. Cryptographic consensus stamped.`, 'success');
+    }
+
+    function addScoutNote() {
+      const input = document.getElementById('quickScoutNoteInput');
+      const val = input ? input.value.trim() : '';
+      if (!val) return;
+
+      const ledger = document.getElementById('scoutActivityLedgerList');
+      if (ledger) {
+        const entry = document.createElement('div');
+        entry.className = "relative pl-4 border-l-2 border-sky-400 text-xs space-y-0.5";
+        entry.innerHTML = `
+          <div class="absolute -left-[5px] top-1.5 w-2 h-2 rounded-full bg-sky-400"></div>
+          <div class="flex items-center justify-between text-[10px] text-slate-400 font-mono">
+            <span>Just now</span>
+            <span class="text-sky-400">SCOUT NOTE</span>
+          </div>
+          <p class="font-bold text-white text-xs">${activeAthlete ? activeAthlete.name : 'Dossier'}: Observation Stamped</p>
+          <p class="text-slate-400 text-[11px]">${val}</p>
+        `;
+        ledger.insertBefore(entry, ledger.firstChild);
+      }
+
+      input.value = '';
+      BlueLineUI.showToast("Scout observation recorded to immutable athlete dossier.", "info");
+    }
+
+    function syncOfflineTelemetry() {
+      BlueLineUI.showToast("⚡ Consensus Synchronization Complete: 24-agent swarm nodes verified zero NHL conflict.", "success");
+    }
+
+    // =========================================================================
+    // Tab Navigation Switcher
+    // =========================================================================
+    function switchScoutTab(tab) {
+      const viewWork = document.getElementById('view_workspace');
+      const viewDir = document.getElementById('view_directory');
+      const viewShort = document.getElementById('view_shortlist');
+
+      const btnWork = document.getElementById('tabBtn_workspace');
+      const btnDir = document.getElementById('tabBtn_directory');
+      const btnShort = document.getElementById('tabBtn_shortlist');
+
+      viewWork.classList.add('hidden');
+      viewDir.classList.add('hidden');
+      viewShort.classList.add('hidden');
+
+      btnWork.className = "px-3.5 py-1.5 rounded-xl bg-slate-900/80 text-slate-300 hover:text-white hover:bg-slate-800 border border-slate-800 flex items-center gap-2 transition cursor-pointer";
+      btnDir.className = "px-3.5 py-1.5 rounded-xl bg-slate-900/80 text-slate-300 hover:text-white hover:bg-slate-800 border border-slate-800 flex items-center gap-2 transition cursor-pointer";
+      btnShort.className = "px-3.5 py-1.5 rounded-xl bg-slate-900/80 text-slate-300 hover:text-white hover:bg-slate-800 border border-slate-800 flex items-center gap-2 transition cursor-pointer";
+
+      if (tab === 'directory') {
+        viewDir.classList.remove('hidden');
+        btnDir.className = "px-3.5 py-1.5 rounded-xl bg-sky-600 text-white font-bold border border-sky-400/50 shadow-md shadow-sky-600/20 flex items-center gap-2 transition cursor-pointer";
+      } else if (tab === 'shortlist') {
+        viewShort.classList.remove('hidden');
+        btnShort.className = "px-3.5 py-1.5 rounded-xl bg-amber-600 text-white font-bold border border-amber-400/50 shadow-md shadow-amber-600/20 flex items-center gap-2 transition cursor-pointer";
+      } else {
+        viewWork.classList.remove('hidden');
+        btnWork.className = "px-3.5 py-1.5 rounded-xl bg-sky-600 text-white font-bold border border-sky-400/50 shadow-md shadow-sky-600/20 flex items-center gap-2 transition cursor-pointer";
+      }
+    }
+
+    // =========================================================================
+    // Dynamic Directory Filtering & Rendering
+    // =========================================================================
+    function setDirectoryLeague(league) {
+      currentLeagueFilter = league;
+      document.querySelectorAll('.dir-league-btn').forEach(btn => {
+        if (btn.dataset.league === league) {
+          btn.className = "dir-league-btn px-2.5 py-1 rounded-lg bg-sky-600 text-white font-bold text-[11px]";
+        } else {
+          btn.className = "dir-league-btn px-2.5 py-1 rounded-lg bg-slate-900 text-slate-300 hover:text-white text-[11px]";
+        }
+      });
+      renderDirectoryTable();
+    }
+
+    function setDirectoryPos(pos) {
+      currentPosFilter = pos;
+      document.querySelectorAll('.dir-pos-btn').forEach(btn => {
+        if (btn.dataset.pos === pos) {
+          btn.className = "dir-pos-btn px-2.5 py-1 rounded-lg bg-sky-600 text-white font-bold text-[11px]";
+        } else {
+          btn.className = "dir-pos-btn px-2.5 py-1 rounded-lg bg-slate-900 text-slate-300 hover:text-white text-[11px]";
+        }
+      });
+      renderDirectoryTable();
+    }
+
+    function filterDirectoryTable() {
+      renderDirectoryTable();
+    }
+
+    function renderDirectoryTable() {
+      const tbody = document.getElementById('directoryTableBody');
+      if (!tbody) return;
+
+      const q = (document.getElementById('directorySearchInput') ? document.getElementById('directorySearchInput').value : '').toLowerCase().trim();
+
+      const filtered = allAthletes.filter(p => {
+        // League Filter
+        if (currentLeagueFilter !== 'all') {
+          const l = (p.league || '').toLowerCase();
+          const c = (p.category || '').toLowerCase();
+          if (currentLeagueFilter === 'NCAA' && !l.includes('ncaa') && !c.includes('ncaa') && !c.includes('division')) return false;
+          if (currentLeagueFilter === 'USHL' && !l.includes('ushl')) return false;
+          if (currentLeagueFilter === 'BCHL' && !l.includes('bchl')) return false;
+          if (currentLeagueFilter === 'CHL' && !l.includes('ohl') && !l.includes('whl') && !l.includes('qmjhl')) return false;
+          if (currentLeagueFilter === 'Prep' && !l.includes('prep') && !l.includes('high school') && !c.includes('prep')) return false;
         }
 
-        function logTelemetryEvent(type) {
-          const outcome = document.getElementById('telemetryOutcome') ? document.getElementById('telemetryOutcome').value : 'SOG';
-          const dist = parseFloat(document.getElementById('telemetryDistance').value) || 16.5;
-          const shotType = document.getElementById('telemetryShotType').value;
-          const wallUsed = document.getElementById('wallUsed').checked;
-
-          // Update real-time metrics
-          const puckHold = (2.8 + Math.random() * 0.3).toFixed(1) + 's';
-          const passAcc = (87.5 + Math.random() * 1.5).toFixed(1) + '%';
-          const wallRate = wallUsed ? '68.2%' : '65.9%';
-          const shotDist = dist.toFixed(1) + ' ft';
-
-          document.getElementById('telemetryPuckHold').textContent = puckHold;
-          document.getElementById('telemetryPassAcc').textContent = passAcc;
-          document.getElementById('telemetryWallUsage').textContent = wallRate;
-          document.getElementById('telemetryShotDist').textContent = shotDist;
-
-          // Recalculate Trajectory
-          const newScore = (86.6 + (outcome === 'GOAL' ? 0.8 : (outcome === 'SOG' ? 0.2 : -0.1))).toFixed(1);
-          document.getElementById('vanceTrajectoryBadge').textContent = `Trajectory Score: ${newScore}/100`;
-
-          const d1Pct = (60.8 + (outcome === 'GOAL' ? 1.4 : 0.3)).toFixed(1);
-          document.getElementById('trajNcaaPct').textContent = d1Pct + '%';
-          document.getElementById('trajNcaaBar').style.width = d1Pct + '%';
-
-          // Prepend to activity ledger
-          const ledger = document.getElementById('scoutActivityLedgerList');
-          if (ledger) {
-            const entry = document.createElement('div');
-            entry.className = "relative pl-4 border-l-2 border-green-500 animate-fade";
-            entry.innerHTML = `
-              <div class="absolute -left-[5px] top-1.5 w-2 h-2 rounded-full bg-green-500"></div>
-              <p class="text-xs text-slate-400 mb-0.5">Just now</p>
-              <p class="text-sm font-medium text-white">Logged ${type === 'shot' ? 'Shot (' + shotType + ')' : 'Pass'}: ${outcome}</p>
-              <p class="text-xs text-slate-400 mt-1">Distance: ${shotDist} • Wall: ${wallUsed ? 'Yes' : 'No'} • Trajectory recalculated to ${newScore}.</p>
-            `;
-            ledger.insertBefore(entry, ledger.firstChild);
-          }
-
-          alert(`✓ Event logged locally! Recalibrated Connor Vance Trajectory to ${newScore}. Cryptographic ledger block stamped.`);
+        // Pos Filter
+        if (currentPosFilter !== 'all') {
+          const pos = (p.pos || '').toUpperCase();
+          if (currentPosFilter === 'G' && !pos.includes('G')) return false;
+          if (currentPosFilter === 'D' && !pos.includes('D')) return false;
+          if (currentPosFilter === 'F' && (pos.includes('G') || pos.includes('D'))) return false;
         }
 
-        function addScoutNote() {
-          const input = document.getElementById('quickScoutNoteInput');
-          const val = input ? input.value.trim() : '';
-          if (!val) return;
-
-          const ledger = document.getElementById('scoutActivityLedgerList');
-          if (ledger) {
-            const entry = document.createElement('div');
-            entry.className = "relative pl-4 border-l-2 border-blue-400";
-            entry.innerHTML = `
-              <div class="absolute -left-[5px] top-1.5 w-2 h-2 rounded-full bg-blue-400"></div>
-              <p class="text-xs text-slate-400 mb-0.5">Just now</p>
-              <p class="text-sm font-medium text-white">Scout Note Added</p>
-              <p class="text-xs text-slate-400 mt-1">${val}</p>
-            `;
-            ledger.insertBefore(entry, ledger.firstChild);
-          }
-          input.value = '';
+        // Search Query
+        if (q) {
+          const text = `${p.name || ''} ${p.team || ''} ${p.league || ''} ${p.hometown || ''}`.toLowerCase();
+          if (!text.includes(q)) return false;
         }
 
-        function syncOfflineLedger() {
-          alert("⚡ Offline DB Sync Complete: 14 telemetry events synchronized with BlueLine master consensus node.");
-        }
+        return true;
+      });
 
-        function handleGlobalProspectFilter(query) {
-          const q = (query || '').toLowerCase().trim();
-          const rows = document.querySelectorAll('#directoryTableBody tr');
-          rows.forEach(r => {
-            const text = r.textContent.toLowerCase();
-            r.style.display = (!q || text.includes(q)) ? '' : 'none';
-          });
-        }
-    </script>
+      // Render max 80 rows for silky high performance
+      const slice = filtered.slice(0, 80);
+
+      if (slice.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="7" class="p-6 text-center text-slate-400 font-mono">
+              No matching amateur athletes found for current filters.
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      tbody.innerHTML = slice.map(p => {
+        const score = p.composite_score ? p.composite_score.toFixed(1) : "86.0";
+        const ht = p.height_str || (p.height_in ? `${Math.floor(p.height_in/12)}'${p.height_in%12}"` : "6'0\"");
+        const wt = p.weight_lbs ? `${p.weight_lbs} lbs` : "180 lbs";
+
+        return `
+          <tr class="hover:bg-slate-900/70 transition border-b border-slate-800/40 text-xs">
+            <td class="p-3.5">
+              <div class="flex items-center gap-2.5">
+                <div class="w-8 h-8 rounded-lg bg-slate-800 border border-slate-700 flex items-center justify-center font-bold text-sky-400 text-xs shrink-0">
+                  ${p.pos === 'G' ? '🥅' : (p.pos === 'D' ? '🛡️' : '⚡')}
+                </div>
+                <div>
+                  <span class="font-bold text-white block">${p.name}</span>
+                  <span class="text-[10px] text-slate-400 font-mono">#${p.num || '17'} · Born ${p.date_of_birth ? p.date_of_birth.split('-')[0] : '2006'}</span>
+                </div>
+              </div>
+            </td>
+            <td class="p-3.5 font-mono text-sky-300 font-bold">${p.pos || 'F'}</td>
+            <td class="p-3.5">
+              <span class="text-slate-200 font-medium block">${p.team || 'Independent'}</span>
+              <span class="text-[10px] text-slate-400 font-mono">${p.league || 'Amateur Tier 1'}</span>
+            </td>
+            <td class="p-3.5 font-mono text-[11px] text-slate-400">${ht} · ${wt}</td>
+            <td class="p-3.5 text-slate-300">${p.hometown || 'US / CAN'}</td>
+            <td class="p-3.5">
+              <span class="px-2 py-0.5 rounded bg-emerald-950/80 text-emerald-300 border border-emerald-700/50 font-mono font-bold text-[11px]">
+                ${score}
+              </span>
+            </td>
+            <td class="p-3.5 text-right">
+              <div class="flex items-center justify-end gap-1.5">
+                <button type="button" onclick="selectAthleteFromDirectory('${p.id}')" class="px-2.5 py-1 rounded-lg bg-sky-600 hover:bg-sky-500 text-white font-bold text-[11px] transition shadow-sm cursor-pointer" title="Load into Scout Desk Telemetry">
+                  Evaluate
+                </button>
+                <button type="button" onclick="BlueLineUI.launchAthleteInModule('film', '${p.id}')" class="p-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700 text-xs transition cursor-pointer" title="AI Film Room">
+                  <i class="fa-solid fa-video"></i>
+                </button>
+                <button type="button" onclick="BlueLineUI.launchAthleteInModule('compare', '${p.id}')" class="p-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700 text-xs transition cursor-pointer" title="Compare Lab">
+                  <i class="fa-solid fa-scale-balanced"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function selectAthleteFromDirectory(athleteId) {
+      const found = allAthletes.find(p => p.id === athleteId);
+      if (found) {
+        setActiveAthlete(found);
+        switchScoutTab('workspace');
+        BlueLineUI.showToast(`Loaded ${found.name} into Live Micro-Telemetry Desk.`, 'success');
+      }
+    }
+
+    // =========================================================================
+    // Target Watchlist Board
+    // =========================================================================
+    function renderShortlistBoard() {
+      const container = document.getElementById('shortlistCardsContainer');
+      if (!container) return;
+
+      const shortlistAthletes = allAthletes.filter(p => shortlistIds.includes(p.id));
+      if (shortlistAthletes.length === 0) return;
+
+      container.innerHTML = shortlistAthletes.map(p => `
+        <div class="p-4 rounded-2xl bg-slate-950/90 border border-amber-500/30 space-y-3 shadow-lg hover:border-amber-400 transition">
+          <div class="flex items-start justify-between gap-2">
+            <div>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-bold border border-amber-500/30">PRIORITY TARGET</span>
+              <h4 class="text-sm font-bold text-white mt-1">${p.name}</h4>
+              <p class="text-[11px] text-slate-400">${p.team || 'Independent'} · ${p.pos || 'F'}</p>
+            </div>
+            <span class="text-lg">⭐</span>
+          </div>
+
+          <div class="p-2 rounded-xl bg-slate-900 text-[10px] font-mono text-slate-300 flex items-center justify-between">
+            <span>Score: <strong class="text-emerald-400">${p.composite_score ? p.composite_score.toFixed(1) : '88.0'}</strong></span>
+            <span>${p.draft_status || '2025 Draft'}</span>
+          </div>
+
+          <div class="flex items-center gap-2 pt-1">
+            <button onclick="selectAthleteFromDirectory('${p.id}')" class="flex-1 py-1.5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-bold text-xs transition">
+              Evaluate
+            </button>
+            <button onclick="BlueLineUI.launchAthleteInModule('film', '${p.id}')" class="px-2.5 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-200 text-xs border border-slate-700" title="Film Room">
+              <i class="fa-solid fa-video"></i>
+            </button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // Modal Helpers
+    function openSitemapModal() {
+      const el = document.getElementById('scoutSitemapModal');
+      if (el) el.classList.remove('hidden');
+    }
+    function openTermsModal() {
+      window.location.href = 'login.html#terms';
+    }
+    function openPrivacyModal() {
+      window.location.href = 'login.html#privacy';
+    }
+    function openSecurityModal() {
+      window.location.href = 'security.html';
+    }
+  </script>
 </body>
 </html>

@@ -377,6 +377,32 @@
     </div>
 
     <!-- Container 1: Table View -->
+    
+      <!-- Metric Formulas & Data Clarity Bar -->
+      <div id="metricFormulaBar" class="p-3.5 rounded-2xl bg-slate-900/90 border border-sky-500/30 flex flex-wrap items-center justify-between gap-3 text-xs">
+        <div class="flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-sky-400"></span>
+          <span class="font-bold text-white font-mono uppercase text-[11px]">Core Metric Formulas & Data Provenance:</span>
+        </div>
+        <div class="flex flex-wrap items-center gap-2 font-mono text-[11px]">
+          <button type="button" onclick="BlueLineUI.openMetricModal('xg')" class="px-2.5 py-1 rounded-lg bg-slate-950 hover:bg-slate-800 text-sky-300 border border-slate-700 transition cursor-pointer">
+            xG (Expected Goals) ⓘ
+          </button>
+          <button type="button" onclick="BlueLineUI.openMetricModal('nhle')" class="px-2.5 py-1 rounded-lg bg-slate-950 hover:bg-slate-800 text-teal-300 border border-slate-700 transition cursor-pointer">
+            NHLe (Pro Projection) ⓘ
+          </button>
+          <button type="button" onclick="BlueLineUI.openMetricModal('gsax')" class="px-2.5 py-1 rounded-lg bg-slate-950 hover:bg-slate-800 text-amber-300 border border-slate-700 transition cursor-pointer">
+            GSAx (Goalie Impact) ⓘ
+          </button>
+          <button type="button" onclick="BlueLineUI.openMetricModal('sqm')" class="px-2.5 py-1 rounded-lg bg-slate-950 hover:bg-slate-800 text-emerald-300 border border-slate-700 transition cursor-pointer">
+            SQM (Swarm Veracity) ⓘ
+          </button>
+          <button type="button" onclick="BlueLineUI.openMetricModal('royal_road')" class="px-2.5 py-1 rounded-lg bg-slate-950 hover:bg-slate-800 text-indigo-300 border border-slate-700 transition cursor-pointer">
+            Royal Road Passing ⓘ
+          </button>
+        </div>
+      </div>
+    
     <div id="tableViewContainer" class="glass-panel rounded-2xl border border-slate-800 overflow-hidden shadow-2xl">
       <div class="overflow-x-auto max-h-[700px] overflow-y-auto">
         <table class="w-full text-left text-xs border-collapse">
@@ -1466,7 +1492,7 @@
             <td class="py-2.5 px-3 font-sans">${draftDisplay}</td>
             <td class="py-2.5 px-2 text-center font-bold text-amber-400">${p.composite_score ? p.composite_score.toFixed(1) : '--'}</td>
             <td class="py-2.5 px-3 text-right">
-              <button onclick="window.openAuthModal('claim', '${p.id}')" class="px-2 py-1 rounded-lg bg-amber-500/20 hover:bg-amber-500/40 text-amber-300 font-sans text-[11px] font-bold border border-amber-500/30 transition shadow-sm inline-flex items-center gap-1 cursor-pointer" title="Claim Profile">⚡ Claim</button> <a href="community.html" class="px-2 py-1 rounded-lg bg-cyan-600/30 hover:bg-cyan-600 text-cyan-300 hover:text-white text-[11px] font-bold border border-cyan-500/30 transition inline-flex items-center gap-1" title="Direct Message"><span>💬</span></a> <a href="player.html?id=${p.id}" target="_blank" class="px-2.5 py-1 rounded-lg bg-sky-600/30 hover:bg-sky-600 text-sky-300 hover:text-white font-sans text-[11px] font-bold border border-sky-500/30 transition shadow-sm inline-flex items-center gap-1">
+              <button onclick="window.openAuthModal('claim', '${p.id}')" class="px-2 py-1 rounded-lg bg-amber-500/20 hover:bg-amber-500/40 text-amber-300 font-sans text-[11px] font-bold border border-amber-500/30 transition shadow-sm inline-flex items-center gap-1 cursor-pointer" title="Claim Profile">⚡ Claim</button> <a href="community.html" class="px-2 py-1 rounded-lg bg-cyan-600/30 hover:bg-cyan-600 text-cyan-300 hover:text-white text-[11px] font-bold border border-cyan-500/30 transition inline-flex items-center gap-1" title="Direct Message"><span>💬</span></a> <a href="scout.html?player=${p.id}" class="px-2 py-1 rounded-lg bg-indigo-600/30 hover:bg-indigo-600 text-indigo-300 hover:text-white text-[11px] font-bold border border-indigo-500/30 transition inline-flex items-center gap-1" title="Evaluate in Scout Desk"><span>🔭</span></a> <a href="player.html?id=${p.id}" target="_blank" class="px-2.5 py-1 rounded-lg bg-sky-600/30 hover:bg-sky-600 text-sky-300 hover:text-white font-sans text-[11px] font-bold border border-sky-500/30 transition shadow-sm inline-flex items-center gap-1">
                 Passport &rarr;
               </a>
             </td>
@@ -1672,5 +1698,6 @@
   <script src="static/js/telemetry.js"></script>
   <script src="static/js/auth_engine.js"></script>
   <script src="static/js/global_nav.js"></script>
+  <script src="static/js/blueline_ui_kit.js"></script>
 </body>
 </html>

@@ -366,6 +366,7 @@
   </main>
 
   <!-- SCRIPTS -->
+  <script src="static/js/master_players.js"></script>
   <script src="static/js/rink_3d_simulator.js"></script>
   <script>
     let sim = null;
@@ -436,12 +437,13 @@
       if (post) {
         alert(`🎉 3D Tactical Play Shared!\n\n"${post.playerBadge.name}" has been broadcast to The BlueLine Wire (#Tactical3D).`);
       } else {
-        alert('🎉 3D Tactical Play exported successfully!');
+        typeof BlueLineUI !== 'undefined' ? BlueLineUI.showToast('🎉 3D Tactical Play exported successfully!', 'info') : alert('🎉 3D Tactical Play exported successfully!');
       }
     }
   </script>
   <script src="static/js/telemetry.js"></script>
   <script src="static/js/auth_engine.js"></script>
   <script src="static/js/global_nav.js"></script>
+  <script src="static/js/blueline_ui_kit.js"></script>
 </body>
 </html>
