@@ -1,190 +1,1568 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
   <!-- Active Pre-Execution Security Shield -->
   <script src="static/js/security_shield.js"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Log In – PuckPathway</title>
+  <title>Log In & Identity Gateway | BlueLine DataWorks Scout Desk</title>
   <meta name="description" content="BlueLine DataWorks is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory.">
   <link rel="icon" type="image/jpeg" href="static/img/blueline_logo.jpg">
   <link rel="apple-touch-icon" href="static/img/blueline_logo.jpg">
 
-  <!-- Open Graph -->
+  <!-- Canonical & Open Graph -->
+  <link rel="canonical" href="https://farmadvisorar-ux.github.io/puckpathway-hockey-os/login.html">
   <meta property="og:type" content="website">
-  <meta property="og:site_name" content="PuckPathway Hockey OS">
-  
+  <meta property="og:site_name" content="BlueLine DataWorks OS">
   <meta property="og:url" content="https://farmadvisorar-ux.github.io/puckpathway-hockey-os/login.html">
-  <meta property="og:title" content="Log In – PuckPathway">
+  <meta property="og:title" content="Log In & Identity Gateway | BlueLine DataWorks Scout Desk">
   <meta property="og:description" content="BlueLine DataWorks is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory.">
   <meta property="og:image" content="https://farmadvisorar-ux.github.io/puckpathway-hockey-os/static/img/blueline_og_preview.jpg">
 
-  <!-- Stylesheets -->
-  <link rel="stylesheet" href="styles.css">
+  <!-- Tailwind CSS & Icons -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="static/css/custom.css">
   <link rel="manifest" href="manifest.json">
 
-  <link rel="canonical" href="https://farmadvisorar-ux.github.io/puckpathway-hockey-os/login.html">
+  <style>
+    /* Custom High-Contrast Glass & Glow Styles */
+    .glow-card {
+      background: rgba(11, 17, 32, 0.92);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7), 0 0 25px rgba(56, 189, 248, 0.1);
+    }
+    .glow-input:focus {
+      border-color: #38bdf8;
+      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.25);
+      outline: none;
+    }
+    .modal-backdrop {
+      background: rgba(6, 9, 14, 0.85);
+      backdrop-filter: blur(12px);
+    }
+  </style>
 </head>
-<body>
+<body class="bg-[#06090e] text-slate-100 min-h-screen flex flex-col font-sans selection:bg-sky-500 selection:text-white">
 
   <!-- Mandatory Lifelong Tracking Mission Statement Banner -->
-  <div class="mission-banner">
-    <div class="mission-banner-inner">
-      <div style="display:flex; align-items:center; gap:0.5rem; overflow:hidden;">
-        <span class="mission-tag">MISSION</span>
-        <span style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">BlueLine DataWorks is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory.</span>
+  <div class="border-b border-slate-800/90 bg-slate-950/95 sticky top-0 z-50 backdrop-blur-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 flex flex-wrap items-center justify-between gap-3 text-xs">
+      <div class="flex items-center gap-2.5 min-w-0 flex-1">
+        <span class="px-2 py-0.5 rounded-md bg-sky-500/20 text-sky-300 font-mono text-[10px] font-extrabold uppercase tracking-wider shrink-0 border border-sky-500/30">MISSION</span>
+        <p class="text-[11px] text-slate-300 font-medium truncate">
+          BlueLine DataWorks is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory.
+        </p>
       </div>
-      <div style="font-family:monospace; font-size:0.65rem; color:#38bdf8; white-space:nowrap;">
-        IDENTITY AUTH
+      <div class="flex items-center gap-2.5 shrink-0 font-mono text-[11px]">
+        <span class="text-emerald-400 bg-emerald-950/70 border border-emerald-700/50 px-2 py-0.5 rounded-full flex items-center gap-1.5 font-semibold">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+          256-Bit Identity Auth
+        </span>
+        <span class="text-sky-400 hidden sm:inline">● Scout Desk Ready</span>
       </div>
     </div>
   </div>
 
-  <!-- TOP NAVIGATION BAR -->
-  <nav class="top-nav">
-    <div class="nav-container">
-      <a href="index.html" class="nav-brand">
-        <img src="static/img/blueline_logo.jpg" alt="PuckPathway Logo">
-        <span>PuckPathway <span style="color:#38bdf8; font-size:0.85rem; font-family:monospace;">OS</span></span>
+  <!-- Top Enterprise Header Navigation -->
+  <header class="border-b border-slate-800/80 bg-slate-950/80 backdrop-blur-xl">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+      
+      <!-- Brand Logo -->
+      <a href="index.html" class="flex items-center gap-3 group">
+        <img src="static/img/blueline_logo.jpg" alt="BlueLine DataWorks Logo" class="w-10 h-10 rounded-xl border border-sky-400/50 object-cover shadow-lg shadow-sky-500/20 group-hover:scale-105 transition">
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="font-extrabold text-base sm:text-lg tracking-tight text-white group-hover:text-sky-400 transition">BlueLine DataWorks</span>
+            <span class="text-[10px] uppercase font-mono tracking-widest px-1.5 py-0.5 rounded bg-sky-500/20 text-sky-300 font-bold">AUTH</span>
+          </div>
+          <p class="text-[10px] text-slate-400 hidden sm:block">Executive Identity Gateway & Scout Desk Command</p>
+        </div>
       </a>
 
-      <div class="nav-links">
-        <a href="index.html" style="color:#94a3b8; text-decoration:none; font-size:0.85rem; font-family:monospace;">← Home</a>
-        <a href="signup.html" class="btn primary" style="padding:0.45rem 1rem; font-size:0.85rem;">Sign Up</a>
+      <!-- Quick Nav Hubs -->
+      <nav class="hidden md:flex items-center gap-2 text-xs font-mono">
+        <a href="index.html" class="px-3 py-1.5 rounded-xl bg-slate-900/80 hover:bg-slate-800 text-slate-300 hover:text-white font-semibold border border-slate-800 transition flex items-center gap-1.5">
+          <i class="fa-solid fa-house text-slate-400"></i> Home
+        </a>
+        <a href="scout.html" class="px-3 py-1.5 rounded-xl bg-sky-950/60 hover:bg-sky-900/80 text-sky-300 hover:text-white font-bold border border-sky-500/40 transition flex items-center gap-1.5 shadow-sm shadow-sky-500/20">
+          <i class="fa-solid fa-binoculars text-sky-400"></i> Scout Desk
+        </a>
+        <a href="database.html" class="px-3 py-1.5 rounded-xl bg-slate-900/80 hover:bg-slate-800 text-slate-300 hover:text-white font-semibold border border-slate-800 transition flex items-center gap-1.5">
+          <i class="fa-solid fa-users text-slate-400"></i> Directory
+        </a>
+        <a href="community.html" class="px-3 py-1.5 rounded-xl bg-slate-900/80 hover:bg-slate-800 text-slate-300 hover:text-white font-semibold border border-slate-800 transition flex items-center gap-1.5">
+          <i class="fa-solid fa-rss text-slate-400"></i> The Wire
+        </a>
+        <a href="security.html" class="px-3 py-1.5 rounded-xl bg-slate-900/80 hover:bg-slate-800 text-slate-300 hover:text-white font-semibold border border-slate-800 transition flex items-center gap-1.5">
+          <i class="fa-solid fa-shield-halved text-slate-400"></i> Cyber Shield
+        </a>
+      </nav>
+
+      <!-- Right Action Controls -->
+      <div class="flex items-center gap-3">
+        <button onclick="toggleAppLauncher()" class="px-3 py-1.5 rounded-xl bg-gradient-to-r from-sky-600/30 via-indigo-600/30 to-purple-600/30 hover:from-sky-600/50 hover:to-purple-600/50 text-sky-200 border border-sky-400/40 hover:border-sky-300 font-bold text-xs flex items-center gap-1.5 shadow-lg transition cursor-pointer" title="Open All 26 Modules (Ctrl+K)">
+          <i class="fa-solid fa-table-cells text-sky-400"></i>
+          <span class="hidden sm:inline font-sans">All Modules</span>
+          <span class="px-1.5 py-0.2 rounded-full bg-sky-400/20 text-sky-300 font-mono text-[10px] font-bold">26</span>
+        </button>
+
+        <a href="signup.html" class="px-3.5 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs shadow-lg shadow-emerald-600/20 border border-emerald-400/50 transition flex items-center gap-1.5">
+          <i class="fa-solid fa-user-plus"></i>
+          <span class="hidden sm:inline">Create Account</span>
+          <span class="sm:hidden">Join</span>
+        </a>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- MAIN LOGIN WORKSPACE -->
+  <main class="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full space-y-12">
+
+    <!-- Top Attention / Direct Redirection Notice -->
+    <div class="p-4 rounded-2xl bg-gradient-to-r from-sky-950/60 via-slate-900/80 to-indigo-950/60 border border-sky-500/30 flex flex-wrap items-center justify-between gap-4 shadow-xl">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-sky-500/20 border border-sky-400/40 text-sky-400 flex items-center justify-center text-lg shrink-0">
+          <i class="fa-solid fa-compass"></i>
+        </div>
+        <div>
+          <h2 class="text-sm font-bold text-white flex items-center gap-2">
+            Target Destination: Lead Scout Desk Workspace
+            <span class="px-2 py-0.5 rounded-md bg-emerald-500/20 text-emerald-300 font-mono text-[10px] font-bold border border-emerald-500/30">DEFAULT ON SIGN-IN</span>
+          </h2>
+          <p class="text-xs text-slate-300">
+            Logging in automatically restores your session and launches the <strong>Lead Scout Workspace</strong> (`scout.html`) with live evaluation cards, target boards, and micro-telemetry.
+          </p>
+        </div>
+      </div>
+      <div class="flex items-center gap-2.5">
+        <a href="scout.html" class="px-4 py-2 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-bold text-xs shadow-lg shadow-sky-600/25 border border-sky-400/40 transition flex items-center gap-2">
+          <span>Direct Access to Scout Desk</span>
+          <i class="fa-solid fa-arrow-right"></i>
+        </a>
       </div>
     </div>
-  </nav>
 
-  <main class="auth-page">
-    <h1>Log In</h1>
-    <form class="auth-form" id="loginForm" onsubmit="handleLoginSubmit(event)">
-      <label for="loginEmail">Email</label>
-      <input type="email" id="loginEmail" name="email" required placeholder="name@example.com" value="">
-      <label for="loginPassword">Password</label>
-      <input type="password" id="loginPassword" name="password" required value="">
-      <button type="submit" class="btn primary">Log In</button>
-    </form>
-    
-    <!-- 1-Click Instant Demo Personas -->
-    <div class="quick-personas">
-      <div class="quick-personas-title">
-        <span>⚡ 1-Click Demo Personas</span>
-        <span style="color:#38bdf8;">Instant Access</span>
+    <!-- Central Authentication Form Card -->
+    <div class="max-w-xl mx-auto glow-card rounded-3xl p-6 sm:p-8 space-y-6 relative overflow-hidden">
+      <div class="absolute -top-16 -right-16 w-48 h-48 bg-sky-500/15 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="absolute -bottom-16 -left-16 w-48 h-48 bg-indigo-500/15 rounded-full blur-3xl pointer-events-none"></div>
+
+      <!-- Card Header -->
+      <div class="text-center space-y-2 relative">
+        <div class="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-tr from-sky-600 to-indigo-600 text-white shadow-xl shadow-sky-500/20 border border-sky-400/50 mb-1">
+          <i class="fa-solid fa-shield-halved text-2xl"></i>
+        </div>
+        <h1 class="text-2xl sm:text-3xl font-black tracking-tight text-white">Log In to BlueLine OS</h1>
+        <p class="text-xs sm:text-sm text-slate-300">
+          Enter your credentials to clear roster authorization and return to the Scout Desk.
+        </p>
       </div>
-      <div class="persona-chips">
-        <button type="button" onclick="loginPersona('usr_athlete_hage')" class="persona-chip">
-          <span>⚡</span>
-          <span style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Michael Hage (Player)</span>
-        </button>
-        <button type="button" onclick="loginPersona('usr_scout_marr')" class="persona-chip">
-          <span>🔍</span>
-          <span style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Dan Marr (Scout)</span>
-        </button>
-        <button type="button" onclick="loginPersona('usr_coach_nightingale')" class="persona-chip">
-          <span>🏒</span>
-          <span style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">A. Nightingale (Coach)</span>
-        </button>
-        <button type="button" onclick="loginPersona('usr_parent_hage')" class="persona-chip">
-          <span>👨‍👩‍👦</span>
-          <span style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Sarah Hage (Parent)</span>
-        </button>
+
+      <!-- Role Selection Segmented Control -->
+      <div class="space-y-2">
+        <label class="block text-xs font-mono font-bold text-slate-300 uppercase tracking-wider">
+          1. Select Your Active Roster Role:
+        </label>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+          <button type="button" onclick="setRoleSelect('scout')" id="roleBtn_scout" class="role-tab-btn p-2.5 rounded-xl border border-sky-500 bg-sky-950/70 text-white font-bold text-xs flex flex-col items-center gap-1 transition shadow-lg shadow-sky-500/20">
+            <span class="text-base">🔭</span>
+            <span class="leading-tight">Scout / Recruiter</span>
+            <span class="text-[9px] text-sky-400 font-mono font-normal">All 22+ Features</span>
+          </button>
+          <button type="button" onclick="setRoleSelect('coach')" id="roleBtn_coach" class="role-tab-btn p-2.5 rounded-xl border border-slate-800 bg-slate-900/80 text-slate-300 hover:text-white hover:border-slate-700 font-bold text-xs flex flex-col items-center gap-1 transition">
+            <span class="text-base">📋</span>
+            <span class="leading-tight">Head Coach</span>
+            <span class="text-[9px] text-slate-400 font-mono font-normal">All 22+ Features</span>
+          </button>
+          <button type="button" onclick="setRoleSelect('athlete')" id="roleBtn_athlete" class="role-tab-btn p-2.5 rounded-xl border border-slate-800 bg-slate-900/80 text-slate-300 hover:text-white hover:border-slate-700 font-bold text-xs flex flex-col items-center gap-1 transition">
+            <span class="text-base">⚡</span>
+            <span class="leading-tight">Player / Athlete</span>
+            <span class="text-[9px] text-slate-400 font-mono font-normal">Passport & XP</span>
+          </button>
+          <button type="button" onclick="setRoleSelect('parent')" id="roleBtn_parent" class="role-tab-btn p-2.5 rounded-xl border border-slate-800 bg-slate-900/80 text-slate-300 hover:text-white hover:border-slate-700 font-bold text-xs flex flex-col items-center gap-1 transition">
+            <span class="text-base">👨‍👩‍👦</span>
+            <span class="leading-tight">Family Advisor</span>
+            <span class="text-[9px] text-slate-400 font-mono font-normal">Advisory Oversight</span>
+          </button>
+        </div>
       </div>
+
+      <!-- Dynamic Role Explainer Pill -->
+      <div id="roleExplainer" class="p-3 rounded-xl bg-sky-950/40 border border-sky-500/30 text-xs text-slate-300 flex items-start gap-2.5 leading-relaxed">
+        <i class="fa-solid fa-circle-check text-sky-400 mt-0.5 shrink-0"></i>
+        <div>
+          <strong class="text-white">Scout / Recruiter Tier ($22.99/mo):</strong> Complete combined access across all 22 analytical modules + direct routing to the Lead Scout Desk (`scout.html`) and The Wire direct messaging.
+        </div>
+      </div>
+
+      <!-- Primary Login Form -->
+      <form id="loginForm" onsubmit="handleLoginSubmit(event)" class="space-y-4">
+        
+        <!-- Hidden Role Holder -->
+        <input type="hidden" id="selectedRoleInput" name="role" value="scout">
+
+        <!-- Email / Username Input -->
+        <div class="space-y-1.5">
+          <label for="loginEmail" class="block text-xs font-mono font-bold text-slate-300 uppercase tracking-wider">
+            Email or Roster Identity
+          </label>
+          <div class="relative">
+            <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+              <i class="fa-solid fa-envelope text-sm"></i>
+            </div>
+            <input type="text" id="loginEmail" name="email" required placeholder="scout.marr@nhlcentralscouting.com or your email" value="dmarr@nhlcentralscouting.com" class="w-full pl-10 pr-4 py-3 rounded-xl bg-slate-950/90 border border-slate-800 text-white placeholder-slate-500 glow-input text-sm font-sans transition">
+          </div>
+        </div>
+
+        <!-- Password Input -->
+        <div class="space-y-1.5">
+          <div class="flex items-center justify-between">
+            <label for="loginPassword" class="block text-xs font-mono font-bold text-slate-300 uppercase tracking-wider">
+              Password
+            </label>
+            <button type="button" onclick="openForgotPasswordModal()" class="text-xs text-sky-400 hover:text-sky-300 font-mono transition">
+              Forgot Password?
+            </button>
+          </div>
+          <div class="relative">
+            <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+              <i class="fa-solid fa-lock text-sm"></i>
+            </div>
+            <input type="password" id="loginPassword" name="password" required value="password123" placeholder="••••••••••••" class="w-full pl-10 pr-11 py-3 rounded-xl bg-slate-950/90 border border-slate-800 text-white placeholder-slate-500 glow-input text-sm font-mono transition">
+            <button type="button" onclick="togglePasswordVisibility()" class="absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-white transition" title="Toggle password visibility">
+              <i id="passwordEyeIcon" class="fa-solid fa-eye text-sm"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Destination After Login Selector -->
+        <div class="space-y-1.5">
+          <label for="destinationSelect" class="block text-xs font-mono font-bold text-slate-300 uppercase tracking-wider flex items-center justify-between">
+            <span>Direct Post-Login Routing:</span>
+            <span class="text-[10px] text-emerald-400 lowercase font-normal">verified endpoint</span>
+          </label>
+          <div class="relative">
+            <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-sky-400">
+              <i class="fa-solid fa-location-arrow text-sm"></i>
+            </div>
+            <select id="destinationSelect" name="destination" class="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-950/90 border border-sky-500/40 text-white text-xs font-sans glow-input transition cursor-pointer">
+              <option value="scout.html" selected>🔭 Scout Desk Workspace (scout.html) — [RECOMMENDED]</option>
+              <option value="app.html">⚡ Athlete & Coach Command Center (app.html)</option>
+              <option value="database.html">📊 Global Non-NHL Prospect Directory (database.html)</option>
+              <option value="community.html">🌐 The Wire Social & Direct Messaging (community.html)</option>
+              <option value="film.html">🎥 AI Film Room & Telestration Lab (film.html)</option>
+              <option value="security.html">🛡️ Cyber Shield Command (security.html)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Remember Me & Session Clearances -->
+        <div class="flex items-center justify-between pt-1">
+          <label class="flex items-center gap-2 cursor-pointer text-xs text-slate-300 select-none">
+            <input type="checkbox" id="rememberMeCheckbox" checked class="w-4 h-4 rounded bg-slate-950 border-slate-700 text-sky-600 focus:ring-sky-500 focus:ring-offset-0">
+            <span>Remember workstation session (30 days)</span>
+          </label>
+          <span class="text-[10px] font-mono text-slate-400">SSL SHA-256</span>
+        </div>
+
+        <!-- Primary Action Submit Button -->
+        <button type="submit" id="submitLoginBtn" class="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-sky-600 via-blue-600 to-indigo-600 hover:from-sky-500 hover:to-indigo-500 text-white font-extrabold text-sm shadow-xl shadow-sky-600/30 border border-sky-400/50 transition transform active:scale-[0.99] flex items-center justify-center gap-2 cursor-pointer">
+          <span id="submitBtnIcon"><i class="fa-solid fa-right-to-bracket"></i></span>
+          <span id="submitBtnText">Sign In & Launch Scout Desk</span>
+          <i class="fa-solid fa-arrow-right text-xs"></i>
+        </button>
+
+      </form>
+
+      <!-- Biometric & Social Alternative SSO Options -->
+      <div class="space-y-3 pt-2 border-t border-slate-800">
+        <div class="flex items-center gap-2 text-[10px] font-mono text-slate-400 uppercase tracking-wider justify-center">
+          <div class="h-px bg-slate-800 flex-1"></div>
+          <span>Or Quick Identity Clearance</span>
+          <div class="h-px bg-slate-800 flex-1"></div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-2.5">
+          <button type="button" onclick="loginWithGoogleSSO()" class="py-2.5 px-3 rounded-xl bg-slate-950/80 hover:bg-slate-900 border border-slate-800 hover:border-slate-700 text-xs text-slate-200 font-semibold transition flex items-center justify-center gap-2 cursor-pointer">
+            <i class="fa-brands fa-google text-red-400"></i>
+            <span>Google SSO</span>
+          </button>
+          <button type="button" onclick="loginWithBiometricPasskey()" class="py-2.5 px-3 rounded-xl bg-slate-950/80 hover:bg-slate-900 border border-slate-800 hover:border-slate-700 text-xs text-slate-200 font-semibold transition flex items-center justify-center gap-2 cursor-pointer">
+            <i class="fa-solid fa-fingerprint text-emerald-400"></i>
+            <span>Passkey / Face ID</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 1-Click Instant Demo Personas -->
+      <div class="pt-3 border-t border-slate-800 space-y-2.5">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-mono font-bold text-amber-300 uppercase tracking-wider flex items-center gap-1.5">
+            <i class="fa-solid fa-bolt text-amber-400"></i> 1-Click Demo Personas
+          </span>
+          <span class="text-[10px] text-sky-400 font-mono">Routes to Scout Desk</span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+          <!-- Dan Marr (Scout) -->
+          <button type="button" onclick="quickLoginPersona('usr_scout_marr', 'scout.html')" class="p-2.5 rounded-xl bg-slate-950/90 hover:bg-slate-900 border border-amber-500/40 hover:border-amber-400 text-left transition flex items-center gap-3 group cursor-pointer">
+            <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-amber-500 to-indigo-600 text-white flex items-center justify-center text-sm shrink-0 font-bold">
+              🔍
+            </div>
+            <div class="min-w-0 flex-1">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold text-white group-hover:text-amber-300 truncate">Dan Marr</span>
+                <span class="text-[9px] px-1.5 py-0.2 rounded bg-amber-500/20 text-amber-300 font-mono font-bold">SCOUT</span>
+              </div>
+              <p class="text-[10px] text-slate-400 truncate">Chief Amateur Scout · Central Scouting</p>
+            </div>
+          </button>
+
+          <!-- Adam Nightingale (Coach) -->
+          <button type="button" onclick="quickLoginPersona('usr_coach_nightingale', 'scout.html')" class="p-2.5 rounded-xl bg-slate-950/90 hover:bg-slate-900 border border-slate-800 hover:border-sky-400 text-left transition flex items-center gap-3 group cursor-pointer">
+            <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-emerald-600 to-teal-800 text-white flex items-center justify-center text-sm shrink-0 font-bold">
+              🏒
+            </div>
+            <div class="min-w-0 flex-1">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold text-white group-hover:text-sky-300 truncate">A. Nightingale</span>
+                <span class="text-[9px] px-1.5 py-0.2 rounded bg-emerald-500/20 text-emerald-300 font-mono font-bold">COACH</span>
+              </div>
+              <p class="text-[10px] text-slate-400 truncate">Head Coach · Michigan State (NCAA)</p>
+            </div>
+          </button>
+
+          <!-- Michael Hage (Athlete) -->
+          <button type="button" onclick="quickLoginPersona('usr_athlete_hage', 'scout.html')" class="p-2.5 rounded-xl bg-slate-950/90 hover:bg-slate-900 border border-slate-800 hover:border-cyan-400 text-left transition flex items-center gap-3 group cursor-pointer">
+            <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-cyan-600 to-blue-800 text-white flex items-center justify-center text-sm shrink-0 font-bold">
+              ⚡
+            </div>
+            <div class="min-w-0 flex-1">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold text-white group-hover:text-cyan-300 truncate">Michael Hage</span>
+                <span class="text-[9px] px-1.5 py-0.2 rounded bg-cyan-500/20 text-cyan-300 font-mono font-bold">PLAYER</span>
+              </div>
+              <p class="text-[10px] text-slate-400 truncate">Forward · University of Michigan</p>
+            </div>
+          </button>
+
+          <!-- Sarah Hage (Parent) -->
+          <button type="button" onclick="quickLoginPersona('usr_parent_hage', 'scout.html')" class="p-2.5 rounded-xl bg-slate-950/90 hover:bg-slate-900 border border-slate-800 hover:border-purple-400 text-left transition flex items-center gap-3 group cursor-pointer">
+            <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-purple-600 to-pink-700 text-white flex items-center justify-center text-sm shrink-0 font-bold">
+              👨‍👩‍👦
+            </div>
+            <div class="min-w-0 flex-1">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold text-white group-hover:text-purple-300 truncate">Sarah Hage</span>
+                <span class="text-[9px] px-1.5 py-0.2 rounded bg-purple-500/20 text-purple-300 font-mono font-bold">PARENT</span>
+              </div>
+              <p class="text-[10px] text-slate-400 truncate">Family Advisor & Guardian Oversight</p>
+            </div>
+          </button>
+        </div>
+      </div>
+
+      <!-- Footer Callout -->
+      <div class="text-center pt-2 text-xs text-slate-400">
+        Don't have a verified credentials passport? 
+        <a href="signup.html" class="text-sky-400 hover:text-sky-300 font-bold underline transition ml-1">Sign up for immediate access</a>
+      </div>
+
     </div>
 
-    <p>Don’t have an account? <a href="signup.html">Sign up</a></p>
+    <!-- ========================================================================= -->
+    <!-- COMPREHENSIVE 26-MODULE ECOSYSTEM BUTTON DIRECTORY ("buttons at bottom") -->
+    <!-- ========================================================================= -->
+    <section class="space-y-6 pt-8 border-t border-slate-800">
+      
+      <div class="flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <div class="flex items-center gap-2 mb-1">
+            <span class="px-2 py-0.5 rounded-md bg-indigo-500/20 text-indigo-300 font-mono text-[10px] font-bold border border-indigo-500/30 uppercase tracking-wider">COMPLETE PLATFORM NAVIGATION</span>
+            <span class="text-xs text-slate-400 font-mono">26 Interactive Modules</span>
+          </div>
+          <h2 class="text-xl sm:text-2xl font-black text-white tracking-tight">
+            Direct Access to All Workspaces & Operations Desks
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-300">
+            Click any button below to jump straight into any workspace, performance lab, or governance hub.
+          </p>
+        </div>
+        <div class="flex items-center gap-2">
+          <a href="scout.html" class="px-4 py-2 rounded-xl bg-gradient-to-r from-sky-600 to-indigo-600 hover:from-sky-500 hover:to-indigo-500 text-white font-bold text-xs shadow-lg shadow-sky-600/20 transition flex items-center gap-1.5">
+            <i class="fa-solid fa-binoculars"></i>
+            <span>Launch Scout Desk</span>
+          </a>
+          <button onclick="openSitemapModal()" class="px-3 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-300 hover:text-white font-mono text-xs transition flex items-center gap-1.5 cursor-pointer">
+            <i class="fa-solid fa-sitemap text-sky-400"></i>
+            <span>View Site Map</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Category 1: Rink & Game Operations -->
+      <div class="space-y-3">
+        <div class="flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-sky-400"></span>
+          <h3 class="text-xs font-mono font-bold text-sky-300 uppercase tracking-wider">1. Rink & Game Operations (5 Modules)</h3>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
+          <a href="scoreboard.html" class="p-3.5 rounded-2xl bg-slate-900/80 hover:bg-slate-850 border border-slate-800 hover:border-sky-500/50 transition group flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between text-base mb-1">
+                <span>📡</span>
+                <span class="text-[10px] font-mono text-sky-400 font-bold group-hover:translate-x-0.5 transition">Open →</span>
+              </div>
+              <h4 class="text-xs font-bold text-white group-hover:text-sky-300 transition">Game Center</h4>
+              <p class="text-[11px] text-slate-400 line-clamp-2 mt-0.5">Live scoreboard, period shot charts & xG telemetry</p>
+            </div>
+            <span class="text-[9px] font-mono text-slate-400 mt-2">scoreboard.html</span>
+          </a>
+
+          <a href="film.html" class="p-3.5 rounded-2xl bg-slate-900/80 hover:bg-slate-850 border border-slate-800 hover:border-sky-500/50 transition group flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between text-base mb-1">
+                <span>🎥</span>
+                <span class="text-[10px] font-mono text-sky-400 font-bold group-hover:translate-x-0.5 transition">Open →</span>
+              </div>
+              <h4 class="text-xs font-bold text-white group-hover:text-sky-300 transition">AI Film Room</h4>
+              <p class="text-[11px] text-slate-400 line-clamp-2 mt-0.5">Automated telestration, tactical tagging & clip breakdown</p>
+            </div>
+            <span class="text-[9px] font-mono text-slate-400 mt-2">film.html</span>
+          </a>
+
+          <a href="rink3d.html" class="p-3.5 rounded-2xl bg-slate-900/80 hover:bg-slate-850 border border-slate-800 hover:border-sky-500/50 transition group flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between text-base mb-1">
+                <span>🧊</span>
+                <span class="text-[10px] font-mono text-sky-400 font-bold group-hover:translate-x-0.5 transition">Open →</span>
+              </div>
+              <h4 class="text-xs font-bold text-white group-hover:text-sky-300 transition">3D Virtual Rink</h4>
+              <p class="text-[11px] text-slate-400 line-clamp-2 mt-0.5">Interactive WebGL 3D shot spatial distributions & physics</p>
+            </div>
+            <span class="text-[9px] font-mono text-slate-400 mt-2">rink3d.html</span>
+          </a>
+
+          <a href="tracking.html" class="p-3.5 rounded-2xl bg-slate-900/80 hover:bg-slate-850 border border-slate-800 hover:border-sky-500/50 transition group flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between text-base mb-1">
+                <span>🎯</span>
+                <span class="text-[10px] font-mono text-sky-400 font-bold group-hover:translate-x-0.5 transition">Open →</span>
+              </div>
+              <h4 class="text-xs font-bold text-white group-hover:text-sky-300 transition">CV Puck Tracking</h4>
+              <p class="text-[11px] text-slate-400 line-clamp-2 mt-0.5">Computer vision microstats, zone transitions & Royal Road</p>
+            </div>
+            <span class="text-[9px] font-mono text-slate-400 mt-2">tracking.html</span>
+          </a>
+
+          <a href="broadcast_ai.html" class="p-3.5 rounded-2xl bg-slate-900/80 hover:bg-slate-850 border border-slate-800 hover:border-sky-500/50 transition group flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between text-base mb-1">
+                <span>🎙️</span>
+                <span class="text-[10px] font-mono text-sky-400 font-bold group-hover:translate-x-0.5 transition">Open →</span>
+              </div>
+              <h4 class="text-xs font-bold text-white group-hover:text-sky-300 transition">AI Play-by-Play</h4>
+              <p class="text-[11px] text-slate-400 line-clamp-2 mt-0.5">Voice commentary synthesizer & automated live recap</p>
+            </div>
+            <span class="text-[9px] font-mono text-slate-400 mt-2">broadcast_ai.html</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Category 2: Performance Labs & Player Profiles -->
+      <div class="space-y-3">
+        <div class="flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-teal-400"></span>
+          <h3 class="text-xs font-mono font-bold text-teal-300 uppercase tracking-wider">2. Performance Labs & Player Profiles (4 Modules)</h3>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+          <a href="player.html" class="p-3.5 rounded-2xl bg-slate-900/80 hover:bg-slate-850 border border-slate-800 hover:border-teal-500/50 transition group flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between text-base mb-1">
+                <span>👤</span>
+                <span class="text-[10px] font-mono text-teal-400 font-bold group-hover:translate-x-0.5 transition">Open →</span>
+              </div>
+              <h4 class="text-xs font-bold text-white group-hover:text-teal-300 transition">Player Passport</h4>
+              <p class="text-[11px] text-slate-400 line-clamp-2 mt-0.5">360° athlete dossier, development trajectory & stats history</p>
+            </div>
+            <span class="text-[9px] font-mono text-slate-400 mt-2">player.html</span>
+          </a>
+
+          <a href="combine.html" class="p-3.5 rounded-2xl bg-slate-900/80 hover:bg-slate-850 border border-slate-800 hover:border-teal-500/50 transition group flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between text-base mb-1">
+                <span>🧬</span>
+                <span class="text-[10px] font-mono text-teal-400 font-bold group-hover:translate-x-0.5 transition">Open →</span>
+              </div>
+              <h4 class="text-xs font-bold text-white group-hover:text-teal-300 transition">Combine Lab</h4>
+              <p class="text-[11px] text-slate-400 line-clamp-2 mt-0.5">Wingate anaerobic power, VO2 max & physical testing matrix</p>
+            </div>
+            <span class="text-[9px] font-mono text-slate-400 mt-2">combine.html</span>
+          </a>
+
+          <a href="compare.html" class="p-3.5 rounded-2xl bg-slate-900/80 hover:bg-slate-850 border border-slate-800 hover:border-teal-500/50 transition group flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between text-base mb-1">
+                <span>⚖️</span>
+                <span class="text-[10px] font-mono text-teal-400 font-bold group-hover:translate-x-0.5 transition">Open →</span>
+              </div>
+              <h4 class="text-xs font-bold text-white group-hover:text-teal-300 transition">Compare Lab</h4>
+              <p class="text-[11px] text-slate-400 line-clamp-2 mt-0.5">8-axis radar overlays, head-to-head metrics & NHLe projections</p>
+            </div>
+            <span class="text-[9px] font-mono text-slate-400 mt-2">compare.html</span>
+          </a>
+
+          <a href="crease.html" class="p-3.5 rounded-2xl bg-slate-900/80 hover:bg-slate-850 border border-slate-800 hover:border-teal-500/50 transition group flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between text-base mb-1">
+                <span>🥅</span>
+                <span class="text-[10px] font-mono text-teal-400 font-bold group-hover:translate-x-0.5 transition">Open →</span>
+              </div>
+              <h4 class="text-xs font-bold text-white group-hover:text-teal-300 transition">Crease Lab</h4>
+              <p class="text-[11px] text-slate-400 line-clamp-2 mt-0.5">Goalie RVH post-seals, high/low danger save % & fatigue indices</p>
+            </div>
+            <span class="text-[9px] font-mono text-slate-400 mt-2">crease.html</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Category 3: Coaching & Tournament Operations -->
+      <div class="space-y-3">
+        <div class="flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
+          <h3 class="text-xs font-mono font-bold text-amber-300 uppercase tracking-wider">3. Coaching & Tournaments (4 Modules)</h3>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+          <a href="tactics.html" class="p-3.5 rounded-2xl bg-slate-900/80 hover:bg-slate-850 border border-slate-800 hover:border-amber-500/50 transition group flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between text-base mb-1">
+                <span>📋</span>
+                <span class="text-[10px] font-mono text-amber-400 font-bold group-hover:translate-x-0.5 transition">Open →</span>
+              </div>
+              <h4 class="text-xs font-bold text-white group-hover:text-amber-300 transition">Tactics & Systems</h4>
+              <p class="text-[11px] text-slate-400 line-clamp-2 mt-0.5">AI lineup optimizer, 5v5/PP/PK chemistry & forecheck diagrammer</p>
+            </div>
+            <span class="text-[9px] font-mono text-slate-400 mt-2">tactics.html</span>
+          </a>
+
+          <a href="tournament.html" class="p-3.5 rounded-2xl bg-slate-900/80 hover:bg-slate-850 border border-slate-800 hover:border-amber-500/50 transition group flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between text-base mb-1">
+                <span>🏆</span>
+                <span class="text-[10px] font-mono text-amber-400 font-bold group-hover:translate-x-0.5 transition">Open →</span>
+              </div>
+              <h4 class="text-xs font-bold text-white group-hover:text-amber-300 transition">Tournaments</h4>
+              <p class="text-[11px] text-slate-400 line-clamp-2 mt-0.5">Bracketology war room: Frozen Four, Memorial Cup & WJC</p>
+            </div>
+            <span class="text-[9px] font-mono text-slate-400 mt-2">tournament.html</span>
+          </a>
+
+          <a href="community.html" class="p-3.5 rounded-2xl bg-slate-900/80 hover:bg-slate-850 border border-slate-800 hover:border-amber-500/50 transition group flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between text-base mb-1">
+                <span>🌐</span>
+                <span class="text-[10px] font-mono text-amber-400 font-bold group-hover:translate-x-0.5 transition">Open →</span>
+              </div>
+              <h4 class="text-xs font-bold text-white group-hover:text-amber-300 transition">The Wire</h4>
+              <p class="text-[11px] text-slate-400 line-clamp-2 mt-0.5">Hockey social network, verified athlete badges & direct DMs</p>
+            </div>
+            <span class="text-[9px] font-mono text-slate-400 mt-2">community.html</span>
+          </a>
+
+          <a href="app.html" class="p-3.5 rounded-2xl bg-slate-900/80 hover:bg-slate-850 border border-slate-800 hover:border-amber-500/50 transition group flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between text-base mb-1">
+                <span>⚡</span>
+                <span class="text-[10px] font-mono text-amber-400 font-bold group-hover:translate-x-0.5 transition">Open →</span>
+              </div>
+              <h4 class="text-xs font-bold text-white group-hover:text-amber-300 transition">Player OS Dashboard</h4>
+              <p class="text-[11px] text-slate-400 line-clamp-2 mt-0.5">Interactive athlete passport, training logs & coach feedback</p>
+            </div>
+            <span class="text-[9px] font-mono text-slate-400 mt-2">app.html</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Category 4: Front Office, Scouting & Markets -->
+      <div class="space-y-3">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+            <h3 class="text-xs font-mono font-bold text-emerald-300 uppercase tracking-wider">4. Front Office, Scouting & Markets (8 Modules)</h3>
+          </div>
+          <span class="text-[10px] font-mono text-sky-400 font-bold">★ FEATURING LEAD SCOUT DESK</span>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+          
+          <!-- Scout Desk (Highlighted Priority Card) -->
+          <a href="scout.html" class="p-3.5 rounded-2xl bg-gradient-to-br from-sky-950/90 via-slate-900 to-indigo-950/90 hover:from-sky-900/90 hover:to-indigo-900/90 border-2 border-sky-400/80 transition group flex flex-col justify-between shadow-xl shadow-sky-500/10">
+            <div>
+              <div class="flex items-center justify-between text-base mb-1">
+                <span>🔭</span>
+                <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-sky-500/20 text-sky-300 font-bold border border-sky-500/30">FLAGSHIP DESK</span>
+              </div>
+              <h4 class="text-xs font-bold text-white group-hover:text-sky-300 transition flex items-center gap-1.5">
+                <span>Scout Desk Workspace</span>
+                <i class="fa-solid fa-star text-amber-400 text-[10px]"></i>
+              </h4>
+              <p class="text-[11px] text-slate-300 line-clamp-2 mt-0.5 font-medium">Director of Scouting workstation, target board, player reports & live feeds</p>
+            </div>
+            <span class="text-[9px] font-mono text-sky-400 font-bold mt-2">scout.html (Direct Post-Login)</span>
+          </a>
+
+          <a href="database.html" class="p-3.5 rounded-2xl bg-slate-900/80 hover:bg-slate-850 border border-slate-800 hover:border-emerald-500/50 transition group flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between text-base mb-1">
+                <span>📊</span>
+                <span class="text-[10px] font-mono text-emerald-400 font-bold group-hover:translate-x-0.5 transition">Open →</span>
+              </div>
+              <h4 class="text-xs font-bold text-white group-hover:text-emerald-300 transition">Global Directory</h4>
+              <p class="text-[11px] text-slate-400 line-clamp-2 mt-0.5">5,000+ Non-NHL verified amateur dossiers, filters & rankings</p>
+            </div>
+            <span class="text-[9px] font-mono text-slate-400 mt-2">database.html</span>
+          </a>
+
+          <a href="portal.html" class="p-3.5 rounded-2xl bg-slate-900/80 hover:bg-slate-850 border border-slate-800 hover:border-emerald-500/50 transition group flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between text-base mb-1">
+                <span>🔄</span>
+                <span class="text-[10px] font-mono text-emerald-400 font-bold group-hover:translate-x-0.5 transition">Open →</span>
+              </div>
+              <h4 class="text-xs font-bold text-white group-hover:text-emerald-300 transition">Transfer Portal</h4>
+              <p class="text-[11px] text-slate-400 line-clamp-2 mt-0.5">NCAA recruitment radar, transfer entries & NIL valuations</p>
+            </div>
+            <span class="text-[9px] font-mono text-slate-400 mt-2">portal.html</span>
+          </a>
+
+          <a href="draft.html" class="p-3.5 rounded-2xl bg-slate-900/80 hover:bg-slate-850 border border-slate-800 hover:border-emerald-500/50 transition group flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between text-base mb-1">
+                <span>🎯</span>
+                <span class="text-[10px] font-mono text-emerald-400 font-bold group-hover:translate-x-0.5 transition">Open →</span>
+              </div>
+              <h4 class="text-xs font-bold text-white group-hover:text-emerald-300 transition">Draft Simulator</h4>
+              <p class="text-[11px] text-slate-400 line-clamp-2 mt-0.5">7-round Monte Carlo simulation, lottery odds & draft boards</p>
+            </div>
+            <span class="text-[9px] font-mono text-slate-400 mt-2">draft.html</span>
+          </a>
+
+          <a href="caplab.html" class="p-3.5 rounded-2xl bg-slate-900/80 hover:bg-slate-850 border border-slate-800 hover:border-emerald-500/50 transition group flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between text-base mb-1">
+                <span>💵</span>
+                <span class="text-[10px] font-mono text-emerald-400 font-bold group-hover:translate-x-0.5 transition">Open →</span>
+              </div>
+              <h4 class="text-xs font-bold text-white group-hover:text-emerald-300 transition">NCAA NIL Cap Lab</h4>
+              <p class="text-[11px] text-slate-400 line-clamp-2 mt-0.5">Roster valuation simulator, NIL budget allocations & contracts</p>
+            </div>
+            <span class="text-[9px] font-mono text-slate-400 mt-2">caplab.html</span>
+          </a>
+
+          <a href="international.html" class="p-3.5 rounded-2xl bg-slate-900/80 hover:bg-slate-850 border border-slate-800 hover:border-emerald-500/50 transition group flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between text-base mb-1">
+                <span>🌍</span>
+                <span class="text-[10px] font-mono text-emerald-400 font-bold group-hover:translate-x-0.5 transition">Open →</span>
+              </div>
+              <h4 class="text-xs font-bold text-white group-hover:text-emerald-300 transition">International Radar</h4>
+              <p class="text-[11px] text-slate-400 line-clamp-2 mt-0.5">European junior leagues, tournament rosters & Olympic rink metrics</p>
+            </div>
+            <span class="text-[9px] font-mono text-slate-400 mt-2">international.html</span>
+          </a>
+
+          <a href="market.html" class="p-3.5 rounded-2xl bg-slate-900/80 hover:bg-slate-850 border border-slate-800 hover:border-emerald-500/50 transition group flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between text-base mb-1">
+                <span>💼</span>
+                <span class="text-[10px] font-mono text-emerald-400 font-bold group-hover:translate-x-0.5 transition">Open →</span>
+              </div>
+              <h4 class="text-xs font-bold text-white group-hover:text-emerald-300 transition">Trade & Market Desk</h4>
+              <p class="text-[11px] text-slate-400 line-clamp-2 mt-0.5">Multi-team roster trade machine, player equity & equipment deals</p>
+            </div>
+            <span class="text-[9px] font-mono text-slate-400 mt-2">market.html</span>
+          </a>
+
+          <a href="pathway.html" class="p-3.5 rounded-2xl bg-slate-900/80 hover:bg-slate-850 border border-slate-800 hover:border-emerald-500/50 transition group flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between text-base mb-1">
+                <span>🛣️</span>
+                <span class="text-[10px] font-mono text-emerald-400 font-bold group-hover:translate-x-0.5 transition">Open →</span>
+              </div>
+              <h4 class="text-xs font-bold text-white group-hover:text-emerald-300 transition">Career Pathway</h4>
+              <p class="text-[11px] text-slate-400 line-clamp-2 mt-0.5">NCAA vs Major Junior career progression model & timeline</p>
+            </div>
+            <span class="text-[9px] font-mono text-slate-400 mt-2">pathway.html</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Category 5: Security, Swarm Intelligence & Governance -->
+      <div class="space-y-3">
+        <div class="flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-indigo-400"></span>
+          <h3 class="text-xs font-mono font-bold text-indigo-300 uppercase tracking-wider">5. Security, Intelligence & Platform (5 Modules)</h3>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
+          <a href="security.html" class="p-3.5 rounded-2xl bg-slate-900/80 hover:bg-slate-850 border border-slate-800 hover:border-indigo-500/50 transition group flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between text-base mb-1">
+                <span>🛡️</span>
+                <span class="text-[10px] font-mono text-indigo-400 font-bold group-hover:translate-x-0.5 transition">Open →</span>
+              </div>
+              <h4 class="text-xs font-bold text-white group-hover:text-indigo-300 transition">Cyber Shield</h4>
+              <p class="text-[11px] text-slate-400 line-clamp-2 mt-0.5">Real-time visitor IP tracking, RASP telemetry & intrusion defense</p>
+            </div>
+            <span class="text-[9px] font-mono text-slate-400 mt-2">security.html</span>
+          </a>
+
+          <a href="agents.html" class="p-3.5 rounded-2xl bg-slate-900/80 hover:bg-slate-850 border border-slate-800 hover:border-indigo-500/50 transition group flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between text-base mb-1">
+                <span>🤖</span>
+                <span class="text-[10px] font-mono text-indigo-400 font-bold group-hover:translate-x-0.5 transition">Open →</span>
+              </div>
+              <h4 class="text-xs font-bold text-white group-hover:text-indigo-300 transition">24-Agent Swarm</h4>
+              <p class="text-[11px] text-slate-400 line-clamp-2 mt-0.5">Live HTTP crawlers, automated web ingestion & shift telemetry</p>
+            </div>
+            <span class="text-[9px] font-mono text-slate-400 mt-2">agents.html</span>
+          </a>
+
+          <a href="signup.html" class="p-3.5 rounded-2xl bg-slate-900/80 hover:bg-slate-850 border border-slate-800 hover:border-indigo-500/50 transition group flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between text-base mb-1">
+                <span>📝</span>
+                <span class="text-[10px] font-mono text-indigo-400 font-bold group-hover:translate-x-0.5 transition">Open →</span>
+              </div>
+              <h4 class="text-xs font-bold text-white group-hover:text-indigo-300 transition">Registration & Pricing</h4>
+              <p class="text-[11px] text-slate-400 line-clamp-2 mt-0.5">Role selection ($4.99 / $22.99), tier breakdown & passport creation</p>
+            </div>
+            <span class="text-[9px] font-mono text-slate-400 mt-2">signup.html</span>
+          </a>
+
+          <a href="index.html" class="p-3.5 rounded-2xl bg-slate-900/80 hover:bg-slate-850 border border-slate-800 hover:border-indigo-500/50 transition group flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between text-base mb-1">
+                <span>🏠</span>
+                <span class="text-[10px] font-mono text-indigo-400 font-bold group-hover:translate-x-0.5 transition">Open →</span>
+              </div>
+              <h4 class="text-xs font-bold text-white group-hover:text-indigo-300 transition">Home & Checkout</h4>
+              <p class="text-[11px] text-slate-400 line-clamp-2 mt-0.5">Instant Stripe-grade modal payment checkout & platform showcase</p>
+            </div>
+            <span class="text-[9px] font-mono text-slate-400 mt-2">index.html</span>
+          </a>
+
+          <a href="login.html" class="p-3.5 rounded-2xl bg-slate-900/80 hover:bg-slate-850 border border-sky-500/50 transition group flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between text-base mb-1">
+                <span>🔑</span>
+                <span class="text-[10px] font-mono text-sky-400 font-bold">ACTIVE PAGE</span>
+              </div>
+              <h4 class="text-xs font-bold text-white group-hover:text-sky-300 transition">Identity Gateway</h4>
+              <p class="text-[11px] text-slate-400 line-clamp-2 mt-0.5">Executive sign-in, 1-click persona clearance & Scout Desk router</p>
+            </div>
+            <span class="text-[9px] font-mono text-slate-400 mt-2">login.html</span>
+          </a>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- PRIMARY LEGAL, SITEMAP & COMPLIANCE ACTION BUTTONS ("sitemap, terms, policy") -->
+    <!-- ========================================================================= -->
+    <section class="p-6 sm:p-8 rounded-3xl bg-slate-950/80 border border-slate-800/90 space-y-5">
+      <div class="flex flex-wrap items-center justify-between gap-4">
+        <div>
+          <h3 class="text-base sm:text-lg font-black text-white flex items-center gap-2">
+            <i class="fa-solid fa-scale-balanced text-sky-400"></i>
+            <span>Platform Governance, Legal Directory & Scout Support</span>
+          </h3>
+          <p class="text-xs text-slate-300">
+            Click any button below to view comprehensive interactive documentation, legal frameworks, and our complete platform sitemap.
+          </p>
+        </div>
+        <div class="text-xs font-mono text-emerald-400 bg-emerald-950/60 border border-emerald-800/50 px-3 py-1 rounded-xl">
+          ✓ FERPA / COPPA Compliant
+        </div>
+      </div>
+
+      <!-- Button Grid: Sitemap, Terms, Policy, Security, Support -->
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+        
+        <!-- Sitemap Button -->
+        <button onclick="openSitemapModal()" class="p-3.5 rounded-2xl bg-slate-900 hover:bg-slate-800 border border-slate-700/80 hover:border-sky-400 text-left transition group cursor-pointer shadow-md">
+          <div class="w-8 h-8 rounded-xl bg-sky-500/20 text-sky-400 flex items-center justify-center text-sm mb-2 group-hover:scale-110 transition">
+            <i class="fa-solid fa-sitemap"></i>
+          </div>
+          <h4 class="text-xs font-bold text-white group-hover:text-sky-300">Interactive Site Map</h4>
+          <p class="text-[10px] text-slate-400 mt-0.5">26-page hierarchical URL tree</p>
+        </button>
+
+        <!-- Terms of Service Button -->
+        <button onclick="openTermsModal()" class="p-3.5 rounded-2xl bg-slate-900 hover:bg-slate-800 border border-slate-700/80 hover:border-sky-400 text-left transition group cursor-pointer shadow-md">
+          <div class="w-8 h-8 rounded-xl bg-indigo-500/20 text-indigo-400 flex items-center justify-center text-sm mb-2 group-hover:scale-110 transition">
+            <i class="fa-solid fa-file-contract"></i>
+          </div>
+          <h4 class="text-xs font-bold text-white group-hover:text-indigo-300">Terms of Service</h4>
+          <p class="text-[10px] text-slate-400 mt-0.5">Licensing, billing & eligibility</p>
+        </button>
+
+        <!-- Privacy Policy Button -->
+        <button onclick="openPrivacyModal()" class="p-3.5 rounded-2xl bg-slate-900 hover:bg-slate-800 border border-slate-700/80 hover:border-sky-400 text-left transition group cursor-pointer shadow-md">
+          <div class="w-8 h-8 rounded-xl bg-teal-500/20 text-teal-400 flex items-center justify-center text-sm mb-2 group-hover:scale-110 transition">
+            <i class="fa-solid fa-user-shield"></i>
+          </div>
+          <h4 class="text-xs font-bold text-white group-hover:text-teal-300">Privacy Policy</h4>
+          <p class="text-[10px] text-slate-400 mt-0.5">FERPA, COPPA & data rights</p>
+        </button>
+
+        <!-- Cyber Security Policy Button -->
+        <button onclick="openSecurityModal()" class="p-3.5 rounded-2xl bg-slate-900 hover:bg-slate-800 border border-slate-700/80 hover:border-sky-400 text-left transition group cursor-pointer shadow-md">
+          <div class="w-8 h-8 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-sm mb-2 group-hover:scale-110 transition">
+            <i class="fa-solid fa-shield-virus"></i>
+          </div>
+          <h4 class="text-xs font-bold text-white group-hover:text-emerald-300">Security & RASP</h4>
+          <p class="text-[10px] text-slate-400 mt-0.5">Threat defense & encryption</p>
+        </button>
+
+        <!-- Scout Support Button -->
+        <button onclick="openSupportModal()" class="p-3.5 rounded-2xl bg-slate-900 hover:bg-slate-800 border border-slate-700/80 hover:border-sky-400 text-left transition group cursor-pointer shadow-md col-span-2 sm:col-span-1">
+          <div class="w-8 h-8 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-sm mb-2 group-hover:scale-110 transition">
+            <i class="fa-solid fa-headset"></i>
+          </div>
+          <h4 class="text-xs font-bold text-white group-hover:text-amber-300">Scout Help Desk</h4>
+          <p class="text-[10px] text-slate-400 mt-0.5">24/7 technical assistance</p>
+        </button>
+
+      </div>
+    </section>
+
   </main>
 
-  <!-- FOOTER -->
-  <footer class="footer">
-    <p>&copy; PuckPathway Hockey OS</p>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="signup.html">Sign Up</a>
-      <a href="app.html">Player Dashboard</a>
-      <a href="database.html">Directory</a>
-      <a href="security.html">Security</a>
-    </nav>
-    <div class="footer-mission">
-      BlueLine DataWorks is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory.
+  <!-- ========================================================================= -->
+  <!-- MODALS: SITEMAP, TERMS, PRIVACY, SECURITY, SUPPORT, FORGOT PASSWORD -->
+  <!-- ========================================================================= -->
+
+  <!-- 1. INTERACTIVE SITEMAP MODAL -->
+  <div id="sitemapModal" class="fixed inset-0 z-50 modal-backdrop hidden flex items-center justify-center p-4">
+    <div class="bg-slate-950 border border-slate-800 rounded-3xl max-w-4xl w-full max-h-[90vh] flex flex-col shadow-2xl overflow-hidden">
+      <div class="p-5 border-b border-slate-800 flex items-center justify-between bg-slate-900/60">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-sky-500/20 text-sky-400 flex items-center justify-center text-lg">
+            <i class="fa-solid fa-sitemap"></i>
+          </div>
+          <div>
+            <h3 class="text-base font-black text-white">BlueLine DataWorks OS — Master Site Map</h3>
+            <p class="text-xs text-slate-400">Canonical Directory & Live URLs for all 26 Platform Modules</p>
+          </div>
+        </div>
+        <button onclick="closeModal('sitemapModal')" class="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800 transition text-lg cursor-pointer">
+          ✕
+        </button>
+      </div>
+
+      <div class="p-6 overflow-y-auto space-y-6 text-xs text-slate-300 font-sans">
+        
+        <!-- Live Production Domain Notice -->
+        <div class="p-3.5 rounded-xl bg-sky-950/50 border border-sky-500/40 text-sky-200 font-mono text-[11px] flex items-center justify-between flex-wrap gap-2">
+          <span><strong>Base URL:</strong> https://farmadvisorar-ux.github.io/puckpathway-hockey-os/</span>
+          <span class="text-emerald-400">● 26 Verified Endpoints</span>
+        </div>
+
+        <!-- Section 1: Core & Gateways -->
+        <div class="space-y-2">
+          <h4 class="font-mono font-bold text-sky-400 uppercase tracking-wider text-xs border-b border-slate-800 pb-1">
+            Core Workspaces & Identity
+          </h4>
+          <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-mono">
+            <li><a href="index.html" class="text-white hover:text-sky-300 underline">index.html</a> — Home Screen & Instant Payment Checkout</li>
+            <li><a href="scout.html" class="text-amber-300 font-bold hover:text-amber-200 underline">scout.html</a> — Lead Scout Workspace & Target Board</li>
+            <li><a href="app.html" class="text-white hover:text-sky-300 underline">app.html</a> — Athlete & Coach Interactive Command OS</li>
+            <li><a href="signup.html" class="text-white hover:text-sky-300 underline">signup.html</a> — Tiered Account Creation ($4.99 / $22.99)</li>
+            <li><a href="login.html" class="text-sky-300 font-bold hover:text-white underline">login.html</a> — Identity Gateway (Scout Desk Router)</li>
+            <li><a href="agents.html" class="text-white hover:text-sky-300 underline">agents.html</a> — 24-Agent Autonomous Swarm Ingestion</li>
+          </ul>
+        </div>
+
+        <!-- Section 2: Rink & Game Simulation -->
+        <div class="space-y-2">
+          <h4 class="font-mono font-bold text-sky-400 uppercase tracking-wider text-xs border-b border-slate-800 pb-1">
+            Rink & Game Operations
+          </h4>
+          <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-mono">
+            <li><a href="scoreboard.html" class="text-white hover:text-sky-300 underline">scoreboard.html</a> — Game Center & Shot Telemetry</li>
+            <li><a href="film.html" class="text-white hover:text-sky-300 underline">film.html</a> — AI Film Room & Video Telestration</li>
+            <li><a href="rink3d.html" class="text-white hover:text-sky-300 underline">rink3d.html</a> — Interactive 3D Spatial Rink Simulator</li>
+            <li><a href="tracking.html" class="text-white hover:text-sky-300 underline">tracking.html</a> — Computer Vision Puck & Player Tracking</li>
+            <li><a href="broadcast_ai.html" class="text-white hover:text-sky-300 underline">broadcast_ai.html</a> — Automated Play-by-Play Synthesizer</li>
+          </ul>
+        </div>
+
+        <!-- Section 3: Performance Labs -->
+        <div class="space-y-2">
+          <h4 class="font-mono font-bold text-teal-400 uppercase tracking-wider text-xs border-b border-slate-800 pb-1">
+            Performance Labs & Biometrics
+          </h4>
+          <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-mono">
+            <li><a href="player.html" class="text-white hover:text-teal-300 underline">player.html</a> — Comprehensive Athlete Dossier (360°)</li>
+            <li><a href="combine.html" class="text-white hover:text-teal-300 underline">combine.html</a> — Bio-Mechanical Lab & Wingate Testing</li>
+            <li><a href="compare.html" class="text-white hover:text-teal-300 underline">compare.html</a> — Head-to-Head 8-Axis Radar Comparison</li>
+            <li><a href="crease.html" class="text-white hover:text-teal-300 underline">crease.html</a> — Goalie Crease Analytics & Post-Seals</li>
+          </ul>
+        </div>
+
+        <!-- Section 4: Front Office & Tournaments -->
+        <div class="space-y-2">
+          <h4 class="font-mono font-bold text-amber-400 uppercase tracking-wider text-xs border-b border-slate-800 pb-1">
+            Coaching, Front Office & Tournaments
+          </h4>
+          <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-mono">
+            <li><a href="database.html" class="text-white hover:text-amber-300 underline">database.html</a> — 5,000+ Non-NHL Amateur Directory</li>
+            <li><a href="community.html" class="text-white hover:text-amber-300 underline">community.html</a> — The Wire Social & Direct Messaging</li>
+            <li><a href="tactics.html" class="text-white hover:text-amber-300 underline">tactics.html</a> — Lineup Optimizer & Systems Playbook</li>
+            <li><a href="tournament.html" class="text-white hover:text-amber-300 underline">tournament.html</a> — Tournament & Showcase Bracketology</li>
+            <li><a href="portal.html" class="text-white hover:text-amber-300 underline">portal.html</a> — NCAA Transfer Portal & NIL Radar</li>
+            <li><a href="draft.html" class="text-white hover:text-amber-300 underline">draft.html</a> — 7-Round Junior Draft Simulator</li>
+            <li><a href="caplab.html" class="text-white hover:text-amber-300 underline">caplab.html</a> — NCAA NIL & Roster Cap Ledger</li>
+            <li><a href="international.html" class="text-white hover:text-amber-300 underline">international.html</a> — International & Global Scouting</li>
+            <li><a href="market.html" class="text-white hover:text-amber-300 underline">market.html</a> — Trade Desk & Equipment Marketplace</li>
+            <li><a href="pathway.html" class="text-white hover:text-amber-300 underline">pathway.html</a> — NCAA vs Major Junior Career Pathway</li>
+            <li><a href="security.html" class="text-white hover:text-amber-300 underline">security.html</a> — Cyber Shield & IP RASP Telemetry</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="p-4 border-t border-slate-800 bg-slate-900/60 flex justify-between items-center">
+        <span class="text-[11px] text-slate-400 font-mono">BlueLine DataWorks OS v3.5</span>
+        <button onclick="closeModal('sitemapModal')" class="px-4 py-1.5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-bold text-xs cursor-pointer">
+          Close Site Map
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. TERMS OF SERVICE MODAL -->
+  <div id="termsModal" class="fixed inset-0 z-50 modal-backdrop hidden flex items-center justify-center p-4">
+    <div class="bg-slate-950 border border-slate-800 rounded-3xl max-w-3xl w-full max-h-[90vh] flex flex-col shadow-2xl overflow-hidden">
+      <div class="p-5 border-b border-slate-800 flex items-center justify-between bg-slate-900/60">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-indigo-500/20 text-indigo-400 flex items-center justify-center text-lg">
+            <i class="fa-solid fa-file-contract"></i>
+          </div>
+          <div>
+            <h3 class="text-base font-black text-white">BlueLine DataWorks Terms of Service</h3>
+            <p class="text-xs text-slate-400">Enterprise End-User License Agreement & Roster Eligibility Protocol</p>
+          </div>
+        </div>
+        <button onclick="closeModal('termsModal')" class="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800 transition text-lg cursor-pointer">
+          ✕
+        </button>
+      </div>
+
+      <div class="p-6 overflow-y-auto space-y-4 text-xs text-slate-300 leading-relaxed font-sans">
+        <h4 class="text-sm font-bold text-white">1. Non-NHL Amateur Athlete Mandate</h4>
+        <p>
+          BlueLine DataWorks is purpose-built exclusively to track amateur, prep, high school, junior (USHL, NAHL, BCHL, CHL), and collegiate (NCAA Division I/III, ACHA) student-athletes. By utilizing this service, organizations agree to preserve amateur eligibility guardrails in compliance with collegiate athletic associations.
+        </p>
+
+        <h4 class="text-sm font-bold text-white">2. Role-Based Subscriptions & Pricing</h4>
+        <p>
+          Subscribers to the <strong>Scout & Coach Tier</strong> ($22.99/month or $220/annual) receive full combined access to all 22+ analytical modules, including the Lead Scout Desk, advanced micro-telemetry, recruiting boards, and The Wire direct messaging. 
+          Subscribers to the <strong>Player & Family Tier</strong> ($4.99/month) receive athlete passport verification, development progress tracking, and full interactive access to The Wire community with crest stamping.
+        </p>
+
+        <h4 class="text-sm font-bold text-white">3. Immutable Ledger & Biometric Verification</h4>
+        <p>
+          All biometric test scores recorded in the Combine Lab and player dossiers are stamped into an immutable audit ledger with cryptographic block hashing. False attestation of combine numbers or identity impersonation will result in immediate credential revocation.
+        </p>
+
+        <h4 class="text-sm font-bold text-white">4. Autonomous Swarm Web Ingestion</h4>
+        <p>
+          BlueLine DataWorks operates an autonomous 24-agent crawler swarm that queries open-source hockey registries and tournament schedules. Unauthorized extraction, resale, or reverse-engineering of BlueLine’s proprietary Signal Quality Metrics (SQM) is strictly prohibited.
+        </p>
+      </div>
+
+      <div class="p-4 border-t border-slate-800 bg-slate-900/60 flex justify-between items-center">
+        <span class="text-[11px] text-slate-400 font-mono">Last Updated: September 2026</span>
+        <button onclick="closeModal('termsModal')" class="px-4 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs cursor-pointer">
+          Acknowledge & Close
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. PRIVACY POLICY MODAL -->
+  <div id="privacyModal" class="fixed inset-0 z-50 modal-backdrop hidden flex items-center justify-center p-4">
+    <div class="bg-slate-950 border border-slate-800 rounded-3xl max-w-3xl w-full max-h-[90vh] flex flex-col shadow-2xl overflow-hidden">
+      <div class="p-5 border-b border-slate-800 flex items-center justify-between bg-slate-900/60">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-teal-500/20 text-teal-400 flex items-center justify-center text-lg">
+            <i class="fa-solid fa-user-shield"></i>
+          </div>
+          <div>
+            <h3 class="text-base font-black text-white">Student-Athlete & Family Privacy Policy</h3>
+            <p class="text-xs text-slate-400">FERPA & COPPA Protection for Minor and Collegiate Athletes</p>
+          </div>
+        </div>
+        <button onclick="closeModal('privacyModal')" class="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800 transition text-lg cursor-pointer">
+          ✕
+        </button>
+      </div>
+
+      <div class="p-6 overflow-y-auto space-y-4 text-xs text-slate-300 leading-relaxed font-sans">
+        <h4 class="text-sm font-bold text-white">1. Protection of Minor Athlete Records (COPPA)</h4>
+        <p>
+          For student-athletes under 18 years of age, developmental metrics, academic eligibility markers, and personal communications are protected with parental/guardian oversight keys. Contact information is shielded from public unauthenticated scraping.
+        </p>
+
+        <h4 class="text-sm font-bold text-white">2. No Third-Party Data Broker Resale</h4>
+        <p>
+          BlueLine DataWorks does not sell, rent, or trade student-athlete dossiers, combine bio-metrics, or scouting notes to third-party ad networks or commercial brokers. Data remains strictly within authorized scout, coach, and family circles.
+        </p>
+
+        <h4 class="text-sm font-bold text-white">3. Network Telemetry & Shield Defenses</h4>
+        <p>
+          Inbound connections are monitored via our Cyber Shield RASP (Runtime Application Self-Protection) module to detect malicious scraping bots, credential stuffing, and IP anomalies. All telemetry logs are encrypted at rest with AES-256.
+        </p>
+
+        <h4 class="text-sm font-bold text-white">4. Right to Dossier Correction & Claiming</h4>
+        <p>
+          Athletes and families retain the right to verify, claim, and request corrections to their historical statistics, tournament rosters, or bio-mechanical benchmarks via the Player Passport portal.
+        </p>
+      </div>
+
+      <div class="p-4 border-t border-slate-800 bg-slate-900/60 flex justify-between items-center">
+        <span class="text-[11px] text-teal-400 font-mono">FERPA & COPPA Certified</span>
+        <button onclick="closeModal('privacyModal')" class="px-4 py-1.5 rounded-xl bg-teal-600 hover:bg-teal-500 text-white font-bold text-xs cursor-pointer">
+          I Understand
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. CYBER SECURITY & COMPLIANCE MODAL -->
+  <div id="securityModal" class="fixed inset-0 z-50 modal-backdrop hidden flex items-center justify-center p-4">
+    <div class="bg-slate-950 border border-slate-800 rounded-3xl max-w-3xl w-full max-h-[90vh] flex flex-col shadow-2xl overflow-hidden">
+      <div class="p-5 border-b border-slate-800 flex items-center justify-between bg-slate-900/60">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-lg">
+            <i class="fa-solid fa-shield-virus"></i>
+          </div>
+          <div>
+            <h3 class="text-base font-black text-white">Cyber Shield Security Architecture & RASP</h3>
+            <p class="text-xs text-slate-400">256-Bit Cryptographic Ledger & Active Threat Defense</p>
+          </div>
+        </div>
+        <button onclick="closeModal('securityModal')" class="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800 transition text-lg cursor-pointer">
+          ✕
+        </button>
+      </div>
+
+      <div class="p-6 overflow-y-auto space-y-4 text-xs text-slate-300 leading-relaxed font-sans">
+        <div class="grid grid-cols-2 gap-3 mb-2 font-mono text-[11px]">
+          <div class="p-3 rounded-xl bg-emerald-950/40 border border-emerald-700/40">
+            <span class="text-emerald-400 font-bold block">● TLS 1.3 / HTTPS</span>
+            <span>256-bit AES encryption end-to-end</span>
+          </div>
+          <div class="p-3 rounded-xl bg-sky-950/40 border border-sky-700/40">
+            <span class="text-sky-400 font-bold block">● Active Pre-Execution Shield</span>
+            <span>Zero-day script injection mitigation</span>
+          </div>
+        </div>
+
+        <h4 class="text-sm font-bold text-white">Active Defense Capabilities</h4>
+        <p>
+          Every page request within the BlueLine DataWorks OS is validated through the pre-execution security shield (`security_shield.js`) before DOM rendering. Suspicious rapid payloads, automated bot spoofing, and cross-site framing are immediately blocked and reported to our cyber defense telemetry console (`security.html`).
+        </p>
+
+        <h4 class="text-sm font-bold text-white">Cryptographic Session Handshakes</h4>
+        <p>
+          Scout credentials, evaluation ratings, and transfer portal inquiries are signed using SHA-256 token hashes, ensuring tamper-proof integrity across all 26 interconnected enterprise modules.
+        </p>
+      </div>
+
+      <div class="p-4 border-t border-slate-800 bg-slate-900/60 flex justify-between items-center">
+        <a href="security.html" class="text-xs text-emerald-400 hover:text-emerald-300 font-mono underline">View Live Security Console →</a>
+        <button onclick="closeModal('securityModal')" class="px-4 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs cursor-pointer">
+          Done
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. SCOUT HELP DESK & SUPPORT MODAL -->
+  <div id="supportModal" class="fixed inset-0 z-50 modal-backdrop hidden flex items-center justify-center p-4">
+    <div class="bg-slate-950 border border-slate-800 rounded-3xl max-w-xl w-full flex flex-col shadow-2xl overflow-hidden">
+      <div class="p-5 border-b border-slate-800 flex items-center justify-between bg-slate-900/60">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-lg">
+            <i class="fa-solid fa-headset"></i>
+          </div>
+          <div>
+            <h3 class="text-base font-black text-white">24/7 Scout & Coach Help Desk</h3>
+            <p class="text-xs text-slate-400">Direct Support, Identity Verification & Roster Assistance</p>
+          </div>
+        </div>
+        <button onclick="closeModal('supportModal')" class="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800 transition text-lg cursor-pointer">
+          ✕
+        </button>
+      </div>
+
+      <div class="p-6 space-y-4 text-xs text-slate-300 font-sans">
+        <p>
+          Need assistance unlocking your scout workstation, updating team rosters, or claiming an amateur player dossier? Submit a priority ticket below.
+        </p>
+        <form onsubmit="handleSupportSubmit(event)" class="space-y-3">
+          <div>
+            <label class="block text-xs font-mono font-bold text-slate-300 mb-1">Your Email</label>
+            <input type="email" id="supportEmail" required placeholder="name@team.org" class="w-full p-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white text-xs glow-input">
+          </div>
+          <div>
+            <label class="block text-xs font-mono font-bold text-slate-300 mb-1">Issue Category</label>
+            <select id="supportCategory" class="w-full p-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white text-xs glow-input">
+              <option>Scout Desk Clearance & Login Issues</option>
+              <option>Player Profile Claim / Verification</option>
+              <option>Subscription & Billing Support ($4.99 / $22.99)</option>
+              <option>The Wire DMs & Crest Badging</option>
+              <option>Technical Bug / Data Discrepancy</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-mono font-bold text-slate-300 mb-1">Message</label>
+            <textarea id="supportMsg" rows="3" required placeholder="Describe your inquiry..." class="w-full p-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white text-xs glow-input"></textarea>
+          </div>
+          <button type="submit" class="w-full py-2.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-bold text-xs shadow-lg shadow-amber-600/20 transition cursor-pointer">
+            Dispatch Support Request
+          </button>
+        </form>
+      </div>
+
+      <div class="p-4 border-t border-slate-800 bg-slate-900/60 text-center">
+        <span class="text-[11px] text-slate-400">Direct Email: <a href="mailto:support@bluelinedataworks.com" class="text-amber-400 underline">support@bluelinedataworks.com</a></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. FORGOT PASSWORD MODAL -->
+  <div id="forgotPasswordModal" class="fixed inset-0 z-50 modal-backdrop hidden flex items-center justify-center p-4">
+    <div class="bg-slate-950 border border-slate-800 rounded-3xl max-w-md w-full flex flex-col shadow-2xl overflow-hidden">
+      <div class="p-5 border-b border-slate-800 flex items-center justify-between bg-slate-900/60">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-sky-500/20 text-sky-400 flex items-center justify-center text-lg">
+            <i class="fa-solid fa-key"></i>
+          </div>
+          <div>
+            <h3 class="text-base font-black text-white">Reset Credentials</h3>
+            <p class="text-xs text-slate-400">Password Recovery & Multi-Factor Reset</p>
+          </div>
+        </div>
+        <button onclick="closeModal('forgotPasswordModal')" class="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800 transition text-lg cursor-pointer">
+          ✕
+        </button>
+      </div>
+
+      <div class="p-6 space-y-4 text-xs text-slate-300 font-sans">
+        <p>
+          Enter your registered email address below. We'll verify your credential clearance and dispatch a temporary 1-click access token.
+        </p>
+        <form onsubmit="handleForgotSubmit(event)" class="space-y-3">
+          <div>
+            <label class="block text-xs font-mono font-bold text-slate-300 mb-1">Registered Email</label>
+            <input type="email" id="forgotEmailInput" required placeholder="scout@nhlcentralscouting.com" class="w-full p-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white text-xs glow-input">
+          </div>
+          <button type="submit" class="w-full py-2.5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-bold text-xs shadow-lg shadow-sky-600/20 transition cursor-pointer">
+            Send Secure Reset Link
+          </button>
+        </form>
+        <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 text-[11px] text-slate-400">
+          <strong class="text-slate-300">Quick Demo Tip:</strong> All pre-seeded demo accounts (Dan Marr, Adam Nightingale, Michael Hage, Sarah Hage) use password <code class="text-sky-300">password123</code> or the instant 1-click demo buttons!
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COMPREHENSIVE FOOTER -->
+  <footer class="border-t border-slate-800/80 bg-slate-950 mt-16 pt-12 pb-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+      
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        
+        <!-- Column 1: Brand & Identity -->
+        <div class="space-y-3 md:col-span-1">
+          <a href="index.html" class="flex items-center gap-2.5">
+            <img src="static/img/blueline_logo.jpg" alt="BlueLine DataWorks Logo" class="w-9 h-9 rounded-xl border border-sky-400/50 object-cover shadow-lg shadow-sky-500/20">
+            <span class="font-extrabold text-base tracking-tight text-white">BlueLine DataWorks</span>
+          </a>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            The next-generation non-NHL amateur hockey operating system tracking lifelong player development from grassroots through the collegiate and pro draft ranks.
+          </p>
+          <div class="flex items-center gap-2 pt-1">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span class="text-[10px] font-mono text-emerald-400 font-bold">24 Autonomous Swarm Nodes Active</span>
+          </div>
+        </div>
+
+        <!-- Column 2: Key Operational Hubs -->
+        <div class="space-y-2 text-xs">
+          <h4 class="font-mono font-bold text-white uppercase tracking-wider text-[11px]">Primary Workspaces</h4>
+          <ul class="space-y-1.5 text-slate-400">
+            <li><a href="scout.html" class="hover:text-sky-400 transition flex items-center gap-1.5"><i class="fa-solid fa-binoculars text-sky-400 text-[10px]"></i> <span>Lead Scout Workspace</span></a></li>
+            <li><a href="app.html" class="hover:text-sky-400 transition flex items-center gap-1.5"><i class="fa-solid fa-bolt text-sky-400 text-[10px]"></i> <span>Athlete & Coach Command</span></a></li>
+            <li><a href="database.html" class="hover:text-sky-400 transition flex items-center gap-1.5"><i class="fa-solid fa-database text-sky-400 text-[10px]"></i> <span>Global Prospect Database</span></a></li>
+            <li><a href="community.html" class="hover:text-sky-400 transition flex items-center gap-1.5"><i class="fa-solid fa-rss text-sky-400 text-[10px]"></i> <span>The Wire Social Network</span></a></li>
+            <li><a href="scoreboard.html" class="hover:text-sky-400 transition flex items-center gap-1.5"><i class="fa-solid fa-tower-broadcast text-sky-400 text-[10px]"></i> <span>Live Rink Game Center</span></a></li>
+          </ul>
+        </div>
+
+        <!-- Column 3: Analytics & Film Labs -->
+        <div class="space-y-2 text-xs">
+          <h4 class="font-mono font-bold text-white uppercase tracking-wider text-[11px]">Advanced Labs</h4>
+          <ul class="space-y-1.5 text-slate-400">
+            <li><a href="film.html" class="hover:text-sky-400 transition">AI Film Room & Telestration</a></li>
+            <li><a href="rink3d.html" class="hover:text-sky-400 transition">3D Spatial Rink Simulator</a></li>
+            <li><a href="combine.html" class="hover:text-sky-400 transition">Bio-Mechanical Combine Lab</a></li>
+            <li><a href="crease.html" class="hover:text-sky-400 transition">Goalie Crease Post-Seals</a></li>
+            <li><a href="compare.html" class="hover:text-sky-400 transition">8-Axis Radar Benchmark Lab</a></li>
+          </ul>
+        </div>
+
+        <!-- Column 4: Governance & Policies -->
+        <div class="space-y-2 text-xs">
+          <h4 class="font-mono font-bold text-white uppercase tracking-wider text-[11px]">Governance & Directory</h4>
+          <ul class="space-y-1.5 text-slate-400">
+            <li><button onclick="openSitemapModal()" class="hover:text-sky-400 transition cursor-pointer text-left">Master Site Map (All 26 Pages)</button></li>
+            <li><button onclick="openTermsModal()" class="hover:text-sky-400 transition cursor-pointer text-left">Terms of Service</button></li>
+            <li><button onclick="openPrivacyModal()" class="hover:text-sky-400 transition cursor-pointer text-left">Privacy Policy (FERPA/COPPA)</button></li>
+            <li><button onclick="openSecurityModal()" class="hover:text-sky-400 transition cursor-pointer text-left">Cyber Shield RASP Defense</button></li>
+            <li><button onclick="openSupportModal()" class="hover:text-sky-400 transition cursor-pointer text-left">24/7 Scout Help Desk</button></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Mandatory Mission Statement Footer Repetition -->
+      <div class="border-t border-slate-800/80 pt-6 space-y-3">
+        <p class="text-xs text-slate-400 leading-relaxed text-center max-w-4xl mx-auto">
+          BlueLine DataWorks is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory.
+        </p>
+
+        <div class="flex flex-wrap items-center justify-between gap-4 text-xs text-slate-400 font-mono pt-3">
+          <div>
+            &copy; 2026 BlueLine DataWorks OS. All rights reserved.
+          </div>
+          <div class="flex items-center gap-4">
+            <span class="text-emerald-400">● 99.99% Network Uptime</span>
+            <span>256-Bit SSL Encrypted</span>
+            <a href="scout.html" class="text-sky-400 hover:underline">Scout Desk Direct →</a>
+          </div>
+        </div>
+      </div>
+
     </div>
   </footer>
 
+  <!-- Scripts -->
   <script src="static/js/auth_engine.js"></script>
+  <script src="static/js/global_nav.js"></script>
   <script>
-    function loginPersona(personaId) {
-      try {
-        localStorage.removeItem('blueline_signed_out');
-      } catch(e) {}
-      if (window.BlueLineAuth && window.BlueLineAuth.selectPersona) {
-        window.BlueLineAuth.selectPersona(personaId);
-      } else {
-        const demoUser = {
-          id: personaId,
-          name: personaId.includes('hage') ? "Michael Hage" : (personaId.includes('marr') ? "Dan Marr" : "Adam Nightingale"),
-          role: personaId.includes('hage') ? "athlete" : (personaId.includes('marr') ? "scout" : "coach"),
-          badge: "VERIFIED IDENTITY",
-          team: "University of Michigan",
-          avatar: "⚡",
-          verified: true
-        };
-        localStorage.setItem('blueline_auth_user', JSON.stringify(demoUser));
+    // =========================================================================
+    // Role Switcher Logic
+    // =========================================================================
+    const roleDescriptions = {
+      scout: {
+        title: "Scout / Recruiter Tier ($22.99/mo):",
+        desc: "Complete combined access across all 22 analytical modules + direct routing to the Lead Scout Desk (`scout.html`) and The Wire direct messaging.",
+        email: "dmarr@nhlcentralscouting.com",
+        dest: "scout.html"
+      },
+      coach: {
+        title: "Head Coach Enterprise Tier ($22.99/mo):",
+        desc: "Tactical playbook generator, lineup chemistry, tournament war room, full athlete roster telemetry and direct access to the Scout Desk.",
+        email: "anightingale@msu.edu",
+        dest: "scout.html"
+      },
+      athlete: {
+        title: "Player / Athlete Tier ($4.99/mo):",
+        desc: "Personal developmental passport, combine testing logging, XP progression tracker, and direct access to The Wire social network.",
+        email: "mhage@umich.edu",
+        dest: "scout.html"
+      },
+      parent: {
+        title: "Family Advisor & Parent Tier ($4.99/mo):",
+        desc: "Independent oversight, academic and amateur eligibility compliance, verified coach communications, and full access to The Wire.",
+        email: "sarah.hage@familyadvisor.org",
+        dest: "scout.html"
       }
-      window.location.href = 'app.html';
+    };
+
+    function setRoleSelect(role) {
+      document.getElementById('selectedRoleInput').value = role;
+      
+      // Update Tab Styles
+      ['scout', 'coach', 'athlete', 'parent'].forEach(r => {
+        const btn = document.getElementById(`roleBtn_${r}`);
+        if (!btn) return;
+        if (r === role) {
+          btn.className = "role-tab-btn p-2.5 rounded-xl border border-sky-500 bg-sky-950/70 text-white font-bold text-xs flex flex-col items-center gap-1 transition shadow-lg shadow-sky-500/20";
+        } else {
+          btn.className = "role-tab-btn p-2.5 rounded-xl border border-slate-800 bg-slate-900/80 text-slate-300 hover:text-white hover:border-slate-700 font-bold text-xs flex flex-col items-center gap-1 transition";
+        }
+      });
+
+      // Update explainer
+      const meta = roleDescriptions[role] || roleDescriptions.scout;
+      const explainer = document.getElementById('roleExplainer');
+      if (explainer) {
+        explainer.innerHTML = `
+          <i class="fa-solid fa-circle-check text-sky-400 mt-0.5 shrink-0"></i>
+          <div>
+            <strong class="text-white">${meta.title}</strong> ${meta.desc}
+          </div>
+        `;
+      }
+
+      // Pre-fill email placeholder/value for swift evaluation
+      const emailField = document.getElementById('loginEmail');
+      if (emailField && (!emailField.value || emailField.value.includes('@'))) {
+        emailField.value = meta.email;
+      }
+
+      // Ensure destination dropdown defaults to Scout Desk
+      const destSelect = document.getElementById('destinationSelect');
+      if (destSelect) {
+        destSelect.value = meta.dest;
+      }
     }
 
-    const quickLoginPersona = loginPersona;
+    // Toggle Password Visibility
+    function togglePasswordVisibility() {
+      const passInput = document.getElementById('loginPassword');
+      const eyeIcon = document.getElementById('passwordEyeIcon');
+      if (!passInput || !eyeIcon) return;
+      if (passInput.type === 'password') {
+        passInput.type = 'text';
+        eyeIcon.className = 'fa-solid fa-eye-slash text-sm';
+      } else {
+        passInput.type = 'password';
+        eyeIcon.className = 'fa-solid fa-eye text-sm';
+      }
+    }
 
+    // =========================================================================
+    // Core Login Submission & Redirection to Scout Desk
+    // =========================================================================
     function handleLoginSubmit(e) {
       e.preventDefault();
+      
       const email = document.getElementById('loginEmail').value.trim();
       const pass = document.getElementById('loginPassword').value;
+      const role = document.getElementById('selectedRoleInput').value || 'scout';
+      const dest = document.getElementById('destinationSelect').value || 'scout.html';
 
-      if (!email) return;
+      const submitBtn = document.getElementById('submitLoginBtn');
+      const submitIcon = document.getElementById('submitBtnIcon');
+      const submitText = document.getElementById('submitBtnText');
 
+      // Visual loading state
+      if (submitBtn) submitBtn.disabled = true;
+      if (submitIcon) submitIcon.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i>`;
+      if (submitText) submitText.textContent = "Authenticating & Launching Scout Desk...";
+
+      // Clear sign-out flags
       try {
         localStorage.removeItem('blueline_signed_out');
       } catch(e) {}
 
-      // Check registered accounts
+      // Find in existing registered accounts or demo accounts
+      let userObj = null;
       try {
         const raw = localStorage.getItem('blueline_registered_users');
         if (raw) {
           const accounts = JSON.parse(raw);
-          const found = accounts.find(a => (a.email && a.email.toLowerCase() === email.toLowerCase()) || (a.username && a.username.toLowerCase() === email.toLowerCase()));
-          if (found) {
-            localStorage.setItem('blueline_auth_user', JSON.stringify(found));
-            window.location.href = 'app.html';
-            return;
-          }
+          userObj = accounts.find(a => 
+            (a.email && a.email.toLowerCase() === email.toLowerCase()) || 
+            (a.username && a.username.toLowerCase() === email.toLowerCase())
+          );
         }
       } catch(err) {}
 
-      // Default / Demo matching
-      if (email.toLowerCase().includes('hage')) {
-        loginPersona('usr_athlete_hage');
-        return;
-      } else if (email.toLowerCase().includes('marr')) {
-        loginPersona('usr_scout_marr');
-        return;
-      } else if (email.toLowerCase().includes('nightingale')) {
-        loginPersona('usr_coach_nightingale');
-        return;
+      if (!userObj) {
+        // Map to demo personas or construct verified session
+        if (email.toLowerCase().includes('marr')) {
+          userObj = {
+            id: 'usr_scout_marr',
+            name: "Dan Marr",
+            email: email,
+            role: "scout",
+            badge: "DIRECTOR OF SCOUTING",
+            team: "NHL Central Scouting Benchmark",
+            avatar: "🔍",
+            verified: true
+          };
+        } else if (email.toLowerCase().includes('nightingale')) {
+          userObj = {
+            id: 'usr_coach_nightingale',
+            name: "Adam Nightingale",
+            email: email,
+            role: "coach",
+            badge: "COACH (NCAA D1)",
+            team: "Michigan State University",
+            avatar: "🏒",
+            verified: true
+          };
+        } else if (email.toLowerCase().includes('hage') && !email.toLowerCase().includes('sarah')) {
+          userObj = {
+            id: 'usr_athlete_hage',
+            name: "Michael Hage",
+            email: email,
+            role: "athlete",
+            badge: "VERIFIED ATHLETE",
+            team: "University of Michigan",
+            avatar: "⚡",
+            verified: true
+          };
+        } else if (email.toLowerCase().includes('sarah')) {
+          userObj = {
+            id: 'usr_parent_hage',
+            name: "Sarah Hage",
+            email: email,
+            role: "parent",
+            badge: "FAMILY ADVISOR",
+            team: "Parent of Michael Hage",
+            avatar: "👨‍👩‍👦",
+            verified: true
+          };
+        } else {
+          // Custom / Newly Authenticated Roster User
+          userObj = {
+            id: 'usr_' + Date.now().toString(36),
+            name: email.split('@')[0].toUpperCase(),
+            email: email,
+            role: role,
+            badge: role === 'scout' ? "DIRECTOR OF SCOUTING" : (role === 'coach' ? "VERIFIED COACH" : (role === 'parent' ? "FAMILY ADVISOR" : "VERIFIED ATHLETE")),
+            team: "Independent Amateur Hockey Association",
+            avatar: role === 'scout' ? "🔍" : (role === 'coach' ? "📋" : (role === 'parent' ? "👨‍👩‍👦" : "⚡")),
+            verified: true
+          };
+        }
       }
 
-      // Generic login session
-      const user = {
-        id: 'usr_' + Date.now().toString(36),
-        name: email.split('@')[0].toUpperCase(),
-        email: email,
-        role: 'athlete',
-        badge: 'VERIFIED ATHLETE',
-        team: 'Independent AAA',
-        avatar: '⚡',
-        verified: true
-      };
-      localStorage.setItem('blueline_auth_user', JSON.stringify(user));
-      window.location.href = 'app.html';
+      // Persist auth user
+      try {
+        localStorage.setItem('blueline_auth_user', JSON.stringify(userObj));
+        if (window.BlueLineAuth && window.BlueLineAuth.setCurrentUser) {
+          window.BlueLineAuth.setCurrentUser(userObj);
+        }
+      } catch(err) {}
+
+      // Smooth direct routing to destination (defaulting to scout.html)
+      setTimeout(() => {
+        window.location.href = dest;
+      }, 400);
     }
+
+    // =========================================================================
+    // 1-Click Quick Persona Log In
+    // =========================================================================
+    function quickLoginPersona(personaId, targetUrl = 'scout.html') {
+      try {
+        localStorage.removeItem('blueline_signed_out');
+      } catch(e) {}
+
+      if (window.BlueLineAuth && window.BlueLineAuth.selectPersona) {
+        window.BlueLineAuth.selectPersona(personaId);
+      } else {
+        const demoPersonas = {
+          usr_scout_marr: { id: "usr_scout_marr", name: "Dan Marr", role: "scout", badge: "DIRECTOR OF SCOUTING", team: "NHL Central Scouting Benchmark", avatar: "🔍", verified: true },
+          usr_coach_nightingale: { id: "usr_coach_nightingale", name: "Adam Nightingale", role: "coach", badge: "COACH (NCAA D1)", team: "Michigan State University", avatar: "🏒", verified: true },
+          usr_athlete_hage: { id: "usr_athlete_hage", name: "Michael Hage", role: "athlete", badge: "VERIFIED ATHLETE", team: "University of Michigan", avatar: "⚡", verified: true },
+          usr_parent_hage: { id: "usr_parent_hage", name: "Sarah Hage", role: "parent", badge: "FAMILY ADVISOR", team: "Parent of Michael Hage", avatar: "👨‍👩‍👦", verified: true }
+        };
+        const p = demoPersonas[personaId] || demoPersonas.usr_scout_marr;
+        localStorage.setItem('blueline_auth_user', JSON.stringify(p));
+      }
+
+      // Direct straight to the Scout Desk!
+      window.location.href = targetUrl;
+    }
+
+    // =========================================================================
+    // Biometric & SSO Mock Handlers
+    // =========================================================================
+    function loginWithGoogleSSO() {
+      quickLoginPersona('usr_scout_marr', 'scout.html');
+    }
+
+    function loginWithBiometricPasskey() {
+      quickLoginPersona('usr_scout_marr', 'scout.html');
+    }
+
+    // =========================================================================
+    // Modal Helpers (Sitemap, Terms, Privacy, Security, Support, Forgot)
+    // =========================================================================
+    function openModal(modalId) {
+      const el = document.getElementById(modalId);
+      if (el) el.classList.remove('hidden');
+    }
+
+    function closeModal(modalId) {
+      const el = document.getElementById(modalId);
+      if (el) el.classList.add('hidden');
+    }
+
+    function openSitemapModal() { openModal('sitemapModal'); }
+    function openTermsModal() { openModal('termsModal'); }
+    function openPrivacyModal() { openModal('privacyModal'); }
+    function openSecurityModal() { openModal('securityModal'); }
+    function openSupportModal() { openModal('supportModal'); }
+    function openForgotPasswordModal() { openModal('forgotPasswordModal'); }
+
+    // Close on backdrop click or ESC key
+    window.addEventListener('click', (e) => {
+      ['sitemapModal', 'termsModal', 'privacyModal', 'securityModal', 'supportModal', 'forgotPasswordModal'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el && e.target === el) {
+          el.classList.add('hidden');
+        }
+      });
+    });
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        ['sitemapModal', 'termsModal', 'privacyModal', 'securityModal', 'supportModal', 'forgotPasswordModal'].forEach(id => {
+          const el = document.getElementById(id);
+          if (el) el.classList.add('hidden');
+        });
+      }
+    });
+
+    function handleSupportSubmit(e) {
+      e.preventDefault();
+      alert("Your support inquiry has been logged with the BlueLine Scout Support Desk! A representative will contact you shortly.");
+      closeModal('supportModal');
+    }
+
+    function handleForgotSubmit(e) {
+      e.preventDefault();
+      alert("Password reset instructions dispatched to your email! (You can also sign in with password123 or the 1-click demo buttons).");
+      closeModal('forgotPasswordModal');
+    }
+
+    // Initialize default role on load
+    document.addEventListener('DOMContentLoaded', () => {
+      // Check if URL specifies a role
+      const params = new URLSearchParams(window.location.search);
+      const roleParam = params.get('role');
+      if (roleParam && ['scout', 'coach', 'athlete', 'parent'].includes(roleParam)) {
+        setRoleSelect(roleParam);
+      } else {
+        setRoleSelect('scout');
+      }
+    });
   </script>
 </body>
 </html>
