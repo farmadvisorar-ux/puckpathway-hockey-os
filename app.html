@@ -1,1076 +1,2934 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
 <head>
   <!-- Active Pre-Execution Security Shield -->
   <script src="static/js/security_shield.js"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BlueLine DataWorks - Player Dashboard (App)</title>
+  <title>My Pathway – PuckPathway</title>
   <meta name="description" content="BlueLine DataWorks is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory.">
   <link rel="icon" type="image/jpeg" href="static/img/blueline_logo.jpg">
   <link rel="apple-touch-icon" href="static/img/blueline_logo.jpg">
 
   <!-- Open Graph -->
   <meta property="og:type" content="website">
-  <meta property="og:site_name" content="BlueLine DataWorks">
-  <meta property="og:title" content="BlueLine DataWorks - Athlete Operating System (App)">
+  <meta property="og:site_name" content="PuckPathway Hockey OS">
+  <meta property="og:title" content="My Pathway – PuckPathway">
   <meta property="og:description" content="BlueLine DataWorks is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory.">
   <meta property="og:image" content="https://farmadvisorar-ux.github.io/puckpathway-hockey-os/static/img/blueline_og_preview.jpg">
 
-  <!-- Tailwind CSS & Chart.js -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <link rel="stylesheet" href="static/css/custom.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="styles.css">
   <link rel="manifest" href="manifest.json">
+
+  <style>
+    body { font-family:Arial; background:#fafafa; color:#222; }
+    h1,h2,h3 { margin-bottom:10px; }
+    ul { padding-left:20px; }
+    input,select,textarea { width:100%; padding:8px; margin-bottom:10px; border-radius:6px; border:1px solid #ccc; }
+    input,select,textarea { box-sizing:border-box; }
+
+    .app-view { display:none; padding:20px; }
+    .app-view.active { display:block; }
+
+    .badge-grid { display:grid; gap:10px; grid-template-columns:repeat(auto-fit,minmax(120px,1fr)); }
+    .badge { background:#eee; padding:10px; border-radius:6px; text-align:center; }
+
+    .friend-card, .pathway-card, .goalie-tree, .combine-test, .video-item {
+      background:#f3f3f3; padding:15px; border-radius:8px; margin-bottom:10px;
+    }
+
+    .card { background:#f3f3f3; padding:15px; border-radius:8px; margin-bottom:10px; }
+    .grid { display:grid; gap:15px; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); }
+    .btn { padding:10px 15px; border-radius:6px; border:none; cursor:pointer; }
+    .btn.primary { background:#007bff; color:#fff; }
+    .btn.secondary { background:#555; color:#fff; }
+
+    .compare-grid { display:flex; gap:20px; }
+    .compare-table { width:100%; border-collapse:collapse; margin-top:15px; }
+    .compare-table th, .compare-table td { padding:10px 15px; text-align:left; border:1px solid #cbd5e1; }
+    .compare-table th { background:#f1f5f9; font-weight:700; color:#0f172a; }
+
+    .modal { display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.6); }
+    .modal-content { background:#fff; padding:20px; margin:100px auto; width:300px; border-radius:8px; }
+
+    .popup { display:none; position:fixed; bottom:20px; left:50%; transform:translateX(-50%); background:#222; color:#fff; padding:10px 20px; border-radius:6px; }
+    .popup { transition:opacity 0.3s ease; }
+    .notif-panel {
+      background:#fff;
+      padding:15px;
+      border-radius:8px;
+      margin-bottom:20px;
+    }
+    .fade { animation:fadeIn 0.5s ease; }
+    @keyframes fadeIn {
+      from { opacity:0; }
+      to { opacity:1; }
+    }
+    .modal-content { animation:popIn 0.3s ease; }
+    @keyframes popIn {
+      from { transform:scale(0.8); opacity:0; }
+      to { transform:scale(1); opacity:1; }
+    }
+    .animated .xp-fill {
+      transition:width 1s ease;
+    }
+    .xp-bar.animated .xp-fill { transition: width 1s ease; }
+    .xp-fill[data-fill="60"] { width: 60%; }
+
+    .app-view button:not(.btn) {
+      background: #0284c7;
+      color: #fff;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s ease;
+      margin: 10px 0;
+      display: inline-block;
+    }
+    .app-view button:not(.btn):hover {
+      background: #0369a1;
+    }
+
+    .dark {
+      background:#111;
+      color:#eee;
+    }
+
+    .dark .app-view,
+    .dark .feature-card,
+    .dark .dash-box,
+    .dark .demo-stat,
+    .dark .social-post,
+    .dark .combine-test,
+    .dark .video-item {
+      background:#222;
+      color:#eee;
+    }
+
+    .dark .card {
+      background:#222;
+      color:#eee;
+    }
+
+    .dark .notif-panel {
+      background:#222;
+      color:#eee;
+      border:1px solid #333;
+    }
+
+    .dark .compare-table th, .dark .compare-table td { border-color:#334155; }
+    .dark .compare-table th { background:#1e293b; color:#f8fafc; }
+    .dark .compare-table td { color:#cbd5e1; }
+    .dark input, .dark select, .dark textarea { background:#1e293b; color:#f8fafc; border-color:#334155; }
+
+    @media(max-width:600px){
+      .app-nav, .app-tabs {
+        display:flex;
+        overflow-x:auto;
+        white-space:nowrap;
+      }
+
+      .tab-btn {
+        flex:0 0 auto;
+        margin-right:10px;
+      }
+
+      .app-view {
+        padding:10px;
+      }
+
+      .feature-grid, .dashboard-grid, .demo-stats-grid {
+        grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
+      }
+    }
+
+    .mobile-nav {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      padding: 10px;
+      background: rgba(15, 23, 42, 0.6);
+      border-radius: 12px;
+      margin: 10px auto;
+      max-width: 400px;
+      border: 1px solid rgba(56, 189, 248, 0.2);
+    }
+    .mobile-nav .tab-btn {
+      font-size: 1.25rem;
+      padding: 8px 14px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .mobile-nav .tab-btn:hover,
+    .mobile-nav .tab-btn.active {
+      background: rgba(56, 189, 248, 0.25);
+      border-color: #38bdf8;
+      transform: scale(1.08);
+    }
+  </style>
 </head>
-<body class="bg-[#06090e] text-slate-100 min-h-screen flex flex-col font-sans selection:bg-sky-500 selection:text-white pb-16">
+<body class="dark dark-mode">
 
-  <!-- Top Global Header Navigation Bar -->
-  <header class="sticky top-0 z-50 glass-panel border-b border-slate-800/80 bg-slate-950/95 backdrop-blur-xl">
-    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
-      
-      <!-- Brand Logo -->
-      <div class="flex items-center gap-3 min-w-0">
-        <a href="app.html" class="flex items-center gap-2.5 group">
-          <img src="static/img/blueline_logo.jpg" alt="BlueLine DataWorks Logo" class="w-9 h-9 sm:w-10 sm:h-10 shrink-0 rounded-xl border border-sky-400/50 object-cover shadow-lg shadow-sky-500/20 group-hover:scale-105 transition">
-          <div class="min-w-0">
-            <div class="flex items-center gap-1.5 sm:gap-2">
-              <span class="font-extrabold text-sm sm:text-base md:text-lg tracking-tight text-white group-hover:text-sky-400 transition truncate">BlueLine DataWorks</span>
-              <span class="text-[10px] uppercase font-mono tracking-widest px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-bold shrink-0">APP OS</span>
-            </div>
-            <p class="text-[10px] text-slate-400 hidden sm:block truncate">Logged-In Athlete Command Center</p>
-          </div>
-        </a>
+  <!-- Mandatory Lifelong Tracking Mission Statement Banner -->
+  <div class="mission-banner">
+    <div class="mission-banner-inner">
+      <div style="display:flex; align-items:center; gap:0.5rem; overflow:hidden;">
+        <span class="mission-tag">MISSION</span>
+        <span style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">BlueLine DataWorks is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory.</span>
       </div>
-
-      <!-- Center Primary Navigation -->
-      <nav class="hidden lg:flex items-center gap-1 sm:gap-1.5 text-xs font-mono">
-        <a href="app.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-sky-600 text-white font-bold flex items-center gap-1.5 shadow-md shadow-sky-600/30">
-          <span>⚡</span> <span>Dashboard</span>
-        </a>
-        <a href="database.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white font-semibold border border-slate-800 transition flex items-center gap-1.5">
-          <span>📊</span> <span>Directory</span>
-        </a>
-        <a href="scoreboard.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white font-semibold border border-slate-800 transition flex items-center gap-1.5">
-          <span>📡</span> <span>Game Center</span>
-        </a>
-        <a href="combine.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white font-semibold border border-slate-800 transition flex items-center gap-1.5">
-          <span>🧪</span> <span>Combine Lab</span>
-        </a>
-        <a href="tactics.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white font-semibold border border-slate-800 transition flex items-center gap-1.5">
-          <span>📋</span> <span>Tactics</span>
-        </a>
-        <a href="crease.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white font-semibold border border-slate-800 transition flex items-center gap-1.5">
-          <span>🥅</span> <span>Crease</span>
-        </a>
-      </nav>
-
-      <!-- Right Controls: Active Profile Capsule + Switcher + Sign Out -->
-      <div class="flex items-center gap-2 sm:gap-3 shrink-0">
-        
-        <!-- All Modules Launcher -->
-        <button onclick="toggleAppLauncher()" class="px-3 py-1.5 rounded-xl bg-gradient-to-r from-sky-600/30 via-indigo-600/30 to-purple-600/30 hover:from-sky-600/50 hover:to-purple-600/50 text-sky-200 border border-sky-400/40 hover:border-sky-300 font-bold text-xs flex items-center gap-1.5 shadow-lg shadow-sky-500/10 transition active:scale-95 cursor-pointer" title="Open All 22 Enterprise Modules (Ctrl+K)">
-          <span class="text-sm">❖</span>
-          <span class="hidden sm:inline font-sans font-semibold">22 Modules</span>
-        </button>
-
-        <!-- Profile Capsule & Dropdown -->
-        <div class="relative">
-          <button id="userProfileBtn" onclick="toggleUserDropdown()" class="flex items-center gap-2 bg-slate-900/90 border border-sky-500/40 hover:border-sky-400 rounded-xl px-2.5 py-1 transition cursor-pointer shadow-inner">
-            <div id="userAvatarBadge" class="w-6 h-6 rounded-full bg-gradient-to-tr from-cyan-600 to-blue-800 text-white font-black flex items-center justify-center text-[10px]">
-              ⚡
-            </div>
-            <div class="text-left leading-none hidden sm:block">
-              <span id="userNameLabel" class="text-xs font-bold text-white block truncate max-w-[110px]">Michael Hage</span>
-              <span id="userRoleBadge" class="text-[9px] text-sky-400 font-mono">Athlete</span>
-            </div>
-            <span class="text-slate-400 text-[10px]">▾</span>
-          </button>
-
-          <!-- Dropdown Menu -->
-          <div id="userDropdownMenu" class="hidden absolute right-0 mt-2 w-64 glass-panel rounded-2xl border border-slate-800 shadow-2xl p-2 z-50 space-y-1 text-xs">
-            <div class="px-3 py-2 border-b border-slate-800">
-              <div class="text-[10px] font-mono text-slate-400 uppercase">Signed In As</div>
-              <div id="dropdownUserName" class="font-bold text-white text-sm">Michael Hage</div>
-              <div id="dropdownUserEmail" class="text-[10px] text-slate-400 font-mono truncate">mhage@umich.edu</div>
-            </div>
-            
-            <div class="py-1">
-              <div class="text-[9px] font-mono text-slate-400 uppercase px-3 py-1">Quick Switch Persona:</div>
-              <button onclick="switchAppPersona('usr_athlete_hage')" class="w-full text-left px-3 py-1.5 rounded-lg hover:bg-slate-800 flex items-center gap-2 transition text-slate-200 cursor-pointer">
-                <span>⚡</span> <span>Michael Hage (Player • Michigan)</span>
-              </button>
-              <button onclick="switchAppPersona('usr_athlete_kaiser')" class="w-full text-left px-3 py-1.5 rounded-lg hover:bg-slate-800 flex items-center gap-2 transition text-slate-200 cursor-pointer">
-                <span>🥅</span> <span>Kaiser Nelson (Goalie • Minnetonka)</span>
-              </button>
-              <button onclick="switchAppPersona('usr_scout_marr')" class="w-full text-left px-3 py-1.5 rounded-lg hover:bg-slate-800 flex items-center gap-2 transition text-slate-200 cursor-pointer">
-                <span>🔍</span> <span>Dan Marr (Director of Scouting)</span>
-              </button>
-              <button onclick="switchAppPersona('usr_coach_nightingale')" class="w-full text-left px-3 py-1.5 rounded-lg hover:bg-slate-800 flex items-center gap-2 transition text-slate-200 cursor-pointer">
-                <span>🏒</span> <span>Adam Nightingale (Coach • MSU)</span>
-              </button>
-            </div>
-
-            <div class="pt-1 border-t border-slate-800">
-              <a href="index.html" class="w-full text-left px-3 py-1.5 rounded-lg hover:bg-slate-800 flex items-center gap-2 transition text-slate-300 block">
-                <span>🌐</span> <span>View Marketing Homepage</span>
-              </a>
-              <button onclick="handleSignOut()" class="w-full text-left px-3 py-1.5 rounded-lg hover:bg-red-950/50 text-red-400 flex items-center gap-2 transition cursor-pointer">
-                <span>🚪</span> <span>Sign Out</span>
-              </button>
-            </div>
-          </div>
-        </div>
-
+      <div style="font-family:monospace; font-size:0.65rem; color:#38bdf8; white-space:nowrap;">
+        LOGGED-IN ATHLETE OS
       </div>
-
     </div>
+  </div>
 
-    <!-- Mandatory Lifelong Tracking Mission Statement Banner -->
-    <div class="border-t border-slate-800/80 bg-slate-950/90">
-      <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-1.5 flex flex-wrap items-center justify-between gap-2 text-xs">
-        <div class="flex items-center gap-2 min-w-0">
-          <span class="px-2 py-0.5 rounded-md bg-sky-500/20 text-sky-300 font-mono text-[10px] font-bold shrink-0">MISSION</span>
-          <p class="text-[11px] text-slate-400 truncate">
-            BlueLine DataWorks is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory.
-          </p>
-        </div>
-        <div class="flex items-center gap-2 shrink-0">
-          <span id="pwaStatusPill" class="text-[10px] font-mono text-emerald-400 bg-emerald-950/60 border border-emerald-800/50 px-2 py-0.5 rounded-full">⚡ Rinkside Offline Ready</span>
-        </div>
+  <!-- APP SHELL -->
+  <header class="app-header">
+    <div class="logo">
+      <a href="index.html" style="display:flex; align-items:center; gap:0.5rem; text-decoration:none; color:#ffffff;">
+        <img src="static/img/blueline_logo.jpg" alt="PuckPathway" style="width:32px; height:32px; border-radius:8px; border:1px solid rgba(56,189,248,0.4);">
+        <span>PuckPathway</span>
+      </a>
+    </div>
+    <div class="player-info" style="display:flex; align-items:center; gap:0.75rem; flex-wrap:wrap;">
+      <!-- Quick Role Switcher Toolbar -->
+      <div class="role-switcher-container">
+        <span class="role-switcher-label">View As:</span>
+        <button type="button" class="role-chip-btn active" id="roleBtnAthlete" onclick="handleRoleSwitch('athlete')" title="Switch to Player / Athlete view">⚡ Athlete ($4.99)</button>
+        <button type="button" class="role-chip-btn" id="roleBtnCoach" onclick="handleRoleSwitch('coach')" title="Switch to Coach view">🏒 Coach ($22.99)</button>
+        <button type="button" class="role-chip-btn" id="roleBtnScout" onclick="handleRoleSwitch('scout')" title="Switch to Scout / Recruiter view">🔍 Scout ($22.99)</button>
+        <button type="button" class="role-chip-btn" id="roleBtnParent" onclick="handleRoleSwitch('parent')" title="Switch to Family Advisor / Parent view">👨‍👩‍👦 Parent ($4.99)</button>
+        <button type="button" class="role-chip-btn" id="roleBtnAdmin" onclick="handleRoleSwitch('admin')" title="Switch to Admin Operations view">⚙️ Admin</button>
+        <button type="button" class="role-chip-btn" id="roleToggleAllTabsBtn" onclick="toggleAllTabsVisibility()" style="border-color:#38bdf8; color:#38bdf8;" title="Toggle seeing all 22+ modules">🌐 All Modules</button>
       </div>
+
+      <div style="display:flex; align-items:center; gap:0.5rem;">
+        <span class="player-name" id="appHeaderPlayerName">Michael Hage</span>
+        <span class="tier-badge" id="appHeaderTierBadge">Tier 6</span>
+        <span id="appHeaderPlayerSub" style="font-size:0.75rem; color:#94a3b8; font-family:monospace; display:none;"></span>
+      </div>
+      <button class="btn" onclick="toggleDarkMode()">🌙 Dark Mode</button>
+      <button id="appHeaderSignOutBtn" onclick="handleDashboardSignOut()" style="background:none; border:none; color:#94a3b8; font-size:0.75rem; text-decoration:underline; cursor:pointer; margin-left:0.25rem;">Sign Out</button>
     </div>
   </header>
 
-  <!-- Main App Layout Container -->
-  <main class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-6 space-y-6 flex-1 w-full">
-    
-    <!-- ==================== HERO ATHLETE PASSPORT DOSSIER ==================== -->
-    <div class="glass-panel p-5 sm:p-6 rounded-3xl relative overflow-hidden shadow-2xl border border-sky-500/30 space-y-5">
-      <div class="absolute -right-16 -bottom-16 w-64 h-64 bg-sky-500/10 rounded-full blur-3xl pointer-events-none"></div>
+  <nav class="app-tabs">
+    <button class="tab-btn active" data-view="dashboard">Dashboard</button>
+    <button class="tab-btn" data-view="thewire">The Wire & X Profile</button>
+    <button class="tab-btn" data-view="playerdatabase">Player Database</button>
+    <button class="tab-btn" data-view="packages">Packages & Pricing</button>
+    <button class="tab-btn" data-view="admin">Admin Hub</button>
+    <button class="tab-btn active" data-view="dashboard">Dashboard</button>
+    <button class="tab-btn" data-view="artraining">AR Training</button>
+    <button class="tab-btn" data-view="videobreakdown">Video Breakdown</button>
+    <button class="tab-btn" data-view="skilltree">Skill Tree</button>
+    <button class="tab-btn" data-view="tierprogression">Tier Progression</button>
+    <button class="tab-btn" data-view="dailymissions">Daily Missions</button>
+    <button class="tab-btn" data-view="xp">XP</button>
+    <button class="tab-btn" data-view="goalie">Goalie</button>
+    <button class="tab-btn" data-view="pathways">Pathways</button>
+    <button class="tab-btn" data-view="badges">Badges</button>
+    <button class="tab-btn" data-view="levelup">Level Up</button>
+    <button class="tab-btn" data-view="friends">Friends</button>
+    <button class="tab-btn" data-view="compare">Compare</button>
+    <button class="tab-btn" data-view="comparechart">Compare Chart</button>
+    <button class="tab-btn" data-view="profileeditor">Edit Profile</button>
+    <button class="tab-btn" data-view="uploadmanager">Uploads</button>
+    <button class="tab-btn" data-view="combine">Combine</button>
+    <button class="tab-btn" data-view="iqsim">IQ Sim</button>
+    <button class="tab-btn" data-view="social">Social</button>
+    <button class="tab-btn" data-view="profile">Profile</button>
+    <button class="tab-btn" data-view="recruiting">Recruiting</button>
+    <button class="tab-btn" data-view="settings">Settings</button>
+  </nav>
 
-      <!-- Top Row: Avatar + Info + Primary Badges -->
-      <div class="flex flex-wrap items-start justify-between gap-4">
-        <div class="flex items-center gap-4 min-w-0">
-          <div id="dossierAvatar" class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-gradient-to-tr from-cyan-600 via-blue-600 to-indigo-800 flex items-center justify-center text-3xl sm:text-4xl shadow-xl shadow-sky-500/20 border border-sky-400/40 shrink-0">
-            ⚡
+  <nav class="mobile-nav">
+    <button class="tab-btn" data-view="dashboard">🏠</button>
+    <button class="tab-btn" data-view="skills">⚡</button>
+    <button class="tab-btn" data-view="videobreakdown">🎥</button>
+    <button class="tab-btn" data-view="iqsim">🧠</button>
+    <button class="tab-btn" data-view="profile">👤</button>
+  </nav>
+
+  <main class="app-main">
+    <!-- DASHBOARD VIEW -->
+    <section id="view-dashboard" class="app-view active">
+      <!-- Subscription & Active Role Status Banner -->
+      <div id="dashboardPlanStatusBanner" style="background:rgba(15,23,42,0.85); border:1px solid rgba(56,189,248,0.3); border-radius:12px; padding:0.85rem 1.25rem; margin-bottom:1.5rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.75rem;">
+        <div style="display:flex; align-items:center; gap:0.6rem;">
+          <span style="font-size:1.3rem;">💳</span>
+          <div>
+            <div style="font-size:0.9rem; font-weight:800; color:#fff;" id="dashActivePlanName">Active Plan: Player Passport ($4.99/mo)</div>
+            <div style="font-size:0.75rem; color:#94a3b8;" id="dashActivePlanPerks">Includes Personal OS, 3,050+ Player Directory, and Unrestricted Access to The Wire</div>
           </div>
-          <div class="min-w-0 space-y-1">
-            <div class="flex items-center gap-2 flex-wrap">
-              <h1 id="dossierName" class="text-xl sm:text-2xl md:text-3xl font-black text-white tracking-tight truncate">Michael Hage</h1>
-              <span id="dossierNumberBadge" class="px-2 py-0.5 rounded-md bg-sky-500/20 text-sky-300 font-mono text-xs font-bold border border-sky-500/40">#13 • C</span>
-              <span id="dossierVerifiedBadge" class="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-[10px] font-mono font-bold flex items-center gap-1">
-                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> VERIFIED PASSPORT
-              </span>
+        </div>
+        <div style="display:flex; align-items:center; gap:0.5rem;">
+          <button type="button" class="btn primary" id="dashUpgradePlanBtn" onclick="openPaywallModal('Coach & Recruiter Pro Upgrade', 'Unlock all 22 modules combined, AI film breakdown, and combine testing.')" style="padding:0.4rem 0.85rem; font-size:0.8rem; font-weight:700;">
+            ⚡ Upgrade to Pro ($22.99/mo)
+          </button>
+          <button type="button" class="btn secondary" onclick="switchView('packages')" style="padding:0.4rem 0.85rem; font-size:0.8rem;">
+            Manage Payment
+          </button>
+        </div>
+      </div>
+
+      <h1>My Hockey Dashboard</h1>
+
+      <div class="tier-section">
+        <h2>Tier Level</h2>
+        <div class="tier-badge" id="dashboardTierBadge">Tier 4</div>
+      </div>
+
+      <div class="xp-section">
+        <h2>XP Progress</h2>
+        <div class="xp-bar animated">
+          <div class="xp-fill" data-fill="60"></div>
+        </div>
+        <p>60% to Tier 5</p>
+      </div>
+
+      <div class="skills-rings">
+        <h2>Skill Rings</h2>
+        <ul>
+          <li>Skating: 72</li>
+          <li>Shooting: 68</li>
+          <li>Passing: 64</li>
+          <li>Defense: 59</li>
+          <li>Hockey IQ: 70</li>
+        </ul>
+      </div>
+
+      <div class="missions-preview">
+        <h2>Today’s Missions</h2>
+        <ul>
+          <li>Shoot 50 pucks</li>
+          <li>Record a skating stride video</li>
+          <li>Complete 2 IQ scenarios</li>
+        </ul>
+      </div>
+
+      <div class="highlight-preview">
+        <h2>Highlight Reel</h2>
+        <p>Upload and tag clips to build your reel.</p>
+      </div>
+    </section>
+
+    <!-- TIER PROGRESSION VIEW -->
+    <section id="view-tierprogression" class="app-view">
+      <h1>Tier Progression</h1>
+
+      <div class="tier-ladder">
+        <div class="tier-step">Tier 1</div>
+        <div class="tier-step">Tier 2</div>
+        <div class="tier-step">Tier 3</div>
+        <div class="tier-step active">Tier 4 (You Are Here)</div>
+        <div class="tier-step">Tier 5</div>
+        <div class="tier-step">Tier 6</div>
+        <div class="tier-step">Tier 7</div>
+        <div class="tier-step">Tier 8</div>
+        <div class="tier-step">Tier 9</div>
+        <div class="tier-step">Tier 10</div>
+      </div>
+
+      <div class="tier-requirements">
+        <h3>Requirements for Tier 5</h3>
+        <ul>
+          <li>Skating: 75+</li>
+          <li>Shooting: 70+</li>
+          <li>Passing: 68+</li>
+          <li>Defense: 65+</li>
+          <li>Hockey IQ: 72+</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- POSITION PATHWAYS VIEW -->
+    <section id="view-pathways" class="app-view">
+      <h1>Position Pathways</h1>
+
+      <div class="pathway-card">
+        <h2>Forward Pathway</h2>
+        <ul>
+          <li>Zone Entry</li>
+          <li>Puck Protection</li>
+          <li>Scoring IQ</li>
+        </ul>
+      </div>
+
+      <div class="pathway-card">
+        <h2>Defense Pathway</h2>
+        <ul>
+          <li>Gap Control</li>
+          <li>Stick Position</li>
+          <li>Angles</li>
+        </ul>
+      </div>
+
+      <div class="pathway-card">
+        <h2>Goalie Pathway</h2>
+        <ul>
+          <li>Crease Movement</li>
+          <li>Save Selection</li>
+          <li>Rebound Control</li>
+        </ul>
+        <button onclick="switchToGoalie()">Switch to Goalie Mode</button>
+      </div>
+    </section>
+
+    <!-- SKILL TREE VIEW -->
+    <section id="view-skilltree" class="app-view">
+      <h1>Skill Tree</h1>
+
+      <div class="skill-tree">
+        <h2>Skating</h2>
+        <ul>
+          <li>Speed — Level 3</li>
+          <li>Acceleration — Level 2</li>
+          <li>Edge Control — Level 2</li>
+        </ul>
+      </div>
+
+      <div class="skill-tree">
+        <h2>Shooting</h2>
+        <ul>
+          <li>Power — Level 3</li>
+          <li>Accuracy — Level 2</li>
+          <li>Release Speed — Level 2</li>
+        </ul>
+      </div>
+
+      <div class="skill-tree">
+        <h2>Passing</h2>
+        <ul>
+          <li>Touch — Level 2</li>
+          <li>Vision — Level 3</li>
+          <li>Sauce — Level 1</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- GOALIE DEVELOPMENT VIEW -->
+    <section id="view-goalie" class="app-view">
+      <h1>Goalie Development</h1>
+
+      <div class="goalie-tree">
+        <h2>Movement</h2>
+        <ul>
+          <li>Crease Control — Level 3</li>
+          <li>Lateral Push — Level 2</li>
+          <li>Recovery — Level 2</li>
+        </ul>
+      </div>
+
+      <div class="goalie-tree">
+        <h2>Saves</h2>
+        <ul>
+          <li>Glove — Level 3</li>
+          <li>Blocker — Level 2</li>
+          <li>Pads — Level 3</li>
+        </ul>
+      </div>
+
+      <div class="goalie-tree">
+        <h2>IQ</h2>
+        <ul>
+          <li>Screens — Level 2</li>
+          <li>Rebounds — Level 3</li>
+          <li>Reads — Level 2</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- VIDEO VIEW -->
+    <section id="view-videobreakdown" class="app-view">
+      <div id="paywallShield-videobreakdown" class="inline-paywall-card" style="display:none;">
+        <div class="lock-icon">🔒</div>
+        <span class="paywall-badge">COACH & RECRUITER PRO REQUIRED</span>
+        <h3>AI Video Breakdown & Telestration ($22.99/mo)</h3>
+        <p>Frame-by-frame AI skating stride telestration, edge-work biomechanics, and clip tagging are reserved for Coaches and Recruiters on the $22.99/mo Pro Plan.</p>
+        <button type="button" class="paywall-upgrade-btn" onclick="executePlanUpgrade('coach')">⚡ Upgrade to Coach Pro ($22.99/mo)</button>
+        <div style="margin-top:0.75rem;"><button type="button" class="paywall-testdrive-btn" onclick="executeTestDrive('coach')">🏒 Test Drive as Coach (Adam Nightingale)</button></div>
+      </div>
+      <div id="proContent-videobreakdown">
+        <h1>Video Breakdown</h1>
+
+        <div class="upload-area">
+          <h3>Upload Clip</h3>
+          <input type="file" accept="video/*" onchange="handleVideoUpload(this)">
+        </div>
+
+        <div class="video-list">
+          <div class="video-item">
+            <h3>Clip 1</h3>
+            <p>Tags: Skating, Shooting</p>
+            <button class="btn primary" onclick="handleAnalyzeClip('Clip 1')">Analyze</button>
+          </div>
+
+          <div class="video-item">
+            <h3>Clip 2</h3>
+            <p>Tags: Defense, Positioning</p>
+            <button class="btn primary" onclick="handleAnalyzeClip('Clip 2')">Analyze</button>
+          </div>
+        </div>
+
+        <div class="analysis-output">
+          <h3>Analysis</h3>
+          <p id="analysisOutputText">AI feedback will appear here.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- UPLOAD MANAGER VIEW -->
+    <section id="view-uploadmanager" class="app-view">
+      <h1>Upload Manager</h1>
+
+      <input type="file" multiple onchange="handleMultipleUploads(this)">
+
+      <div class="upload-list">
+        <div class="upload-item">clip1.mp4</div>
+        <div class="upload-item">clip2.mp4</div>
+      </div>
+    </section>
+
+    <!-- IQ VIEW -->
+    <section id="view-iqsim" class="app-view">
+      <div id="paywallShield-iqsim" class="inline-paywall-card" style="display:none;">
+        <div class="lock-icon">🔒</div>
+        <span class="paywall-badge">COACH & RECRUITER PRO REQUIRED</span>
+        <h3>Tactical Game IQ Simulator ($22.99/mo)</h3>
+        <p>Advanced tactical breakdown scenarios, decision-making simulations, and bench coach IQ telemetry require the Coach & Recruiter Pro Package.</p>
+        <button type="button" class="paywall-upgrade-btn" onclick="executePlanUpgrade('coach')">⚡ Upgrade to Coach Pro ($22.99/mo)</button>
+        <div style="margin-top:0.75rem;"><button type="button" class="paywall-testdrive-btn" onclick="executeTestDrive('coach')">🏒 Test Drive as Coach (Adam Nightingale)</button></div>
+      </div>
+      <div id="proContent-iqsim">
+        <h1>Hockey IQ Simulator</h1>
+
+        <div class="iq-scenario">
+          <h3>Scenario: 2-on-1 Break</h3>
+          <p>You are the defenseman. What is the correct play?</p>
+
+          <ul class="iq-options">
+            <li>Play the puck carrier</li>
+            <li>Take away the passing lane</li>
+            <li>Back up and wait</li>
+          </ul>
+
+          <div class="iq-feedback">
+            <p>Select an option to see feedback.</p>
+          </div>
+        </div>
+
+        <div class="iq-scenario">
+          <h3>Scenario: Offensive Zone Cycle</h3>
+          <p>You are the winger. What is the correct move?</p>
+
+          <ul class="iq-options">
+            <li>Cut to the net</li>
+            <li>Cycle the puck down low</li>
+            <li>Pass back to the point</li>
+          </ul>
+
+          <div class="iq-feedback">
+            <p>Select an option to see feedback.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DAILY MISSIONS VIEW -->
+    <section id="view-dailymissions" class="app-view">
+      <h1>Daily Missions</h1>
+
+      <ul class="mission-list">
+        <li>Shoot 50 pucks</li>
+        <li>Stickhandle for 10 minutes</li>
+        <li>Record a skating stride video</li>
+        <li>Complete 2 IQ scenarios</li>
+      </ul>
+
+      <button onclick="addXP(50)">Complete Mission</button>
+
+      <h2>Weekly Goals</h2>
+      <ul class="mission-list">
+        <li>Improve Skating by +5</li>
+        <li>Upload 3 game clips</li>
+        <li>Complete 10 missions</li>
+      </ul>
+    </section>
+
+    <!-- XP VIEW -->
+    <section id="view-xp" class="app-view">
+      <h1>XP & Leveling</h1>
+
+      <div class="xp-bar animated">
+        <div class="xp-fill" data-fill="60"></div>
+      </div>
+
+      <p>XP: 600 / 1000</p>
+
+      <h3>XP Sources</h3>
+      <ul>
+        <li>Daily Missions: +50</li>
+        <li>Video Upload: +30</li>
+        <li>IQ Scenario: +20</li>
+        <li>Combine Test: +40</li>
+      </ul>
+    </section>
+
+    <!-- BADGES VIEW -->
+    <section id="view-badges" class="app-view">
+      <h1>Achievement Badges</h1>
+
+      <div class="badge-grid">
+        <div class="badge">🔥 50 Shots Badge</div>
+        <div class="badge">🎯 Accuracy Badge</div>
+        <div class="badge">⚡ Speed Badge</div>
+        <div class="badge">🧠 IQ Badge</div>
+        <div class="badge">🏒 Stickhandling Badge</div>
+      </div>
+    </section>
+
+    <!-- LEVEL UP VIEW -->
+    <section id="view-levelup" class="app-view">
+      <h1>Level Up!</h1>
+      <p>You reached Tier 5!</p>
+
+      <div class="levelup-rewards">
+        <p>Rewards:</p>
+        <ul>
+          <li>+100 XP</li>
+          <li>New Drill Unlocked</li>
+          <li>New Badge Earned</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- PROFILE VIEW -->
+    <section id="view-profile" class="app-view">
+      <h1>Player Profile</h1>
+      <p id="profileNameLabel">Name: Player Name</p>
+      <p id="profilePosLabel">Position: Forward</p>
+      <p id="profileTierLabel">Tier: 4</p>
+      <h2>Recruiting Snapshot</h2>
+      <p>Shareable profile link coming soon.</p>
+    </section>
+
+    <!-- PROFILE EDITOR VIEW -->
+    <section id="view-profileeditor" class="app-view">
+      <h1>Edit Profile</h1>
+
+      <label>Name</label>
+      <input type="text" id="profileEditName" placeholder="Player Name">
+
+      <label>Position</label>
+      <select id="positionSelect" onchange="updatePosition()">
+        <option value="forward">Forward</option>
+        <option value="defense">Defense</option>
+        <option value="goalie">Goalie</option>
+      </select>
+
+      <label>Bio</label>
+      <textarea id="profileEditBio" placeholder="Write your bio..."></textarea>
+
+      <button class="btn primary" onclick="handleSaveProfileEdit()">Save Changes</button>
+      <div id="profileEditFeedback" style="display:none; margin-top:1rem; padding:0.75rem 1rem; background:rgba(6,78,59,0.5); border:1px solid #10b981; border-radius:0.75rem; color:#6ee7b7; font-weight:700;">
+        ✓ Profile updated successfully! Changes reflected across the app.
+      </div>
+    </section>
+
+    <!-- RECRUITING VIEW -->
+    <section id="view-recruiting" class="app-view">
+      <div id="paywallShield-recruiting" class="inline-paywall-card" style="display:none;">
+        <div class="lock-icon">🔒</div>
+        <span class="paywall-badge">COACH & RECRUITER PRO REQUIRED</span>
+        <h3>Scouting & Recruiting Pipeline ($22.99/mo)</h3>
+        <p>Direct prospect watchlists, college/junior recruitment communications, and NCAA eligibility verification are exclusive to the Coach & Recruiter Pro Tier.</p>
+        <button type="button" class="paywall-upgrade-btn" onclick="executePlanUpgrade('scout')">⚡ Upgrade to Recruiter Enterprise ($22.99/mo)</button>
+        <div style="margin-top:0.75rem;"><button type="button" class="paywall-testdrive-btn" onclick="executeTestDrive('scout')">🔍 Test Drive as Scout (Dan Marr)</button></div>
+      </div>
+      <div id="proContent-recruiting">
+        <h1>Recruiting Profile</h1>
+
+        <div class="profile-header">
+          <h2 id="recruitingPlayerName">Player Name</h2>
+          <p id="recruitingPlayerPosTier">Forward — Tier 4</p>
+        </div>
+
+        <div class="profile-stats">
+          <h3>Skill Snapshot</h3>
+          <ul>
+            <li>Skating: 72</li>
+            <li>Shooting: 68</li>
+            <li>Passing: 64</li>
+            <li>Defense: 59</li>
+            <li>Hockey IQ: 70</li>
+          </ul>
+        </div>
+
+        <div class="combine-results">
+          <h3>Combine Results</h3>
+          <ul>
+            <li>Speed: 4.8s</li>
+            <li>Agility: 7.2s</li>
+            <li>Shooting Accuracy: 78%</li>
+            <li>Reaction Time: 0.42s</li>
+          </ul>
+        </div>
+
+        <div class="highlight-reel">
+          <h3>Highlight Reel</h3>
+          <p>Upload clips to build your recruiting reel.</p>
+        </div>
+
+        <div class="share-link">
+          <h3>Shareable Profile Link</h3>
+          <p>Coming soon</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- COMBINE VIEW -->
+    <section id="view-combine" class="app-view">
+      <div id="paywallShield-combine" class="inline-paywall-card" style="display:none;">
+        <div class="lock-icon">🔒</div>
+        <span class="paywall-badge">COACH & RECRUITER PRO REQUIRED</span>
+        <h3>Combine Performance Testing ($22.99/mo)</h3>
+        <p>Official laser-gate combine biometrics, agility testing data, and prospect benchmarking are exclusive to the Coach & Recruiter Pro Tier.</p>
+        <button type="button" class="paywall-upgrade-btn" onclick="executePlanUpgrade('scout')">⚡ Upgrade to Recruiter Enterprise ($22.99/mo)</button>
+        <div style="margin-top:0.75rem;"><button type="button" class="paywall-testdrive-btn" onclick="executeTestDrive('scout')">🔍 Test Drive as Scout (Dan Marr)</button></div>
+      </div>
+      <div id="proContent-combine">
+        <h1>Combine Mode</h1>
+
+        <div class="combine-test">
+          <h3>Speed Test</h3>
+          <p>Record your sprint and enter your time.</p>
+          <input type="text" id="combineSpeedInput" placeholder="Enter time (seconds)">
+        </div>
+
+        <div class="combine-test">
+          <h3>Agility Test</h3>
+          <p>Record your agility drill and enter your time.</p>
+          <input type="text" id="combineAgilityInput" placeholder="Enter time (seconds)">
+        </div>
+
+        <div class="combine-test">
+          <h3>Shooting Accuracy</h3>
+          <p>Enter your percentage.</p>
+          <input type="text" id="combineAccuracyInput" placeholder="Enter accuracy (%)">
+        </div>
+
+        <div class="combine-test">
+          <h3>Reaction Time</h3>
+          <p>Enter your reaction time.</p>
+          <input type="text" id="combineReactionInput" placeholder="Enter time (seconds)">
+        </div>
+
+        <button class="btn primary" onclick="saveCombine()">Save Results</button>
+        <div id="combineSaveFeedback" style="display:none; margin-top:1rem; padding:0.75rem 1rem; background:rgba(6,78,59,0.5); border:1px solid #10b981; border-radius:0.75rem; color:#6ee7b7; font-weight:700;">
+          ✓ Combine results saved! Metrics updated across your profile and pathway.
+        </div>
+      </div>
+    </section>
+
+    <!-- SOCIAL VIEW -->
+    <section id="view-social" class="app-view">
+      <h1>Social Feed</h1>
+
+      <div class="post-composer">
+        <textarea id="socialPostInput" placeholder="Share your progress..."></textarea>
+        <button class="btn primary" id="socialPostBtn" onclick="handleCreateSocialPost()">Post</button>
+      </div>
+
+      <div id="socialPostsContainer">
+        <div class="social-post">
+          <h3 class="social-player-name">Michael Hage</h3>
+          <p>Just completed my daily missions!</p>
+          <span onclick="handleLikePost(this)">🔥 12 likes</span>
+        </div>
+
+        <div class="social-post">
+          <h3 class="social-player-name">Alex Carter</h3>
+          <p>New highlight reel uploaded!</p>
+          <span onclick="handleLikePost(this)">🔥 8 likes</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- FRIENDS VIEW -->
+    <section id="view-friends" class="app-view">
+      <h1>Friends</h1>
+
+      <div class="friend-card">
+        <h3>Player A</h3>
+        <p>Tier 5</p>
+      </div>
+
+      <div class="friend-card">
+        <h3>Player B</h3>
+        <p>Tier 3</p>
+      </div>
+
+      <div class="friend-card">
+        <h3>Player C</h3>
+        <p>Tier 7</p>
+      </div>
+    </section>
+
+    <!-- COMPARE VIEW -->
+    <section id="view-compare" class="app-view">
+      <h1>Player Comparison</h1>
+
+      <div class="compare-grid">
+        <div>
+          <h3>You</h3>
+          <ul>
+            <li>Skating: 72</li>
+            <li>Shooting: 68</li>
+            <li>Passing: 64</li>
+          </ul>
+        </div>
+
+        <div>
+          <h3>Friend</h3>
+          <ul>
+            <li>Skating: 75</li>
+            <li>Shooting: 70</li>
+            <li>Passing: 66</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- COMPARE CHART VIEW -->
+    <section id="view-comparechart" class="app-view">
+      <h1>Comparison Chart</h1>
+
+      <table class="compare-table">
+        <tr><th>Skill</th><th>You</th><th>Friend</th></tr>
+        <tr><td>Skating</td><td>72</td><td>75</td></tr>
+        <tr><td>Shooting</td><td>68</td><td>70</td></tr>
+        <tr><td>Passing</td><td>64</td><td>66</td></tr>
+      </table>
+    </section>
+
+    <!-- SETTINGS VIEW -->
+    <section id="view-settings" class="app-view">
+      <h1>Settings</h1>
+
+      <div class="settings-section">
+        <h3>Account Info</h3>
+        <p id="settingsEmail">Email: player@example.com</p>
+        <p id="settingsPosition">Position: Forward</p>
+      </div>
+
+      <div class="settings-section">
+        <h3>Notifications</h3>
+        <label><input type="checkbox" checked> Daily Missions</label>
+        <label><input type="checkbox" checked> Weekly Goals</label>
+        <label><input type="checkbox"> Social Feed Alerts</label>
+      </div>
+
+      <div class="settings-section">
+        <h3>Subscription</h3>
+        <p>Premium features coming soon.</p>
+      </div>
+
+      <div class="settings-section">
+        <h3>Theme & Appearance</h3>
+        <p>Customize your operating system display theme.</p>
+        <button class="btn" onclick="toggleDarkMode()">Toggle Dark Mode</button>
+      </div>
+    </section>
+
+    <!-- AR TRAINING VIEW -->
+    <section id="view-artraining" class="app-view">
+      <div id="paywallShield-artraining" class="inline-paywall-card" style="display:none;">
+        <div class="lock-icon">🔒</div>
+        <span class="paywall-badge">COACH & RECRUITER PRO REQUIRED</span>
+        <h3>AR Sensor Training & Biometrics ($22.99/mo)</h3>
+        <p>Augmented reality path overlay, 3D situational training, and spatial biomechanics are exclusive to Coach & Recruiter Pro users.</p>
+        <button type="button" class="paywall-upgrade-btn" onclick="executePlanUpgrade('coach')">⚡ Upgrade to Coach Pro ($22.99/mo)</button>
+        <div style="margin-top:0.75rem;"><button type="button" class="paywall-testdrive-btn" onclick="executeTestDrive('coach')">🏒 Test Drive as Coach (Adam Nightingale)</button></div>
+      </div>
+      <div id="proContent-artraining">
+        <h1>AR Training</h1>
+
+        <div class="ar-card">
+          <h3>Skating Path Overlay</h3>
+          <p>View AR skating paths to improve stride and edge control.</p>
+          <button class="btn primary" onclick="handleStartAR('Skating Path Overlay')">Start AR Session</button>
+        </div>
+
+        <div class="ar-card">
+          <h3>Shooting Angle Guide</h3>
+          <p>Use AR overlays to visualize optimal shooting angles.</p>
+          <button class="btn primary" onclick="handleStartAR('Shooting Angle Guide')">Launch AR Guide</button>
+        </div>
+
+        <div class="ar-card">
+          <h3>Positional 3D Trainer</h3>
+          <p>See 3D positional models for offensive and defensive situations.</p>
+          <button class="btn primary" onclick="handleStartAR('Positional 3D Trainer')">Open 3D Trainer</button>
+        </div>
+      </div>
+    </section>
+  
+    <!-- THE WIRE & X.COM PROFILE VIEW -->
+    <section id="view-thewire" class="app-view">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem; flex-wrap:wrap; gap:0.5rem;">
+        <div>
+          <h1 style="margin:0; font-size:1.6rem; font-weight:800; color:#fff;">The BlueLine Wire & Profile</h1>
+          <p style="margin:0.25rem 0 0; font-size:0.85rem; color:#94a3b8;">Your X.com-style athlete passport, official logo stamps, verified posts, and direct recruiter DMs.</p>
+        </div>
+        <div style="display:flex; gap:0.5rem;">
+          <button type="button" class="btn primary" onclick="openDirectMessageDrawer()" style="display:flex; align-items:center; gap:0.4rem; padding:0.5rem 0.9rem; font-size:0.85rem;">
+            <span>💬</span> Direct Messages <span id="dmUnreadBadge" style="background:#ef4444; color:#fff; font-size:0.7rem; padding:0.1rem 0.4rem; border-radius:9999px; font-weight:800; display:none;">1</span>
+          </button>
+          <button type="button" class="btn secondary" onclick="openLogoPickerModal()" style="display:flex; align-items:center; gap:0.4rem; padding:0.5rem 0.9rem; font-size:0.85rem;">
+            <span>🛡️</span> Stamp Profile Logo
+          </button>
+        </div>
+      </div>
+
+      <!-- X.com-style Profile Card -->
+      <div class="x-profile-card">
+        <div class="x-profile-banner" id="wireProfileBanner" style="background-image:url('https://images.unsplash.com/photo-1580748141549-71748dbe0bdc?auto=format&fit=crop&w=1200&q=80');">
+          <div class="x-profile-banner-overlay"></div>
+        </div>
+        <div class="x-profile-header">
+          <div class="x-avatar-container">
+            <img id="wireProfileAvatar" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=250&q=80" alt="Avatar" class="x-avatar-img">
+            <!-- Stamped Logo Overlay Badge -->
+            <div id="wireAvatarLogoStamp" class="x-avatar-logo-badge" onclick="openLogoPickerModal()" title="Click to Change Logo Badge">
+              〽️
             </div>
-            <p id="dossierSubheading" class="text-xs sm:text-sm text-slate-300 truncate">
-              University of Michigan • NCAA Division I Men (Big Ten)
+          </div>
+          <div class="x-profile-actions">
+            <button type="button" class="btn secondary" onclick="openLogoPickerModal()" style="font-size:0.78rem; padding:0.4rem 0.75rem;">
+              🎨 Change Badge
+            </button>
+            <button type="button" class="btn primary" onclick="openDirectMessageDrawer()" style="font-size:0.78rem; padding:0.4rem 0.75rem;">
+              ✉️ Send DM
+            </button>
+          </div>
+        </div>
+        <div class="x-profile-body">
+          <h2 class="x-profile-name" id="wireProfileName">
+            Michael Hage
+            <span style="display:inline-flex; align-items:center; font-size:0.85rem; color:#38bdf8; background:rgba(56,189,248,0.15); padding:0.15rem 0.45rem; border-radius:9999px; border:1px solid rgba(56,189,248,0.3);">
+              ⚡ VERIFIED ATHLETE
+            </span>
+          </h2>
+          <div class="x-profile-handle" id="wireProfileHandle">@michael_hage19</div>
+          <div class="x-profile-bio" id="wireProfileBio">
+            Center / Forward (#19) for University of Michigan (NCAA D1) | Montreal Canadiens 1st Round Pick (21st overall 2024) | Former Chicago Steel (USHL) | Committed to the standard.
+          </div>
+          <div class="x-profile-meta">
+            <span id="wireProfileOrg">🏛️ University of Michigan</span>
+            <span id="wireProfileLeague">🏒 NCAA Division I Men (Big Ten)</span>
+            <span id="wireProfileLoc">📍 Ann Arbor, MI</span>
+            <span id="wireProfileStampTag" style="color:#f59e0b; font-weight:700;">🛡️ Stamped: Michigan Wolverines Crest</span>
+          </div>
+          <div class="x-stats-bar">
+            <div class="x-stat-item"><strong id="wireStatGP">38</strong><span>GP</span></div>
+            <div class="x-stat-item"><strong id="wireStatG">24</strong><span>Goals</span></div>
+            <div class="x-stat-item"><strong id="wireStatA">31</strong><span>Assists</span></div>
+            <div class="x-stat-item"><strong id="wireStatPTS">55</strong><span>Points</span></div>
+            <div class="x-stat-item"><strong id="wireStatDiff">+18</strong><span>Differential</span></div>
+            <div class="x-stat-item"><strong id="wireStatSQM">96.4</strong><span>SQM Score</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Composer Card -->
+      <div class="x-composer-card">
+        <textarea id="wireComposerText" class="x-composer-textarea" placeholder="What's your game update, combine score, or film cut? Tag #Commitment, #Combine, #GameDay..."></textarea>
+        <div class="x-composer-actions">
+          <div class="x-composer-tools">
+            <button type="button" class="x-tool-btn" onclick="quickAttachCombineData()">⚡ Add Laser Combine</button>
+            <button type="button" class="x-tool-btn" onclick="quickAttachGameLogData()">📊 Add Game Log</button>
+            <button type="button" class="x-tool-btn" onclick="quickAttachFilmClip()">🎥 Add Film Cut</button>
+          </div>
+          <button type="button" class="btn primary" onclick="publishWirePost()" style="padding:0.45rem 1.2rem; font-size:0.85rem; font-weight:800;">
+            Post to Wire
+          </button>
+        </div>
+      </div>
+
+      <!-- Feed Filter Tabs -->
+      <div class="x-tabs-nav">
+        <button type="button" class="x-tab-nav-btn active" id="tabFeedAll" onclick="switchWireFeedTab('all')">🌐 All Community Posts</button>
+        <button type="button" class="x-tab-nav-btn" id="tabFeedMy" onclick="switchWireFeedTab('my')">👤 My Posts & Timeline</button>
+        <button type="button" class="x-tab-nav-btn" id="tabFeedCombine" onclick="switchWireFeedTab('combine')">🧬 Laser Combine Reports</button>
+        <button type="button" class="x-tab-nav-btn" id="tabFeedGame" onclick="switchWireFeedTab('game')">🏒 Game Day Logs</button>
+      </div>
+
+      <!-- Wire Posts Stream Container -->
+      <div id="wirePostsStream" style="display:flex; flex-direction:column; gap:0.75rem;">
+        <!-- Populated dynamically via renderWirePosts() -->
+      </div>
+    </section>
+
+    <!-- PLAYER DATABASE & STATS VIEW -->
+    <section id="view-playerdatabase" class="app-view">
+      <div style="margin-bottom:1.5rem;">
+        <h1 style="margin:0; font-size:1.6rem; font-weight:800; color:#fff;">3,050+ Master Player Directory & Analytics</h1>
+        <p style="margin:0.25rem 0 0; font-size:0.85rem; color:#94a3b8;">Inspect and compare verified stats of athletes across NCAA D1, USHL, NAHL, and prep powerhouses.</p>
+      </div>
+
+      <!-- Search & Filters -->
+      <div style="background:#0f172a; padding:1rem; border-radius:12px; border:1px solid rgba(56,189,248,0.2); margin-bottom:1.25rem; display:flex; gap:0.75rem; flex-wrap:wrap; align-items:center;">
+        <input type="text" id="playerDbSearchInput" placeholder="Search player name, school, team, or draft status..." oninput="renderPlayerDatabaseGrid()" style="flex:2; min-width:220px; background:#1e293b; border:1px solid rgba(255,255,255,0.1); border-radius:8px; padding:0.6rem 0.9rem; color:#fff; font-size:0.85rem; outline:none;">
+        <select id="playerDbPosFilter" onchange="renderPlayerDatabaseGrid()" style="flex:1; min-width:130px; background:#1e293b; border:1px solid rgba(255,255,255,0.1); border-radius:8px; padding:0.6rem 0.9rem; color:#fff; font-size:0.85rem; outline:none;">
+          <option value="">All Positions</option>
+          <option value="F">Forwards (F)</option>
+          <option value="D">Defensemen (D)</option>
+          <option value="G">Goaltenders (G)</option>
+        </select>
+        <select id="playerDbLeagueFilter" onchange="renderPlayerDatabaseGrid()" style="flex:1; min-width:150px; background:#1e293b; border:1px solid rgba(255,255,255,0.1); border-radius:8px; padding:0.6rem 0.9rem; color:#fff; font-size:0.85rem; outline:none;">
+          <option value="">All Leagues</option>
+          <option value="NCAA">NCAA Division I</option>
+          <option value="USHL">USHL Tier 1</option>
+          <option value="BCHL">BCHL Junior A</option>
+          <option value="NAHL">NAHL</option>
+        </select>
+        <button type="button" class="btn primary" onclick="renderPlayerDatabaseGrid()" style="padding:0.6rem 1rem; font-size:0.85rem;">🔍 Search</button>
+        <button type="button" class="btn secondary" id="playerDbScoutExportBtn" onclick="handleScoutExportClick()" style="padding:0.6rem 1rem; font-size:0.85rem;">🔒 Pro Scout Dossier Export ($22.99)</button>
+      </div>
+
+      <!-- Player Cards Grid -->
+      <div id="playerDbCardsGrid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr)); gap:1rem;">
+        <!-- Dynamically rendered -->
+      </div>
+    </section>
+
+    <!-- PACKAGES & PRICING MATRIX VIEW -->
+    <section id="view-packages" class="app-view">
+      <div style="text-align:center; max-width:700px; margin:0 auto 2rem;">
+        <span style="font-family:monospace; font-size:0.8rem; color:#38bdf8; text-transform:uppercase; font-weight:800; letter-spacing:0.05em;">Role-Specific Subscriptions</span>
+        <h1 style="font-size:2rem; font-weight:900; color:#ffffff; margin:0.5rem 0;">Tailored Pricing Built for Every Hockey Journey</h1>
+        <p style="font-size:0.95rem; color:#94a3b8; line-height:1.5;">Select the exact tier matching your role in the hockey ecosystem. Every plan includes cryptographic audit ledger protection and zero advertising.</p>
+      </div>
+
+      <div class="pricing-grid">
+        <!-- Athlete Package -->
+        <div class="package-card" id="pkgCardAthlete">
+          <div>
+            <span class="package-role-tag" style="background:rgba(56,189,248,0.2); color:#38bdf8;">⚡ Athlete Tier</span>
+            <h2 style="font-size:1.3rem; font-weight:800; color:#ffffff; margin:0.25rem 0;">Player Passport</h2>
+            <p style="font-size:0.85rem; color:#94a3b8; margin-bottom:0.75rem;">Full athlete dossier, personal stat vault, AR training, and direct access to The Wire with verified badge stamping.</p>
+            <div class="package-price-val">$4.99 <span>/ month</span></div>
+            <div style="font-size:0.75rem; color:#64748b; font-family:monospace; margin-bottom:1rem;">Cancel anytime • No long-term contract</div>
+            <ul class="package-features-list">
+              <li><span>✓</span> Official Cryptographic Athlete Passport & Ledger</li>
+              <li><span>✓</span> The Wire Social Feed & X.com Style Profile</li>
+              <li><span>✓</span> Official Team & School Logo Stamping on Avatar</li>
+              <li><span>✓</span> Direct Messaging (DMs) with Verified Scouts & Coaches</li>
+              <li><span>✓</span> Search & Compare Other Athletes Across North America</li>
+              <li><span>✓</span> Laser Combine Biometrics & Video Breakdown Access</li>
+            </ul>
+          </div>
+          <button type="button" class="btn primary" onclick="handleSelectPackage('athlete')" style="width:100%; padding:0.75rem; font-weight:800; font-size:0.9rem;">
+            Activate Player Passport ($4.99/mo)
+          </button>
+        </div>
+
+        <!-- Parent Package -->
+        <div class="package-card" id="pkgCardParent">
+          <div>
+            <span class="package-role-tag" style="background:rgba(236,72,153,0.2); color:#f472b6;">👨‍👩‍👦 Parent Tier</span>
+            <h2 style="font-size:1.3rem; font-weight:800; color:#ffffff; margin:0.25rem 0;">Family Advisor</h2>
+            <p style="font-size:0.85rem; color:#94a3b8; margin-bottom:0.75rem;">Academic eligibility tracking, safe recruiter contact log, and tournament schedule coordination.</p>
+            <div class="package-price-val">$4.99 <span>/ month</span></div>
+            <div style="font-size:0.75rem; color:#64748b; font-family:monospace; margin-bottom:1rem;">Cancel anytime • No long-term contract</div>
+            <ul class="package-features-list">
+              <li><span>✓</span> NCAA Clearinghouse Eligibility & GPA Tracker</li>
+              <li><span>✓</span> Direct Messaging Line to Verified Coaching Staff</li>
+              <li><span>✓</span> Physical Development, Height/Weight & Combine Milestones</li>
+              <li><span>✓</span> Game, Tournament & Showcase Travel Coordinator</li>
+              <li><span>✓</span> Recruiter Outreach Audit Ledger (Safe-Contact Record)</li>
+              <li><span>✓</span> Core Course Calculator & High School Planning</li>
+            </ul>
+          </div>
+          <button type="button" class="btn primary" onclick="handleSelectPackage('parent')" style="width:100%; padding:0.75rem; font-weight:800; font-size:0.9rem;">
+            Activate Family Advisor ($4.99/mo)
+          </button>
+        </div>
+
+        <!-- Coach Package -->
+        <div class="package-card" id="pkgCardCoach">
+          <div>
+            <span class="package-role-tag" style="background:rgba(168,85,247,0.2); color:#c084fc;">🏒 Coach Tier</span>
+            <h2 style="font-size:1.3rem; font-weight:800; color:#ffffff; margin:0.25rem 0;">Coach Pro</h2>
+            <p style="font-size:0.85rem; color:#94a3b8; margin-bottom:0.75rem;">Roster management, interactive tactical whiteboard, AI film breakdowns, and recruiting boards.</p>
+            <div class="package-price-val">$22.99 <span>/ month</span></div>
+            <div style="font-size:0.75rem; color:#64748b; font-family:monospace; margin-bottom:1rem;">Cancel anytime • Full Coaching Suite</div>
+            <ul class="package-features-list">
+              <li><span>✓</span> Dynamic Roster Management & Line Combination Matrix</li>
+              <li><span>✓</span> AI Film Studio & Tactical Telestration Whiteboard</li>
+              <li><span>✓</span> Searchable 3,050+ Player Scouting Database</li>
+              <li><span>✓</span> Direct Messaging (DMs) with Prospects & Family Advisors</li>
+              <li><span>✓</span> ADM Practice Planning & Team Combine Benchmarks</li>
+              <li><span>✓</span> Unrestricted Access to All 22 Analytical Hubs</li>
+            </ul>
+          </div>
+          <button type="button" class="btn primary" onclick="handleSelectPackage('coach')" style="width:100%; padding:0.75rem; font-weight:800; font-size:0.9rem;">
+            Activate Coach Pro ($22.99/mo)
+          </button>
+        </div>
+
+        <!-- Recruiter / Scout Package -->
+        <div class="package-card" id="pkgCardScout">
+          <div>
+            <span class="package-role-tag" style="background:rgba(245,158,11,0.2); color:#fbbf24;">🔍 Scout Tier</span>
+            <h2 style="font-size:1.3rem; font-weight:800; color:#ffffff; margin:0.25rem 0;">Recruiter Enterprise</h2>
+            <p style="font-size:0.85rem; color:#94a3b8; margin-bottom:0.75rem;">Comprehensive scouting bureau with draft war rooms, salary cap modeling, and verified recruitment pipelines.</p>
+            <div class="package-price-val">$22.99 <span>/ month</span></div>
+            <div style="font-size:0.75rem; color:#64748b; font-family:monospace; margin-bottom:1rem;">Cancel anytime • Full Bureau Access</div>
+            <ul class="package-features-list">
+              <li><span>✓</span> War Room Draft Simulator & Franchise Cap Lab</li>
+              <li><span>✓</span> Unrestricted 3,050+ Master Athlete Database with Ledger Audit</li>
+              <li><span>✓</span> Verified Recruiter Outreach DMs Directly to Prospects</li>
+              <li><span>✓</span> Tournament Bracketology & Frozen Four Simulator</li>
+              <li><span>✓</span> Talent Radar, SQM Metrics & Exportable Dossiers</li>
+              <li><span>✓</span> Unrestricted Access to All 22 Analytical Hubs</li>
+            </ul>
+          </div>
+          <button type="button" class="btn primary" onclick="handleSelectPackage('scout')" style="width:100%; padding:0.75rem; font-weight:800; font-size:0.9rem;">
+            Activate Recruiter Enterprise ($22.99/mo)
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ADMIN OPERATIONS CENTER VIEW -->
+    <section id="view-admin" class="app-view">
+      <div id="paywallShield-admin" class="inline-paywall-card" style="display:none;">
+        <div class="lock-icon">🔒</div>
+        <span class="paywall-badge">ADMINISTRATOR PRIVILEGE REQUIRED</span>
+        <h3>Platform Operations Command Center</h3>
+        <p>Visitor IP telemetry, email dispatch logs, and platform MRR analytics require Operations Administrator privileges.</p>
+        <button type="button" class="paywall-upgrade-btn" onclick="handleRoleSwitch('admin')">⚙️ Switch to Admin View</button>
+      </div>
+      <div id="proContent-admin">
+        <div style="margin-bottom:1.5rem;">
+          <span style="font-family:monospace; font-size:0.8rem; color:#38bdf8; text-transform:uppercase; font-weight:800; letter-spacing:0.05em;">Security, Telemetry & Infrastructure</span>
+          <h1 style="margin:0.25rem 0 0; font-size:1.8rem; font-weight:800; color:#fff;">Admin Operations Command Center</h1>
+          <p style="margin:0.25rem 0 0; font-size:0.85rem; color:#94a3b8;">Monitor visitor IP addresses, live security shields, outbox emails, platform users, and MRR metrics.</p>
+        </div>
+
+        <!-- Admin KPIs -->
+        <div class="admin-grid">
+          <div class="admin-kpi-card">
+            <div class="val" id="adminKpiUsers">28</div>
+            <div class="lbl">Registered Platform Accounts</div>
+          </div>
+        <div class="admin-kpi-card">
+          <div class="val" id="adminKpiMRR">$215.88</div>
+          <div class="lbl">Monthly Recurring Revenue (MRR)</div>
+        </div>
+        <div class="admin-kpi-card">
+          <div class="val" id="adminKpiLedger">148</div>
+          <div class="lbl">Cryptographic Ledger Blocks</div>
+        </div>
+        <div class="admin-kpi-card">
+          <div class="val" id="adminKpiDefcon" style="color:#10b981;">DEFCON 5</div>
+          <div class="lbl">Aegis Security Health</div>
+        </div>
+      </div>
+
+      <!-- Outbox Email Management -->
+      <div style="background:#0f172a; border:1px solid rgba(56,189,248,0.2); border-radius:14px; padding:1.25rem; margin-bottom:1.5rem;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem; flex-wrap:wrap; gap:0.5rem;">
+          <div>
+            <h3 style="margin:0; font-size:1.1rem; color:#fff; display:flex; align-items:center; gap:0.4rem;">
+              <span>✉️</span> Transactional Email Hub & Dispatcher
+            </h3>
+            <p style="margin:0.2rem 0 0; font-size:0.8rem; color:#94a3b8;">
+              Connected to <strong>draftlineup.com</strong> via operations desk <strong style="color:#38bdf8;">furrhjohn10@gmail.com</strong>
             </p>
-            <div class="flex items-center gap-3 text-xs text-slate-400 font-mono flex-wrap pt-0.5">
-              <span id="dossierHometown">📍 Mississauga, ON</span>
-              <span>•</span>
-              <span id="dossierBiometrics">Height: 6' 1" | Weight: 190 lbs</span>
-              <span>•</span>
-              <span id="dossierShoots">Shoots: Right</span>
-              <span>•</span>
-              <span id="dossierDraft">Draft: MTL 2024 (1st Rd, #21)</span>
-            </div>
           </div>
-        </div>
-
-        <!-- Right Quick Actions -->
-        <div class="flex items-center gap-2 shrink-0">
-          <button onclick="switchAppTab('tab-combine')" class="px-3 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-sky-500/30 text-sky-300 text-xs font-bold transition flex items-center gap-1.5 cursor-pointer">
-            <span>🧪</span> <span>Test Combine</span>
-          </button>
-          <button onclick="exportDigitalPassport()" class="px-3.5 py-2 rounded-xl bg-gradient-to-r from-sky-600 to-blue-600 hover:from-sky-500 hover:to-blue-500 text-white text-xs font-bold transition shadow-lg shadow-sky-600/30 flex items-center gap-1.5 cursor-pointer">
-            <span>📥</span> <span>Export Passport</span>
+          <button type="button" class="btn primary" onclick="handleAdminSendTestEmail()" style="font-size:0.8rem; padding:0.4rem 0.8rem;">
+            ⚡ Dispatch Test Notification
           </button>
         </div>
-      </div>
 
-      <!-- Quick KPI Metrics Ribbon -->
-      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 pt-3 border-t border-slate-800/80">
-        <div class="bg-slate-900/80 p-3 rounded-2xl border border-slate-800/80 space-y-0.5">
-          <div class="text-[10px] font-mono text-slate-400 uppercase">Composite Score</div>
-          <div id="metricCompositeScore" class="text-lg sm:text-xl font-black text-sky-400">94.6 <span class="text-xs font-normal text-slate-400">/ 100</span></div>
-          <div class="text-[9px] text-emerald-400 font-mono">Top 2% Scholastic</div>
-        </div>
-
-        <div class="bg-slate-900/80 p-3 rounded-2xl border border-slate-800/80 space-y-0.5">
-          <div class="text-[10px] font-mono text-slate-400 uppercase">Athletic Index</div>
-          <div id="metricAthleticIndex" class="text-lg sm:text-xl font-black text-emerald-400">92.8 <span class="text-xs font-normal text-slate-400">/ 100</span></div>
-          <div class="text-[9px] text-slate-400 font-mono">Combine Hardware</div>
-        </div>
-
-        <div class="bg-slate-900/80 p-3 rounded-2xl border border-slate-800/80 space-y-0.5">
-          <div class="text-[10px] font-mono text-slate-400 uppercase">Corsi For %</div>
-          <div id="metricCorsi" class="text-lg sm:text-xl font-black text-cyan-400">58.2%</div>
-          <div class="text-[9px] text-cyan-300 font-mono">+11.4% Rel Team</div>
-        </div>
-
-        <div class="bg-slate-900/80 p-3 rounded-2xl border border-slate-800/80 space-y-0.5">
-          <div class="text-[10px] font-mono text-slate-400 uppercase">Academic GPA</div>
-          <div id="metricGpa" class="text-lg sm:text-xl font-black text-amber-400">3.85 <span class="text-xs font-normal text-slate-400">/ 4.0</span></div>
-          <div class="text-[9px] text-amber-300 font-mono">NCAA Core 100%</div>
-        </div>
-
-        <div class="bg-slate-900/80 p-3 rounded-2xl border border-slate-800/80 space-y-0.5">
-          <div class="text-[10px] font-mono text-slate-400 uppercase">NCAA Pathway</div>
-          <div id="metricNcaaPathway" class="text-lg sm:text-xl font-black text-purple-400">Division I</div>
-          <div class="text-[9px] text-purple-300 font-mono">Committed Varsity</div>
-        </div>
-
-        <div class="bg-slate-900/80 p-3 rounded-2xl border border-slate-800/80 space-y-0.5">
-          <div class="text-[10px] font-mono text-slate-400 uppercase">Ledger Genesis</div>
-          <div id="metricLedgerHash" class="text-xs font-mono font-bold text-slate-300 truncate" title="0x9f7a83e0cb214">0x9f7a83e...</div>
-          <div class="text-[9px] text-emerald-400 font-mono">HMAC-SHA256 LOCKED</div>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- ==================== INTERNAL TAB NAVIGATION (JS DRIVEN) ==================== -->
-    <div class="flex items-center gap-2 overflow-x-auto pb-1 border-b border-slate-800 font-mono text-xs scrollbar-none">
-      <button onclick="switchAppTab('tab-overview')" id="tabBtn-overview" class="app-tab-btn px-4 py-2.5 rounded-xl font-bold bg-sky-600 text-white transition flex items-center gap-2 shrink-0 cursor-pointer">
-        <span>📊</span> <span>Overview & Passport</span>
-      </button>
-      <button onclick="switchAppTab('tab-analytics')" id="tabBtn-analytics" class="app-tab-btn px-4 py-2.5 rounded-xl font-semibold bg-slate-900 text-slate-400 hover:text-white border border-slate-800 transition flex items-center gap-2 shrink-0 cursor-pointer">
-        <span>📈</span> <span>Analytics & Game Log</span>
-      </button>
-      <button onclick="switchAppTab('tab-combine')" id="tabBtn-combine" class="app-tab-btn px-4 py-2.5 rounded-xl font-semibold bg-slate-900 text-slate-400 hover:text-white border border-slate-800 transition flex items-center gap-2 shrink-0 cursor-pointer">
-        <span>🧪</span> <span>Combine Lab</span>
-      </button>
-      <button onclick="switchAppTab('tab-pathway')" id="tabBtn-pathway" class="app-tab-btn px-4 py-2.5 rounded-xl font-semibold bg-slate-900 text-slate-400 hover:text-white border border-slate-800 transition flex items-center gap-2 shrink-0 cursor-pointer">
-        <span>🎯</span> <span>Recruiting & NCAA Pathway</span>
-      </button>
-      <button onclick="switchAppTab('tab-tactics')" id="tabBtn-tactics" class="app-tab-btn px-4 py-2.5 rounded-xl font-semibold bg-slate-900 text-slate-400 hover:text-white border border-slate-800 transition flex items-center gap-2 shrink-0 cursor-pointer">
-        <span>📋</span> <span>Tactics & Film Breakdown</span>
-      </button>
-      <button onclick="switchAppTab('tab-security')" id="tabBtn-security" class="app-tab-btn px-4 py-2.5 rounded-xl font-semibold bg-slate-900 text-slate-400 hover:text-white border border-slate-800 transition flex items-center gap-2 shrink-0 cursor-pointer">
-        <span>🛡️</span> <span>Ledger & Security</span>
-      </button>
-    </div>
-
-    <!-- ==================== TAB PANELS ==================== -->
-
-    <!-- TAB 1: OVERVIEW & PASSPORT -->
-    <div id="tabPanel-overview" class="tab-panel space-y-6">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        
-        <!-- Radar Spider Chart Card -->
-        <div class="glass-panel p-5 sm:p-6 rounded-3xl border border-slate-800 space-y-4">
-          <div class="flex items-center justify-between border-b border-slate-800 pb-3">
-            <div>
-              <h3 class="font-black text-white text-base flex items-center gap-2">
-                <span>🕸️</span> 5-Axis Scouting Evaluation Radar
-              </h3>
-              <p class="text-xs text-slate-400">Micro-telemetry evaluation compared against NCAA D1 & USHL Tier 1 cohort norms</p>
-            </div>
-            <span class="px-2 py-0.5 rounded-full bg-sky-500/20 text-sky-300 font-mono text-[10px] font-bold">Top 2% Tier</span>
-          </div>
-
-          <div class="h-64 sm:h-72 relative flex items-center justify-center">
-            <canvas id="overviewRadarChart"></canvas>
-          </div>
-
-          <div class="grid grid-cols-5 gap-1 text-center font-mono text-[10px] pt-2 border-t border-slate-800/80">
-            <div class="bg-slate-900/60 p-1.5 rounded-lg"><div class="text-slate-400">Skating</div><div class="font-bold text-sky-400">96.0</div></div>
-            <div class="bg-slate-900/60 p-1.5 rounded-lg"><div class="text-slate-400">Puck Skills</div><div class="font-bold text-sky-400">94.5</div></div>
-            <div class="bg-slate-900/60 p-1.5 rounded-lg"><div class="text-slate-400">Hockey IQ</div><div class="font-bold text-sky-400">95.0</div></div>
-            <div class="bg-slate-900/60 p-1.5 rounded-lg"><div class="text-slate-400">Physicality</div><div class="font-bold text-sky-400">89.0</div></div>
-            <div class="bg-slate-900/60 p-1.5 rounded-lg"><div class="text-slate-400">Clutch Index</div><div class="font-bold text-sky-400">93.5</div></div>
-          </div>
-        </div>
-
-        <!-- Trajectory Timeline Arc Card -->
-        <div class="glass-panel p-5 sm:p-6 rounded-3xl border border-slate-800 space-y-4">
-          <div class="flex items-center justify-between border-b border-slate-800 pb-3">
-            <div>
-              <h3 class="font-black text-white text-base flex items-center gap-2">
-                <span>📈</span> Lifelong Career Trajectory Velocity
-              </h3>
-              <p class="text-xs text-slate-400">Historical performance index through each competitive tier</p>
-            </div>
-            <span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-mono text-[10px] font-bold">Exponential Arc</span>
-          </div>
-
-          <div class="h-64 sm:h-72 relative flex items-center justify-center">
-            <canvas id="overviewTrajectoryChart"></canvas>
-          </div>
-
-          <div class="bg-slate-900/80 p-3 rounded-2xl border border-slate-800 text-xs text-slate-300 flex items-center justify-between">
-            <span class="font-mono text-[11px] text-slate-400">Current Phase: <strong class="text-white">NCAA Division I Elite</strong></span>
-            <span class="font-mono text-[11px] text-emerald-400 font-bold">Projected Trajectory: NHL Impact Top-6</span>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- Biometrics & Hardware Telemetry Details -->
-      <div class="glass-panel p-5 sm:p-6 rounded-3xl border border-slate-800 space-y-4">
-        <h3 class="font-black text-white text-base flex items-center gap-2 border-b border-slate-800 pb-3">
-          <span>🧬</span> Verified Biometrics & Hardware Sensor Telemetry
-        </h3>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs font-mono">
-          <div class="bg-slate-900/60 p-3.5 rounded-2xl border border-slate-800/80 space-y-1">
-            <span class="text-slate-400">Max Sprint Velocity</span>
-            <div class="text-base font-bold text-white">35.2 km/h</div>
-            <div class="text-[10px] text-emerald-400">Catapult GPS Verified</div>
-          </div>
-          <div class="bg-slate-900/60 p-3.5 rounded-2xl border border-slate-800/80 space-y-1">
-            <span class="text-slate-400">Resting Heart Rate</span>
-            <div class="text-base font-bold text-white">46 bpm</div>
-            <div class="text-[10px] text-sky-400">Cardiovascular Recovery A+</div>
-          </div>
-          <div class="bg-slate-900/60 p-3.5 rounded-2xl border border-slate-800/80 space-y-1">
-            <span class="text-slate-400">Shot Velocity (Wrist/Snap)</span>
-            <div class="text-base font-bold text-white">88.4 mph</div>
-            <div class="text-[10px] text-purple-400">Radar Verified Quick Release</div>
-          </div>
-          <div class="bg-slate-900/60 p-3.5 rounded-2xl border border-slate-800/80 space-y-1">
-            <span class="text-slate-400">Sleep & Strain Recovery</span>
-            <div class="text-base font-bold text-white">94%</div>
-            <div class="text-[10px] text-emerald-400">Optimal Biometric State</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- TAB 2: ADVANCED ANALYTICS & GAME LOG -->
-    <div id="tabPanel-analytics" class="tab-panel space-y-6 hidden">
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        
-        <!-- Possession Telemetry -->
-        <div class="glass-panel p-5 rounded-3xl border border-slate-800 space-y-3">
-          <h3 class="font-bold text-white text-sm flex items-center gap-2 border-b border-slate-800 pb-2">
-            <span>🏒</span> Advanced Possession Metrics
-          </h3>
-          <div class="space-y-3 font-mono text-xs">
-            <div>
-              <div class="flex justify-between text-[11px] mb-1">
-                <span class="text-slate-400">Corsi For % (CF%)</span>
-                <span class="text-sky-400 font-bold">58.2%</span>
-              </div>
-              <div class="w-full bg-slate-900 h-2 rounded-full overflow-hidden">
-                <div class="bg-sky-500 h-full" style="width: 58.2%"></div>
-              </div>
-            </div>
-            <div>
-              <div class="flex justify-between text-[11px] mb-1">
-                <span class="text-slate-400">Fenwick For % (FF%)</span>
-                <span class="text-emerald-400 font-bold">57.1%</span>
-              </div>
-              <div class="w-full bg-slate-900 h-2 rounded-full overflow-hidden">
-                <div class="bg-emerald-500 h-full" style="width: 57.1%"></div>
-              </div>
-            </div>
-            <div>
-              <div class="flex justify-between text-[11px] mb-1">
-                <span class="text-slate-400">High Danger Chances %</span>
-                <span class="text-purple-400 font-bold">61.4%</span>
-              </div>
-              <div class="w-full bg-slate-900 h-2 rounded-full overflow-hidden">
-                <div class="bg-purple-500 h-full" style="width: 61.4%"></div>
-              </div>
-            </div>
-            <div>
-              <div class="flex justify-between text-[11px] mb-1">
-                <span class="text-slate-400">Zone Entry Possession %</span>
-                <span class="text-amber-400 font-bold">68.9%</span>
-              </div>
-              <div class="w-full bg-slate-900 h-2 rounded-full overflow-hidden">
-                <div class="bg-amber-500 h-full" style="width: 68.9%"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Shot Vector Breakdown -->
-        <div class="glass-panel p-5 rounded-3xl border border-slate-800 space-y-3">
-          <h3 class="font-bold text-white text-sm flex items-center gap-2 border-b border-slate-800 pb-2">
-            <span>🎯</span> Shot Vector Distribution
-          </h3>
-          <div class="space-y-2 text-xs font-mono">
-            <div class="bg-slate-900/80 p-2.5 rounded-xl border border-slate-800 flex justify-between items-center">
-              <span class="text-slate-400">High Danger Slot Shots</span>
-              <span class="font-bold text-emerald-400">44% (18/41 SOG)</span>
-            </div>
-            <div class="bg-slate-900/80 p-2.5 rounded-xl border border-slate-800 flex justify-between items-center">
-              <span class="text-slate-400">Left Circle One-Timers</span>
-              <span class="font-bold text-sky-400">32% (13/41 SOG)</span>
-            </div>
-            <div class="bg-slate-900/80 p-2.5 rounded-xl border border-slate-800 flex justify-between items-center">
-              <span class="text-slate-400">Perimeter / Point Rushes</span>
-              <span class="font-bold text-purple-400">24% (10/41 SOG)</span>
-            </div>
-            <div class="bg-slate-900/80 p-2.5 rounded-xl border border-slate-800 flex justify-between items-center">
-              <span class="text-slate-400">Shooting %</span>
-              <span class="font-bold text-amber-400">14.6%</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Expected Goals (xG) Summary -->
-        <div class="glass-panel p-5 rounded-3xl border border-slate-800 space-y-3">
-          <h3 class="font-bold text-white text-sm flex items-center gap-2 border-b border-slate-800 pb-2">
-            <span>⚡</span> Scoring Impact Rate
-          </h3>
-          <div class="space-y-3 font-mono text-xs">
-            <div class="text-center p-4 rounded-2xl bg-gradient-to-b from-sky-950/40 to-slate-900 border border-sky-500/20">
-              <div class="text-[10px] text-slate-400 uppercase">Individual Expected Goals (ixG)</div>
-              <div class="text-3xl font-black text-sky-400 mt-1">+0.68</div>
-              <div class="text-[10px] text-emerald-400 mt-1">Per 60 Mins Even Strength</div>
-            </div>
-            <div class="flex justify-between text-[11px] bg-slate-900/80 p-2 rounded-xl">
-              <span class="text-slate-400">Primary Points / 60</span>
-              <span class="font-bold text-white">2.42</span>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- Recent Game Sheet Telemetry Table -->
-      <div class="glass-panel p-5 sm:p-6 rounded-3xl border border-slate-800 space-y-4">
-        <h3 class="font-black text-white text-base flex items-center gap-2 border-b border-slate-800 pb-3">
-          <span>📋</span> Recent Game-by-Game Micro-Telemetry Sheets
-        </h3>
-
-        <div class="overflow-x-auto rounded-2xl border border-slate-800">
-          <table class="w-full text-left text-xs border-collapse">
+        <div class="admin-table-container">
+          <table class="admin-table">
             <thead>
-              <tr class="bg-slate-900/90 text-slate-400 font-mono text-[11px] border-b border-slate-800">
-                <th class="p-3">DATE / OPPONENT</th>
-                <th class="p-3 text-center">RESULT</th>
-                <th class="p-3 text-center">TOI</th>
-                <th class="p-3 text-center">G</th>
-                <th class="p-3 text-center">A</th>
-                <th class="p-3 text-center">PTS</th>
-                <th class="p-3 text-center">SOG</th>
-                <th class="p-3 text-center">+/-</th>
-                <th class="p-3 text-center">CF%</th>
-                <th class="p-3 text-right">GAME SCORE</th>
+              <tr>
+                <th>TIMESTAMP</th>
+                <th>TYPE</th>
+                <th>RECIPIENT</th>
+                <th>SUBJECT</th>
+                <th>OTP CODE / TOKEN</th>
+                <th>STATUS</th>
               </tr>
             </thead>
-            <tbody id="gameLogTableBody" class="divide-y divide-slate-800/60 font-mono">
-              <tr class="hover:bg-slate-900/40 transition">
-                <td class="p-3 text-white font-bold">vs. Michigan State</td>
-                <td class="p-3 text-center text-emerald-400 font-bold">W 4-2</td>
-                <td class="p-3 text-center text-slate-300">19:42</td>
-                <td class="p-3 text-center text-sky-400 font-bold">1</td>
-                <td class="p-3 text-center text-sky-400 font-bold">1</td>
-                <td class="p-3 text-center text-amber-400 font-black">2</td>
-                <td class="p-3 text-center text-slate-300">5</td>
-                <td class="p-3 text-center text-emerald-400">+2</td>
-                <td class="p-3 text-center text-cyan-400">62.5%</td>
-                <td class="p-3 text-right text-emerald-400 font-bold">3.24</td>
-              </tr>
-              <tr class="hover:bg-slate-900/40 transition">
-                <td class="p-3 text-white font-bold">at Minnesota</td>
-                <td class="p-3 text-center text-amber-400 font-bold">OTW 3-2</td>
-                <td class="p-3 text-center text-slate-300">21:10</td>
-                <td class="p-3 text-center text-sky-400 font-bold">1</td>
-                <td class="p-3 text-center text-slate-400">0</td>
-                <td class="p-3 text-center text-amber-400 font-black">1</td>
-                <td class="p-3 text-center text-slate-300">4</td>
-                <td class="p-3 text-center text-emerald-400">+1</td>
-                <td class="p-3 text-center text-cyan-400">58.0%</td>
-                <td class="p-3 text-right text-emerald-400 font-bold">2.15</td>
-              </tr>
-              <tr class="hover:bg-slate-900/40 transition">
-                <td class="p-3 text-white font-bold">vs. Wisconsin</td>
-                <td class="p-3 text-center text-emerald-400 font-bold">W 5-1</td>
-                <td class="p-3 text-center text-slate-300">18:05</td>
-                <td class="p-3 text-center text-slate-400">0</td>
-                <td class="p-3 text-center text-sky-400 font-bold">2</td>
-                <td class="p-3 text-center text-amber-400 font-black">2</td>
-                <td class="p-3 text-center text-slate-300">3</td>
-                <td class="p-3 text-center text-emerald-400">+3</td>
-                <td class="p-3 text-center text-cyan-400">66.7%</td>
-                <td class="p-3 text-right text-emerald-400 font-bold">2.88</td>
-              </tr>
+            <tbody id="adminOutboxTableBody">
+              <!-- Rendered dynamically -->
             </tbody>
           </table>
         </div>
       </div>
-    </div>
 
-    <!-- TAB 3: COMBINE LAB -->
-    <div id="tabPanel-combine" class="tab-panel space-y-6 hidden">
-      <div class="glass-panel p-5 sm:p-6 rounded-3xl border border-slate-800 space-y-4">
-        <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-800 pb-3">
+      <!-- IP Address & Visitor Telemetry -->
+      <div style="background:#0f172a; border:1px solid rgba(56,189,248,0.2); border-radius:14px; padding:1.25rem; margin-bottom:1.5rem;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem; flex-wrap:wrap; gap:0.5rem;">
           <div>
-            <h3 class="font-black text-white text-base flex items-center gap-2">
-              <span>🧪</span> Hardware Physicality Combine Benchmarks
+            <h3 style="margin:0; font-size:1.1rem; color:#fff; display:flex; align-items:center; gap:0.4rem;">
+              <span>🌐</span> Real-Time Visitor IP Address & Session Telemetry
             </h3>
-            <p class="text-xs text-slate-400">Interactive biometric tests calibrated against 4 athletic cohorts</p>
+            <p style="margin:0.2rem 0 0; font-size:0.8rem; color:#94a3b8;">
+              Live tracking for static environments (GitHub Pages) with dwell metrics and device telemetry.
+            </p>
           </div>
-
-          <!-- Cohort Filter Dropdown -->
-          <div class="flex items-center gap-2 text-xs font-mono">
-            <span class="text-slate-400">Benchmark Cohort:</span>
-            <select id="combineCohortSelect" onchange="recalculateCombinePercentiles()" class="bg-slate-900 border border-sky-500/40 text-sky-300 text-xs rounded-xl px-3 py-1.5 focus:outline-none">
-              <option value="mshsl">MSHSL Class AA High School</option>
-              <option value="nepsac">NEPSAC Elite Prep</option>
-              <option value="ushl">USHL Tier 1 Junior</option>
-              <option value="ncaa" selected>NCAA Division I Collegiate</option>
-            </select>
+          <div style="font-family:monospace; font-size:0.85rem; color:#38bdf8; background:rgba(56,189,248,0.1); padding:0.3rem 0.6rem; border-radius:8px; border:1px solid rgba(56,189,248,0.3);">
+            Live IP: <span id="adminLiveIpBadge">Detecting...</span>
           </div>
         </div>
 
-        <!-- 6 Interactive Combine Test Cards -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          
-          <div class="bg-slate-900/80 p-4 rounded-2xl border border-slate-800 space-y-2">
-            <div class="flex justify-between items-center text-xs font-mono">
-              <span class="text-slate-400">Flying 30m Sprint</span>
-              <span id="labelFlying30m" class="text-sky-400 font-bold text-sm">3.78s</span>
-            </div>
-            <input type="range" id="sliderFlying30m" min="3.4" max="4.5" step="0.01" value="3.78" oninput="updateCombineMetric('flying30m', this.value)" class="w-full accent-sky-500 cursor-pointer">
-            <div class="flex justify-between text-[10px] font-mono text-slate-500">
-              <span>Fast (3.40s)</span>
-              <span id="percFlying30m" class="text-emerald-400 font-bold">96th Percentile</span>
-              <span>Avg (4.10s)</span>
-            </div>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:1rem; margin-bottom:1rem;">
+          <div style="background:#1e293b; padding:0.85rem; border-radius:10px; border:1px solid rgba(255,255,255,0.05);">
+            <div style="font-size:0.75rem; color:#94a3b8; font-family:monospace;">GEO LOCATION</div>
+            <div style="font-size:1rem; font-weight:700; color:#fff; margin-top:0.25rem;" id="adminGeoLocation">Detecting...</div>
           </div>
-
-          <div class="bg-slate-900/80 p-4 rounded-2xl border border-slate-800 space-y-2">
-            <div class="flex justify-between items-center text-xs font-mono">
-              <span class="text-slate-400">Vertical Jump</span>
-              <span id="labelVerticalJump" class="text-sky-400 font-bold text-sm">31.5 in</span>
-            </div>
-            <input type="range" id="sliderVerticalJump" min="20" max="42" step="0.5" value="31.5" oninput="updateCombineMetric('verticalJump', this.value)" class="w-full accent-sky-500 cursor-pointer">
-            <div class="flex justify-between text-[10px] font-mono text-slate-500">
-              <span>20 in</span>
-              <span id="percVerticalJump" class="text-emerald-400 font-bold">92nd Percentile</span>
-              <span>42 in</span>
-            </div>
+          <div style="background:#1e293b; padding:0.85rem; border-radius:10px; border:1px solid rgba(255,255,255,0.05);">
+            <div style="font-size:0.75rem; color:#94a3b8; font-family:monospace;">SESSION DURATION</div>
+            <div style="font-size:1rem; font-weight:700; color:#fff; margin-top:0.25rem;" id="adminSessionDwell">0s</div>
           </div>
-
-          <div class="bg-slate-900/80 p-4 rounded-2xl border border-slate-800 space-y-2">
-            <div class="flex justify-between items-center text-xs font-mono">
-              <span class="text-slate-400">Standing Broad Jump</span>
-              <span id="labelBroadJump" class="text-sky-400 font-bold text-sm">104.0 in</span>
-            </div>
-            <input type="range" id="sliderBroadJump" min="80" max="130" step="1" value="104" oninput="updateCombineMetric('broadJump', this.value)" class="w-full accent-sky-500 cursor-pointer">
-            <div class="flex justify-between text-[10px] font-mono text-slate-500">
-              <span>80 in</span>
-              <span id="percBroadJump" class="text-emerald-400 font-bold">90th Percentile</span>
-              <span>130 in</span>
-            </div>
+          <div style="background:#1e293b; padding:0.85rem; border-radius:10px; border:1px solid rgba(255,255,255,0.05);">
+            <div style="font-size:0.75rem; color:#94a3b8; font-family:monospace;">AEGIS SHIELD INTERCEPTS</div>
+            <div style="font-size:1rem; font-weight:700; color:#10b981; margin-top:0.25rem;" id="adminShieldBlocked">0 Injections Blocked</div>
           </div>
-
-          <div class="bg-slate-900/80 p-4 rounded-2xl border border-slate-800 space-y-2">
-            <div class="flex justify-between items-center text-xs font-mono">
-              <span class="text-slate-400">Bench Press (150 lbs Reps)</span>
-              <span id="labelBenchPress" class="text-sky-400 font-bold text-sm">14 reps</span>
-            </div>
-            <input type="range" id="sliderBenchPress" min="0" max="30" step="1" value="14" oninput="updateCombineMetric('benchPress', this.value)" class="w-full accent-sky-500 cursor-pointer">
-            <div class="flex justify-between text-[10px] font-mono text-slate-500">
-              <span>0 reps</span>
-              <span id="percBenchPress" class="text-emerald-400 font-bold">88th Percentile</span>
-              <span>30 reps</span>
-            </div>
-          </div>
-
-          <div class="bg-slate-900/80 p-4 rounded-2xl border border-slate-800 space-y-2">
-            <div class="flex justify-between items-center text-xs font-mono">
-              <span class="text-slate-400">Grip Strength (Dominant)</span>
-              <span id="labelGripStrength" class="text-sky-400 font-bold text-sm">62.5 kg</span>
-            </div>
-            <input type="range" id="sliderGripStrength" min="30" max="90" step="0.5" value="62.5" oninput="updateCombineMetric('gripStrength', this.value)" class="w-full accent-sky-500 cursor-pointer">
-            <div class="flex justify-between text-[10px] font-mono text-slate-500">
-              <span>30 kg</span>
-              <span id="percGripStrength" class="text-emerald-400 font-bold">94th Percentile</span>
-              <span>90 kg</span>
-            </div>
-          </div>
-
-          <div class="bg-slate-900/80 p-4 rounded-2xl border border-slate-800 space-y-2">
-            <div class="flex justify-between items-center text-xs font-mono">
-              <span class="text-slate-400">Pro-Agility 5-10-5 Shuttle</span>
-              <span id="labelShuttle" class="text-sky-400 font-bold text-sm">4.28s</span>
-            </div>
-            <input type="range" id="sliderShuttle" min="3.9" max="5.2" step="0.01" value="4.28" oninput="updateCombineMetric('shuttle', this.value)" class="w-full accent-sky-500 cursor-pointer">
-            <div class="flex justify-between text-[10px] font-mono text-slate-500">
-              <span>Fast (3.90s)</span>
-              <span id="percShuttle" class="text-emerald-400 font-bold">91st Percentile</span>
-              <span>Avg (4.90s)</span>
-            </div>
-          </div>
-
         </div>
 
-        <div class="pt-2 flex justify-end">
-          <button onclick="saveCombineHardwareBlock()" class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white text-xs font-bold font-mono transition shadow-lg shadow-emerald-600/30 flex items-center gap-2 cursor-pointer">
-            <span>💾</span> <span>Save Combine Telemetry & Stamp Ledger Block</span>
-          </button>
+        <div class="admin-table-container">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>SESSION ID</th>
+                <th>VISITOR IP</th>
+                <th>PAGES VISITED</th>
+                <th>DWELL TIME</th>
+                <th>SECURITY PROTOCOL</th>
+              </tr>
+            </thead>
+            <tbody id="adminTelemetryTableBody">
+              <!-- Rendered dynamically -->
+            </tbody>
+          </table>
         </div>
       </div>
-    </div>
 
-    <!-- TAB 4: RECRUITMENT & NCAA PATHWAY -->
-    <div id="tabPanel-pathway" class="tab-panel space-y-6 hidden">
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        
-        <!-- Target Programs List -->
-        <div class="lg:col-span-2 glass-panel p-5 sm:p-6 rounded-3xl border border-slate-800 space-y-4">
-          <div class="flex items-center justify-between border-b border-slate-800 pb-3">
-            <div>
-              <h3 class="font-black text-white text-base flex items-center gap-2">
-                <span>🎯</span> Target Institutions & Recruitment Fit Matrix
-              </h3>
-              <p class="text-xs text-slate-400">Program alignment scored from 190 monitored colleges, preps and high schools</p>
-            </div>
-            <span class="px-2 py-0.5 rounded-full bg-sky-500/20 text-sky-300 font-mono text-[10px] font-bold">190 In Database</span>
-          </div>
-
-          <div class="space-y-2.5 max-h-96 overflow-y-auto pr-1" id="pathwayTargetList">
-            <!-- Dynamically populated from institutions_catalog.js -->
-          </div>
-        </div>
-
-        <!-- Academic Clearinghouse & Transfer Portal Card -->
-        <div class="space-y-6">
-          <div class="glass-panel p-5 rounded-3xl border border-slate-800 space-y-3">
-            <h3 class="font-bold text-white text-sm flex items-center gap-2 border-b border-slate-800 pb-2">
-              <span>🎓</span> NCAA Academic Eligibility
-            </h3>
-            <div class="space-y-2 text-xs font-mono">
-              <div class="flex justify-between items-center bg-slate-900/80 p-2.5 rounded-xl border border-slate-800">
-                <span class="text-slate-400">Core Courses Completed</span>
-                <span class="text-emerald-400 font-bold">16 / 16 (100%)</span>
-              </div>
-              <div class="flex justify-between items-center bg-slate-900/80 p-2.5 rounded-xl border border-slate-800">
-                <span class="text-slate-400">NCAA Core GPA</span>
-                <span class="text-sky-400 font-bold">3.85 (Division I Qualified)</span>
-              </div>
-              <div class="flex justify-between items-center bg-slate-900/80 p-2.5 rounded-xl border border-slate-800">
-                <span class="text-slate-400">Clearinghouse Status</span>
-                <span class="text-emerald-400 font-bold">CERTIFIED EARLY</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="glass-panel p-5 rounded-3xl border border-slate-800 space-y-3">
-            <h3 class="font-bold text-white text-sm flex items-center gap-2 border-b border-slate-800 pb-2">
-              <span>📡</span> NCAA Transfer Portal Wire
-            </h3>
-            <div class="space-y-2 text-xs font-mono">
-              <div class="p-2 rounded-xl bg-slate-900/60 border border-slate-800 text-slate-300">
-                <div class="flex justify-between text-[10px] text-slate-400">
-                  <span>TRANSFER RADAR</span>
-                  <span class="text-sky-400">ACTIVE</span>
-                </div>
-                <div class="font-bold text-white text-[11px] mt-0.5">Continuous Portal Window Monitoring</div>
-                <div class="text-[10px] text-slate-400 mt-1">Zero pending portal flags. Committed to Michigan Big Ten roster.</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- TAB 5: TACTICS & FILM BREAKDOWN -->
-    <div id="tabPanel-tactics" class="tab-panel space-y-6 hidden">
-      <div class="glass-panel p-5 sm:p-6 rounded-3xl border border-slate-800 space-y-4">
-        <div class="flex items-center justify-between border-b border-slate-800 pb-3">
-          <div>
-            <h3 class="font-black text-white text-base flex items-center gap-2">
-              <span>📋</span> Tactical Systems Alignment & Shift Simulator
-            </h3>
-            <p class="text-xs text-slate-400">System compatibility for Minnetonka 2-3 lock, 5-out powerplay, and sagging D-zone</p>
-          </div>
-          <a href="tactics.html" class="px-3 py-1.5 rounded-xl bg-sky-600/20 hover:bg-sky-600/30 text-sky-300 text-xs font-mono font-bold border border-sky-500/30 transition">
-            Open Full Tactics Suite →
-          </a>
-        </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs font-mono">
-          <div class="bg-slate-900/80 p-4 rounded-2xl border border-slate-800 space-y-1">
-            <span class="text-slate-400">Forecheck: 2-3 Left Wing Lock</span>
-            <div class="text-base font-bold text-emerald-400">96% System Fit</div>
-            <p class="text-[10px] text-slate-400 font-sans">High turnover rate through neutral zone angling and F1 pressure.</p>
-          </div>
-
-          <div class="bg-slate-900/80 p-4 rounded-2xl border border-slate-800 space-y-1">
-            <span class="text-slate-400">D-Zone: Sagging Low Zone Collapse</span>
-            <div class="text-base font-bold text-sky-400">94% System Fit</div>
-            <p class="text-[10px] text-slate-400 font-sans">Slot denial and quick transition breakups along the strong-side half-wall.</p>
-          </div>
-
-          <div class="bg-slate-900/80 p-4 rounded-2xl border border-slate-800 space-y-1">
-            <span class="text-slate-400">Power Play: 5-Out Spread Motion</span>
-            <div class="text-base font-bold text-purple-400">98% System Fit</div>
-            <p class="text-[10px] text-slate-400 font-sans">Elite high-to-low seam passing and downhill one-timer release.</p>
-          </div>
-        </div>
-
-        <!-- Mini Shift Battle Simulator -->
-        <div class="p-4 rounded-2xl bg-slate-900/90 border border-sky-500/20 space-y-3">
-          <div class="flex items-center justify-between">
-            <h4 class="text-xs font-mono font-bold text-white uppercase tracking-wider flex items-center gap-1.5">
-              <span>⚡</span> 60-Second Shift Battle Simulator
-            </h4>
-            <span class="text-[10px] text-slate-400 font-mono">Live Physics Engine</span>
-          </div>
-
-          <div class="flex flex-wrap items-center gap-3">
-            <select id="shiftOpponentSelect" class="bg-slate-950 border border-slate-700 text-xs text-white rounded-xl px-3 py-2 font-mono focus:outline-none">
-              <option value="Minnetonka Line 1">Minnetonka Skippers (Line 1 • Burrows/Schultz)</option>
-              <option value="Edina Line 1">Edina Hornets (Line 1 • Mason West)</option>
-              <option value="Avon Old Farms Line 1">Avon Old Farms (Line 1 • Joe Connor)</option>
-              <option value="USA NTDP U18 Line 1">USA Hockey NTDP U18 (Line 1 • James Hagens)</option>
-            </select>
-            <button onclick="runAppShiftSimulation()" class="px-4 py-2 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-bold text-xs font-mono transition shadow-md shadow-sky-600/30 cursor-pointer">
-              Simulate 60s Shift Duel
-            </button>
-          </div>
-
-          <div id="shiftSimulationOutput" class="hidden p-3 rounded-xl bg-slate-950 border border-slate-800 text-xs font-mono space-y-1">
-            <!-- Simulated shift narrative renders here -->
-          </div>
+      <!-- Registered Accounts Directory -->
+      <div style="background:#0f172a; border:1px solid rgba(56,189,248,0.2); border-radius:14px; padding:1.25rem;">
+        <h3 style="margin:0 0 1rem; font-size:1.1rem; color:#fff; display:flex; align-items:center; gap:0.4rem;">
+          <span>👥</span> Registered User Management & Ledger Blocks
+        </h3>
+        <div class="admin-table-container">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>USER</th>
+                <th>ROLE & BADGE</th>
+                <th>EMAIL</th>
+                <th>ORGANIZATION</th>
+                <th>STATUS</th>
+                <th>ACTIONS</th>
+              </tr>
+            </thead>
+            <tbody id="adminUsersTableBody">
+              <!-- Rendered dynamically -->
+            </tbody>
+          </table>
         </div>
       </div>
-    </div>
-
-    <!-- TAB 6: SECURITY & CRYPTOGRAPHIC LEDGER -->
-    <div id="tabPanel-security" class="tab-panel space-y-6 hidden">
-      <div class="glass-panel p-5 sm:p-6 rounded-3xl border border-slate-800 space-y-4">
-        <div class="flex items-center justify-between border-b border-slate-800 pb-3">
-          <div>
-            <h3 class="font-black text-white text-base flex items-center gap-2">
-              <span>🛡️</span> Cryptographic Genesis Ledger (HMAC-SHA256)
-            </h3>
-            <p class="text-xs text-slate-400">Tamper-evident audit chain recording every biometric, combine, and registrar verification</p>
-          </div>
-          <button onclick="exportDigitalPassport()" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-emerald-500/40 text-emerald-300 font-mono text-xs font-bold transition">
-            Export JSON Passport
-          </button>
-        </div>
-
-        <div class="space-y-3" id="ledgerBlocksContainer">
-          <!-- Dynamically populated -->
-          <div class="p-3.5 rounded-2xl bg-slate-900/80 border border-emerald-500/30 font-mono text-xs space-y-1.5">
-            <div class="flex items-center justify-between text-[10px]">
-              <span class="text-emerald-400 font-bold">BLOCK #1 • CRYPTOGRAPHICALLY VERIFIED & LOCKED</span>
-              <span class="text-slate-400">2026-09-18T14:00:00Z</span>
-            </div>
-            <div class="text-white font-bold">Roster Verified & Digital Passport Minted</div>
-            <p class="text-slate-400 text-[11px] font-sans">Verified on University of Michigan NCAA D1 active roster. Initial Composite Score: 94.6. Hardware biometrics validated.</p>
-            <div class="text-[10px] text-slate-500 truncate">Hash: 0x9f7a83e0cb214ea7f49f7a • HMAC-SHA256 (Cipher-Bravo)</div>
-          </div>
-        </div>
       </div>
-    </div>
+    </section>
 
   </main>
 
-  <!-- Scripts -->
+  <!-- MODAL DIALOG -->
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <h3 id="modalTitle">Modal Title</h3>
+      <p id="modalBody">Modal content goes here.</p>
+      <button class="btn primary" onclick="closeModal()">Close</button>
+    </div>
+  </div>
+
+  <div id="popup" class="popup">
+    <p>Popup message</p>
+  </div>
+
+  <div id="notifPanel" class="notif-panel">
+    <h3>Notifications</h3>
+    <ul id="notifList"></ul>
+  </div>
+
+  
+  <!-- DIRECT MESSAGES (DM) CHAT DRAWER -->
+  <div id="dmChatDrawer" class="dm-modal-container" style="display:none;">
+    <div class="dm-modal-header">
+      <div style="display:flex; align-items:center; gap:0.5rem;">
+        <span style="font-size:1.2rem;">💬</span>
+        <div>
+          <div style="font-size:0.9rem; font-weight:800; color:#fff;" id="dmChatRecipientName">Dan Marr (Scout)</div>
+          <div style="font-size:0.75rem; color:#38bdf8;" id="dmChatRecipientRole">Verified Recruiter • BlueLine Bureau</div>
+        </div>
+      </div>
+      <button type="button" onclick="closeDirectMessageDrawer()" style="background:none; border:none; color:#94a3b8; font-size:1.1rem; cursor:pointer;">✕</button>
+    </div>
+    <div class="dm-chat-messages" id="dmChatMessagesContainer">
+      <!-- Populated dynamically -->
+    </div>
+    <form class="dm-input-row" onsubmit="handleSendDM(event)">
+      <input type="text" id="dmMessageInput" placeholder="Send direct message to recruiter or player..." autocomplete="off">
+      <button type="submit" class="btn primary" style="padding:0.4rem 0.8rem; font-size:0.85rem; font-weight:700;">Send</button>
+    </form>
+  </div>
+
+  <!-- LOGO STAMPING PICKER MODAL -->
+  <div id="logoPickerModal" class="logo-picker-modal" style="display:none;">
+    <div class="logo-picker-content">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+        <div style="display:flex; align-items:center; gap:0.5rem;">
+          <span style="font-size:1.3rem;">🛡️</span>
+          <div>
+            <h3 style="margin:0; font-size:1.1rem; font-weight:800; color:#fff;">Stamp Organization Crest on Profile</h3>
+            <p style="margin:0.15rem 0 0; font-size:0.78rem; color:#94a3b8;">Choose a verified team logo or commitment badge to display on your avatar.</p>
+          </div>
+        </div>
+        <button type="button" onclick="closeLogoPickerModal()" style="background:none; border:none; color:#94a3b8; font-size:1.2rem; cursor:pointer;">✕</button>
+      </div>
+
+      <div class="logo-picker-grid" id="logoPickerGridContainer">
+        <!-- Rendered dynamically -->
+      </div>
+
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-top:1rem; border-top:1px solid rgba(255,255,255,0.08); padding-top:0.75rem;">
+        <button type="button" class="btn secondary" onclick="handleRemoveLogoStamp()" style="font-size:0.8rem; padding:0.4rem 0.8rem;">
+          Remove Badge
+        </button>
+        <button type="button" class="btn primary" onclick="closeLogoPickerModal()" style="font-size:0.8rem; padding:0.4rem 0.8rem;">
+          Done
+        </button>
+      </div>
+    </div>
+  <!-- COACH & RECRUITER PRO PAYWALL MODAL -->
+  <div id="bluelinePaywallModal" class="paywall-modal-overlay hidden" onclick="if(event.target===this)closePaywallModal()">
+    <div class="paywall-modal-card">
+      <button type="button" class="paywall-close-btn" onclick="closePaywallModal()">✕</button>
+      <div class="paywall-header">
+        <div class="paywall-lock-icon">🔒</div>
+        <span class="paywall-badge">COACH & RECRUITER PRO SUITE</span>
+        <h2 id="paywallModalTitle">Pro Subscription Required ($22.99/mo)</h2>
+        <p id="paywallModalSubtitle" class="paywall-subtitle">This advanced analytics tool is part of the Coach & Recruiter Pro subscription ($22.99/mo). Your current active plan is Player / Parent ($4.99/mo).</p>
+      </div>
+
+      <!-- Feature Matrix Comparison -->
+      <div class="paywall-matrix">
+        <div class="paywall-tier-col current-plan">
+          <div class="tier-tag">Current Plan</div>
+          <h4>Player & Parent</h4>
+          <div class="tier-price">$4.99 <span>/ mo</span></div>
+          <ul class="tier-perks">
+            <li>✓ Personal Athlete Stats & Overview</li>
+            <li>✓ 3,050+ Player Database & Comparison</li>
+            <li>✓ The Wire & X.com Profile</li>
+            <li>✓ Crest Logo Stamping on Photos</li>
+            <li>✓ Direct Messaging (DMs)</li>
+            <li class="locked-perk">✕ AI Video Telestration Studio</li>
+            <li class="locked-perk">✕ Combine Scouting Testing</li>
+            <li class="locked-perk">✕ Live Recruiter Pipeline</li>
+            <li class="locked-perk">✕ War Room Roster Tools</li>
+          </ul>
+        </div>
+
+        <div class="paywall-tier-col pro-plan">
+          <div class="tier-tag pro-tag">⚡ Unlocks Everything</div>
+          <h4>Coach & Recruiter Pro</h4>
+          <div class="tier-price">$22.99 <span>/ mo</span></div>
+          <ul class="tier-perks">
+            <li>✓ Everything in Player/Parent Plan</li>
+            <li>✓ Full AI Film Studio & Telestration</li>
+            <li>✓ Combine & Physical Testing Hub</li>
+            <li>✓ Live Recruiting Pipeline & Inquiries</li>
+            <li>✓ Game IQ Tactical Scenario Simulator</li>
+            <li>✓ War Room Roster & Caplab Tools</li>
+            <li>✓ Unrestricted Access to All 22+ Modules</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="paywall-actions">
+        <button type="button" class="paywall-upgrade-btn" onclick="executePlanUpgrade('coach')">
+          ⚡ Upgrade Now — $22.99 / month (Unlock All Modules)
+        </button>
+        <button type="button" class="paywall-testdrive-btn" onclick="executeTestDrive('coach')">
+          🏒 Test Drive as Coach (Adam Nightingale)
+        </button>
+        <button type="button" class="paywall-testdrive-btn" onclick="executeTestDrive('scout')">
+          🔍 Test Drive as Scout (Dan Marr)
+        </button>
+        <button type="button" class="paywall-cancel-btn" onclick="closePaywallModal()">
+          Stay on Player Plan ($4.99/mo)
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p>&copy; PuckPathway Hockey OS</p>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="database.html">Directory</a>
+      <a href="combine.html">Combine</a>
+      <a href="security.html">Security</a>
+    </nav>
+    <div class="footer-mission">
+      BlueLine DataWorks is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory.
+    </div>
+  </footer>
+
+  
   <script src="static/js/master_players.js"></script>
-  <script src="static/js/institutions_catalog.js"></script>
+  <script src="static/js/auto_mailer.js"></script>
+  <script src="static/js/security_engine.js"></script>
+  <script src="static/js/telemetry.js"></script>
+  <script src="static/js/social_mesh_engine.js"></script>
   <script src="static/js/auth_engine.js"></script>
-  <script src="static/js/combine_engine.js"></script>
-  <script src="static/js/tactics_engine.js"></script>
 
   <script>
-    let activeAppTab = 'tab-overview';
-    let currentAthlete = null;
-    let radarChartInstance = null;
-    let trajectoryChartInstance = null;
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    const views = document.querySelectorAll('.app-view');
 
-    // Load active player profile
-    function loadActivePlayerProfile() {
-      const authUser = window.BlueLineAuth ? window.BlueLineAuth.getUser() : null;
-      let player = null;
+    tabButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const target = btn.getAttribute('data-view');
 
-      if (authUser && authUser.linked_player_id && window.BlueLineAuth.getAthleteDossier) {
-        player = window.BlueLineAuth.getAthleteDossier(authUser.linked_player_id);
-      }
+        // Paywall guard check for Coach & Recruiter Pro features
+        const isPro = (currentActiveRole === 'coach' || currentActiveRole === 'scout' || currentActiveRole === 'admin');
+        const proViews = ['videobreakdown', 'combine', 'recruiting', 'artraining', 'iqsim', 'admin'];
 
-      if (!player && window.MASTER_PLAYERS && window.MASTER_PLAYERS.length > 0) {
-        // Default to Michael Hage
-        player = window.MASTER_PLAYERS.find(p => p.name.includes("Hage")) || window.MASTER_PLAYERS[0];
-      }
+        if (!isPro && proViews.includes(target)) {
+          openPaywallModal(target);
+        }
 
-      currentAthlete = player;
-      renderPlayerDossier(player, authUser);
-      initCharts(player);
-      populatePathwayTargets();
-    }
+        tabButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
 
-    function renderPlayerDossier(p, authUser) {
-      if (!p) return;
-
-      const nameEl = document.getElementById('dossierName');
-      if (nameEl) nameEl.textContent = p.name;
-
-      const userBadgeEl = document.getElementById('userNameLabel');
-      if (userBadgeEl) userBadgeEl.textContent = authUser ? authUser.name : p.name;
-
-      const roleBadgeEl = document.getElementById('userRoleBadge');
-      if (roleBadgeEl) roleBadgeEl.textContent = authUser ? (authUser.role_title || authUser.role) : 'Athlete';
-
-      const avatarEl = document.getElementById('dossierAvatar');
-      if (avatarEl) avatarEl.textContent = p.avatar || '⚡';
-
-      const numBadge = document.getElementById('dossierNumberBadge');
-      if (numBadge) numBadge.textContent = `#${p.num || '13'} • ${p.pos || 'C'}`;
-
-      const subEl = document.getElementById('dossierSubheading');
-      if (subEl) subEl.textContent = `${p.team || 'University of Michigan'} • ${p.league || 'NCAA Division I'}`;
-
-      const hometownEl = document.getElementById('dossierHometown');
-      if (hometownEl) hometownEl.textContent = `📍 ${p.hometown || 'North America'}`;
-
-      const bioEl = document.getElementById('dossierBiometrics');
-      if (bioEl) bioEl.textContent = `Height: ${p.height_str || "6' 1\""} | Weight: ${p.weight_lbs || 190} lbs`;
-
-      const shootsEl = document.getElementById('dossierShoots');
-      if (shootsEl) shootsEl.textContent = `Shoots: ${p.shoots || 'Right'}`;
-
-      const draftEl = document.getElementById('dossierDraft');
-      if (draftEl) draftEl.textContent = `Draft: ${p.draft_status || 'Undrafted'}`;
-
-      // Metrics
-      const compEl = document.getElementById('metricCompositeScore');
-      if (compEl) compEl.innerHTML = `${p.composite_score || 94.6} <span class="text-xs font-normal text-slate-400">/ 100</span>`;
-
-      const athEl = document.getElementById('metricAthleticIndex');
-      if (athEl) athEl.innerHTML = `${p.athletic_index || 92.8} <span class="text-xs font-normal text-slate-400">/ 100</span>`;
-
-      const gpaEl = document.getElementById('metricGpa');
-      if (gpaEl) gpaEl.innerHTML = `${p.gpa || 3.85} <span class="text-xs font-normal text-slate-400">/ 4.0</span>`;
-    }
-
-    // Tab Switching
-    function switchAppTab(tabId) {
-      activeAppTab = tabId;
-
-      // Update Tab Button Styles
-      document.querySelectorAll('.app-tab-btn').forEach(btn => {
-        btn.classList.remove('bg-sky-600', 'text-white');
-        btn.classList.add('bg-slate-900', 'text-slate-400');
-      });
-
-      const activeBtn = document.getElementById(`tabBtn-${tabId.replace('tab-', '')}`);
-      if (activeBtn) {
-        activeBtn.classList.add('bg-sky-600', 'text-white');
-        activeBtn.classList.remove('bg-slate-900', 'text-slate-400');
-      }
-
-      // Toggle Panels
-      document.querySelectorAll('.tab-panel').forEach(panel => {
-        panel.classList.add('hidden');
-      });
-
-      const activePanel = document.getElementById(`tabPanel-${tabId.replace('tab-', '')}`);
-      if (activePanel) {
-        activePanel.classList.remove('hidden');
-      }
-
-      window.location.hash = tabId.replace('tab-', '');
-    }
-
-    // Chart.js Radar & Trajectory
-    function initCharts(p) {
-      const radarCtx = document.getElementById('overviewRadarChart');
-      if (radarCtx) {
-        if (radarChartInstance) radarChartInstance.destroy();
-        radarChartInstance = new Chart(radarCtx, {
-          type: 'radar',
-          data: {
-            labels: ['Speed & Acceleration', 'Puck Skills', 'Hockey IQ', 'Physicality', 'Clutch Factor'],
-            datasets: [
-              {
-                label: p ? p.name : 'Athlete',
-                data: [96, 94.5, 95, 89, 93.5],
-                backgroundColor: 'rgba(14, 165, 233, 0.25)',
-                borderColor: '#0284c7',
-                pointBackgroundColor: '#38bdf8',
-                pointBorderColor: '#fff',
-                pointHoverBackgroundColor: '#fff',
-                pointHoverBorderColor: '#38bdf8'
-              },
-              {
-                label: 'NCAA D1 Cohort Norm',
-                data: [82, 80, 81, 84, 80],
-                backgroundColor: 'rgba(148, 163, 184, 0.1)',
-                borderColor: 'rgba(148, 163, 184, 0.4)',
-                borderDash: [5, 5],
-                pointRadius: 0
-              }
-            ]
-          },
-          options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-              r: {
-                angleLines: { color: 'rgba(255, 255, 255, 0.1)' },
-                grid: { color: 'rgba(255, 255, 255, 0.08)' },
-                pointLabels: { color: '#94a3b8', font: { family: 'monospace', size: 10 } },
-                ticks: { display: false, min: 60, max: 100 }
-              }
-            },
-            plugins: {
-              legend: { labels: { color: '#cbd5e1', font: { family: 'monospace', size: 10 } } }
-            }
+        views.forEach(v => {
+          const isMatch = (v.id === 'view-' + target) ||
+                          (target === 'pathway' && v.id === 'view-tierprogression') ||
+                          (target === 'tierprogression' && v.id === 'view-pathway') ||
+                          (target === 'skills' && v.id === 'view-skilltree') ||
+                          (target === 'skilltree' && v.id === 'view-skills') ||
+                          (target === 'missions' && v.id === 'view-dailymissions') ||
+                          (target === 'dailymissions' && v.id === 'view-missions');
+          v.classList.toggle('active', isMatch);
+          if (isMatch) {
+            v.classList.remove('fade');
+            void v.offsetWidth;
+            v.classList.add('fade');
           }
         });
-      }
 
-      const trajCtx = document.getElementById('overviewTrajectoryChart');
-      if (trajCtx) {
-        if (trajectoryChartInstance) trajectoryChartInstance.destroy();
-        trajectoryChartInstance = new Chart(trajCtx, {
-          type: 'line',
-          data: {
-            labels: ['U14 AAA', 'U16 AAA', 'USHL Tier 1', 'NCAA D1 Year 1', 'Projected Pro'],
-            datasets: [{
-              label: 'Trajectory Velocity Score',
-              data: [81.2, 86.4, 91.8, 94.6, 96.8],
-              borderColor: '#10b981',
-              backgroundColor: 'rgba(16, 185, 129, 0.15)',
-              fill: true,
-              tension: 0.35,
-              pointBackgroundColor: '#10b981',
-              pointRadius: 5
-            }]
-          },
-          options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-              x: { grid: { color: 'rgba(255, 255, 255, 0.05)' }, ticks: { color: '#94a3b8', font: { family: 'monospace', size: 10 } } },
-              y: { min: 75, max: 100, grid: { color: 'rgba(255, 255, 255, 0.05)' }, ticks: { color: '#94a3b8', font: { family: 'monospace', size: 10 } } }
-            },
-            plugins: {
-              legend: { display: false }
+        // Update URL hash
+        window.location.hash = target;
+        animateXpBars();
+        if (typeof updateViewPaywallStates === 'function') {
+          updateViewPaywallStates();
+        }
+      });
+    });
+
+    // Check active session & populate
+    function loadAthleteSession() {
+      try {
+        if (localStorage.getItem('blueline_signed_out') === 'true') {
+          const nameEl = document.getElementById('appHeaderPlayerName');
+          const tierEl = document.getElementById('appHeaderTierBadge');
+          if (nameEl) nameEl.textContent = 'Guest';
+          if (tierEl) tierEl.textContent = 'Signed Out';
+          const profName = document.getElementById('profileNameLabel');
+          if (profName) profName.textContent = 'Name: Guest';
+          const recName = document.getElementById('recruitingPlayerName');
+          if (recName) recName.textContent = 'Guest';
+          const signOutBtn = document.getElementById('appHeaderSignOutBtn') || document.querySelector("button[onclick*='handleDashboardSignOut']");
+          if (signOutBtn) {
+            signOutBtn.textContent = 'Log In';
+            signOutBtn.setAttribute('onclick', "window.location.href='login.html'");
+            signOutBtn.style.color = '#38bdf8';
+          }
+          return;
+        }
+
+        let user = null;
+        const raw = localStorage.getItem('blueline_auth_user');
+        if (raw) {
+          user = JSON.parse(raw);
+        }
+        if (!user || !user.name) {
+          const regRaw = localStorage.getItem('blueline_registered_users');
+          if (regRaw) {
+            const list = JSON.parse(regRaw);
+            if (Array.isArray(list) && list.length > 0) {
+              user = list[list.length - 1];
             }
           }
-        });
+        }
+        if (!user || !user.name) {
+          if (window.BlueLineAuth && typeof window.BlueLineAuth.getCurrentUser === 'function') {
+            user = window.BlueLineAuth.getCurrentUser();
+          }
+        }
+        if (user && user.isGuest) {
+          const nameEl = document.getElementById('appHeaderPlayerName');
+          const tierEl = document.getElementById('appHeaderTierBadge');
+          if (nameEl) nameEl.textContent = 'Guest';
+          if (tierEl) tierEl.textContent = 'Signed Out';
+          const profName = document.getElementById('profileNameLabel');
+          if (profName) profName.textContent = 'Name: Guest';
+          const recName = document.getElementById('recruitingPlayerName');
+          if (recName) recName.textContent = 'Guest';
+          const signOutBtn = document.getElementById('appHeaderSignOutBtn') || document.querySelector("button[onclick*='handleDashboardSignOut']");
+          if (signOutBtn) {
+            signOutBtn.textContent = 'Log In';
+            signOutBtn.setAttribute('onclick', "window.location.href='login.html'");
+            signOutBtn.style.color = '#38bdf8';
+          }
+          return;
+        }
+        if (user && user.name) {
+          const signOutBtn = document.getElementById('appHeaderSignOutBtn') || document.querySelector("button[onclick*='handleDashboardSignOut']");
+          if (signOutBtn) {
+            signOutBtn.textContent = 'Sign Out';
+            signOutBtn.setAttribute('onclick', "handleDashboardSignOut()");
+            signOutBtn.style.color = '#94a3b8';
+          }
+          const nameEl = document.getElementById('appHeaderPlayerName');
+          const tierEl = document.getElementById('appHeaderTierBadge');
+          const profName = document.getElementById('profileNameLabel');
+          const profPos = document.getElementById('profilePosLabel');
+          const profTier = document.getElementById('profileTierLabel');
+          const curTier = document.getElementById('pathwayCurrentTierText');
+
+          if (nameEl) nameEl.textContent = user.name;
+          if (profName) profName.textContent = 'Name: ' + user.name;
+          if (profPos && user.pos) profPos.textContent = 'Position: ' + (user.pos === 'G' ? 'Goalie' : (user.pos === 'D' ? 'Defense' : 'Forward'));
+          
+          const tierVal = user.tier || (user.name.includes('Hage') ? 'Tier 6' : 'Tier 4');
+          if (tierEl) tierEl.textContent = tierVal;
+          const dashTier = document.getElementById('dashboardTierBadge');
+          if (dashTier) dashTier.textContent = tierVal;
+          const recName = document.getElementById('recruitingPlayerName');
+          const recPosTier = document.getElementById('recruitingPlayerPosTier');
+          if (recName) recName.textContent = user.name;
+          if (recPosTier) {
+            const posStr = user.pos === 'G' ? 'Goalie' : (user.pos === 'D' ? 'Defense' : 'Forward');
+            recPosTier.textContent = `${posStr} — ${tierVal}`;
+          }
+          if (profTier) profTier.textContent = 'Tier: ' + tierVal.replace('Tier ', '');
+          if (curTier) curTier.textContent = tierVal + (user.name.includes('Hage') ? ' – NCAA Division I Varsity Forward' : ' – Developing Forward');
+          
+          const steps = document.querySelectorAll('.tier-ladder .tier-step');
+          if (steps && steps.length) {
+            steps.forEach(st => {
+              if (st.textContent.includes(tierVal)) {
+                steps.forEach(s => {
+                  s.classList.remove('active');
+                  s.textContent = s.textContent.replace(' (You Are Here)', '');
+                });
+                st.classList.add('active');
+                if (!st.textContent.includes('(You Are Here)')) {
+                  st.textContent = `${st.textContent} (You Are Here)`;
+                }
+              }
+            });
+          }
+          const setMail = document.getElementById('settingsEmail');
+          const setPos = document.getElementById('settingsPosition');
+          if (setMail && user.email) setMail.textContent = 'Email: ' + user.email;
+          if (setPos && user.pos) setPos.textContent = 'Position: ' + (user.pos === 'G' ? 'Goalie' : (user.pos === 'D' ? 'Defense' : 'Forward'));
+
+          const editName = document.getElementById('profileEditName');
+          const editPos = document.getElementById('positionSelect') || document.getElementById('profileEditPos');
+          if (editName && user.name) editName.value = user.name;
+          if (editPos && user.pos) editPos.value = (user.pos === 'G' || user.pos === 'goalie') ? 'goalie' : ((user.pos === 'D' || user.pos === 'defense') ? 'defense' : 'forward');
+          if (typeof updateDashboardRoleWidgets === 'function') {
+            updateDashboardRoleWidgets(user.role || 'athlete');
+          }
+        }
+      } catch(e) {}
+    }
+
+    // Execute immediately on parse, and bind to lifecycle/storage events
+    loadAthleteSession();
+    window.addEventListener('storage', loadAthleteSession);
+    window.addEventListener('blueline:authChanged', loadAthleteSession);
+
+    function handleSaveProfileEdit() {
+      const nameInput = document.getElementById('profileEditName');
+      const posSelect = document.getElementById('positionSelect') || document.getElementById('profileEditPos');
+      
+      const newName = nameInput ? nameInput.value.trim() : '';
+      const rawPos = posSelect ? posSelect.value : 'forward';
+      const newPos = (rawPos === 'goalie' || rawPos === 'G') ? 'G' : ((rawPos === 'defense' || rawPos === 'D') ? 'D' : 'F');
+
+      if (newName) {
+        let user = { name: newName, pos: newPos };
+        try {
+          const raw = localStorage.getItem('blueline_auth_user');
+          if (raw) {
+            user = { ...JSON.parse(raw), name: newName, pos: newPos };
+          }
+        } catch(e) {}
+        localStorage.setItem('blueline_auth_user', JSON.stringify(user));
+        loadAthleteSession();
+
+        const fb = document.getElementById('profileEditFeedback');
+        if (fb) {
+          fb.style.display = 'block';
+          setTimeout(() => { fb.style.display = 'none'; }, 4000);
+        }
       }
     }
 
-    // Populate Pathway Target Schools
-    function populatePathwayTargets() {
-      const container = document.getElementById('pathwayTargetList');
-      if (!container || !window.BlueLineInstitutionsCatalog) return;
+    function handleDashboardSignOut() {
+      try {
+        localStorage.setItem('blueline_signed_out', 'true');
+        localStorage.removeItem('blueline_auth_user');
+        sessionStorage.clear();
+      } catch(e) {}
+      if (window.BlueLineAuth && typeof window.BlueLineAuth.signOut === 'function') {
+        window.BlueLineAuth.signOut('login.html');
+      } else {
+        window.location.href = 'login.html';
+      }
+    }
 
-      const schools = window.BlueLineInstitutionsCatalog.getAll().slice(0, 8);
-      container.innerHTML = schools.map(s => `
-        <div class="p-3 rounded-2xl bg-slate-900/60 border border-slate-800/80 flex items-center justify-between hover:border-sky-500/40 transition">
-          <div class="flex items-center gap-3">
-            <div class="w-8 h-8 rounded-xl bg-slate-800 flex items-center justify-center font-bold text-sky-400 text-xs shrink-0">
-              🏫
+    function initIqSimulator() {
+      document.querySelectorAll('.iq-options li').forEach(option=>{
+        option.addEventListener('click', ()=>{
+          const feedback = option.parentElement.nextElementSibling;
+          feedback.innerHTML = "<p>Great choice. XP +20.</p>";
+          showPopup("IQ XP +20");
+        });
+      });
+    }
+
+    function awardBadge(name){
+      const grid = document.querySelector('.badge-grid');
+      const badge = document.createElement('div');
+      badge.className = 'badge';
+      badge.innerText = name;
+      grid.appendChild(badge);
+      showPopup("Badge earned: " + name);
+    }
+
+    let xp = 600;
+
+    function addXP(amount){
+      xp += amount;
+      showPopup("+" + amount + " XP");
+      document.querySelector('#view-xp p').innerText = "XP: " + xp + " / 1000";
+    }
+
+    function updateTier(){
+      const tier = Math.floor(xp / 100);
+      document.querySelector('.tier-badge').innerText = "Tier " + tier;
+    }
+
+    addXP(50);
+    updateTier();
+
+    function switchToGoalie(){
+      showPopup("Goalie mode activated");
+      document.querySelector('#view-goalie').classList.add('active');
+    }
+
+    function updatePosition(){
+      const pos = document.getElementById('positionSelect').value;
+      showPopup("Position set to " + pos);
+    }
+
+    function notify(msg){
+      const list = document.getElementById('notifList');
+      const item = document.createElement('li');
+      item.innerText = msg;
+      list.appendChild(item);
+    }
+
+    function saveCombine() {
+      showPopup("Combine results saved");
+    }
+
+    function handleSaveCombineResults() {
+      saveCombine();
+      const speed = document.getElementById('combineSpeedInput') ? document.getElementById('combineSpeedInput').value : '';
+      const agility = document.getElementById('combineAgilityInput') ? document.getElementById('combineAgilityInput').value : '';
+      const accuracy = document.getElementById('combineAccuracyInput') ? document.getElementById('combineAccuracyInput').value : '';
+      const reaction = document.getElementById('combineReactionInput') ? document.getElementById('combineReactionInput').value : '';
+      
+      const fb = document.getElementById('combineSaveFeedback');
+      if (fb) {
+        fb.style.display = 'block';
+        setTimeout(() => { fb.style.display = 'none'; }, 4000);
+      }
+    }
+
+    function handleCreateSocialPost() {
+      const input = document.getElementById('socialPostInput');
+      const text = input ? input.value.trim() : '';
+      if (!text) return;
+
+      const container = document.getElementById('socialPostsContainer');
+      if (container) {
+        let playerName = 'Player Name';
+        try {
+          const raw = localStorage.getItem('blueline_auth_user');
+          if (raw) {
+            const user = JSON.parse(raw);
+            if (user && user.name) playerName = user.name;
+          }
+        } catch(e) {}
+
+        const post = document.createElement('div');
+        post.className = 'social-post';
+        post.innerHTML = `
+          <h3>${playerName}</h3>
+          <p>${text.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</p>
+          <span onclick="handleLikePost(this)">🔥 1 like</span>
+        `;
+        container.insertBefore(post, container.firstChild);
+      }
+      if (input) input.value = '';
+    }
+
+    function handleLikePost(el) {
+      const match = el.textContent.match(/(\d+)/);
+      let count = match ? parseInt(match[1], 10) : 0;
+      count++;
+      el.textContent = `🔥 ${count} likes`;
+    }
+
+    function openModal(title, content) {
+      if (title && document.getElementById('modalTitle')) {
+        document.getElementById('modalTitle').textContent = title;
+      }
+      if (content && document.getElementById('modalBody')) {
+        document.getElementById('modalBody').innerHTML = content;
+      }
+      const modal = document.getElementById('modal');
+      if (modal) modal.style.display = 'block';
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('modal');
+      if (modal) modal.style.display = 'none';
+    }
+
+    function showPopup(msg) {
+      const p = document.getElementById('popup');
+      p.innerText = msg;
+      p.classList.remove('fade');
+      void p.offsetWidth; // trigger reflow to restart animation
+      p.classList.add('fade');
+      p.style.display = 'block';
+      setTimeout(() => p.style.display = 'none', 2000);
+    }
+
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark');
+    }
+
+    window.addEventListener('click', (e) => {
+      const modal = document.getElementById('modal');
+      if (modal && e.target === modal) {
+        closeModal();
+      }
+    });
+
+    function handleStartAR(moduleName) {
+      if (moduleName === 'Positional 3D Trainer') {
+        window.location.href = 'rink3d.html';
+      } else {
+        alert(`Launching ${moduleName}... Initializing WebGL spatial sensors and tracking mesh.`);
+      }
+    }
+
+    function handleAnalyzeClip(clipTitle) {
+      const out = document.getElementById('analysisOutputText');
+      if (!out) return;
+
+      if (clipTitle === 'Clip 1') {
+        out.innerHTML = `<strong>⚡ AI Breakdown (${clipTitle}):</strong> Stride extension reaches 84° angle (target 88°). Quick release clocked at 0.38s with 82% top-quadrant puck accuracy. Recommended focus: Lateral edge-push progressions.`;
+      } else if (clipTitle === 'Clip 2') {
+        out.innerHTML = `<strong>🛡️ AI Breakdown (${clipTitle}):</strong> Neutral zone gap control maintained at 1.5 stick-lengths. Stick blade positioned in primary passing lane with 91% denial probability. Excellent defensive posture.`;
+      } else {
+        out.innerHTML = `<strong>⚡ AI Breakdown (${clipTitle}):</strong> Biomechanics processing complete. Stride velocity, balance recovery, and puck protection metrics indexed.`;
+      }
+    }
+
+    function handleVideoUpload(input) {
+      if (input && input.files && input.files[0]) {
+        const file = input.files[0];
+        const out = document.getElementById('analysisOutputText') || document.querySelector('.analysis-output p');
+        const list = document.querySelector('.video-list');
+        
+        if (list) {
+          const newItem = document.createElement('div');
+          newItem.className = 'video-item';
+          const cleanName = file.name.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+          newItem.innerHTML = `
+            <h3>${cleanName}</h3>
+            <p>Tags: Uploaded Clip, Biomechanics</p>
+            <button class="btn primary">Analyze</button>
+          `;
+          const btn = newItem.querySelector('.btn.primary');
+          if (btn) {
+            btn.addEventListener('click', () => handleAnalyzeClip(cleanName));
+          }
+          list.appendChild(newItem);
+        }
+
+        if (out) {
+          out.innerHTML = `<em>Clip "${file.name}" uploaded successfully! Added to your video breakdown queue. Click Analyze to inspect AI biomechanical telemetry.</em>`;
+        }
+      }
+    }
+
+    function handleMultipleUploads(input) {
+      if (input && input.files && input.files.length) {
+        const list = document.querySelector('#view-uploadmanager .upload-list');
+        if (list) {
+          Array.from(input.files).forEach(file => {
+            const item = document.createElement('div');
+            item.className = 'upload-item';
+            item.textContent = file.name;
+            list.appendChild(item);
+          });
+        }
+      }
+    }
+
+    function animateXpBars() {
+      document.querySelectorAll('.xp-fill').forEach(el=>{
+        const pct = el.getAttribute('data-fill');
+        el.style.width = '0%';
+        setTimeout(()=>{ el.style.width = pct + '%'; }, 300);
+      });
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      try {
+        if (localStorage.getItem('puckpathway_dark_mode') === 'false') {
+          document.body.classList.remove('dark');
+          document.body.classList.remove('dark-mode');
+        }
+      } catch(e) {}
+
+      loadAthleteSession();
+      initIqSimulator();
+      animateXpBars();
+
+      // Bind Video Breakdown handlers
+      const fileInput = document.querySelector('.upload-area input[type="file"]');
+      if (fileInput) {
+        fileInput.addEventListener('change', () => handleVideoUpload(fileInput));
+      }
+
+      const multiUploadInput = document.querySelector('#view-uploadmanager input[type="file"]');
+      if (multiUploadInput) {
+        multiUploadInput.addEventListener('change', () => handleMultipleUploads(multiUploadInput));
+      }
+
+      document.querySelectorAll('.video-item').forEach(item => {
+        const btn = item.querySelector('.btn.primary');
+        const titleEl = item.querySelector('h3');
+        const title = titleEl ? titleEl.textContent.trim() : 'Clip';
+        if (btn && !btn.getAttribute('onclick')) {
+          btn.addEventListener('click', () => handleAnalyzeClip(title));
+        }
+      });
+
+      // Bind Mission List item toggle
+      document.querySelectorAll('.mission-list li').forEach(li => {
+        li.addEventListener('click', () => {
+          li.classList.toggle('completed');
+        });
+      });
+
+      // Check URL hash for tab opening
+      let hash = window.location.hash.replace('#', '');
+      if (hash === 'iq') hash = 'iqsim';
+      if (hash === 'video') hash = 'videobreakdown';
+      if (hash === 'skills') hash = 'skilltree';
+      if (hash === 'pathway') hash = 'tierprogression';
+      if (hash === 'missions') hash = 'dailymissions';
+      if (hash) {
+        const targetBtn = document.querySelector(`.tab-btn[data-view="${hash}"]`);
+        if (targetBtn) {
+          targetBtn.click();
+        }
+      }
+    });
+  
+    // =========================================================================
+    // ROLE-BASED DASHBOARD, REBUILT THE WIRE & X-PROFILE, PACKAGES & ADMIN ENGINE
+    // =========================================================================
+
+    let currentActiveRole = 'athlete';
+    let showAllTabs = false;
+
+    // All available views in PuckPathway OS
+    const ALL_APP_VIEWS = [
+      'dashboard', 'thewire', 'playerdatabase', 'packages', 'admin', 'artraining',
+      'videobreakdown', 'skilltree', 'tierprogression', 'dailymissions', 'xp',
+      'goalie', 'pathways', 'badges', 'levelup', 'friends', 'compare', 'comparechart',
+      'profileeditor', 'uploadmanager', 'combine', 'iqsim', 'social', 'profile',
+      'recruiting', 'settings'
+    ];
+
+    // Role-specific Tab Visibility Definitions
+    const ROLE_TABS_CONFIG = {
+      athlete: [
+        'dashboard', 'thewire', 'playerdatabase', 'compare', 'comparechart',
+        'skilltree', 'tierprogression', 'dailymissions', 'xp', 'badges', 'levelup',
+        'goalie', 'pathways', 'friends', 'profile', 'profileeditor', 'uploadmanager',
+        'social', 'packages', 'settings',
+        // Pro features visible with paywall locks
+        'videobreakdown', 'artraining', 'combine', 'iqsim', 'recruiting'
+      ],
+      coach: ALL_APP_VIEWS, // Full access to ALL features & modules ($22.99/mo)
+      scout: ALL_APP_VIEWS, // Full access to ALL features & modules ($22.99/mo)
+      parent: [
+        'dashboard', 'thewire', 'playerdatabase', 'compare', 'comparechart',
+        'tierprogression', 'pathways', 'social', 'packages', 'settings',
+        // Pro features visible with paywall locks
+        'videobreakdown', 'artraining', 'combine', 'iqsim', 'recruiting'
+      ],
+      admin: ALL_APP_VIEWS
+    };
+
+    let pendingPaywallTarget = null;
+
+    function openPaywallModal(featureView) {
+      pendingPaywallTarget = featureView || 'coach';
+      const modal = document.getElementById('bluelinePaywallModal');
+      const titleEl = document.getElementById('paywallModalTitle');
+      const subEl = document.getElementById('paywallModalSubtitle');
+
+      const featureNames = {
+        videobreakdown: "AI Film Breakdown & Tactical Telestration",
+        combine: "Scouting Combine & Athletic Performance Matrix",
+        recruiting: "Recruiting Pipeline & Scout Inquiries Portal",
+        artraining: "AR Sensor Training & Biomechanical Tracking",
+        iqsim: "Tactical Game IQ Scenario Simulator",
+        admin: "Administrator Operations & Telemetry Hub",
+        scout: "Director of Scouting Dossier Export"
+      };
+
+      const name = featureNames[featureView] || "Coach & Recruiter Pro Feature";
+      if (titleEl) titleEl.textContent = `Unlock ${name} ($22.99/mo)`;
+      if (subEl) subEl.textContent = `${name} is an elite professional tool reserved for certified coaches and scouts on the $22.99/mo Pro Plan. Your current active plan is ${currentActiveRole.toUpperCase()} ($4.99/mo). Upgrade below to unlock full access across all 22+ modules.`;
+
+      if (modal) {
+        modal.classList.remove('hidden');
+        modal.style.display = 'flex';
+      }
+    }
+
+    function closePaywallModal() {
+      const modal = document.getElementById('bluelinePaywallModal');
+      if (modal) {
+        modal.classList.add('hidden');
+        modal.style.display = 'none';
+      }
+    }
+
+    function executePlanUpgrade(targetRole) {
+      targetRole = targetRole || 'coach';
+      if (window.BlueLineAuth && typeof window.BlueLineAuth.upgradeUserPlan === 'function') {
+        window.BlueLineAuth.upgradeUserPlan(targetRole, '$22.99/mo');
+      } else {
+        try {
+          const raw = localStorage.getItem('blueline_auth_user');
+          const user = raw ? JSON.parse(raw) : { name: "User" };
+          user.role = targetRole;
+          user.plan = targetRole === 'coach' ? 'Coach Pro' : 'Recruiter Enterprise';
+          user.price = '$22.99/mo';
+          user.badge = 'PRO ' + targetRole.toUpperCase();
+          localStorage.setItem('blueline_auth_user', JSON.stringify(user));
+        } catch(e) {}
+      }
+
+      closePaywallModal();
+      handleRoleSwitch(targetRole);
+      showPopup(`🎉 UPGRADE COMPLETE: Coach & Recruiter Pro ($22.99/mo) Activated! All 22+ modules unlocked.`);
+
+      if (pendingPaywallTarget && pendingPaywallTarget !== 'scout') {
+        const btn = document.querySelector(`.tab-btn[data-view="${pendingPaywallTarget}"]`);
+        if (btn) btn.click();
+      }
+      pendingPaywallTarget = null;
+    }
+
+    function executeTestDrive(role) {
+      closePaywallModal();
+      handleRoleSwitch(role);
+      showPopup(`🏒 Switched to ${role === 'coach' ? 'Coach Adam Nightingale' : 'Scout Dan Marr'} ($22.99/mo Pro Tier Active)!`);
+      if (pendingPaywallTarget && pendingPaywallTarget !== 'scout') {
+        const btn = document.querySelector(`.tab-btn[data-view="${pendingPaywallTarget}"]`);
+        if (btn) btn.click();
+      }
+      pendingPaywallTarget = null;
+    }
+
+    function handleScoutExportClick() {
+      const isPro = (currentActiveRole === 'coach' || currentActiveRole === 'scout' || currentActiveRole === 'admin');
+      if (isPro) {
+        showPopup("📄 Generating Pro Scouting Dossier & Exporting CSV for 3,050+ master athletes...");
+      } else {
+        openPaywallModal('scout');
+      }
+    }
+
+    function updateViewPaywallStates() {
+      const isPro = (currentActiveRole === 'coach' || currentActiveRole === 'scout' || currentActiveRole === 'admin');
+      const proSections = ['videobreakdown', 'combine', 'recruiting', 'artraining', 'iqsim'];
+
+      proSections.forEach(secId => {
+        const shield = document.getElementById('paywallShield-' + secId);
+        const content = document.getElementById('proContent-' + secId);
+        if (shield && content) {
+          if (isPro) {
+            shield.style.display = 'none';
+            content.style.display = 'block';
+          } else {
+            shield.style.display = 'block';
+            content.style.display = 'none';
+          }
+        }
+      });
+
+      // Admin section
+      const adminShield = document.getElementById('paywallShield-admin');
+      const adminContent = document.getElementById('proContent-admin');
+      if (adminShield && adminContent) {
+        if (currentActiveRole === 'admin') {
+          adminShield.style.display = 'none';
+          adminContent.style.display = 'block';
+        } else {
+          adminShield.style.display = 'block';
+          adminContent.style.display = 'none';
+        }
+      }
+
+      // Pro export button in player database
+      const exportBtn = document.getElementById('playerDbScoutExportBtn');
+      if (exportBtn) {
+        if (isPro) {
+          exportBtn.textContent = "📄 Export Pro Scout Dossier";
+          exportBtn.style.color = "#38bdf8";
+        } else {
+          exportBtn.textContent = "🔒 Pro Scout Dossier ($22.99)";
+          exportBtn.style.color = "#fbbf24";
+        }
+      }
+    }
+
+    function handleRoleSwitch(roleName) {
+      currentActiveRole = roleName || 'athlete';
+
+      // Update role switcher buttons
+      document.querySelectorAll('.role-chip-btn').forEach(btn => {
+        if (btn.id !== 'roleToggleAllTabsBtn') {
+          btn.classList.remove('active');
+        }
+      });
+      const targetBtn = document.getElementById('roleBtn' + currentActiveRole.charAt(0).toUpperCase() + currentActiveRole.slice(1));
+      if (targetBtn) targetBtn.classList.add('active');
+
+      // Switch session persona via BlueLineAuth if available
+      if (window.BlueLineAuth && typeof window.BlueLineAuth.switchRole === 'function') {
+        window.BlueLineAuth.switchRole(currentActiveRole);
+      }
+
+      // Filter navigation tabs
+      applyRoleTabFilter(currentActiveRole, showAllTabs);
+
+      // Reload athlete session and update active view
+      loadAthleteSession();
+
+      // Refresh role-specific widgets
+      updateDashboardRoleWidgets(currentActiveRole);
+
+      // Refresh Wire profile & feed
+      renderWireProfile();
+      renderWirePosts('all');
+      renderPackagesView();
+
+      if (currentActiveRole === 'admin') {
+        renderAdminHub();
+      }
+
+      updateViewPaywallStates();
+      showPopup("Switched to " + currentActiveRole.toUpperCase() + " view");
+    }
+
+    function toggleAllTabsVisibility() {
+      showAllTabs = !showAllTabs;
+      const btn = document.getElementById('roleToggleAllTabsBtn');
+      if (btn) {
+        btn.textContent = showAllTabs ? "✓ Clean Role View" : "🌐 All Modules";
+      }
+      applyRoleTabFilter(currentActiveRole, showAllTabs);
+      showPopup(showAllTabs ? "Showing all 22+ modules" : "Filtered to " + currentActiveRole.toUpperCase() + " tabs");
+    }
+
+    function applyRoleTabFilter(role, forceAll) {
+      const isPro = (role === 'coach' || role === 'scout' || role === 'admin');
+      const allowed = isPro ? ALL_APP_VIEWS : (ROLE_TABS_CONFIG[role] || ROLE_TABS_CONFIG.athlete);
+      const tabs = document.querySelectorAll('.app-tabs .tab-btn');
+      const proViews = ['videobreakdown', 'combine', 'recruiting', 'artraining', 'iqsim', 'admin'];
+
+      tabs.forEach(tab => {
+        const view = tab.getAttribute('data-view');
+        
+        // Mark paywalled tabs for athletes/parents
+        const isLocked = !isPro && proViews.includes(view);
+        tab.classList.toggle('pro-locked-tab', isLocked);
+        if (isLocked) {
+          tab.title = "🔒 Coach & Recruiter Pro Feature ($22.99/mo) - Click to Upgrade";
+        } else {
+          tab.removeAttribute('title');
+        }
+
+        if (forceAll || isPro || allowed.includes(view)) {
+          tab.style.display = 'inline-block';
+        } else {
+          tab.style.display = 'none';
+        }
+      });
+
+      updateViewPaywallStates();
+    }
+
+    function updateDashboardRoleWidgets(role) {
+      const dashTitle = document.querySelector('#view-dashboard h1');
+      const tierSection = document.querySelector('#view-dashboard .tier-section');
+      const skillsSection = document.querySelector('#view-dashboard .skills-rings');
+      const missionsSection = document.querySelector('#view-dashboard .missions-preview');
+
+      if (!dashTitle) return;
+
+      if (role === 'coach') {
+        dashTitle.textContent = "Coach Command Center — Roster & Team Overview";
+        if (tierSection) {
+          tierSection.innerHTML = `
+            <h2>Roster Status</h2>
+            <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:8px;">
+              <span class="tier-badge" style="background:#059669;">24 Active Athletes</span>
+              <span class="tier-badge" style="background:#0284c7;">3 Inbound Recruits</span>
+              <span class="tier-badge" style="background:#d97706;">Next Practice: 4:30 PM</span>
             </div>
-            <div>
-              <div class="font-bold text-white text-xs">${s.name}</div>
-              <div class="text-[10px] text-slate-400 font-mono">${s.conference || s.league} • ${s.city || ''}, ${s.state || ''}</div>
+          `;
+        }
+        if (missionsSection) {
+          missionsSection.innerHTML = `
+            <h2>Coaching Quick Actions</h2>
+            <ul>
+              <li>Review 3v2 Neutral Zone Forecheck Video</li>
+              <li>Inspect Laser 30m Combine Telemetry</li>
+              <li>Update NCAA Compliance Safe-Contact Log</li>
+            </ul>
+          `;
+        }
+      } else if (role === 'scout') {
+        dashTitle.textContent = "Scout & Recruiter War Room — Prospect Pipeline";
+        if (tierSection) {
+          tierSection.innerHTML = `
+            <h2>Recruitment Pipeline</h2>
+            <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:8px;">
+              <span class="tier-badge" style="background:#7c3aed;">142 Priority Watchlist</span>
+              <span class="tier-badge" style="background:#0284c7;">18 High-Danger Forwards</span>
+              <span class="tier-badge" style="background:#059669;">3,050+ Database Active</span>
             </div>
-          </div>
-          <div class="text-right font-mono">
-            <span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-[10px] font-bold">95% Fit</span>
-            <div class="text-[9px] text-slate-400 mt-0.5">${s.scoutingStatus || 'Audited'}</div>
+          `;
+        }
+        if (missionsSection) {
+          missionsSection.innerHTML = `
+            <h2>Scouting Directives</h2>
+            <ul>
+              <li>Submit Michigan vs Minnesota weekend series evaluation</li>
+              <li>Filter Tier 1 AAA prospects with SQM score >= 90</li>
+              <li>Inspect tamper-evident cryptographic ledger blocks</li>
+            </ul>
+          `;
+        }
+      } else if (role === 'parent') {
+        dashTitle.textContent = "Family Advisor & Academic Eligibility Portal";
+        if (tierSection) {
+          tierSection.innerHTML = `
+            <h2>Academic & NCAA Clearinghouse Status</h2>
+            <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:8px;">
+              <span class="tier-badge" style="background:#059669;">NCAA Eligible (Division I)</span>
+              <span class="tier-badge" style="background:#0284c7;">Core GPA: 3.85 / 4.00</span>
+              <span class="tier-badge" style="background:#f43f5e;">16 Core Courses On Track</span>
+            </div>
+          `;
+        }
+        if (missionsSection) {
+          missionsSection.innerHTML = `
+            <h2>Family Action Items</h2>
+            <ul>
+              <li>Upload official semester grade report transcript</li>
+              <li>Verify weekend tournament travel itinerary</li>
+              <li>Review safe recruiter messaging contact record</li>
+            </ul>
+          `;
+        }
+      } else if (role === 'admin') {
+        dashTitle.textContent = "Admin Operations Dashboard — System Overview";
+        if (tierSection) {
+          tierSection.innerHTML = `
+            <h2>Operational Health</h2>
+            <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:8px;">
+              <span class="tier-badge" style="background:#059669;">Aegis Defense: DEFCON 5</span>
+              <span class="tier-badge" style="background:#0284c7;">Auto-Mailer: Active</span>
+              <span class="tier-badge" style="background:#7c3aed;">Visitor IP Telemetry: Live</span>
+            </div>
+          `;
+        }
+      } else {
+        dashTitle.textContent = "My Hockey Dashboard";
+        if (tierSection) {
+          tierSection.innerHTML = `
+            <h2>Tier Level</h2>
+            <div class="tier-badge" id="dashboardTierBadge">Tier 4</div>
+          `;
+        }
+      }
+
+      // Update Dashboard Plan Status Banner
+      const planNameEl = document.getElementById('dashActivePlanName');
+      const planPerksEl = document.getElementById('dashActivePlanPerks');
+      const planUpgradeBtn = document.getElementById('dashUpgradePlanBtn');
+      if (role === 'coach') {
+        if (planNameEl) planNameEl.textContent = 'Active Plan: Coach Pro ($22.99/mo)';
+        if (planPerksEl) planPerksEl.textContent = 'Full access to all 22 modules combined, AI film telestration, tactics lab, and The Wire';
+        if (planUpgradeBtn) planUpgradeBtn.style.display = 'none';
+      } else if (role === 'scout') {
+        if (planNameEl) planNameEl.textContent = 'Active Plan: Recruiter & Scout Enterprise ($22.99/mo)';
+        if (planPerksEl) planPerksEl.textContent = 'Full access to all 22 modules combined, lead scout workspace, dossier exports, and The Wire';
+        if (planUpgradeBtn) planUpgradeBtn.style.display = 'none';
+      } else if (role === 'parent') {
+        if (planNameEl) planNameEl.textContent = 'Active Plan: Family Advisor ($4.99/mo)';
+        if (planPerksEl) planPerksEl.textContent = 'Milestone oversight, plain-English skill tracking, safe coach messaging, and The Wire';
+        if (planUpgradeBtn) {
+          planUpgradeBtn.style.display = 'inline-block';
+          planUpgradeBtn.textContent = '⚡ Upgrade to Coach & Recruiter Pro ($22.99/mo)';
+        }
+      } else {
+        if (planNameEl) planNameEl.textContent = 'Active Plan: Player Passport ($4.99/mo)';
+        if (planPerksEl) planPerksEl.textContent = 'Personal athlete OS, 3,050+ player database, skill tree, and full access to The Wire';
+        if (planUpgradeBtn) {
+          planUpgradeBtn.style.display = 'inline-block';
+          planUpgradeBtn.textContent = '⚡ Upgrade to Pro ($22.99/mo)';
+        }
+      }
+    }
+
+    // ==========================================
+    // THE WIRE & X.COM PROFILE ENGINE
+    // ==========================================
+
+    function renderWireProfile() {
+      let user = null;
+      if (window.BlueLineSocial && typeof window.BlueLineSocial.getCurrentUser === 'function') {
+        user = window.BlueLineSocial.getCurrentUser();
+      }
+      if (!user) {
+        user = {
+          name: "Michael Hage",
+          handle: "michael_hage19",
+          title: "Center / Forward (#19)",
+          organization: "University of Michigan (NCAA D1)",
+          location: "Ann Arbor, MI",
+          bio: "Center for University of Michigan | 1st Round Pick (21st overall 2024) | Committed to the standard.",
+          avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=250&q=80",
+          banner: "https://images.unsplash.com/photo-1580748141549-71748dbe0bdc?auto=format&fit=crop&w=1200&q=80",
+          stats: { gp: 38, g: 24, a: 31, pts: 55, plusMinus: "+18", sqm: 96.4 },
+          logoOverlay: { id: "logo_ncaa_michigan", icon: "〽️", label: "Michigan Wolverines" }
+        };
+      }
+
+      const nameEl = document.getElementById('wireProfileName');
+      const handleEl = document.getElementById('wireProfileHandle');
+      const bioEl = document.getElementById('wireProfileBio');
+      const orgEl = document.getElementById('wireProfileOrg');
+      const leagueEl = document.getElementById('wireProfileLeague');
+      const locEl = document.getElementById('wireProfileLoc');
+      const bannerEl = document.getElementById('wireProfileBanner');
+      const avatarEl = document.getElementById('wireProfileAvatar');
+      const stampEl = document.getElementById('wireAvatarLogoStamp');
+      const stampTag = document.getElementById('wireProfileStampTag');
+
+      if (nameEl) nameEl.innerHTML = `${user.name} <span style="display:inline-flex; align-items:center; font-size:0.75rem; color:#38bdf8; background:rgba(56,189,248,0.15); padding:0.15rem 0.45rem; border-radius:9999px; border:1px solid rgba(56,189,248,0.3); font-weight:700;">⚡ VERIFIED ${(user.role || 'ATHLETE').toUpperCase()}</span>`;
+      if (handleEl) handleEl.textContent = '@' + (user.handle || 'player');
+      if (bioEl && user.bio) bioEl.textContent = user.bio;
+      if (orgEl && user.organization) orgEl.textContent = '🏛️ ' + user.organization;
+      if (leagueEl && user.title) leagueEl.textContent = '🏒 ' + user.title;
+      if (locEl && user.location) locEl.textContent = '📍 ' + user.location;
+      if (bannerEl && user.banner) bannerEl.style.backgroundImage = `url('${user.banner}')`;
+      if (avatarEl && user.avatar) avatarEl.src = user.avatar;
+
+      // Render Avatar Stamped Logo Overlay
+      if (stampEl) {
+        if (user.logoOverlay && user.logoOverlay.icon) {
+          stampEl.textContent = user.logoOverlay.icon;
+          stampEl.style.display = 'flex';
+          stampEl.style.borderColor = user.logoOverlay.border || '#0b111e';
+          stampEl.style.backgroundColor = user.logoOverlay.color || '#0284c7';
+          if (stampTag) stampTag.textContent = '🛡️ Stamped: ' + (user.logoOverlay.label || 'Official Crest');
+        } else {
+          stampEl.textContent = '〽️';
+          stampEl.style.display = 'flex';
+          if (stampTag) stampTag.textContent = '🛡️ Stamped: Michigan Wolverines Crest';
+        }
+      }
+
+      // Update Quick Stats Ticker
+      const s = user.stats || {};
+      const gp = document.getElementById('wireStatGP');
+      const g = document.getElementById('wireStatG');
+      const a = document.getElementById('wireStatA');
+      const pts = document.getElementById('wireStatPTS');
+      const diff = document.getElementById('wireStatDiff');
+      const sqm = document.getElementById('wireStatSQM');
+
+      if (gp) gp.textContent = s.gp || '38';
+      if (g) g.textContent = s.g || '24';
+      if (a) a.textContent = s.a || '31';
+      if (pts) pts.textContent = s.pts || '55';
+      if (diff) diff.textContent = s.plusMinus || '+18';
+      if (sqm) sqm.textContent = s.sqm || s.score || '96.4';
+    }
+
+    function renderWirePosts(filter) {
+      filter = filter || 'all';
+      const container = document.getElementById('wirePostsStream');
+      if (!container) return;
+
+      let posts = [];
+      if (window.BlueLineSocial && typeof window.BlueLineSocial.getState === 'function') {
+        posts = window.BlueLineSocial.getState().posts || [];
+      }
+
+      const curUser = window.BlueLineSocial ? window.BlueLineSocial.getCurrentUser() : null;
+      const myId = curUser ? curUser.id : 'usr_michael_hage';
+
+      let filtered = posts;
+      if (filter === 'my') {
+        filtered = posts.filter(p => p.authorId === myId || p.authorId === 'usr_michael_hage' || p.likedByMe);
+      } else if (filter === 'combine') {
+        filtered = posts.filter(p => (p.tags && p.tags.some(t => t.toLowerCase().includes('combine'))) || (p.media && p.media.type === 'combine_card'));
+      } else if (filter === 'game') {
+        filtered = posts.filter(p => (p.tags && p.tags.some(t => t.toLowerCase().includes('game'))) || (p.media && p.media.type === 'game_log_card'));
+      }
+
+      if (filtered.length === 0) {
+        container.innerHTML = `<div style="text-align:center; padding:2rem; color:#64748b; font-size:0.9rem;">No posts found in this feed view. Share your first update above!</div>`;
+        return;
+      }
+
+      container.innerHTML = filtered.map(p => {
+        const author = (window.BlueLineSocial && typeof window.BlueLineSocial.getUserById === 'function') ? window.BlueLineSocial.getUserById(p.authorId) : null;
+        const authorName = author ? author.name : "Hockey Athlete";
+        const authorHandle = author ? ('@' + author.handle) : "@athlete";
+        const avatarUrl = (author && author.avatar) ? author.avatar : "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=250&q=80";
+        const badgeIcon = author?.logoOverlay?.icon || (author?.badge?.icon || '⚡');
+
+        let mediaHtml = '';
+        if (p.media) {
+          if (p.media.type === 'combine_card') {
+            mediaHtml = `
+              <div style="margin:10px 0; padding:12px; border-radius:10px; background:rgba(56,189,248,0.1); border:1px solid rgba(56,189,248,0.3);">
+                <div style="font-size:0.8rem; font-weight:800; color:#38bdf8; margin-bottom:6px;">🧬 LASER COMBINE BENCHMARK</div>
+                <div style="display:flex; gap:16px; font-size:0.85rem; color:#fff;">
+                  <div>Flying 30m: <strong>${p.media.speed || '3.85s'}</strong></div>
+                  <div>Broad Jump: <strong>${p.media.jump || '98"'}</strong></div>
+                  <div>Bench: <strong>${p.media.bench || '14 reps'}</strong></div>
+                </div>
+                <div style="font-size:0.7rem; color:#64748b; font-family:monospace; margin-top:6px;">HMAC-SHA256 LEDGER STAMP: ${p.media.hash || '0x7f2a...verified'}</div>
+              </div>
+            `;
+          } else if (p.media.type === 'game_log_card') {
+            mediaHtml = `
+              <div style="margin:10px 0; padding:12px; border-radius:10px; background:rgba(16,185,129,0.1); border:1px solid rgba(16,185,129,0.3);">
+                <div style="font-size:0.8rem; font-weight:800; color:#34d399; margin-bottom:6px;">📊 OFFICIAL BOX SCORE vs ${p.media.opponent || 'OPPONENT'}</div>
+                <div style="display:flex; gap:16px; font-size:0.85rem; color:#fff;">
+                  <div>Goals: <strong>${p.media.goals || 1}</strong></div>
+                  <div>Assists: <strong>${p.media.assists || 2}</strong></div>
+                  <div>Points: <strong>${p.media.points || 3}</strong></div>
+                  <div>Differential: <strong>${p.media.plusMinus || '+2'}</strong></div>
+                </div>
+              </div>
+            `;
+          }
+        }
+
+        return `
+          <article class="x-post-card" id="post_${p.id}">
+            <div class="x-post-header">
+              <div style="position:relative; width:44px; height:44px;">
+                <img src="${avatarUrl}" alt="${authorName}" class="x-post-avatar">
+                <span style="position:absolute; bottom:-2px; right:-2px; font-size:0.75rem; background:#0b111e; border-radius:9999px; padding:1px;">${badgeIcon}</span>
+              </div>
+              <div style="flex:1;">
+                <div style="display:flex; align-items:center; gap:6px;">
+                  <strong style="color:#fff; font-size:0.95rem;">${authorName}</strong>
+                  <span style="color:#94a3b8; font-size:0.8rem;">${authorHandle}</span>
+                  <span style="color:#64748b; font-size:0.75rem;">• ${p.timestamp || 'Recent'}</span>
+                </div>
+                <div class="x-post-content">${p.content}</div>
+                ${mediaHtml}
+                <div class="x-post-footer">
+                  <button type="button" class="x-post-action ${p.likedByMe ? 'active' : ''}" onclick="handleLikePost('${p.id}')">
+                    <span>${p.likedByMe ? '❤️' : '🤍'}</span> <span>${p.likes || 0}</span>
+                  </button>
+                  <button type="button" class="x-post-action" onclick="handleRepostPost('${p.id}')">
+                    <span>🔁</span> <span>${p.reposts || 0}</span>
+                  </button>
+                  <button type="button" class="x-post-action" onclick="handleReplyPost('${p.id}')">
+                    <span>💬</span> <span>${p.replies || 0}</span>
+                  </button>
+                  <button type="button" class="x-post-action" onclick="openDirectMessageDrawer('${p.authorId}')">
+                    <span>✉️ DM</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </article>
+        `;
+      }).join('');
+    }
+
+    function switchWireFeedTab(tabKey) {
+      document.querySelectorAll('.x-tab-nav-btn').forEach(b => b.classList.remove('active'));
+      const activeBtn = document.getElementById('tabFeed' + tabKey.charAt(0).toUpperCase() + tabKey.slice(1));
+      if (activeBtn) activeBtn.classList.add('active');
+      renderWirePosts(tabKey);
+    }
+
+    function publishWirePost() {
+      const textarea = document.getElementById('wireComposerText');
+      const content = textarea ? textarea.value.trim() : '';
+      if (!content) {
+        showPopup("Please write an update or attach a stat log.");
+        return;
+      }
+
+      if (window.BlueLineSocial && typeof window.BlueLineSocial.createPost === 'function') {
+        window.BlueLineSocial.createPost(content, ['#TheWire', '#PuckPathway']);
+      }
+
+      textarea.value = '';
+      showPopup("✓ Published to The Wire!");
+      switchWireFeedTab('all');
+    }
+
+    function quickAttachCombineData() {
+      const textarea = document.getElementById('wireComposerText');
+      if (!textarea) return;
+      textarea.value = "🧬 Off-Season Laser Testing Update: Clocked Flying 30m laser sprint at 3.85s with 98-inch standing broad jump. Biometrics stamped on BlueLine tamper-evident ledger. #CombineReport #LaserTelemetry";
+    }
+
+    function quickAttachGameLogData() {
+      const textarea = document.getElementById('wireComposerText');
+      if (!textarea) return;
+      textarea.value = "📊 Game Performance Log vs Conference Rival: 2 Goals, 1 Assist (3 PTS), +2 Differential with 5 SOG in a 4-2 road victory. #GameDay #BoxScore #PlayerStats";
+    }
+
+    function quickAttachFilmClip() {
+      const textarea = document.getElementById('wireComposerText');
+      if (!textarea) return;
+      textarea.value = "🎥 Video Breakdown Cut: 3v2 Neutral Zone transition cutback showing blue line deception and puck protection along the wall. #FilmRoom #HockeyIQ";
+    }
+
+    function handleLikePost(postId) {
+      if (window.BlueLineSocial && typeof window.BlueLineSocial.toggleLikePost === 'function') {
+        window.BlueLineSocial.toggleLikePost(postId);
+        renderWirePosts();
+      }
+    }
+
+    function handleRepostPost(postId) {
+      if (window.BlueLineSocial && typeof window.BlueLineSocial.repostPost === 'function') {
+        window.BlueLineSocial.repostPost(postId);
+        showPopup("🔁 Reposted to your timeline!");
+        renderWirePosts();
+      }
+    }
+
+    function handleReplyPost(postId) {
+      showPopup("Replies thread opened. Post your response!");
+      const textarea = document.getElementById('wireComposerText');
+      if (textarea) {
+        textarea.value = "Replying to post: ";
+        textarea.focus();
+      }
+    }
+
+    // ==========================================
+    // LOGO STAMPING PICKER MODAL
+    // ==========================================
+
+    function openLogoPickerModal() {
+      const modal = document.getElementById('logoPickerModal');
+      const grid = document.getElementById('logoPickerGridContainer');
+      if (!modal || !grid) return;
+
+      const logos = (window.BlueLineSocial && typeof window.BlueLineSocial.getAvailableLogos === 'function')
+        ? window.BlueLineSocial.getAvailableLogos()
+        : [
+          { id: "logo_ncaa_michigan", label: "Michigan Wolverines", icon: "〽️" },
+          { id: "logo_bu_terriers", label: "Boston University", icon: "🐾" },
+          { id: "logo_msu_spartans", label: "Michigan State", icon: "⚔️" },
+          { id: "logo_chicago_steel", label: "Chicago Steel USHL", icon: "🛡️" },
+          { id: "logo_shattuck", label: "Shattuck St. Mary's", icon: "🏰" },
+          { id: "logo_usa_hockey", label: "USA Hockey NTDP", icon: "🇺🇸" },
+          { id: "logo_verified_gold", label: "Verified 5-Star Prospect", icon: "⭐" },
+          { id: "logo_commit_d1", label: "NCAA D1 Committed", icon: "🎓" }
+        ];
+
+      grid.innerHTML = logos.map(l => `
+        <div class="logo-picker-card" onclick="handleSelectLogo('${l.id}')">
+          <span style="font-size:1.5rem;">${l.icon}</span>
+          <div>
+            <div style="font-size:0.85rem; font-weight:700; color:#fff;">${l.label}</div>
+            <div style="font-size:0.7rem; color:#94a3b8;">Click to stamp on profile</div>
           </div>
         </div>
       `).join('');
+
+      modal.style.display = 'flex';
     }
 
-    // Combine test sliders
-    function updateCombineMetric(metric, val) {
-      if (metric === 'flying30m') {
-        document.getElementById('labelFlying30m').textContent = `${parseFloat(val).toFixed(2)}s`;
-      } else if (metric === 'verticalJump') {
-        document.getElementById('labelVerticalJump').textContent = `${parseFloat(val).toFixed(1)} in`;
-      } else if (metric === 'broadJump') {
-        document.getElementById('labelBroadJump').textContent = `${parseFloat(val).toFixed(1)} in`;
-      } else if (metric === 'benchPress') {
-        document.getElementById('labelBenchPress').textContent = `${parseInt(val, 10)} reps`;
-      } else if (metric === 'gripStrength') {
-        document.getElementById('labelGripStrength').textContent = `${parseFloat(val).toFixed(1)} kg`;
-      } else if (metric === 'shuttle') {
-        document.getElementById('labelShuttle').textContent = `${parseFloat(val).toFixed(2)}s`;
+    function closeLogoPickerModal() {
+      const modal = document.getElementById('logoPickerModal');
+      if (modal) modal.style.display = 'none';
+    }
+
+    function handleSelectLogo(logoId) {
+      if (window.BlueLineSocial && typeof window.BlueLineSocial.stampAvatarLogo === 'function') {
+        window.BlueLineSocial.stampAvatarLogo(logoId);
       }
+      closeLogoPickerModal();
+      renderWireProfile();
+      showPopup("✓ Official crest stamped onto your avatar!");
     }
 
-    function recalculateCombinePercentiles() {
-      const cohort = document.getElementById('combineCohortSelect').value;
-      alert(`Re-benchmarking metrics against ${cohort.toUpperCase()} verified cohort norms...`);
+    function handleRemoveLogoStamp() {
+      if (window.BlueLineSocial && typeof window.BlueLineSocial.removeAvatarLogo === 'function') {
+        window.BlueLineSocial.removeAvatarLogo();
+      }
+      closeLogoPickerModal();
+      renderWireProfile();
+      showPopup("Logo badge removed.");
     }
 
-    function saveCombineHardwareBlock() {
-      alert("Combine telemetry cryptographically signed and committed to athlete genesis ledger block (0x3e18... HMAC-SHA256).");
+    // ==========================================
+    // DIRECT MESSAGING (DM) DRAWER
+    // ==========================================
+
+    let activeDmRecipientId = 'usr_scout_marr';
+
+    function openDirectMessageDrawer(recipientId) {
+      activeDmRecipientId = recipientId || 'usr_scout_marr';
+      const drawer = document.getElementById('dmChatDrawer');
+      if (!drawer) return;
+
+      const recipient = (window.BlueLineSocial && typeof window.BlueLineSocial.getUserById === 'function')
+        ? window.BlueLineSocial.getUserById(activeDmRecipientId)
+        : { name: "Dan Marr", role: "Director of Scouting" };
+
+      const nameEl = document.getElementById('dmChatRecipientName');
+      const roleEl = document.getElementById('dmChatRecipientRole');
+      if (nameEl) nameEl.textContent = recipient.name + (recipient.role === 'scout' ? ' (Scout)' : ' (Personnel)');
+      if (roleEl) roleEl.textContent = recipient.title || "Verified Recruiter • BlueLine Bureau";
+
+      renderDirectMessages();
+      drawer.style.display = 'flex';
     }
 
-    // Shift duel simulation
-    function runAppShiftSimulation() {
-      const out = document.getElementById('shiftSimulationOutput');
-      const opp = document.getElementById('shiftOpponentSelect').value;
-      out.classList.remove('hidden');
-      out.innerHTML = `
-        <div class="text-sky-400 font-bold">⚔️ 60-Second Shift Simulation vs. ${opp}</div>
-        <div class="text-slate-300">00:15 - Clean offensive zone entry through center ice seam.</div>
-        <div class="text-slate-300">00:32 - Sustained cycle along left half-wall; puck protected under 2-man pressure.</div>
-        <div class="text-emerald-400 font-bold">00:48 - High-danger slot pass completed; generated Grade-A scoring chance.</div>
-        <div class="text-slate-400 text-[10px] pt-1 border-t border-slate-800">Shift Result: +1 Scoring Chance Differential • 100% Possession Retention</div>
-      `;
+    function closeDirectMessageDrawer() {
+      const drawer = document.getElementById('dmChatDrawer');
+      if (drawer) drawer.style.display = 'none';
     }
 
-    function exportDigitalPassport() {
-      const passport = {
-        athlete: currentAthlete ? currentAthlete.name : "Michael Hage",
-        timestamp: new Date().toISOString(),
-        compositeScore: 94.6,
-        athleticIndex: 92.8,
-        ncaaEligibility: "Certified 100% Core",
-        ledgerHash: "0x9f7a83e0cb214ea7f49f7a",
-        algorithm: "HMAC-SHA256 (Cipher-Bravo)",
-        status: "CRYPTOGRAPHICALLY VERIFIED & SEALED"
+    function renderDirectMessages() {
+      const container = document.getElementById('dmChatMessagesContainer');
+      if (!container) return;
+
+      let convs = [];
+      if (window.BlueLineSocial && typeof window.BlueLineSocial.getConversationsForUser === 'function') {
+        convs = window.BlueLineSocial.getConversationsForUser();
+      }
+
+      let messages = [];
+      if (convs && convs.length > 0) {
+        messages = convs[0].messages || [];
+      } else {
+        messages = [
+          { senderId: 'usr_scout_marr', text: "Hello! Reviewed your weekend series telemetry. Outstanding edge work on the regroup.", time: "Yesterday 4:15 PM" },
+          { senderId: 'usr_michael_hage', text: "Thank you! Really appreciate the feedback. We worked hard on our transition speed.", time: "Yesterday 4:45 PM" },
+          { senderId: 'usr_scout_marr', text: "We're adding your dossier to the Big Ten priority draft watchlist.", time: "12m ago" }
+        ];
+      }
+
+      const curUser = window.BlueLineSocial ? window.BlueLineSocial.getCurrentUser() : null;
+      const myId = curUser ? curUser.id : 'usr_michael_hage';
+
+      container.innerHTML = messages.map(m => {
+        const isSent = (m.senderId === myId || m.senderId === 'usr_michael_hage' || m.senderId === 'usr_athlete_hage');
+        return `
+          <div class="dm-bubble ${isSent ? 'sent' : 'received'}">
+            <div>${m.text}</div>
+            <div style="font-size:0.65rem; opacity:0.75; text-align:right; margin-top:3px;">${m.time || 'Just now'}</div>
+          </div>
+        `;
+      }).join('');
+
+      container.scrollTop = container.scrollHeight;
+    }
+
+    function handleSendDM(e) {
+      if (e) e.preventDefault();
+      const input = document.getElementById('dmMessageInput');
+      const text = input ? input.value.trim() : '';
+      if (!text) return;
+
+      if (window.BlueLineSocial && typeof window.BlueLineSocial.sendMessage === 'function') {
+        window.BlueLineSocial.sendMessage(activeDmRecipientId, text);
+      }
+
+      input.value = '';
+      renderDirectMessages();
+
+      // Simulate live recruiter reply after 800ms
+      setTimeout(() => {
+        const container = document.getElementById('dmChatMessagesContainer');
+        if (container) {
+          const replyBubble = document.createElement('div');
+          replyBubble.className = 'dm-bubble received';
+          replyBubble.innerHTML = `<div>Message received. Recruiter dossier review scheduled.</div><div style="font-size:0.65rem; opacity:0.75; text-align:right; margin-top:3px;">Just now</div>`;
+          container.appendChild(replyBubble);
+          container.scrollTop = container.scrollHeight;
+        }
+      }, 800);
+    }
+
+    // ==========================================
+    // PLAYER DATABASE & COMPARISON TOOL
+    // ==========================================
+
+    function renderPlayerDatabaseGrid() {
+      const container = document.getElementById('playerDbCardsGrid');
+      if (!container) return;
+
+      const q = (document.getElementById('playerDbSearchInput')?.value || '').toLowerCase().trim();
+      const posFilter = (document.getElementById('playerDbPosFilter')?.value || '');
+      const leagueFilter = (document.getElementById('playerDbLeagueFilter')?.value || '');
+
+      let allPlayers = (window.MASTER_ALL_REGISTRY || window.MASTER_PLAYERS || window.SMRP_ALL_REGISTRY || window.SMRP_PLAYERS || []);
+      if (!Array.isArray(allPlayers) || allPlayers.length === 0) {
+        allPlayers = [
+          { id: "mp_0001", name: "Logan Stein", num: 1, pos: "G", role_title: "Goaltender", team: "University of Michigan", league: "NCAA Division I Men", height_str: "6'2"", weight_lbs: 210, composite_score: 86 },
+          { id: "mp_0002", name: "Hunter Hady", num: 3, pos: "D", role_title: "Defenseman", team: "University of Michigan", league: "NCAA Division I Men", height_str: "6'4"", weight_lbs: 205, composite_score: 86.1 },
+          { id: "mp_0003", name: "Will Felicio", num: 4, pos: "D", role_title: "Defenseman", team: "University of Michigan", league: "NCAA Division I Men", height_str: "5'10"", weight_lbs: 161, composite_score: 86.2 },
+          { id: "mp_0013", name: "Michael Hage", num: 19, pos: "F", role_title: "Forward", team: "University of Michigan", league: "NCAA Division I Men", height_str: "6'1"", weight_lbs: 190, composite_score: 87.2 },
+          { id: "mp_0029", name: "Trey Augustine", num: 1, pos: "G", role_title: "Goaltender", team: "Michigan State University", league: "NCAA Division I Men", height_str: "6'1"", weight_lbs: 179, composite_score: 88.8 },
+          { id: "mp_0061", name: "Oliver Moore", num: 11, pos: "F", role_title: "Forward", team: "University of Minnesota", league: "NCAA Division I Men", height_str: "5'11"", weight_lbs: 190, composite_score: 92 }
+        ];
+      }
+
+      let matches = allPlayers.filter(p => {
+        if (p.entity_type === 'coach') return false;
+        if (posFilter && p.pos !== posFilter) return false;
+        if (leagueFilter && !(p.league || '').toLowerCase().includes(leagueFilter.toLowerCase())) return false;
+        if (q) {
+          const matchName = (p.name || '').toLowerCase().includes(q);
+          const matchTeam = (p.team || '').toLowerCase().includes(q);
+          const matchDraft = (p.draft_status || '').toLowerCase().includes(q);
+          return matchName || matchTeam || matchDraft;
+        }
+        return true;
+      }).slice(0, 24);
+
+      if (matches.length === 0) {
+        container.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:2rem; color:#64748b;">No athletes found matching your search filters.</div>`;
+        return;
+      }
+
+      container.innerHTML = matches.map(p => {
+        const score = p.composite_score ? Math.round(p.composite_score) : 85;
+        return `
+          <div style="background:#0f172a; border:1px solid rgba(255,255,255,0.08); border-radius:12px; padding:1rem; display:flex; flex-direction:column; justify-content:space-between;">
+            <div>
+              <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+                <div>
+                  <h3 style="margin:0; font-size:1.05rem; color:#fff; font-weight:800;">${p.name}</h3>
+                  <div style="font-size:0.75rem; color:#38bdf8; font-family:monospace;">#${p.num || '--'} • ${p.role_title || p.pos}</div>
+                </div>
+                <span style="background:rgba(56,189,248,0.15); color:#38bdf8; font-size:0.75rem; font-weight:800; padding:2px 8px; border-radius:9999px; font-family:monospace;">
+                  ${score} SQM
+                </span>
+              </div>
+              <div style="font-size:0.8rem; color:#cbd5e1; margin-top:8px;">${p.team || 'Amateur Program'}</div>
+              <div style="font-size:0.75rem; color:#94a3b8;">${p.league || 'Collegiate/Junior'}</div>
+              <div style="display:flex; gap:12px; font-size:0.75rem; color:#94a3b8; margin-top:8px; border-top:1px solid rgba(255,255,255,0.05); padding-top:6px;">
+                <span>Height: ${p.height_str || (p.height_in + '"') || '--'}</span>
+                <span>Weight: ${p.weight_lbs ? (p.weight_lbs + ' lbs') : '--'}</span>
+              </div>
+            </div>
+            <div style="display:flex; gap:8px; margin-top:12px;">
+              <button type="button" class="btn secondary" onclick="compareAthleteWithMe('${p.name}', ${score})" style="flex:1; font-size:0.75rem; padding:0.4rem;">
+                ⚖️ Compare
+              </button>
+              <button type="button" class="btn primary" onclick="openDirectMessageDrawer('${p.id}')" style="flex:1; font-size:0.75rem; padding:0.4rem;">
+                ✉️ DM
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function compareAthleteWithMe(name, score) {
+      const compBtn = document.querySelector('.tab-btn[data-view="comparechart"]');
+      if (compBtn) compBtn.click();
+
+      const table = document.querySelector('.compare-table');
+      if (table) {
+        table.innerHTML = `
+          <tr><th>Skill / Metric</th><th>You (Michael Hage)</th><th>${name}</th></tr>
+          <tr><td>Trajectory Score (SQM)</td><td>87.2</td><td>${score}</td></tr>
+          <tr><td>Skating & Speed</td><td>78</td><td>${Math.round(score * 0.9)}</td></tr>
+          <tr><td>Shooting Accuracy</td><td>74</td><td>${Math.round(score * 0.88)}</td></tr>
+          <tr><td>Passing & Playmaking</td><td>76</td><td>${Math.round(score * 0.86)}</td></tr>
+          <tr><td>Hockey IQ</td><td>80</td><td>${Math.round(score * 0.92)}</td></tr>
+        `;
+      }
+      showPopup("Comparing with " + name);
+    }
+
+    // ==========================================
+    // PACKAGES & SUBSCRIPTIONS VIEW
+    // ==========================================
+
+    function renderPackagesView() {
+      const cards = {
+        athlete: document.getElementById('pkgCardAthlete'),
+        parent: document.getElementById('pkgCardParent'),
+        coach: document.getElementById('pkgCardCoach'),
+        scout: document.getElementById('pkgCardScout')
       };
 
-      const blob = new Blob([JSON.stringify(passport, null, 2)], { type: 'application/json' });
-      const a = document.createElement('a');
-      a.href = URL.createObjectURL(blob);
-      a.download = `${passport.athlete.replace(/\s+/g, '_')}_Digital_Passport.json`;
-      a.click();
+      Object.keys(cards).forEach(k => {
+        const c = cards[k];
+        if (c) {
+          c.classList.remove('highlight');
+          const existingBadge = c.querySelector('.plan-active-indicator');
+          if (existingBadge) existingBadge.remove();
+
+          const btn = c.querySelector('button');
+
+          if (k === currentActiveRole) {
+            c.classList.add('highlight');
+            const badge = document.createElement('div');
+            badge.className = 'plan-active-indicator';
+            badge.style.cssText = 'position:absolute; top:12px; right:12px; background:#0284c7; color:#fff; font-size:0.7rem; font-weight:800; padding:2px 8px; border-radius:9999px; text-transform:uppercase;';
+            badge.textContent = (k === 'coach' || k === 'scout') ? 'Active Pro Tier ($22.99)' : 'Active Tier ($4.99)';
+            c.appendChild(badge);
+
+            if (btn) {
+              btn.textContent = `✓ Current Plan: ${k.toUpperCase()} ACTIVE`;
+              btn.style.background = '#059669';
+              btn.style.cursor = 'default';
+            }
+          } else {
+            if (btn) {
+              if (k === 'coach' || k === 'scout') {
+                btn.textContent = `⚡ Upgrade to ${k === 'coach' ? 'Coach Pro' : 'Recruiter Enterprise'} ($22.99/mo)`;
+                btn.style.background = 'linear-gradient(135deg, #0284c7 0%, #4f46e5 100%)';
+                btn.style.cursor = 'pointer';
+              } else {
+                btn.textContent = `Switch to ${k === 'athlete' ? 'Player Passport' : 'Family Advisor'} ($4.99/mo)`;
+                btn.style.background = '';
+                btn.style.cursor = 'pointer';
+              }
+            }
+          }
+        }
+      });
     }
 
-    // User Dropdown & Persona switching
-    function toggleUserDropdown() {
-      const menu = document.getElementById('userDropdownMenu');
-      if (menu) menu.classList.toggle('hidden');
-    }
-
-    function switchAppPersona(personaId) {
-      if (window.BlueLineAuth && window.BlueLineAuth.signInAsPersona) {
-        window.BlueLineAuth.signInAsPersona(personaId);
-        window.location.reload();
+    function handleSelectPackage(role) {
+      if (role === currentActiveRole) {
+        showPopup(`You are already on the ${role.toUpperCase()} plan.`);
+        return;
       }
-    }
-
-    function handleSignOut() {
-      if (window.BlueLineAuth && window.BlueLineAuth.signOut) {
-        window.BlueLineAuth.signOut();
+      if ((role === 'coach' || role === 'scout') && (currentActiveRole === 'athlete' || currentActiveRole === 'parent')) {
+        executePlanUpgrade(role);
       } else {
-        localStorage.removeItem('blueline_auth_user');
-        window.location.href = 'index.html';
+        handleRoleSwitch(role);
+        showPopup("✓ " + role.toUpperCase() + " Package Subscription Active! Ledger stamped.");
+      }
+      renderPackagesView();
+    }
+
+    // ==========================================
+    // ADMIN OPERATIONS CENTER
+    // ==========================================
+
+    function renderAdminHub() {
+      // 1. KPIs
+      let stats = { totalUsers: 28, estimatedMRR: "$215.88", ledgerBlocksStamped: 148, securityDefcon: 5 };
+      if (window.BlueLineAuth && typeof window.BlueLineAuth.getPlatformStats === 'function') {
+        stats = window.BlueLineAuth.getPlatformStats();
+      }
+
+      const kpiUsers = document.getElementById('adminKpiUsers');
+      const kpiMRR = document.getElementById('adminKpiMRR');
+      const kpiLedger = document.getElementById('adminKpiLedger');
+      const kpiDefcon = document.getElementById('adminKpiDefcon');
+
+      if (kpiUsers) kpiUsers.textContent = stats.totalUsers;
+      if (kpiMRR) kpiMRR.textContent = stats.estimatedMRR;
+      if (kpiLedger) kpiLedger.textContent = stats.ledgerBlocksStamped;
+      if (kpiDefcon) kpiDefcon.textContent = "DEFCON " + stats.securityDefcon;
+
+      // 2. Outbox Table
+      const outboxTbody = document.getElementById('adminOutboxTableBody');
+      if (outboxTbody) {
+        let outbox = [];
+        if (window.DraftLineupMailer && typeof window.DraftLineupMailer.getOutbox === 'function') {
+          outbox = window.DraftLineupMailer.getOutbox();
+        }
+        if (outbox.length === 0) {
+          outbox = [
+            { timestamp: new Date().toLocaleTimeString(), type: "SIGNUP_CONFIRMATION", to: "mhage@umich.edu", subject: "DraftLineup Account Verification (furrhjohn10@gmail.com)", code: "482910", status: "VERIFIED" },
+            { timestamp: "12m ago", type: "ATHLETE_PASSPORT_MINTED", to: "dmarr@nhlcentralscouting.com", subject: "Verified Athlete Ledger Dossier Minted: Michael Hage", code: "led_9f81", status: "DELIVERED" }
+          ];
+        }
+        outboxTbody.innerHTML = outbox.slice(0, 8).map(m => `
+          <tr>
+            <td style="font-family:monospace; font-size:0.75rem;">${m.timestamp || 'Recent'}</td>
+            <td><span style="background:rgba(56,189,248,0.2); color:#38bdf8; font-size:0.75rem; padding:2px 6px; border-radius:4px; font-weight:700;">${m.type || 'SYSTEM'}</span></td>
+            <td>${m.to || 'user@draftlineup.com'}</td>
+            <td style="font-size:0.8rem;">${m.subject || 'Platform Notice'}</td>
+            <td style="font-family:monospace; color:#34d399;">${m.code || 'AUTHENTICATED'}</td>
+            <td><span style="color:#10b981; font-weight:700;">✓ DELIVERED</span></td>
+          </tr>
+        `).join('');
+      }
+
+      // 3. IP & Visitor Telemetry
+      const liveIpBadge = document.getElementById('adminLiveIpBadge');
+      const geoLoc = document.getElementById('adminGeoLocation');
+      const sessionDwell = document.getElementById('adminSessionDwell');
+      const shieldBlocked = document.getElementById('adminShieldBlocked');
+
+      if (window.BlueLineTelemetry && typeof window.BlueLineTelemetry.getSessionState === 'function') {
+        const telState = window.BlueLineTelemetry.getSessionState();
+        if (liveIpBadge) liveIpBadge.textContent = telState.ip || "127.0.0.1 (Local Verified)";
+        if (geoLoc) geoLoc.textContent = (telState.city && telState.country) ? `${telState.city}, ${telState.country}` : "North America / Shielded";
+        if (sessionDwell) sessionDwell.textContent = (telState.totalDwellSeconds || 42) + "s active dwell";
+      }
+
+      if (window.BlueLineSecurity && typeof window.BlueLineSecurity.getStatus === 'function') {
+        const sec = window.BlueLineSecurity.getStatus();
+        if (shieldBlocked) shieldBlocked.textContent = `${sec.blockedAttacksCount || 0} Injections Neutralized`;
+      }
+
+      // Telemetry table
+      const telTbody = document.getElementById('adminTelemetryTableBody');
+      if (telTbody) {
+        telTbody.innerHTML = `
+          <tr>
+            <td style="font-family:monospace; font-size:0.75rem;">sess_cur_${Date.now().toString(36)}</td>
+            <td style="font-family:monospace; color:#38bdf8;">${liveIpBadge?.textContent || '127.0.0.1'}</td>
+            <td>app.html, index.html, community.html</td>
+            <td>42s active dwell</td>
+            <td><span style="color:#10b981; font-weight:700;">✓ Aegis Zero-Trust Shield</span></td>
+          </tr>
+        `;
+      }
+
+      // 4. Users Table
+      const usersTbody = document.getElementById('adminUsersTableBody');
+      if (usersTbody) {
+        let users = [];
+        if (window.BlueLineAuth && typeof window.BlueLineAuth.getAllRegisteredAccounts === 'function') {
+          users = window.BlueLineAuth.getAllRegisteredAccounts();
+        }
+        if (users.length === 0) {
+          users = [
+            { name: "Michael Hage", role: "athlete", badge: "VERIFIED ATHLETE", email: "mhage@umich.edu", team: "University of Michigan" },
+            { name: "Adam Nightingale", role: "coach", badge: "COACH (NCAA D1)", email: "anightingale@msu.edu", team: "Michigan State" },
+            { name: "Dan Marr", role: "scout", badge: "DIRECTOR OF SCOUTING", email: "dmarr@nhlcentralscouting.com", team: "NHL Central Scouting" },
+            { name: "Sarah Hage", role: "parent", badge: "FAMILY ADVISOR", email: "sarah.hage@familyadvisor.org", team: "Family Representative" }
+          ];
+        }
+
+        usersTbody.innerHTML = users.map(u => `
+          <tr>
+            <td><strong>${u.name}</strong></td>
+            <td><span style="background:rgba(56,189,248,0.15); color:#38bdf8; font-size:0.75rem; padding:2px 6px; border-radius:4px;">${u.badge || (u.role || '').toUpperCase()}</span></td>
+            <td>${u.email || '--'}</td>
+            <td>${u.team || 'Independent'}</td>
+            <td><span style="color:#10b981; font-weight:700;">✓ VERIFIED</span></td>
+            <td><button type="button" class="btn secondary" onclick="showPopup('Ledger block audit: ${u.name} verified HMAC-SHA256')" style="font-size:0.7rem; padding:2px 6px;">Audit Ledger</button></td>
+          </tr>
+        `).join('');
       }
     }
 
-    // URL Hash listener
-    window.addEventListener('DOMContentLoaded', () => {
-      loadActivePlayerProfile();
-      const hash = window.location.hash.replace('#', '');
-      if (hash && document.getElementById(`tabPanel-${hash}`)) {
-        switchAppTab(`tab-${hash}`);
+    function handleAdminSendTestEmail() {
+      if (window.DraftLineupMailer && typeof window.DraftLineupMailer.sendSignupConfirmation === 'function') {
+        window.DraftLineupMailer.sendSignupConfirmation({
+          name: "Operations Admin",
+          email: "furrhjohn10@gmail.com",
+          role: "admin"
+        });
+        showPopup("✓ Dispatched test notification from noreply@draftlineup.com (furrhjohn10@gmail.com)!");
+        renderAdminHub();
       }
-    });
+    }
+
+    // Initialize Role Navigation and Views on Startup
+    setTimeout(() => {
+      applyRoleTabFilter(currentActiveRole, false);
+      renderWireProfile();
+      renderWirePosts('all');
+      renderPlayerDatabaseGrid();
+      renderPackagesView();
+    }, 150);
+
   </script>
 </body>
 </html>

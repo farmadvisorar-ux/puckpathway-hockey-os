@@ -55,9 +55,9 @@
     <h1>Log In</h1>
     <form class="auth-form" id="loginForm" onsubmit="handleLoginSubmit(event)">
       <label for="loginEmail">Email</label>
-      <input type="email" id="loginEmail" name="email" required placeholder="name@example.com" value="mhage@umich.edu">
+      <input type="email" id="loginEmail" name="email" required placeholder="name@example.com" value="">
       <label for="loginPassword">Password</label>
-      <input type="password" id="loginPassword" name="password" required value="password123">
+      <input type="password" id="loginPassword" name="password" required value="">
       <button type="submit" class="btn primary">Log In</button>
     </form>
     
@@ -108,6 +108,9 @@
   <script src="static/js/auth_engine.js"></script>
   <script>
     function loginPersona(personaId) {
+      try {
+        localStorage.removeItem('blueline_signed_out');
+      } catch(e) {}
       if (window.BlueLineAuth && window.BlueLineAuth.selectPersona) {
         window.BlueLineAuth.selectPersona(personaId);
       } else {
@@ -133,6 +136,10 @@
       const pass = document.getElementById('loginPassword').value;
 
       if (!email) return;
+
+      try {
+        localStorage.removeItem('blueline_signed_out');
+      } catch(e) {}
 
       // Check registered accounts
       try {

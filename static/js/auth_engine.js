@@ -15,6 +15,7 @@
 
   const STORAGE_KEY_USER = "blueline_auth_user";
   const STORAGE_KEY_ACCOUNTS = "blueline_registered_users";
+  const STORAGE_KEY_SIGNED_OUT = "blueline_signed_out";
   const STORAGE_KEY_CUSTOM_PLAYERS = "blueline_custom_players";
   const STORAGE_KEY_CLAIMED = "blueline_claimed_profiles";
 
@@ -122,18 +123,61 @@
   // Retrieve current authenticated session or fallback to default
   function getCurrentUser() {
     try {
+      if (typeof localStorage !== "undefined" && localStorage.getItem(STORAGE_KEY_SIGNED_OUT) === "true") {
+        return {
+          id: "usr_guest",
+          name: "Guest",
+          email: "",
+          role: "guest",
+          tier: "Guest",
+          badge: "GUEST / SIGNED OUT",
+          avatar: "👤",
+          isGuest: true
+        };
+      }
       const raw = localStorage.getItem(STORAGE_KEY_USER);
       if (raw) {
         return JSON.parse(raw);
       }
     } catch (e) {}
+    // If no active session, check if any registered accounts exist (only if not signed out)
+    try {
+      if (typeof localStorage !== "undefined" && localStorage.getItem(STORAGE_KEY_SIGNED_OUT) !== "true") {
+        const accountsRaw = localStorage.getItem(STORAGE_KEY_ACCOUNTS);
+        if (accountsRaw) {
+          const accounts = JSON.parse(accountsRaw);
+          if (Array.isArray(accounts) && accounts.length > 0) {
+            const latest = accounts[accounts.length - 1];
+            if (latest) {
+              return latest;
+            }
+          }
+        }
+      }
+    } catch (e) {}
+    // If explicitly signed out, always return guest
+    if (typeof localStorage !== "undefined" && localStorage.getItem(STORAGE_KEY_SIGNED_OUT) === "true") {
+      return {
+        id: "usr_guest",
+        name: "Guest",
+        email: "",
+        role: "guest",
+        tier: "Guest",
+        badge: "GUEST / SIGNED OUT",
+        avatar: "👤",
+        isGuest: true
+      };
+    }
     // Default to Director of Scouting if none selected
     return DEMO_PERSONAS[2];
   }
 
   function setCurrentUser(user) {
     try {
-      localStorage.setItem(STORAGE_KEY_USER, JSON.stringify(user));
+      if (typeof localStorage !== "undefined") {
+        localStorage.removeItem(STORAGE_KEY_SIGNED_OUT);
+        localStorage.setItem(STORAGE_KEY_USER, JSON.stringify(user));
+      }
     } catch (e) {}
     updateHeaderUserBadge();
     // Dispatch global auth changed event safely
@@ -238,8 +282,13 @@
       if (container.tagName === "BUTTON" && container.textContent.includes("All Modules")) return;
       if (container.tagName === "BUTTON" && container.textContent.includes("☰")) return;
 
-      container.setAttribute("onclick", "window.openUserDrawer()");
-      container.setAttribute("title", `${user.name} • ${user.badge}`);
+      if (user.isGuest) {
+        container.setAttribute("onclick", "window.openAuthModal('signin')");
+        container.setAttribute("title", "Signed Out • Click to Sign In");
+      } else {
+        container.setAttribute("onclick", "window.openUserDrawer()");
+        container.setAttribute("title", `${user.name} • ${user.badge}`);
+      }
 
       // Update avatar element if found
       const avatarEl = container.querySelector(".rounded-full");
@@ -250,7 +299,7 @@
       // Update user text container if found
       const nameSpan = container.querySelector("span.text-xs.font-bold");
       if (nameSpan) {
-        nameSpan.textContent = user.name;
+        nameSpan.textContent = user.isGuest ? "Sign In / Guest" : user.name;
       }
       const roleSpan = container.querySelector("span.text-\\[9px\\]");
       if (roleSpan) {
@@ -264,6 +313,18 @@
 
     const explicitRole = document.getElementById("currentUserRole");
     if (explicitRole) explicitRole.textContent = user.badge;
+
+    const appHeaderName = document.getElementById("appHeaderPlayerName");
+    if (appHeaderName) appHeaderName.textContent = user.name;
+
+    const profileNameLabel = document.getElementById("profileNameLabel");
+    if (profileNameLabel) profileNameLabel.textContent = user.name;
+
+    const recruitingPlayerName = document.getElementById("recruitingPlayerName");
+    if (recruitingPlayerName) recruitingPlayerName.textContent = user.name;
+
+    const appHeaderSub = document.getElementById("appHeaderPlayerSub");
+    if (appHeaderSub) appHeaderSub.textContent = (user.team ? user.team + " • " : "") + (user.pos || user.role_title || "Verified Athlete");
   }
 
   // =========================================================================
@@ -926,7 +987,7 @@
           return;
         }
 
-        window.BlueLineAuth.initiateSignUp({ name, email, role, team, num, pos, league, password });
+        window.BlueLineAuth.signUp({ name, email, role, team, num, pos, league, password, email_verified: true });
       });
     }
 
@@ -1633,11 +1694,209 @@
       return mintNewAthleteDossier(data, user);
     },
 
-    signOut: () => {
-      localStorage.removeItem(STORAGE_KEY_USER);
+    getPackageTiers: () => {
+      return {
+        athlete: {
+          id: "pkg_athlete",
+          role: "athlete",
+          name: "Player Passport",
+          priceMonthly: 4.99,
+          priceLabel: "$4.99 / mo",
+          billing: "Billed monthly • Cancel anytime",
+          description: "Full athlete dossier, personal stat vault, AR training, and direct access to The Wire with verified badge stamping.",
+          features: [
+            "Official Cryptographic Athlete Passport & Ledger",
+            "The Wire Social Feed & X.com Style Profile",
+            "Custom Organization & Team Logo Stamping on Avatar",
+            "Direct Messaging (DMs) with Verified Scouts & Coaches",
+            "Search & Compare Stats of Other Athletes Across North America",
+            "Laser Combine Biometrics & Video Breakdown Access"
+          ]
+        },
+        parent: {
+          id: "pkg_parent",
+          role: "parent",
+          name: "Family Advisor",
+          priceMonthly: 4.99,
+          priceLabel: "$4.99 / mo",
+          billing: "Billed monthly • Cancel anytime",
+          description: "Academic eligibility tracking, safe recruiter contact log, and tournament schedule coordination.",
+          features: [
+            "NCAA Clearinghouse Eligibility & GPA Tracker",
+            "Direct Messaging Line to Verified Coaching Staff",
+            "Physical Development, Height/Weight & Combine Milestones",
+            "Game, Tournament & Showcase Travel Coordinator",
+            "Recruiter Outreach Audit Ledger (Safe-Contact Record)"
+          ]
+        },
+        coach: {
+          id: "pkg_coach",
+          role: "coach",
+          name: "Coach Pro",
+          priceMonthly: 22.99,
+          priceLabel: "$22.99 / mo",
+          billing: "Billed monthly • Cancel anytime",
+          description: "Roster management, interactive tactical whiteboard, AI film breakdowns, and recruiting boards.",
+          features: [
+            "Dynamic Roster Management & Line Combination Matrix",
+            "AI Film Studio & Tactical Telestration Whiteboard",
+            "Searchable 3,050+ Player Scouting Database",
+            "Direct Messaging (DMs) with Prospects & Family Advisors",
+            "ADM Practice Planning & Team Combine Benchmarks",
+            "Unrestricted Access to All 22 Analytical Hubs"
+          ]
+        },
+        scout: {
+          id: "pkg_scout",
+          role: "scout",
+          name: "Recruiter Enterprise",
+          priceMonthly: 22.99,
+          priceLabel: "$22.99 / mo",
+          billing: "Billed monthly • Cancel anytime",
+          description: "Comprehensive scouting bureau with draft war rooms, salary cap modeling, and verified recruitment pipelines.",
+          features: [
+            "War Room Draft Simulator & Franchise Cap Lab",
+            "Unrestricted 3,050+ Master Athlete Database with Ledger Audit",
+            "Verified Recruiter Outreach DMs Directly to Prospects",
+            "Tournament Bracketology & Frozen Four Simulator",
+            "Talent Radar, SQM Metrics & Exportable Dossiers",
+            "Unrestricted Access to All 22 Analytical Hubs"
+          ]
+        }
+      };
+    },
+
+    switchRole: (roleName) => {
+      const role = String(roleName || "athlete").toLowerCase().trim();
+      let targetUser = null;
+      if (role === "coach") {
+        targetUser = DEMO_PERSONAS[1]; // Adam Nightingale
+      } else if (role === "scout" || role === "recruiter") {
+        targetUser = DEMO_PERSONAS[2]; // Dan Marr
+      } else if (role === "parent") {
+        targetUser = DEMO_PERSONAS[3]; // Sarah Hage
+      } else if (role === "admin") {
+        targetUser = {
+          id: "usr_admin_ops",
+          username: "admin.ops",
+          name: "Operations Admin",
+          email: "furrhjohn10@gmail.com",
+          role: "admin",
+          role_title: "Platform Administrator",
+          badge: "PLATFORM ADMIN",
+          team: "BlueLine DataWorks HQ",
+          league: "Operations Bureau",
+          avatar: "⚙️",
+          avatar_gradient: "from-slate-700 to-indigo-950",
+          verified: true
+        };
+      } else {
+        // Try to pick registered athlete or Michael Hage
+        try {
+          const raw = localStorage.getItem(STORAGE_KEY_ACCOUNTS);
+          if (raw) {
+            const list = JSON.parse(raw);
+            const regAth = list.find(a => (a.role || "").toLowerCase() === "athlete");
+            if (regAth) targetUser = regAth;
+          }
+        } catch (e) {}
+        if (!targetUser) targetUser = DEMO_PERSONAS[0]; // Michael Hage
+      }
+
+      setCurrentUser(targetUser);
+      return targetUser;
+    },
+
+    getAllRegisteredAccounts: () => {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY_ACCOUNTS);
+        return raw ? JSON.parse(raw) : [];
+      } catch (e) {
+        return [];
+      }
+    },
+
+    getPlatformStats: () => {
+      const accounts = window.BlueLineAuth.getAllRegisteredAccounts();
+      const athletes = accounts.filter(a => a.role === "athlete").length;
+      const parents = accounts.filter(a => a.role === "parent").length;
+      const coaches = accounts.filter(a => a.role === "coach").length;
+      const scouts = accounts.filter(a => a.role === "scout" || a.role === "recruiter").length;
+
+      const mrr = ((athletes + parents) * 4.99) + ((coaches + scouts) * 22.99);
+
+      return {
+        totalUsers: accounts.length + 4, // Including 4 pre-seeded personas
+        athletes: athletes + 1,
+        parents: parents + 1,
+        coaches: coaches + 1,
+        scouts: scouts + 1,
+        estimatedMRR: "$" + (mrr + (2 * 4.99) + (2 * 22.99)).toFixed(2),
+        ledgerBlocksStamped: 142 + accounts.length * 3,
+        securityDefcon: 5
+      };
+    },
+
+    upgradeUserPlan: (targetRole, planPrice) => {
+      const user = getCurrentUser();
+      const role = String(targetRole || "coach").toLowerCase();
+      const price = planPrice || (role === "coach" || role === "scout" ? "$22.99/mo" : "$4.99/mo");
+      user.role = role;
+      user.plan = role === "coach" ? "Coach Pro" : (role === "scout" ? "Recruiter Enterprise" : "Player Passport");
+      user.price = price;
+      user.badge = role === "coach" ? "COACH PRO ($22.99)" : (role === "scout" ? "DIRECTOR OF SCOUTING ($22.99)" : "VERIFIED ATHLETE");
+      user.verified = true;
+      setCurrentUser(user);
+
+      try {
+        const accountsRaw = localStorage.getItem(STORAGE_KEY_ACCOUNTS);
+        if (accountsRaw) {
+          const accounts = JSON.parse(accountsRaw);
+          const idx = accounts.findIndex(a => a.id === user.id || a.email === user.email);
+          if (idx >= 0) {
+            accounts[idx] = { ...accounts[idx], role: user.role, plan: user.plan, badge: user.badge };
+            localStorage.setItem(STORAGE_KEY_ACCOUNTS, JSON.stringify(accounts));
+          }
+        }
+      } catch (e) {}
+
+      stampImmutableLedger({ id: user.id || "usr_plan", name: user.name }, "SUBSCRIPTION", "TIER_UPGRADE", `Upgraded account to ${user.plan} (${price})`, user);
+      return user;
+    },
+
+    isFeaturePaywalled: (featureName, role) => {
+      const r = String(role || "").toLowerCase();
+      if (r === "coach" || r === "scout" || r === "recruiter" || r === "admin") {
+        return false;
+      }
+      const proFeatures = ["videobreakdown", "combine", "recruiting", "artraining", "iqsim", "film", "admin"];
+      return proFeatures.includes(String(featureName || "").toLowerCase());
+    },
+
+    signOut: (redirectUrl) => {
+      try {
+        if (typeof localStorage !== "undefined") {
+          localStorage.setItem(STORAGE_KEY_SIGNED_OUT, "true");
+          localStorage.removeItem(STORAGE_KEY_USER);
+        }
+        if (typeof sessionStorage !== "undefined") {
+          sessionStorage.clear();
+        }
+      } catch (e) {}
       updateHeaderUserBadge();
-      showAlert("You have signed out. Reset to Guest / Scout mode.");
-      window.location.reload();
+      showAlert("You have signed out. Session ended.");
+      if (typeof window !== "undefined" && typeof window.dispatchEvent === "function" && typeof CustomEvent === "function") {
+        try {
+          window.dispatchEvent(new CustomEvent("blueline:authChanged", { detail: { user: null, signedOut: true } }));
+        } catch(e) {}
+      }
+      setTimeout(() => {
+        if (redirectUrl) {
+          window.location.href = redirectUrl;
+        } else {
+          window.location.href = "login.html";
+        }
+      }, 150);
     }
   };
 

@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlueLine DataWorks OS | Scout Workspace</title>
+    <!-- Security Shield Script Required by Invariants -->
+    <script src="static/js/security_shield.js"></script>
+    <!-- Tailwind CSS for modern, rapid UI styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for standard icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        blueline: { dark: '#0b1120', panel: '#1e293b', accent: '#3b82f6', text: '#94a3b8' }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom scrollbar for data tables */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #0b1120; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #475569; }
+    </style>
+</head>
+<body class="bg-blueline-dark text-slate-200 font-sans h-screen flex flex-col overflow-hidden">
+
+    <div class="flex-1 flex overflow-hidden">
+      <!-- Sidebar Navigation -->
+      <aside class="w-20 lg:w-64 bg-blueline-panel border-r border-slate-800 flex flex-col justify-between transition-all duration-300">
+          <div>
+              <div class="h-16 flex items-center justify-center lg:justify-start lg:px-6 border-b border-slate-800">
+                  <a href="index.html" class="flex items-center">
+                    <i class="fa-solid fa-hockey-puck text-blue-500 text-2xl"></i>
+                    <span class="ml-3 font-bold text-xl hidden lg:block tracking-wider text-white">BLUELINE</span>
+                  </a>
+              </div>
+              <nav class="mt-6 flex flex-col space-y-2 px-3">
+                  <button type="button" id="sideNavDashboard" class="flex items-center px-3 py-2.5 bg-blue-600 text-white rounded-lg group text-left w-full" onclick="switchTab('dashboard')">
+                      <i class="fa-solid fa-chart-line text-lg w-6"></i>
+                      <span class="ml-3 font-medium hidden lg:block">My Workspace</span>
+                  </button>
+                  <button type="button" id="sideNavDirectory" class="flex items-center px-3 py-2.5 text-slate-400 hover:bg-slate-800 hover:text-white rounded-lg group text-left w-full" onclick="switchTab('directory')">
+                      <i class="fa-solid fa-users text-lg w-6"></i>
+                      <span class="ml-3 font-medium hidden lg:block">Global Directory</span>
+                  </button>
+                  <a href="film.html" class="flex items-center px-3 py-2.5 text-slate-400 hover:bg-slate-800 hover:text-white rounded-lg group">
+                      <i class="fa-solid fa-video text-lg w-6"></i>
+                      <span class="ml-3 font-medium hidden lg:block">Film Room</span>
+                  </a>
+                  <a href="draft.html" class="flex items-center px-3 py-2.5 text-slate-400 hover:bg-slate-800 hover:text-white rounded-lg group">
+                      <i class="fa-solid fa-bullseye text-lg w-6"></i>
+                      <span class="ml-3 font-medium hidden lg:block">Draft Simulator</span>
+                  </a>
+                  <a href="app.html#thewire" class="flex items-center px-3 py-2.5 text-slate-400 hover:bg-slate-800 hover:text-white rounded-lg group">
+                      <i class="fa-solid fa-satellite text-lg w-6"></i>
+                      <span class="ml-3 font-medium hidden lg:block">The Wire & DMs</span>
+                  </a>
+                  <a href="app.html" class="flex items-center px-3 py-2.5 text-slate-400 hover:bg-slate-800 hover:text-white rounded-lg group">
+                      <i class="fa-solid fa-gauge-high text-lg w-6"></i>
+                      <span class="ml-3 font-medium hidden lg:block">Master Dashboard</span>
+                  </a>
+              </nav>
+          </div>
+          
+          <!-- Personal User Profile Snippet -->
+          <div class="p-4 border-t border-slate-800 flex items-center justify-center lg:justify-start">
+              <div class="w-10 h-10 rounded-full bg-slate-700 border-2 border-blue-500 flex items-center justify-center text-white font-bold">
+                  MA
+              </div>
+              <div class="ml-3 hidden lg:block">
+                  <p class="text-sm font-semibold text-white">Mike Adams</p>
+                  <p class="text-xs text-blue-400">Lead Scout, USHL • Pro ($22.99)</p>
+              </div>
+          </div>
+      </aside>
+
+      <!-- Main Content Area -->
+      <main class="flex-1 flex flex-col h-screen overflow-hidden">
+          
+          <!-- Topbar -->
+          <header class="h-16 bg-blueline-panel border-b border-slate-800 flex items-center justify-between px-6 z-10">
+              <div class="flex items-center bg-slate-800 rounded-md px-3 py-1.5 w-64 lg:w-96">
+                  <i class="fa-solid fa-search text-slate-400 text-sm"></i>
+                  <input type="text" id="globalScoutSearch" oninput="handleGlobalProspectFilter(this.value)" placeholder="Search prospects, teams, or leagues..." class="bg-transparent border-none outline-none text-sm text-white ml-2 w-full focus:ring-0">
+              </div>
+              <div class="flex items-center space-x-4">
+                  <button class="relative text-slate-400 hover:text-white transition-colors" onclick="syncOfflineLedger()">
+                      <i class="fa-solid fa-bolt text-green-400"></i>
+                      <span class="absolute -top-1 -right-1 w-2.5 h-2.5 bg-green-500 rounded-full border border-blueline-panel"></span>
+                      <span class="text-xs ml-1 hidden lg:inline text-green-400 font-medium">Offline Sync Ready</span>
+                  </button>
+                  <button class="text-slate-400 hover:text-white relative" onclick="alert('3 new high-danger shot telemetry alerts from Apex North Stars 14U AAA.')">
+                      <i class="fa-regular fa-bell text-lg"></i>
+                      <span class="absolute -top-1 -right-1 flex h-3 w-3">
+                          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                          <span class="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
+                      </span>
+                  </button>
+                  <a href="app.html" class="px-3 py-1.5 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-xs font-bold transition flex items-center gap-1.5">
+                    <span>⚡ Hockey OS</span>
+                  </a>
+              </div>
+          </header>
+
+          <!-- Scrollable Workspace -->
+          <div class="flex-1 overflow-y-auto p-6 scroll-smooth" id="dashboard-view">
+              
+              <!-- Personalized Greeting -->
+              <div class="mb-8 flex justify-between items-start flex-wrap gap-4">
+                  <div>
+                    <h1 class="text-2xl font-bold text-white">Welcome back, Mike.</h1>
+                    <p class="text-slate-400 text-sm mt-1">Here is your customized scouting brief and priority pipeline for today.</p>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <span class="px-3 py-1 bg-blue-500/20 text-blue-400 border border-blue-500/30 text-xs font-bold rounded-full uppercase tracking-wider">Scout Pro Tier ($22.99/mo)</span>
+                    <span class="px-3 py-1 bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs font-bold rounded-full uppercase tracking-wider">All 22 Modules Unlocked</span>
+                  </div>
+              </div>
+
+              <!-- Top KPIs -->
+              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+                  <div class="bg-blueline-panel p-5 rounded-xl border border-slate-800 shadow-sm">
+                      <p class="text-slate-400 text-xs font-semibold uppercase tracking-wider mb-1">My Tracked Athletes</p>
+                      <div class="flex items-end justify-between">
+                          <h2 class="text-3xl font-bold text-white">42</h2>
+                          <span class="text-green-400 text-sm font-medium"><i class="fa-solid fa-arrow-up mr-1"></i>+3 this week</span>
+                      </div>
+                  </div>
+                  <div class="bg-blueline-panel p-5 rounded-xl border border-slate-800 shadow-sm">
+                      <p class="text-slate-400 text-xs font-semibold uppercase tracking-wider mb-1">NCAA D1 Projected</p>
+                      <div class="flex items-end justify-between">
+                          <h2 class="text-3xl font-bold text-white">28</h2>
+                          <span class="text-blue-400 text-sm"><i class="fa-solid fa-graduation-cap"></i></span>
+                      </div>
+                  </div>
+                  <div class="bg-blueline-panel p-5 rounded-xl border border-slate-800 shadow-sm">
+                      <p class="text-slate-400 text-xs font-semibold uppercase tracking-wider mb-1">Priority Targets (Tier 1)</p>
+                      <div class="flex items-end justify-between">
+                          <h2 class="text-3xl font-bold text-amber-400">12</h2>
+                          <span class="text-amber-400 text-sm"><i class="fa-solid fa-bolt"></i> Action Req</span>
+                      </div>
+                  </div>
+                  <div class="bg-blueline-panel p-5 rounded-xl border border-slate-800 shadow-sm">
+                      <p class="text-slate-400 text-xs font-semibold uppercase tracking-wider mb-1">Active Free Agents</p>
+                      <div class="flex items-end justify-between">
+                          <h2 class="text-3xl font-bold text-white">8</h2>
+                          <span class="text-purple-400 text-sm"><i class="fa-solid fa-globe"></i> Portal Ready</span>
+                      </div>
+                  </div>
+              </div>
+
+              <div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
+                  <!-- Left Column: Active Scouting & Telemetry (Takes 2 columns on large screens) -->
+                  <div class="xl:col-span-2 space-y-6">
+                      
+                      <!-- Active Prospect Focus Card -->
+                      <div class="bg-blueline-panel rounded-xl border border-blue-900 shadow-lg overflow-hidden relative">
+                          <div class="absolute top-0 right-0 p-4">
+                              <span class="bg-blue-600/20 text-blue-400 text-xs font-bold px-2.5 py-1 rounded border border-blue-500/30">Target: USHL Futures</span>
+                          </div>
+                          <div class="p-6 border-b border-slate-800 flex items-center space-x-4">
+                              <div class="w-16 h-16 rounded-lg bg-slate-800 flex items-center justify-center text-2xl font-bold text-slate-500 border border-slate-700">
+                                  #9
+                              </div>
+                              <div>
+                                  <h3 class="text-xl font-bold text-white flex items-center">Connor Vance <i class="fa-solid fa-circle-check text-blue-500 text-sm ml-2" title="Verified Data"></i></h3>
+                                  <p class="text-sm text-slate-400">200-Foot Playmaking Center • Apex North Stars 14U AAA</p>
+                                  <div class="mt-2 flex space-x-4 text-xs font-medium text-slate-300 flex-wrap gap-y-1">
+                                      <span><i class="fa-solid fa-ruler-vertical text-slate-500"></i> 5'8"</span>
+                                      <span><i class="fa-solid fa-weight-scale text-slate-500"></i> 145 lbs</span>
+                                      <span><i class="fa-solid fa-hockey-stick-puck text-slate-500"></i> Left</span>
+                                      <span><i class="fa-solid fa-graduation-cap text-slate-500"></i> Class of 2030 (GPA: 3.88)</span>
+                                  </div>
+                              </div>
+                          </div>
+
+                          <!-- Live Telemetry Section -->
+                          <div class="p-6 bg-gradient-to-b from-blueline-panel to-slate-900">
+                              <div class="flex justify-between items-center mb-4">
+                                  <h4 class="text-sm font-bold text-white uppercase tracking-wide"><i class="fa-solid fa-satellite-dish text-red-500 animate-pulse mr-2"></i>Live Micro-Telemetry Logger</h4>
+                                  <span id="vanceTrajectoryBadge" class="text-xs text-green-400 font-medium bg-green-400/10 px-2 py-1 rounded">Trajectory Score: 86.6/100</span>
+                              </div>
+                              
+                              <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                                  <div class="bg-slate-800/50 p-3 rounded-lg border border-slate-700/50 text-center">
+                                      <div class="text-xs text-slate-400 mb-1">Avg Puck Hold</div>
+                                      <div class="text-lg font-bold text-white" id="telemetryPuckHold">2.9s</div>
+                                  </div>
+                                  <div class="bg-slate-800/50 p-3 rounded-lg border border-slate-700/50 text-center">
+                                      <div class="text-xs text-slate-400 mb-1">Wall Usage Rate</div>
+                                      <div class="text-lg font-bold text-white" id="telemetryWallUsage">66.5%</div>
+                                  </div>
+                                  <div class="bg-slate-800/50 p-3 rounded-lg border border-slate-700/50 text-center">
+                                      <div class="text-xs text-slate-400 mb-1">Passing Acc</div>
+                                      <div class="text-lg font-bold text-green-400" id="telemetryPassAcc">88.1%</div>
+                                  </div>
+                                  <div class="bg-slate-800/50 p-3 rounded-lg border border-slate-700/50 text-center">
+                                      <div class="text-xs text-slate-400 mb-1">Avg Shot Dist</div>
+                                      <div class="text-lg font-bold text-white" id="telemetryShotDist">17.5 ft</div>
+                                  </div>
+                              </div>
+
+                              <!-- Rapid Entry Form -->
+                              <form class="space-y-4" onsubmit="event.preventDefault(); logTelemetryEvent('shot');">
+                                  <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                      <div>
+                                          <label class="block text-xs font-medium text-slate-400 mb-1">Shot Type</label>
+                                          <select id="telemetryShotType" class="w-full bg-slate-800 border border-slate-700 rounded-md text-sm text-white py-2 px-3 focus:ring-blue-500 focus:border-blue-500">
+                                              <option>Snap Shot (Quick Release)</option>
+                                              <option>Wrist Shot (In-Stride)</option>
+                                              <option>One-Timer (Royal Road)</option>
+                                              <option>Deflection / Tip</option>
+                                          </select>
+                                      </div>
+                                      <div>
+                                          <label class="block text-xs font-medium text-slate-400 mb-1">Distance (ft)</label>
+                                          <input type="number" step="0.1" id="telemetryDistance" value="16.5" class="w-full bg-slate-800 border border-slate-700 rounded-md text-sm text-white py-2 px-3 focus:ring-blue-500 focus:border-blue-500">
+                                      </div>
+                                      <div>
+                                          <label class="block text-xs font-medium text-slate-400 mb-1">Outcome</label>
+                                          <select id="telemetryOutcome" class="w-full bg-slate-800 border border-slate-700 rounded-md text-sm text-white py-2 px-3 focus:ring-blue-500 focus:border-blue-500">
+                                              <option value="SOG">SAVE / SOG</option>
+                                              <option value="GOAL" class="text-red-400 font-bold">GOAL 🚨</option>
+                                              <option value="WIDE">Missed Net / Wide</option>
+                                          </select>
+                                      </div>
+                                  </div>
+                                  <div class="flex items-center space-x-2">
+                                      <input type="checkbox" id="wallUsed" class="rounded bg-slate-800 border-slate-700 text-blue-500 focus:ring-blue-500">
+                                      <label for="wallUsed" class="text-sm text-slate-300">Wall Used Prior to Event (Bank / Pinch Escape)</label>
+                                  </div>
+                                  <div class="flex space-x-3 pt-2">
+                                      <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md text-sm transition-colors w-full md:w-auto">
+                                          <i class="fa-solid fa-plus mr-2"></i> Log Shot & Recalculate
+                                      </button>
+                                      <button type="button" onclick="logTelemetryEvent('pass')" class="bg-slate-700 hover:bg-slate-600 text-white font-medium py-2 px-4 rounded-md text-sm transition-colors">
+                                          Log Pass
+                                      </button>
+                                  </div>
+                              </form>
+                          </div>
+                      </div>
+
+                      <!-- AI Trajectory Card -->
+                      <div class="bg-blueline-panel p-6 rounded-xl border border-slate-800 shadow-sm">
+                          <h4 class="text-sm font-bold text-white uppercase tracking-wide mb-4">AI Future Trajectory Probabilities</h4>
+                          <p class="text-xs text-blue-400 font-medium mb-4">Ceiling: NCAA D1 Contender / Top Tier 2 NAHL</p>
+                          
+                          <div class="space-y-4">
+                              <div>
+                                  <div class="flex justify-between text-sm mb-1">
+                                      <span class="text-slate-300 font-medium">NCAA Division I</span>
+                                      <span class="text-white font-bold" id="trajNcaaPct">60.8%</span>
+                                  </div>
+                                  <div class="w-full bg-slate-800 rounded-full h-2">
+                                      <div class="bg-blue-500 h-2 rounded-full transition-all duration-500" id="trajNcaaBar" style="width: 60.8%"></div>
+                                  </div>
+                              </div>
+                              <div>
+                                  <div class="flex justify-between text-sm mb-1">
+                                      <span class="text-slate-300 font-medium">USHL Tier 1 Junior</span>
+                                      <span class="text-white font-bold" id="trajUshlPct">55.8%</span>
+                                  </div>
+                                  <div class="w-full bg-slate-800 rounded-full h-2">
+                                      <div class="bg-green-500 h-2 rounded-full transition-all duration-500" id="trajUshlBar" style="width: 55.8%"></div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+
+                  <!-- Right Column: Audit Ledger & Watchlist -->
+                  <div class="space-y-6">
+                      <!-- My Watchlist Mini-directory -->
+                      <div class="bg-blueline-panel rounded-xl border border-slate-800 shadow-sm flex flex-col h-[400px]">
+                          <div class="p-4 border-b border-slate-800 flex justify-between items-center">
+                              <h4 class="text-sm font-bold text-white uppercase tracking-wide">My Watchlist</h4>
+                              <button class="text-xs text-blue-400 hover:text-blue-300 font-medium" onclick="switchTab('directory')">View All</button>
+                          </div>
+                          <div class="flex-1 overflow-y-auto p-2 space-y-1">
+                              <!-- Watchlist Item -->
+                              <a href="app.html#playerdatabase" class="block p-3 rounded-lg hover:bg-slate-800 transition-colors border border-transparent hover:border-slate-700">
+                                  <div class="flex justify-between items-start">
+                                      <div>
+                                          <h5 class="text-sm font-bold text-white">#19 Jaxson Sterling</h5>
+                                          <p class="text-xs text-slate-400">Chicago Steel (USHL) • C</p>
+                                      </div>
+                                      <span class="text-xs font-bold text-blue-400">79% D1</span>
+                                  </div>
+                              </a>
+                              <!-- Watchlist Item -->
+                              <a href="app.html#playerdatabase" class="block p-3 rounded-lg hover:bg-slate-800 transition-colors border border-transparent hover:border-slate-700">
+                                  <div class="flex justify-between items-start">
+                                      <div>
+                                          <h5 class="text-sm font-bold text-white">#21 Braeden O'Reilly</h5>
+                                          <p class="text-xs text-slate-400">Salisbury Prep • C</p>
+                                      </div>
+                                      <span class="text-xs font-bold text-blue-400">63.8% D1</span>
+                                  </div>
+                              </a>
+                              <!-- Watchlist Item -->
+                              <a href="app.html#playerdatabase" class="block p-3 rounded-lg hover:bg-slate-800 transition-colors border border-transparent hover:border-slate-700">
+                                  <div class="flex justify-between items-start">
+                                      <div>
+                                          <h5 class="text-sm font-bold text-white">#31 Tyler Novak</h5>
+                                          <p class="text-xs text-slate-400">Chicago Mission 10U • G</p>
+                                      </div>
+                                      <span class="text-xs font-bold text-blue-400">22.7% D1</span>
+                                  </div>
+                              </a>
+                              <a href="app.html#playerdatabase" class="block p-3 rounded-lg hover:bg-slate-800 transition-colors border border-transparent hover:border-slate-700">
+                                  <div class="flex justify-between items-start">
+                                      <div>
+                                          <h5 class="text-sm font-bold text-white">#4 Brody Tremblay</h5>
+                                          <p class="text-xs text-slate-400">Boston Jr. Eagles • LD</p>
+                                      </div>
+                                      <span class="text-xs font-bold text-blue-400">48.2% D1</span>
+                                  </div>
+                              </a>
+                          </div>
+                      </div>
+
+                      <!-- Personal Activity Ledger -->
+                      <div class="bg-blueline-panel p-5 rounded-xl border border-slate-800 shadow-sm">
+                          <h4 class="text-sm font-bold text-white uppercase tracking-wide mb-4">My Activity Ledger</h4>
+                          <div class="space-y-4" id="scoutActivityLedgerList">
+                              <div class="relative pl-4 border-l-2 border-blue-500">
+                                  <div class="absolute -left-[5px] top-1.5 w-2 h-2 rounded-full bg-blue-500"></div>
+                                  <p class="text-xs text-slate-400 mb-0.5">Today, 19:10</p>
+                                  <p class="text-sm font-medium text-white">Logged Game: Beast Series G1</p>
+                                  <p class="text-xs text-slate-400 mt-1">Recorded 9 shots, 3 goals, 37 completed passes for Connor Vance.</p>
+                              </div>
+                              <div class="relative pl-4 border-l-2 border-slate-600">
+                                  <div class="absolute -left-[5px] top-1.5 w-2 h-2 rounded-full bg-slate-600"></div>
+                                  <p class="text-xs text-slate-400 mb-0.5">Aug 30, 14:45</p>
+                                  <p class="text-sm font-medium text-white">Updated Bio: Stick Flex</p>
+                                  <p class="text-xs text-slate-400 mt-1">Recalibrated flex to 77 for C. Vance.</p>
+                              </div>
+                          </div>
+                          <div class="mt-4 pt-4 border-t border-slate-800 flex gap-2">
+                              <input type="text" id="quickScoutNoteInput" placeholder="Add quick scout note..." class="w-full bg-slate-800 border border-slate-700 rounded-md text-sm text-white py-2 px-3 focus:ring-blue-500 outline-none">
+                              <button type="button" onclick="addScoutNote()" class="bg-blue-600 hover:bg-blue-500 text-white font-bold px-3 rounded-md text-xs">Post</button>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+          <!-- Hidden Directory View (For Tab Switching Example) -->
+          <div class="hidden flex-1 overflow-y-auto p-6 scroll-smooth" id="directory-view">
+               <div class="mb-6 flex justify-between items-end flex-wrap gap-4">
+                  <div>
+                      <h1 class="text-2xl font-bold text-white">Global Player Directory</h1>
+                      <p class="text-slate-400 text-sm mt-1">Search and filter all 3,050+ tracked athletes across 41 worldwide leagues.</p>
+                  </div>
+                  <div class="flex gap-2">
+                    <button class="bg-blue-600 hover:bg-blue-500 text-white font-medium py-2 px-4 rounded-md text-sm transition-colors" onclick="switchTab('dashboard')">
+                        <i class="fa-solid fa-arrow-left mr-2"></i> Back to Workspace
+                    </button>
+                    <a href="app.html#playerdatabase" class="bg-slate-700 hover:bg-slate-600 text-white font-medium py-2 px-4 rounded-md text-sm transition-colors">
+                        <i class="fa-solid fa-expand mr-2"></i> Master Database (3,050+)
+                    </a>
+                  </div>
+              </div>
+              
+              <!-- Table Container -->
+              <div class="bg-blueline-panel rounded-xl border border-slate-800 shadow-sm overflow-hidden">
+                  <table class="w-full text-left border-collapse">
+                      <thead>
+                          <tr class="bg-slate-800/50 text-xs uppercase tracking-wider text-slate-400 border-b border-slate-700">
+                              <th class="py-3 px-4">Player</th>
+                              <th class="py-3 px-4">Pos</th>
+                              <th class="py-3 px-4">Current Club / League</th>
+                              <th class="py-3 px-4">Age/Class</th>
+                              <th class="py-3 px-4 text-right">D1 Proj</th>
+                          </tr>
+                      </thead>
+                      <tbody id="directoryTableBody" class="text-sm text-white divide-y divide-slate-800">
+                          <tr class="hover:bg-slate-800/50 transition-colors cursor-pointer" onclick="switchTab('dashboard')">
+                              <td class="py-3 px-4 font-bold flex items-center">#9 Connor Vance</td>
+                              <td class="py-3 px-4 text-slate-300">C</td>
+                              <td class="py-3 px-4 text-slate-300">Apex North Stars • Tier 1 Elite</td>
+                              <td class="py-3 px-4 text-slate-300">14 (2030)</td>
+                              <td class="py-3 px-4 text-right font-medium text-blue-400">60.8%</td>
+                          </tr>
+                          <tr class="hover:bg-slate-800/50 transition-colors cursor-pointer" onclick="window.location.href='app.html#playerdatabase'">
+                              <td class="py-3 px-4 font-bold">#28 Jack Devine</td>
+                              <td class="py-3 px-4 text-slate-300">RW</td>
+                              <td class="py-3 px-4 text-slate-300">Denver Pioneers • NCAA D1</td>
+                              <td class="py-3 px-4 text-slate-300">22 (2025)</td>
+                              <td class="py-3 px-4 text-right font-medium text-green-400">99.0%</td>
+                          </tr>
+                          <tr class="hover:bg-slate-800/50 transition-colors cursor-pointer" onclick="window.location.href='app.html#playerdatabase'">
+                              <td class="py-3 px-4 font-bold">#30 Nate Callahan</td>
+                              <td class="py-3 px-4 text-slate-300">G</td>
+                              <td class="py-3 px-4 text-slate-300 text-purple-400">Free Agent (24-26)</td>
+                              <td class="py-3 px-4 text-slate-300">23 (2023)</td>
+                              <td class="py-3 px-4 text-right font-medium text-slate-400">Portal</td>
+                          </tr>
+                           <tr class="hover:bg-slate-800/50 transition-colors cursor-pointer" onclick="window.location.href='app.html#playerdatabase'">
+                              <td class="py-3 px-4 font-bold">#8 Leo Lindstrom</td>
+                              <td class="py-3 px-4 text-slate-300">C</td>
+                              <td class="py-3 px-4 text-slate-300">Minnesota Frost • ADM Mites</td>
+                              <td class="py-3 px-4 text-slate-300">7 (2037)</td>
+                              <td class="py-3 px-4 text-right font-medium text-slate-400">22.3%</td>
+                          </tr>
+                          <tr class="hover:bg-slate-800/50 transition-colors cursor-pointer" onclick="window.location.href='app.html#playerdatabase'">
+                              <td class="py-3 px-4 font-bold">#13 Michael Hage</td>
+                              <td class="py-3 px-4 text-slate-300">C</td>
+                              <td class="py-3 px-4 text-slate-300">Michigan Wolverines • NCAA D1</td>
+                              <td class="py-3 px-4 text-slate-300">18 (2024 MTL)</td>
+                              <td class="py-3 px-4 text-right font-medium text-emerald-400">99.4%</td>
+                          </tr>
+                      </tbody>
+                  </table>
+              </div>
+          </div>
+
+      </main>
+    </div>
+
+    <!-- Required System Footer with Exact Mission Statement -->
+    <footer class="bg-blueline-panel border-t border-slate-800 px-6 py-3 text-xs text-slate-400 flex flex-col md:flex-row items-center justify-between gap-2 z-20">
+      <div class="flex items-center gap-4">
+        <span>&copy; PuckPathway Hockey OS • Scout Command</span>
+        <a href="index.html" class="hover:text-white underline">Home</a>
+        <a href="app.html" class="hover:text-white underline">Dashboard</a>
+        <a href="database.html" class="hover:text-white underline">Directory</a>
+        <a href="security.html" class="hover:text-white underline">Security</a>
+      </div>
+      <div class="text-[11px] text-slate-500 max-w-2xl text-center md:text-right">
+        BlueLine DataWorks is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory.
+      </div>
+    </footer>
+
+    <!-- Interactive Workspace Logic -->
+    <script>
+        function switchTab(tabId) {
+            const dash = document.getElementById('dashboard-view');
+            const dir = document.getElementById('directory-view');
+            const btnDash = document.getElementById('sideNavDashboard');
+            const btnDir = document.getElementById('sideNavDirectory');
+
+            if (tabId === 'directory') {
+              dash.classList.add('hidden');
+              dir.classList.remove('hidden');
+              btnDash.className = "flex items-center px-3 py-2.5 text-slate-400 hover:bg-slate-800 hover:text-white rounded-lg group text-left w-full";
+              btnDir.className = "flex items-center px-3 py-2.5 bg-blue-600 text-white rounded-lg group text-left w-full";
+            } else {
+              dir.classList.add('hidden');
+              dash.classList.remove('hidden');
+              btnDir.className = "flex items-center px-3 py-2.5 text-slate-400 hover:bg-slate-800 hover:text-white rounded-lg group text-left w-full";
+              btnDash.className = "flex items-center px-3 py-2.5 bg-blue-600 text-white rounded-lg group text-left w-full";
+            }
+        }
+
+        function logTelemetryEvent(type) {
+          const outcome = document.getElementById('telemetryOutcome') ? document.getElementById('telemetryOutcome').value : 'SOG';
+          const dist = parseFloat(document.getElementById('telemetryDistance').value) || 16.5;
+          const shotType = document.getElementById('telemetryShotType').value;
+          const wallUsed = document.getElementById('wallUsed').checked;
+
+          // Update real-time metrics
+          const puckHold = (2.8 + Math.random() * 0.3).toFixed(1) + 's';
+          const passAcc = (87.5 + Math.random() * 1.5).toFixed(1) + '%';
+          const wallRate = wallUsed ? '68.2%' : '65.9%';
+          const shotDist = dist.toFixed(1) + ' ft';
+
+          document.getElementById('telemetryPuckHold').textContent = puckHold;
+          document.getElementById('telemetryPassAcc').textContent = passAcc;
+          document.getElementById('telemetryWallUsage').textContent = wallRate;
+          document.getElementById('telemetryShotDist').textContent = shotDist;
+
+          // Recalculate Trajectory
+          const newScore = (86.6 + (outcome === 'GOAL' ? 0.8 : (outcome === 'SOG' ? 0.2 : -0.1))).toFixed(1);
+          document.getElementById('vanceTrajectoryBadge').textContent = `Trajectory Score: ${newScore}/100`;
+
+          const d1Pct = (60.8 + (outcome === 'GOAL' ? 1.4 : 0.3)).toFixed(1);
+          document.getElementById('trajNcaaPct').textContent = d1Pct + '%';
+          document.getElementById('trajNcaaBar').style.width = d1Pct + '%';
+
+          // Prepend to activity ledger
+          const ledger = document.getElementById('scoutActivityLedgerList');
+          if (ledger) {
+            const entry = document.createElement('div');
+            entry.className = "relative pl-4 border-l-2 border-green-500 animate-fade";
+            entry.innerHTML = `
+              <div class="absolute -left-[5px] top-1.5 w-2 h-2 rounded-full bg-green-500"></div>
+              <p class="text-xs text-slate-400 mb-0.5">Just now</p>
+              <p class="text-sm font-medium text-white">Logged ${type === 'shot' ? 'Shot (' + shotType + ')' : 'Pass'}: ${outcome}</p>
+              <p class="text-xs text-slate-400 mt-1">Distance: ${shotDist} • Wall: ${wallUsed ? 'Yes' : 'No'} • Trajectory recalculated to ${newScore}.</p>
+            `;
+            ledger.insertBefore(entry, ledger.firstChild);
+          }
+
+          alert(`✓ Event logged locally! Recalibrated Connor Vance Trajectory to ${newScore}. Cryptographic ledger block stamped.`);
+        }
+
+        function addScoutNote() {
+          const input = document.getElementById('quickScoutNoteInput');
+          const val = input ? input.value.trim() : '';
+          if (!val) return;
+
+          const ledger = document.getElementById('scoutActivityLedgerList');
+          if (ledger) {
+            const entry = document.createElement('div');
+            entry.className = "relative pl-4 border-l-2 border-blue-400";
+            entry.innerHTML = `
+              <div class="absolute -left-[5px] top-1.5 w-2 h-2 rounded-full bg-blue-400"></div>
+              <p class="text-xs text-slate-400 mb-0.5">Just now</p>
+              <p class="text-sm font-medium text-white">Scout Note Added</p>
+              <p class="text-xs text-slate-400 mt-1">${val}</p>
+            `;
+            ledger.insertBefore(entry, ledger.firstChild);
+          }
+          input.value = '';
+        }
+
+        function syncOfflineLedger() {
+          alert("⚡ Offline DB Sync Complete: 14 telemetry events synchronized with BlueLine master consensus node.");
+        }
+
+        function handleGlobalProspectFilter(query) {
+          const q = (query || '').toLowerCase().trim();
+          const rows = document.querySelectorAll('#directoryTableBody tr');
+          rows.forEach(r => {
+            const text = r.textContent.toLowerCase();
+            r.style.display = (!q || text.includes(q)) ? '' : 'none';
+          });
+        }
+    </script>
+</body>
+</html>

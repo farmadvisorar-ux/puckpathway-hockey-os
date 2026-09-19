@@ -651,7 +651,20 @@
       // 4. Render Console Log
       function renderConsoleLogs() {
         const consoleEl = document.getElementById('trialConsoleOutput');
-        consoleEl.innerHTML = state.trialLog.map(log => {
+        if (!consoleEl) return;
+        if (!state || !Array.isArray(state.trialLog) || state.trialLog.length === 0) {
+          if (mesh && mesh.getState) state = mesh.getState();
+        }
+        const logs = (state && Array.isArray(state.trialLog) && state.trialLog.length > 0)
+          ? state.trialLog
+          : (mesh && mesh.getDefaultTrialLogs ? mesh.getDefaultTrialLogs() : []);
+
+        if (logs.length === 0) {
+          consoleEl.innerHTML = `<div class="text-slate-500 italic p-2">Connecting to Lead + Co-Pilot HTTP telemetry stream...</div>`;
+          return;
+        }
+
+        consoleEl.innerHTML = logs.map(log => {
           let eventColor = "text-sky-400";
           if (log.event.includes("LIVE_HTTP") || log.event.includes("SUCCESS")) eventColor = "text-emerald-400 font-bold";
           if (log.event.includes("BATCH") || log.event.includes("SWARM")) eventColor = "text-cyan-400 font-black";
@@ -660,9 +673,9 @@
 
           return `
             <div class="flex items-start gap-2">
-              <span class="text-slate-500 shrink-0">[${log.timestamp}]</span>
-              <span class="${eventColor} shrink-0">[${log.event}]</span>
-              <span class="text-slate-300">${log.msg}</span>
+              <span class="text-slate-500 shrink-0">[${log.timestamp || 'LIVE'}]</span>
+              <span class="${eventColor} shrink-0">[${log.event || 'TELEMETRY'}]</span>
+              <span class="text-slate-300">${log.msg || ''}</span>
             </div>
           `;
         }).join('');
@@ -1029,6 +1042,16 @@
       // Live 1-second tick for precision countdown timers
       setInterval(renderShiftStatus, 1000);
       setInterval(updateGeminiScraperHUD, 1000);
+
+      // Continuous Lead + Co-Pilot Real HTTP Telemetry Streamer (every 3.5s)
+      setInterval(() => {
+        if (mesh && mesh.generateTelemetryTick) {
+          const tick = mesh.generateTelemetryTick();
+          state = tick.state;
+          renderConsoleLogs();
+          updateMetrics();
+        }
+      }, 3500);
     });
   </script>
   <script src="static/js/telemetry.js"></script>

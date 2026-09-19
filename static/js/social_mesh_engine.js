@@ -315,6 +315,7 @@
         score: dossier.composite_score || 88.5
       } : (authUser.stats || { gp: 34, g: 18, a: 22, pts: 40 }),
       linked_player_id: authUser.linked_player_id,
+      logoOverlay: authUser.logoOverlay || null,
       following: ["usr_scout_director"],
       followers: 140,
       isAuthUser: true
@@ -445,10 +446,24 @@
     if (customData.title) user.title = customData.title;
     if (customData.banner) user.banner = customData.banner;
     if (customData.avatar) user.avatar = customData.avatar;
+    if (customData.logoOverlay !== undefined) user.logoOverlay = customData.logoOverlay;
 
     // Sync in users array
     const idx = state.users.findIndex(u => u.id === user.id);
     if (idx !== -1) state.users[idx] = user;
+
+    // Also persist to auth session if available
+    try {
+      if (typeof window !== 'undefined' && window.BlueLineAuth && typeof window.BlueLineAuth.getCurrentUser === 'function') {
+        const authCur = window.BlueLineAuth.getCurrentUser();
+        if (authCur && (authCur.id === user.id || authCur.name === user.name)) {
+          if (customData.logoOverlay !== undefined) authCur.logoOverlay = customData.logoOverlay;
+          if (customData.bio) authCur.bio = customData.bio;
+          if (customData.name) authCur.name = customData.name;
+          localStorage.setItem('blueline_auth_user', JSON.stringify(authCur));
+        }
+      }
+    } catch (e) {}
 
     saveState(state);
     return user;
@@ -974,10 +989,68 @@
     };
   }
 
+  // Pre-defined Verified Logo Crests for Avatar Stamping
+  const AVAILABLE_LOGOS = [
+    { id: "logo_ncaa_michigan", label: "Michigan Wolverines", icon: "〽️", color: "#00274c", border: "#ffcb05", team: "University of Michigan" },
+    { id: "logo_bu_terriers", label: "Boston University", icon: "🐾", color: "#cc0000", border: "#ffffff", team: "Boston University" },
+    { id: "logo_msu_spartans", label: "Michigan State", icon: "⚔️", color: "#18453b", border: "#ffffff", team: "Michigan State University" },
+    { id: "logo_chicago_steel", label: "Chicago Steel USHL", icon: "🛡️", color: "#000000", border: "#e11d48", team: "Chicago Steel" },
+    { id: "logo_shattuck", label: "Shattuck St. Mary's", icon: "🏰", color: "#6b21a8", border: "#f59e0b", team: "Shattuck-St. Mary's" },
+    { id: "logo_usa_hockey", label: "USA Hockey NTDP", icon: "🇺🇸", color: "#1e3a8a", border: "#dc2626", team: "USA Hockey NTDP" },
+    { id: "logo_verified_gold", label: "Verified 5-Star Prospect", icon: "⭐", color: "#d97706", border: "#fbbf24", team: "BlueLine Bureau" },
+    { id: "logo_commit_d1", label: "NCAA D1 Committed", icon: "🎓", color: "#0284c7", border: "#38bdf8", team: "NCAA Division I" }
+  ];
+
+  function getAvailableLogos() {
+    return AVAILABLE_LOGOS;
+  }
+
+  function stampAvatarLogo(logoId, position = "bottom-right") {
+    const logo = AVAILABLE_LOGOS.find(l => l.id === logoId) || { id: logoId, label: "Custom Badge", icon: "🛡️", color: "#0284c7", border: "#38bdf8" };
+    return updateProfile({
+      logoOverlay: {
+        id: logo.id,
+        label: logo.label,
+        icon: logo.icon,
+        color: logo.color,
+        border: logo.border,
+        position: position
+      }
+    });
+  }
+
+  function removeAvatarLogo() {
+    return updateProfile({ logoOverlay: null });
+  }
+
+  function getUserPosts(userId) {
+    const state = loadState();
+    if (!userId) {
+      const cur = getCurrentUser();
+      userId = cur ? cur.id : "usr_michael_hage";
+    }
+    return state.posts.filter(p => p.authorId === userId);
+  }
+
+  function getConversationsForUser(userId) {
+    const state = loadState();
+    if (!userId) {
+      const cur = getCurrentUser();
+      userId = cur ? cur.id : "usr_scout_director";
+    }
+    return state.conversations.filter(c => c.participantIds.includes(userId));
+  }
+
   // Export to Global
   window.BlueLineSocial = {
     BADGES: BADGES,
     DEFAULT_USERS: DEFAULT_USERS,
+    AVAILABLE_LOGOS: AVAILABLE_LOGOS,
+    getAvailableLogos: getAvailableLogos,
+    stampAvatarLogo: stampAvatarLogo,
+    removeAvatarLogo: removeAvatarLogo,
+    getUserPosts: getUserPosts,
+    getConversationsForUser: getConversationsForUser,
     getLevelTitle: getLevelTitle,
     getLevelBadgeColor: getLevelBadgeColor,
     getState: loadState,
