@@ -31,7 +31,11 @@
     }
   }
 
-  function showAlert(msg) {
+  function showAlert(msg, type = "info") {
+    if (typeof window !== "undefined" && window.BlueLineUI && typeof window.BlueLineUI.showToast === "function") {
+      window.BlueLineUI.showToast(msg, type);
+      return;
+    }
     if (typeof window !== "undefined" && typeof window.alert === "function") {
       window.alert(msg);
     } else {

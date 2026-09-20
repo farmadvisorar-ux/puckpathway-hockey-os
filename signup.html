@@ -163,8 +163,8 @@
             <p class="text-[11px] text-slate-300">
               Full access to <strong>all 22+ modules combined</strong>, tactics diagrammer, lineup chemistry, tournament war rooms, and The Wire.
             </p>
-            <div class="text-[10px] font-mono text-slate-400 font-medium">
-              ✓ Tactical playbooks & roster management
+            <div class="text-[10px] font-mono text-emerald-400 font-bold">
+              ✓ Auto-routes to Coach Command Center (`coach.html`)
             </div>
           </div>
 
@@ -180,7 +180,7 @@
               Verified Athlete Passport, developmental XP logs, combine biometrics, and full access to The Wire community with crest stamping.
             </p>
             <div class="text-[10px] font-mono text-amber-400 font-bold">
-              ✓ 360° Passport & drills tracker
+              ✓ Auto-routes to Athlete OS (`app.html?role=athlete`)
             </div>
           </div>
 
@@ -196,7 +196,7 @@
               Independent student-athlete oversight, eligibility compliance guardrails, direct communications with coaches, and The Wire.
             </p>
             <div class="text-[10px] font-mono text-purple-400 font-bold">
-              ✓ FERPA / COPPA protected oversight
+              ✓ Auto-routes to Parent Portal (`parent.html`)
             </div>
           </div>
 
@@ -430,9 +430,9 @@
 
       const roles = {
         scout: { title: "Recruiter & Scout Plan:", price: "22.99", dest: "scout.html", btn: "Complete Clearance & Mint Passport ($22.99/mo)" },
-        coach: { title: "Head Coach Enterprise Plan:", price: "22.99", dest: "scout.html", btn: "Complete Clearance & Mint Passport ($22.99/mo)" },
-        athlete: { title: "Player / Athlete Plan:", price: "4.99", dest: "app.html", btn: "Complete Clearance & Mint Passport ($4.99/mo)" },
-        parent: { title: "Family Advisor Plan:", price: "4.99", dest: "app.html", btn: "Complete Clearance & Mint Passport ($4.99/mo)" }
+        coach: { title: "Head Coach Enterprise Plan:", price: "22.99", dest: "coach.html", btn: "Complete Clearance & Mint Passport ($22.99/mo)" },
+        athlete: { title: "Player / Athlete Plan:", price: "4.99", dest: "app.html?role=athlete", btn: "Complete Clearance & Mint Passport ($4.99/mo)" },
+        parent: { title: "Family Advisor Plan:", price: "4.99", dest: "parent.html", btn: "Complete Clearance & Mint Passport ($4.99/mo)" }
       };
 
       const meta = roles[role] || roles.scout;
@@ -489,6 +489,9 @@
       try {
         localStorage.removeItem('blueline_signed_out');
         localStorage.setItem('blueline_auth_user', JSON.stringify(newUser));
+        if (window.BlueLineAuth && typeof window.BlueLineAuth.setCurrentUser === 'function') {
+          window.BlueLineAuth.setCurrentUser(newUser);
+        }
 
         // Append to registered accounts
         const raw = localStorage.getItem('blueline_registered_users');
@@ -497,11 +500,17 @@
         localStorage.setItem('blueline_registered_users', JSON.stringify(accs));
       } catch(err) {}
 
-      BlueLineUI.showToast(`Passport Minted for ${name}! Clearance active.`, 'success');
+      if (window.BlueLineUI && typeof window.BlueLineUI.showToast === 'function') {
+        BlueLineUI.showToast(`Passport Minted for ${name}! Clearance active.`, 'success');
+      }
 
-      // Redirect to appropriate workspace
+      // Redirect to appropriate role workspace
+      const dest = window.BlueLineAuth && typeof window.BlueLineAuth.getRoleHomeUrl === 'function'
+        ? window.BlueLineAuth.getRoleHomeUrl(newUser)
+        : (role === 'parent' ? 'parent.html' : (role === 'coach' ? 'coach.html' : (role === 'athlete' ? 'app.html?role=athlete' : 'scout.html')));
+
       setTimeout(() => {
-        window.location.href = (role === 'scout' || role === 'coach') ? 'scout.html' : 'app.html';
+        window.location.href = dest;
       }, 500);
     }
 

@@ -1270,6 +1270,7 @@
 
   <!-- Scripts -->
   <script src="static/js/auth_engine.js"></script>
+  <script src="static/js/blueline_ui_kit.js"></script>
   <script src="static/js/global_nav.js"></script>
   <script>
     // =========================================================================
@@ -1504,11 +1505,27 @@
     // Biometric & SSO Mock Handlers
     // =========================================================================
     function loginWithGoogleSSO() {
-      quickLoginPersona('usr_scout_marr', 'scout.html');
+      const role = document.getElementById('selectedRoleInput').value || 'scout';
+      const rolePersonas = {
+        scout: { id: 'usr_scout_marr', url: 'scout.html' },
+        coach: { id: 'usr_coach_nightingale', url: 'coach.html' },
+        athlete: { id: 'usr_athlete_hage', url: 'app.html?role=athlete' },
+        parent: { id: 'usr_parent_hage', url: 'parent.html' }
+      };
+      const p = rolePersonas[role] || rolePersonas.scout;
+      quickLoginPersona(p.id, p.url);
     }
 
     function loginWithBiometricPasskey() {
-      quickLoginPersona('usr_scout_marr', 'scout.html');
+      const role = document.getElementById('selectedRoleInput').value || 'scout';
+      const rolePersonas = {
+        scout: { id: 'usr_scout_marr', url: 'scout.html' },
+        coach: { id: 'usr_coach_nightingale', url: 'coach.html' },
+        athlete: { id: 'usr_athlete_hage', url: 'app.html?role=athlete' },
+        parent: { id: 'usr_parent_hage', url: 'parent.html' }
+      };
+      const p = rolePersonas[role] || rolePersonas.scout;
+      quickLoginPersona(p.id, p.url);
     }
 
     // =========================================================================
@@ -1552,13 +1569,21 @@
 
     function handleSupportSubmit(e) {
       e.preventDefault();
-      alert("Your support inquiry has been logged with the BlueLine Scout Support Desk! A representative will contact you shortly.");
+      if (window.BlueLineUI && typeof window.BlueLineUI.showToast === 'function') {
+        window.BlueLineUI.showToast("✓ Support ticket logged! A scout platform representative will reach out shortly.", "success", 4000);
+      } else {
+        alert("Your support inquiry has been logged with the BlueLine Scout Support Desk! A representative will contact you shortly.");
+      }
       closeModal('supportModal');
     }
 
     function handleForgotSubmit(e) {
       e.preventDefault();
-      alert("Password reset instructions dispatched to your email! (You can also sign in with password123 or the 1-click demo buttons).");
+      if (window.BlueLineUI && typeof window.BlueLineUI.showToast === 'function') {
+        window.BlueLineUI.showToast("✓ Password reset link dispatched! (Pre-seeded demo password: password123)", "success", 4500);
+      } else {
+        alert("Password reset instructions dispatched to your email! (You can also sign in with password123 or the 1-click demo buttons).");
+      }
       closeModal('forgotPasswordModal');
     }
 
