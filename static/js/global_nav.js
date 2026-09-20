@@ -389,9 +389,119 @@
         font-family: monospace !important;
         font-size: 0.8rem !important;
       }
+
+      /* =========================================================================
+         MOBILE APP BOTTOM NAVIGATION BAR & RESPONSIVE ARCHITECTURE
+         ========================================================================= */
+      @media (min-width: 769px) {
+        #bluelineBottomNavBar {
+          display: none !important;
+        }
+      }
+
+      @media (max-width: 768px) {
+        body {
+          padding-bottom: calc(4.25rem + env(safe-area-inset-bottom, 0px)) !important;
+        }
+
+        #bluelineBottomNavBar {
+          position: fixed !important;
+          bottom: 0 !important;
+          left: 0 !important;
+          right: 0 !important;
+          width: 100% !important;
+          height: calc(3.85rem + env(safe-area-inset-bottom, 0px)) !important;
+          padding: 0.35rem 0.5rem calc(0.35rem + env(safe-area-inset-bottom, 0px)) 0.5rem !important;
+          box-sizing: border-box !important;
+          z-index: 99998 !important;
+          display: flex !important;
+          align-items: center !important;
+          justify-content: space-around !important;
+          background: rgba(6, 9, 14, 0.94) !important;
+          backdrop-filter: blur(24px) !important;
+          -webkit-backdrop-filter: blur(24px) !important;
+          border-top: 1px solid rgba(56, 189, 248, 0.28) !important;
+          box-shadow: 0 -4px 25px rgba(0, 0, 0, 0.5) !important;
+        }
+
+        .blueline-bottom-nav-item {
+          display: flex !important;
+          flex-direction: column !important;
+          align-items: center !important;
+          justify-content: center !important;
+          flex: 1 !important;
+          min-width: 0 !important;
+          height: 100% !important;
+          min-height: 44px !important;
+          text-decoration: none !important;
+          background: transparent !important;
+          border: none !important;
+          color: #94a3b8 !important;
+          padding: 0.2rem 0 !important;
+          font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+          transition: all 0.15s ease !important;
+          cursor: pointer !important;
+          -webkit-tap-highlight-color: transparent !important;
+        }
+
+        .blueline-bottom-nav-item .bottom-nav-icon {
+          font-size: 1.25rem !important;
+          line-height: 1 !important;
+          margin-bottom: 0.2rem !important;
+          transition: transform 0.15s ease !important;
+        }
+
+        .blueline-bottom-nav-item .bottom-nav-label {
+          font-size: 0.65rem !important;
+          font-weight: 700 !important;
+          letter-spacing: -0.01em !important;
+          white-space: nowrap !important;
+          line-height: 1 !important;
+        }
+
+        .blueline-bottom-nav-item:active {
+          transform: scale(0.92) !important;
+        }
+
+        .blueline-bottom-nav-item.active {
+          color: #38bdf8 !important;
+        }
+
+        .blueline-bottom-nav-item.active .bottom-nav-icon {
+          transform: scale(1.1) !important;
+          filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.6)) !important;
+        }
+
+        .blueline-bottom-nav-item.active .bottom-nav-label {
+          color: #38bdf8 !important;
+          font-weight: 800 !important;
+        }
+
+        /* Adjust Toast container on mobile to sit above bottom nav */
+        #blueline-toast-container {
+          bottom: calc(4.5rem + env(safe-area-inset-bottom, 0px)) !important;
+          left: 0 !important;
+          right: 0 !important;
+          margin: 0 auto !important;
+          max-width: 92% !important;
+        }
+      }
+
+      /* Global Mobile Touch Ergonomics & Anti-Horizontal-Wobble */
+      html, body {
+        max-width: 100vw !important;
+        overflow-x: hidden !important;
+      }
+
+      @media screen and (max-width: 768px) {
+        input[type="text"], input[type="email"], input[type="password"], input[type="search"], input[type="number"], select, textarea {
+          font-size: 16px !important;
+        }
+      }
     `;
     document.head.appendChild(style);
   }
+
 
   function getCurrentPageFilename() {
     const path = window.location.pathname;
@@ -693,6 +803,48 @@
     }
   }
 
+  function renderMobileBottomNav() {
+    ensureScopedStyles();
+    if (document.getElementById("bluelineBottomNavBar")) return;
+
+    const nav = document.createElement("nav");
+    nav.id = "bluelineBottomNavBar";
+    nav.setAttribute("aria-label", "Mobile Quick Navigation");
+
+    const currentFile = getCurrentPageFilename();
+
+    const items = [
+      { id: "home", label: "Home", icon: "🏠", url: "index.html", match: (f) => f === "index.html" || f === "" },
+      { id: "athlete", label: "Athlete", icon: "⚡", url: "app.html?role=athlete", match: (f) => f === "app.html" || f === "player.html" },
+      { id: "database", label: "Directory", icon: "📊", url: "database.html", match: (f) => f === "database.html" },
+      { id: "scout", label: "Scout", icon: "🔭", url: "scout.html", match: (f) => f === "scout.html" },
+      { id: "modules", label: "Modules", icon: "❖", action: "openAppLauncher", match: () => false }
+    ];
+
+    let itemsHtml = "";
+    items.forEach(item => {
+      const isActive = item.match(currentFile);
+      if (item.action) {
+        itemsHtml += `
+          <button type="button" onclick="window.toggleAppLauncher()" class="blueline-bottom-nav-item ${isActive ? 'active' : ''}">
+            <span class="bottom-nav-icon">${item.icon}</span>
+            <span class="bottom-nav-label">${item.label}</span>
+          </button>
+        `;
+      } else {
+        itemsHtml += `
+          <a href="${item.url}" class="blueline-bottom-nav-item ${isActive ? 'active' : ''}">
+            <span class="bottom-nav-icon">${item.icon}</span>
+            <span class="bottom-nav-label">${item.label}</span>
+          </a>
+        `;
+      }
+    });
+
+    nav.innerHTML = itemsHtml;
+    document.body.appendChild(nav);
+  }
+
   // Keyboard shortcut: Cmd+K / Ctrl+K / Escape
   window.addEventListener("keydown", (e) => {
     if ((e.metaKey || e.ctrlKey) && (e.key === "k" || e.key === "K")) {
@@ -708,6 +860,7 @@
     openAppLauncher,
     closeAppLauncher,
     toggleAppLauncher,
+    renderMobileBottomNav,
     modules: MODULES
   };
 
@@ -716,11 +869,17 @@
   window.closeAppLauncher = closeAppLauncher;
   window.toggleAppLauncher = toggleAppLauncher;
 
-  // Auto-render modal in background on load
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", renderAppLauncherModal);
-  } else {
+  // Auto-render modal & bottom nav in background on load
+  function initGlobalNav() {
     renderAppLauncherModal();
+    renderMobileBottomNav();
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initGlobalNav);
+  } else {
+    initGlobalNav();
   }
 
 })(window);
+
