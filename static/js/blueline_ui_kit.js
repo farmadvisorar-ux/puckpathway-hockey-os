@@ -409,6 +409,50 @@
     });
   }
 
+  // =========================================================================
+  // 5. ROLE-BASED DYNAMIC NAVIGATION & HOME RESOLUTION
+  // =========================================================================
+  function getRoleHomeUrl(user) {
+    if (window.BlueLineAuth && typeof window.BlueLineAuth.getRoleHomeUrl === 'function') {
+      return window.BlueLineAuth.getRoleHomeUrl(user);
+    }
+    if (!user) {
+      try {
+        const raw = localStorage.getItem('blueline_auth_user');
+        if (raw) user = JSON.parse(raw);
+      } catch(e) {}
+    }
+    const role = (user && user.role) ? String(user.role).toLowerCase().trim() : '';
+    if (role === 'parent') return 'parent.html';
+    if (role === 'coach') return 'coach.html';
+    if (role === 'athlete' || role === 'player') return 'app.html?role=athlete';
+    if (role === 'admin') return 'app.html?role=admin';
+    if (role === 'scout' || role === 'recruiter') return 'scout.html';
+    return 'scout.html';
+  }
+
+  function getRoleHomeTitle(user) {
+    if (window.BlueLineAuth && typeof window.BlueLineAuth.getRoleHomeTitle === 'function') {
+      return window.BlueLineAuth.getRoleHomeTitle(user);
+    }
+    const role = (user && user.role) ? String(user.role).toLowerCase().trim() : '';
+    if (role === 'parent') return 'Return to Parent & Family Advisor Portal (parent.html)';
+    if (role === 'coach') return 'Return to Coach Command Center (coach.html)';
+    if (role === 'athlete' || role === 'player') return 'Return to Athlete Dashboard (app.html)';
+    if (role === 'admin') return 'Return to Platform Admin Hub (app.html)';
+    if (role === 'scout' || role === 'recruiter') return 'Return to Lead Scout Desk (scout.html)';
+    return 'Return to Lead Scout Desk (scout.html)';
+  }
+
+  function handleLogoClick(e) {
+    if (e) {
+      if (e.ctrlKey || e.metaKey || e.shiftKey || e.which === 2) return true;
+      e.preventDefault();
+    }
+    window.location.href = getRoleHomeUrl();
+    return false;
+  }
+
   // Export public API
   window.BlueLineUI = {
     showToast,
@@ -418,7 +462,10 @@
     launchAthleteInModule,
     getActivePlayerIdFromUrl,
     checkFeatureAccess,
-    showAccessRestrictedModal
+    showAccessRestrictedModal,
+    getRoleHomeUrl,
+    getRoleHomeTitle,
+    handleLogoClick
   };
 
 })(window);

@@ -325,6 +325,72 @@
 
     const appHeaderSub = document.getElementById("appHeaderPlayerSub");
     if (appHeaderSub) appHeaderSub.textContent = (user.team ? user.team + " • " : "") + (user.pos || user.role_title || "Verified Athlete");
+
+    // Dynamically update the top-left logo link to point to user's role homepage
+    updateDynamicLogoLinks();
+  }
+
+  // =========================================================================
+  // DYNAMIC ROLE-BASED LOGO ROUTING ENGINE
+  // =========================================================================
+  function getRoleHomeUrl(user) {
+    if (!user) user = getCurrentUser();
+    const role = (user && user.role) ? String(user.role).toLowerCase().trim() : '';
+    if (role === 'parent') return 'parent.html';
+    if (role === 'coach') return 'coach.html';
+    if (role === 'athlete' || role === 'player') return 'app.html?role=athlete';
+    if (role === 'admin') return 'app.html?role=admin';
+    if (role === 'scout' || role === 'recruiter') return 'scout.html';
+    return 'scout.html';
+  }
+
+  function getRoleHomeTitle(user) {
+    if (!user) user = getCurrentUser();
+    const role = (user && user.role) ? String(user.role).toLowerCase().trim() : '';
+    if (role === 'parent') return 'Return to Parent & Family Advisor Portal (parent.html)';
+    if (role === 'coach') return 'Return to Coach Command Center (coach.html)';
+    if (role === 'athlete' || role === 'player') return 'Return to Athlete Dashboard (app.html)';
+    if (role === 'admin') return 'Return to Platform Admin Hub (app.html)';
+    if (role === 'scout' || role === 'recruiter') return 'Return to Lead Scout Desk (scout.html)';
+    return 'Return to Lead Scout Desk (scout.html)';
+  }
+
+  function handleLogoClick(e) {
+    if (e) {
+      if (e.ctrlKey || e.metaKey || e.shiftKey || e.which === 2) {
+        return true;
+      }
+      e.preventDefault();
+    }
+    const dest = getRoleHomeUrl();
+    window.location.href = dest;
+    return false;
+  }
+
+  function updateDynamicLogoLinks() {
+    const user = getCurrentUser();
+    const destUrl = getRoleHomeUrl(user);
+    const destTitle = getRoleHomeTitle(user);
+
+    const logoAnchors = document.querySelectorAll("a[data-blueline-logo], a.blueline-brand-logo, a.nav-brand, header.app-header .logo a, a.brand, a[title*='Lead Scout Desk'], a[title*='Return to']");
+    logoAnchors.forEach(a => {
+      a.setAttribute("href", destUrl);
+      a.setAttribute("title", destTitle);
+      a.onclick = function(e) {
+        return handleLogoClick(e);
+      };
+    });
+
+    document.querySelectorAll("img[src*='blueline_logo.jpg']").forEach(img => {
+      const parentA = img.closest("a");
+      if (parentA) {
+        parentA.setAttribute("href", destUrl);
+        parentA.setAttribute("title", destTitle);
+        parentA.onclick = function(e) {
+          return handleLogoClick(e);
+        };
+      }
+    });
   }
 
   // =========================================================================
@@ -1897,7 +1963,12 @@
           window.location.href = "login.html";
         }
       }, 150);
-    }
+    },
+
+    getRoleHomeUrl,
+    getRoleHomeTitle,
+    handleLogoClick,
+    updateDynamicLogoLinks
   };
 
   // Global window openers
@@ -1935,13 +2006,23 @@
     window.openAuthModal("signin");
   };
 
-  // Initialize on DOMContentLoaded
+  // Initialize on DOMContentLoaded and Window Load
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", () => {
       updateHeaderUserBadge();
+      updateDynamicLogoLinks();
     });
   } else {
     updateHeaderUserBadge();
+    updateDynamicLogoLinks();
   }
+
+  window.addEventListener("load", () => {
+    updateDynamicLogoLinks();
+  });
+
+  window.addEventListener("blueline:authChanged", () => {
+    updateDynamicLogoLinks();
+  });
 
 })(window);
