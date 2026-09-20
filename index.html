@@ -55,7 +55,7 @@
         <a href="#modules-catalog" style="color:#e2e8f0; text-decoration:none; font-size:0.85rem; font-family:monospace; font-weight:600;">22 Modules</a>
         <a href="database.html" style="color:#e2e8f0; text-decoration:none; font-size:0.85rem; font-family:monospace; font-weight:600;">Directory</a>
         <a href="combine.html" style="color:#e2e8f0; text-decoration:none; font-size:0.85rem; font-family:monospace; font-weight:600;">Combine</a>
-        <a href="scout.html" style="color:#e2e8f0; text-decoration:none; font-size:0.85rem; font-family:monospace; font-weight:600;">Scout Desk</a>
+        <a href="scout.html" onclick="return handleScoutDeskNav(event)" style="color:#e2e8f0; text-decoration:none; font-size:0.85rem; font-family:monospace; font-weight:600;">Scout Desk <span style="font-size:0.65rem; background:rgba(245,158,11,0.2); color:#fbbf24; border:1px solid rgba(245,158,11,0.4); padding:1px 5px; border-radius:4px; margin-left:2px;">PRO</span></a>
         <a href="login.html" class="btn secondary" style="padding:0.45rem 1rem; font-size:0.85rem;">Log In</a>
         <button type="button" class="btn primary" onclick="openHomePaymentModal('scout')" style="padding:0.45rem 1.1rem; font-size:0.85rem; cursor:pointer;">💳 Subscribe & Pay</button>
         <a href="signup.html" class="btn secondary" style="padding:0.45rem 1.1rem; font-size:0.85rem;">Sign Up</a>
@@ -978,7 +978,7 @@
           </div>
         </a>
 
-        <a href="scout.html" class="module-tile-card" data-mod="scout" data-roles="scout,coach">
+        <a href="scout.html" onclick="return handleScoutDeskNav(event)" class="module-tile-card" data-mod="scout" data-roles="scout">
           <div class="module-tile-icon-box">🔭</div>
           <div class="module-tile-content">
             <div class="module-tile-title-row">
@@ -986,7 +986,7 @@
             </div>
             <p class="module-tile-desc">Lead Scout live micro-telemetry logger & prospect directory</p>
             <div class="module-role-badge-row">
-              <span class="badge-entitled-pro" data-role-badge>★ Full Access (Pro $22.99)</span>
+              <span class="badge-entitled-pro" style="background:rgba(245,158,11,0.2); color:#fbbf24; border-color:rgba(245,158,11,0.4);" data-role-badge>★ Recruiters Only (Paywall $22.99)</span>
             </div>
           </div>
         </a>
@@ -1641,6 +1641,21 @@
       athlete: { title: 'Player Passport', monthly: 4.99, annual: 3.99, annualTotal: 47.88, desc: 'Personal performance OS, XP, daily missions + The Wire.' },
       parent: { title: 'Family Guardian Plan', monthly: 4.99, annual: 3.99, annualTotal: 47.88, desc: 'Developmental milestones, safe coach DMs + The Wire.' }
     };
+
+    function handleScoutDeskNav(e) {
+      const user = window.BlueLineAuth ? window.BlueLineAuth.getCurrentUser() : null;
+      const isRecruiter = user && (user.role === 'scout' || user.id === 'usr_scout_marr') && !user.isGuest;
+      if (!isRecruiter) {
+        if (e && typeof e.preventDefault === 'function') e.preventDefault();
+        openHomePaymentModal('scout');
+        const sub = document.getElementById('modalPlanSubtitle');
+        if (sub) {
+          sub.innerHTML = '<span style="color:#fbbf24; font-weight:bold;">🔒 Recruiter Pro Clearance Required ($22.99/mo)</span> — The Scout Workspace is exclusively available to verified Recruiters. Complete instant checkout below to unlock.';
+        }
+        return false;
+      }
+      return true;
+    }
 
     function toggleBillingCycle(cycle) {
       currentPayBilling = cycle;

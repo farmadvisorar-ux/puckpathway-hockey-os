@@ -1843,7 +1843,7 @@
           newItem.innerHTML = `
             <h3>${cleanName}</h3>
             <p>Tags: Uploaded Clip, Biomechanics</p>
-            <button class="btn primary">Analyze</button>
+            <button class="btn primary" onclick="handleAnalyzeClip('${cleanName}')">Analyze</button>
           `;
           const btn = newItem.querySelector('.btn.primary');
           if (btn) {

@@ -199,7 +199,7 @@
             <span id="sidebarUserHandle" class="text-[10px] text-slate-400 block truncate font-mono"></span>
           </div>
         </div>
-        <button class="text-slate-400 hover:text-white text-xs p-1" title="Account Ledger & Personas">👤</button>
+        <button onclick="event.stopPropagation(); typeof window.openUserDrawer === 'function' ? window.openUserDrawer() : (window.location.href='login.html')" class="text-slate-400 hover:text-white text-xs p-1 cursor-pointer" title="Account Ledger & Personas">👤</button>
       </div>
     </aside>
 

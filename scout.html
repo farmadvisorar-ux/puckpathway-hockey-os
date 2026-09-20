@@ -872,6 +872,74 @@
     </div>
   </div>
 
+  <!-- ========================================================================= -->
+  <!-- RECRUITER PRO CLEARANCE PAYWALL BARRIER OVERLAY -->
+  <!-- ========================================================================= -->
+  <div id="recruiterPaywallOverlay" class="fixed inset-0 z-[200] hidden flex items-center justify-center p-4 bg-slate-950/90 backdrop-blur-xl" style="display:none;">
+    <div class="relative w-full max-w-xl bg-slate-950 rounded-3xl border border-amber-500/50 shadow-2xl shadow-amber-500/10 p-6 sm:p-8 space-y-6 text-center animate-in fade-in zoom-in-95 duration-200">
+      
+      <!-- Shield & Lock Icon -->
+      <div class="mx-auto w-16 h-16 rounded-2xl bg-gradient-to-tr from-amber-500 via-orange-500 to-amber-600 p-0.5 shadow-xl shadow-amber-500/20 flex items-center justify-center">
+        <div class="w-full h-full bg-slate-950 rounded-[14px] flex items-center justify-center text-3xl text-amber-400">
+          🔒
+        </div>
+      </div>
+
+      <div class="space-y-2">
+        <span class="px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40 text-xs font-mono font-bold uppercase tracking-wider inline-block">
+          ★ Recruiter Pro Clearance Required ($22.99 / mo)
+        </span>
+        <h2 class="text-2xl font-black text-white">Lead Scout & Recruiter Desk</h2>
+        <p class="text-xs sm:text-sm text-slate-300 max-w-md mx-auto leading-relaxed">
+          Access to this live micro-telemetry logger, 4,019+ verified non-NHL amateur athlete dossiers, and real-time trajectory synthesizer is exclusively reserved for subscribed <strong>Recruiters & Scouts ($22.99/mo)</strong>.
+        </p>
+      </div>
+
+      <!-- Feature Checklist Grid -->
+      <div class="bg-slate-900/80 rounded-2xl border border-slate-800 p-4 text-left space-y-2.5 text-xs">
+        <div class="flex items-center gap-2.5 text-slate-200">
+          <span class="text-emerald-400 font-bold">✓</span>
+          <span>Live Micro-Telemetry Logger (Slot Danger, Royal Road Passing, DZ Turnovers)</span>
+        </div>
+        <div class="flex items-center gap-2.5 text-slate-200">
+          <span class="text-emerald-400 font-bold">✓</span>
+          <span>4,019+ Non-NHL Amateur Athlete Dossiers & Verified Registrar Match</span>
+        </div>
+        <div class="flex items-center gap-2.5 text-slate-200">
+          <span class="text-emerald-400 font-bold">✓</span>
+          <span>Algorithmic Lifelong Trajectory Synthesizer & NCAA D1 Probability</span>
+        </div>
+        <div class="flex items-center gap-2.5 text-slate-200">
+          <span class="text-emerald-400 font-bold">✓</span>
+          <span>All 22 Enterprise Modules Combined + The Wire Recruiter Bulletins</span>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="space-y-3 pt-2">
+        <button type="button" onclick="handleInstantRecruiterUnlock()" class="w-full py-3.5 rounded-2xl bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 hover:from-amber-400 hover:to-orange-400 text-slate-950 font-black text-sm shadow-xl shadow-amber-500/20 transition active:scale-98 flex items-center justify-center gap-2 cursor-pointer">
+          <span>⚡</span>
+          <span>Instant Subscribe & Unlock Workspace ($22.99/mo)</span>
+        </button>
+
+        <button type="button" onclick="handleRecruiterDemoLogin()" class="w-full py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-amber-300 hover:text-white font-bold text-xs transition flex items-center justify-center gap-2 cursor-pointer">
+          <span>🔍</span>
+          <span>1-Click Recruiter Demo (Dan Marr - NHL Central Scouting)</span>
+        </button>
+      </div>
+
+      <!-- Exit Links -->
+      <div class="flex items-center justify-center gap-4 text-xs font-mono text-slate-400 pt-2 border-t border-slate-800/80">
+        <a href="index.html" class="hover:text-white hover:underline">← Return to Home</a>
+        <span>•</span>
+        <a href="app.html" class="hover:text-white hover:underline">Athlete Dashboard ($4.99) →</a>
+        <span>•</span>
+        <a href="login.html" class="hover:text-white hover:underline">Sign In</a>
+      </div>
+
+    </div>
+  </div>
+
   <!-- Mandatory Footer -->
   <footer class="border-t border-slate-800/80 bg-slate-950 mt-12 py-8">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4 text-center text-xs text-slate-400">
@@ -908,7 +976,10 @@
     const shortlistIds = ['mp_0013', 'mp_0001', 'mp_0002', 'mp_0015'];
 
     document.addEventListener('DOMContentLoaded', () => {
-      // 1. Initialize Auth User Chip
+      // 1. Enforce Recruiter Pro Clearance Paywall Barrier
+      checkRecruiterAccess();
+
+      // 2. Initialize Auth User Chip
       if (window.BlueLineAuth) {
         const user = window.BlueLineAuth.getCurrentUser();
         if (user && !user.isGuest) {
@@ -1332,6 +1403,95 @@
     }
     function openSecurityModal() {
       window.location.href = 'security.html';
+    }
+
+    // =========================================================================
+    // RECRUITER PRO CLEARANCE PAYWALL ENGINE
+    // =========================================================================
+    function checkRecruiterAccess() {
+      const user = window.BlueLineAuth ? window.BlueLineAuth.getCurrentUser() : null;
+      const isRecruiter = user && (user.role === 'scout' || user.id === 'usr_scout_marr') && !user.isGuest;
+      const paywallEl = document.getElementById('recruiterPaywallOverlay');
+      
+      if (!isRecruiter) {
+        if (paywallEl) {
+          paywallEl.classList.remove('hidden');
+          paywallEl.style.display = 'flex';
+          document.body.style.overflow = 'hidden';
+        }
+        return false;
+      } else {
+        if (paywallEl) {
+          paywallEl.classList.add('hidden');
+          paywallEl.style.display = 'none';
+          document.body.style.overflow = '';
+        }
+        return true;
+      }
+    }
+
+    function handleInstantRecruiterUnlock() {
+      const scoutUser = {
+        id: "usr_scout_" + Date.now(),
+        name: "Verified Lead Scout",
+        role: "scout",
+        badge: "DIRECTOR OF SCOUTING (PRO)",
+        team: "Certified Scouting Organization",
+        avatar: "🔍",
+        verified: true,
+        isGuest: false,
+        subscribedAt: new Date().toISOString()
+      };
+      
+      if (window.BlueLineAuth) {
+        window.BlueLineAuth.setCurrentUser(scoutUser);
+      } else {
+        localStorage.setItem('blueline_auth_user', JSON.stringify(scoutUser));
+      }
+      
+      // Update header chip
+      const nameEl = document.getElementById('userNameText');
+      const roleEl = document.getElementById('userRoleText');
+      if (nameEl) nameEl.textContent = scoutUser.name;
+      if (roleEl) roleEl.textContent = scoutUser.badge;
+
+      // Dismiss paywall
+      checkRecruiterAccess();
+      
+      if (window.BlueLineUI) {
+        BlueLineUI.showToast("✓ Recruiter Pro Clearance Activated! Full access granted to the Lead Scout Desk.", "success", 4000);
+      }
+    }
+
+    function handleRecruiterDemoLogin() {
+      if (window.BlueLineAuth && window.BlueLineAuth.selectPersona) {
+        window.BlueLineAuth.selectPersona('usr_scout_marr');
+      } else {
+        const marr = {
+          id: "usr_scout_marr",
+          name: "Dan Marr",
+          role: "scout",
+          badge: "DIRECTOR OF SCOUTING",
+          team: "NHL Central Scouting Benchmark",
+          avatar: "🔍",
+          verified: true,
+          isGuest: false
+        };
+        localStorage.setItem('blueline_auth_user', JSON.stringify(marr));
+      }
+
+      // Update header chip
+      const nameEl = document.getElementById('userNameText');
+      const roleEl = document.getElementById('userRoleText');
+      if (nameEl) nameEl.textContent = "Dan Marr";
+      if (roleEl) roleEl.textContent = "Director of Scouting";
+
+      // Dismiss paywall
+      checkRecruiterAccess();
+
+      if (window.BlueLineUI) {
+        BlueLineUI.showToast("✓ Logged in as Dan Marr (NHL Central Scouting). Workspace unlocked.", "success", 3500);
+      }
     }
   </script>
 </body>

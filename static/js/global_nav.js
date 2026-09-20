@@ -31,7 +31,7 @@
 
     // 3. Strategy & Tournaments
     { id: "tactics", name: "Tactics Lab", icon: "📋", url: "tactics.html", cat: "coaching", desc: "AI lineup optimizer, 5v5/PP/PK chemistry & xGF%" },
-    { id: "scout", name: "Scout Workspace", icon: "🔭", url: "scout.html", cat: "coaching", desc: "Lead Scout live micro-telemetry logger & prospect directory" },
+    { id: "scout", name: "Scout Workspace", icon: "🔭", url: "scout.html", cat: "coaching", desc: "🔒 Recruiter Pro Only ($22.99/mo) • Live micro-telemetry & prospect directory" },
     { id: "tournament", name: "Tournaments", icon: "🏆", url: "tournament.html", cat: "coaching", desc: "Bracketology war room: Frozen Four, Memorial Cup, WJC" },
     { id: "international", name: "International", icon: "🌍", url: "international.html", cat: "coaching", desc: "4 Nations Face-Off & 2026 Olympic Hub (85ft vs 100ft)" },
 
