@@ -174,6 +174,41 @@
     </div>
   </header>
 
+  <!-- Active Live Game Operations & Athlete Focus Banner -->
+  <div id="scoreboardAthleteBanner" class="bg-gradient-to-r from-cyan-950/80 via-slate-900 to-blue-950/80 border-b border-cyan-500/30 px-3 sm:px-6 lg:px-8 py-2.5">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-3">
+        <span class="w-8 h-8 rounded-lg bg-cyan-500/20 border border-cyan-400/40 text-cyan-300 font-bold flex items-center justify-center text-xs" id="sbAthleteInitials">MH</span>
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="text-xs sm:text-sm font-extrabold text-white" id="sbAthleteName">Michael Hage</span>
+            <span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-cyan-500/20 text-cyan-300 font-bold" id="sbAthleteShift">Active Shift: 1G, 1A (TOI 19:42)</span>
+            <span class="text-[10px] text-slate-400" id="sbGameStatus">Live • 3rd Period 04:12</span>
+          </div>
+          <p class="text-[11px] text-slate-400">Live In-Game Scout Evaluation: <span class="text-emerald-400 font-bold">Top Speed: 22.8 MPH • FO%: 62.5%</span> • High-Danger Chance Generated</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-2 flex-wrap">
+        <a id="sbPassportLink" href="player.html?player=mp_0013" class="px-2.5 py-1 rounded-lg bg-sky-600/30 hover:bg-sky-600/50 text-sky-200 border border-sky-500/40 text-xs font-semibold flex items-center gap-1 transition">
+          <span>🪪</span> <span>Passport</span>
+        </a>
+        <a id="sbScoutLink" href="scout.html?player=mp_0013" class="px-2.5 py-1 rounded-lg bg-amber-600/30 hover:bg-amber-600/50 text-amber-200 border border-amber-500/40 text-xs font-semibold flex items-center gap-1 transition">
+          <span>🔭</span> <span>Scout</span>
+        </a>
+        <a id="sbFilmLink" href="film.html?player=mp_0013" class="px-2.5 py-1 rounded-lg bg-purple-600/30 hover:bg-purple-600/50 text-purple-200 border border-purple-500/40 text-xs font-semibold flex items-center gap-1 transition">
+          <span>🎥</span> <span>Film</span>
+        </a>
+        <a id="sbCompareLink" href="compare.html?p1=mp_0013" class="px-2.5 py-1 rounded-lg bg-indigo-600/30 hover:bg-indigo-600/50 text-indigo-200 border border-indigo-500/40 text-xs font-semibold flex items-center gap-1 transition">
+          <span>⚖️</span> <span>Compare</span>
+        </a>
+        <button id="sbWatchBtn" type="button" onclick="toggleWatchingScoreboard()" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-amber-400 border border-amber-500/40 text-xs font-semibold flex items-center gap-1 transition cursor-pointer">
+          <span id="sbWatchIcon">⭐</span> <span id="sbWatchText">Watch</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+
   <!-- MISSION BANNER HUD -->
   <div class="bg-gradient-to-r from-sky-950/40 via-slate-900/60 to-sky-950/40 border-b border-brand-border/40 py-2 px-4">
     <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-2 text-center md:text-left">
@@ -582,6 +617,15 @@
 
   </main>
 
+  <!-- Core Engines & Datasets -->
+  <script src="static/js/bundle_data.js"></script>
+  <script src="static/js/master_players.js"></script>
+  <script src="static/js/faceoff_engine.js"></script>
+  <script src="static/js/telemetry.js"></script>
+  <script src="static/js/auth_engine.js"></script>
+  <script src="static/js/blueline_ui_kit.js"></script>
+  <script src="static/js/global_nav.js"></script>
+
   <script>
     let activeGameIndex = 0;
 
@@ -895,7 +939,7 @@
       const g = GAMES_DATA[activeGameIndex] || GAMES_DATA[0];
       const wireStateRaw = localStorage.getItem('blueline_social_state');
       if (!wireStateRaw) {
-        alert(`🎉 Live Scouting Report for ${g.homeName} vs ${g.awayName} generated and dispatched!`);
+        if (window.BlueLineUI) { BlueLineUI.showToast(`🎉 Live Scouting Report for ${g.homeName} vs ${g.awayName} generated and dispatched!`, "success"); } else { console.log(`Live Scouting Report dispatched for ${g.homeName} vs ${g.awayName}`); }
         return;
       }
 
@@ -934,9 +978,102 @@
       }
     }
   </script>
-  <script src="static/js/telemetry.js"></script>
-  <script src="static/js/auth_engine.js"></script>
-  <script src="static/js/global_nav.js"></script>
-  <script src="static/js/blueline_ui_kit.js"></script>
+
+  <script>
+    // Scoreboard Athlete Ingestion & Scout Watchlist Integration
+    (function() {
+      let sbAthleteId = "mp_0013";
+      try {
+        const urlParams = new URLSearchParams(window.location.search);
+        const qp = urlParams.get('player') || urlParams.get('id');
+        if (qp) sbAthleteId = qp;
+        const qg = urlParams.get('game');
+        if (qg !== null) {
+          const gameIdx = parseInt(qg, 10);
+          if (!isNaN(gameIdx) && gameIdx >= 0 && typeof GAMES_DATA !== 'undefined' && gameIdx < GAMES_DATA.length) {
+            activeGameIndex = gameIdx;
+          }
+        }
+      } catch(e) {}
+
+      function updateSbAthleteBanner() {
+        let name = "Michael Hage";
+        let initials = "MH";
+
+        if (window.MASTER_AMATEUR_PLAYERS && window.MASTER_AMATEUR_PLAYERS[sbAthleteId]) {
+          const p = window.MASTER_AMATEUR_PLAYERS[sbAthleteId];
+          name = p.name || name;
+          initials = name.split(' ').map(n=>n[0]).join('').slice(0, 2);
+        }
+
+        const nameEl = document.getElementById('sbAthleteName');
+        const initEl = document.getElementById('sbAthleteInitials');
+        const passLink = document.getElementById('sbPassportLink');
+        const scoutLink = document.getElementById('sbScoutLink');
+        const filmLink = document.getElementById('sbFilmLink');
+        const compLink = document.getElementById('sbCompareLink');
+
+        if (nameEl) nameEl.textContent = name;
+        if (initEl) initEl.textContent = initials;
+        if (passLink) passLink.href = 'player.html?player=' + sbAthleteId;
+        if (scoutLink) scoutLink.href = 'scout.html?player=' + sbAthleteId;
+        if (filmLink) filmLink.href = 'film.html?player=' + sbAthleteId;
+        if (compLink) compLink.href = 'compare.html?p1=' + sbAthleteId;
+
+        updateSbWatchBtn();
+      }
+
+      function updateSbWatchBtn() {
+        const watchIcon = document.getElementById('sbWatchIcon');
+        const watchText = document.getElementById('sbWatchText');
+        const watchBtn = document.getElementById('sbWatchBtn');
+        let isWatching = false;
+        try {
+          const raw = localStorage.getItem('blueline_scout_watching_ledger');
+          if (raw) {
+            const list = JSON.parse(raw);
+            isWatching = Array.isArray(list) && list.some(item => (typeof item === 'object' ? item.id : item) === sbAthleteId);
+          }
+        } catch(e) {}
+
+        if (watchIcon) watchIcon.textContent = isWatching ? "★" : "☆";
+        if (watchText) watchText.textContent = isWatching ? "Watching" : "Watch";
+        if (watchBtn) {
+          watchBtn.className = isWatching ?
+            "px-2.5 py-1 rounded-lg bg-amber-500/20 text-amber-300 border border-amber-400/50 text-xs font-semibold flex items-center gap-1 transition cursor-pointer" :
+            "px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-amber-400 border border-amber-500/40 text-xs font-semibold flex items-center gap-1 transition cursor-pointer";
+        }
+      }
+
+      window.toggleWatchingScoreboard = function() {
+        let isWatching = false;
+        try {
+          const raw = localStorage.getItem('blueline_scout_watching_ledger');
+          let list = raw ? JSON.parse(raw) : [];
+          const idx = list.findIndex(item => (typeof item === 'object' ? item.id : item) === sbAthleteId);
+          if (idx >= 0) {
+            list.splice(idx, 1);
+            isWatching = false;
+          } else {
+            const athleteName = document.getElementById('sbAthleteName')?.textContent || 'Athlete';
+            list.push({ id: sbAthleteId, name: athleteName, date: new Date().toISOString() });
+            isWatching = true;
+          }
+          localStorage.setItem('blueline_scout_watching_ledger', JSON.stringify(list));
+        } catch(e) {}
+        updateSbWatchBtn();
+        if (window.BlueLineUI && window.BlueLineUI.showToast) {
+          window.BlueLineUI.showToast(isWatching ? "Prospect added to Lead Scout Watched Ledger!" : "Prospect removed from Watched Ledger.", isWatching ? "success" : "info");
+        }
+      };
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', updateSbAthleteBanner);
+      } else {
+        updateSbAthleteBanner();
+      }
+    })();
+  </script>
+
 </body>
 </html>
