@@ -30,12 +30,14 @@
     { id: "compare", name: "Compare Lab", icon: "⚖️", url: "compare.html", cat: "labs", desc: "8-axis radar benchmarks & NHLe trajectory curves" },
 
     // 3. Strategy & Tournaments
-    { id: "tactics", name: "Tactics Lab", icon: "📋", url: "tactics.html", cat: "coaching", desc: "AI lineup optimizer, 5v5/PP/PK chemistry & xGF%" },
+    { id: "coach", name: "Coach Command Center", icon: "📋", url: "coach.html", cat: "coaching", desc: "Tactical lineup chemistry, practice drills, 24-skater roster & scout attendance" },
+    { id: "tactics", name: "Tactics Lab", icon: "📊", url: "tactics.html", cat: "coaching", desc: "AI lineup optimizer, 5v5/PP/PK chemistry & xGF%" },
     { id: "scout", name: "Scout Workspace", icon: "🔭", url: "scout.html", cat: "coaching", desc: "🔒 Recruiter Pro Only ($22.99/mo) • Live micro-telemetry & prospect directory" },
     { id: "tournament", name: "Tournaments", icon: "🏆", url: "tournament.html", cat: "coaching", desc: "Bracketology war room: Frozen Four, Memorial Cup, WJC" },
     { id: "international", name: "International", icon: "🌍", url: "international.html", cat: "coaching", desc: "4 Nations Face-Off & 2026 Olympic Hub (85ft vs 100ft)" },
 
     // 4. Front Office & Career Market
+    { id: "parent", name: "Parent & Family Advisor", icon: "🛡️", url: "parent.html", cat: "frontoffice", desc: "NCAA Clearinghouse eligibility, safe recruiter contact log & tournament travel" },
     { id: "market", name: "Trade Desk", icon: "💼", url: "market.html", cat: "frontoffice", desc: "Multi-team trade machine, retention & free agency" },
     { id: "caplab", name: "Cap Lab", icon: "💵", url: "caplab.html", cat: "frontoffice", desc: "NHL salary cap ledger, buyouts & LTIR simulator" },
     { id: "pathway", name: "Career Pathway", icon: "🛣️", url: "pathway.html", cat: "frontoffice", desc: "Lifelong 5-stage career ladder & NCAA vs CHL" },

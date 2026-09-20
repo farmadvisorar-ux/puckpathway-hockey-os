@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <!-- Active Pre-Execution Security Shield -->
+  <script src="static/js/security_shield.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BlueLine DataWorks - Coach Command Center & Tactical War Room</title>
+  <meta name="description" content="BlueLine DataWorks is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory.">
+  <link rel="icon" type="image/jpeg" href="static/img/blueline_logo.jpg">
+  <link rel="apple-touch-icon" href="static/img/blueline_logo.jpg">
+
+  <!-- Open Graph / Social Link Preview -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="BlueLine DataWorks">
+  <meta property="og:url" content="https://farmadvisorar-ux.github.io/puckpathway-hockey-os/coach.html">
+  <meta property="og:title" content="BlueLine DataWorks - Coach Command Center & Tactical War Room">
+  <meta property="og:description" content="BlueLine DataWorks is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory.">
+  <meta property="og:image" content="https://farmadvisorar-ux.github.io/puckpathway-hockey-os/static/img/blueline_og_preview.jpg">
+  <meta property="og:image:secure_url" content="https://farmadvisorar-ux.github.io/puckpathway-hockey-os/static/img/blueline_og_preview.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1280">
+  <meta property="og:image:height" content="720">
+  <meta property="og:image:alt" content="BlueLine DataWorks Coach Command Center">
+  <link rel="image_src" href="https://farmadvisorar-ux.github.io/puckpathway-hockey-os/static/img/blueline_og_preview.jpg">
+  <meta name="thumbnail" content="https://farmadvisorar-ux.github.io/puckpathway-hockey-os/static/img/blueline_og_preview.jpg">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="BlueLine DataWorks - Coach Command Center">
+  <meta name="twitter:description" content="BlueLine DataWorks is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory.">
+  <meta name="twitter:image" content="https://farmadvisorar-ux.github.io/puckpathway-hockey-os/static/img/blueline_og_preview.jpg">
+
+  <link rel="canonical" href="https://farmadvisorar-ux.github.io/puckpathway-hockey-os/coach.html">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="static/css/custom.css">
+  <link rel="manifest" href="manifest.json">
+</head>
+<body class="bg-[#06090e] text-slate-100 min-h-screen flex flex-col font-sans selection:bg-indigo-500 selection:text-white">
+
+  <!-- Mandatory Lifelong Tracking Mission Statement Banner -->
+  <div class="border-b border-slate-800/90 bg-slate-950/95 sticky top-0 z-50 backdrop-blur-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 flex flex-wrap items-center justify-between gap-3 text-xs">
+      <div class="flex items-center gap-2.5 min-w-0 flex-1">
+        <span class="px-2 py-0.5 rounded-md bg-indigo-500/20 text-indigo-300 font-mono text-[10px] font-extrabold uppercase tracking-wider shrink-0 border border-indigo-500/30">MISSION</span>
+        <p class="text-[11px] text-slate-300 font-medium truncate">
+          BlueLine DataWorks is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory.
+        </p>
+      </div>
+      <div class="flex items-center gap-3 shrink-0 font-mono text-[11px]">
+        <span class="text-indigo-400 bg-indigo-950/70 border border-indigo-700/50 px-2 py-0.5 rounded-full flex items-center gap-1.5 font-semibold">
+          <span class="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-pulse"></span>
+          Coach Command Active
+        </span>
+        <span class="text-slate-400 hidden sm:inline">● All 22 Modules Pro Clearance</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Top Enterprise Header Navigation Bar -->
+  <header class="border-b border-slate-800/80 bg-slate-950/85 backdrop-blur-xl sticky top-8 z-40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+      
+      <!-- Brand Logo - Routed directly to Scout Desk -->
+      <div class="flex items-center gap-3 min-w-0">
+        <a href="scout.html" class="flex items-center gap-2.5 group" title="Return to Lead Scout Desk">
+          <img src="static/img/blueline_logo.jpg" alt="BlueLine DataWorks Logo" class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl border border-indigo-400/50 object-cover shadow-lg shadow-indigo-500/20 group-hover:scale-105 transition shrink-0">
+          <div class="min-w-0">
+            <div class="flex items-center gap-1.5">
+              <span class="font-extrabold text-sm sm:text-base md:text-lg tracking-tight text-white group-hover:text-indigo-400 transition truncate">BlueLine DataWorks</span>
+              <span class="text-[10px] uppercase font-mono tracking-widest px-1.5 py-0.5 rounded bg-indigo-500/20 text-indigo-300 font-bold shrink-0 border border-indigo-500/30">COACH COMMAND</span>
+            </div>
+            <p class="text-[10px] text-slate-400 hidden sm:block truncate">Tactical Lineup Chemistry, Practice Drills & Scout Dispatch</p>
+          </div>
+        </a>
+      </div>
+
+      <!-- Quick Nav Hubs -->
+      <nav class="hidden lg:flex items-center gap-1 sm:gap-1.5 text-xs font-mono">
+        <a href="scout.html" class="px-2.5 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white font-semibold border border-slate-800 transition flex items-center gap-1.5">
+          <span>🏠</span> <span>Home</span>
+        </a>
+        <a href="tactics.html" class="px-2.5 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-indigo-300 hover:text-white font-semibold border border-slate-800 transition flex items-center gap-1.5">
+          <span>📋</span> <span>Tactics Lab</span>
+        </a>
+        <a href="film.html" class="px-2.5 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-purple-300 hover:text-white font-semibold border border-slate-800 transition flex items-center gap-1.5">
+          <span>🎥</span> <span>Film Room</span>
+        </a>
+        <a href="combine.html" class="px-2.5 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-emerald-300 hover:text-white font-semibold border border-slate-800 transition flex items-center gap-1.5">
+          <span>⚡</span> <span>Combine</span>
+        </a>
+        <a href="broadcast_ai.html" class="px-2.5 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-amber-300 hover:text-white font-semibold border border-slate-800 transition flex items-center gap-1.5">
+          <span>🎙️</span> <span>Broadcast AI</span>
+        </a>
+        <a href="scout.html" class="px-2.5 py-1.5 rounded-xl bg-amber-950/60 hover:bg-amber-900/80 text-amber-300 hover:text-white font-bold border border-amber-500/40 transition flex items-center gap-1.5 shadow-sm shadow-amber-500/20">
+          <span>🔭</span> <span>Scout Desk</span>
+        </a>
+        <a href="parent.html" class="px-2.5 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-pink-300 hover:text-white font-semibold border border-slate-800 transition flex items-center gap-1.5">
+          <span>🛡️</span> <span>Parent Hub</span>
+        </a>
+      </nav>
+
+      <!-- Active Coach Persona Chip -->
+      <div class="flex items-center gap-2">
+        <div class="flex items-center gap-2 bg-slate-900/90 border border-indigo-500/30 rounded-xl px-3 py-1.5">
+          <span class="text-base">👔</span>
+          <div class="text-left">
+            <div class="text-[10px] text-indigo-400 font-bold uppercase tracking-wider">Head Coach</div>
+            <div class="text-xs font-black text-white">Adam Nightingale (MSU)</div>
+          </div>
+        </div>
+
+        <button onclick="window.GlobalNav && window.GlobalNav.openAppLauncher()" class="p-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-300 hover:text-white transition" title="Open All 22 Modules (Ctrl+K)">
+          <i class="fa-solid fa-grid-2"></i>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- Main Content Layout -->
+  <main class="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-6 space-y-6">
+
+    <!-- Executive Overview Hero Banner -->
+    <div class="p-6 sm:p-8 rounded-3xl bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950/40 border border-indigo-500/30 shadow-2xl relative overflow-hidden">
+      <div class="absolute -right-12 -bottom-12 w-64 h-64 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 relative z-10">
+        <div class="space-y-2">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-500/40 text-xs font-mono font-bold uppercase tracking-wider">
+            <span>📋</span> Bench Boss Command & Tactical War Room
+          </div>
+          <h1 class="text-2xl sm:text-3xl font-black text-white">
+            Team Tactical Operations & Chemistry Matrix
+          </h1>
+          <p class="text-xs sm:text-sm text-slate-300 max-w-2xl leading-relaxed">
+            Optimize 5v5 line chemistry, deploy special teams units (PP1/PK1), execute high-tempo practice drills, and manage inbound scout inquiries on team prospects.
+          </p>
+        </div>
+
+        <!-- Quick Tactical Metric Badges -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <div class="p-3 rounded-2xl bg-slate-950/80 border border-slate-800 text-center">
+            <span class="text-[10px] text-slate-400 uppercase font-mono block">Roster Size</span>
+            <span class="text-xl font-black text-white">24 Skaters</span>
+            <span class="text-[9px] text-emerald-400 block">✓ 100% Cleared</span>
+          </div>
+          <div class="p-3 rounded-2xl bg-slate-950/80 border border-slate-800 text-center">
+            <span class="text-[10px] text-slate-400 uppercase font-mono block">5v5 xGF%</span>
+            <span class="text-xl font-black text-indigo-400">57.4%</span>
+            <span class="text-[9px] text-indigo-300 block">Elite Positive Flow</span>
+          </div>
+          <div class="p-3 rounded-2xl bg-slate-950/80 border border-slate-800 text-center">
+            <span class="text-[10px] text-slate-400 uppercase font-mono block">Power Play</span>
+            <span class="text-xl font-black text-emerald-400">26.8%</span>
+            <span class="text-[9px] text-emerald-400 block">Rank #1 Conference</span>
+          </div>
+          <div class="p-3 rounded-2xl bg-slate-950/80 border border-slate-800 text-center">
+            <span class="text-[10px] text-slate-400 uppercase font-mono block">Scout Attendance</span>
+            <span class="text-xl font-black text-amber-400">18 Scouts</span>
+            <span class="text-[9px] text-amber-400 block">Next Game Verified</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Navigation Tab Switcher -->
+    <div class="flex items-center gap-2 border-b border-slate-800 pb-3 overflow-x-auto no-scrollbar font-mono text-xs">
+      <button onclick="switchCoachTab('lines')" id="coachTabLines" class="coach-tab-btn active px-4 py-2.5 rounded-xl font-bold bg-indigo-600 text-white border border-indigo-500 shadow-lg shadow-indigo-600/20 flex items-center gap-2 shrink-0 transition">
+        <span>⚔️</span> Lines & Chemistry War Room
+      </button>
+      <button onclick="switchCoachTab('roster')" id="coachTabRoster" class="coach-tab-btn px-4 py-2.5 rounded-xl font-bold bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-800 flex items-center gap-2 shrink-0 transition">
+        <span>📊</span> 24-Skater Telemetry Table
+      </button>
+      <button onclick="switchCoachTab('tactics')" id="coachTabTactics" class="coach-tab-btn px-4 py-2.5 rounded-xl font-bold bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-800 flex items-center gap-2 shrink-0 transition">
+        <span>🎯</span> Systems & Opponent Scouting
+      </button>
+      <button onclick="switchCoachTab('drills')" id="coachTabDrills" class="coach-tab-btn px-4 py-2.5 rounded-xl font-bold bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-800 flex items-center gap-2 shrink-0 transition">
+        <span>⏱️</span> Practice Planner & Timer
+      </button>
+      <button onclick="switchCoachTab('scouts')" id="coachTabScouts" class="coach-tab-btn px-4 py-2.5 rounded-xl font-bold bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-800 flex items-center gap-2 shrink-0 transition">
+        <span>🔭</span> Scout Inquiries & Attendance
+      </button>
+    </div>
+
+    <!-- ==================== TAB 1: LINEUP & CHEMISTRY WAR ROOM ==================== -->
+    <section id="coachView-lines" class="coach-view-content space-y-6">
+      
+      <!-- Top Action Controls -->
+      <div class="flex flex-wrap items-center justify-between gap-4 p-4 rounded-2xl bg-slate-950/80 border border-slate-800">
+        <div>
+          <h2 class="text-sm font-black text-white flex items-center gap-2">
+            <span>🏒</span> Current Active 5v5 Lineup & Chemistry Telemetry
+          </h2>
+          <p class="text-xs text-slate-400">Algorithmic Chemistry Index synthesized from passing seam connections and zone exit speed.</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="handleOptimizeLines()" class="px-4 py-2 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-bold text-xs shadow-lg shadow-indigo-600/20 transition flex items-center gap-1.5 cursor-pointer">
+            <span>✨</span> AI Line Optimizer
+          </button>
+          <a href="tactics.html" class="px-3 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-xs font-bold text-slate-200 flex items-center gap-1.5">
+            <span>Full Tactics Lab</span> <i class="fa-solid fa-arrow-right text-[10px]"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Forward Lines Grid (F1 to F4) -->
+      <div class="space-y-4">
+        <h3 class="text-xs font-mono font-bold uppercase tracking-wider text-indigo-400">Forward Lines (5v5 Combos)</h3>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          
+          <!-- Line 1 -->
+          <div class="p-5 rounded-2xl bg-slate-950/80 border border-indigo-500/40 space-y-3">
+            <div class="flex justify-between items-center border-b border-slate-800 pb-2">
+              <span class="text-xs font-black text-white flex items-center gap-2">
+                <span class="w-5 h-5 rounded-full bg-indigo-600 text-white text-[10px] flex items-center justify-center font-bold">1</span>
+                Top Scoring Trio (L1)
+              </span>
+              <div class="flex items-center gap-2">
+                <span class="text-[10px] font-mono text-emerald-400 font-bold bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/30">Chemistry: 94.2%</span>
+                <span class="text-[10px] font-mono text-indigo-300">xGF: 68.1%</span>
+              </div>
+            </div>
+            <div class="grid grid-cols-3 gap-2 text-center text-xs">
+              <div class="p-2.5 rounded-xl bg-slate-900/80 border border-slate-800">
+                <span class="text-[10px] text-slate-400 font-mono block">LW #19</span>
+                <span class="font-black text-white">Cole Eiserman</span>
+                <span class="text-[9px] text-emerald-400 block">Sniper (91 OVR)</span>
+              </div>
+              <div class="p-2.5 rounded-xl bg-slate-900/80 border border-slate-800">
+                <span class="text-[10px] text-slate-400 font-mono block">C #9</span>
+                <span class="font-black text-white">Michael Hage</span>
+                <span class="text-[9px] text-sky-400 block">Playmaker (93 OVR)</span>
+              </div>
+              <div class="p-2.5 rounded-xl bg-slate-900/80 border border-slate-800">
+                <span class="text-[10px] text-slate-400 font-mono block">RW #8</span>
+                <span class="font-black text-white">Ryan Leonard</span>
+                <span class="text-[9px] text-amber-400 block">Power Fwd (94 OVR)</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Line 2 -->
+          <div class="p-5 rounded-2xl bg-slate-950/80 border border-slate-800 space-y-3">
+            <div class="flex justify-between items-center border-b border-slate-800 pb-2">
+              <span class="text-xs font-black text-white flex items-center gap-2">
+                <span class="w-5 h-5 rounded-full bg-slate-700 text-white text-[10px] flex items-center justify-center font-bold">2</span>
+                Transition & Speed Line (L2)
+              </span>
+              <div class="flex items-center gap-2">
+                <span class="text-[10px] font-mono text-emerald-400 font-bold bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/30">Chemistry: 88.5%</span>
+                <span class="text-[10px] font-mono text-indigo-300">xGF: 61.4%</span>
+              </div>
+            </div>
+            <div class="grid grid-cols-3 gap-2 text-center text-xs">
+              <div class="p-2.5 rounded-xl bg-slate-900/80 border border-slate-800">
+                <span class="text-[10px] text-slate-400 font-mono block">LW #14</span>
+                <span class="font-black text-white">Gabe Perreault</span>
+                <span class="text-[9px] text-sky-400 block">Pass First (92 OVR)</span>
+              </div>
+              <div class="p-2.5 rounded-xl bg-slate-900/80 border border-slate-800">
+                <span class="text-[10px] text-slate-400 font-mono block">C #4</span>
+                <span class="font-black text-white">Jack Devine</span>
+                <span class="text-[9px] text-emerald-400 block">Two-Way (90 OVR)</span>
+              </div>
+              <div class="p-2.5 rounded-xl bg-slate-900/80 border border-slate-800">
+                <span class="text-[10px] text-slate-400 font-mono block">RW #17</span>
+                <span class="font-black text-white">Trevor Connelly</span>
+                <span class="text-[9px] text-pink-400 block">Deceptive (89 OVR)</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Defensive Pairings Grid -->
+      <div class="space-y-4">
+        <h3 class="text-xs font-mono font-bold uppercase tracking-wider text-indigo-400">Defensive Pairings & Crease</h3>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          
+          <!-- D Pair 1 -->
+          <div class="p-5 rounded-2xl bg-slate-950/80 border border-slate-800 space-y-3">
+            <div class="flex justify-between items-center border-b border-slate-800 pb-2">
+              <span class="text-xs font-black text-white flex items-center gap-2">
+                <span class="w-5 h-5 rounded-full bg-indigo-600 text-white text-[10px] flex items-center justify-center font-bold">D1</span>
+                Top Pairing (Shutdown + Breakout)
+              </span>
+              <span class="text-[10px] font-mono text-emerald-400 font-bold">Exit Success: 91.2%</span>
+            </div>
+            <div class="grid grid-cols-2 gap-2 text-center text-xs">
+              <div class="p-2.5 rounded-xl bg-slate-900/80 border border-slate-800">
+                <span class="text-[10px] text-slate-400 font-mono block">LD #2</span>
+                <span class="font-black text-white">Zeev Buium</span>
+                <span class="text-[9px] text-sky-400 block">Transition General (95 OVR)</span>
+              </div>
+              <div class="p-2.5 rounded-xl bg-slate-900/80 border border-slate-800">
+                <span class="text-[10px] text-slate-400 font-mono block">RD #23</span>
+                <span class="font-black text-white">Cole Hutson</span>
+                <span class="text-[9px] text-emerald-400 block">Offensive D (92 OVR)</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Starting Goalie -->
+          <div class="p-5 rounded-2xl bg-slate-950/80 border border-slate-800 space-y-3">
+            <div class="flex justify-between items-center border-b border-slate-800 pb-2">
+              <span class="text-xs font-black text-white flex items-center gap-2">
+                <span class="w-5 h-5 rounded-full bg-emerald-600 text-white text-[10px] flex items-center justify-center font-bold">G</span>
+                Crease Starter & Backup
+              </span>
+              <span class="text-[10px] font-mono text-emerald-400 font-bold">Team Sv%: .928</span>
+            </div>
+            <div class="grid grid-cols-2 gap-2 text-center text-xs">
+              <div class="p-2.5 rounded-xl bg-slate-900/80 border border-slate-800">
+                <span class="text-[10px] text-slate-400 font-mono block">Starter #1</span>
+                <span class="font-black text-white">Trey Augustine</span>
+                <span class="text-[9px] text-emerald-400 block">GSAx: +12.4 (93 OVR)</span>
+              </div>
+              <div class="p-2.5 rounded-xl bg-slate-900/80 border border-slate-800">
+                <span class="text-[10px] text-slate-400 font-mono block">Backup #30</span>
+                <span class="font-black text-white">Hampton Slukynsky</span>
+                <span class="text-[9px] text-sky-400 block">GSAx: +4.8 (88 OVR)</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ==================== TAB 2: 24-SKATER ROSTER TELEMETRY ==================== -->
+    <section id="coachView-roster" class="coach-view-content space-y-6 hidden">
+      <div class="p-6 rounded-3xl bg-slate-950/80 border border-slate-800 space-y-4">
+        
+        <div class="flex flex-wrap items-center justify-between border-b border-slate-800 pb-3 gap-3">
+          <div>
+            <h2 class="text-base font-black text-white flex items-center gap-2">
+              <span>📊</span> Full Team Roster Telemetry & Prospect Tracker
+            </h2>
+            <p class="text-xs text-slate-400">Live non-NHL player database integration with verified micro-metrics.</p>
+          </div>
+          <div class="flex items-center gap-2">
+            <input type="text" id="rosterSearchInput" onkeyup="filterCoachRoster(this.value)" placeholder="Search player or position..." class="px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500">
+            <a href="database.html" class="px-3 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs flex items-center gap-1.5">
+              <span>Full Directory</span> <i class="fa-solid fa-arrow-right text-[10px]"></i>
+            </a>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs text-slate-300">
+            <thead class="text-[10px] uppercase font-mono text-slate-400 bg-slate-900/80 border-b border-slate-800">
+              <tr>
+                <th class="py-2.5 px-3">#</th>
+                <th class="py-2.5 px-3">Athlete</th>
+                <th class="py-2.5 px-3">Pos</th>
+                <th class="py-2.5 px-3">Team / League</th>
+                <th class="py-2.5 px-3">GP</th>
+                <th class="py-2.5 px-3">G</th>
+                <th class="py-2.5 px-3">A</th>
+                <th class="py-2.5 px-3">PTS</th>
+                <th class="py-2.5 px-3">xGF%</th>
+                <th class="py-2.5 px-3">Speed</th>
+                <th class="py-2.5 px-3 text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="coachRosterTableBody" class="divide-y divide-slate-800/60 font-sans">
+              <!-- Row 1 -->
+              <tr class="hover:bg-slate-900/50 transition">
+                <td class="py-2.5 px-3 font-mono text-indigo-400 font-bold">#9</td>
+                <td class="py-2.5 px-3 font-bold text-white">Michael Hage</td>
+                <td class="py-2.5 px-3 font-mono text-sky-400">C</td>
+                <td class="py-2.5 px-3 text-slate-400">Chicago Steel (USHL)</td>
+                <td class="py-2.5 px-3 font-mono">54</td>
+                <td class="py-2.5 px-3 font-mono font-bold text-emerald-400">33</td>
+                <td class="py-2.5 px-3 font-mono font-bold text-sky-400">42</td>
+                <td class="py-2.5 px-3 font-mono font-black text-white">75</td>
+                <td class="py-2.5 px-3 font-mono text-indigo-300">68.2%</td>
+                <td class="py-2.5 px-3 font-mono text-emerald-400">23.8 MPH</td>
+                <td class="py-2.5 px-3 text-right">
+                  <a href="player.html?id=mp_0013" class="px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-sky-300 font-bold text-[10px]">Dossier</a>
+                </td>
+              </tr>
+
+              <!-- Row 2 -->
+              <tr class="hover:bg-slate-900/50 transition">
+                <td class="py-2.5 px-3 font-mono text-indigo-400 font-bold">#2</td>
+                <td class="py-2.5 px-3 font-bold text-white">Zeev Buium</td>
+                <td class="py-2.5 px-3 font-mono text-emerald-400">LD</td>
+                <td class="py-2.5 px-3 text-slate-400">Denver Pioneers (NCAA)</td>
+                <td class="py-2.5 px-3 font-mono">42</td>
+                <td class="py-2.5 px-3 font-mono font-bold text-emerald-400">11</td>
+                <td class="py-2.5 px-3 font-mono font-bold text-sky-400">39</td>
+                <td class="py-2.5 px-3 font-mono font-black text-white">50</td>
+                <td class="py-2.5 px-3 font-mono text-indigo-300">71.4%</td>
+                <td class="py-2.5 px-3 font-mono text-emerald-400">22.6 MPH</td>
+                <td class="py-2.5 px-3 text-right">
+                  <a href="player.html?id=mp_0002" class="px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-sky-300 font-bold text-[10px]">Dossier</a>
+                </td>
+              </tr>
+
+              <!-- Row 3 -->
+              <tr class="hover:bg-slate-900/50 transition">
+                <td class="py-2.5 px-3 font-mono text-indigo-400 font-bold">#23</td>
+                <td class="py-2.5 px-3 font-bold text-white">Cole Hutson</td>
+                <td class="py-2.5 px-3 font-mono text-emerald-400">RD</td>
+                <td class="py-2.5 px-3 text-slate-400">USNTDP U18 (USHL)</td>
+                <td class="py-2.5 px-3 font-mono">51</td>
+                <td class="py-2.5 px-3 font-mono font-bold text-emerald-400">15</td>
+                <td class="py-2.5 px-3 font-mono font-bold text-sky-400">36</td>
+                <td class="py-2.5 px-3 font-mono font-black text-white">51</td>
+                <td class="py-2.5 px-3 font-mono text-indigo-300">65.7%</td>
+                <td class="py-2.5 px-3 font-mono text-emerald-400">22.1 MPH</td>
+                <td class="py-2.5 px-3 text-right">
+                  <a href="player.html?id=mp_0001" class="px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-sky-300 font-bold text-[10px]">Dossier</a>
+                </td>
+              </tr>
+
+              <!-- Row 4 -->
+              <tr class="hover:bg-slate-900/50 transition">
+                <td class="py-2.5 px-3 font-mono text-indigo-400 font-bold">#15</td>
+                <td class="py-2.5 px-3 font-bold text-white">Gavin McKenna</td>
+                <td class="py-2.5 px-3 font-mono text-sky-400">LW</td>
+                <td class="py-2.5 px-3 text-slate-400">Medicine Hat Tigers (WHL)</td>
+                <td class="py-2.5 px-3 font-mono">61</td>
+                <td class="py-2.5 px-3 font-mono font-bold text-emerald-400">34</td>
+                <td class="py-2.5 px-3 font-mono font-bold text-sky-400">63</td>
+                <td class="py-2.5 px-3 font-mono font-black text-white">97</td>
+                <td class="py-2.5 px-3 font-mono text-indigo-300">69.8%</td>
+                <td class="py-2.5 px-3 font-mono text-emerald-400">24.1 MPH</td>
+                <td class="py-2.5 px-3 text-right">
+                  <a href="player.html?id=mp_0015" class="px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-sky-300 font-bold text-[10px]">Dossier</a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==================== TAB 3: SYSTEMS & OPPONENT SCOUTING ==================== -->
+    <section id="coachView-tactics" class="coach-view-content space-y-6 hidden">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        
+        <div class="p-6 rounded-3xl bg-slate-950/80 border border-slate-800 space-y-4">
+          <div class="flex justify-between items-center border-b border-slate-800 pb-3">
+            <h2 class="text-sm font-black text-white flex items-center gap-2">
+              <span>🎯</span> Tactical Systems Deployer
+            </h2>
+            <span class="text-xs font-mono text-indigo-400 font-bold">GAMEPLAN ACTIVE</span>
+          </div>
+
+          <div class="space-y-3 text-xs">
+            <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-indigo-500/30 space-y-1.5">
+              <div class="flex justify-between font-bold text-white">
+                <span>Forecheck Scheme:</span>
+                <span class="text-indigo-400 font-mono">1-2-2 Hybrid Torpedo</span>
+              </div>
+              <p class="text-[11px] text-slate-300">F1 steers defenseman to backhand. F2 and F3 lock down the wall and seam lane.</p>
+            </div>
+
+            <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-1.5">
+              <div class="flex justify-between font-bold text-white">
+                <span>Defensive Zone Coverage:</span>
+                <span class="text-emerald-400 font-mono">Low Zone Collapse + Box+1</span>
+              </div>
+              <p class="text-[11px] text-slate-300">Center protects the low slot bumper. Wingers collapse to dots on royal road passes.</p>
+            </div>
+
+            <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-1.5">
+              <div class="flex justify-between font-bold text-white">
+                <span>Powerplay Breakout:</span>
+                <span class="text-sky-400 font-mono">Slingshot Drop-Pass to L1</span>
+              </div>
+              <p class="text-[11px] text-slate-300">Defenseman retrieves, drops to Hage at top speed through neutral zone center ice.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Opponent Keys to the Game -->
+        <div class="p-6 rounded-3xl bg-slate-950/80 border border-slate-800 space-y-4">
+          <div class="flex justify-between items-center border-b border-slate-800 pb-3">
+            <h2 class="text-sm font-black text-white flex items-center gap-2">
+              <span>⚔️</span> Next Opponent Scouting: vs. Boston College Eagles
+            </h2>
+            <span class="text-xs font-mono text-amber-400 font-bold">FRIDAY 7:00 PM</span>
+          </div>
+
+          <ul class="space-y-2.5 text-xs text-slate-300">
+            <li class="p-3 rounded-xl bg-slate-900/50 border border-slate-800 flex items-start gap-2.5">
+              <span class="text-indigo-400 font-bold mt-0.5">1.</span>
+              <span><strong>Neutral Zone Gap Pressure:</strong> Force their offensive defensemen to dump pucks rather than carry with speed.</span>
+            </li>
+            <li class="p-3 rounded-xl bg-slate-900/50 border border-slate-800 flex items-start gap-2.5">
+              <span class="text-indigo-400 font-bold mt-0.5">2.</span>
+              <span><strong>Protect the Royal Road:</strong> Eliminate cross-ice seam passes in the defensive zone. Hold stick in passing lanes.</span>
+            </li>
+            <li class="p-3 rounded-xl bg-slate-900/50 border border-slate-800 flex items-start gap-2.5">
+              <span class="text-indigo-400 font-bold mt-0.5">3.</span>
+              <span><strong>Disciplined Stick Checks:</strong> Opponent converts on 31% of powerplays. Avoid minor penalties 200 feet from our net.</span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==================== TAB 4: PRACTICE PLANNER & TIMER ==================== -->
+    <section id="coachView-drills" class="coach-view-content space-y-6 hidden">
+      <div class="p-6 rounded-3xl bg-slate-950/80 border border-slate-800 space-y-4">
+        
+        <div class="flex flex-wrap items-center justify-between border-b border-slate-800 pb-3 gap-3">
+          <div>
+            <h2 class="text-base font-black text-white flex items-center gap-2">
+              <span>⏱️</span> Practice Session Planner & On-Ice Whistle Clock
+            </h2>
+            <p class="text-xs text-slate-400">High-tempo progression builder with real-time interval timer.</p>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="font-mono text-2xl font-black text-indigo-400 bg-slate-900 px-4 py-1.5 rounded-xl border border-indigo-500/40" id="drillTimerDisplay">
+              15:00
+            </div>
+            <button onclick="toggleDrillTimer()" id="drillTimerToggleBtn" class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs transition cursor-pointer">
+              ▶ Start Drill
+            </button>
+            <button onclick="resetDrillTimer()" class="px-3 py-2 rounded-xl bg-slate-900 text-slate-400 hover:text-white border border-slate-800 text-xs font-bold transition">
+              Reset
+            </button>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+          
+          <div class="p-4 rounded-2xl bg-slate-900/70 border border-indigo-500/30 space-y-2">
+            <div class="flex justify-between items-center">
+              <span class="px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-300 font-mono text-[10px] font-bold">DRILL 1 (15 MIN)</span>
+              <span class="text-slate-400 font-mono">Puck Flow</span>
+            </div>
+            <h3 class="font-bold text-white text-sm">Continuous 3v2 Transition Rush</h3>
+            <p class="text-[11px] text-slate-300">Defensemen retrieve dump, execute reverse breakout, hitting center with speed into neutral zone.</p>
+          </div>
+
+          <div class="p-4 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-2">
+            <div class="flex justify-between items-center">
+              <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 font-mono text-[10px] font-bold">DRILL 2 (20 MIN)</span>
+              <span class="text-slate-400 font-mono">Small Area</span>
+            </div>
+            <h3 class="font-bold text-white text-sm">Corner 2v2 Battle to Net-Front</h3>
+            <p class="text-[11px] text-slate-300">Tight puck protection along the half-wall. Quick cycle to point with screen and tip redirection.</p>
+          </div>
+
+          <div class="p-4 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-2">
+            <div class="flex justify-between items-center">
+              <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 font-mono text-[10px] font-bold">DRILL 3 (15 MIN)</span>
+              <span class="text-slate-400 font-mono">Special Teams</span>
+            </div>
+            <h3 class="font-bold text-white text-sm">5v4 Powerplay Bumper Sets</h3>
+            <p class="text-[11px] text-slate-300">1-3-1 setup reps: seam one-timer pass, low goal line pass, and high point shot through screen.</p>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==================== TAB 5: SCOUT INQUIRIES & ATTENDANCE ==================== -->
+    <section id="coachView-scouts" class="coach-view-content space-y-6 hidden">
+      <div class="p-6 rounded-3xl bg-slate-950/80 border border-slate-800 space-y-4">
+        
+        <div class="flex flex-wrap items-center justify-between border-b border-slate-800 pb-3 gap-3">
+          <div>
+            <h2 class="text-base font-black text-white flex items-center gap-2">
+              <span>🔭</span> Verified Scout & Recruiter Attendance Dispatcher
+            </h2>
+            <p class="text-xs text-slate-400">Accredited NHL Central Scouting and NCAA recruiters attending our upcoming games.</p>
+          </div>
+          <a href="scout.html" class="px-3 py-1.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-slate-950 font-black text-xs flex items-center gap-1.5">
+            <span>Open Scout Desk</span> <i class="fa-solid fa-arrow-right text-[10px]"></i>
+          </a>
+        </div>
+
+        <div class="space-y-3 text-xs">
+          
+          <div class="p-4 rounded-2xl bg-slate-900/70 border border-amber-500/30 flex flex-wrap items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+              <span class="text-2xl">🔍</span>
+              <div>
+                <h4 class="font-bold text-white">Dan Marr — NHL Central Scouting</h4>
+                <p class="text-[11px] text-slate-400">Director of Scouting • Attending: Friday vs Boston College</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-mono text-[10px] font-bold">TRACKING: #9 Hage, #2 Buium</span>
+              <button onclick="handleScoutBriefing('Dan Marr')" class="px-3 py-1 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-[11px] transition">
+                Send Coach Notes
+              </button>
+            </div>
+          </div>
+
+          <div class="p-4 rounded-2xl bg-slate-900/70 border border-slate-800 flex flex-wrap items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+              <span class="text-2xl">🦅</span>
+              <div>
+                <h4 class="font-bold text-white">David Carle — University of Denver</h4>
+                <p class="text-[11px] text-slate-400">Head Coach • Attending: Saturday vs Minnesota</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="px-2 py-0.5 rounded bg-sky-500/20 text-sky-300 font-mono text-[10px] font-bold">TRACKING: #23 Hutson</span>
+              <button onclick="handleScoutBriefing('David Carle')" class="px-3 py-1 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-[11px] transition">
+                Send Coach Notes
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Mandatory Footer with Lifelong Tracking Mission Statement -->
+  <footer class="border-t border-slate-800/80 bg-slate-950 mt-12 py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4 text-center text-xs text-slate-400">
+      <div class="flex items-center justify-center gap-2">
+        <a href="scout.html" title="Return to Lead Scout Desk">
+          <img src="static/img/blueline_logo.jpg" alt="BlueLine DataWorks Logo" class="w-6 h-6 rounded-md border border-indigo-400/40 object-cover">
+        </a>
+        <span class="font-bold text-slate-200">BlueLine DataWorks Coach Command Center</span>
+        <span>•</span>
+        <span class="text-indigo-400 font-mono">Coach Pro Tier ($22.99/mo)</span>
+      </div>
+      <p class="max-w-3xl mx-auto leading-relaxed text-[11px] text-slate-400">
+        BlueLine DataWorks is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory.
+      </p>
+      <div class="flex flex-wrap items-center justify-center gap-4 text-[11px] font-mono text-slate-400 pt-2">
+        <a href="index.html" class="hover:text-white transition">Home</a>
+        <a href="scout.html" class="hover:text-amber-400 transition">Lead Scout Desk</a>
+        <a href="app.html?role=athlete" class="hover:text-sky-400 transition">Player OS</a>
+        <a href="parent.html" class="hover:text-pink-400 transition">Parent Portal</a>
+        <a href="database.html" class="hover:text-white transition">Directory</a>
+        <a href="tactics.html" class="hover:text-indigo-400 transition">Tactics Lab</a>
+        <a href="film.html" class="hover:text-purple-400 transition">Film Room</a>
+        <a href="combine.html" class="hover:text-emerald-400 transition">Combine</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="static/js/master_players.js"></script>
+  <script src="static/js/auth_engine.js"></script>
+  <script src="static/js/blueline_ui_kit.js"></script>
+  <script src="static/js/global_nav.js"></script>
+  <script src="static/js/telemetry.js"></script>
+
+  <script>
+    function switchCoachTab(tabId) {
+      document.querySelectorAll('.coach-view-content').forEach(view => {
+        view.classList.add('hidden');
+      });
+      document.querySelectorAll('.coach-tab-btn').forEach(btn => {
+        btn.classList.remove('active', 'bg-indigo-600', 'text-white', 'border-indigo-500', 'shadow-lg', 'shadow-indigo-600/20');
+        btn.classList.add('bg-slate-900', 'text-slate-300', 'border-slate-800');
+      });
+
+      const activeView = document.getElementById('coachView-' + tabId);
+      if (activeView) activeView.classList.remove('hidden');
+
+      const targetBtn = document.getElementById('coachTab' + tabId.charAt(0).toUpperCase() + tabId.slice(1));
+      if (targetBtn) {
+        targetBtn.classList.remove('bg-slate-900', 'text-slate-300', 'border-slate-800');
+        targetBtn.classList.add('active', 'bg-indigo-600', 'text-white', 'border-indigo-500', 'shadow-lg', 'shadow-indigo-600/20');
+      }
+    }
+
+    function handleOptimizeLines() {
+      if (window.BlueLineUI) {
+        BlueLineUI.showToast("✓ AI Line Optimizer calculated maximum chemistry ratings across 5v5 lines!", "success", 3500);
+      }
+    }
+
+    let drillSeconds = 900;
+    let drillInterval = null;
+
+    function toggleDrillTimer() {
+      const btn = document.getElementById('drillTimerToggleBtn');
+      if (drillInterval) {
+        clearInterval(drillInterval);
+        drillInterval = null;
+        if (btn) btn.textContent = "▶ Resume Drill";
+      } else {
+        drillInterval = setInterval(() => {
+          if (drillSeconds > 0) {
+            drillSeconds--;
+            const mins = Math.floor(drillSeconds / 60).toString().padStart(2, '0');
+            const secs = (drillSeconds % 60).toString().padStart(2, '0');
+            const display = document.getElementById('drillTimerDisplay');
+            if (display) display.textContent = `${mins}:${secs}`;
+          } else {
+            clearInterval(drillInterval);
+            drillInterval = null;
+            if (window.BlueLineUI) {
+              BlueLineUI.showToast("⏱️ Drill Complete! Sound the horn for next rotation.", "warning", 4500);
+            }
+          }
+        }, 1000);
+        if (btn) btn.textContent = "⏸ Pause";
+      }
+    }
+
+    function resetDrillTimer() {
+      if (drillInterval) {
+        clearInterval(drillInterval);
+        drillInterval = null;
+      }
+      drillSeconds = 900;
+      const display = document.getElementById('drillTimerDisplay');
+      if (display) display.textContent = "15:00";
+      const btn = document.getElementById('drillTimerToggleBtn');
+      if (btn) btn.textContent = "▶ Start Drill";
+    }
+
+    function handleScoutBriefing(scoutName) {
+      if (window.BlueLineUI) {
+        BlueLineUI.showToast(`✓ Coach confidential briefing dispatch sent to ${scoutName}.`, "success", 3500);
+      }
+    }
+
+    function filterCoachRoster(query) {
+      const q = (query || '').toLowerCase();
+      document.querySelectorAll('#coachRosterTableBody tr').forEach(row => {
+        const text = row.textContent.toLowerCase();
+        row.style.display = text.includes(q) ? '' : 'none';
+      });
+    }
+  </script>
+</body>
+</html>

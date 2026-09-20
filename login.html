@@ -70,7 +70,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
       
       <!-- Brand Logo -->
-      <a href="index.html" class="flex items-center gap-3 group">
+      <a href="scout.html" class="flex items-center gap-3 group" title="Return to Lead Scout Desk">
         <img src="static/img/blueline_logo.jpg" alt="BlueLine DataWorks Logo" class="w-10 h-10 rounded-xl border border-sky-400/50 object-cover shadow-lg shadow-sky-500/20 group-hover:scale-105 transition">
         <div>
           <div class="flex items-center gap-2">
@@ -83,7 +83,7 @@
 
       <!-- Quick Nav Hubs -->
       <nav class="hidden md:flex items-center gap-2 text-xs font-mono">
-        <a href="index.html" class="px-3 py-1.5 rounded-xl bg-slate-900/80 hover:bg-slate-800 text-slate-300 hover:text-white font-semibold border border-slate-800 transition flex items-center gap-1.5">
+        <a href="scout.html" class="px-3 py-1.5 rounded-xl bg-slate-900/80 hover:bg-slate-800 text-slate-300 hover:text-white font-semibold border border-slate-800 transition flex items-center gap-1.5">
           <i class="fa-solid fa-house text-slate-400"></i> Home
         </a>
         <a href="scout.html" class="px-3 py-1.5 rounded-xl bg-sky-950/60 hover:bg-sky-900/80 text-sky-300 hover:text-white font-bold border border-sky-500/40 transition flex items-center gap-1.5 shadow-sm shadow-sky-500/20">
@@ -250,7 +250,9 @@
             </div>
             <select id="destinationSelect" name="destination" class="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-950/90 border border-sky-500/40 text-white text-xs font-sans glow-input transition cursor-pointer">
               <option value="scout.html" selected>🔭 Scout Desk Workspace (scout.html) — [RECOMMENDED]</option>
-              <option value="app.html">⚡ Athlete & Coach Command Center (app.html)</option>
+              <option value="coach.html">📋 Coach Command Center (coach.html)</option>
+              <option value="parent.html">🛡️ Parent & Family Advisor Portal (parent.html)</option>
+              <option value="app.html">⚡ Player Passport OS (app.html)</option>
               <option value="database.html">📊 Global Non-NHL Prospect Directory (database.html)</option>
               <option value="community.html">🌐 The Wire Social & Direct Messaging (community.html)</option>
               <option value="film.html">🎥 AI Film Room & Telestration Lab (film.html)</option>
@@ -1281,21 +1283,21 @@
       },
       coach: {
         title: "Head Coach Enterprise Tier ($22.99/mo):",
-        desc: "Tactical playbook generator, lineup chemistry, tournament war room, full athlete roster telemetry and direct access to the Scout Desk.",
+        desc: "Tactical playbook generator, lineup chemistry, tournament war room, full athlete roster telemetry and direct access to the Coach Command Center.",
         email: "anightingale@msu.edu",
-        dest: "scout.html"
+        dest: "coach.html"
       },
       athlete: {
         title: "Player / Athlete Tier ($4.99/mo):",
         desc: "Personal developmental passport, combine testing logging, XP progression tracker, and direct access to The Wire social network.",
         email: "mhage@umich.edu",
-        dest: "scout.html"
+        dest: "app.html?role=athlete"
       },
       parent: {
         title: "Family Advisor & Parent Tier ($4.99/mo):",
         desc: "Independent oversight, academic and amateur eligibility compliance, verified coach communications, and full access to The Wire.",
         email: "sarah.hage@familyadvisor.org",
-        dest: "scout.html"
+        dest: "parent.html"
       }
     };
 
