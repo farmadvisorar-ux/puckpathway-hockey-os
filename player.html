@@ -190,7 +190,7 @@
     document.addEventListener('DOMContentLoaded', () => {
       const urlParams = new URLSearchParams(window.location.search);
       const user = window.BlueLineAuth ? window.BlueLineAuth.getCurrentUser() : null;
-      let playerId = urlParams.get('id');
+      let playerId = urlParams.get('id') || urlParams.get('player');
       if (!playerId) {
         if (user && user.linked_player_id) {
           playerId = user.linked_player_id;

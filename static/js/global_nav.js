@@ -4,9 +4,10 @@
  * Provides:
  * - Responsive, zero-overflow top navigation architecture
  * - Categorized 22-Module Command Palette & Mega-Menu (App Launcher)
+ * - Self-contained scoped styles (immune to missing external CSS / Tailwind)
  * - Keyboard shortcuts (Cmd+K / Ctrl+K to open, Esc to close)
- * - Real-time module search and filtering
- * - Active page highlighting
+ * - Real-time module search and filtering with institutional matches
+ * - High-contrast readable cyber-slate typography (zero raw blue links)
  */
 
 (function(window) {
@@ -51,12 +52,344 @@
 
   // Category labels and styling
   const CATEGORIES = {
-    rink: { title: "Rink & Game Operations", icon: "🏟️", badgeClass: "bg-sky-500/20 text-sky-300 border-sky-500/30" },
-    labs: { title: "Performance & Analytics Labs", icon: "🔬", badgeClass: "bg-teal-500/20 text-teal-300 border-teal-500/30" },
-    coaching: { title: "Coaching & Tournaments", icon: "📋", badgeClass: "bg-amber-500/20 text-amber-300 border-amber-500/30" },
-    frontoffice: { title: "Front Office & Career Market", icon: "💼", badgeClass: "bg-emerald-500/20 text-emerald-300 border-emerald-500/30" },
-    system: { title: "Security & Intelligence", icon: "🛡️", badgeClass: "bg-indigo-500/20 text-indigo-300 border-indigo-500/30" }
+    rink: { title: "Rink & Game Operations", icon: "🏟️" },
+    labs: { title: "Performance & Analytics Labs", icon: "🔬" },
+    coaching: { title: "Coaching & Tournaments", icon: "📋" },
+    frontoffice: { title: "Front Office & Career Market", icon: "💼" },
+    system: { title: "Security & Intelligence", icon: "🛡️" }
   };
+
+  // Self-Contained Scoped CSS Injection
+  function ensureScopedStyles() {
+    if (document.getElementById("blueline-global-nav-css")) return;
+
+    const style = document.createElement("style");
+    style.id = "blueline-global-nav-css";
+    style.textContent = `
+      #globalAppLauncherModal.hidden,
+      #globalAppLauncherModal .hidden {
+        display: none !important;
+      }
+
+      #globalAppLauncherModal {
+        position: fixed !important;
+        inset: 0 !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        bottom: 0 !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        z-index: 999999 !important;
+        background: rgba(2, 6, 23, 0.88) !important;
+        backdrop-filter: blur(16px) !important;
+        -webkit-backdrop-filter: blur(16px) !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        padding: 1rem !important;
+        box-sizing: border-box !important;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif !important;
+      }
+
+      #globalAppLauncherModal * {
+        box-sizing: border-box !important;
+      }
+
+      #globalAppLauncherModal .launcher-dialog {
+        position: relative !important;
+        width: 100% !important;
+        max-width: 56rem !important;
+        max-height: 88vh !important;
+        background: #090d16 !important;
+        border: 1px solid rgba(56, 189, 248, 0.3) !important;
+        border-radius: 1.5rem !important;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.9), 0 0 35px rgba(56, 189, 248, 0.15) !important;
+        display: flex !important;
+        flex-direction: column !important;
+        overflow: hidden !important;
+      }
+
+      #globalAppLauncherModal .launcher-header {
+        padding: 1.1rem 1.4rem !important;
+        border-bottom: 1px solid rgba(51, 65, 85, 0.6) !important;
+        background: rgba(15, 23, 42, 0.8) !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        gap: 1rem !important;
+      }
+
+      #globalAppLauncherModal .launcher-brand {
+        display: flex !important;
+        align-items: center !important;
+        gap: 0.75rem !important;
+      }
+
+      #globalAppLauncherModal .launcher-logo-box {
+        width: 2.5rem !important;
+        height: 2.5rem !important;
+        border-radius: 0.875rem !important;
+        background: linear-gradient(135deg, #0284c7, #6366f1) !important;
+        padding: 2px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        box-shadow: 0 0 15px rgba(56, 189, 248, 0.3) !important;
+      }
+
+      #globalAppLauncherModal .launcher-logo-inner {
+        width: 100% !important;
+        height: 100% !important;
+        background: #030712 !important;
+        border-radius: 0.75rem !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        font-size: 1.1rem !important;
+        color: #38bdf8 !important;
+      }
+
+      #globalAppLauncherModal .launcher-title-text {
+        font-size: 1rem !important;
+        font-weight: 800 !important;
+        color: #ffffff !important;
+        margin: 0 !important;
+        display: flex !important;
+        align-items: center !important;
+        gap: 0.5rem !important;
+      }
+
+      #globalAppLauncherModal .launcher-badge-count {
+        font-size: 0.65rem !important;
+        font-family: monospace !important;
+        font-weight: 800 !important;
+        text-transform: uppercase !important;
+        padding: 0.15rem 0.5rem !important;
+        border-radius: 9999px !important;
+        background: rgba(56, 189, 248, 0.15) !important;
+        color: #38bdf8 !important;
+        border: 1px solid rgba(56, 189, 248, 0.4) !important;
+      }
+
+      #globalAppLauncherModal .launcher-subtitle {
+        font-size: 0.75rem !important;
+        color: #94a3b8 !important;
+        margin: 0.15rem 0 0 0 !important;
+      }
+
+      #globalAppLauncherModal .launcher-close-btn {
+        width: 2rem !important;
+        height: 2rem !important;
+        border-radius: 0.65rem !important;
+        background: rgba(15, 23, 42, 0.8) !important;
+        border: 1px solid rgba(51, 65, 85, 0.8) !important;
+        color: #94a3b8 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        cursor: pointer !important;
+        transition: all 0.15s ease !important;
+        font-size: 0.9rem !important;
+      }
+
+      #globalAppLauncherModal .launcher-close-btn:hover {
+        background: #ef4444 !important;
+        border-color: #ef4444 !important;
+        color: #ffffff !important;
+      }
+
+      #globalAppLauncherModal .launcher-search-wrap {
+        padding: 0.75rem 1.4rem !important;
+        border-bottom: 1px solid rgba(51, 65, 85, 0.6) !important;
+        background: #06090e !important;
+        position: relative !important;
+      }
+
+      #globalAppLauncherModal .launcher-search-icon {
+        position: absolute !important;
+        left: 2.1rem !important;
+        top: 50% !important;
+        transform: translateY(-50%) !important;
+        color: #64748b !important;
+        font-size: 0.85rem !important;
+        pointer-events: none !important;
+      }
+
+      #globalAppLauncherModal .launcher-search-input {
+        width: 100% !important;
+        padding: 0.65rem 1rem 0.65rem 2.4rem !important;
+        background: rgba(15, 23, 42, 0.9) !important;
+        border: 1px solid rgba(56, 189, 248, 0.3) !important;
+        border-radius: 0.75rem !important;
+        color: #ffffff !important;
+        font-size: 0.85rem !important;
+        outline: none !important;
+        transition: all 0.2s ease !important;
+      }
+
+      #globalAppLauncherModal .launcher-search-input:focus {
+        border-color: #38bdf8 !important;
+        box-shadow: 0 0 15px rgba(56, 189, 248, 0.3) !important;
+        background: rgba(15, 23, 42, 1) !important;
+      }
+
+      #globalAppLauncherModal .launcher-body {
+        padding: 1.25rem 1.4rem !important;
+        overflow-y: auto !important;
+        flex: 1 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 1.25rem !important;
+      }
+
+      #globalAppLauncherModal .category-group {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 0.5rem !important;
+      }
+
+      #globalAppLauncherModal .category-header {
+        display: flex !important;
+        align-items: center !important;
+        gap: 0.5rem !important;
+        padding: 0 0.25rem !important;
+      }
+
+      #globalAppLauncherModal .category-title {
+        font-size: 0.75rem !important;
+        font-weight: 800 !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.05em !important;
+        color: #38bdf8 !important;
+      }
+
+      #globalAppLauncherModal .category-badge {
+        font-size: 0.65rem !important;
+        font-family: monospace !important;
+        padding: 0.1rem 0.45rem !important;
+        border-radius: 9999px !important;
+        background: rgba(56, 189, 248, 0.15) !important;
+        color: #38bdf8 !important;
+        border: 1px solid rgba(56, 189, 248, 0.3) !important;
+      }
+
+      #globalAppLauncherModal .modules-grid {
+        display: grid !important;
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)) !important;
+        gap: 0.65rem !important;
+      }
+
+      #globalAppLauncherModal .module-card {
+        display: flex !important;
+        align-items: flex-start !important;
+        gap: 0.75rem !important;
+        padding: 0.75rem 0.85rem !important;
+        border-radius: 0.875rem !important;
+        background: rgba(15, 23, 42, 0.85) !important;
+        border: 1px solid rgba(51, 65, 85, 0.7) !important;
+        text-decoration: none !important;
+        color: #ffffff !important;
+        transition: all 0.15s ease !important;
+        cursor: pointer !important;
+      }
+
+      #globalAppLauncherModal .module-card:hover {
+        background: rgba(30, 41, 59, 0.95) !important;
+        border-color: rgba(56, 189, 248, 0.6) !important;
+        transform: translateY(-2px) !important;
+        box-shadow: 0 6px 20px -2px rgba(56, 189, 248, 0.25) !important;
+      }
+
+      #globalAppLauncherModal .module-card.active-module {
+        background: rgba(14, 165, 233, 0.15) !important;
+        border-color: rgba(56, 189, 248, 0.8) !important;
+        box-shadow: 0 0 15px rgba(56, 189, 248, 0.2) !important;
+      }
+
+      #globalAppLauncherModal .module-icon-box {
+        width: 2.25rem !important;
+        height: 2.25rem !important;
+        border-radius: 0.65rem !important;
+        background: #020617 !important;
+        border: 1px solid rgba(56, 189, 248, 0.3) !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        font-size: 1.1rem !important;
+        flex-shrink: 0 !important;
+      }
+
+      #globalAppLauncherModal .module-content {
+        min-width: 0 !important;
+        flex: 1 !important;
+      }
+
+      #globalAppLauncherModal .module-title-row {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        gap: 0.5rem !important;
+      }
+
+      #globalAppLauncherModal .module-name {
+        font-size: 0.82rem !important;
+        font-weight: 700 !important;
+        color: #ffffff !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        text-decoration: none !important;
+      }
+
+      #globalAppLauncherModal .module-card:hover .module-name {
+        color: #38bdf8 !important;
+      }
+
+      #globalAppLauncherModal .module-desc {
+        font-size: 0.7rem !important;
+        color: #94a3b8 !important;
+        margin: 0.2rem 0 0 0 !important;
+        line-height: 1.3 !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        text-decoration: none !important;
+      }
+
+      #globalAppLauncherModal .module-active-tag {
+        font-size: 0.6rem !important;
+        font-family: monospace !important;
+        font-weight: 800 !important;
+        color: #38bdf8 !important;
+        background: rgba(2, 6, 23, 0.8) !important;
+        padding: 0.1rem 0.4rem !important;
+        border-radius: 9999px !important;
+        border: 1px solid rgba(56, 189, 248, 0.5) !important;
+      }
+
+      #globalAppLauncherModal .launcher-footer {
+        padding: 0.75rem 1.4rem !important;
+        border-top: 1px solid rgba(51, 65, 85, 0.6) !important;
+        background: rgba(15, 23, 42, 0.7) !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        gap: 1rem !important;
+        color: #94a3b8 !important;
+        font-size: 0.72rem !important;
+      }
+
+      #globalAppLauncherModal #noModulesFound {
+        text-align: center !important;
+        padding: 2.5rem 1rem !important;
+        color: #94a3b8 !important;
+        font-family: monospace !important;
+        font-size: 0.8rem !important;
+      }
+    `;
+    document.head.appendChild(style);
+  }
 
   function getCurrentPageFilename() {
     const path = window.location.pathname;
@@ -65,12 +398,14 @@
   }
 
   function renderAppLauncherModal() {
-    // If already exists, return
+    ensureScopedStyles();
+
     if (document.getElementById("globalAppLauncherModal")) return;
 
     const modal = document.createElement("div");
     modal.id = "globalAppLauncherModal";
-    modal.className = "fixed inset-0 z-[100] hidden flex items-center justify-center p-3 sm:p-6 bg-slate-950/80 backdrop-blur-md";
+    modal.className = "hidden";
+    modal.style.display = "none";
     modal.setAttribute("role", "dialog");
     modal.setAttribute("aria-modal", "true");
 
@@ -89,32 +424,28 @@
       const mods = grouped[catKey] || [];
 
       sectionsHtml += `
-        <div class="space-y-2 category-group" data-cat="${catKey}">
-          <div class="flex items-center gap-2 px-1">
-            <span class="text-xs">${cat.icon}</span>
-            <span class="text-xs font-mono font-bold uppercase tracking-wider text-slate-400">${cat.title}</span>
-            <span class="text-[10px] font-mono px-1.5 py-0.2 rounded-full ${cat.badgeClass}">${mods.length}</span>
+        <div class="category-group" data-cat="${catKey}">
+          <div class="category-header">
+            <span style="font-size:0.85rem;">${cat.icon}</span>
+            <span class="category-title">${cat.title}</span>
+            <span class="category-badge">${mods.length}</span>
           </div>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+          <div class="modules-grid">
       `;
 
       mods.forEach(m => {
         const isCurrent = currentFile === m.url;
         sectionsHtml += `
-          <a href="${m.url}" class="module-card group p-2.5 sm:p-3 rounded-2xl border transition-all duration-150 flex items-start gap-3 ${
-            isCurrent 
-              ? "bg-sky-500/15 border-sky-400/60 shadow-lg shadow-sky-500/10 text-white ring-1 ring-sky-400/40" 
-              : "bg-slate-900/80 hover:bg-slate-800/90 border-slate-800 hover:border-slate-700 text-slate-300 hover:text-white"
-          }" data-name="${m.name.toLowerCase()}" data-desc="${m.desc.toLowerCase()}" data-url="${m.url}">
-            <div class="w-8 h-8 rounded-xl bg-slate-950/80 border border-slate-800 flex items-center justify-center text-base shrink-0 group-hover:scale-110 transition">
+          <a href="${m.url}" class="module-card ${isCurrent ? 'active-module' : ''}" data-name="${m.name.toLowerCase()}" data-desc="${m.desc.toLowerCase()}" data-url="${m.url}">
+            <div class="module-icon-box">
               ${m.icon}
             </div>
-            <div class="min-w-0 flex-1">
-              <div class="flex items-center justify-between gap-1">
-                <span class="text-xs font-bold truncate group-hover:text-sky-300 transition">${m.name}</span>
-                ${isCurrent ? '<span class="text-[9px] font-mono font-bold text-sky-400 bg-sky-950/80 px-1.5 py-0.5 rounded-full border border-sky-800/60">ACTIVE</span>' : ''}
+            <div class="module-content">
+              <div class="module-title-row">
+                <span class="module-name">${m.name}</span>
+                ${isCurrent ? '<span class="module-active-tag">ACTIVE</span>' : ''}
               </div>
-              <p class="text-[11px] text-slate-400 truncate mt-0.5">${m.desc}</p>
+              <p class="module-desc">${m.desc}</p>
             </div>
           </a>
         `;
@@ -127,63 +458,51 @@
     });
 
     modal.innerHTML = `
-      <div class="relative w-full max-w-4xl max-h-[90vh] bg-slate-950 rounded-3xl border border-slate-800 shadow-2xl flex flex-col overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+      <div class="launcher-dialog">
         
         <!-- Modal Header -->
-        <div class="p-4 sm:p-5 border-b border-slate-800/80 bg-slate-900/60 flex items-center justify-between gap-4">
-          <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-sky-500 via-indigo-500 to-purple-600 p-0.5 shadow-lg shadow-sky-500/20">
-              <div class="w-full h-full bg-slate-950 rounded-[14px] flex items-center justify-center text-lg">
-                ❖
-              </div>
+        <div class="launcher-header">
+          <div class="launcher-brand">
+            <div class="launcher-logo-box">
+              <div class="launcher-logo-inner">❖</div>
             </div>
             <div>
-              <div class="flex items-center gap-2">
-                <h3 class="text-base font-black text-white">All Enterprise Modules</h3>
-                <span class="text-[10px] font-mono uppercase tracking-widest px-2 py-0.5 rounded-full bg-sky-500/20 text-sky-300 font-bold">22 Active</span>
+              <div class="launcher-title-text">
+                All Enterprise Modules
+                <span class="launcher-badge-count">22 Active</span>
               </div>
-              <p class="text-xs text-slate-400">BlueLine DataWorks Integrated Hockey Analytics Ecosystem</p>
+              <p class="launcher-subtitle">BlueLine DataWorks Integrated Hockey Analytics Ecosystem</p>
             </div>
           </div>
 
-          <div class="flex items-center gap-2">
-            <kbd class="hidden sm:inline-block px-2 py-1 text-[10px] font-mono font-bold text-slate-400 bg-slate-900 border border-slate-800 rounded-lg">ESC</kbd>
-            <button id="closeAppLauncherBtn" class="w-8 h-8 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-white border border-slate-800 flex items-center justify-center transition">
-              ✕
-            </button>
+          <div style="display:flex; align-items:center; gap:0.5rem;">
+            <kbd style="padding:0.2rem 0.5rem; font-size:0.7rem; font-family:monospace; font-weight:bold; color:#94a3b8; background:rgba(15,23,42,0.9); border:1px solid #334155; border-radius:0.4rem;">ESC</kbd>
+            <button id="closeAppLauncherBtn" class="launcher-close-btn" title="Close (Esc)">✕</button>
           </div>
         </div>
 
         <!-- Real-Time Omni-Search Bar -->
-        <div class="px-4 sm:px-5 py-3 border-b border-slate-800/80 bg-slate-950">
-          <div class="relative">
-            <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-500 text-xs">
-              🔍
-            </span>
-            <input id="moduleSearchInput" type="text" placeholder="Search 22 modules, 170 colleges & high schools, or athletes... (e.g. 'Denver', 'Edina', 'Shattuck', 'draft', 'cap')" class="w-full pl-9 pr-4 py-2 bg-slate-900/80 border border-slate-800 rounded-xl text-xs text-white placeholder-slate-500 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition font-sans">
-          </div>
+        <div class="launcher-search-wrap">
+          <span class="launcher-search-icon">🔍</span>
+          <input id="moduleSearchInput" type="text" placeholder="Search 22 modules, 170 colleges & high schools, or athletes... (e.g. 'Denver', 'Edina', 'scout', 'draft')" class="launcher-search-input">
         </div>
 
         <!-- Scrollable Module & Entity Cards Grid -->
-        <div id="moduleCardsContainer" class="p-4 sm:p-6 overflow-y-auto space-y-5 custom-scrollbar flex-1">
-          <!-- Dynamic Institutional & Player Matches Strip -->
-          <div id="omniSearchEntityResults" class="hidden space-y-4 pb-2 border-b border-slate-800/80">
-            <!-- Populated on live query -->
-          </div>
-
+        <div id="moduleCardsContainer" class="launcher-body">
+          <div id="omniSearchEntityResults" class="hidden" style="display:none;"></div>
           ${sectionsHtml}
-          <div id="noModulesFound" class="hidden text-center py-12 text-slate-500 text-xs font-mono">
+          <div id="noModulesFound" class="hidden" style="display:none;">
             No matching modules or institutions found. Try searching by keyword like "Denver", "Edina", "Shattuck", "trade", "rink", or "portal".
           </div>
         </div>
 
         <!-- Modal Footer -->
-        <div class="p-3.5 px-5 border-t border-slate-800/80 bg-slate-900/50 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-400">
-          <div class="flex items-center gap-2">
-            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-            <span class="text-[11px] font-mono">Press <kbd class="text-slate-300 font-bold bg-slate-900 px-1 py-0.5 rounded border border-slate-800">Ctrl+K</kbd> anywhere to open</span>
+        <div class="launcher-footer">
+          <div style="display:flex; align-items:center; gap:0.5rem;">
+            <span style="width:0.5rem; height:0.5rem; border-radius:50%; background:#10b981; display:inline-block;"></span>
+            <span style="font-family:monospace; font-size:0.75rem;">Press <strong style="color:#e2e8f0;">Ctrl+K</strong> anywhere to open</span>
           </div>
-          <div class="text-[11px] text-slate-500 truncate max-w-md">
+          <div style="font-size:0.72rem; color:#64748b; text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">
             BlueLine DataWorks • The only hockey analytics platform tracking athletes from youth through pro careers.
           </div>
         </div>
@@ -216,28 +535,27 @@
         if (query.length >= 2 && entityContainer) {
           let entityHtml = "";
 
-          // Sourced from window.BlueLineInstitutionsCatalog
           if (window.BlueLineInstitutionsCatalog && typeof window.BlueLineInstitutionsCatalog.search === "function") {
             const matchingInsts = window.BlueLineInstitutionsCatalog.search(query).slice(0, 6);
             if (matchingInsts.length > 0) {
               entityMatchCount += matchingInsts.length;
               entityHtml += `
-                <div class="space-y-2">
-                  <div class="flex items-center justify-between px-1">
-                    <span class="text-xs font-mono font-bold uppercase tracking-wider text-emerald-400 flex items-center gap-1.5">
-                      <span>🏫</span> COLLEGES & HIGH SCHOOLS (${matchingInsts.length} Matches)
+                <div style="display:flex; flex-direction:column; gap:0.5rem; margin-bottom:1rem; border-bottom:1px solid rgba(51,65,85,0.6); padding-bottom:1rem;">
+                  <div style="display:flex; align-items:center; justify-content:space-between; padding:0 0.25rem;">
+                    <span style="font-size:0.75rem; font-family:monospace; font-weight:bold; color:#10b981; letter-spacing:0.05em; text-transform:uppercase;">
+                      🏫 COLLEGES & HIGH SCHOOLS (${matchingInsts.length} Matches)
                     </span>
-                    <a href="database.html?q=${encodeURIComponent(query)}" class="text-[10px] text-sky-400 hover:text-sky-300 font-bold">View in Directory &rarr;</a>
+                    <a href="database.html?q=${encodeURIComponent(query)}" style="font-size:0.72rem; color:#38bdf8; font-weight:bold; text-decoration:none;">View in Directory &rarr;</a>
                   </div>
-                  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
+                  <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(260px, 1fr)); gap:0.65rem;">
                     ${matchingInsts.map(inst => `
-                      <a href="database.html?inst=${encodeURIComponent(inst.id)}&q=${encodeURIComponent(inst.shortName || inst.name)}" class="p-2.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-emerald-500/30 hover:border-emerald-400 flex items-start gap-2.5 transition group">
-                        <div class="w-8 h-8 rounded-lg bg-emerald-950/80 border border-emerald-500/40 flex items-center justify-center text-sm shrink-0">
+                      <a href="database.html?inst=${encodeURIComponent(inst.id)}&q=${encodeURIComponent(inst.shortName || inst.name)}" class="module-card" style="border-color:rgba(16,185,129,0.4);">
+                        <div class="module-icon-box" style="border-color:rgba(16,185,129,0.4); color:#10b981;">
                           🏫
                         </div>
-                        <div class="min-w-0 flex-1">
-                          <div class="text-xs font-bold text-white group-hover:text-emerald-300 truncate">${inst.name}</div>
-                          <div class="text-[10px] text-slate-400 truncate">${inst.category || inst.league} · ${inst.city}, ${inst.state}</div>
+                        <div class="module-content">
+                          <div class="module-name" style="color:#ffffff;">${inst.name}</div>
+                          <div class="module-desc" style="color:#94a3b8;">${inst.category || inst.league} · ${inst.city}, ${inst.state}</div>
                         </div>
                       </a>
                     `).join('')}
@@ -247,7 +565,6 @@
             }
           }
 
-          // Check window.MASTER_PLAYERS if available
           if (window.MASTER_PLAYERS && Array.isArray(window.MASTER_PLAYERS)) {
             const matchingPlayers = window.MASTER_PLAYERS.filter(p => {
               return (p.name && p.name.toLowerCase().includes(query)) ||
@@ -257,22 +574,22 @@
             if (matchingPlayers.length > 0) {
               entityMatchCount += matchingPlayers.length;
               entityHtml += `
-                <div class="space-y-2">
-                  <div class="flex items-center justify-between px-1">
-                    <span class="text-xs font-mono font-bold uppercase tracking-wider text-sky-400 flex items-center gap-1.5">
-                      <span>🏒</span> VERIFIED ATHLETES (${matchingPlayers.length} Matches)
+                <div style="display:flex; flex-direction:column; gap:0.5rem; margin-bottom:1rem; border-bottom:1px solid rgba(51,65,85,0.6); padding-bottom:1rem;">
+                  <div style="display:flex; align-items:center; justify-content:space-between; padding:0 0.25rem;">
+                    <span style="font-size:0.75rem; font-family:monospace; font-weight:bold; color:#38bdf8; letter-spacing:0.05em; text-transform:uppercase;">
+                      🏒 VERIFIED ATHLETES (${matchingPlayers.length} Matches)
                     </span>
-                    <a href="database.html?q=${encodeURIComponent(query)}" class="text-[10px] text-sky-400 hover:text-sky-300 font-bold">Search All Athletes &rarr;</a>
+                    <a href="database.html?q=${encodeURIComponent(query)}" style="font-size:0.72rem; color:#38bdf8; font-weight:bold; text-decoration:none;">Search All Athletes &rarr;</a>
                   </div>
-                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(260px, 1fr)); gap:0.65rem;">
                     ${matchingPlayers.map(p => `
-                      <a href="player.html?id=${p.id}" class="p-2.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-sky-500/30 hover:border-sky-400 flex items-center gap-2.5 transition group">
-                        <div class="w-8 h-8 rounded-lg bg-gradient-to-br ${p.avatar_gradient || 'from-sky-600 to-indigo-600'} text-white font-black text-xs flex items-center justify-center shrink-0">
+                      <a href="player.html?id=${p.id}" class="module-card" style="border-color:rgba(56,189,248,0.4);">
+                        <div class="module-icon-box" style="border-color:rgba(56,189,248,0.4); color:#38bdf8; font-weight:bold; font-size:0.75rem;">
                           #${p.num || '--'}
                         </div>
-                        <div class="min-w-0 flex-1">
-                          <div class="text-xs font-bold text-white group-hover:text-sky-300 truncate">${p.name}</div>
-                          <div class="text-[10px] text-slate-400 truncate">${p.pos} · ${p.team} · Score: ${p.composite_score ? p.composite_score.toFixed(1) : '88.0'}</div>
+                        <div class="module-content">
+                          <div class="module-name">${p.name}</div>
+                          <div class="module-desc">${p.pos} · ${p.team} · Score: ${p.composite_score ? p.composite_score.toFixed(1) : '88.0'}</div>
                         </div>
                       </a>
                     `).join('')}
@@ -285,12 +602,15 @@
           if (entityHtml) {
             entityContainer.innerHTML = entityHtml;
             entityContainer.classList.remove("hidden");
+            entityContainer.style.display = "block";
           } else {
             entityContainer.classList.add("hidden");
+            entityContainer.style.display = "none";
             entityContainer.innerHTML = "";
           }
         } else if (entityContainer) {
           entityContainer.classList.add("hidden");
+          entityContainer.style.display = "none";
           entityContainer.innerHTML = "";
         }
 
@@ -303,9 +623,11 @@
           
           if (match) {
             card.classList.remove("hidden");
+            card.style.display = "flex";
             visibleCount++;
           } else {
             card.classList.add("hidden");
+            card.style.display = "none";
           }
         });
 
@@ -314,15 +636,22 @@
           const visibleInGroup = group.querySelectorAll(".module-card:not(.hidden)").length;
           if (visibleInGroup === 0) {
             group.classList.add("hidden");
+            group.style.display = "none";
           } else {
             group.classList.remove("hidden");
+            group.style.display = "flex";
           }
         });
 
         const noFoundEl = document.getElementById("noModulesFound");
         if (noFoundEl) {
-          if (visibleCount === 0 && entityMatchCount === 0) noFoundEl.classList.remove("hidden");
-          else noFoundEl.classList.add("hidden");
+          if (visibleCount === 0 && entityMatchCount === 0) {
+            noFoundEl.classList.remove("hidden");
+            noFoundEl.style.display = "block";
+          } else {
+            noFoundEl.classList.add("hidden");
+            noFoundEl.style.display = "none";
+          }
         }
       });
     }
@@ -333,12 +662,12 @@
     const modal = document.getElementById("globalAppLauncherModal");
     if (modal) {
       modal.classList.remove("hidden");
+      modal.style.display = "flex";
       document.body.style.overflow = "hidden";
       const input = document.getElementById("moduleSearchInput");
       if (input) {
         input.value = "";
         input.focus();
-        // Trigger input event to reset view
         input.dispatchEvent(new Event("input"));
       }
     }
@@ -348,13 +677,14 @@
     const modal = document.getElementById("globalAppLauncherModal");
     if (modal) {
       modal.classList.add("hidden");
+      modal.style.display = "none";
       document.body.style.overflow = "";
     }
   }
 
   function toggleAppLauncher() {
     const modal = document.getElementById("globalAppLauncherModal");
-    if (modal && !modal.classList.contains("hidden")) {
+    if (modal && modal.style.display !== "none" && !modal.classList.contains("hidden")) {
       closeAppLauncher();
     } else {
       openAppLauncher();

@@ -24,6 +24,21 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+a {
+  color: var(--accent-sky);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+a:hover {
+  color: #7dd3fc;
+  text-decoration: underline;
+}
+
+.hidden {
+  display: none !important;
+}
+
 /* TOP MISSION BANNER */
 .mission-banner {
   background: rgba(11, 17, 28, 0.95);

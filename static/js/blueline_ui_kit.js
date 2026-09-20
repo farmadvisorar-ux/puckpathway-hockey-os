@@ -236,7 +236,8 @@
       community: 'community.html'
     };
     const file = validModules[moduleName] || 'scout.html';
-    return playerId ? `${file}?player=${encodeURIComponent(playerId)}` : file;
+    const param = file === 'player.html' ? 'id' : 'player';
+    return playerId ? `${file}?${param}=${encodeURIComponent(playerId)}` : file;
   }
 
   function launchAthleteInModule(moduleName, playerId) {
