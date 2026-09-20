@@ -1902,9 +1902,7 @@
             timestamp: new Date().toISOString(),
             type: 'PAYMENT_SUCCESS',
             user: email,
-            role: currentPayRole,
-            amount: '
-</html> + totalCharged.toFixed(2),
+            amount: '$' + totalCharged.toFixed(2),
             txId: txId
           });
           localStorage.setItem('blueline_audit_events', JSON.stringify(auditList));
@@ -1941,7 +1939,42 @@
         window.location.href = 'app.html';
       }
     }
+
+    // Intercept clicks on locked module cards when filtered by Parent/Athlete
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.module-tile-card').forEach(card => {
+        card.addEventListener('click', (e) => {
+          const modId = card.getAttribute('data-mod');
+          if (modId === 'community') return; // The Wire is universally open to all
+
+          const badgeEl = card.querySelector('[data-role-badge]');
+          const isLocked = badgeEl && badgeEl.classList.contains('badge-entitled-locked');
+
+          if (isLocked) {
+            e.preventDefault();
+            const modTitle = card.querySelector('.module-tile-name') ? card.querySelector('.module-tile-name').textContent.trim() : 'Pro Feature';
+            const targetUrl = card.getAttribute('href');
+            const activeRoleBtn = document.querySelector('#modules-catalog .role-selector-pill.active');
+            const roleName = activeRoleBtn ? activeRoleBtn.textContent.trim() : 'Parent / Athlete ($4.99/mo)';
+
+            if (window.BlueLineUI && window.BlueLineUI.showAccessRestrictedModal) {
+              window.BlueLineUI.showAccessRestrictedModal({
+                featureName: modTitle,
+                requiredTier: 'Coach & Recruiter Pro ($22.99/mo)',
+                currentRole: roleName,
+                targetUrl: targetUrl,
+                description: `${modTitle} is an advanced tactical, telestration, or scouting evaluation tool reserved for certified coaches and recruiters on the $22.99/mo Pro Plan. Test drive as a Coach or Scout below to access full capabilities!`
+              });
+            } else {
+              window.location.href = targetUrl;
+            }
+          }
+        });
+      });
+    });
   </script>
 
+  <script src="static/js/auth_engine.js"></script>
+  <script src="static/js/blueline_ui_kit.js"></script>
 </body>
 </html>

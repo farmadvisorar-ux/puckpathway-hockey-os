@@ -299,11 +299,11 @@
   </nav>
 
   <nav class="mobile-nav">
-    <button class="tab-btn" data-view="dashboard">🏠</button>
-    <button class="tab-btn" data-view="skills">⚡</button>
-    <button class="tab-btn" data-view="videobreakdown">🎥</button>
-    <button class="tab-btn" data-view="iqsim">🧠</button>
-    <button class="tab-btn" data-view="profile">👤</button>
+    <button class="tab-btn" data-view="dashboard" title="Home Dashboard">🏠</button>
+    <button class="tab-btn" data-view="skills" title="Skills & Development">⚡</button>
+    <button class="tab-btn" data-view="thewire" title="The Wire (Universal Access)">🌐</button>
+    <button class="tab-btn" data-view="videobreakdown" title="Video Breakdown">🎥</button>
+    <button class="tab-btn" data-view="profile" title="Player Passport">👤</button>
   </nav>
 
   <main class="app-main">
@@ -2005,7 +2005,7 @@
 
       const name = featureNames[featureView] || "Coach & Recruiter Pro Feature";
       if (titleEl) titleEl.textContent = `Unlock ${name} ($22.99/mo)`;
-      if (subEl) subEl.textContent = `${name} is an elite professional tool reserved for certified coaches and scouts on the $22.99/mo Pro Plan. Your current active plan is ${currentActiveRole.toUpperCase()} ($4.99/mo). Upgrade below to unlock full access across all 22+ modules.`;
+      if (subEl) subEl.textContent = `${name} is an elite professional tool reserved for certified coaches and scouts on the $22.99/mo Pro Plan. Your current active plan is ${currentActiveRole.toUpperCase()} ($4.99/mo). Remember: The Wire and athlete directory are 100% free and open for everyone! You can test drive as Coach Adam Nightingale or Scout Dan Marr below to unlock this feature right now.`;
 
       if (modal) {
         modal.classList.remove('hidden');

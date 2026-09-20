@@ -248,14 +248,165 @@
     }, 300);
   }
 
-  // Read URL query parameter for active player
-  function getActivePlayerIdFromUrl() {
-    try {
-      const p = new URLSearchParams(window.location.search);
-      return p.get('player') || p.get('id') || null;
-    } catch(e) {
-      return null;
+  // =========================================================================
+  // 4. UNIVERSAL FEATURE ACCESS & ROLE PERMISSIONS GUARD
+  // =========================================================================
+  function checkFeatureAccess(featureKey) {
+    const user = window.BlueLineAuth ? window.BlueLineAuth.getCurrentUser() : null;
+    const role = (user && user.role) ? user.role.toLowerCase() : 'guest';
+    const isPro = (role === 'coach' || role === 'scout' || role === 'admin' || (user && user.plan && user.plan.toLowerCase().includes('pro')));
+    
+    // Pro-only features
+    const proFeatures = ['film', 'coach', 'scout', 'combine', 'tactics', 'broadcast_ai', 'portal', 'draft', 'agents', 'videobreakdown'];
+    if (proFeatures.includes(featureKey.toLowerCase())) {
+      return isPro;
     }
+    // Wire and open features are universally accessible
+    return true;
+  }
+
+  function showAccessRestrictedModal(options = {}) {
+    const existing = document.getElementById('bluelineAccessRestrictedModal');
+    if (existing) existing.remove();
+
+    const featureName = options.featureName || 'Coach & Recruiter Pro Feature';
+    const requiredTier = options.requiredTier || 'Coach & Recruiter Pro ($22.99/mo)';
+    const targetUrl = options.targetUrl || '';
+    const description = options.description || 'This advanced feature includes professional tactical tools, AI telestration, or scouting evaluation workflows reserved for certified coaches and recruiters.';
+
+    const user = window.BlueLineAuth ? window.BlueLineAuth.getCurrentUser() : null;
+    const currentRole = options.currentRole || (user ? (user.role_title || user.badge || user.role || 'Guest / Standard') : 'Parent / Family Advisor ($4.99/mo)');
+
+    const modal = document.createElement('div');
+    modal.id = 'bluelineAccessRestrictedModal';
+    modal.className = 'fixed inset-0 z-[99999] flex items-center justify-center p-4 bg-slate-950/85 backdrop-blur-md animate-fade';
+    modal.style.cssText = 'position:fixed; top:0; left:0; width:100vw; height:100vh; z-index:99999; display:flex; align-items:center; justify-content:center; background:rgba(2,6,23,0.88); backdrop-filter:blur(14px); padding:1rem;';
+
+    modal.innerHTML = `
+      <div style="background:linear-gradient(135deg, #090e17 0%, #030712 100%); border:1px solid rgba(56,189,248,0.35); box-shadow:0 25px 50px -12px rgba(0,0,0,0.8), 0 0 40px rgba(14,165,233,0.2); border-radius:24px; max-width:540px; width:100%; padding:1.75rem; color:#f8fafc; font-family:Inter,system-ui,sans-serif; position:relative;" class="space-y-4">
+        
+        <!-- Header -->
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:1rem; border-bottom:1px solid rgba(51,65,85,0.7); padding-bottom:1rem;">
+          <div style="display:flex; align-items:center; gap:0.75rem;">
+            <div style="width:44px; height:44px; border-radius:14px; background:linear-gradient(135deg,#f59e0b,#ea580c); display:flex; align-items:center; justify-content:center; font-size:1.4rem; box-shadow:0 4px 14px rgba(245,158,11,0.35); flex-shrink:0;">
+              🔒
+            </div>
+            <div>
+              <span style="display:inline-block; font-family:monospace; font-size:0.65rem; font-weight:800; text-transform:uppercase; letter-spacing:0.08em; padding:2px 8px; border-radius:9999px; background:rgba(245,158,11,0.2); color:#fbbf24; border:1px solid rgba(245,158,11,0.4); margin-bottom:4px;">
+                Access Clearance Required
+              </span>
+              <h3 style="font-size:1.15rem; font-weight:800; color:#ffffff; margin:0; line-height:1.2;">
+                ${featureName}
+              </h3>
+            </div>
+          </div>
+          <button type="button" onclick="document.getElementById('bluelineAccessRestrictedModal').remove()" style="background:transparent; border:none; color:#94a3b8; font-size:1.2rem; cursor:pointer; padding:4px 8px; border-radius:8px; line-height:1;" title="Close">
+            ✕
+          </button>
+        </div>
+
+        <!-- Explanation -->
+        <div style="background:rgba(15,23,42,0.8); border:1px solid rgba(51,65,85,0.5); border-radius:14px; padding:0.9rem 1.1rem; font-size:0.8rem; line-height:1.5; color:#cbd5e1;">
+          <p style="margin:0 0 0.5rem 0;">${description}</p>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.5rem; font-family:monospace; font-size:0.75rem; border-top:1px solid rgba(51,65,85,0.4); padding-top:0.5rem; margin-top:0.5rem;">
+            <div>
+              <span style="color:#94a3b8; display:block;">Your Current Plan:</span>
+              <strong style="color:#f472b6;">${currentRole}</strong>
+            </div>
+            <div>
+              <span style="color:#94a3b8; display:block;">Required Plan:</span>
+              <strong style="color:#38bdf8;">${requiredTier}</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- The Wire Notice -->
+        <div style="background:rgba(2,132,199,0.12); border:1px solid rgba(56,189,248,0.3); border-radius:12px; padding:0.65rem 0.9rem; font-size:0.75rem; color:#7dd3fc; display:flex; align-items:center; gap:0.5rem;">
+          <span style="font-size:1.1rem;">🌐</span>
+          <span><strong>Remember:</strong> <em>The Wire</em> and student-athlete directories are <strong>100% accessible to all parents & athletes</strong> anytime without pro upgrades!</span>
+        </div>
+
+        <!-- 1-Click Test Drive / Actions -->
+        <div style="display:flex; flex-direction:column; gap:0.5rem; padding-top:0.25rem;">
+          <button type="button" id="btnTestDriveCoach" style="width:100%; padding:0.65rem 1rem; border-radius:12px; background:linear-gradient(90deg,#0284c7,#2563eb); border:1px solid rgba(56,189,248,0.5); color:#ffffff; font-weight:800; font-size:0.82rem; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:0.5rem; box-shadow:0 4px 12px rgba(2,132,199,0.3); transition:all 0.2s ease;">
+            <span>🏒</span> <span>Test Drive as Coach (Adam Nightingale — NCAA D1)</span>
+          </button>
+          
+          <button type="button" id="btnTestDriveScout" style="width:100%; padding:0.65rem 1rem; border-radius:12px; background:rgba(30,41,59,0.9); border:1px solid rgba(245,158,11,0.4); color:#fbbf24; font-weight:800; font-size:0.82rem; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:0.5rem; transition:all 0.2s ease;">
+            <span>🔍</span> <span>Test Drive as Scout (Dan Marr — Central Scouting)</span>
+          </button>
+
+          <div style="display:flex; gap:0.5rem; margin-top:0.25rem;">
+            <button type="button" onclick="window.location.href='community.html'" style="flex:1; padding:0.5rem 0.75rem; border-radius:10px; background:rgba(15,23,42,0.9); border:1px solid rgba(71,85,105,0.7); color:#94a3b8; font-size:0.75rem; font-weight:700; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:0.4rem;">
+              <span>🌐</span> <span>Open The Wire</span>
+            </button>
+            <button type="button" onclick="document.getElementById('bluelineAccessRestrictedModal').remove()" style="flex:1; padding:0.5rem 0.75rem; border-radius:10px; background:rgba(15,23,42,0.9); border:1px solid rgba(71,85,105,0.7); color:#94a3b8; font-size:0.75rem; font-weight:700; cursor:pointer;">
+              Close & Return
+            </button>
+          </div>
+        </div>
+
+      </div>
+    `;
+
+    document.body.appendChild(modal);
+
+    // Wire up Test Drive buttons
+    const btnCoach = modal.querySelector('#btnTestDriveCoach');
+    if (btnCoach) {
+      btnCoach.addEventListener('click', () => {
+        modal.remove();
+        if (window.BlueLineAuth && window.BlueLineAuth.selectPersona) {
+          window.BlueLineAuth.selectPersona('usr_coach_nightingale');
+        } else {
+          const coachUser = {
+            id: 'usr_coach_nightingale',
+            name: 'Adam Nightingale',
+            role: 'coach',
+            badge: 'COACH (NCAA D1)',
+            team: 'Michigan State University',
+            avatar: '👔',
+            verified: true,
+            isGuest: false
+          };
+          localStorage.setItem('blueline_auth_user', JSON.stringify(coachUser));
+        }
+        showToast('✓ Switched to Coach Adam Nightingale (Pro Clearance Unlocked)!', 'success', 3000);
+        setTimeout(() => {
+          window.location.href = targetUrl || 'coach.html';
+        }, 500);
+      });
+    }
+
+    const btnScout = modal.querySelector('#btnTestDriveScout');
+    if (btnScout) {
+      btnScout.addEventListener('click', () => {
+        modal.remove();
+        if (window.BlueLineAuth && window.BlueLineAuth.selectPersona) {
+          window.BlueLineAuth.selectPersona('usr_scout_marr');
+        } else {
+          const scoutUser = {
+            id: 'usr_scout_marr',
+            name: 'Dan Marr',
+            role: 'scout',
+            badge: 'DIRECTOR OF SCOUTING',
+            team: 'NHL Central Scouting Benchmark',
+            avatar: '🔍',
+            verified: true,
+            isGuest: false
+          };
+          localStorage.setItem('blueline_auth_user', JSON.stringify(scoutUser));
+        }
+        showToast('✓ Switched to Scout Dan Marr (Pro Clearance Unlocked)!', 'success', 3000);
+        setTimeout(() => {
+          window.location.href = targetUrl || 'scout.html';
+        }, 500);
+      });
+    }
+
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) modal.remove();
+    });
   }
 
   // Export public API
@@ -265,7 +416,9 @@
     getMetricDetails,
     getModuleUrl,
     launchAthleteInModule,
-    getActivePlayerIdFromUrl
+    getActivePlayerIdFromUrl,
+    checkFeatureAccess,
+    showAccessRestrictedModal
   };
 
 })(window);

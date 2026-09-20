@@ -206,6 +206,23 @@
     <!-- ==================== CENTER WIRE FEED STREAM ==================== -->
     <section class="col-span-1 md:col-span-9 lg:col-span-6 space-y-4">
       
+      <!-- The Wire Universal Open Access Banner -->
+      <div class="glass-panel p-3.5 rounded-2xl border border-sky-500/40 bg-gradient-to-r from-sky-950/60 via-slate-950/80 to-blue-950/60 flex items-center justify-between gap-3 shadow-lg">
+        <div class="flex items-center gap-3">
+          <span class="text-xl">🌐</span>
+          <div>
+            <div class="flex items-center gap-2">
+              <h2 class="text-xs sm:text-sm font-black text-white">The BlueLine Wire — Universal Open Access</h2>
+              <span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-[9px] font-mono font-bold">ALL TIERS INCLUDED</span>
+            </div>
+            <p class="text-[11px] text-slate-300">100% unrestricted social feed, verified commitments, and direct messaging for Athletes, Parents, Coaches, and Scouts.</p>
+          </div>
+        </div>
+        <a href="parent.html" class="px-2.5 py-1 rounded-xl bg-slate-900 hover:bg-slate-800 border border-pink-500/40 text-pink-300 text-[10px] font-bold shrink-0 hidden sm:flex items-center gap-1">
+          <span>🛡️ Parent Hub</span>
+        </a>
+      </div>
+
       <!-- Feed Tabs (Multi-Category Filters) -->
       <div class="glass-panel p-1.5 rounded-2xl border border-slate-800/90 flex items-center gap-1 text-xs font-bold overflow-x-auto no-scrollbar">
         <button class="feed-tab-btn px-3 py-2 rounded-xl text-center transition bg-sky-600 text-white shrink-0" data-feed="all">
@@ -804,12 +821,31 @@
           return true;
         });
 
+        let filmBanner = '';
+        if (activeFeed === 'film') {
+          filmBanner = `
+            <div class="glass-panel p-4 rounded-2xl border border-cyan-500/40 bg-gradient-to-r from-cyan-950/50 via-slate-900 to-blue-950/50 flex flex-wrap items-center justify-between gap-3 mb-4 shadow-lg">
+              <div class="flex items-center gap-3">
+                <span class="text-2xl">🎬</span>
+                <div>
+                  <h4 class="text-xs font-black text-white">Looking for the Interactive AI Film Studio?</h4>
+                  <p class="text-[11px] text-slate-300">Break down skater stride biomechanics, analyze optical flow speeds, and draw spotlight annotations.</p>
+                </div>
+              </div>
+              <a href="film.html" class="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-cyan-400 to-sky-400 hover:from-cyan-300 hover:to-sky-300 text-slate-950 font-black text-xs shadow-md transition flex items-center gap-1.5 shrink-0">
+                <span>Launch Film Studio</span>
+                <i class="fa-solid fa-arrow-right text-[10px]"></i>
+              </a>
+            </div>
+          `;
+        }
+
         if (posts.length === 0) {
-          container.innerHTML = `<div class="glass-panel p-8 text-center text-slate-500 text-xs rounded-3xl border border-slate-800">No dispatches in this feed view yet. Be the first to post!</div>`;
+          container.innerHTML = filmBanner + `<div class="glass-panel p-8 text-center text-slate-500 text-xs rounded-3xl border border-slate-800">No dispatches in this feed view yet. Be the first to post!</div>`;
           return;
         }
 
-        container.innerHTML = posts.map(post => {
+        container.innerHTML = filmBanner + posts.map(post => {
           const author = social.getUserById(post.authorId);
           const badgeHtml = `<span class="inline-flex items-center px-1.5 py-0.2 rounded-full text-[10px] ${author.badge ? author.badge.color : 'bg-slate-800 text-slate-300'}" title="${author.badge ? author.badge.label : ''}">${author.badge ? author.badge.icon : '🏒'}</span>`;
 
