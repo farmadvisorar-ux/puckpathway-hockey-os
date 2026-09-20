@@ -330,42 +330,211 @@
 
       <h1>My Hockey Dashboard</h1>
 
+      <!-- Tier Level Card with Working Actions -->
       <div class="tier-section">
-        <h2>Tier Level</h2>
-        <div class="tier-badge" id="dashboardTierBadge">Tier 4</div>
-      </div>
-
-      <div class="xp-section">
-        <h2>XP Progress</h2>
-        <div class="xp-bar animated">
-          <div class="xp-fill" data-fill="60"></div>
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem; margin-bottom:0.5rem;">
+          <h2 style="margin:0;">Tier Level</h2>
+          <div style="display:flex; gap:0.5rem;">
+            <button type="button" class="btn-action-sm nav-btn-sm" onclick="switchView('tierprogression')" title="View Full Tier Progression Ladder">🪜 Tier Ladder</button>
+            <button type="button" class="btn-action-sm nav-btn-sm" onclick="switchView('pathways')" title="Explore Position Pathways">📊 Position Pathway</button>
+          </div>
         </div>
-        <p>60% to Tier 5</p>
+        <div style="display:flex; align-items:center; gap:0.85rem; flex-wrap:wrap;">
+          <div class="tier-badge" id="dashboardTierBadge">Tier 4</div>
+          <span style="font-size:0.85rem; color:#94a3b8;" id="dashboardTierSubtitle">NCAA Division I Prospect Track • Verified Athletic Passport</span>
+        </div>
       </div>
 
+      <!-- XP Progress Card with Working Daily XP Claim -->
+      <div class="xp-section">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem; margin-bottom:0.5rem;">
+          <h2 style="margin:0;">XP Progress & Mastery</h2>
+          <div style="display:flex; gap:0.5rem;">
+            <button type="button" class="btn-action-sm train-btn" id="claimDailyBonusBtn" onclick="claimDailyBonus()" title="Claim Daily 50 XP Training Bonus">⭐ Claim Daily XP (+50)</button>
+            <button type="button" class="btn-action-sm nav-btn-sm" onclick="switchView('xp')" title="View Full XP History">📈 XP Log</button>
+          </div>
+        </div>
+        <div class="xp-bar animated">
+          <div class="xp-fill" id="dashboardXpFill" data-fill="60" style="width: 60%;"></div>
+        </div>
+        <div style="display:flex; justify-content:space-between; font-size:0.85rem; color:#94a3b8; margin-top:0.35rem;">
+          <span id="dashboardXpText">650 / 1000 XP</span>
+          <span id="dashboardXpPercent">65% to Tier 5</span>
+        </div>
+      </div>
+
+      <!-- Skill Rings with Working Train and Lab Endpoints -->
       <div class="skills-rings">
-        <h2>Skill Rings</h2>
-        <ul>
-          <li>Skating: 72</li>
-          <li>Shooting: 68</li>
-          <li>Passing: 64</li>
-          <li>Defense: 59</li>
-          <li>Hockey IQ: 70</li>
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem; margin-bottom:0.75rem;">
+          <h2 style="margin:0;">Skill Rings & Performance Metrics</h2>
+          <div style="display:flex; gap:0.5rem;">
+            <button type="button" class="btn-action-sm nav-btn-sm" onclick="switchView('skilltree')" title="Open Skill Tree">🌳 Full Skill Tree</button>
+            <button type="button" class="btn-action-sm nav-btn-sm" onclick="switchView('compare')" title="Compare Against Division 1 Benchmarks">🔬 Compare Benchmarks</button>
+          </div>
+        </div>
+        <ul class="dashboard-action-list">
+          <li class="dashboard-action-card">
+            <div class="dashboard-card-info">
+              <span class="dashboard-card-icon">⚡</span>
+              <div class="dashboard-card-meta">
+                <span class="dashboard-card-title" id="skillNameSkating">Skating: <span id="valSkating">72</span>/100</span>
+                <span class="dashboard-card-sub">Edge work, stride cadence, top velocity</span>
+              </div>
+            </div>
+            <div class="dashboard-card-actions">
+              <button type="button" class="btn-action-sm train-btn" onclick="trainSkill('Skating', 2)">⚡ Train (+2)</button>
+              <button type="button" class="btn-action-sm nav-btn-sm" onclick="window.location.href='film.html'" title="Open AI Stride Analysis">🎥 AI Stride Lab</button>
+            </div>
+          </li>
+          <li class="dashboard-action-card">
+            <div class="dashboard-card-info">
+              <span class="dashboard-card-icon">🎯</span>
+              <div class="dashboard-card-meta">
+                <span class="dashboard-card-title" id="skillNameShooting">Shooting: <span id="valShooting">68</span>/100</span>
+                <span class="dashboard-card-sub">Quick release, shooting in stride, accuracy</span>
+              </div>
+            </div>
+            <div class="dashboard-card-actions">
+              <button type="button" class="btn-action-sm train-btn" onclick="trainSkill('Shooting', 2)">⚡ Train (+2)</button>
+              <button type="button" class="btn-action-sm nav-btn-sm" onclick="switchView('skilltree')" title="View Shooting Drills">🏒 Shooting Drills</button>
+            </div>
+          </li>
+          <li class="dashboard-action-card">
+            <div class="dashboard-card-info">
+              <span class="dashboard-card-icon">🏒</span>
+              <div class="dashboard-card-meta">
+                <span class="dashboard-card-title" id="skillNamePassing">Passing: <span id="valPassing">64</span>/100</span>
+                <span class="dashboard-card-sub">Saucer precision, reception in motion</span>
+              </div>
+            </div>
+            <div class="dashboard-card-actions">
+              <button type="button" class="btn-action-sm train-btn" onclick="trainSkill('Passing', 2)">⚡ Train (+2)</button>
+              <button type="button" class="btn-action-sm nav-btn-sm" onclick="switchView('skilltree')" title="Open Passing Web">🔬 Passing Web</button>
+            </div>
+          </li>
+          <li class="dashboard-action-card">
+            <div class="dashboard-card-info">
+              <span class="dashboard-card-icon">🛡️</span>
+              <div class="dashboard-card-meta">
+                <span class="dashboard-card-title" id="skillNameDefense">Defense: <span id="valDefense">59</span>/100</span>
+                <span class="dashboard-card-sub">Stick positioning, angling, gap control</span>
+              </div>
+            </div>
+            <div class="dashboard-card-actions">
+              <button type="button" class="btn-action-sm train-btn" onclick="trainSkill('Defense', 2)">⚡ Train (+2)</button>
+              <button type="button" class="btn-action-sm nav-btn-sm" onclick="window.location.href='tactics.html'" title="Open Defensive Tactics Lab">📐 Tactics Lab</button>
+            </div>
+          </li>
+          <li class="dashboard-action-card">
+            <div class="dashboard-card-info">
+              <span class="dashboard-card-icon">🧠</span>
+              <div class="dashboard-card-meta">
+                <span class="dashboard-card-title" id="skillNameIQ">Hockey IQ: <span id="valHockeyIQ">70</span>/100</span>
+                <span class="dashboard-card-sub">Anticipation, spatial awareness, scanning</span>
+              </div>
+            </div>
+            <div class="dashboard-card-actions">
+              <button type="button" class="btn-action-sm train-btn" onclick="trainSkill('Hockey IQ', 2)">⚡ Train (+2)</button>
+              <button type="button" class="btn-action-sm nav-btn-sm" onclick="switchView('iqsim')" title="Launch IQ Simulator">🧠 Play IQ Sim</button>
+            </div>
+          </li>
         </ul>
       </div>
 
+      <!-- Today's Missions with Working Endpoints and Completion Buttons -->
       <div class="missions-preview">
-        <h2>Today’s Missions</h2>
-        <ul>
-          <li>Shoot 50 pucks</li>
-          <li>Record a skating stride video</li>
-          <li>Complete 2 IQ scenarios</li>
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem; margin-bottom:0.75rem;">
+          <h2 style="margin:0;">Today’s Missions</h2>
+          <div style="display:flex; gap:0.5rem;">
+            <button type="button" class="btn-action-sm nav-btn-sm" onclick="switchView('dailymissions')" title="View Complete Daily Missions List">📋 View All</button>
+            <button type="button" class="btn-action-sm train-btn" onclick="completeAllDashboardMissions()" title="Complete all 3 missions for +150 XP">⚡ Complete All (+150 XP)</button>
+            <button type="button" class="btn-action-sm nav-btn-sm" onclick="resetDashboardMissions()" title="Reset missions to incomplete">🔄 Reset</button>
+          </div>
+        </div>
+        <ul class="dashboard-action-list">
+          <li class="dashboard-action-card" id="cardMission1">
+            <div class="dashboard-card-info">
+              <span class="dashboard-card-icon">🎯</span>
+              <div class="dashboard-card-meta">
+                <span class="dashboard-card-title">Shoot 50 pucks</span>
+                <span class="dashboard-card-sub">Daily shooting volume • Corner targets</span>
+              </div>
+            </div>
+            <div class="dashboard-card-actions">
+              <button type="button" class="btn-action-sm nav-btn-sm" onclick="switchView('skilltree')">🏒 Drills</button>
+              <button type="button" class="btn-mission-complete" id="btnMission1" onclick="completeDashboardMission(1, 'Shoot 50 pucks', 50)">⚡ Complete (+50 XP)</button>
+            </div>
+          </li>
+          <li class="dashboard-action-card" id="cardMission2">
+            <div class="dashboard-card-info">
+              <span class="dashboard-card-icon">🎥</span>
+              <div class="dashboard-card-meta">
+                <span class="dashboard-card-title">Record a skating stride video</span>
+                <span class="dashboard-card-sub">AI joint tracking • Hip extension analysis</span>
+              </div>
+            </div>
+            <div class="dashboard-card-actions">
+              <button type="button" class="btn-action-sm nav-btn-sm" onclick="window.location.href='film.html'">🎥 AI Film Room</button>
+              <button type="button" class="btn-action-sm nav-btn-sm" onclick="switchView('uploadmanager')">📤 Upload</button>
+              <button type="button" class="btn-mission-complete" id="btnMission2" onclick="completeDashboardMission(2, 'Record a skating stride video', 50)">⚡ Complete (+50 XP)</button>
+            </div>
+          </li>
+          <li class="dashboard-action-card" id="cardMission3">
+            <div class="dashboard-card-info">
+              <span class="dashboard-card-icon">🧠</span>
+              <div class="dashboard-card-meta">
+                <span class="dashboard-card-title">Complete 2 IQ scenarios</span>
+                <span class="dashboard-card-sub">3v2 rush & offensive zone cycle reads</span>
+              </div>
+            </div>
+            <div class="dashboard-card-actions">
+              <button type="button" class="btn-action-sm nav-btn-sm" onclick="switchView('iqsim')">🧠 Play IQ Sim</button>
+              <button type="button" class="btn-action-sm nav-btn-sm" onclick="window.location.href='rink3d.html'">📐 3D Rink Sim</button>
+              <button type="button" class="btn-mission-complete" id="btnMission3" onclick="completeDashboardMission(3, 'Complete 2 IQ scenarios', 50)">⚡ Complete (+50 XP)</button>
+            </div>
+          </li>
         </ul>
       </div>
 
+      <!-- Highlight Reel with Working Launchers and Clips -->
       <div class="highlight-preview">
-        <h2>Highlight Reel</h2>
-        <p>Upload and tag clips to build your reel.</p>
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem; margin-bottom:0.75rem;">
+          <h2 style="margin:0;">Highlight Reel & Showcase Clips</h2>
+          <div style="display:flex; gap:0.4rem; flex-wrap:wrap;">
+            <button type="button" class="btn-action-sm train-btn" onclick="window.location.href='film.html'">🎥 Launch AI Film Studio</button>
+            <button type="button" class="btn-action-sm nav-btn-sm" onclick="switchView('uploadmanager')">📤 Upload Clips</button>
+            <button type="button" class="btn-action-sm nav-btn-sm" onclick="switchView('videobreakdown')">🎬 Video Breakdown</button>
+            <button type="button" class="btn-action-sm nav-btn-sm" onclick="shareHighlightReelToWire()">🌐 Share to The Wire</button>
+          </div>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:0.6rem;">
+          <div class="highlight-clip-card">
+            <div style="display:flex; align-items:center; gap:0.75rem;">
+              <span style="font-size:1.4rem;">🎬</span>
+              <div>
+                <strong style="display:block; font-size:0.92rem; color:#f8fafc;">Top Shelf Breakaway Goal vs Chicago Mission</strong>
+                <span style="font-size:0.78rem; color:#94a3b8;">Neutral Zone Turnaround • 4.2s Release • Stride Frequency: 3.8 Hz</span>
+              </div>
+            </div>
+            <div style="display:flex; gap:0.45rem;">
+              <button type="button" class="btn-action-sm nav-btn-sm" onclick="previewHighlightClip('Top Shelf Breakaway')">▶ Play Preview</button>
+              <button type="button" class="btn-action-sm train-btn" onclick="window.location.href='film.html'">🔬 AI Breakdown</button>
+            </div>
+          </div>
+          <div class="highlight-clip-card">
+            <div style="display:flex; align-items:center; gap:0.75rem;">
+              <span style="font-size:1.4rem;">🏒</span>
+              <div>
+                <strong style="display:block; font-size:0.92rem; color:#f8fafc;">Neutral Zone D-to-D Regroup & 95-Foot Outlet</strong>
+                <span style="font-size:0.78rem; color:#94a3b8;">Vision IQ: 92 • Puck Speed: 58.4 MPH • Tape-to-Tape Accuracy: 98%</span>
+              </div>
+            </div>
+            <div style="display:flex; gap:0.45rem;">
+              <button type="button" class="btn-action-sm nav-btn-sm" onclick="previewHighlightClip('Neutral Zone Regroup')">▶ Play Preview</button>
+              <button type="button" class="btn-action-sm nav-btn-sm" onclick="window.location.href='tactics.html'">📐 View Tactics</button>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -1788,21 +1957,205 @@
       showPopup("Badge earned: " + name);
     }
 
-    let xp = 600;
+    let xp = 650;
+    try {
+      const savedXp = localStorage.getItem('blueline_athlete_xp');
+      if (savedXp) xp = parseInt(savedXp, 10) || 650;
+    } catch(e) {}
 
     function addXP(amount){
       xp += amount;
       showPopup("+" + amount + " XP");
-      document.querySelector('#view-xp p').innerText = "XP: " + xp + " / 1000";
+      const xpP = document.querySelector('#view-xp p');
+      if (xpP) xpP.innerText = "XP: " + xp + " / 1000";
+
+      const dashFill = document.getElementById('dashboardXpFill');
+      const dashText = document.getElementById('dashboardXpText');
+      const dashPct = document.getElementById('dashboardXpPercent');
+      const pct = Math.min(100, Math.floor((xp % 1000) / 10));
+      if (dashFill) dashFill.style.width = pct + "%";
+      if (dashText) dashText.innerText = xp + " / 1000 XP";
+      if (dashPct) dashPct.innerText = pct + "% to Tier " + (Math.floor(xp / 100) + 1);
+
+      updateTier();
+      try {
+        localStorage.setItem('blueline_athlete_xp', xp.toString());
+      } catch(e) {}
     }
 
     function updateTier(){
-      const tier = Math.floor(xp / 100);
-      document.querySelector('.tier-badge').innerText = "Tier " + tier;
+      const tier = Math.max(1, Math.min(10, Math.floor(xp / 100)));
+      const badges = document.querySelectorAll('.tier-badge, #dashboardTierBadge');
+      badges.forEach(b => {
+        b.innerText = "Tier " + tier;
+      });
     }
 
-    addXP(50);
+    // DASHBOARD MISSIONS & SKILL INTERACTIONS
+    const defaultMissionsState = {
+      1: { completed: false, title: 'Shoot 50 pucks', xp: 50 },
+      2: { completed: false, title: 'Record a skating stride video', xp: 50 },
+      3: { completed: false, title: 'Complete 2 IQ scenarios', xp: 50 }
+    };
+
+    function getMissionsState() {
+      try {
+        const raw = localStorage.getItem('blueline_dashboard_missions');
+        if (raw) return JSON.parse(raw);
+      } catch(e) {}
+      return { ...defaultMissionsState };
+    }
+
+    function saveMissionsState(state) {
+      try {
+        localStorage.setItem('blueline_dashboard_missions', JSON.stringify(state));
+      } catch(e) {}
+    }
+
+    function completeDashboardMission(id, title, xpAward) {
+      const state = getMissionsState();
+      if (state[id] && state[id].completed) {
+        showPopup("Mission '" + title + "' is already completed!");
+        return;
+      }
+      state[id] = { completed: true, title: title, xp: xpAward };
+      saveMissionsState(state);
+
+      addXP(xpAward);
+      renderDashboardMissionsState();
+      showPopup("✓ Mission Complete: " + title + " (+" + xpAward + " XP)!");
+    }
+
+    function completeAllDashboardMissions() {
+      const state = getMissionsState();
+      let totalAward = 0;
+      [1, 2, 3].forEach(id => {
+        if (!state[id] || !state[id].completed) {
+          state[id] = { completed: true, title: defaultMissionsState[id].title, xp: defaultMissionsState[id].xp };
+          totalAward += defaultMissionsState[id].xp;
+        }
+      });
+      saveMissionsState(state);
+      if (totalAward > 0) {
+        addXP(totalAward);
+        showPopup("🏆 All Daily Missions Completed! (+" + totalAward + " XP)");
+      } else {
+        showPopup("All missions were already completed today!");
+      }
+      renderDashboardMissionsState();
+    }
+
+    function resetDashboardMissions() {
+      saveMissionsState({ ...defaultMissionsState });
+      renderDashboardMissionsState();
+      showPopup("🔄 Today's missions have been reset.");
+    }
+
+    function renderDashboardMissionsState() {
+      const state = getMissionsState();
+      for (let id = 1; id <= 3; id++) {
+        const btn = document.getElementById('btnMission' + id);
+        const card = document.getElementById('cardMission' + id);
+        if (btn && state[id] && state[id].completed) {
+          btn.textContent = "✓ Completed (+50 XP)";
+          btn.className = "btn-mission-complete done";
+          if (card) card.classList.add('completed');
+        } else if (btn) {
+          btn.textContent = "⚡ Complete (+50 XP)";
+          btn.className = "btn-mission-complete";
+          if (card) card.classList.remove('completed');
+        }
+      }
+    }
+
+    function trainSkill(skillName, delta) {
+      const idMap = {
+        'Skating': 'valSkating',
+        'Shooting': 'valShooting',
+        'Passing': 'valPassing',
+        'Defense': 'valDefense',
+        'Hockey IQ': 'valHockeyIQ'
+      };
+      const elId = idMap[skillName];
+      const el = document.getElementById(elId);
+      let currentVal = el ? parseInt(el.textContent, 10) : 70;
+      if (isNaN(currentVal)) currentVal = 70;
+      currentVal = Math.min(99, currentVal + delta);
+      if (el) el.textContent = currentVal;
+
+      try {
+        localStorage.setItem('blueline_skill_' + skillName, currentVal.toString());
+      } catch(e) {}
+
+      addXP(25);
+      showPopup("⚡ Trained " + skillName + " (+2)! New Rating: " + currentVal + " (+25 XP)");
+    }
+
+    function claimDailyBonus() {
+      const lastClaim = localStorage.getItem('blueline_last_daily_bonus');
+      const today = new Date().toDateString();
+      if (lastClaim === today) {
+        showPopup("⭐ Daily bonus already claimed today! Check back tomorrow.");
+        return;
+      }
+      localStorage.setItem('blueline_last_daily_bonus', today);
+      addXP(50);
+      const btn = document.getElementById('claimDailyBonusBtn');
+      if (btn) {
+        btn.textContent = "✓ Claimed Today (+50 XP)";
+        btn.style.opacity = "0.7";
+      }
+      showPopup("⭐ Daily Bonus Claimed! +50 XP added to passport.");
+    }
+
+    function shareHighlightReelToWire() {
+      try {
+        const rawPosts = localStorage.getItem('blueline_wire_posts');
+        let posts = rawPosts ? JSON.parse(rawPosts) : [];
+        const newPost = {
+          id: 'wire-reel-' + Date.now(),
+          author: document.getElementById('appHeaderPlayerName')?.textContent || 'Michael Hage',
+          role: 'athlete',
+          handle: '@mhage_forward',
+          time: 'Just now',
+          verified: true,
+          content: '🚀 New Reel Upload: Top Shelf Breakaway vs Chicago Mission. Check out my 4.2s release telemetry and stride frequency!',
+          tags: ['#ShowcaseReel', '#NCAAD1', '#Breakaway', '#ScoutWatch'],
+          likes: 4,
+          reposts: 1,
+          mediaType: 'video',
+          mediaTitle: 'Showcase Reel 2026',
+          isUserPost: true
+        };
+        posts.unshift(newPost);
+        localStorage.setItem('blueline_wire_posts', JSON.stringify(posts));
+        if (typeof renderWirePosts === 'function') {
+          renderWirePosts('all');
+        }
+      } catch(e) {}
+      showPopup("🌐 Highlight Reel shared to The Wire feed! Scouts and coaches can now view your breakdown.");
+    }
+
+    function previewHighlightClip(clipTitle) {
+      showPopup("▶ Playing Preview: " + clipTitle + " (AI Telestration Ready)");
+    }
+
+    // Initialize saved skill levels if present
+    try {
+      const skills = ['Skating', 'Shooting', 'Passing', 'Defense', 'Hockey IQ'];
+      const idMap = { 'Skating': 'valSkating', 'Shooting': 'valShooting', 'Passing': 'valPassing', 'Defense': 'valDefense', 'Hockey IQ': 'valHockeyIQ' };
+      skills.forEach(s => {
+        const saved = localStorage.getItem('blueline_skill_' + s);
+        if (saved) {
+          const el = document.getElementById(idMap[s]);
+          if (el) el.textContent = saved;
+        }
+      });
+    } catch(e) {}
+
+    // Initialize missions and tier on load
     updateTier();
+    renderDashboardMissionsState();
 
     function switchToGoalie(){
       showPopup("Goalie mode activated");
@@ -2310,11 +2663,50 @@
         }
         if (missionsSection) {
           missionsSection.innerHTML = `
-            <h2>Coaching Quick Actions</h2>
-            <ul>
-              <li>Review 3v2 Neutral Zone Forecheck Video</li>
-              <li>Inspect Laser 30m Combine Telemetry</li>
-              <li>Update NCAA Compliance Safe-Contact Log</li>
+            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem; margin-bottom:0.75rem;">
+              <h2 style="margin:0;">Coaching Quick Actions</h2>
+              <a href="coach.html" class="btn-action-sm nav-btn-sm" style="text-decoration:none;">📋 Open Coach Desk</a>
+            </div>
+            <ul class="dashboard-action-list">
+              <li class="dashboard-action-card">
+                <div class="dashboard-card-info">
+                  <span class="dashboard-card-icon">🎥</span>
+                  <div class="dashboard-card-meta">
+                    <span class="dashboard-card-title">Review 3v2 Neutral Zone Forecheck Video</span>
+                    <span class="dashboard-card-sub">AI Telestration • F1/F2 angling breakdown</span>
+                  </div>
+                </div>
+                <div class="dashboard-card-actions">
+                  <button type="button" class="btn-action-sm nav-btn-sm" onclick="window.location.href='film.html'">🎥 AI Film Room</button>
+                  <button type="button" class="btn-action-sm nav-btn-sm" onclick="window.location.href='tactics.html'">📐 Tactics Board</button>
+                </div>
+              </li>
+              <li class="dashboard-action-card">
+                <div class="dashboard-card-info">
+                  <span class="dashboard-card-icon">🔬</span>
+                  <div class="dashboard-card-meta">
+                    <span class="dashboard-card-title">Inspect Laser 30m Combine Telemetry</span>
+                    <span class="dashboard-card-sub">Team acceleration & 10m split comparison</span>
+                  </div>
+                </div>
+                <div class="dashboard-card-actions">
+                  <button type="button" class="btn-action-sm nav-btn-sm" onclick="window.location.href='combine.html'">🔬 Combine Lab</button>
+                  <button type="button" class="btn-action-sm nav-btn-sm" onclick="window.location.href='coach.html'">📊 Roster Telemetry</button>
+                </div>
+              </li>
+              <li class="dashboard-action-card">
+                <div class="dashboard-card-info">
+                  <span class="dashboard-card-icon">🛡️</span>
+                  <div class="dashboard-card-meta">
+                    <span class="dashboard-card-title">Update NCAA Compliance Safe-Contact Log</span>
+                    <span class="dashboard-card-sub">Verified recruit messaging audits</span>
+                  </div>
+                </div>
+                <div class="dashboard-card-actions">
+                  <button type="button" class="btn-action-sm nav-btn-sm" onclick="window.location.href='coach.html'">🛡️ Safe-Contact Log</button>
+                  <button type="button" class="btn-action-sm train-btn" onclick="showPopup('✓ NCAA Safe-Contact log certified for current period!')">✓ Verify Log</button>
+                </div>
+              </li>
             </ul>
             <div style="margin-top:1rem;">
               <a href="coach.html" class="btn primary" style="display:inline-flex; align-items:center; gap:0.5rem; text-decoration:none; font-size:0.8rem; font-weight:800; background:#6366f1; border-color:#4f46e5;">📋 Launch Dedicated Coach Command Center →</a>
@@ -2335,11 +2727,50 @@
         }
         if (missionsSection) {
           missionsSection.innerHTML = `
-            <h2>Scouting Directives</h2>
-            <ul>
-              <li>Submit Michigan vs Minnesota weekend series evaluation</li>
-              <li>Filter Tier 1 AAA prospects with SQM score >= 90</li>
-              <li>Inspect tamper-evident cryptographic ledger blocks</li>
+            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem; margin-bottom:0.75rem;">
+              <h2 style="margin:0;">Scouting Directives</h2>
+              <a href="scout.html" class="btn-action-sm nav-btn-sm" style="text-decoration:none;">🔭 Open Scout Desk</a>
+            </div>
+            <ul class="dashboard-action-list">
+              <li class="dashboard-action-card">
+                <div class="dashboard-card-info">
+                  <span class="dashboard-card-icon">📝</span>
+                  <div class="dashboard-card-meta">
+                    <span class="dashboard-card-title">Submit Michigan vs Minnesota weekend series evaluation</span>
+                    <span class="dashboard-card-sub">USHL / NCAA scout report intake</span>
+                  </div>
+                </div>
+                <div class="dashboard-card-actions">
+                  <button type="button" class="btn-action-sm nav-btn-sm" onclick="window.location.href='scout.html'">🔭 Scout Desk</button>
+                  <button type="button" class="btn-action-sm train-btn" onclick="showPopup('Evaluation intake form opened in Scout Desk'); window.location.href='scout.html';">📝 Evaluate</button>
+                </div>
+              </li>
+              <li class="dashboard-action-card">
+                <div class="dashboard-card-info">
+                  <span class="dashboard-card-icon">🔍</span>
+                  <div class="dashboard-card-meta">
+                    <span class="dashboard-card-title">Filter Tier 1 AAA prospects with SQM score >= 90</span>
+                    <span class="dashboard-card-sub">Global verified directory search</span>
+                  </div>
+                </div>
+                <div class="dashboard-card-actions">
+                  <button type="button" class="btn-action-sm nav-btn-sm" onclick="window.location.href='database.html'">🔍 Directory Search</button>
+                  <button type="button" class="btn-action-sm nav-btn-sm" onclick="switchView('compare')">🔬 Compare Chart</button>
+                </div>
+              </li>
+              <li class="dashboard-action-card">
+                <div class="dashboard-card-info">
+                  <span class="dashboard-card-icon">🔗</span>
+                  <div class="dashboard-card-meta">
+                    <span class="dashboard-card-title">Inspect tamper-evident cryptographic ledger blocks</span>
+                    <span class="dashboard-card-sub">Sha-256 verified milestone integrity</span>
+                  </div>
+                </div>
+                <div class="dashboard-card-actions">
+                  <button type="button" class="btn-action-sm nav-btn-sm" onclick="window.location.href='security.html'">🛡️ Security Shield</button>
+                  <button type="button" class="btn-action-sm train-btn" onclick="showPopup('✓ Cryptographic Ledger verified: 0 tamper flags across 4,019 athlete records.')">🔗 Verify Ledger</button>
+                </div>
+              </li>
             </ul>
             <div style="margin-top:1rem;">
               <a href="scout.html" class="btn primary" style="display:inline-flex; align-items:center; gap:0.5rem; text-decoration:none; font-size:0.8rem; font-weight:800; background:#f59e0b; border-color:#d97706; color:#0f172a;">🔭 Launch Dedicated Lead Scout Desk →</a>
@@ -2360,11 +2791,50 @@
         }
         if (missionsSection) {
           missionsSection.innerHTML = `
-            <h2>Family Action Items</h2>
-            <ul>
-              <li>Upload official semester grade report transcript</li>
-              <li>Verify weekend tournament travel itinerary</li>
-              <li>Review safe recruiter messaging contact record</li>
+            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem; margin-bottom:0.75rem;">
+              <h2 style="margin:0;">Family Action Items</h2>
+              <a href="parent.html" class="btn-action-sm nav-btn-sm" style="text-decoration:none;">🛡️ Open Parent Portal</a>
+            </div>
+            <ul class="dashboard-action-list">
+              <li class="dashboard-action-card">
+                <div class="dashboard-card-info">
+                  <span class="dashboard-card-icon">📤</span>
+                  <div class="dashboard-card-meta">
+                    <span class="dashboard-card-title">Upload official semester grade report transcript</span>
+                    <span class="dashboard-card-sub">NCAA Eligibility Center transcript vault</span>
+                  </div>
+                </div>
+                <div class="dashboard-card-actions">
+                  <button type="button" class="btn-action-sm nav-btn-sm" onclick="window.location.href='parent.html'">📤 Upload Transcript</button>
+                  <button type="button" class="btn-action-sm train-btn" onclick="showPopup('Transcript upload dialog ready in Parent Portal!'); window.location.href='parent.html';">📄 File Vault</button>
+                </div>
+              </li>
+              <li class="dashboard-action-card">
+                <div class="dashboard-card-info">
+                  <span class="dashboard-card-icon">📅</span>
+                  <div class="dashboard-card-meta">
+                    <span class="dashboard-card-title">Verify weekend tournament travel itinerary</span>
+                    <span class="dashboard-card-sub">Team flights, hotel logistics & rink schedule</span>
+                  </div>
+                </div>
+                <div class="dashboard-card-actions">
+                  <button type="button" class="btn-action-sm nav-btn-sm" onclick="window.location.href='tournament.html'">🏆 Tournaments</button>
+                  <button type="button" class="btn-action-sm nav-btn-sm" onclick="showPopup('Travel schedule confirmed for upcoming showcase!')">✓ Confirm Travel</button>
+                </div>
+              </li>
+              <li class="dashboard-action-card">
+                <div class="dashboard-card-info">
+                  <span class="dashboard-card-icon">🛡️</span>
+                  <div class="dashboard-card-meta">
+                    <span class="dashboard-card-title">Review safe recruiter messaging contact record</span>
+                    <span class="dashboard-card-sub">Parent-consented NCAA contact notifications</span>
+                  </div>
+                </div>
+                <div class="dashboard-card-actions">
+                  <button type="button" class="btn-action-sm nav-btn-sm" onclick="window.location.href='parent.html'">🛡️ Safe-Contact Hub</button>
+                  <button type="button" class="btn-action-sm train-btn" onclick="showPopup('✓ All recruiter inquiries approved under parent oversight policy.')">✓ Approve Inquiries</button>
+                </div>
+              </li>
             </ul>
             <div style="margin-top:1rem;">
               <a href="parent.html" class="btn primary" style="display:inline-flex; align-items:center; gap:0.5rem; text-decoration:none; font-size:0.8rem; font-weight:800; background:#ec4899; border-color:#db2777;">🛡️ Launch Dedicated Parent Portal & Clearinghouse Hub →</a>
@@ -2387,10 +2857,21 @@
         dashTitle.textContent = "My Hockey Dashboard";
         if (tierSection) {
           tierSection.innerHTML = `
-            <h2>Tier Level</h2>
-            <div class="tier-badge" id="dashboardTierBadge">Tier 4</div>
+            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem; margin-bottom:0.5rem;">
+              <h2 style="margin:0;">Tier Level</h2>
+              <div style="display:flex; gap:0.5rem;">
+                <button type="button" class="btn-action-sm nav-btn-sm" onclick="switchView('tierprogression')" title="View Full Tier Progression Ladder">🪜 Tier Ladder</button>
+                <button type="button" class="btn-action-sm nav-btn-sm" onclick="switchView('pathways')" title="Explore Position Pathways">📊 Position Pathway</button>
+              </div>
+            </div>
+            <div style="display:flex; align-items:center; gap:0.85rem; flex-wrap:wrap;">
+              <div class="tier-badge" id="dashboardTierBadge">Tier 4</div>
+              <span style="font-size:0.85rem; color:#94a3b8;" id="dashboardTierSubtitle">NCAA Division I Prospect Track • Verified Athletic Passport</span>
+            </div>
           `;
         }
+        updateTier();
+        renderDashboardMissionsState();
       }
 
       // Update Dashboard Plan Status Banner
