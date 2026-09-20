@@ -183,6 +183,10 @@
 
   <script src="static/js/bundle_data.js"></script>
   <script src="static/js/master_players.js"></script>
+  <script src="static/js/telemetry.js"></script>
+  <script src="static/js/auth_engine.js"></script>
+  <script src="static/js/blueline_ui_kit.js"></script>
+  <script src="static/js/global_nav.js"></script>
   <script>
     let activePlayer = null;
     let passportChartInstance = null;
@@ -190,7 +194,9 @@
     document.addEventListener('DOMContentLoaded', () => {
       const urlParams = new URLSearchParams(window.location.search);
       const user = window.BlueLineAuth ? window.BlueLineAuth.getCurrentUser() : null;
-      let playerId = urlParams.get('id') || urlParams.get('player');
+      let playerId = (window.BlueLineUI && typeof window.BlueLineUI.getActivePlayerIdFromUrl === 'function')
+        ? window.BlueLineUI.getActivePlayerIdFromUrl()
+        : (urlParams.get('id') || urlParams.get('player'));
       if (!playerId) {
         if (user && user.linked_player_id) {
           playerId = user.linked_player_id;
@@ -389,16 +395,21 @@
 
       renderPassport(activePlayer);
 
-      // Edit Toggle
-      const toggleBtn = document.getElementById('togglePassportEditBtn');
-      const editPanel = document.getElementById('passportEditPanel');
-      if (toggleBtn && editPanel) {
-        toggleBtn.addEventListener('click', () => {
+      // Global Edit Toggle
+      window.togglePassportEdit = function() {
+        const editPanel = document.getElementById('passportEditPanel');
+        if (editPanel) {
           editPanel.classList.toggle('hidden');
-          if (!editPanel.classList.contains('hidden')) {
+          if (!editPanel.classList.contains('hidden') && activePlayer) {
             populateEditInputs(activePlayer);
+            editPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
           }
-        });
+        }
+      };
+
+      const toggleBtn = document.getElementById('togglePassportEditBtn');
+      if (toggleBtn) {
+        toggleBtn.addEventListener('click', window.togglePassportEdit);
       }
 
       // Save Edit
@@ -458,9 +469,28 @@
 
           editPanel.classList.add('hidden');
           renderPassport(activePlayer);
+          if (window.BlueLineUI && typeof window.BlueLineUI.showToast === 'function') {
+            window.BlueLineUI.showToast(`✓ Trajectory and biometrics saved for ${activePlayer.name}. Cryptographic ledger stamped.`, 'success');
+          }
         });
       }
     });
+
+    window.toggleWatchingPassport = function(playerId, playerName) {
+      if (!window.BlueLineUI || typeof window.BlueLineUI.togglePlayerInLedger !== 'function') return;
+      const isNowWatched = window.BlueLineUI.togglePlayerInLedger(playerId, playerName);
+      const btn = document.getElementById('passportWatchBtn');
+      const text = document.getElementById('passportWatchBtnText');
+      if (btn && text) {
+        if (isNowWatched) {
+          btn.className = 'px-3.5 py-1.5 rounded-xl font-bold text-xs flex items-center gap-1.5 transition active:scale-95 cursor-pointer bg-amber-500/20 text-amber-300 border border-amber-500/50 shadow-lg shadow-amber-500/10';
+          text.textContent = 'In Watching Ledger';
+        } else {
+          btn.className = 'px-3.5 py-1.5 rounded-xl font-bold text-xs flex items-center gap-1.5 transition active:scale-95 cursor-pointer bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700';
+          text.textContent = 'Add to Watching Ledger';
+        }
+      }
+    };
 
     function populateEditInputs(p) {
       document.getElementById('passEditSpeed').value = p.combine?.flying_30m_sec || 3.9;
@@ -488,6 +518,9 @@
       const currentUser = window.BlueLineAuth ? window.BlueLineAuth.getCurrentUser() : null;
       const isClaimedByMe = currentUser && (currentUser.linked_player_id === player.id);
       const isStaff = player.entity_type === 'coach' || player.pos === 'HC' || player.pos === 'GM';
+      const isWatched = (window.BlueLineUI && typeof window.BlueLineUI.isInWatchingLedger === 'function')
+        ? window.BlueLineUI.isInWatchingLedger(player.id)
+        : false;
 
       let claimBannerHtml = '';
       if (isClaimedByMe) {
@@ -503,7 +536,7 @@
                 <p class="text-[11px] text-slate-300">You are logged in as this athlete. All biometrics and test scores are cryptographically bound to your identity.</p>
               </div>
             </div>
-            <button onclick="document.getElementById('togglePassportEditBtn').click()" class="px-3.5 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs shadow transition active:scale-95 cursor-pointer">
+            <button onclick="window.togglePassportEdit ? window.togglePassportEdit() : (document.getElementById('togglePassportEditBtn') && document.getElementById('togglePassportEditBtn').click())" class="px-3.5 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs shadow transition active:scale-95 cursor-pointer">
               ✏️ Quick Edit My Biometrics
             </button>
           </div>
@@ -565,6 +598,40 @@
               <span class="text-[10px] text-slate-400 font-bold uppercase tracking-wider block">Composite Trajectory</span>
               <span class="text-4xl font-black text-sky-400 font-mono">${proj.composite_trajectory_score}</span>
               <span class="text-[10px] text-emerald-400 block">${proj.ceiling_label}</span>
+            </div>
+          </div>
+
+          <!-- Cross-Module Action Toolbar -->
+          <div class="flex flex-wrap items-center justify-between gap-3 p-3.5 rounded-2xl bg-slate-950/90 border border-slate-800 shadow-lg">
+            <div class="flex flex-wrap items-center gap-2">
+              <button id="passportWatchBtn" type="button" onclick="window.toggleWatchingPassport('${player.id}', '${player.name.replace(/'/g, "\\'")}')" class="px-3.5 py-1.5 rounded-xl font-bold text-xs flex items-center gap-1.5 transition active:scale-95 cursor-pointer ${isWatched ? 'bg-amber-500/20 text-amber-300 border border-amber-500/50 shadow-lg shadow-amber-500/10' : 'bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700'}" title="Toggle in Scout Watching Ledger">
+                <span>⭐</span> <span id="passportWatchBtnText">${isWatched ? 'In Watching Ledger' : 'Add to Watching Ledger'}</span>
+              </button>
+              
+              <a href="scout.html?player=${encodeURIComponent(player.id)}" class="px-3.5 py-1.5 rounded-xl bg-sky-600/20 hover:bg-sky-600/30 text-sky-300 border border-sky-500/40 hover:border-sky-400 font-bold text-xs flex items-center gap-1.5 transition active:scale-95" title="Evaluate in Lead Scout Desk">
+                <span>🔭</span> <span>Scout Desk</span>
+              </a>
+
+              <a href="film.html?player=${encodeURIComponent(player.id)}" class="px-3.5 py-1.5 rounded-xl bg-purple-600/20 hover:bg-purple-600/30 text-purple-300 border border-purple-500/40 hover:border-purple-400 font-bold text-xs flex items-center gap-1.5 transition active:scale-95" title="Analyze AI Shot & Shift Film">
+                <span>🎥</span> <span>AI Film Room</span>
+              </a>
+
+              <a href="compare.html?p1=${encodeURIComponent(player.id)}" class="px-3.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700 font-bold text-xs flex items-center gap-1.5 transition active:scale-95" title="Compare Head-to-Head">
+                <span>⚖️</span> <span>Compare Lab</span>
+              </a>
+
+              <a href="community.html" class="px-3.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700 font-bold text-xs flex items-center gap-1.5 transition active:scale-95" title="Discuss on The Wire">
+                <span>💬</span> <span>The Wire</span>
+              </a>
+            </div>
+
+            <div class="flex items-center gap-2">
+              <button id="togglePassportEditBtn" type="button" onclick="window.togglePassportEdit ? window.togglePassportEdit() : null" class="px-3.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-bold text-xs flex items-center gap-1.5 transition active:scale-95 cursor-pointer">
+                <span>✏️</span> <span>Quick Edit</span>
+              </button>
+              <button type="button" onclick="window.print()" class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 font-bold text-xs flex items-center gap-1.5 transition active:scale-95 cursor-pointer no-print" title="Export or Print Official Passport">
+                <span>🖨️</span> <span>PDF / Print</span>
+              </button>
             </div>
           </div>
 
@@ -780,8 +847,5 @@
       <span class="text-[10px] font-bold">Top</span>
     </a>
   </nav>
-  <script src="static/js/telemetry.js"></script>
-  <script src="static/js/auth_engine.js"></script>
-  <script src="static/js/global_nav.js"></script>
 </body>
 </html>

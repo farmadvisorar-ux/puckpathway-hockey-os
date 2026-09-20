@@ -661,12 +661,61 @@
 
     <!-- PROFILE VIEW -->
     <section id="view-profile" class="app-view">
-      <h1>Player Profile</h1>
-      <p id="profileNameLabel">Name: Player Name</p>
-      <p id="profilePosLabel">Position: Forward</p>
-      <p id="profileTierLabel">Tier: 4</p>
-      <h2>Recruiting Snapshot</h2>
-      <p>Shareable profile link coming soon.</p>
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; margin-bottom:1.5rem; border-bottom:1px solid rgba(255,255,255,0.08); padding-bottom:1rem;">
+        <div>
+          <h1 style="margin:0; font-size:1.6rem; color:#fff; font-weight:900;">Verified Athlete Profile & Passport Hub</h1>
+          <p style="margin:0.25rem 0 0; font-size:0.85rem; color:#94a3b8;">Cryptographically anchored athlete trajectory and verified biometrics</p>
+        </div>
+        <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+          <a id="profileDossierLink" href="player.html" class="btn primary" style="font-size:0.85rem; padding:0.5rem 1rem; font-weight:800; text-decoration:none; display:flex; align-items:center; gap:0.4rem;">
+            <span>🪪</span> <span>Open Live Dossier & Radar &rarr;</span>
+          </a>
+          <button type="button" class="btn secondary" onclick="switchView('profileeditor')" style="font-size:0.85rem; padding:0.5rem 0.85rem;">
+            ✏️ Edit Profile
+          </button>
+        </div>
+      </div>
+
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:1.25rem; margin-bottom:1.5rem;">
+        <!-- Card 1: Athlete Bio Snapshot -->
+        <div style="background:#0f172a; border:1px solid rgba(56,189,248,0.3); border-radius:14px; padding:1.25rem; box-shadow:0 8px 24px rgba(0,0,0,0.3);">
+          <div style="display:flex; align-items:center; gap:0.85rem; margin-bottom:1rem;">
+            <div id="profileAvatarCircle" style="width:48px; height:48px; border-radius:12px; background:linear-gradient(135deg, #0284c7, #4f46e5); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:900; font-size:1.1rem; border:1px solid rgba(56,189,248,0.5);">
+              #19
+            </div>
+            <div>
+              <h2 id="profileNameLabel" style="margin:0; font-size:1.15rem; color:#fff; font-weight:800;">Michael Hage</h2>
+              <div style="font-size:0.8rem; color:#38bdf8; font-family:monospace;" id="profileRoleSubtitle">Forward • University of Michigan</div>
+            </div>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:0.5rem; font-size:0.82rem; color:#cbd5e1; border-top:1px solid rgba(255,255,255,0.06); padding-top:0.75rem;">
+            <div style="display:flex; justify-content:space-between;"><span style="color:#94a3b8;">Position:</span><strong id="profilePosLabel" style="color:#fff;">Forward (C)</strong></div>
+            <div style="display:flex; justify-content:space-between;"><span style="color:#94a3b8;">Tier Rank:</span><strong id="profileTierLabel" style="color:#38bdf8;">Tier 6 (NCAA D1)</strong></div>
+            <div style="display:flex; justify-content:space-between;"><span style="color:#94a3b8;">Ledger Status:</span><strong style="color:#34d399;">✓ Cryptographically Signed</strong></div>
+            <div style="display:flex; justify-content:space-between;"><span style="color:#94a3b8;">NCAA Eligibility:</span><strong style="color:#fbbf24;">Active / Certified</strong></div>
+          </div>
+        </div>
+
+        <!-- Card 2: Ecosystem Quick Actions -->
+        <div style="background:#0f172a; border:1px solid rgba(255,255,255,0.08); border-radius:14px; padding:1.25rem;">
+          <h3 style="margin:0 0 0.75rem; font-size:0.95rem; color:#fff; font-weight:800;">Ecosystem Navigation</h3>
+          <p style="font-size:0.8rem; color:#94a3b8; margin:0 0 1rem;">Seamlessly access your athlete data across all core platform modules:</p>
+          <div style="display:flex; flex-direction:column; gap:0.5rem;">
+            <a id="profileScoutDeskLink" href="scout.html" class="btn secondary" style="display:flex; align-items:center; gap:0.5rem; text-decoration:none; padding:0.5rem 0.85rem; font-size:0.82rem;">
+              <span>🔭</span> <span>Evaluate on Lead Scout Desk</span>
+            </a>
+            <a id="profileCompareLink" href="compare.html" class="btn secondary" style="display:flex; align-items:center; gap:0.5rem; text-decoration:none; padding:0.5rem 0.85rem; font-size:0.82rem;">
+              <span>⚖️</span> <span>Head-to-Head Compare Lab</span>
+            </a>
+            <a id="profileFilmLink" href="film.html" class="btn secondary" style="display:flex; align-items:center; gap:0.5rem; text-decoration:none; padding:0.5rem 0.85rem; font-size:0.82rem;">
+              <span>🎥</span> <span>AI Film Room & Video Breakdown</span>
+            </a>
+            <a href="community.html" class="btn secondary" style="display:flex; align-items:center; gap:0.5rem; text-decoration:none; padding:0.5rem 0.85rem; font-size:0.82rem;">
+              <span>🌐</span> <span>The Wire (Free Universal Community)</span>
+            </a>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- PROFILE EDITOR VIEW -->
@@ -1505,6 +1554,41 @@
       });
     });
 
+    // Programmatic view switcher (fixes missing switchView function)
+    function switchView(target) {
+      if (!target) return;
+      const cleanTarget = String(target).replace(/^#/, '').replace(/^view-/, '').toLowerCase().trim();
+      
+      const allTabs = Array.from(document.querySelectorAll('.tab-btn'));
+      let btn = allTabs.find(b => {
+        const v = (b.getAttribute('data-view') || '').toLowerCase();
+        return v === cleanTarget ||
+               (cleanTarget === 'skills' && v === 'skilltree') ||
+               (cleanTarget === 'skilltree' && v === 'skills') ||
+               (cleanTarget === 'missions' && v === 'dailymissions') ||
+               (cleanTarget === 'dailymissions' && v === 'missions') ||
+               (cleanTarget === 'pathway' && v === 'tierprogression') ||
+               (cleanTarget === 'tierprogression' && v === 'pathways');
+      });
+
+      if (btn) {
+        btn.click();
+      } else {
+        // Fallback: direct element display toggle if tab is filtered out or missing
+        views.forEach(v => {
+          const isMatch = (v.id === 'view-' + cleanTarget);
+          v.classList.toggle('active', isMatch);
+          if (isMatch) {
+            v.classList.remove('fade');
+            void v.offsetWidth;
+            v.classList.add('fade');
+          }
+        });
+        window.location.hash = cleanTarget;
+      }
+    }
+    window.switchView = switchView;
+
     // Check active session & populate
     function loadAthleteSession() {
       try {
@@ -1613,6 +1697,21 @@
           const setPos = document.getElementById('settingsPosition');
           if (setMail && user.email) setMail.textContent = 'Email: ' + user.email;
           if (setPos && user.pos) setPos.textContent = 'Position: ' + (user.pos === 'G' ? 'Goalie' : (user.pos === 'D' ? 'Defense' : 'Forward'));
+
+          // Dynamic deep links to Passport, Scout Desk, Compare, and Film Room
+          const activePlayerId = user.linked_player_id || (user.name && user.name.includes('Hage') ? 'mp_0013' : 'mp_0001');
+          const dossierLink = document.getElementById('profileDossierLink');
+          if (dossierLink) dossierLink.href = `player.html?id=${encodeURIComponent(activePlayerId)}`;
+          const scoutLink = document.getElementById('profileScoutDeskLink');
+          if (scoutLink) scoutLink.href = `scout.html?player=${encodeURIComponent(activePlayerId)}`;
+          const compareLink = document.getElementById('profileCompareLink');
+          if (compareLink) compareLink.href = `compare.html?p1=${encodeURIComponent(activePlayerId)}`;
+          const filmLink = document.getElementById('profileFilmLink');
+          if (filmLink) filmLink.href = `film.html?player=${encodeURIComponent(activePlayerId)}`;
+          const avatarCircle = document.getElementById('profileAvatarCircle');
+          if (avatarCircle && user.num) avatarCircle.textContent = '#' + user.num;
+          const profSub = document.getElementById('profileRoleSubtitle');
+          if (profSub) profSub.textContent = `${user.pos === 'G' ? 'Goalie' : (user.pos === 'D' ? 'Defenseman' : 'Forward')} • ${user.team || 'Collegiate Varsity'}`;
 
           const editName = document.getElementById('profileEditName');
           const editPos = document.getElementById('positionSelect') || document.getElementById('profileEditPos');
@@ -2762,7 +2861,7 @@
             <div>
               <div style="display:flex; justify-content:space-between; align-items:flex-start;">
                 <div>
-                  <h3 style="margin:0; font-size:1.05rem; color:#fff; font-weight:800;">${p.name}</h3>
+                  <h3 style="margin:0; font-size:1.05rem; color:#fff; font-weight:800; cursor:pointer;" onclick="window.location.href='player.html?id=${encodeURIComponent(p.id)}'" title="View Verified Passport">${p.name}</h3>
                   <div style="font-size:0.75rem; color:#38bdf8; font-family:monospace;">#${p.num || '--'} • ${p.role_title || p.pos}</div>
                 </div>
                 <span style="background:rgba(56,189,248,0.15); color:#38bdf8; font-size:0.75rem; font-weight:800; padding:2px 8px; border-radius:9999px; font-family:monospace;">
@@ -2776,11 +2875,14 @@
                 <span>Weight: ${p.weight_lbs ? (p.weight_lbs + ' lbs') : '--'}</span>
               </div>
             </div>
-            <div style="display:flex; gap:8px; margin-top:12px;">
-              <button type="button" class="btn secondary" onclick="compareAthleteWithMe('${p.name}', ${score})" style="flex:1; font-size:0.75rem; padding:0.4rem;">
+            <div style="display:flex; gap:6px; margin-top:12px; flex-wrap:wrap;">
+              <a href="player.html?id=${encodeURIComponent(p.id)}" class="btn" style="flex:1; min-width:70px; font-size:0.75rem; padding:0.4rem; background:rgba(56,189,248,0.15); color:#38bdf8; border:1px solid rgba(56,189,248,0.3); text-align:center; text-decoration:none; border-radius:6px; font-weight:700; display:flex; align-items:center; justify-content:center; gap:3px;">
+                <span>🪪</span> <span>Passport</span>
+              </a>
+              <button type="button" class="btn secondary" onclick="compareAthleteWithMe('${p.name.replace(/'/g, "\\'")}', ${score})" style="flex:1; min-width:70px; font-size:0.75rem; padding:0.4rem;">
                 ⚖️ Compare
               </button>
-              <button type="button" class="btn primary" onclick="openDirectMessageDrawer('${p.id}')" style="flex:1; font-size:0.75rem; padding:0.4rem;">
+              <button type="button" class="btn primary" onclick="openDirectMessageDrawer('${p.id}')" style="flex:1; min-width:60px; font-size:0.75rem; padding:0.4rem;">
                 ✉️ DM
               </button>
             </div>

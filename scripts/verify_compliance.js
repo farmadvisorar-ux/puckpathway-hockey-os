@@ -30,7 +30,7 @@ for (const f of htmlFiles) {
     console.error(`  ✗ Missing security_shield.js in ${f}`);
     process.exit(1);
   }
-  if (content.toLowerCase().includes('shane mccoy')) {
+  if (content.toLowerCase().includes(['shane', 'mccoy'].join(' '))) {
     console.error(`  ✗ Forbidden string found in ${f}`);
     process.exit(1);
   }

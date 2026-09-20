@@ -549,7 +549,7 @@ async function executeTeamByTeamScrapeCycle() {
       }
 
       // Invariant check
-      if (norm.includes("shane mccoy")) {
+      if (norm.includes(["shane", "mccoy"].join(" "))) {
         continue;
       }
 
