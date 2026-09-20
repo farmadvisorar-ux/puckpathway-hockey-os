@@ -746,7 +746,7 @@
         state = result.state;
         renderShiftStatus();
         renderConsoleLogs();
-        alert(`Master 12-Hour Compile Executed!\nIngested ${result.newStatsGathered} athlete trajectory updates across Tier-S live channels. Verified by 24-Agent Swarm and signed by Director of Scouting.`);
+        if (window.BlueLineUI) { BlueLineUI.showToast(`Master 12-Hour Compile Executed! Ingested ${result.newStatsGathered} athlete updates across live channels.`, "success"); } else { console.log("Compile executed"); }
       });
 
       document.getElementById('exportLedgerJsonBtn').addEventListener('click', () => {
@@ -1061,6 +1061,7 @@
   </script>
   <script src="static/js/telemetry.js"></script>
   <script src="static/js/auth_engine.js"></script>
+  <script src="static/js/blueline_ui_kit.js"></script>
   <script src="static/js/global_nav.js"></script>
 </body>
 </html>

@@ -2268,7 +2268,7 @@
       if (moduleName === 'Positional 3D Trainer') {
         window.location.href = 'rink3d.html';
       } else {
-        alert(`Launching ${moduleName}... Initializing WebGL spatial sensors and tracking mesh.`);
+        if (window.BlueLineUI) { BlueLineUI.showToast(`Launching ${moduleName}... Initializing WebGL spatial sensors and tracking mesh.`, "info"); } else { console.log(`Launching ${moduleName}`); }
       }
     }
 

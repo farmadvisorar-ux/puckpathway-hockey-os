@@ -656,7 +656,7 @@
     function handleCustomVideo(e) {
       const file = e.target.files[0];
       if (!file) return;
-      typeof BlueLineUI !== 'undefined' ? BlueLineUI.showToast(`🎬 Uploaded "${file.name}"! AI Computer Vision is analyzing optical flow and tracking skater trajectories.`, 'info') : alert(`🎬 Uploaded "${file.name}"! AI Computer Vision is analyzing optical flow and tracking skater trajectories.`);
+      typeof BlueLineUI !== 'undefined' ? BlueLineUI.showToast(`🎬 Uploaded "${file.name}"! AI Computer Vision is analyzing optical flow and tracking skater trajectories.`, 'info') : console.log(`🎬 Uploaded "${file.name}"!`);
     }
 
     function openReelModal() {
@@ -695,7 +695,7 @@
       });
 
       closeReelModal();
-      typeof BlueLineUI !== 'undefined' ? BlueLineUI.showToast(`🎉 Highlight Reel Generated!\n\n"${reel.title}" has been compiled with ${reel.annotationsCount} tactical annotations, speed telemetry, and BlueLine Scouting Bureau's scouting seal. Published to The BlueLine Wire!`, 'info') : alert(`🎉 Highlight Reel Generated!\n\n"${reel.title}" has been compiled with ${reel.annotationsCount} tactical annotations, speed telemetry, and BlueLine Scouting Bureau's scouting seal. Published to The BlueLine Wire!`);
+      typeof BlueLineUI !== 'undefined' ? BlueLineUI.showToast(`🎉 Highlight Reel Generated!\n\n"${reel.title}" has been compiled with ${reel.annotationsCount} tactical annotations, speed telemetry, and BlueLine Scouting Bureau's scouting seal. Published to The BlueLine Wire!`, 'info') : console.log(`🎉 Highlight Reel Generated for "${reel.title}"!`);
     }
   </script>
 </body>

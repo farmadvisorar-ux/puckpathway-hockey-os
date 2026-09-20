@@ -703,7 +703,7 @@
       if (window.BlueLineUI) {
         BlueLineUI.showToast("Semester transcript uploaded & sent to NCAA Clearinghouse audit queue.", "success", 3500);
       } else {
-        alert("Transcript uploaded successfully.");
+        if (window.BlueLineUI) { BlueLineUI.showToast("Transcript uploaded successfully.", "success"); } else { console.log("Transcript uploaded"); }
       }
     }
 

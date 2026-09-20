@@ -1572,7 +1572,7 @@
       if (window.BlueLineUI && typeof window.BlueLineUI.showToast === 'function') {
         window.BlueLineUI.showToast("✓ Support ticket logged! A scout platform representative will reach out shortly.", "success", 4000);
       } else {
-        alert("Your support inquiry has been logged with the BlueLine Scout Support Desk! A representative will contact you shortly.");
+        if (window.BlueLineUI) { BlueLineUI.showToast("Your support inquiry has been logged with the BlueLine Scout Support Desk!", "success"); } else { console.log("Support inquiry logged"); }
       }
       closeModal('supportModal');
     }
@@ -1582,7 +1582,7 @@
       if (window.BlueLineUI && typeof window.BlueLineUI.showToast === 'function') {
         window.BlueLineUI.showToast("✓ Password reset link dispatched! (Pre-seeded demo password: password123)", "success", 4500);
       } else {
-        alert("Password reset instructions dispatched to your email! (You can also sign in with password123 or the 1-click demo buttons).");
+        if (window.BlueLineUI) { BlueLineUI.showToast("Password reset instructions dispatched to your email!", "info"); } else { console.log("Password reset instructions dispatched"); }
       }
       closeModal('forgotPasswordModal');
     }

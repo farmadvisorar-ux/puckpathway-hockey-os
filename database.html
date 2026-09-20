@@ -1111,7 +1111,7 @@
       if (dExpBtn) {
         dExpBtn.addEventListener('click', () => {
           if (!currentDossierInst || currentDossierRoster.length === 0) {
-            alert('No athletes currently available to export for this institution.');
+            if (window.BlueLineUI) { BlueLineUI.showToast('No athletes currently available to export for this institution.', 'info'); } else { console.log('No athletes'); }
             return;
           }
           const headers = ['Number', 'Name', 'Position', 'Institution', 'League', 'Conference', 'Class_Level', 'Height', 'Weight', 'Hometown', 'Composite_Score'];
@@ -1777,7 +1777,7 @@
     }
 
     function exportFilteredCSV() {
-      if (filteredAthletes.length === 0) return alert('No personnel to export.');
+      if (filteredAthletes.length === 0) { if (window.BlueLineUI) { BlueLineUI.showToast('No personnel to export.', 'info'); } return; }
       const headers = ['Type', 'Number_or_Role', 'Name', 'Role_or_Position', 'Team', 'League', 'Conference', 'Level_or_Title', 'Height_or_Tenure', 'Weight', 'Hometown_or_Origin', 'Feeder_or_AlmaMater', 'Honors_or_Draft', 'Score'];
       const rows = filteredAthletes.map(p => [
         p.entity_type || 'player',
@@ -1806,7 +1806,7 @@
     }
 
     function exportFilteredJSON() {
-      if (filteredAthletes.length === 0) return alert('No personnel to export.');
+      if (filteredAthletes.length === 0) { if (window.BlueLineUI) { BlueLineUI.showToast('No personnel to export.', 'info'); } return; }
       const jsonContent = JSON.stringify(filteredAthletes, null, 2);
       const blob = new Blob([jsonContent], { type: 'application/json;charset=utf-8;' });
       const url = URL.createObjectURL(blob);
