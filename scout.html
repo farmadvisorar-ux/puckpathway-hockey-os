@@ -1084,17 +1084,29 @@
       // 3. Populate Quick Select Dropdown
       populateAthleteSelectDropdown();
 
-      // 4. Check for URL Parameter ?player=...
-      const urlPlayerId = BlueLineUI.getActivePlayerIdFromUrl();
+      // 4. Check for URL Parameter ?player=... or ?id=...
+      const urlPlayerId = (typeof BlueLineUI !== 'undefined' && BlueLineUI.getActivePlayerIdFromUrl) ? BlueLineUI.getActivePlayerIdFromUrl() : null;
       if (urlPlayerId) {
         const found = allAthletes.find(p => p.id === urlPlayerId || (p.name && p.name.toLowerCase().includes(urlPlayerId.toLowerCase())));
         if (found) {
           setActiveAthlete(found);
+          if (typeof BlueLineUI !== 'undefined' && BlueLineUI.showToast) {
+            BlueLineUI.showToast(`Loaded ${found.name} into Live Micro-Telemetry Desk.`, 'success');
+          }
         } else {
           setDefaultAthlete();
         }
       } else {
         setDefaultAthlete();
+      }
+
+      // Handle URL Hash navigation (#shortlist, #directory, #ledger)
+      if (window.location.hash === '#shortlist') {
+        switchScoutTab('shortlist');
+      } else if (window.location.hash === '#directory') {
+        switchScoutTab('directory');
+      } else if (window.location.hash === '#ledger') {
+        toggleWatchingLedgerDrawer();
       }
 
       // 5. Render Initial Directory, Shortlist, and Watched Prospects Ledger
@@ -1167,7 +1179,13 @@
 
       // Sync select dropdown
       const select = document.getElementById('athleteQuickSelect');
-      if (select && select.value !== athlete.id) {
+      if (select) {
+        if (!Array.from(select.options).some(opt => opt.value === athlete.id)) {
+          const opt = document.createElement('option');
+          opt.value = athlete.id;
+          opt.textContent = `${athlete.name} (${athlete.team || 'Independent'} · ${athlete.pos || 'F'})`;
+          select.appendChild(opt);
+        }
         select.value = athlete.id;
       }
 
@@ -1756,27 +1774,29 @@
       const headers = ["ID", "Name", "Position", "Number", "Team", "League", "Height", "Weight", "Hometown", "Birth Year", "Composite Score", "Draft Status"];
       const rows = athletes.map(p => [
         p.id,
-        `"${p.name || ''}"`,
+        `"${(p.name || '').replace(/"/g, '""')}"`,
         p.pos || 'F',
         p.num || '',
-        `"${p.team || ''}"`,
-        `"${p.league || ''}"`,
-        `"${p.height_str || ''}"`,
+        `"${(p.team || '').replace(/"/g, '""')}"`,
+        `"${(p.league || '').replace(/"/g, '""')}"`,
+        `"${(p.height_str || '').replace(/"/g, '""')}"`,
         p.weight_lbs || '',
-        `"${p.hometown || ''}"`,
+        `"${(p.hometown || '').replace(/"/g, '""')}"`,
         p.date_of_birth ? p.date_of_birth.split('-')[0] : '',
-        p.composite_score || 88.0,
-        `"${p.draft_status || ''}"`
+        p.composite_score ? p.composite_score.toFixed(1) : '88.0',
+        `"${(p.draft_status || '').replace(/"/g, '""')}"`
       ]);
 
-      const csvContent = "data:text/csv;charset=utf-8," + [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
-      const encodedUri = encodeURI(csvContent);
+      const csvContent = [headers.join(','), ...rows.map(r => r.join(','))].join('\r\n');
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
       const link = document.createElement("a");
-      link.setAttribute("href", encodedUri);
+      link.setAttribute("href", url);
       link.setAttribute("download", `blueline_scout_watching_ledger_${new Date().toISOString().slice(0, 10)}.csv`);
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
+      URL.revokeObjectURL(url);
 
       BlueLineUI.showToast(`✓ Exported ${athletes.length} watched prospects to CSV.`, "success");
     }
@@ -1899,7 +1919,7 @@
     // =========================================================================
     function checkRecruiterAccess() {
       const user = window.BlueLineAuth ? window.BlueLineAuth.getCurrentUser() : null;
-      const isRecruiter = user && (user.role === 'scout' || user.id === 'usr_scout_marr') && !user.isGuest;
+      const isRecruiter = user && (user.role === 'scout' || user.role === 'admin' || user.id === 'usr_scout_marr' || (user.plan && user.plan.toLowerCase().includes('pro'))) && !user.isGuest;
       const paywallEl = document.getElementById('recruiterPaywallOverlay');
       
       if (!isRecruiter) {

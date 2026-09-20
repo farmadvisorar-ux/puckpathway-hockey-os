@@ -352,6 +352,12 @@
         <button class="quick-team-pill px-2.5 py-1 rounded-lg bg-amber-950/60 hover:bg-amber-900/60 text-amber-300 border border-amber-700/60 font-bold text-[11px]" data-search="David Carle">David Carle (Denver)</button>
         <button class="quick-team-pill px-2.5 py-1 rounded-lg bg-amber-950/60 hover:bg-amber-900/60 text-amber-300 border border-amber-700/60 font-bold text-[11px]" data-search="Brandon Naurato">Brandon Naurato (Mich)</button>
         <button class="quick-team-pill px-2.5 py-1 rounded-lg bg-emerald-950/60 hover:bg-emerald-900/60 text-emerald-300 border border-emerald-700/60 font-bold text-[11px]" data-search="Director of Scouting">Scouting Bureau</button>
+        <button id="filterWatchedBtn" type="button" onclick="toggleWatchedOnlyFilter()" class="quick-team-pill px-2.5 py-1 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 font-bold text-[11px] flex items-center gap-1.5 transition cursor-pointer" title="Filter to prospects currently in your Watched Ledger">
+          <span>⭐</span> <span>Watched Only</span> (<span id="databaseWatchedCount">0</span>)
+        </button>
+        <a href="scout.html" class="px-2.5 py-1 rounded-lg bg-indigo-600/30 hover:bg-indigo-600 text-indigo-300 hover:text-white border border-indigo-500/40 font-bold text-[11px] flex items-center gap-1.5 transition shadow-sm" title="Open Lead Scout Desk & Micro-Telemetry Terminal">
+          <span>🔭</span> <span>Scout Desk</span>
+        </a>
         <button id="resetFiltersBtn" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-[11px] ml-auto">Reset Filters</button>
       </div>
 
@@ -663,7 +669,7 @@
       <svg class="w-5 h-5 mb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"/></svg>
       <span class="text-[10px] font-bold">Voice AI</span>
     </a>
-    <a href="player.html?id=um_csv_13" target="_blank" class="flex-1 flex flex-col items-center justify-center py-1 px-1 rounded-xl text-emerald-400 hover:text-emerald-300 active:scale-95 transition" aria-label="Athlete Passport">
+    <a href="player.html?id=mp_0013" target="_blank" class="flex-1 flex flex-col items-center justify-center py-1 px-1 rounded-xl text-emerald-400 hover:text-emerald-300 active:scale-95 transition" aria-label="Athlete Passport">
       <svg class="w-5 h-5 mb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2"/></svg>
       <span class="text-[10px] font-bold">Passport</span>
     </a>
@@ -681,6 +687,7 @@
     let currentView = (window.innerWidth < 768) ? 'card' : 'table'; // Auto-select Card view on mobile phones
     let currentSortCol = 'score';
     let currentSortDir = 'desc';
+    let filterWatchedOnly = false;
 
     document.addEventListener('DOMContentLoaded', () => {
       // 1. Ingest datasets (master non-pro registry + bundle_data fallback)
@@ -711,6 +718,28 @@
       }
 
       document.getElementById('heroTotalBadge').textContent = `${allAthletes.length.toLocaleString()} Active Personnel (Non-NHL)`;
+
+      // 1.1 Update Watched Ledger Counter Badge
+      updateWatchedCountBadge();
+
+      // 1.2 Check URL parameters for initial filter (?watched=true, ?q=...)
+      try {
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('watched') === 'true' || window.location.hash === '#watched') {
+          filterWatchedOnly = true;
+          const watchedBtn = document.getElementById('filterWatchedBtn');
+          if (watchedBtn) {
+            watchedBtn.className = "quick-team-pill px-2.5 py-1 rounded-lg bg-amber-500 text-slate-950 border border-amber-400 font-bold text-[11px] flex items-center gap-1.5 transition cursor-pointer shadow-md";
+          }
+        }
+        if (urlParams.get('q')) {
+          const qVal = urlParams.get('q');
+          const sInput = document.getElementById('masterSearchInput');
+          const cBtn = document.getElementById('clearMasterSearchBtn');
+          if (sInput) sInput.value = qVal;
+          if (cBtn) cBtn.classList.remove('hidden');
+        }
+      } catch (e) {}
 
       // 2. Setup Event Listeners
       const searchInput = document.getElementById('masterSearchInput');
@@ -749,8 +778,8 @@
         renderCurrentPage();
       });
 
-      // Quick Pills
-      document.querySelectorAll('.quick-team-pill').forEach(pill => {
+      // Quick Pills (with data-search attribute)
+      document.querySelectorAll('.quick-team-pill[data-search]').forEach(pill => {
         pill.addEventListener('click', () => {
           searchInput.value = pill.dataset.search;
           clearSearchBtn.classList.remove('hidden');
@@ -768,6 +797,11 @@
         document.getElementById('filterPosition').value = 'all';
         document.getElementById('filterClass').value = 'all';
         document.getElementById('filterDraft').value = 'all';
+        filterWatchedOnly = false;
+        const watchedBtn = document.getElementById('filterWatchedBtn');
+        if (watchedBtn) {
+          watchedBtn.className = "quick-team-pill px-2.5 py-1 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 font-bold text-[11px] flex items-center gap-1.5 transition cursor-pointer";
+        }
         currentPage = 1;
         applyFilters();
       });
@@ -1250,6 +1284,67 @@
       applyFilters();
     });
 
+    function toggleWatchedOnlyFilter() {
+      filterWatchedOnly = !filterWatchedOnly;
+      const btn = document.getElementById('filterWatchedBtn');
+      if (btn) {
+        if (filterWatchedOnly) {
+          btn.className = "quick-team-pill px-2.5 py-1 rounded-lg bg-amber-500 text-slate-950 border border-amber-400 font-bold text-[11px] flex items-center gap-1.5 transition cursor-pointer shadow-md";
+        } else {
+          btn.className = "quick-team-pill px-2.5 py-1 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 font-bold text-[11px] flex items-center gap-1.5 transition cursor-pointer";
+        }
+      }
+      currentPage = 1;
+      applyFilters();
+    }
+
+    function updateWatchedCountBadge() {
+      const countEl = document.getElementById('databaseWatchedCount');
+      if (countEl) {
+        countEl.textContent = getScoutWatchingLedger().length;
+      }
+    }
+
+    function getScoutWatchingLedger() {
+      if (typeof BlueLineUI !== 'undefined' && typeof BlueLineUI.getScoutWatchingLedger === 'function') {
+        return BlueLineUI.getScoutWatchingLedger();
+      }
+      try {
+        const raw = localStorage.getItem('blueline_scout_watching_ledger');
+        return raw ? JSON.parse(raw) : [];
+      } catch (e) {
+        return [];
+      }
+    }
+
+    function isInWatchingLedger(athleteId) {
+      if (!athleteId) return false;
+      return getScoutWatchingLedger().includes(athleteId);
+    }
+
+    function toggleWatchlistQuick(athleteId) {
+      if (!athleteId) return;
+      const athlete = allAthletes.find(p => p.id === athleteId);
+      const name = athlete ? athlete.name : 'Prospect';
+
+      if (typeof BlueLineUI !== 'undefined' && typeof BlueLineUI.togglePlayerInLedger === 'function') {
+        BlueLineUI.togglePlayerInLedger(athleteId, name);
+      } else {
+        let ledger = getScoutWatchingLedger();
+        if (ledger.includes(athleteId)) {
+          ledger = ledger.filter(id => id !== athleteId);
+        } else {
+          ledger.unshift(athleteId);
+        }
+        try {
+          localStorage.setItem('blueline_scout_watching_ledger', JSON.stringify(ledger));
+        } catch(e) {}
+      }
+
+      updateWatchedCountBadge();
+      renderCurrentPage();
+    }
+
     function applyFilters() {
       const q = document.getElementById('masterSearchInput').value.toLowerCase().trim();
       const role = document.getElementById('filterRole') ? document.getElementById('filterRole').value : 'all';
@@ -1260,6 +1355,12 @@
       const draft = document.getElementById('filterDraft').value;
 
       filteredAthletes = allAthletes.filter(p => {
+        // Watched Only filter
+        if (filterWatchedOnly) {
+          const ledger = getScoutWatchingLedger();
+          if (!ledger.includes(p.id)) return false;
+        }
+
         // Role filter
         if (role === 'player' && p.entity_type !== 'player') return false;
         if (role === 'coach' && p.entity_type !== 'coach') return false;
@@ -1334,6 +1435,7 @@
 
       sortAthletes();
       renderCurrentPage();
+      updateWatchedCountBadge();
     }
 
     function sortAthletes() {
@@ -1458,6 +1560,7 @@
               </td>
               <td class="py-2.5 px-2 text-center font-bold text-amber-400">99.0</td>
               <td class="py-2.5 px-3 text-right">
+                <a href="community.html" class="px-2 py-1 rounded-lg bg-cyan-600/30 hover:bg-cyan-600 text-cyan-300 hover:text-white text-[11px] font-bold border border-cyan-500/30 transition inline-flex items-center gap-1" title="Direct Message on Wire"><span>💬</span></a>
                 <a href="player.html?id=${p.id}" target="_blank" class="px-2.5 py-1 rounded-lg bg-amber-600/30 hover:bg-amber-600 text-amber-300 hover:text-white font-sans text-[11px] font-bold border border-amber-500/30 transition shadow-sm inline-flex items-center gap-1">
                   Staff Dossier &rarr;
                 </a>
@@ -1466,6 +1569,7 @@
           `;
         }
 
+        const isWatched = isInWatchingLedger(p.id);
         const isDrafted = p.draft_status && p.draft_status !== 'Undrafted';
         const draftDisplay = isDrafted 
           ? `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-purple-950/80 text-purple-300 border border-purple-800/60 truncate max-w-[200px] inline-block">🏒 ${p.draft_status}</span>` 
@@ -1492,7 +1596,14 @@
             <td class="py-2.5 px-3 font-sans">${draftDisplay}</td>
             <td class="py-2.5 px-2 text-center font-bold text-amber-400">${p.composite_score ? p.composite_score.toFixed(1) : '--'}</td>
             <td class="py-2.5 px-3 text-right">
-              <button onclick="window.openAuthModal('claim', '${p.id}')" class="px-2 py-1 rounded-lg bg-amber-500/20 hover:bg-amber-500/40 text-amber-300 font-sans text-[11px] font-bold border border-amber-500/30 transition shadow-sm inline-flex items-center gap-1 cursor-pointer" title="Claim Profile">⚡ Claim</button> <a href="community.html" class="px-2 py-1 rounded-lg bg-cyan-600/30 hover:bg-cyan-600 text-cyan-300 hover:text-white text-[11px] font-bold border border-cyan-500/30 transition inline-flex items-center gap-1" title="Direct Message"><span>💬</span></a> <a href="scout.html?player=${p.id}" class="px-2 py-1 rounded-lg bg-indigo-600/30 hover:bg-indigo-600 text-indigo-300 hover:text-white text-[11px] font-bold border border-indigo-500/30 transition inline-flex items-center gap-1" title="Evaluate in Scout Desk"><span>🔭</span></a> <a href="player.html?id=${p.id}" target="_blank" class="px-2.5 py-1 rounded-lg bg-sky-600/30 hover:bg-sky-600 text-sky-300 hover:text-white font-sans text-[11px] font-bold border border-sky-500/30 transition shadow-sm inline-flex items-center gap-1">
+              <button type="button" onclick="toggleWatchlistQuick('${p.id}')" class="px-2 py-1 rounded-lg ${isWatched ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40' : 'bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-white border border-slate-700'} font-sans text-[11px] font-bold transition shadow-sm inline-flex items-center gap-1 cursor-pointer" title="${isWatched ? 'In Watched Ledger (Click to remove)' : 'Add to Watched Ledger'}">
+                <span>⭐</span>
+                <span>${isWatched ? 'Watching' : 'Watch'}</span>
+              </button>
+              <button type="button" onclick="window.openAuthModal('claim', '${p.id}')" class="px-2 py-1 rounded-lg bg-amber-500/20 hover:bg-amber-500/40 text-amber-300 font-sans text-[11px] font-bold border border-amber-500/30 transition shadow-sm inline-flex items-center gap-1 cursor-pointer" title="Claim Profile">⚡ Claim</button>
+              <a href="community.html" class="px-2 py-1 rounded-lg bg-cyan-600/30 hover:bg-cyan-600 text-cyan-300 hover:text-white text-[11px] font-bold border border-cyan-500/30 transition inline-flex items-center gap-1" title="Direct Message on Wire"><span>💬</span></a>
+              <a href="scout.html?player=${p.id}" class="px-2 py-1 rounded-lg bg-indigo-600/30 hover:bg-indigo-600 text-indigo-300 hover:text-white text-[11px] font-bold border border-indigo-500/30 transition inline-flex items-center gap-1" title="Evaluate in Scout Desk"><span>🔭</span></a>
+              <a href="player.html?id=${p.id}" target="_blank" class="px-2.5 py-1 rounded-lg bg-sky-600/30 hover:bg-sky-600 text-sky-300 hover:text-white font-sans text-[11px] font-bold border border-sky-500/30 transition shadow-sm inline-flex items-center gap-1">
                 Passport &rarr;
               </a>
             </td>
@@ -1572,8 +1683,11 @@
                 </div>
               </div>
 
-              <div class="pt-2 border-t border-slate-800/80">
-                <a href="player.html?id=${p.id}" target="_blank" class="w-full py-2 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-bold text-xs text-center transition shadow-md shadow-amber-600/20 block">
+              <div class="pt-2 border-t border-slate-800/80 flex items-center gap-2">
+                <a href="community.html" class="py-2 px-3 rounded-xl bg-cyan-600/30 hover:bg-cyan-600 text-cyan-300 hover:text-white font-bold text-xs text-center border border-cyan-500/30 transition inline-flex items-center justify-center gap-1" title="Direct Message on Wire">
+                  <span>💬</span> Wire
+                </a>
+                <a href="player.html?id=${p.id}" target="_blank" class="flex-1 py-2 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-bold text-xs text-center transition shadow-md shadow-amber-600/20 block">
                   Open Staff Dossier &rarr;
                 </a>
               </div>
@@ -1581,6 +1695,7 @@
           `;
         }
 
+        const isWatched = isInWatchingLedger(p.id);
         const isDrafted = p.draft_status && p.draft_status !== 'Undrafted';
 
         return `
@@ -1642,13 +1757,19 @@
 
             </div>
 
-            <div class="pt-2 border-t border-slate-800/80 flex items-center gap-2">
-              <button onclick="window.openAuthModal('claim', '${p.id}')" class="flex-1 py-2 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 font-bold text-xs text-center border border-amber-500/40 transition flex items-center justify-center gap-1 cursor-pointer">
-                <span>⚡</span> Claim
+            <div class="pt-2 border-t border-slate-800/80 flex flex-wrap items-center gap-1.5">
+              <button type="button" onclick="toggleWatchlistQuick('${p.id}')" class="flex-1 py-1.5 rounded-xl ${isWatched ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40' : 'bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-700'} font-bold text-xs text-center transition flex items-center justify-center gap-1 cursor-pointer" title="${isWatched ? 'In Watched Ledger (Click to remove)' : 'Add to Watched Ledger'}">
+                <span>⭐</span> ${isWatched ? 'Watching' : 'Watch'}
               </button>
-              <a href="player.html?id=${p.id}" target="_blank" class="flex-1 py-2 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-bold text-xs text-center transition shadow-md shadow-sky-600/20 block">
+              <a href="scout.html?player=${p.id}" class="py-1.5 px-3 rounded-xl bg-indigo-600/30 hover:bg-indigo-600 text-indigo-300 hover:text-white font-bold text-xs text-center border border-indigo-500/30 transition inline-flex items-center justify-center gap-1" title="Evaluate in Scout Desk">
+                <span>🔭</span> Desk
+              </a>
+              <a href="player.html?id=${p.id}" target="_blank" class="flex-1 py-1.5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-bold text-xs text-center transition shadow-md shadow-sky-600/20 block">
                 Passport &rarr;
               </a>
+              <button type="button" onclick="window.openAuthModal('claim', '${p.id}')" class="py-1.5 px-2.5 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 font-bold text-xs text-center border border-amber-500/40 transition flex items-center justify-center gap-1 cursor-pointer" title="Claim Profile">
+                <span>⚡</span>
+              </button>
             </div>
           </div>
         `;

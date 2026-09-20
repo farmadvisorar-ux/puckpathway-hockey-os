@@ -23,7 +23,7 @@
     pageStartTime: Date.now(),
     totalDwellSeconds: 0,
     pageDwellSeconds: 0,
-    currentPage: window.location.pathname.split("/").pop() || "index.html",
+    currentPage: (typeof window !== "undefined" && window.location && window.location.pathname ? window.location.pathname.split("/").pop() : "") || "index.html",
     history: []
   };
 

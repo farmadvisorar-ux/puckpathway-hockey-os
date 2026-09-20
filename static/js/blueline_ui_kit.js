@@ -17,7 +17,7 @@
   let toastContainer = null;
 
   function ensureToastContainer() {
-    if (toastContainer && document.body.contains(toastContainer)) return toastContainer;
+    if (toastContainer && document.body && (typeof document.body.contains === 'function' ? document.body.contains(toastContainer) : true)) return toastContainer;
     toastContainer = document.createElement('div');
     toastContainer.id = 'blueline-toast-container';
     toastContainer.className = 'fixed bottom-5 right-5 z-[9999] flex flex-col gap-2.5 pointer-events-none max-w-md w-full px-4';
@@ -71,15 +71,21 @@
     container.appendChild(toast);
 
     // Smooth enter
-    requestAnimationFrame(() => {
+    const rAF = (typeof requestAnimationFrame !== 'undefined') ? requestAnimationFrame : (cb => setTimeout(cb, 16));
+    rAF(() => {
       toast.classList.remove('translate-y-3', 'opacity-0');
       toast.classList.add('translate-y-0', 'opacity-100');
     });
 
     // Auto dismiss
     setTimeout(() => {
-      toast.classList.add('opacity-0', 'translate-x-4');
-      setTimeout(() => toast.remove(), 350);
+      setTimeout(() => {
+        if (typeof toast.remove === 'function') {
+          toast.remove();
+        } else if (toast.parentNode) {
+          toast.parentNode.removeChild(toast);
+        }
+      }, 350);
     }, duration);
   }
 
@@ -246,6 +252,58 @@
     setTimeout(() => {
       window.location.href = target;
     }, 300);
+  }
+
+  function getActivePlayerIdFromUrl() {
+    if (typeof window === 'undefined' || !window.location || !window.location.search) return null;
+    try {
+      const params = new URLSearchParams(window.location.search);
+      return params.get('player') || params.get('id') || params.get('athlete') || params.get('p') || null;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  const SCOUT_LEDGER_STORAGE_KEY = 'blueline_scout_watching_ledger';
+
+  function getScoutWatchingLedger() {
+    try {
+      const raw = localStorage.getItem(SCOUT_LEDGER_STORAGE_KEY);
+      return raw ? JSON.parse(raw) : [];
+    } catch (e) {
+      return [];
+    }
+  }
+
+  function saveScoutWatchingLedger(ledger) {
+    try {
+      localStorage.setItem(SCOUT_LEDGER_STORAGE_KEY, JSON.stringify(ledger || []));
+    } catch (e) {}
+  }
+
+  function isInWatchingLedger(athleteId) {
+    if (!athleteId) return false;
+    const ledger = getScoutWatchingLedger();
+    return ledger.includes(athleteId);
+  }
+
+  function togglePlayerInLedger(athleteId, athleteName) {
+    if (!athleteId) return false;
+    let ledger = getScoutWatchingLedger();
+    const name = athleteName || athleteId;
+    let isAdded = false;
+
+    if (ledger.includes(athleteId)) {
+      ledger = ledger.filter(id => id !== athleteId);
+      showToast(`Removed ${name} from Watched Prospects Ledger.`, 'info');
+      isAdded = false;
+    } else {
+      ledger.unshift(athleteId);
+      showToast(`⭐ Added ${name} to Watched Prospects Ledger!`, 'success');
+      isAdded = true;
+    }
+    saveScoutWatchingLedger(ledger);
+    return isAdded;
   }
 
   // =========================================================================
@@ -465,7 +523,11 @@
     showAccessRestrictedModal,
     getRoleHomeUrl,
     getRoleHomeTitle,
-    handleLogoClick
+    handleLogoClick,
+    getScoutWatchingLedger,
+    saveScoutWatchingLedger,
+    isInWatchingLedger,
+    togglePlayerInLedger
   };
 
 })(window);
