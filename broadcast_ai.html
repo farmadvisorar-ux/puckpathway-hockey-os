@@ -190,6 +190,42 @@
     </div>
   </header>
 
+  <!-- Active Athlete Broadcast Focus Banner -->
+  <div id="broadcastAthleteBanner" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 hidden">
+    <div class="glass-panel p-3.5 sm:p-4 rounded-2xl border border-purple-500/40 flex flex-wrap items-center justify-between gap-3 bg-purple-950/20">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-purple-600 to-indigo-600 flex items-center justify-center text-white text-lg font-black border border-purple-400/40">
+          🎙️
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <h3 id="broadcastPlayerName" class="text-sm sm:text-base font-black text-white">Macklin Celebrini</h3>
+            <span id="broadcastPlayerBadge" class="px-2 py-0.5 rounded-full bg-purple-500/20 text-purple-300 font-mono text-[10px] font-bold border border-purple-500/30">Target Athlete Focus</span>
+          </div>
+          <p id="broadcastPlayerTeam" class="text-xs text-slate-400">Speech-to-telemetry commentary calibration active</p>
+        </div>
+      </div>
+      <!-- Cross-Module Action Links -->
+      <div class="flex flex-wrap items-center gap-2 text-xs font-mono">
+        <a id="broadcastPassportBtn" href="player.html" class="px-3 py-1.5 rounded-xl bg-purple-500/20 hover:bg-purple-500/30 text-purple-300 border border-purple-500/40 font-bold transition flex items-center gap-1.5">
+          <span>🪪</span> <span>Passport</span>
+        </a>
+        <a id="broadcastScoutBtn" href="scout.html" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700 font-bold transition flex items-center gap-1.5">
+          <span>🔭</span> <span>Scout</span>
+        </a>
+        <a id="broadcastFilmBtn" href="film.html" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700 font-bold transition flex items-center gap-1.5">
+          <span>🎥</span> <span>Film</span>
+        </a>
+        <a id="broadcastCompareBtn" href="compare.html" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700 font-bold transition flex items-center gap-1.5">
+          <span>⚖️</span> <span>Compare</span>
+        </a>
+        <button type="button" id="broadcastWatchBtn" onclick="toggleWatchingBroadcast()" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700 font-bold transition flex items-center gap-1.5 cursor-pointer">
+          <span>⭐</span> <span id="broadcastWatchText">Watch</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- Main Studio Workspace -->
   <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6 flex-1 w-full no-print">
 
@@ -717,9 +753,88 @@
   <!-- Master Data & Studio Script -->
   <script src="static/js/bundle_data.js"></script>
   <script src="static/js/master_players.js"></script>
-  <script src="static/js/broadcast_studio.js"></script>
   <script src="static/js/telemetry.js"></script>
   <script src="static/js/auth_engine.js"></script>
+  <script src="static/js/blueline_ui_kit.js"></script>
   <script src="static/js/global_nav.js"></script>
+  <script src="static/js/broadcast_studio.js"></script>
+  <script>
+    let activeBroadcastPlayerId = null;
+    let activeBroadcastPlayerName = '';
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const paramPid = (window.BlueLineUI && typeof window.BlueLineUI.getActivePlayerIdFromUrl === 'function')
+        ? window.BlueLineUI.getActivePlayerIdFromUrl()
+        : (urlParams.get('player') || urlParams.get('id'));
+
+      if (paramPid) {
+        activeBroadcastPlayerId = paramPid;
+        const allList = window.MASTER_NON_PRO_REGISTRY || window.MASTER_PLAYERS || [];
+        const found = allList.find(p => p.id === activeBroadcastPlayerId || (p.name && p.name.toLowerCase() === activeBroadcastPlayerId.toLowerCase()));
+        const name = found ? found.name : paramPid;
+        activeBroadcastPlayerName = name;
+
+        const banner = document.getElementById('broadcastAthleteBanner');
+        if (banner) {
+          banner.classList.remove('hidden');
+          document.getElementById('broadcastPlayerName').textContent = name;
+          if (found && found.team) {
+            document.getElementById('broadcastPlayerTeam').textContent = `${found.team} • Commentary Calibration Focus`;
+          }
+        }
+
+        updateBroadcastActionButtons();
+
+        setTimeout(() => {
+          if (typeof ingestCommentarySentence === 'function') {
+            ingestCommentarySentence(`${name} controls the puck along the half-wall, creates separation with quick edge-work, and drives the net on a high-danger sequence!`, {
+              source: 'target_player_focus',
+              clock: '14:28',
+              period: '3rd'
+            });
+          }
+        }, 500);
+      }
+    });
+
+    function updateBroadcastActionButtons() {
+      if (!activeBroadcastPlayerId) return;
+      const passBtn = document.getElementById("broadcastPassportBtn");
+      const scBtn = document.getElementById("broadcastScoutBtn");
+      const filmBtn = document.getElementById("broadcastFilmBtn");
+      const compBtn = document.getElementById("broadcastCompareBtn");
+      if (passBtn) passBtn.href = `player.html?id=${encodeURIComponent(activeBroadcastPlayerId)}`;
+      if (scBtn) scBtn.href = `scout.html?player=${encodeURIComponent(activeBroadcastPlayerId)}`;
+      if (filmBtn) filmBtn.href = `film.html?player=${encodeURIComponent(activeBroadcastPlayerId)}`;
+      if (compBtn) compBtn.href = `compare.html?p1=${encodeURIComponent(activeBroadcastPlayerId)}`;
+
+      updateBroadcastWatchBtn();
+    }
+
+    function updateBroadcastWatchBtn() {
+      if (!window.BlueLineUI || !activeBroadcastPlayerId) return;
+      const isWatching = window.BlueLineUI.isPlayerInLedger(activeBroadcastPlayerId);
+      const btn = document.getElementById("broadcastWatchBtn");
+      const txt = document.getElementById("broadcastWatchText");
+      if (btn && txt) {
+        txt.textContent = isWatching ? "Watching" : "Watch";
+        btn.className = isWatching
+          ? "px-3 py-1.5 rounded-xl bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-500/40 font-bold transition flex items-center gap-1.5 cursor-pointer"
+          : "px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700 font-bold transition flex items-center gap-1.5 cursor-pointer";
+      }
+    }
+
+    window.toggleWatchingBroadcast = function() {
+      if (!activeBroadcastPlayerId) return;
+      if (window.BlueLineUI && typeof window.BlueLineUI.togglePlayerInLedger === 'function') {
+        const isNowWatching = window.BlueLineUI.togglePlayerInLedger(activeBroadcastPlayerId, activeBroadcastPlayerName);
+        updateBroadcastWatchBtn();
+        if (typeof window.BlueLineUI.showToast === 'function') {
+          window.BlueLineUI.showToast(isNowWatching ? `Added ${activeBroadcastPlayerName} to Scout Ledger watchlist.` : `Removed ${activeBroadcastPlayerName} from Scout Ledger watchlist.`, 'info');
+        }
+      }
+    };
+  </script>
 </body>
 </html>

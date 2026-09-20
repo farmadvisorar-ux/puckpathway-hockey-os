@@ -196,6 +196,42 @@
     </div>
   </div>
 
+  <!-- Active Athlete 3D Simulation Focus Banner -->
+  <div id="rink3dAthleteBanner" class="max-w-7xl mx-auto px-4 pt-4">
+    <div class="glass-panel p-3 sm:p-4 rounded-2xl border border-cyan-500/30 flex flex-wrap items-center justify-between gap-3 bg-cyan-950/20">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-600 to-blue-700 flex items-center justify-center text-white text-lg font-black border border-cyan-400/40">
+          🏒
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <h3 id="rink3dPlayerName" class="text-sm sm:text-base font-black text-white">Macklin Celebrini</h3>
+            <span id="rink3dPlayerBadge" class="px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 font-mono text-[10px] font-bold border border-cyan-500/30">C • 3D Tactical Mesh</span>
+          </div>
+          <p id="rink3dPlayerTeam" class="text-xs text-slate-400">Boston University • NCAA Division I / San Jose Sharks</p>
+        </div>
+      </div>
+      <!-- Cross-Module Action Links -->
+      <div class="flex flex-wrap items-center gap-2 text-xs font-mono">
+        <a id="rink3dPassportBtn" href="player.html" class="px-3 py-1.5 rounded-xl bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 font-bold transition flex items-center gap-1.5">
+          <span>🪪</span> <span>Passport</span>
+        </a>
+        <a id="rink3dScoutBtn" href="scout.html" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700 font-bold transition flex items-center gap-1.5">
+          <span>🔭</span> <span>Scout</span>
+        </a>
+        <a id="rink3dFilmBtn" href="film.html" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700 font-bold transition flex items-center gap-1.5">
+          <span>🎥</span> <span>Film</span>
+        </a>
+        <a id="rink3dCompareBtn" href="compare.html" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700 font-bold transition flex items-center gap-1.5">
+          <span>⚖️</span> <span>Compare</span>
+        </a>
+        <button type="button" id="rink3dWatchBtn" onclick="toggleWatchingRink3D()" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700 font-bold transition flex items-center gap-1.5 cursor-pointer">
+          <span>⭐</span> <span id="rink3dWatchText">Watch</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- MAIN 3D SIMULATOR VIEWPORT -->
   <main class="max-w-7xl mx-auto px-4 py-6 grid grid-cols-1 lg:grid-cols-12 gap-6 flex-1 w-full">
 
@@ -367,11 +403,38 @@
 
   <!-- SCRIPTS -->
   <script src="static/js/master_players.js"></script>
+  <script src="static/js/telemetry.js"></script>
+  <script src="static/js/auth_engine.js"></script>
+  <script src="static/js/blueline_ui_kit.js"></script>
+  <script src="static/js/global_nav.js"></script>
   <script src="static/js/rink_3d_simulator.js"></script>
   <script>
     let sim = null;
 
+    let activePlayerId = 'celebrini';
+    let activePlayerName = 'Macklin Celebrini';
+
     document.addEventListener('DOMContentLoaded', () => {
+      // Query Parameter Ingestion (?player= or ?id=)
+      const urlParams = new URLSearchParams(window.location.search);
+      const paramPid = (window.BlueLineUI && typeof window.BlueLineUI.getActivePlayerIdFromUrl === 'function')
+        ? window.BlueLineUI.getActivePlayerIdFromUrl()
+        : (urlParams.get('player') || urlParams.get('id'));
+
+      if (paramPid) {
+        activePlayerId = paramPid;
+        const allList = window.MASTER_NON_PRO_REGISTRY || window.MASTER_PLAYERS || [];
+        const found = allList.find(p => p.id === activePlayerId || (p.name && p.name.toLowerCase() === activePlayerId.toLowerCase()));
+        if (found) {
+          activePlayerId = found.id;
+          activePlayerName = found.name;
+          document.getElementById('rink3dPlayerName').textContent = found.name;
+          document.getElementById('rink3dPlayerBadge').textContent = `${found.pos || 'F'} • 3D Tactical Mesh`;
+          document.getElementById('rink3dPlayerTeam').textContent = `${found.team || 'Collegiate Program'} • ${found.league || 'NCAA Division I'}`;
+        }
+      }
+
+      updateRink3DActionButtons();
       sim = new BlueLine3DRinkSimulator('rink3dContainer');
 
       setInterval(() => {
@@ -434,16 +497,51 @@
     function share3DPlayToWire() {
       if (!sim) return;
       const post = sim.exportToWire();
-      if (post) {
-        alert(`🎉 3D Tactical Play Shared!\n\n"${post.playerBadge.name}" has been broadcast to The BlueLine Wire (#Tactical3D).`);
+      const msg = post
+        ? `🎉 3D Tactical Play Shared! "${post.playerBadge.name}" broadcasted to The BlueLine Wire (#Tactical3D).`
+        : '🎉 3D Tactical Play exported successfully!';
+      if (typeof window.BlueLineUI !== 'undefined' && typeof window.BlueLineUI.showToast === 'function') {
+        window.BlueLineUI.showToast(msg, 'success');
       } else {
-        typeof BlueLineUI !== 'undefined' ? BlueLineUI.showToast('🎉 3D Tactical Play exported successfully!', 'info') : alert('🎉 3D Tactical Play exported successfully!');
+        console.log(msg);
       }
     }
+
+    function updateRink3DActionButtons() {
+      const passBtn = document.getElementById("rink3dPassportBtn");
+      const scBtn = document.getElementById("rink3dScoutBtn");
+      const filmBtn = document.getElementById("rink3dFilmBtn");
+      const compBtn = document.getElementById("rink3dCompareBtn");
+      if (passBtn) passBtn.href = `player.html?id=${encodeURIComponent(activePlayerId)}`;
+      if (scBtn) scBtn.href = `scout.html?player=${encodeURIComponent(activePlayerId)}`;
+      if (filmBtn) filmBtn.href = `film.html?player=${encodeURIComponent(activePlayerId)}`;
+      if (compBtn) compBtn.href = `compare.html?p1=${encodeURIComponent(activePlayerId)}`;
+
+      updateRink3DWatchBtn();
+    }
+
+    function updateRink3DWatchBtn() {
+      if (!window.BlueLineUI) return;
+      const isWatching = window.BlueLineUI.isPlayerInLedger(activePlayerId);
+      const btn = document.getElementById("rink3dWatchBtn");
+      const txt = document.getElementById("rink3dWatchText");
+      if (btn && txt) {
+        txt.textContent = isWatching ? "Watching" : "Watch";
+        btn.className = isWatching
+          ? "px-3 py-1.5 rounded-xl bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-500/40 font-bold transition flex items-center gap-1.5 cursor-pointer"
+          : "px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700 font-bold transition flex items-center gap-1.5 cursor-pointer";
+      }
+    }
+
+    window.toggleWatchingRink3D = function() {
+      if (window.BlueLineUI && typeof window.BlueLineUI.togglePlayerInLedger === 'function') {
+        const isNowWatching = window.BlueLineUI.togglePlayerInLedger(activePlayerId, activePlayerName);
+        updateRink3DWatchBtn();
+        if (typeof window.BlueLineUI.showToast === 'function') {
+          window.BlueLineUI.showToast(isNowWatching ? `Added ${activePlayerName} to Scout Ledger watchlist.` : `Removed ${activePlayerName} from Scout Ledger watchlist.`, 'info');
+        }
+      }
+    };
   </script>
-  <script src="static/js/telemetry.js"></script>
-  <script src="static/js/auth_engine.js"></script>
-  <script src="static/js/global_nav.js"></script>
-  <script src="static/js/blueline_ui_kit.js"></script>
 </body>
 </html>

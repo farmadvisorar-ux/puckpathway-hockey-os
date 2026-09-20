@@ -250,6 +250,17 @@
         <p class="text-[11px] text-slate-400 italic line-clamp-2" id="cardScoutSummaryA">
           Complete 200-foot franchise center. Hobey Baker Award winner at age 17. Unrivaled motor and transition speed.
         </p>
+        <div class="flex items-center gap-2 pt-2 border-t border-slate-800 text-xs font-mono">
+          <a id="cardPassportLinkA" href="player.html" class="px-2.5 py-1 rounded-lg bg-sky-500/20 hover:bg-sky-500/30 text-sky-300 border border-sky-500/40 font-bold transition flex items-center gap-1">
+            <span>🪪</span> <span>Passport</span>
+          </a>
+          <a id="cardScoutLinkA" href="scout.html" class="px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700 font-bold transition flex items-center gap-1">
+            <span>🔭</span> <span>Scout</span>
+          </a>
+          <button type="button" id="cardWatchBtnA" onclick="toggleWatchingCompare('A')" class="px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700 font-bold transition flex items-center gap-1 cursor-pointer">
+            <span>⭐</span> <span id="cardWatchTextA">Watch</span>
+          </button>
+        </div>
       </div>
 
       <!-- Player B Card -->
@@ -289,6 +300,17 @@
         <p class="text-[11px] text-slate-400 italic line-clamp-2" id="cardScoutSummaryB">
           Franchise right-shot #1 defenseman. Pro frame, four-way mobility, and dynamic offensive blue-line activation.
         </p>
+        <div class="flex items-center gap-2 pt-2 border-t border-slate-800 text-xs font-mono">
+          <a id="cardPassportLinkB" href="player.html" class="px-2.5 py-1 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 font-bold transition flex items-center gap-1">
+            <span>🪪</span> <span>Passport</span>
+          </a>
+          <a id="cardScoutLinkB" href="scout.html" class="px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700 font-bold transition flex items-center gap-1">
+            <span>🔭</span> <span>Scout</span>
+          </a>
+          <button type="button" id="cardWatchBtnB" onclick="toggleWatchingCompare('B')" class="px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700 font-bold transition flex items-center gap-1 cursor-pointer">
+            <span>⭐</span> <span id="cardWatchTextB">Watch</span>
+          </button>
+        </div>
       </div>
 
     </div>
@@ -540,6 +562,10 @@
   <script src="static/js/institutions_catalog.js"></script>
   <script src="static/js/master_players.js"></script>
   <script src="static/js/compare_engine.js"></script>
+  <script src="static/js/telemetry.js"></script>
+  <script src="static/js/auth_engine.js"></script>
+  <script src="static/js/blueline_ui_kit.js"></script>
+  <script src="static/js/global_nav.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const engine = window.BlueLineCompareEngine;
@@ -548,9 +574,79 @@
 
       let currentMode = 'athlete'; // 'athlete' or 'institution'
 
+      // Athlete Registration Bridge for non-indexed master players
+      function registerPlayerIfMissing(pid) {
+        if (!pid || !engine || engine.COMPARISON_PLAYERS[pid]) return pid;
+        const allList = window.MASTER_NON_PRO_REGISTRY || window.MASTER_PLAYERS || [];
+        const mp = allList.find(p => p.id === pid || (p.name && p.name.toLowerCase() === pid.toLowerCase()));
+        if (mp) {
+          engine.COMPARISON_PLAYERS[mp.id] = {
+            id: mp.id,
+            name: mp.name,
+            team: mp.team || "Collegiate Program",
+            league: mp.league || "NCAA Division I",
+            pos: mp.pos || "F",
+            hand: (mp.num % 2 === 0) ? "L" : "R",
+            age: mp.date_of_birth ? Math.max(16, 2026 - parseInt(mp.date_of_birth.substring(0, 4))) : 20,
+            height: mp.height_str || (mp.height_in ? `${Math.floor(mp.height_in/12)}'${mp.height_in%12}"` : "6'1\""),
+            weight: mp.weight_lbs ? `${mp.weight_lbs} lbs` : "190 lbs",
+            draft: mp.draft_status || "Active Non-Pro Roster",
+            avatar: mp.pos === 'G' ? "🥅" : (mp.pos === 'D' ? "🛡️" : "⚡"),
+            color: "#0284c7",
+            accent: "#38bdf8",
+            nhlComp: mp.nhl_comp || "Developing Collegiate Prospect",
+            scoutSummary: mp.notes || `Elite ${mp.pos} verified with ${mp.composite_score ? Math.round(mp.composite_score) : 88} composite trajectory rating under BlueLine DataWorks tracking.`,
+            ratings: {
+              skating: Math.min(99, Math.round((mp.composite_score || 88) * 1.04)),
+              shooting: Math.min(99, Math.round((mp.composite_score || 88) * 0.98)),
+              hockeyIQ: Math.min(99, Math.round((mp.composite_score || 88) * 1.02)),
+              physicality: Math.min(99, Math.round((mp.composite_score || 88) * 0.94)),
+              defense: Math.min(99, Math.round((mp.composite_score || 88) * 0.96)),
+              transition: Math.min(99, Math.round((mp.composite_score || 88) * 1.03)),
+              biometrics: 90,
+              clutch: 92
+            },
+            nhleTrajectory: [
+              { age: 16, nhle: 32, league: "Prep / U16" },
+              { age: 17, nhle: 52, league: "Junior / USHL" },
+              { age: 18, nhle: 68, league: "NCAA D1" },
+              { age: 19, nhle: 62, league: "Current Roster" },
+              { age: 20, nhle: 76, league: "Projected Pro" },
+              { age: 22, nhle: 88, league: "Pro Prime" }
+            ]
+          };
+          return mp.id;
+        }
+        return pid;
+      }
+
+      // Query Parameter Ingestion (?p1=, ?p2=, ?player=, ?id=)
+      const urlParams = new URLSearchParams(window.location.search);
+      const paramP1 = (window.BlueLineUI && typeof window.BlueLineUI.getActivePlayerIdFromUrl === 'function')
+        ? window.BlueLineUI.getActivePlayerIdFromUrl()
+        : (urlParams.get('p1') || urlParams.get('player') || urlParams.get('id'));
+      const paramP2 = urlParams.get('p2');
+
       // Athlete Mode State
       let activeIdA = "celebrini";
       let activeIdB = "levshunov";
+
+      if (paramP1) {
+        const regA = registerPlayerIfMissing(paramP1);
+        if (engine && engine.COMPARISON_PLAYERS[regA]) {
+          activeIdA = regA;
+        }
+        if (paramP2) {
+          const regB = registerPlayerIfMissing(paramP2);
+          if (engine && engine.COMPARISON_PLAYERS[regB]) {
+            activeIdB = regB;
+          }
+        } else if (activeIdA === 'celebrini') {
+          activeIdB = 'levshunov';
+        } else if (activeIdA === activeIdB) {
+          activeIdB = 'celebrini';
+        }
+      }
 
       // Institution Mode State
       let activeInstIdA = "denver";
@@ -697,6 +793,11 @@
         document.getElementById('cardCompA').textContent = pA.nhlComp;
         document.getElementById('cardScoutSummaryA').textContent = pA.scoutSummary;
 
+        const passA = document.getElementById('cardPassportLinkA');
+        const scA = document.getElementById('cardScoutLinkA');
+        if (passA) passA.href = `player.html?id=${encodeURIComponent(pA.id)}`;
+        if (scA) scA.href = `scout.html?player=${encodeURIComponent(pA.id)}`;
+
         document.getElementById('cardLogoB').textContent = pB.avatar;
         document.getElementById('cardDraftB').textContent = pB.draft;
         document.getElementById('cardPosHandB').textContent = `${pB.pos} • ${pB.hand === 'L' ? 'Left' : 'Right'}`;
@@ -704,7 +805,49 @@
         document.getElementById('cardTeamB').textContent = pB.team;
         document.getElementById('cardCompB').textContent = pB.nhlComp;
         document.getElementById('cardScoutSummaryB').textContent = pB.scoutSummary;
+
+        const passB = document.getElementById('cardPassportLinkB');
+        const scB = document.getElementById('cardScoutLinkB');
+        if (passB) passB.href = `player.html?id=${encodeURIComponent(pB.id)}`;
+        if (scB) scB.href = `scout.html?player=${encodeURIComponent(pB.id)}`;
+
+        updateWatchButtons();
       }
+
+      function updateWatchButtons() {
+        if (!window.BlueLineUI) return;
+        const isA = window.BlueLineUI.isPlayerInLedger(activeIdA);
+        const isB = window.BlueLineUI.isPlayerInLedger(activeIdB);
+        const btnA = document.getElementById('cardWatchBtnA');
+        const txtA = document.getElementById('cardWatchTextA');
+        const btnB = document.getElementById('cardWatchBtnB');
+        const txtB = document.getElementById('cardWatchTextB');
+        if (btnA && txtA) {
+          txtA.textContent = isA ? "Watching" : "Watch";
+          btnA.className = isA 
+            ? "px-2.5 py-1 rounded-lg bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-500/40 font-bold transition flex items-center gap-1 cursor-pointer"
+            : "px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700 font-bold transition flex items-center gap-1 cursor-pointer";
+        }
+        if (btnB && txtB) {
+          txtB.textContent = isB ? "Watching" : "Watch";
+          btnB.className = isB 
+            ? "px-2.5 py-1 rounded-lg bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-500/40 font-bold transition flex items-center gap-1 cursor-pointer"
+            : "px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700 font-bold transition flex items-center gap-1 cursor-pointer";
+        }
+      }
+
+      window.toggleWatchingCompare = function(slot) {
+        const pid = (slot === 'A') ? activeIdA : activeIdB;
+        const pObj = engine && engine.COMPARISON_PLAYERS ? engine.COMPARISON_PLAYERS[pid] : null;
+        const pName = pObj ? pObj.name : pid;
+        if (window.BlueLineUI && typeof window.BlueLineUI.togglePlayerInLedger === 'function') {
+          const isNowWatching = window.BlueLineUI.togglePlayerInLedger(pid, pName);
+          updateWatchButtons();
+          showToast(isNowWatching ? `Added ${pName} to Scout Ledger watchlist.` : `Removed ${pName} from Scout Ledger watchlist.`, 'info');
+        } else {
+          showToast(`Ledger tracking toggled for ${pName}`, 'info');
+        }
+      };
 
       function renderCategoryEdges(verdict) {
         const pA = verdict.playerA;
@@ -997,7 +1140,6 @@
       renderComparison();
     });
   </script>
-  </script>
 
   <!-- Service Worker Registration for Offline Rinkside PWA -->
   <script>
@@ -1013,10 +1155,5 @@
       });
     }
   </script>
-
-  <script src="static/js/telemetry.js"></script>
-  <script src="static/js/auth_engine.js"></script>
-  <script src="static/js/global_nav.js"></script>
-  <script src="static/js/blueline_ui_kit.js"></script>
 </body>
 </html>

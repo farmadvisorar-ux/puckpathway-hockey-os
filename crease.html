@@ -532,6 +532,25 @@
             </p>
           </div>
 
+          <!-- Goalie Cross-Module Action Toolbar -->
+          <div class="flex flex-wrap items-center gap-2 pt-2 border-t border-slate-800 text-xs font-mono">
+            <a id="creasePassportBtn" href="player.html" class="px-3 py-1.5 rounded-xl bg-sky-500/20 hover:bg-sky-500/30 text-sky-300 border border-sky-500/40 font-bold transition flex items-center gap-1.5">
+              <span>🪪</span> <span>Passport</span>
+            </a>
+            <a id="creaseScoutBtn" href="scout.html" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700 font-bold transition flex items-center gap-1.5">
+              <span>🔭</span> <span>Scout</span>
+            </a>
+            <a id="creaseFilmBtn" href="film.html" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700 font-bold transition flex items-center gap-1.5">
+              <span>🎥</span> <span>Film</span>
+            </a>
+            <a id="creaseCompareBtn" href="compare.html" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700 font-bold transition flex items-center gap-1.5">
+              <span>⚖️</span> <span>Compare</span>
+            </a>
+            <button type="button" id="creaseWatchBtn" onclick="toggleWatchingCrease()" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700 font-bold transition flex items-center gap-1.5 cursor-pointer">
+              <span>⭐</span> <span id="creaseWatchText">Watch</span>
+            </button>
+          </div>
+
         </div>
 
         <!-- Panel E: Shootout & Breakaway AI Duel Arena -->
@@ -632,12 +651,55 @@
   <script src="static/js/master_players.js"></script>
   <script src="static/js/crease_engine.js"></script>
   <script src="static/js/telemetry.js"></script>
+  <script src="static/js/auth_engine.js"></script>
+  <script src="static/js/blueline_ui_kit.js"></script>
+  <script src="static/js/global_nav.js"></script>
 
   <!-- Interactive Studio Orchestrator Script -->
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      let activeGoalie = window.CreaseEngine.benchmarks[0]; // Trey Augustine default
       let allGoaliesList = window.CreaseEngine.getAllGoalies();
+      let activeGoalie = window.CreaseEngine.benchmarks[0]; // Trey Augustine default
+
+      // Query Parameter Ingestion (?player= or ?id=)
+      const urlParams = new URLSearchParams(window.location.search);
+      const paramPid = (window.BlueLineUI && typeof window.BlueLineUI.getActivePlayerIdFromUrl === 'function')
+        ? window.BlueLineUI.getActivePlayerIdFromUrl()
+        : (urlParams.get('player') || urlParams.get('id'));
+
+      if (paramPid) {
+        const found = allGoaliesList.find(g => g.id === paramPid || (g.name && g.name.toLowerCase() === paramPid.toLowerCase()))
+          || window.CreaseEngine.benchmarks.find(g => g.id === paramPid || (g.name && g.name.toLowerCase() === paramPid.toLowerCase()));
+        if (found) {
+          activeGoalie = found;
+        } else {
+          const allList = window.MASTER_NON_PRO_REGISTRY || window.MASTER_PLAYERS || [];
+          const mp = allList.find(p => p.id === paramPid || (p.name && p.name.toLowerCase() === paramPid.toLowerCase()));
+          if (mp) {
+            activeGoalie = {
+              id: mp.id,
+              name: mp.name,
+              team: mp.team || "Active Collegiate Program",
+              league: mp.league || "NCAA Division I",
+              draftStatus: mp.draft_status || "Undrafted / Amateur Prospect",
+              tier: "Monitored Prospect",
+              height: mp.height_str || (mp.height_in ? `${Math.floor(mp.height_in/12)}'${mp.height_in%12}"` : "6'2\""),
+              weight: mp.weight_lbs || 190,
+              catches: "L",
+              age: mp.date_of_birth ? Math.max(16, 2026 - parseInt(mp.date_of_birth.substring(0, 4))) : 19,
+              gsax: "+12.1",
+              svPct: "0.924",
+              hdsvPct: "0.852",
+              freezeRate: "58.2%",
+              rvhSealEfficiency: "91%",
+              reboundScore: 89,
+              recoverySpeed: "0.26s",
+              notes: mp.notes || `Elite verified netminder tracked in BlueLine DataWorks system with ${mp.composite_score || 88} composite score.`
+            };
+          }
+        }
+      }
+
       let currentShooterX = 0;
       let currentShooterY = 18; // 18 ft low slot
       let currentDepth = 2.5; // 2.5 ft top of crease
@@ -668,6 +730,10 @@
           quickSelect.appendChild(optGroup);
         }
       });
+
+      if (activeGoalie && quickSelect) {
+        quickSelect.value = activeGoalie.id;
+      }
 
       quickSelect.addEventListener("change", (e) => {
         const sel = allGoaliesList.find(g => g.id === e.target.value) || window.CreaseEngine.benchmarks.find(g => g.id === e.target.value);
@@ -871,7 +937,42 @@
         document.getElementById("dossierRecoveryBar").style.width = `${recPct}%`;
 
         document.getElementById("dossierNotes").textContent = `"${activeGoalie.notes}"`;
+
+        // Update cross-module action buttons
+        const passBtn = document.getElementById("creasePassportBtn");
+        const scBtn = document.getElementById("creaseScoutBtn");
+        const filmBtn = document.getElementById("creaseFilmBtn");
+        const compBtn = document.getElementById("creaseCompareBtn");
+        if (passBtn) passBtn.href = `player.html?id=${encodeURIComponent(activeGoalie.id)}`;
+        if (scBtn) scBtn.href = `scout.html?player=${encodeURIComponent(activeGoalie.id)}`;
+        if (filmBtn) filmBtn.href = `film.html?player=${encodeURIComponent(activeGoalie.id)}`;
+        if (compBtn) compBtn.href = `compare.html?p1=${encodeURIComponent(activeGoalie.id)}`;
+
+        updateCreaseWatchBtn();
       }
+
+      function updateCreaseWatchBtn() {
+        if (!window.BlueLineUI) return;
+        const isWatching = window.BlueLineUI.isPlayerInLedger(activeGoalie.id);
+        const btn = document.getElementById("creaseWatchBtn");
+        const txt = document.getElementById("creaseWatchText");
+        if (btn && txt) {
+          txt.textContent = isWatching ? "Watching" : "Watch";
+          btn.className = isWatching
+            ? "px-3 py-1.5 rounded-xl bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-500/40 font-bold transition flex items-center gap-1.5 cursor-pointer"
+            : "px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700 font-bold transition flex items-center gap-1.5 cursor-pointer";
+        }
+      }
+
+      window.toggleWatchingCrease = function() {
+        if (window.BlueLineUI && typeof window.BlueLineUI.togglePlayerInLedger === 'function') {
+          const isNowWatching = window.BlueLineUI.togglePlayerInLedger(activeGoalie.id, activeGoalie.name);
+          updateCreaseWatchBtn();
+          showToast(isNowWatching ? `Added ${activeGoalie.name} to Scout Ledger watchlist.` : `Removed ${activeGoalie.name} from Scout Ledger watchlist.`);
+        } else {
+          showToast(`Ledger tracking toggled for ${activeGoalie.name}`);
+        }
+      };
 
       function renderGoalieTable() {
         const tbody = document.getElementById("goalieTableBody");
@@ -958,8 +1059,5 @@
     }
   </script>
 
-  <script src="static/js/auth_engine.js"></script>
-  <script src="static/js/global_nav.js"></script>
-  <script src="static/js/blueline_ui_kit.js"></script>
 </body>
 </html>

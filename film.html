@@ -193,6 +193,9 @@
     </div>
   </div>
 
+  <!-- ATHLETE FOCUS BANNER -->
+  <div id="filmAthleteFocusBanner" class="max-w-7xl mx-auto px-4 pt-4 hidden"></div>
+
   <!-- MAIN STUDIO VIEWPORT & SIDEBAR -->
   <main class="max-w-7xl mx-auto px-4 py-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
 
@@ -493,12 +496,77 @@
 
   <!-- SCRIPTS -->
   <script src="static/js/master_players.js"></script>
+  <script src="static/js/telemetry.js"></script>
+  <script src="static/js/auth_engine.js"></script>
+  <script src="static/js/blueline_ui_kit.js"></script>
+  <script src="static/js/global_nav.js"></script>
   <script src="static/js/ai_film_studio.js"></script>
   <script>
     let studio = null;
 
     document.addEventListener('DOMContentLoaded', () => {
       studio = new BlueLineAIFilmStudio('filmStudioCanvas');
+
+      // Query Parameter Athlete Ingestion
+      const targetPlayerId = (window.BlueLineUI && typeof window.BlueLineUI.getActivePlayerIdFromUrl === 'function')
+        ? window.BlueLineUI.getActivePlayerIdFromUrl()
+        : new URLSearchParams(window.location.search).get('player') || new URLSearchParams(window.location.search).get('id');
+
+      if (targetPlayerId) {
+        const allRegistry = window.MASTER_NON_PRO_REGISTRY || window.MASTER_PLAYERS || [];
+        const found = allRegistry.find(p => p.id === targetPlayerId);
+        if (found) {
+          const athleteInput = document.getElementById('reelAthlete');
+          const titleInput = document.getElementById('reelTitle');
+          if (athleteInput) athleteInput.value = `${found.name} (${found.pos} #${found.num || '--'} - ${found.team || 'Collegiate'})`;
+          if (titleInput) titleInput.value = `${found.name} - Verified Transition Speed & Tactical AI Film Breakdown`;
+
+          const bannerEl = document.getElementById('filmAthleteFocusBanner');
+          if (bannerEl) {
+            bannerEl.classList.remove('hidden');
+            bannerEl.innerHTML = `
+              <div class="flex flex-wrap items-center justify-between gap-3 p-3.5 rounded-2xl bg-slate-900/90 border border-cyan-500/40 text-xs shadow-xl">
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-xl bg-cyan-500/20 text-cyan-300 font-black flex items-center justify-center text-sm border border-cyan-500/30">
+                    #${found.num || '--'}
+                  </div>
+                  <div>
+                    <div class="flex items-center gap-2">
+                      <span class="font-extrabold text-white text-sm">${found.name}</span>
+                      <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-cyan-950 text-cyan-300 border border-cyan-800">${found.pos}</span>
+                      <span class="text-slate-400 font-mono text-[11px]">${found.team}</span>
+                    </div>
+                    <p class="text-[11px] text-slate-300 mt-0.5">Tactical film telestration active. AI tracking skater trajectory, speed vectors, and seam passes.</p>
+                  </div>
+                </div>
+                <div class="flex items-center gap-2 flex-wrap font-mono">
+                  <a href="player.html?id=${encodeURIComponent(found.id)}" class="px-3 py-1.5 rounded-xl bg-sky-600/20 hover:bg-sky-600/30 text-sky-300 border border-sky-500/40 font-bold transition flex items-center gap-1.5">
+                    <span>🪪</span> <span>Passport</span>
+                  </a>
+                  <a href="scout.html?player=${encodeURIComponent(found.id)}" class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700 font-bold transition flex items-center gap-1.5">
+                    <span>🔭</span> <span>Scout</span>
+                  </a>
+                  <a href="compare.html?p1=${encodeURIComponent(found.id)}" class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700 font-bold transition flex items-center gap-1.5">
+                    <span>⚖️</span> <span>Compare</span>
+                  </a>
+                  <button type="button" onclick="toggleWatchingFilm('${found.id}', '${found.name.replace(/'/g, "\\'")}')" id="filmWatchBtn" class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700 font-bold transition flex items-center gap-1.5 cursor-pointer">
+                    <span>⭐</span> <span id="filmWatchText">Watch</span>
+                  </button>
+                </div>
+              </div>
+            `;
+            if (window.BlueLineUI && typeof window.BlueLineUI.isInWatchingLedger === 'function') {
+              const isWatched = window.BlueLineUI.isInWatchingLedger(found.id);
+              const txt = document.getElementById('filmWatchText');
+              const btn = document.getElementById('filmWatchBtn');
+              if (isWatched && txt && btn) {
+                txt.textContent = 'In Ledger';
+                btn.className = 'px-3 py-1.5 rounded-xl bg-amber-500/20 text-amber-300 border border-amber-500/50 font-bold transition flex items-center gap-1.5';
+              }
+            }
+          }
+        }
+      }
 
       // Update Scrubber and timecodes
       setInterval(() => {
@@ -601,6 +669,22 @@
       document.getElementById('reelModal').classList.remove('flex');
     }
 
+    window.toggleWatchingFilm = function(id, name) {
+      if (!window.BlueLineUI || typeof window.BlueLineUI.togglePlayerInLedger !== 'function') return;
+      const isNowWatched = window.BlueLineUI.togglePlayerInLedger(id, name);
+      const txt = document.getElementById('filmWatchText');
+      const btn = document.getElementById('filmWatchBtn');
+      if (txt && btn) {
+        if (isNowWatched) {
+          txt.textContent = 'In Ledger';
+          btn.className = 'px-3 py-1.5 rounded-xl bg-amber-500/20 text-amber-300 border border-amber-500/50 font-bold transition flex items-center gap-1.5';
+        } else {
+          txt.textContent = 'Watch';
+          btn.className = 'px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700 font-bold transition flex items-center gap-1.5';
+        }
+      }
+    };
+
     function handleExportReel(e) {
       e.preventDefault();
       if (!studio) return;
@@ -614,9 +698,5 @@
       typeof BlueLineUI !== 'undefined' ? BlueLineUI.showToast(`🎉 Highlight Reel Generated!\n\n"${reel.title}" has been compiled with ${reel.annotationsCount} tactical annotations, speed telemetry, and BlueLine Scouting Bureau's scouting seal. Published to The BlueLine Wire!`, 'info') : alert(`🎉 Highlight Reel Generated!\n\n"${reel.title}" has been compiled with ${reel.annotationsCount} tactical annotations, speed telemetry, and BlueLine Scouting Bureau's scouting seal. Published to The BlueLine Wire!`);
     }
   </script>
-  <script src="static/js/telemetry.js"></script>
-  <script src="static/js/auth_engine.js"></script>
-  <script src="static/js/global_nav.js"></script>
-  <script src="static/js/blueline_ui_kit.js"></script>
 </body>
 </html>

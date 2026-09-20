@@ -523,6 +523,25 @@
               <p class="text-[10px] text-slate-500 mt-0.5">Loose puck retrievals</p>
             </div>
           </div>
+
+          <!-- Cross-Module Action Toolbar -->
+          <div class="flex flex-wrap items-center gap-2 pt-3 border-t border-slate-800 text-xs font-mono">
+            <a id="trackingPassportBtn" href="player.html" class="px-3 py-1.5 rounded-xl bg-teal-500/20 hover:bg-teal-500/30 text-teal-300 border border-teal-500/40 font-bold transition flex items-center gap-1.5">
+              <span>🪪</span> <span>Passport</span>
+            </a>
+            <a id="trackingScoutBtn" href="scout.html" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700 font-bold transition flex items-center gap-1.5">
+              <span>🔭</span> <span>Scout</span>
+            </a>
+            <a id="trackingFilmBtn" href="film.html" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700 font-bold transition flex items-center gap-1.5">
+              <span>🎥</span> <span>Film</span>
+            </a>
+            <a id="trackingCompareBtn" href="compare.html" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700 font-bold transition flex items-center gap-1.5">
+              <span>⚖️</span> <span>Compare</span>
+            </a>
+            <button type="button" id="trackingWatchBtn" onclick="window.toggleWatchingTracking()" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700 font-bold transition flex items-center gap-1.5 cursor-pointer">
+              <span>⭐</span> <span id="trackingWatchText">Watch</span>
+            </button>
+          </div>
         </div>
 
         <!-- Panel D: Puck Battle & Forecheck Pressure Matrix -->
@@ -611,6 +630,10 @@
 
   <!-- Scripts -->
   <script src="static/js/tracking_engine.js"></script>
+  <script src="static/js/telemetry.js"></script>
+  <script src="static/js/auth_engine.js"></script>
+  <script src="static/js/blueline_ui_kit.js"></script>
+  <script src="static/js/global_nav.js"></script>
   <script>
     (function() {
       "use strict";
@@ -619,6 +642,47 @@
       const players = window.TrackingEngine ? window.TrackingEngine.players : [];
       const sequenceSteps = window.TrackingEngine ? window.TrackingEngine.sequenceSteps : [];
       let selectedPlayerIndex = 0;
+
+      // Query Parameter Ingestion (?player= or ?id=)
+      const urlParams = new URLSearchParams(window.location.search);
+      const paramPid = (window.BlueLineUI && typeof window.BlueLineUI.getActivePlayerIdFromUrl === 'function')
+        ? window.BlueLineUI.getActivePlayerIdFromUrl()
+        : (urlParams.get('player') || urlParams.get('id'));
+
+      if (paramPid && players.length > 0) {
+        const foundIdx = players.findIndex(p => p.id === paramPid || (p.name && p.name.toLowerCase() === paramPid.toLowerCase()));
+        if (foundIdx !== -1) {
+          selectedPlayerIndex = foundIdx;
+        } else {
+          const allList = window.MASTER_NON_PRO_REGISTRY || window.MASTER_PLAYERS || [];
+          const mp = allList.find(p => p.id === paramPid || (p.name && p.name.toLowerCase() === paramPid.toLowerCase()));
+          if (mp) {
+            const newSkater = {
+              id: mp.id,
+              name: mp.name,
+              position: mp.pos || "C",
+              team: mp.team || "Active Collegiate Program",
+              league: mp.league || "NCAA Division I",
+              profile: mp.notes || `Elite verified ${mp.pos} tracked under BlueLine DataWorks spatial microstat protocol with ${mp.composite_score || 88} rating.`,
+              controlledEntryPct: "73.8%",
+              controlledExitPct: "79.2%",
+              denialRate: "61.0%",
+              royalRoadPassesPer60: "3.9",
+              carryInXgPer60: "2.85",
+              puckRecoveriesPer60: "18.4",
+              forecheckPressureScore: 91,
+              passingLinks: [
+                { from: "C", to: "LW", count: 18, pct: "88%", royalRoad: false },
+                { from: "C", to: "RW", count: 14, pct: "82%", royalRoad: true },
+                { from: "LD", to: "C", count: 12, pct: "90%", royalRoad: false },
+                { from: "RD", to: "C", count: 11, pct: "86%", royalRoad: false }
+              ]
+            };
+            players.push(newSkater);
+            selectedPlayerIndex = players.length - 1;
+          }
+        }
+      }
       let activeStepIndex = 0;
       let playInterval = null;
       let royalRoadOnly = false;
@@ -701,7 +765,46 @@
         document.getElementById("forecheckScoreBadge").textContent = `Score: ${p.forecheckPressureScore}/100`;
 
         document.getElementById("rinkTitle").textContent = `${p.name} • Spatial Passing Web`;
+
+        // Update cross-module action buttons
+        const passBtn = document.getElementById("trackingPassportBtn");
+        const scBtn = document.getElementById("trackingScoutBtn");
+        const filmBtn = document.getElementById("trackingFilmBtn");
+        const compBtn = document.getElementById("trackingCompareBtn");
+        if (passBtn) passBtn.href = `player.html?id=${encodeURIComponent(p.id)}`;
+        if (scBtn) scBtn.href = `scout.html?player=${encodeURIComponent(p.id)}`;
+        if (filmBtn) filmBtn.href = `film.html?player=${encodeURIComponent(p.id)}`;
+        if (compBtn) compBtn.href = `compare.html?p1=${encodeURIComponent(p.id)}`;
+
+        updateTrackingWatchBtn();
       }
+
+      function updateTrackingWatchBtn() {
+        if (!window.BlueLineUI) return;
+        const p = players[selectedPlayerIndex];
+        if (!p) return;
+        const isWatching = window.BlueLineUI.isPlayerInLedger(p.id);
+        const btn = document.getElementById("trackingWatchBtn");
+        const txt = document.getElementById("trackingWatchText");
+        if (btn && txt) {
+          txt.textContent = isWatching ? "Watching" : "Watch";
+          btn.className = isWatching
+            ? "px-3 py-1.5 rounded-xl bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-500/40 font-bold transition flex items-center gap-1.5 cursor-pointer"
+            : "px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700 font-bold transition flex items-center gap-1.5 cursor-pointer";
+        }
+      }
+
+      window.toggleWatchingTracking = function() {
+        const p = players[selectedPlayerIndex];
+        if (!p) return;
+        if (window.BlueLineUI && typeof window.BlueLineUI.togglePlayerInLedger === 'function') {
+          const isNowWatching = window.BlueLineUI.togglePlayerInLedger(p.id, p.name);
+          updateTrackingWatchBtn();
+          if (typeof window.BlueLineUI.showToast === 'function') {
+            window.BlueLineUI.showToast(isNowWatching ? `Added ${p.name} to Scout Ledger watchlist.` : `Removed ${p.name} from Scout Ledger watchlist.`, 'info');
+          }
+        }
+      };
 
       // 5. Canvas Passing Web Visualizer
       const canvas = document.getElementById("passingNetworkCanvas");
@@ -1040,7 +1143,5 @@
     }
   </script>
 
-  <script src="static/js/auth_engine.js"></script>
-  <script src="static/js/global_nav.js"></script>
 </body>
 </html>

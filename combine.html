@@ -220,6 +220,25 @@
           <div class="p-3 rounded-2xl bg-slate-950/80 border border-slate-800/80 text-xs text-slate-300 leading-relaxed italic" id="scoutingNotesDisplay">
             "Elite first-three-stride laser speed combined with top 2% aerobic capacity. Exceptional recovery in high-intensity shifts."
           </div>
+
+          <!-- Cross-Module Action Toolbar -->
+          <div class="flex flex-wrap items-center gap-2 pt-2 border-t border-slate-800 text-xs font-mono">
+            <a id="combinePassportBtn" href="player.html" class="px-3 py-1.5 rounded-xl bg-sky-500/20 hover:bg-sky-500/30 text-sky-300 border border-sky-500/40 font-bold transition flex items-center gap-1.5">
+              <span>🪪</span> <span>Passport</span>
+            </a>
+            <a id="combineScoutBtn" href="scout.html" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700 font-bold transition flex items-center gap-1.5">
+              <span>🔭</span> <span>Scout</span>
+            </a>
+            <a id="combineFilmBtn" href="film.html" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700 font-bold transition flex items-center gap-1.5">
+              <span>🎥</span> <span>Film</span>
+            </a>
+            <a id="combineCompareBtn" href="compare.html" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700 font-bold transition flex items-center gap-1.5">
+              <span>⚖️</span> <span>Compare</span>
+            </a>
+            <button type="button" id="combineWatchBtn" onclick="toggleWatchingCombine()" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700 font-bold transition flex items-center gap-1.5 cursor-pointer">
+              <span>⭐</span> <span id="combineWatchText">Watch</span>
+            </button>
+          </div>
         </div>
 
         <!-- Testing Protocol Sliders & Inputs -->
@@ -458,6 +477,10 @@
   <!-- Scripts -->
   <script src="static/js/master_players.js"></script>
   <script src="static/js/combine_engine.js"></script>
+  <script src="static/js/telemetry.js"></script>
+  <script src="static/js/auth_engine.js"></script>
+  <script src="static/js/blueline_ui_kit.js"></script>
+  <script src="static/js/global_nav.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const engine = window.BlueLineCombineEngine;
@@ -477,8 +500,53 @@
         <option value="custom">⚡ Custom Athlete Entry...</option>
       `;
 
-      let currentMetrics = Object.assign({}, engine.PROSPECT_BENCHMARKS[0].metrics);
       let currentAthlete = engine.PROSPECT_BENCHMARKS[0];
+
+      // Query Parameter Ingestion (?player= or ?id=)
+      const urlParams = new URLSearchParams(window.location.search);
+      const paramPid = (window.BlueLineUI && typeof window.BlueLineUI.getActivePlayerIdFromUrl === 'function')
+        ? window.BlueLineUI.getActivePlayerIdFromUrl()
+        : (urlParams.get('player') || urlParams.get('id'));
+
+      if (paramPid) {
+        let matched = engine.PROSPECT_BENCHMARKS.find(p => p.id === paramPid || (p.name && p.name.toLowerCase() === paramPid.toLowerCase()));
+        if (!matched) {
+          const allList = window.MASTER_NON_PRO_REGISTRY || window.MASTER_PLAYERS || [];
+          const mp = allList.find(p => p.id === paramPid || (p.name && p.name.toLowerCase() === paramPid.toLowerCase()));
+          if (mp) {
+            matched = {
+              id: mp.id,
+              name: mp.name,
+              pos: mp.pos || 'F',
+              team: mp.team || 'Collegiate Program',
+              height: mp.height_str || (mp.height_in ? `${Math.floor(mp.height_in/12)}'${mp.height_in%12}"` : "6'1\""),
+              weight: mp.weight_lbs || 190,
+              metrics: {
+                sprint30m: 3.88,
+                wingatePeak: 16.8,
+                verticalJump: 27.5,
+                proAgility: 4.22,
+                pullUps: 15,
+                gripStrength: 62,
+                vo2Max: 61.5,
+                broadJump: 110
+              },
+              scoutingNote: mp.notes || `Elite verified athlete tracked in BlueLine DataWorks system with ${mp.composite_score || 88} composite rating.`
+            };
+            engine.PROSPECT_BENCHMARKS.push(matched);
+            const opt = document.createElement('option');
+            opt.value = matched.id;
+            opt.textContent = `${matched.name} (${matched.pos} • ${matched.team.split('/')[0].trim()})`;
+            prospectSelect.insertBefore(opt, prospectSelect.lastElementChild);
+          }
+        }
+        if (matched) {
+          currentAthlete = matched;
+          prospectSelect.value = matched.id;
+        }
+      }
+
+      let currentMetrics = Object.assign({}, currentAthlete.metrics);
 
       // Update Form Inputs from Metrics
       function syncMetricsToForm(metrics) {
@@ -581,7 +649,44 @@
         document.getElementById('radarAthleteLabel').textContent = currentAthlete.name;
 
         syncMetricsToForm(currentAthlete.metrics);
+        updateAthleteActionButtons();
       });
+
+      function updateAthleteActionButtons() {
+        const passBtn = document.getElementById("combinePassportBtn");
+        const scBtn = document.getElementById("combineScoutBtn");
+        const filmBtn = document.getElementById("combineFilmBtn");
+        const compBtn = document.getElementById("combineCompareBtn");
+        if (passBtn) passBtn.href = `player.html?id=${encodeURIComponent(currentAthlete.id)}`;
+        if (scBtn) scBtn.href = `scout.html?player=${encodeURIComponent(currentAthlete.id)}`;
+        if (filmBtn) filmBtn.href = `film.html?player=${encodeURIComponent(currentAthlete.id)}`;
+        if (compBtn) compBtn.href = `compare.html?p1=${encodeURIComponent(currentAthlete.id)}`;
+
+        updateCombineWatchBtn();
+      }
+
+      function updateCombineWatchBtn() {
+        if (!window.BlueLineUI) return;
+        const isWatching = window.BlueLineUI.isPlayerInLedger(currentAthlete.id);
+        const btn = document.getElementById("combineWatchBtn");
+        const txt = document.getElementById("combineWatchText");
+        if (btn && txt) {
+          txt.textContent = isWatching ? "Watching" : "Watch";
+          btn.className = isWatching
+            ? "px-3 py-1.5 rounded-xl bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-500/40 font-bold transition flex items-center gap-1.5 cursor-pointer"
+            : "px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700 font-bold transition flex items-center gap-1.5 cursor-pointer";
+        }
+      }
+
+      window.toggleWatchingCombine = function() {
+        if (window.BlueLineUI && typeof window.BlueLineUI.togglePlayerInLedger === 'function') {
+          const isNowWatching = window.BlueLineUI.togglePlayerInLedger(currentAthlete.id, currentAthlete.name);
+          updateCombineWatchBtn();
+          showToast(isNowWatching ? `Added ${currentAthlete.name} to Scout Ledger watchlist.` : `Removed ${currentAthlete.name} from Scout Ledger watchlist.`, 'info');
+        } else {
+          showToast(`Ledger tracking toggled for ${currentAthlete.name}`);
+        }
+      };
 
       // Change Cohort Comparison
       cohortSelect.addEventListener('change', () => {
@@ -682,7 +787,17 @@
       }
 
       // Initial Load
+      if (currentAthlete && currentAthlete.id !== engine.PROSPECT_BENCHMARKS[0].id) {
+        document.getElementById('athleteName').textContent = currentAthlete.name;
+        document.getElementById('athleteInitials').textContent = currentAthlete.name.split(' ').map(w => w[0]).join('');
+        document.getElementById('athletePos').textContent = currentAthlete.pos;
+        document.getElementById('athleteTeam').textContent = currentAthlete.team;
+        document.getElementById('athleteBio').textContent = `${currentAthlete.height} • ${currentAthlete.weight} lbs • Official Verified Assessment`;
+        document.getElementById('scoutingNotesDisplay').textContent = `"${currentAthlete.scoutingNote || 'Certified combine measurements.'}"`;
+        document.getElementById('radarAthleteLabel').textContent = currentAthlete.name;
+      }
       syncMetricsToForm(currentMetrics);
+      updateAthleteActionButtons();
       renderHistory();
     });
   </script>
@@ -702,9 +817,5 @@
     }
   </script>
 
-  <script src="static/js/telemetry.js"></script>
-  <script src="static/js/auth_engine.js"></script>
-  <script src="static/js/global_nav.js"></script>
-  <script src="static/js/blueline_ui_kit.js"></script>
 </body>
 </html>
