@@ -161,6 +161,78 @@
     <!-- ========================================================================= -->
     <div id="view_workspace" class="space-y-6">
 
+      <!-- ========================================================================= -->
+      <!-- 1. UNIVERSAL SCOUT PROSPECT SEARCH & INSTANT AUTOCOMPLETE CONSOLE -->
+      <!-- ========================================================================= -->
+      <div class="relative z-30">
+        <div class="glass-card rounded-2xl p-3 border border-sky-500/40 shadow-xl bg-slate-950/90 flex flex-wrap items-center gap-3">
+          <div class="flex items-center gap-2 pl-2 text-sky-400">
+            <i class="fa-solid fa-magnifying-glass text-sm"></i>
+            <span class="text-xs font-mono font-bold uppercase tracking-wider hidden sm:inline text-slate-300">Scout Search:</span>
+          </div>
+          
+          <div class="relative flex-1 min-w-[260px]">
+            <input type="text" id="scoutGlobalPlayerSearch" oninput="handleScoutGlobalSearch(this.value)" placeholder="Search by name, team, position, league (e.g. 'Michael Hage', 'Denver', 'Buium', 'USHL forward')..." class="w-full bg-slate-900/90 border border-slate-700 focus:border-sky-400 rounded-xl pl-3.5 pr-8 py-2 text-xs text-white placeholder-slate-500 focus:outline-none font-sans transition">
+            <button type="button" id="clearScoutSearchBtn" onclick="clearScoutGlobalSearch()" class="hidden absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white text-xs p-1">
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+          </div>
+
+          <!-- Quick Action Buttons -->
+          <div class="flex items-center gap-2">
+            <button type="button" onclick="toggleWatchingLedgerDrawer()" id="toggleLedgerBtn" class="px-3.5 py-2 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 text-xs font-bold font-mono flex items-center gap-1.5 transition cursor-pointer shadow-sm">
+              <i class="fa-solid fa-star text-amber-400"></i>
+              <span>Watched Ledger (<span id="quickLedgerCountBadge">0</span>)</span>
+            </button>
+            <button type="button" onclick="switchScoutTab('directory')" class="px-3 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700 text-xs font-medium font-mono hidden md:flex items-center gap-1.5 transition cursor-pointer">
+              <i class="fa-solid fa-users text-sky-400"></i>
+              <span>4,019+ Database</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Floating Search Results Dropdown -->
+        <div id="scoutSearchResultsDropdown" class="hidden absolute left-0 right-0 top-full mt-2 bg-slate-950/95 border border-sky-500/50 rounded-2xl shadow-2xl p-3 space-y-2 max-h-96 overflow-y-auto backdrop-blur-xl z-50">
+          <!-- Dynamically populated -->
+        </div>
+      </div>
+
+      <!-- ========================================================================= -->
+      <!-- 2. SCOUT'S WATCHED PROSPECTS LEDGER (ACTIVE WATCHING BOARD) -->
+      <!-- ========================================================================= -->
+      <div id="watchingLedgerPanel" class="glass-card rounded-3xl p-5 border border-amber-500/30 bg-slate-950/85 space-y-4 shadow-2xl relative overflow-hidden">
+        <div class="flex flex-wrap items-center justify-between border-b border-slate-800 pb-3 gap-3">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-500 to-orange-600 text-slate-950 font-black flex items-center justify-center text-base shadow-md">
+              📋
+            </div>
+            <div>
+              <div class="flex items-center gap-2">
+                <h2 class="text-base font-black text-white tracking-tight">Watched Prospects Ledger</h2>
+                <span class="px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40 text-[10px] font-mono font-bold" id="watchingLedgerHeaderBadge">0 Tracked Prospects</span>
+              </div>
+              <p class="text-xs text-slate-400">Scout's active target ledger. Click any prospect to load into Live Micro-Telemetry Logger, AI Film Room, or Compare Lab.</p>
+            </div>
+          </div>
+
+          <!-- Position Filters & CSV Export -->
+          <div class="flex flex-wrap items-center gap-2 text-xs font-mono">
+            <button type="button" onclick="filterLedgerPos('all')" class="ledger-pos-btn active px-2.5 py-1 rounded-lg bg-amber-500 text-slate-950 font-bold text-[11px]" data-lpos="all">All (<span id="lCountAll">0</span>)</button>
+            <button type="button" onclick="filterLedgerPos('F')" class="ledger-pos-btn px-2.5 py-1 rounded-lg bg-slate-900 text-slate-300 hover:text-white text-[11px]" data-lpos="F">Forwards (<span id="lCountF">0</span>)</button>
+            <button type="button" onclick="filterLedgerPos('D')" class="ledger-pos-btn px-2.5 py-1 rounded-lg bg-slate-900 text-slate-300 hover:text-white text-[11px]" data-lpos="D">Defense (<span id="lCountD">0</span>)</button>
+            <button type="button" onclick="filterLedgerPos('G')" class="ledger-pos-btn px-2.5 py-1 rounded-lg bg-slate-900 text-slate-300 hover:text-white text-[11px]" data-lpos="G">Goalies (<span id="lCountG">0</span>)</button>
+            <button type="button" onclick="exportScoutLedgerCsv()" class="px-3 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 text-[11px] font-bold flex items-center gap-1 transition cursor-pointer">
+              <i class="fa-solid fa-download text-amber-400"></i> Export CSV
+            </button>
+          </div>
+        </div>
+
+        <!-- Watched Players Grid -->
+        <div id="watchingLedgerCardsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+          <!-- Dynamically rendered -->
+        </div>
+      </div>
+
       <!-- Active Athlete Dossier Hero Card -->
       <div class="glass-card rounded-3xl p-5 sm:p-6 relative overflow-hidden border border-sky-500/30 shadow-2xl">
         <div class="absolute -right-16 -top-16 w-64 h-64 bg-sky-500/10 rounded-full blur-3xl pointer-events-none"></div>
@@ -229,6 +301,10 @@
               <button onclick="launchCurrentAthlete('player')" class="px-3 py-1.5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white border border-sky-400/50 text-xs font-bold transition flex items-center gap-1.5 cursor-pointer shadow-md">
                 <i class="fa-solid fa-id-card"></i>
                 <span>Full Passport</span>
+              </button>
+              <button id="heroWatchlistToggleBtn" type="button" onclick="toggleActiveAthleteInLedger()" class="px-3 py-1.5 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 text-xs font-bold transition flex items-center gap-1.5 cursor-pointer shadow-md">
+                <i id="heroWatchlistIcon" class="fa-solid fa-star text-amber-400"></i>
+                <span id="heroWatchlistText">In Watched Ledger</span>
               </button>
             </div>
 
@@ -972,8 +1048,9 @@
     let currentLeagueFilter = 'all';
     let currentPosFilter = 'all';
 
-    // Priority Shortlist Mock IDs
-    const shortlistIds = ['mp_0013', 'mp_0001', 'mp_0002', 'mp_0015'];
+    // Master Watched Ledger Storage Key & Filters
+    const SCOUT_LEDGER_STORAGE_KEY = 'blueline_scout_watching_ledger';
+    let currentLedgerPosFilter = 'all';
 
     document.addEventListener('DOMContentLoaded', () => {
       // 1. Enforce Recruiter Pro Clearance Paywall Barrier
@@ -1020,9 +1097,23 @@
         setDefaultAthlete();
       }
 
-      // 5. Render Initial Directory & Shortlist
+      // 5. Render Initial Directory, Shortlist, and Watched Prospects Ledger
       renderDirectoryTable();
-      renderShortlistBoard();
+      updateLedgerUI();
+
+      // 6. Universal Search Dropdown Dismissal Listeners
+      document.addEventListener('click', (e) => {
+        const dropdown = document.getElementById('scoutSearchResultsDropdown');
+        const searchInput = document.getElementById('scoutGlobalPlayerSearch');
+        if (dropdown && !dropdown.contains(e.target) && e.target !== searchInput) {
+          dropdown.classList.add('hidden');
+        }
+      });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          clearScoutGlobalSearch();
+        }
+      });
     });
 
     function setDefaultAthlete() {
@@ -1086,6 +1177,10 @@
       
       const d1Pct = Math.min(98.5, Math.max(45.0, baseScore * 0.72)).toFixed(1);
       document.getElementById('trajNcaaPct').textContent = `${d1Pct}% (Tier 1)`;
+
+      // Sync Watched Ledger Button & Indicator
+      updateHeroWatchlistButton();
+      renderWatchingLedgerCards();
     }
 
     function handleAthleteSelectChange(athleteId) {
@@ -1299,6 +1394,7 @@
         const score = p.composite_score ? p.composite_score.toFixed(1) : "86.0";
         const ht = p.height_str || (p.height_in ? `${Math.floor(p.height_in/12)}'${p.height_in%12}"` : "6'0\"");
         const wt = p.weight_lbs ? `${p.weight_lbs} lbs` : "180 lbs";
+        const isWatched = isInWatchingLedger(p.id);
 
         return `
           <tr class="hover:bg-slate-900/70 transition border-b border-slate-800/40 text-xs">
@@ -1330,11 +1426,14 @@
                 <button type="button" onclick="selectAthleteFromDirectory('${p.id}')" class="px-2.5 py-1 rounded-lg bg-sky-600 hover:bg-sky-500 text-white font-bold text-[11px] transition shadow-sm cursor-pointer" title="Load into Scout Desk Telemetry">
                   Evaluate
                 </button>
+                <button type="button" onclick="togglePlayerInLedger('${p.id}')" class="px-2 py-1 rounded-lg ${isWatched ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40' : 'bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700'} text-[11px] font-bold transition cursor-pointer" title="${isWatched ? 'Remove from Watched Ledger' : 'Add to Watched Ledger'}">
+                  <i class="fa-solid fa-star ${isWatched ? 'text-amber-400' : 'text-slate-400'}"></i>
+                </button>
                 <button type="button" onclick="BlueLineUI.launchAthleteInModule('film', '${p.id}')" class="p-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700 text-xs transition cursor-pointer" title="AI Film Room">
-                  <i class="fa-solid fa-video"></i>
+                  <i class="fa-solid fa-video text-sky-400"></i>
                 </button>
                 <button type="button" onclick="BlueLineUI.launchAthleteInModule('compare', '${p.id}')" class="p-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700 text-xs transition cursor-pointer" title="Compare Lab">
-                  <i class="fa-solid fa-scale-balanced"></i>
+                  <i class="fa-solid fa-scale-balanced text-teal-400"></i>
                 </button>
               </div>
             </td>
@@ -1353,41 +1452,431 @@
     }
 
     // =========================================================================
-    // Target Watchlist Board
+    // Target Watchlist Board (Synchronized with Watched Ledger)
     // =========================================================================
     function renderShortlistBoard() {
       const container = document.getElementById('shortlistCardsContainer');
       if (!container) return;
 
-      const shortlistAthletes = allAthletes.filter(p => shortlistIds.includes(p.id));
-      if (shortlistAthletes.length === 0) return;
+      const ledgerIds = getScoutWatchingLedger();
+      const shortlistAthletes = ledgerIds.map(id => allAthletes.find(p => p.id === id)).filter(Boolean);
+      if (shortlistAthletes.length === 0) {
+        container.innerHTML = `
+          <div class="col-span-full py-12 text-center text-slate-400 font-mono text-xs bg-slate-900/40 rounded-2xl border border-slate-800 space-y-2">
+            <span class="text-3xl">⭐</span>
+            <p>Your Priority Target Watchlist is currently empty.</p>
+            <p class="text-[11px] text-slate-500">Search any athlete or click the star in the directory to watch prospects.</p>
+          </div>
+        `;
+        return;
+      }
 
-      container.innerHTML = shortlistAthletes.map(p => `
-        <div class="p-4 rounded-2xl bg-slate-950/90 border border-amber-500/30 space-y-3 shadow-lg hover:border-amber-400 transition">
-          <div class="flex items-start justify-between gap-2">
-            <div>
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-bold border border-amber-500/30">PRIORITY TARGET</span>
-              <h4 class="text-sm font-bold text-white mt-1">${p.name}</h4>
-              <p class="text-[11px] text-slate-400">${p.team || 'Independent'} · ${p.pos || 'F'}</p>
+      container.innerHTML = shortlistAthletes.map(p => {
+        const isActive = activeAthlete && activeAthlete.id === p.id;
+        const score = p.composite_score ? p.composite_score.toFixed(1) : '88.0';
+        return `
+          <div class="p-4 rounded-2xl ${isActive ? 'bg-slate-900 border-2 border-emerald-500/80 shadow-xl' : 'bg-slate-950/90 border border-amber-500/30'} space-y-3 shadow-lg hover:border-amber-400 transition">
+            <div class="flex items-start justify-between gap-2">
+              <div>
+                <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-bold border border-amber-500/30">PRIORITY TARGET</span>
+                <h4 class="text-sm font-bold text-white mt-1 hover:text-sky-300 transition cursor-pointer" onclick="selectAthleteFromDirectory('${p.id}')">${p.name}</h4>
+                <p class="text-[11px] text-slate-400">${p.team || 'Independent'} · ${p.pos || 'F'}</p>
+              </div>
+              <button type="button" onclick="togglePlayerInLedger('${p.id}')" class="text-amber-400 hover:text-rose-400 p-1 text-base transition cursor-pointer" title="Remove from Targets">
+                ⭐
+              </button>
             </div>
-            <span class="text-lg">⭐</span>
-          </div>
 
-          <div class="p-2 rounded-xl bg-slate-900 text-[10px] font-mono text-slate-300 flex items-center justify-between">
-            <span>Score: <strong class="text-emerald-400">${p.composite_score ? p.composite_score.toFixed(1) : '88.0'}</strong></span>
-            <span>${p.draft_status || '2025 Draft'}</span>
-          </div>
+            ${isActive ? `
+              <div class="flex items-center gap-1.5 px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-[10px] font-mono font-bold">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
+                <span>ACTIVE IN LOGGER</span>
+              </div>
+            ` : ''}
 
-          <div class="flex items-center gap-2 pt-1">
-            <button onclick="selectAthleteFromDirectory('${p.id}')" class="flex-1 py-1.5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-bold text-xs transition">
-              Evaluate
-            </button>
-            <button onclick="BlueLineUI.launchAthleteInModule('film', '${p.id}')" class="px-2.5 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-200 text-xs border border-slate-700" title="Film Room">
-              <i class="fa-solid fa-video"></i>
-            </button>
+            <div class="p-2 rounded-xl bg-slate-900 text-[10px] font-mono text-slate-300 flex items-center justify-between">
+              <span>Score: <strong class="text-emerald-400">${score}</strong></span>
+              <span>${p.draft_status || '2025 Draft'}</span>
+            </div>
+
+            <div class="flex items-center gap-2 pt-1">
+              <button onclick="selectAthleteFromDirectory('${p.id}')" class="flex-1 py-1.5 rounded-xl ${isActive ? 'bg-emerald-600 hover:bg-emerald-500' : 'bg-sky-600 hover:bg-sky-500'} text-white font-bold text-xs transition cursor-pointer">
+                ${isActive ? 'Active Evaluated' : 'Evaluate'}
+              </button>
+              <button onclick="BlueLineUI.launchAthleteInModule('film', '${p.id}')" class="px-2.5 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-200 text-xs border border-slate-700 cursor-pointer" title="AI Film Room">
+                <i class="fa-solid fa-video text-sky-400"></i>
+              </button>
+              <button onclick="BlueLineUI.launchAthleteInModule('compare', '${p.id}')" class="px-2.5 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-200 text-xs border border-slate-700 cursor-pointer" title="Compare Lab">
+                <i class="fa-solid fa-scale-balanced text-teal-400"></i>
+              </button>
+              <button onclick="BlueLineUI.launchAthleteInModule('player', '${p.id}')" class="px-2.5 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-200 text-xs border border-slate-700 cursor-pointer" title="Passport">
+                <i class="fa-solid fa-id-card text-emerald-400"></i>
+              </button>
+            </div>
           </div>
+        `;
+      }).join('');
+    }
+
+    // =========================================================================
+    // SCOUT'S WATCHED PROSPECTS LEDGER & UNIVERSAL SEARCH ENGINE
+    // =========================================================================
+    function getScoutWatchingLedger() {
+      try {
+        const stored = localStorage.getItem(SCOUT_LEDGER_STORAGE_KEY);
+        if (stored) {
+          const parsed = JSON.parse(stored);
+          if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+        }
+      } catch (e) {
+        console.warn("Failed to load scout ledger from localStorage", e);
+      }
+      // High-pedigree default prospect roster if none saved
+      return ['mp_0013', 'mp_0001', 'mp_0002', 'mp_0015', 'mp_0019', 'mp_0004'];
+    }
+
+    function saveScoutWatchingLedger(ids) {
+      try {
+        localStorage.setItem(SCOUT_LEDGER_STORAGE_KEY, JSON.stringify(ids));
+      } catch (e) {
+        console.warn("Failed to save scout ledger", e);
+      }
+      updateLedgerUI();
+    }
+
+    function isInWatchingLedger(athleteId) {
+      if (!athleteId) return false;
+      const ledger = getScoutWatchingLedger();
+      return ledger.includes(athleteId);
+    }
+
+    function togglePlayerInLedger(athleteId) {
+      if (!athleteId) return;
+      let ledger = getScoutWatchingLedger();
+      const athlete = allAthletes.find(p => p.id === athleteId);
+      const name = athlete ? athlete.name : athleteId;
+
+      if (ledger.includes(athleteId)) {
+        ledger = ledger.filter(id => id !== athleteId);
+        BlueLineUI.showToast(`Removed ${name} from Watched Prospects Ledger.`, 'info');
+      } else {
+        ledger.unshift(athleteId);
+        BlueLineUI.showToast(`⭐ Added ${name} to Watched Prospects Ledger!`, 'success');
+      }
+      saveScoutWatchingLedger(ledger);
+      renderDirectoryTable();
+    }
+
+    function toggleActiveAthleteInLedger() {
+      if (!activeAthlete) return;
+      togglePlayerInLedger(activeAthlete.id);
+    }
+
+    function toggleWatchingLedgerDrawer() {
+      const panel = document.getElementById('watchingLedgerPanel');
+      if (panel) {
+        if (panel.classList.contains('hidden')) {
+          panel.classList.remove('hidden');
+        }
+        panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    }
+
+    function filterLedgerPos(pos) {
+      currentLedgerPosFilter = pos;
+      document.querySelectorAll('.ledger-pos-btn').forEach(btn => {
+        if (btn.dataset.lpos === pos) {
+          btn.className = "ledger-pos-btn active px-2.5 py-1 rounded-lg bg-amber-500 text-slate-950 font-bold text-[11px]";
+        } else {
+          btn.className = "ledger-pos-btn px-2.5 py-1 rounded-lg bg-slate-900 text-slate-300 hover:text-white text-[11px]";
+        }
+      });
+      renderWatchingLedgerCards();
+    }
+
+    function updateLedgerUI() {
+      const ledgerIds = getScoutWatchingLedger();
+      const athletes = allAthletes.filter(p => ledgerIds.includes(p.id));
+
+      // 1. Update counter badges
+      const qBadge = document.getElementById('quickLedgerCountBadge');
+      if (qBadge) qBadge.textContent = ledgerIds.length;
+
+      const hBadge = document.getElementById('watchingLedgerHeaderBadge');
+      if (hBadge) hBadge.textContent = `${ledgerIds.length} Tracked Prospects`;
+
+      // 2. Position counts
+      const countAll = athletes.length;
+      const countF = athletes.filter(p => !((p.pos || '').toUpperCase().includes('G') || (p.pos || '').toUpperCase().includes('D'))).length;
+      const countD = athletes.filter(p => (p.pos || '').toUpperCase().includes('D')).length;
+      const countG = athletes.filter(p => (p.pos || '').toUpperCase().includes('G')).length;
+
+      const elAll = document.getElementById('lCountAll');
+      const elF = document.getElementById('lCountF');
+      const elD = document.getElementById('lCountD');
+      const elG = document.getElementById('lCountG');
+      if (elAll) elAll.textContent = countAll;
+      if (elF) elF.textContent = countF;
+      if (elD) elD.textContent = countD;
+      if (elG) elG.textContent = countG;
+
+      // 3. Update Hero Card Watchlist Button state
+      updateHeroWatchlistButton();
+
+      // 4. Render cards in ledger panel
+      renderWatchingLedgerCards();
+
+      // 5. Render shortlist tab board
+      renderShortlistBoard();
+    }
+
+    function updateHeroWatchlistButton() {
+      const btn = document.getElementById('heroWatchlistToggleBtn');
+      const icon = document.getElementById('heroWatchlistIcon');
+      const text = document.getElementById('heroWatchlistText');
+      if (!btn || !activeAthlete) return;
+
+      const isWatched = isInWatchingLedger(activeAthlete.id);
+      if (isWatched) {
+        btn.className = "px-3 py-1.5 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 text-xs font-bold transition flex items-center gap-1.5 cursor-pointer shadow-md";
+        if (icon) icon.className = "fa-solid fa-star text-amber-400";
+        if (text) text.textContent = "In Watched Ledger";
+      } else {
+        btn.className = "px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-white border border-slate-700 text-xs font-bold transition flex items-center gap-1.5 cursor-pointer shadow-md";
+        if (icon) icon.className = "fa-regular fa-star text-slate-400";
+        if (text) text.textContent = "+ Watch Prospect";
+      }
+    }
+
+    function renderWatchingLedgerCards() {
+      const grid = document.getElementById('watchingLedgerCardsGrid');
+      if (!grid) return;
+
+      const ledgerIds = getScoutWatchingLedger();
+      let athletes = ledgerIds.map(id => allAthletes.find(p => p.id === id)).filter(Boolean);
+
+      // Filter by position
+      if (currentLedgerPosFilter !== 'all') {
+        athletes = athletes.filter(p => {
+          const pos = (p.pos || '').toUpperCase();
+          if (currentLedgerPosFilter === 'G') return pos.includes('G');
+          if (currentLedgerPosFilter === 'D') return pos.includes('D');
+          if (currentLedgerPosFilter === 'F') return !pos.includes('G') && !pos.includes('D');
+          return true;
+        });
+      }
+
+      if (athletes.length === 0) {
+        grid.innerHTML = `
+          <div class="col-span-full py-8 text-center bg-slate-900/50 rounded-2xl border border-dashed border-slate-800 space-y-2">
+            <span class="text-2xl">📋</span>
+            <p class="text-xs text-slate-400 font-mono">No prospects in this ledger view.</p>
+            <p class="text-[11px] text-slate-500">Use the universal search bar above or the 4,019+ athlete database to add players to your watching ledger.</p>
+          </div>
+        `;
+        return;
+      }
+
+      grid.innerHTML = athletes.map(p => {
+        const isActive = activeAthlete && activeAthlete.id === p.id;
+        const score = p.composite_score ? p.composite_score.toFixed(1) : "88.0";
+        const ht = p.height_str || (p.height_in ? `${Math.floor(p.height_in/12)}'${p.height_in%12}"` : "6'0\"");
+        const wt = p.weight_lbs ? `${p.weight_lbs} lbs` : "185 lbs";
+        const posIcon = p.pos === 'G' ? '🥅' : (p.pos === 'D' ? '🛡️' : '⚡');
+
+        return `
+          <div class="p-3.5 rounded-2xl ${isActive ? 'bg-slate-900 border-2 border-emerald-500/80 shadow-lg shadow-emerald-950/40' : 'bg-slate-950/90 border border-slate-800 hover:border-amber-500/40'} flex flex-col justify-between gap-3 transition">
+            <div class="space-y-2">
+              <div class="flex items-start justify-between gap-2">
+                <div class="flex items-center gap-2">
+                  <div class="w-8 h-8 rounded-lg bg-slate-800 border border-slate-700 flex items-center justify-center text-xs font-bold text-sky-400">
+                    ${posIcon}
+                  </div>
+                  <div>
+                    <h4 class="text-xs font-bold text-white hover:text-sky-300 transition cursor-pointer" onclick="selectAthleteFromDirectory('${p.id}')">
+                      ${p.name}
+                    </h4>
+                    <p class="text-[10px] text-slate-400 font-mono">${p.pos || 'F'} · #${p.num || '17'} · ${p.league || 'Tier 1'}</p>
+                  </div>
+                </div>
+                <button type="button" onclick="togglePlayerInLedger('${p.id}')" class="text-slate-500 hover:text-rose-400 text-xs p-1 transition cursor-pointer" title="Remove from Watched Ledger">
+                  <i class="fa-solid fa-xmark"></i>
+                </button>
+              </div>
+
+              ${isActive ? `
+                <div class="flex items-center gap-1.5 px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-[10px] font-mono font-bold">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
+                  <span>ACTIVE IN LOGGER</span>
+                </div>
+              ` : ''}
+
+              <div class="p-2 rounded-xl bg-slate-900/90 text-[10px] font-mono text-slate-300 flex items-center justify-between">
+                <span>Team: <strong class="text-white">${p.team || 'Indep'}</strong></span>
+                <span class="text-emerald-400 font-bold">${score}</span>
+              </div>
+            </div>
+
+            <!-- Action buttons: Evaluate & Multi-module -->
+            <div class="space-y-1.5 pt-1 border-t border-slate-800/60">
+              <button type="button" onclick="selectAthleteFromDirectory('${p.id}')" class="w-full py-1.5 rounded-xl ${isActive ? 'bg-emerald-600 hover:bg-emerald-500' : 'bg-sky-600 hover:bg-sky-500'} text-white font-bold text-xs transition flex items-center justify-center gap-1.5 shadow-sm cursor-pointer">
+                <i class="fa-solid fa-bolt text-xs"></i>
+                <span>${isActive ? 'Currently Evaluated' : 'Load in Logger'}</span>
+              </button>
+              
+              <div class="grid grid-cols-4 gap-1">
+                <button type="button" onclick="BlueLineUI.launchAthleteInModule('film', '${p.id}')" class="py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-800 text-[10px] font-mono transition text-center cursor-pointer" title="AI Film Room">
+                  <i class="fa-solid fa-video text-sky-400"></i>
+                </button>
+                <button type="button" onclick="BlueLineUI.launchAthleteInModule('rink3d', '${p.id}')" class="py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-800 text-[10px] font-mono transition text-center cursor-pointer" title="3D Virtual Rink">
+                  <i class="fa-solid fa-cube text-cyan-400"></i>
+                </button>
+                <button type="button" onclick="BlueLineUI.launchAthleteInModule('compare', '${p.id}')" class="py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-800 text-[10px] font-mono transition text-center cursor-pointer" title="Compare Lab">
+                  <i class="fa-solid fa-scale-balanced text-teal-400"></i>
+                </button>
+                <button type="button" onclick="BlueLineUI.launchAthleteInModule('player', '${p.id}')" class="py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-800 text-[10px] font-mono transition text-center cursor-pointer" title="Passport Dossier">
+                  <i class="fa-solid fa-id-card text-emerald-400"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function exportScoutLedgerCsv() {
+      const ledgerIds = getScoutWatchingLedger();
+      const athletes = allAthletes.filter(p => ledgerIds.includes(p.id));
+
+      if (athletes.length === 0) {
+        BlueLineUI.showToast("Watched Ledger is empty. Add prospects first.", "warning");
+        return;
+      }
+
+      const headers = ["ID", "Name", "Position", "Number", "Team", "League", "Height", "Weight", "Hometown", "Birth Year", "Composite Score", "Draft Status"];
+      const rows = athletes.map(p => [
+        p.id,
+        `"${p.name || ''}"`,
+        p.pos || 'F',
+        p.num || '',
+        `"${p.team || ''}"`,
+        `"${p.league || ''}"`,
+        `"${p.height_str || ''}"`,
+        p.weight_lbs || '',
+        `"${p.hometown || ''}"`,
+        p.date_of_birth ? p.date_of_birth.split('-')[0] : '',
+        p.composite_score || 88.0,
+        `"${p.draft_status || ''}"`
+      ]);
+
+      const csvContent = "data:text/csv;charset=utf-8," + [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
+      const encodedUri = encodeURI(csvContent);
+      const link = document.createElement("a");
+      link.setAttribute("href", encodedUri);
+      link.setAttribute("download", `blueline_scout_watching_ledger_${new Date().toISOString().slice(0, 10)}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      BlueLineUI.showToast(`✓ Exported ${athletes.length} watched prospects to CSV.`, "success");
+    }
+
+    // =========================================================================
+    // UNIVERSAL SCOUT AUTOCOMPLETE SEARCH
+    // =========================================================================
+    function handleScoutGlobalSearch(query) {
+      const q = (query || '').trim().toLowerCase();
+      const dropdown = document.getElementById('scoutSearchResultsDropdown');
+      const clearBtn = document.getElementById('clearScoutSearchBtn');
+      if (!dropdown) return;
+
+      if (!q) {
+        dropdown.classList.add('hidden');
+        if (clearBtn) clearBtn.classList.add('hidden');
+        return;
+      }
+
+      if (clearBtn) clearBtn.classList.remove('hidden');
+
+      // Search allAthletes
+      const matches = allAthletes.filter(p => {
+        const text = `${p.name || ''} ${p.team || ''} ${p.league || ''} ${p.pos || ''} ${p.hometown || ''}`.toLowerCase();
+        return text.includes(q);
+      }).slice(0, 12);
+
+      if (matches.length === 0) {
+        dropdown.innerHTML = `
+          <div class="p-4 text-center text-slate-400 font-mono text-xs">
+            <p>No amateur prospects matching "<span class="text-white">${query}</span>"</p>
+            <p class="text-[11px] text-slate-500 mt-1">Try searching by surname, team name (e.g. Michigan, Denver), or league (USHL, NCAA).</p>
+          </div>
+        `;
+        dropdown.classList.remove('hidden');
+        return;
+      }
+
+      dropdown.innerHTML = `
+        <div class="px-2 py-1 text-[10px] font-mono text-slate-400 flex items-center justify-between border-b border-slate-800">
+          <span>Found ${matches.length} matching prospects in master catalog</span>
+          <span class="text-sky-400">1-Click Dispatch & Ledger</span>
         </div>
-      `).join('');
+        <div class="space-y-2 mt-1">
+          ${matches.map(p => {
+            const isWatched = isInWatchingLedger(p.id);
+            const score = p.composite_score ? p.composite_score.toFixed(1) : "88.0";
+            return `
+              <div class="p-2.5 rounded-xl bg-slate-900/90 hover:bg-slate-850 border border-slate-800 flex flex-wrap items-center justify-between gap-3 transition">
+                <div class="flex items-center gap-2.5 min-w-[200px]">
+                  <div class="w-8 h-8 rounded-lg bg-slate-800 border border-slate-700 flex items-center justify-center font-bold text-sky-400 text-xs shrink-0">
+                    ${p.pos === 'G' ? '🥅' : (p.pos === 'D' ? '🛡️' : '⚡')}
+                  </div>
+                  <div>
+                    <h5 class="text-xs font-bold text-white hover:text-sky-300 transition cursor-pointer" onclick="selectAthleteFromDirectory('${p.id}'); clearScoutGlobalSearch();">
+                      ${p.name}
+                    </h5>
+                    <p class="text-[10px] text-slate-400 font-mono">${p.pos || 'F'} · ${p.team || 'Independent'} (${p.league || 'Tier 1'}) · ${p.hometown || 'US/CAN'}</p>
+                  </div>
+                </div>
+
+                <div class="flex items-center gap-2">
+                  <span class="px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 border border-emerald-700/50 font-mono font-bold text-[10px]">
+                    ${score}
+                  </span>
+
+                  <!-- Action Buttons -->
+                  <button type="button" onclick="selectAthleteFromDirectory('${p.id}'); clearScoutGlobalSearch();" class="px-2.5 py-1 rounded-lg bg-sky-600 hover:bg-sky-500 text-white font-bold text-[11px] transition flex items-center gap-1 shadow-sm cursor-pointer" title="Load into Rinkside Logger">
+                    <i class="fa-solid fa-bolt text-[10px]"></i>
+                    <span>Evaluate</span>
+                  </button>
+
+                  <button type="button" onclick="togglePlayerInLedger('${p.id}'); handleScoutGlobalSearch(document.getElementById('scoutGlobalPlayerSearch').value);" class="px-2 py-1 rounded-lg ${isWatched ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40' : 'bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700'} text-[11px] font-bold transition flex items-center gap-1 cursor-pointer" title="Watch in Ledger">
+                    <i class="fa-solid fa-star ${isWatched ? 'text-amber-400' : 'text-slate-400'}"></i>
+                    <span>${isWatched ? 'Watching' : '+ Watch'}</span>
+                  </button>
+
+                  <button type="button" onclick="BlueLineUI.launchAthleteInModule('film', '${p.id}')" class="p-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700 text-xs transition cursor-pointer" title="AI Film Room">
+                    <i class="fa-solid fa-video text-sky-400"></i>
+                  </button>
+
+                  <button type="button" onclick="BlueLineUI.launchAthleteInModule('player', '${p.id}')" class="p-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700 text-xs transition cursor-pointer" title="Player Passport">
+                    <i class="fa-solid fa-id-card text-emerald-400"></i>
+                  </button>
+                </div>
+              </div>
+            `;
+          }).join('')}
+        </div>
+      `;
+      dropdown.classList.remove('hidden');
+    }
+
+    function clearScoutGlobalSearch() {
+      const input = document.getElementById('scoutGlobalPlayerSearch');
+      if (input) input.value = '';
+      const clearBtn = document.getElementById('clearScoutSearchBtn');
+      if (clearBtn) clearBtn.classList.add('hidden');
+      const dropdown = document.getElementById('scoutSearchResultsDropdown');
+      if (dropdown) dropdown.classList.add('hidden');
     }
 
     // Modal Helpers
