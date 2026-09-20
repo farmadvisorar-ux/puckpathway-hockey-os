@@ -2063,6 +2063,28 @@
         drawer.classList.remove('hidden');
         drawer.setAttribute('aria-hidden', 'false');
         document.body.style.overflow = 'hidden';
+
+        try {
+          const user = window.BlueLineAuth ? window.BlueLineAuth.getCurrentUser() : null;
+          const role = user ? (user.role || '').toLowerCase() : null;
+          const launcherBtn = drawer.querySelector('button[onclick*="toggleAppLauncher"]');
+          const coachItem = drawer.querySelector('.role-coach');
+          const scoutItem = drawer.querySelector('.role-scout');
+
+          if (role === 'athlete') {
+            if (launcherBtn) launcherBtn.innerHTML = '<span>⚡</span> <span>Player Toolkit (Cmd+K)</span>';
+            if (coachItem) coachItem.style.display = 'none';
+            if (scoutItem) scoutItem.style.display = 'none';
+          } else if (role === 'parent') {
+            if (launcherBtn) launcherBtn.innerHTML = '<span>🛡️</span> <span>Family Toolkit (Cmd+K)</span>';
+            if (coachItem) coachItem.style.display = 'none';
+            if (scoutItem) scoutItem.style.display = 'none';
+          } else {
+            if (launcherBtn) launcherBtn.innerHTML = '<span>🚀</span> <span>All 22 Modules (Cmd+K)</span>';
+            if (coachItem) coachItem.style.display = '';
+            if (scoutItem) scoutItem.style.display = '';
+          }
+        } catch(e) {}
       } else {
         drawer.classList.add('hidden');
         drawer.setAttribute('aria-hidden', 'true');

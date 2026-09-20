@@ -77,26 +77,22 @@
         </a>
       </div>
 
-      <!-- Quick Nav Hubs -->
+      <!-- Quick Nav Hubs (Strictly Parent & Family Features) -->
       <nav class="hidden lg:flex items-center gap-1 sm:gap-1.5 text-xs font-mono">
-        <a href="scout.html" class="px-2.5 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white font-semibold border border-slate-800 transition flex items-center gap-1.5">
+        <a href="index.html" class="px-2.5 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white font-semibold border border-slate-800 transition flex items-center gap-1.5">
           <span>🏠</span> <span>Home</span>
         </a>
-        <a href="app.html?role=athlete" class="px-2.5 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-sky-300 hover:text-white font-semibold border border-slate-800 transition flex items-center gap-1.5">
+        <a href="parent.html" class="px-2.5 py-1.5 rounded-xl bg-pink-950/60 text-pink-300 font-bold border border-pink-500/40 transition flex items-center gap-1.5 shadow-sm shadow-pink-500/20">
+          <span>🛡️</span> <span>Parent Hub</span>
+        </a>
+        <a href="app.html?role=parent" class="px-2.5 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-sky-300 hover:text-white font-semibold border border-slate-800 transition flex items-center gap-1.5">
           <span>⚡</span> <span>Player OS</span>
+        </a>
+        <a href="javascript:void(0)" onclick="switchParentTab('academics')" class="px-2.5 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-emerald-300 hover:text-white font-semibold border border-slate-800 transition flex items-center gap-1.5" title="NCAA Academic Clearinghouse">
+          <span>🎓</span> <span>Clearinghouse</span>
         </a>
         <a href="community.html" class="px-2.5 py-1.5 rounded-xl bg-sky-950/60 hover:bg-sky-900/80 text-sky-300 hover:text-white font-bold border border-sky-500/40 transition flex items-center gap-1.5 shadow-sm shadow-sky-500/20" title="Universal Open Access to The Wire">
           <span>🌐</span> <span>The Wire</span>
-        </a>
-        <a href="javascript:void(0)" onclick="handleParentModuleClick('film')" class="px-2.5 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-purple-300 hover:text-white font-semibold border border-slate-800 transition flex items-center gap-1.5 cursor-pointer" title="AI Film Room & Telestration Studio">
-          <span>🎥</span> <span>Film Room</span>
-          <span class="text-[9px] px-1 rounded bg-amber-500/20 text-amber-300 font-mono font-bold">PRO</span>
-        </a>
-        <a href="javascript:void(0)" onclick="handleParentModuleClick('coach')" class="px-2.5 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-indigo-300 hover:text-white font-semibold border border-slate-800 transition flex items-center gap-1.5 cursor-pointer" title="Coach Command Center">
-          <span>📋</span> <span>Coach Desk</span>
-        </a>
-        <a href="javascript:void(0)" onclick="handleParentModuleClick('scout')" class="px-2.5 py-1.5 rounded-xl bg-amber-950/60 hover:bg-amber-900/80 text-amber-300 hover:text-white font-bold border border-amber-500/40 transition flex items-center gap-1.5 shadow-sm shadow-amber-500/20 cursor-pointer" title="Lead Scout Workspace">
-          <span>🔭</span> <span>Scout Desk</span>
         </a>
         <a href="database.html" class="px-2.5 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white font-semibold border border-slate-800 transition flex items-center gap-1.5">
           <span>📊</span> <span>Directory</span>
@@ -120,10 +116,10 @@
         <a href="community.html" class="lg:hidden p-2 rounded-xl bg-sky-950 border border-sky-500/40 text-sky-300 font-bold text-xs flex items-center gap-1" title="The Wire">
           <span>🌐</span>
         </a>
-        <button type="button" onclick="handleParentModuleClick('film')" class="lg:hidden p-2 rounded-xl bg-purple-950 border border-purple-500/40 text-purple-300 font-bold text-xs flex items-center gap-1 cursor-pointer" title="AI Film Room">
-          <span>🎥</span>
-        </button>
-        <button onclick="window.GlobalNav && window.GlobalNav.openAppLauncher()" class="p-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-300 hover:text-white transition" title="Open All 22 Modules (Ctrl+K)">
+        <a href="app.html?role=parent" class="lg:hidden p-2 rounded-xl bg-slate-900 border border-slate-700 text-sky-300 font-bold text-xs flex items-center gap-1" title="Player OS">
+          <span>⚡</span>
+        </a>
+        <button onclick="window.GlobalNav && window.GlobalNav.openAppLauncher()" class="p-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-300 hover:text-white transition" title="Open Family Suite (Ctrl+K)">
           <i class="fa-solid fa-grid-2"></i>
         </button>
       </div>
@@ -199,10 +195,9 @@
           <i class="fa-solid fa-paper-plane text-xs"></i>
           <span>Open The Wire & DMs</span>
         </a>
-        <button type="button" onclick="handleParentModuleClick('film')" class="px-3.5 py-2.5 rounded-xl bg-purple-950/60 hover:bg-purple-900/80 text-purple-300 hover:text-white border border-purple-500/40 font-bold text-xs transition flex items-center gap-1.5 cursor-pointer">
-          <span>🎥 AI Film Room</span>
-          <span class="text-[9px] px-1 rounded bg-amber-500/20 text-amber-300 font-mono font-bold">PRO</span>
-        </button>
+        <a href="player.html?id=mp_0013" class="px-3.5 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-sky-300 hover:text-white border border-slate-700 font-bold text-xs transition flex items-center gap-1.5">
+          <span>👤</span> <span>Player Passport</span>
+        </a>
       </div>
     </div>
 
@@ -648,9 +643,8 @@
       </p>
       <div class="flex flex-wrap items-center justify-center gap-4 text-[11px] font-mono text-slate-400 pt-2">
         <a href="index.html" class="hover:text-white transition">Home</a>
-        <a href="scout.html" class="hover:text-amber-400 transition">Lead Scout Desk</a>
+        <a href="parent.html" class="hover:text-pink-400 transition">Parent Hub</a>
         <a href="app.html?role=athlete" class="hover:text-sky-400 transition">Player OS</a>
-        <a href="coach.html" class="hover:text-indigo-400 transition">Coach Desk</a>
         <a href="database.html" class="hover:text-white transition">Directory</a>
         <a href="community.html" class="hover:text-white transition">The Wire</a>
         <a href="security.html" class="hover:text-white transition">Cyber Shield</a>

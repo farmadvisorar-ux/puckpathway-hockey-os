@@ -503,6 +503,41 @@
   }
 
 
+  // Role-Specific Feature Suites
+  const ATHLETE_MODULE_IDS = ["app", "player", "community", "database", "combine", "compare", "pathway", "film"];
+  const PARENT_MODULE_IDS = ["parent", "app", "community", "database", "combine", "pathway", "compare"];
+
+  function getUserActiveRole() {
+    try {
+      const urlParams = new URLSearchParams(window.location.search);
+      const qRole = urlParams.get('role');
+      if (qRole && ['athlete', 'parent', 'coach', 'scout', 'admin'].includes(qRole.toLowerCase())) {
+        return qRole.toLowerCase();
+      }
+    } catch (e) {}
+
+    try {
+      if (window.BlueLineAuth && typeof window.BlueLineAuth.getCurrentUser === 'function') {
+        const u = window.BlueLineAuth.getCurrentUser();
+        if (u && u.role) return u.role.toLowerCase();
+      }
+    } catch (e) {}
+
+    try {
+      const raw = localStorage.getItem("blueline_auth_user");
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (parsed && parsed.role) return parsed.role.toLowerCase();
+      }
+    } catch (e) {}
+
+    const cur = getCurrentPageFilename();
+    if (cur === "parent.html") return "parent";
+    if (cur === "coach.html") return "coach";
+    if (cur === "scout.html") return "scout";
+    return "athlete";
+  }
+
   function getCurrentPageFilename() {
     const path = window.location.pathname;
     const filename = path.split("/").pop();
@@ -512,7 +547,14 @@
   function renderAppLauncherModal() {
     ensureScopedStyles();
 
-    if (document.getElementById("globalAppLauncherModal")) return;
+    const activeRole = getUserActiveRole();
+    const existingModal = document.getElementById("globalAppLauncherModal");
+    if (existingModal) {
+      if (existingModal.getAttribute("data-rendered-role") === activeRole) {
+        return;
+      }
+      existingModal.remove();
+    }
 
     const modal = document.createElement("div");
     modal.id = "globalAppLauncherModal";
@@ -520,13 +562,53 @@
     modal.style.display = "none";
     modal.setAttribute("role", "dialog");
     modal.setAttribute("aria-modal", "true");
+    modal.setAttribute("data-rendered-role", activeRole);
 
     const currentFile = getCurrentPageFilename();
 
-    // Group modules by category
+    // Role-based module filtering: athletes and parents never see full suite of coach/scout tools
+    let visibleModules = MODULES;
+    let suiteTitle = "All Enterprise Modules";
+    let suiteBadge = "22 Active";
+    let suiteSub = "BlueLine DataWorks Integrated Hockey Analytics Ecosystem";
+    let searchPlaceholder = "Search 22 modules, 170 colleges & high schools, or athletes... (e.g. 'Denver', 'Edina', 'scout', 'draft')";
+    let upgradeBannerHtml = "";
+
+    if (activeRole === "athlete") {
+      visibleModules = MODULES.filter(m => ATHLETE_MODULE_IDS.includes(m.id));
+      suiteTitle = "Athlete OS Suite";
+      suiteBadge = `${visibleModules.length} Tools Active`;
+      suiteSub = "Personal Athlete Intelligence, Bio-Telemetry & Career Development";
+      searchPlaceholder = "Search athlete tools, colleges & high schools, or players... (e.g. 'Denver', 'combine', 'pathway')";
+      upgradeBannerHtml = `
+        <div style="background:rgba(15,23,42,0.9); border:1px solid rgba(56,189,248,0.25); border-radius:0.75rem; padding:0.65rem 0.85rem; margin-bottom:1rem; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:0.5rem; font-size:0.75rem; color:#94a3b8;">
+          <div style="display:flex; align-items:center; gap:0.5rem;">
+            <span>⚡</span>
+            <span>Player OS ($4.99/mo) • Filtered exclusively to athlete development features.</span>
+          </div>
+          <a href="signup.html" style="color:#38bdf8; font-weight:700; text-decoration:none;">Upgrade to Coach & Recruiter Pro ($22.99/mo) &rarr;</a>
+        </div>
+      `;
+    } else if (activeRole === "parent") {
+      visibleModules = MODULES.filter(m => PARENT_MODULE_IDS.includes(m.id));
+      suiteTitle = "Family Advisor Suite";
+      suiteBadge = `${visibleModules.length} Tools Active`;
+      suiteSub = "NCAA Clearinghouse, Safe Recruiter Messaging & Travel Operations";
+      searchPlaceholder = "Search family tools, colleges, or athlete directory... (e.g. 'clearinghouse', 'travel', 'Michigan')";
+      upgradeBannerHtml = `
+        <div style="background:rgba(15,23,42,0.9); border:1px solid rgba(236,72,153,0.25); border-radius:0.75rem; padding:0.65rem 0.85rem; margin-bottom:1rem; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:0.5rem; font-size:0.75rem; color:#94a3b8;">
+          <div style="display:flex; align-items:center; gap:0.5rem;">
+            <span>🛡️</span>
+            <span>Family Guardian Mode Active • 100% NCAA Clearinghouse & Safe Recruiter DMs.</span>
+          </div>
+        </div>
+      `;
+    }
+
+    // Group filtered modules by category
     const grouped = {};
     Object.keys(CATEGORIES).forEach(k => grouped[k] = []);
-    MODULES.forEach(m => {
+    visibleModules.forEach(m => {
       if (grouped[m.cat]) grouped[m.cat].push(m);
     });
 
@@ -534,6 +616,7 @@
     Object.keys(CATEGORIES).forEach(catKey => {
       const cat = CATEGORIES[catKey];
       const mods = grouped[catKey] || [];
+      if (mods.length === 0) return; // Skip non-applicable categories!
 
       sectionsHtml += `
         <div class="category-group" data-cat="${catKey}">
@@ -580,10 +663,10 @@
             </div>
             <div>
               <div class="launcher-title-text">
-                All Enterprise Modules
-                <span class="launcher-badge-count">22 Active</span>
+                ${suiteTitle}
+                <span class="launcher-badge-count">${suiteBadge}</span>
               </div>
-              <p class="launcher-subtitle">BlueLine DataWorks Integrated Hockey Analytics Ecosystem</p>
+              <p class="launcher-subtitle">${suiteSub}</p>
             </div>
           </div>
 
@@ -596,15 +679,16 @@
         <!-- Real-Time Omni-Search Bar -->
         <div class="launcher-search-wrap">
           <span class="launcher-search-icon">🔍</span>
-          <input id="moduleSearchInput" type="text" placeholder="Search 22 modules, 170 colleges & high schools, or athletes... (e.g. 'Denver', 'Edina', 'scout', 'draft')" class="launcher-search-input">
+          <input id="moduleSearchInput" type="text" placeholder="${searchPlaceholder}" class="launcher-search-input">
         </div>
 
         <!-- Scrollable Module & Entity Cards Grid -->
         <div id="moduleCardsContainer" class="launcher-body">
+          ${upgradeBannerHtml}
           <div id="omniSearchEntityResults" class="hidden" style="display:none;"></div>
           ${sectionsHtml}
           <div id="noModulesFound" class="hidden" style="display:none;">
-            No matching modules or institutions found. Try searching by keyword like "Denver", "Edina", "Shattuck", "trade", "rink", or "portal".
+            No matching tools or institutions found. Try searching by keyword like "Denver", "Edina", "combine", "pathway", or "wire".
           </div>
         </div>
 
@@ -805,21 +889,51 @@
 
   function renderMobileBottomNav() {
     ensureScopedStyles();
-    if (document.getElementById("bluelineBottomNavBar")) return;
+    const activeRole = getUserActiveRole();
+    const existingNav = document.getElementById("bluelineBottomNavBar");
+    if (existingNav) {
+      if (existingNav.getAttribute("data-rendered-role") === activeRole) {
+        return;
+      }
+      existingNav.remove();
+    }
 
     const nav = document.createElement("nav");
     nav.id = "bluelineBottomNavBar";
     nav.setAttribute("aria-label", "Mobile Quick Navigation");
+    nav.setAttribute("data-rendered-role", activeRole);
 
     const currentFile = getCurrentPageFilename();
 
-    const items = [
-      { id: "home", label: "Home", icon: "🏠", url: "index.html", match: (f) => f === "index.html" || f === "" },
-      { id: "athlete", label: "Athlete", icon: "⚡", url: "app.html?role=athlete", match: (f) => f === "app.html" || f === "player.html" },
-      { id: "database", label: "Directory", icon: "📊", url: "database.html", match: (f) => f === "database.html" },
-      { id: "scout", label: "Scout", icon: "🔭", url: "scout.html", match: (f) => f === "scout.html" },
-      { id: "modules", label: "Modules", icon: "❖", action: "openAppLauncher", match: () => false }
-    ];
+    let items = [];
+    if (activeRole === "athlete") {
+      // Athletes only see features applying to them (No Scout Desk, No 22 Modules)
+      items = [
+        { id: "home", label: "Home", icon: "🏠", url: "index.html", match: (f) => f === "index.html" || f === "" },
+        { id: "athlete", label: "Player OS", icon: "⚡", url: "app.html?role=athlete", match: (f) => f === "app.html" },
+        { id: "wire", label: "The Wire", icon: "🌐", url: "community.html", match: (f) => f === "community.html" },
+        { id: "database", label: "Directory", icon: "📊", url: "database.html", match: (f) => f === "database.html" },
+        { id: "passport", label: "Passport", icon: "👤", url: "player.html", match: (f) => f === "player.html" }
+      ];
+    } else if (activeRole === "parent") {
+      // Parents only see features applying to them (No Scout Desk, No 22 Modules)
+      items = [
+        { id: "home", label: "Home", icon: "🏠", url: "index.html", match: (f) => f === "index.html" || f === "" },
+        { id: "parent", label: "Parent Hub", icon: "🛡️", url: "parent.html", match: (f) => f === "parent.html" },
+        { id: "athlete", label: "Player OS", icon: "⚡", url: "app.html?role=parent", match: (f) => f === "app.html" },
+        { id: "wire", label: "The Wire", icon: "🌐", url: "community.html", match: (f) => f === "community.html" },
+        { id: "database", label: "Directory", icon: "📊", url: "database.html", match: (f) => f === "database.html" }
+      ];
+    } else {
+      // Coaches and Scouts see full pro tools & modules
+      items = [
+        { id: "home", label: "Home", icon: "🏠", url: "index.html", match: (f) => f === "index.html" || f === "" },
+        { id: "desk", label: activeRole === "coach" ? "Coach Desk" : "Scout Desk", icon: activeRole === "coach" ? "📋" : "🔭", url: activeRole === "coach" ? "coach.html" : "scout.html", match: (f) => f === "coach.html" || f === "scout.html" },
+        { id: "database", label: "Directory", icon: "📊", url: "database.html", match: (f) => f === "database.html" },
+        { id: "scoreboard", label: "Game Center", icon: "📡", url: "scoreboard.html", match: (f) => f === "scoreboard.html" },
+        { id: "modules", label: "22 Modules", icon: "❖", action: "openAppLauncher", match: () => false }
+      ];
+    }
 
     let itemsHtml = "";
     items.forEach(item => {
@@ -845,6 +959,11 @@
     document.body.appendChild(nav);
   }
 
+  function updateRoleNavigation() {
+    renderAppLauncherModal();
+    renderMobileBottomNav();
+  }
+
   // Keyboard shortcut: Cmd+K / Ctrl+K / Escape
   window.addEventListener("keydown", (e) => {
     if ((e.metaKey || e.ctrlKey) && (e.key === "k" || e.key === "K")) {
@@ -861,6 +980,8 @@
     closeAppLauncher,
     toggleAppLauncher,
     renderMobileBottomNav,
+    updateRoleNavigation,
+    getUserActiveRole,
     modules: MODULES
   };
 
@@ -868,6 +989,7 @@
   window.openAppLauncher = openAppLauncher;
   window.closeAppLauncher = closeAppLauncher;
   window.toggleAppLauncher = toggleAppLauncher;
+  window.updateRoleNavigation = updateRoleNavigation;
 
   // Auto-render modal & bottom nav in background on load
   function initGlobalNav() {
