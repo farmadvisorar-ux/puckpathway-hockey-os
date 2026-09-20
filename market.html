@@ -170,6 +170,41 @@
     </div>
   </header>
 
+  <!-- Active Trade Market Prospect Focus Banner -->
+  <div id="marketAthleteBanner" class="bg-gradient-to-r from-emerald-950/80 via-slate-900 to-amber-950/80 border-b border-emerald-500/30 px-3 sm:px-6 lg:px-8 py-2.5">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-3">
+        <span class="w-8 h-8 rounded-lg bg-emerald-500/20 border border-emerald-400/40 text-emerald-300 font-bold flex items-center justify-center text-xs" id="marketAthleteInitials">MH</span>
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="text-xs sm:text-sm font-extrabold text-white" id="marketAthleteName">Michael Hage</span>
+            <span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-bold" id="marketAthleteValue">Market Value: 1st Rd Pick + Top Prospect</span>
+            <span class="text-[10px] text-slate-400">Untouchable Asset Tier</span>
+          </div>
+          <p class="text-[11px] text-slate-400">Trade Surplus Value: <span class="text-emerald-400 font-bold">+92.4 Index</span> • Optimal Acquisition Window: Open</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-2 flex-wrap">
+        <a id="marketPassportLink" href="player.html?player=mp_0013" class="px-2.5 py-1 rounded-lg bg-sky-600/30 hover:bg-sky-600/50 text-sky-200 border border-sky-500/40 text-xs font-semibold flex items-center gap-1 transition">
+          <span>🪪</span> <span>Passport</span>
+        </a>
+        <a id="marketScoutLink" href="scout.html?player=mp_0013" class="px-2.5 py-1 rounded-lg bg-amber-600/30 hover:bg-amber-600/50 text-amber-200 border border-amber-500/40 text-xs font-semibold flex items-center gap-1 transition">
+          <span>🔭</span> <span>Scout</span>
+        </a>
+        <a id="marketFilmLink" href="film.html?player=mp_0013" class="px-2.5 py-1 rounded-lg bg-purple-600/30 hover:bg-purple-600/50 text-purple-200 border border-purple-500/40 text-xs font-semibold flex items-center gap-1 transition">
+          <span>🎥</span> <span>Film</span>
+        </a>
+        <a id="marketCompareLink" href="compare.html?p1=mp_0013" class="px-2.5 py-1 rounded-lg bg-indigo-600/30 hover:bg-indigo-600/50 text-indigo-200 border border-indigo-500/40 text-xs font-semibold flex items-center gap-1 transition">
+          <span>⚖️</span> <span>Compare</span>
+        </a>
+        <button id="marketWatchBtn" type="button" onclick="toggleWatchingMarket()" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-amber-400 border border-amber-500/40 text-xs font-semibold flex items-center gap-1 transition cursor-pointer">
+          <span id="marketWatchIcon">⭐</span> <span id="marketWatchText">Watch</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+
   <!-- Main Trade Desk Workspace -->
   <main class="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 py-6 space-y-6">
 
@@ -473,6 +508,9 @@
   <script src="static/js/master_players.js"></script>
   <script src="static/js/market_engine.js"></script>
   <script src="static/js/telemetry.js"></script>
+  <script src="static/js/auth_engine.js"></script>
+  <script src="static/js/blueline_ui_kit.js"></script>
+  <script src="static/js/global_nav.js"></script>
 
   <!-- Orchestrator Script -->
   <script>
@@ -761,7 +799,94 @@
     }
   </script>
 
-  <script src="static/js/auth_engine.js"></script>
-  <script src="static/js/global_nav.js"></script>
+  <script>
+    // Active Athlete Focus & Cross-Module Ingestion for Trade Market
+    (function() {
+      let marketAthleteId = "mp_0013";
+      try {
+        const urlParams = new URLSearchParams(window.location.search);
+        const qp = urlParams.get('player') || urlParams.get('id');
+        if (qp) marketAthleteId = qp;
+      } catch(e) {}
+
+      function updateMarketAthleteBanner() {
+        let name = "Michael Hage";
+        let initials = "MH";
+
+        if (window.MASTER_AMATEUR_PLAYERS && window.MASTER_AMATEUR_PLAYERS[marketAthleteId]) {
+          const p = window.MASTER_AMATEUR_PLAYERS[marketAthleteId];
+          name = p.name || name;
+          initials = name.split(' ').map(n=>n[0]).join('').slice(0, 2);
+        }
+
+        const nameEl = document.getElementById('marketAthleteName');
+        const initEl = document.getElementById('marketAthleteInitials');
+        const passLink = document.getElementById('marketPassportLink');
+        const scoutLink = document.getElementById('marketScoutLink');
+        const filmLink = document.getElementById('marketFilmLink');
+        const compLink = document.getElementById('marketCompareLink');
+
+        if (nameEl) nameEl.textContent = name;
+        if (initEl) initEl.textContent = initials;
+        if (passLink) passLink.href = 'player.html?player=' + marketAthleteId;
+        if (scoutLink) scoutLink.href = 'scout.html?player=' + marketAthleteId;
+        if (filmLink) filmLink.href = 'film.html?player=' + marketAthleteId;
+        if (compLink) compLink.href = 'compare.html?p1=' + marketAthleteId;
+
+        updateMarketWatchBtn();
+      }
+
+      function updateMarketWatchBtn() {
+        const watchIcon = document.getElementById('marketWatchIcon');
+        const watchText = document.getElementById('marketWatchText');
+        const watchBtn = document.getElementById('marketWatchBtn');
+        let isWatching = false;
+        try {
+          const raw = localStorage.getItem('blueline_scout_watching_ledger');
+          if (raw) {
+            const list = JSON.parse(raw);
+            isWatching = Array.isArray(list) && list.some(item => (typeof item === 'object' ? item.id : item) === marketAthleteId);
+          }
+        } catch(e) {}
+
+        if (watchIcon) watchIcon.textContent = isWatching ? "★" : "☆";
+        if (watchText) watchText.textContent = isWatching ? "Watching" : "Watch";
+        if (watchBtn) {
+          watchBtn.className = isWatching ?
+            "px-2.5 py-1 rounded-lg bg-amber-500/20 text-amber-300 border border-amber-400/50 text-xs font-semibold flex items-center gap-1 transition cursor-pointer" :
+            "px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-amber-400 border border-amber-500/40 text-xs font-semibold flex items-center gap-1 transition cursor-pointer";
+        }
+      }
+
+      window.toggleWatchingMarket = function() {
+        let isWatching = false;
+        try {
+          const raw = localStorage.getItem('blueline_scout_watching_ledger');
+          let list = raw ? JSON.parse(raw) : [];
+          const idx = list.findIndex(item => (typeof item === 'object' ? item.id : item) === marketAthleteId);
+          if (idx >= 0) {
+            list.splice(idx, 1);
+            isWatching = false;
+          } else {
+            const athleteName = document.getElementById('marketAthleteName')?.textContent || 'Athlete';
+            list.push({ id: marketAthleteId, name: athleteName, date: new Date().toISOString() });
+            isWatching = true;
+          }
+          localStorage.setItem('blueline_scout_watching_ledger', JSON.stringify(list));
+        } catch(e) {}
+        updateMarketWatchBtn();
+        if (window.BlueLineUI && window.BlueLineUI.showToast) {
+          window.BlueLineUI.showToast(isWatching ? "Prospect added to Lead Scout Watched Ledger!" : "Prospect removed from Watched Ledger.", isWatching ? "success" : "info");
+        }
+      };
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', updateMarketAthleteBanner);
+      } else {
+        updateMarketAthleteBanner();
+      }
+    })();
+  </script>
+
 </body>
 </html>

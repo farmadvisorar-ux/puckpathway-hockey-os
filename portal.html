@@ -178,6 +178,41 @@
     </div>
   </header>
 
+  <!-- Active Transfer Portal Prospect Focus Banner -->
+  <div id="portalAthleteBanner" class="bg-gradient-to-r from-cyan-950/80 via-slate-900 to-indigo-950/80 border-b border-cyan-500/30 px-3 sm:px-6 lg:px-8 py-2.5">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-3">
+        <span class="w-8 h-8 rounded-lg bg-cyan-500/20 border border-cyan-400/40 text-cyan-300 font-bold flex items-center justify-center text-xs" id="portalAthleteInitials">MH</span>
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="text-xs sm:text-sm font-extrabold text-white" id="portalAthleteName">Michael Hage</span>
+            <span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-cyan-500/20 text-cyan-300 font-bold" id="portalAthleteStatus">NCAA Eligible • Division I</span>
+            <span class="text-[10px] text-slate-400" id="portalAthleteNil">Projected NIL: $42,500 / yr</span>
+          </div>
+          <p class="text-[11px] text-slate-400">Recruiting Window: <span class="text-emerald-400 font-bold">Verified Safe Contact Portal</span> • 100% NCAA Clearinghouse Certified</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-2 flex-wrap">
+        <a id="portalPassportLink" href="player.html?player=mp_0013" class="px-2.5 py-1 rounded-lg bg-sky-600/30 hover:bg-sky-600/50 text-sky-200 border border-sky-500/40 text-xs font-semibold flex items-center gap-1 transition">
+          <span>🪪</span> <span>Passport</span>
+        </a>
+        <a id="portalScoutLink" href="scout.html?player=mp_0013" class="px-2.5 py-1 rounded-lg bg-amber-600/30 hover:bg-amber-600/50 text-amber-200 border border-amber-500/40 text-xs font-semibold flex items-center gap-1 transition">
+          <span>🔭</span> <span>Scout</span>
+        </a>
+        <a id="portalFilmLink" href="film.html?player=mp_0013" class="px-2.5 py-1 rounded-lg bg-purple-600/30 hover:bg-purple-600/50 text-purple-200 border border-purple-500/40 text-xs font-semibold flex items-center gap-1 transition">
+          <span>🎥</span> <span>Film</span>
+        </a>
+        <a id="portalCompareLink" href="compare.html?p1=mp_0013" class="px-2.5 py-1 rounded-lg bg-indigo-600/30 hover:bg-indigo-600/50 text-indigo-200 border border-indigo-500/40 text-xs font-semibold flex items-center gap-1 transition">
+          <span>⚖️</span> <span>Compare</span>
+        </a>
+        <button id="portalWatchBtn" type="button" onclick="toggleWatchingPortal()" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-amber-400 border border-amber-500/40 text-xs font-semibold flex items-center gap-1 transition cursor-pointer">
+          <span id="portalWatchIcon">⭐</span> <span id="portalWatchText">Watch</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+
   <!-- MISSION BANNER HUD -->
   <div class="bg-gradient-to-r from-sky-950/40 via-slate-900/60 to-sky-950/40 border-b border-brand-border/40 py-2 px-4">
     <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-2 text-center md:text-left">
@@ -712,9 +747,15 @@
   </div>
 
   <!-- SCRIPTS -->
+  <script src="static/js/bundle_data.js"></script>
+  <script src="static/js/master_players.js"></script>
   <script src="static/js/institutions_catalog.js"></script>
   <script src="static/js/social_mesh_engine.js"></script>
   <script src="static/js/portal_engine.js"></script>
+  <script src="static/js/telemetry.js"></script>
+  <script src="static/js/auth_engine.js"></script>
+  <script src="static/js/blueline_ui_kit.js"></script>
+  <script src="static/js/global_nav.js"></script>
   <script>
     let activeRecipient = null;
     let currentPortalTab = 'portal';
@@ -1319,7 +1360,7 @@
       closeDeclareModal();
       renderKPIs();
       renderAthletes();
-      alert(`🎉 Declaration received! ${athlete.name} has entered the NCAA Transfer Portal. Automatic alert broadcasted to The BlueLine Wire.`);
+      if (window.BlueLineUI) { BlueLineUI.showToast(`🎉 Declaration received! ${athlete.name} entered the NCAA Transfer Portal. Broadcasted to The BlueLine Wire.`, "success"); } else { console.log("Declaration received"); };
     }
 
     // NIL SIMULATOR CALCULATOR
@@ -1370,7 +1411,7 @@
         window.portalEngine.commitAthlete(athleteId, school.trim());
         renderKPIs();
         renderAthletes();
-        alert(`✍️ Commitment saved for ${athlete.name} -> ${school.trim()}! Broadcasted to The BlueLine Wire.`);
+        if (window.BlueLineUI) { BlueLineUI.showToast(`✍️ Commitment saved for ${athlete.name} -> ${school.trim()}! Broadcasted to The BlueLine Wire.`, "success"); } else { console.log("Commitment saved"); }
       }
     }
 
@@ -1459,8 +1500,95 @@
       }, 900);
     }
   </script>
-  <script src="static/js/telemetry.js"></script>
-  <script src="static/js/auth_engine.js"></script>
-  <script src="static/js/global_nav.js"></script>
+
+  <script>
+    // Active Transfer Portal Prospect Focus & Cross-Module Ingestion
+    (function() {
+      let portalAthleteId = "mp_0013";
+      try {
+        const urlParams = new URLSearchParams(window.location.search);
+        const qp = urlParams.get('player') || urlParams.get('id');
+        if (qp) portalAthleteId = qp;
+      } catch(e) {}
+
+      function updatePortalAthleteBanner() {
+        let name = "Michael Hage";
+        let initials = "MH";
+
+        if (window.MASTER_AMATEUR_PLAYERS && window.MASTER_AMATEUR_PLAYERS[portalAthleteId]) {
+          const p = window.MASTER_AMATEUR_PLAYERS[portalAthleteId];
+          name = p.name || name;
+          initials = name.split(' ').map(n=>n[0]).join('').slice(0, 2);
+        }
+
+        const nameEl = document.getElementById('portalAthleteName');
+        const initEl = document.getElementById('portalAthleteInitials');
+        const passLink = document.getElementById('portalPassportLink');
+        const scoutLink = document.getElementById('portalScoutLink');
+        const filmLink = document.getElementById('portalFilmLink');
+        const compLink = document.getElementById('portalCompareLink');
+
+        if (nameEl) nameEl.textContent = name;
+        if (initEl) initEl.textContent = initials;
+        if (passLink) passLink.href = 'player.html?player=' + portalAthleteId;
+        if (scoutLink) scoutLink.href = 'scout.html?player=' + portalAthleteId;
+        if (filmLink) filmLink.href = 'film.html?player=' + portalAthleteId;
+        if (compLink) compLink.href = 'compare.html?p1=' + portalAthleteId;
+
+        updatePortalWatchBtn();
+      }
+
+      function updatePortalWatchBtn() {
+        const watchIcon = document.getElementById('portalWatchIcon');
+        const watchText = document.getElementById('portalWatchText');
+        const watchBtn = document.getElementById('portalWatchBtn');
+        let isWatching = false;
+        try {
+          const raw = localStorage.getItem('blueline_scout_watching_ledger');
+          if (raw) {
+            const list = JSON.parse(raw);
+            isWatching = Array.isArray(list) && list.some(item => (typeof item === 'object' ? item.id : item) === portalAthleteId);
+          }
+        } catch(e) {}
+
+        if (watchIcon) watchIcon.textContent = isWatching ? "★" : "☆";
+        if (watchText) watchText.textContent = isWatching ? "Watching" : "Watch";
+        if (watchBtn) {
+          watchBtn.className = isWatching ?
+            "px-2.5 py-1 rounded-lg bg-amber-500/20 text-amber-300 border border-amber-400/50 text-xs font-semibold flex items-center gap-1 transition cursor-pointer" :
+            "px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-amber-400 border border-amber-500/40 text-xs font-semibold flex items-center gap-1 transition cursor-pointer";
+        }
+      }
+
+      window.toggleWatchingPortal = function() {
+        let isWatching = false;
+        try {
+          const raw = localStorage.getItem('blueline_scout_watching_ledger');
+          let list = raw ? JSON.parse(raw) : [];
+          const idx = list.findIndex(item => (typeof item === 'object' ? item.id : item) === portalAthleteId);
+          if (idx >= 0) {
+            list.splice(idx, 1);
+            isWatching = false;
+          } else {
+            const athleteName = document.getElementById('portalAthleteName')?.textContent || 'Athlete';
+            list.push({ id: portalAthleteId, name: athleteName, date: new Date().toISOString() });
+            isWatching = true;
+          }
+          localStorage.setItem('blueline_scout_watching_ledger', JSON.stringify(list));
+        } catch(e) {}
+        updatePortalWatchBtn();
+        if (window.BlueLineUI && window.BlueLineUI.showToast) {
+          window.BlueLineUI.showToast(isWatching ? "Prospect added to Lead Scout Watched Ledger!" : "Prospect removed from Watched Ledger.", isWatching ? "success" : "info");
+        }
+      };
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', updatePortalAthleteBanner);
+      } else {
+        updatePortalAthleteBanner();
+      }
+    })();
+  </script>
+
 </body>
 </html>

@@ -173,6 +173,41 @@
     </div>
   </header>
 
+  <!-- Active Athlete Tactical Focus Banner -->
+  <div id="tacticsAthleteFocusBanner" class="bg-gradient-to-r from-sky-950/80 via-slate-900 to-indigo-950/80 border-b border-sky-500/30 px-3 sm:px-6 lg:px-8 py-2.5">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-3">
+        <span class="w-8 h-8 rounded-lg bg-sky-500/20 border border-sky-400/40 text-sky-300 font-bold flex items-center justify-center text-xs" id="tacticsAthleteInitials">MH</span>
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="text-xs sm:text-sm font-extrabold text-white" id="tacticsAthleteName">Michael Hage</span>
+            <span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-sky-500/20 text-sky-300 font-bold" id="tacticsAthletePos">F • Pure Playmaker</span>
+            <span class="text-[10px] text-slate-400" id="tacticsAthleteTeam">Univ. of Michigan (NCAA)</span>
+          </div>
+          <p class="text-[11px] text-slate-400" id="tacticsAthleteSub">Tactical Line Compatibility: <span class="text-emerald-400 font-bold">94% Synergy (F1 Top Unit)</span> • 1-3-1 PP Half-Wall Quarterback</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-2 flex-wrap">
+        <a id="tacticsPassportLink" href="player.html?player=mp_0013" class="px-2.5 py-1 rounded-lg bg-sky-600/30 hover:bg-sky-600/50 text-sky-200 border border-sky-500/40 text-xs font-semibold flex items-center gap-1 transition">
+          <span>🪪</span> <span>Passport</span>
+        </a>
+        <a id="tacticsScoutLink" href="scout.html?player=mp_0013" class="px-2.5 py-1 rounded-lg bg-amber-600/30 hover:bg-amber-600/50 text-amber-200 border border-amber-500/40 text-xs font-semibold flex items-center gap-1 transition">
+          <span>🔭</span> <span>Scout</span>
+        </a>
+        <a id="tacticsFilmLink" href="film.html?player=mp_0013" class="px-2.5 py-1 rounded-lg bg-purple-600/30 hover:bg-purple-600/50 text-purple-200 border border-purple-500/40 text-xs font-semibold flex items-center gap-1 transition">
+          <span>🎥</span> <span>Film</span>
+        </a>
+        <a id="tacticsCompareLink" href="compare.html?p1=mp_0013" class="px-2.5 py-1 rounded-lg bg-indigo-600/30 hover:bg-indigo-600/50 text-indigo-200 border border-indigo-500/40 text-xs font-semibold flex items-center gap-1 transition">
+          <span>⚖️</span> <span>Compare</span>
+        </a>
+        <button id="tacticsWatchBtn" type="button" onclick="toggleWatchingTactics()" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-amber-400 border border-amber-500/40 text-xs font-semibold flex items-center gap-1 transition cursor-pointer">
+          <span id="tacticsWatchIcon">⭐</span> <span id="tacticsWatchText">Watch</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+
   <!-- Sub-Header Controls & Mode Toggles -->
   <section class="border-b border-slate-800 bg-slate-900/60 backdrop-blur-md px-3 sm:px-6 lg:px-8 py-3">
     <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
@@ -413,7 +448,13 @@
   <div id="tacticsToast" class="fixed bottom-6 right-6 z-50 px-4 py-2.5 rounded-2xl text-xs font-bold shadow-2xl flex items-center gap-2 transition-all duration-300 transform translate-y-10 opacity-0 pointer-events-none"></div>
 
   <!-- Scripts -->
+  <script src="static/js/bundle_data.js"></script>
+  <script src="static/js/master_players.js"></script>
   <script src="static/js/tactics_engine.js"></script>
+  <script src="static/js/telemetry.js"></script>
+  <script src="static/js/auth_engine.js"></script>
+  <script src="static/js/blueline_ui_kit.js"></script>
+  <script src="static/js/global_nav.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const engine = window.BlueLineTacticsEngine;
@@ -734,8 +775,102 @@
     }
   </script>
 
-  <script src="static/js/telemetry.js"></script>
-  <script src="static/js/auth_engine.js"></script>
-  <script src="static/js/global_nav.js"></script>
+  <script>
+    // Active Athlete Focus & Cross-Module Ingestion for Tactics Studio
+    (function() {
+      let activeAthleteId = "mp_0013";
+      try {
+        const urlParams = new URLSearchParams(window.location.search);
+        const qp = urlParams.get('player') || urlParams.get('id');
+        if (qp) activeAthleteId = qp;
+      } catch(e) {}
+
+      function updateActiveAthleteBanner() {
+        let name = "Michael Hage";
+        let team = "Univ. of Michigan (NCAA)";
+        let pos = "F • Pure Playmaker";
+        let initials = "MH";
+
+        if (window.MASTER_AMATEUR_PLAYERS && window.MASTER_AMATEUR_PLAYERS[activeAthleteId]) {
+          const p = window.MASTER_AMATEUR_PLAYERS[activeAthleteId];
+          name = p.name || name;
+          team = p.team || team;
+          pos = (p.pos || 'F') + " • " + (p.archetype || 'Elite Forward');
+          initials = name.split(' ').map(n=>n[0]).join('').slice(0, 2);
+        }
+
+        const nameEl = document.getElementById('tacticsAthleteName');
+        const teamEl = document.getElementById('tacticsAthleteTeam');
+        const posEl = document.getElementById('tacticsAthletePos');
+        const initEl = document.getElementById('tacticsAthleteInitials');
+        const passLink = document.getElementById('tacticsPassportLink');
+        const scoutLink = document.getElementById('tacticsScoutLink');
+        const filmLink = document.getElementById('tacticsFilmLink');
+        const compLink = document.getElementById('tacticsCompareLink');
+
+        if (nameEl) nameEl.textContent = name;
+        if (teamEl) teamEl.textContent = team;
+        if (posEl) posEl.textContent = pos;
+        if (initEl) initEl.textContent = initials;
+        if (passLink) passLink.href = 'player.html?player=' + activeAthleteId;
+        if (scoutLink) scoutLink.href = 'scout.html?player=' + activeAthleteId;
+        if (filmLink) filmLink.href = 'film.html?player=' + activeAthleteId;
+        if (compLink) compLink.href = 'compare.html?p1=' + activeAthleteId;
+
+        updateWatchBtnState();
+      }
+
+      function updateWatchBtnState() {
+        const watchIcon = document.getElementById('tacticsWatchIcon');
+        const watchText = document.getElementById('tacticsWatchText');
+        const watchBtn = document.getElementById('tacticsWatchBtn');
+        let isWatching = false;
+        try {
+          const raw = localStorage.getItem('blueline_scout_watching_ledger');
+          if (raw) {
+            const list = JSON.parse(raw);
+            isWatching = Array.isArray(list) && list.some(item => (typeof item === 'object' ? item.id : item) === activeAthleteId);
+          }
+        } catch(e) {}
+
+        if (watchIcon) watchIcon.textContent = isWatching ? "★" : "☆";
+        if (watchText) watchText.textContent = isWatching ? "Watching" : "Watch";
+        if (watchBtn) {
+          watchBtn.className = isWatching ?
+            "px-2.5 py-1 rounded-lg bg-amber-500/20 text-amber-300 border border-amber-400/50 text-xs font-semibold flex items-center gap-1 transition cursor-pointer" :
+            "px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-amber-400 border border-amber-500/40 text-xs font-semibold flex items-center gap-1 transition cursor-pointer";
+        }
+      }
+
+      window.toggleWatchingTactics = function() {
+        let isWatching = false;
+        try {
+          const raw = localStorage.getItem('blueline_scout_watching_ledger');
+          let list = raw ? JSON.parse(raw) : [];
+          const idx = list.findIndex(item => (typeof item === 'object' ? item.id : item) === activeAthleteId);
+          if (idx >= 0) {
+            list.splice(idx, 1);
+            isWatching = false;
+          } else {
+            const athleteName = document.getElementById('tacticsAthleteName')?.textContent || 'Athlete';
+            list.push({ id: activeAthleteId, name: athleteName, date: new Date().toISOString() });
+            isWatching = true;
+          }
+          localStorage.setItem('blueline_scout_watching_ledger', JSON.stringify(list));
+        } catch(e) {}
+        updateWatchBtnState();
+        if (window.BlueLineUI && window.BlueLineUI.showToast) {
+          window.BlueLineUI.showToast(isWatching ? "Prospect added to Lead Scout Watched Ledger!" : "Prospect removed from Watched Ledger.", isWatching ? "success" : "info");
+        }
+      };
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', updateActiveAthleteBanner);
+      } else {
+        updateActiveAthleteBanner();
+      }
+    })();
+  </script>
+
 </body>
 </html>
