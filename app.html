@@ -20,21 +20,52 @@
   <meta property="og:image" content="https://farmadvisorar-ux.github.io/puckpathway-hockey-os/static/img/blueline_og_preview.jpg">
 
   <!-- Stylesheets -->
-  <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css">
   <link rel="manifest" href="manifest.json">
   <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              primary: '#0284c7',
+              cyan: '#00f0ff',
+              electric: '#38bdf8',
+              accent: '#f59e0b',
+              gold: '#fbbf24',
+              surface: '#0d131f',
+              card: 'rgba(15, 23, 42, 0.85)',
+              border: 'rgba(56, 189, 248, 0.2)'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Chakra Petch', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,400;0,600;0,700;1,700&family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700;800&display=swap" rel="stylesheet">
 
   <style>
+    /* ==========================================================================
+       ENTERPRISE PLAYER OS DARK GLASSMORPHISM STYLING SUITE
+       ========================================================================== */
     .hidden { display: none !important; }
     
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
-      background-color: #06090e !important;
+      background: radial-gradient(circle at 50% 0%, #0c1a30 0%, #060b14 100%) !important;
       color: #f8fafc !important;
+      min-height: 100vh;
+      overflow-x: hidden;
     }
     
     a {
@@ -47,178 +78,581 @@
       text-decoration: underline;
     }
 
-    h1,h2,h3 { margin-bottom:10px; color:#ffffff; }
-    ul { padding-left:20px; }
-    input,select,textarea {
-      width:100%;
-      padding:8px 12px;
-      margin-bottom:10px;
-      border-radius:8px;
-      border:1px solid #334155;
-      background:#0f172a;
-      color:#f8fafc;
-      box-sizing:border-box;
-      outline:none;
-    }
-    input:focus, select:focus, textarea:focus {
-      border-color:#38bdf8;
-      box-shadow:0 0 10px rgba(56,189,248,0.25);
+    h1, h2, h3, h4 {
+      color: #ffffff;
+      font-family: 'Chakra Petch', 'Inter', sans-serif;
+      letter-spacing: -0.01em;
     }
 
-    .app-view { display:none; padding:20px; }
-    .app-view.active { display:block; }
-
-    .badge-grid { display:grid; gap:10px; grid-template-columns:repeat(auto-fit,minmax(120px,1fr)); }
-    .badge { background:#0f172a; border:1px solid #334155; color:#f8fafc; padding:10px; border-radius:8px; text-align:center; }
-
-    .friend-card, .pathway-card, .goalie-tree, .combine-test, .video-item, .card {
-      background: rgba(15, 23, 42, 0.85) !important;
-      color: #f8fafc !important;
-      border: 1px solid rgba(51, 65, 85, 0.7) !important;
-      padding: 15px;
-      border-radius: 12px;
-      margin-bottom: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-    }
-
-    .grid { display:grid; gap:15px; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); }
-    .btn { padding:8px 16px; border-radius:8px; border:none; cursor:pointer; font-weight:600; font-size:0.82rem; }
-    .btn.primary { background:#0284c7; color:#fff; }
-    .btn.primary:hover { background:#0369a1; }
-    .btn.secondary { background:#334155; color:#e2e8f0; }
-    .btn.secondary:hover { background:#475569; }
-
-    .compare-grid { display:flex; gap:20px; }
-    .compare-table { width:100%; border-collapse:collapse; margin-top:15px; }
-    .compare-table th, .compare-table td { padding:10px 15px; text-align:left; border:1px solid #cbd5e1; }
-    .compare-table th { background:#f1f5f9; font-weight:700; color:#0f172a; }
-
-    .modal { display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.6); }
-    .modal-content { background:#fff; padding:20px; margin:100px auto; width:300px; border-radius:8px; }
-
-    .popup { display:none; position:fixed; bottom:20px; left:50%; transform:translateX(-50%); background:#222; color:#fff; padding:10px 20px; border-radius:6px; }
-    .popup { transition:opacity 0.3s ease; }
-    .notif-panel {
-      background:#fff;
-      padding:15px;
-      border-radius:8px;
-      margin-bottom:20px;
-    }
-    .fade { animation:fadeIn 0.5s ease; }
-    @keyframes fadeIn {
-      from { opacity:0; }
-      to { opacity:1; }
-    }
-    .modal-content { animation:popIn 0.3s ease; }
-    @keyframes popIn {
-      from { transform:scale(0.8); opacity:0; }
-      to { transform:scale(1); opacity:1; }
-    }
-    .animated .xp-fill {
-      transition:width 1s ease;
-    }
-    .xp-bar.animated .xp-fill { transition: width 1s ease; }
-    .xp-fill[data-fill="60"] { width: 60%; }
-
-    .app-view button:not(.btn) {
+    /* Fallback default for any button without class to prevent raw white buttons */
+    button:not([class]) {
       background: #0284c7;
       color: #fff;
-      border: none;
-      padding: 10px 18px;
-      border-radius: 6px;
-      font-size: 0.9rem;
+      border: 1px solid rgba(56, 189, 248, 0.4);
+      padding: 0.45rem 0.9rem;
+      border-radius: 0.5rem;
+      font-size: 0.8rem;
       font-weight: 600;
       cursor: pointer;
-      transition: background 0.2s ease;
-      margin: 10px 0;
-      display: inline-block;
+      transition: all 0.15s ease;
     }
-    .app-view button:not(.btn):hover {
+    button:not([class]):hover {
       background: #0369a1;
-    }
-
-    .dark {
-      background:#111;
-      color:#eee;
-    }
-
-    .dark .app-view,
-    .dark .feature-card,
-    .dark .dash-box,
-    .dark .demo-stat,
-    .dark .social-post,
-    .dark .combine-test,
-    .dark .video-item {
-      background:#222;
-      color:#eee;
-    }
-
-    .dark .card {
-      background:#222;
-      color:#eee;
-    }
-
-    .dark .notif-panel {
-      background:#222;
-      color:#eee;
-      border:1px solid #333;
-    }
-
-    .dark .compare-table th, .dark .compare-table td { border-color:#334155; }
-    .dark .compare-table th { background:#1e293b; color:#f8fafc; }
-    .dark .compare-table td { color:#cbd5e1; }
-    .dark input, .dark select, .dark textarea { background:#1e293b; color:#f8fafc; border-color:#334155; }
-
-    @media(max-width:600px){
-      .app-nav, .app-tabs {
-        display:flex;
-        overflow-x:auto;
-        white-space:nowrap;
-      }
-
-      .tab-btn {
-        flex:0 0 auto;
-        margin-right:10px;
-      }
-
-      .app-view {
-        padding:10px;
-      }
-
-      .feature-grid, .dashboard-grid, .demo-stats-grid {
-        grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
-      }
-    }
-
-    .mobile-nav {
-      display: flex;
-      justify-content: center;
-      gap: 12px;
-      padding: 10px;
-      background: rgba(15, 23, 42, 0.6);
-      border-radius: 12px;
-      margin: 10px auto;
-      max-width: 400px;
-      border: 1px solid rgba(56, 189, 248, 0.2);
-    }
-    .mobile-nav .tab-btn {
-      font-size: 1.25rem;
-      padding: 8px 14px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 8px;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-    .mobile-nav .tab-btn:hover,
-    .mobile-nav .tab-btn.active {
-      background: rgba(56, 189, 248, 0.25);
       border-color: #38bdf8;
-      transform: scale(1.08);
+    }
+
+    /* Form Elements with Mobile iOS Auto-Zoom Protection (>= 16px) */
+    input, select, textarea {
+      width: 100%;
+      padding: 0.55rem 0.85rem;
+      margin-bottom: 0.75rem;
+      border-radius: 0.65rem;
+      border: 1px solid #334155;
+      background: #0f172a;
+      color: #f8fafc;
+      box-sizing: border-box;
+      outline: none;
+      font-size: 16px !important;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    input:focus, select:focus, textarea:focus {
+      border-color: #38bdf8;
+      box-shadow: 0 0 10px rgba(56, 189, 248, 0.25);
+    }
+
+    /* Standard Platform Buttons */
+    .btn {
+      padding: 0.5rem 1rem;
+      border-radius: 0.65rem;
+      border: 1px solid transparent;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.82rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      transition: all 0.15s ease;
+    }
+    .btn.primary {
+      background: #0284c7;
+      color: #ffffff;
+      border-color: rgba(56, 189, 248, 0.4);
+      box-shadow: 0 2px 8px rgba(2, 132, 199, 0.35);
+    }
+    .btn.primary:hover {
+      background: #0369a1;
+      border-color: #38bdf8;
+      transform: translateY(-1px);
+    }
+    .btn.secondary {
+      background: #1e293b;
+      color: #e2e8f0;
+      border-color: #334155;
+    }
+    .btn.secondary:hover {
+      background: #334155;
+      color: #ffffff;
+      border-color: #475569;
+    }
+
+    /* Primary Container & Views */
+    .app-main {
+      max-width: 80rem;
+      margin: 0 auto;
+      padding: 1.5rem 1rem;
+    }
+    .app-view {
+      display: none;
+      animation: fadeIn 0.3s ease-out;
+      padding: 1.25rem 0.5rem;
+    }
+    .app-view.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Role Switcher Toolbar */
+    .role-switcher-container {
+      display: flex !important;
+      align-items: center !important;
+      gap: 0.4rem !important;
+      overflow-x: auto !important;
+      padding: 0.4rem 0.6rem !important;
+      background: rgba(11, 17, 28, 0.95) !important;
+      border: 1px solid rgba(56, 189, 248, 0.25) !important;
+      border-radius: 1rem !important;
+      scrollbar-width: none !important;
+      backdrop-filter: blur(12px) !important;
+    }
+    .role-switcher-container::-webkit-scrollbar {
+      display: none;
+    }
+    .role-switcher-label {
+      font-size: 0.75rem !important;
+      font-weight: 700 !important;
+      color: #94a3b8 !important;
+      text-transform: uppercase !important;
+      font-family: 'JetBrains Mono', monospace !important;
+      padding: 0 0.4rem !important;
+      white-space: nowrap !important;
+    }
+    .role-chip-btn {
+      background: rgba(15, 23, 42, 0.85) !important;
+      border: 1px solid rgba(51, 65, 85, 0.7) !important;
+      color: #cbd5e1 !important;
+      padding: 0.35rem 0.85rem !important;
+      border-radius: 9999px !important;
+      font-size: 0.75rem !important;
+      font-weight: 700 !important;
+      cursor: pointer !important;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 0.35rem !important;
+      white-space: nowrap !important;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3) !important;
+      flex-shrink: 0 !important;
+    }
+    .role-chip-btn:hover {
+      background: rgba(56, 189, 248, 0.2) !important;
+      color: #ffffff !important;
+      border-color: #38bdf8 !important;
+      transform: translateY(-1px) !important;
+    }
+    .role-chip-btn.active {
+      background: #0284c7 !important;
+      color: #ffffff !important;
+      border-color: #38bdf8 !important;
+      box-shadow: 0 0 14px rgba(56, 189, 248, 0.45) !important;
+    }
+
+    /* Segmented Category Filter Bar */
+    .tab-category-bar {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      overflow-x: auto;
+      padding: 0.5rem 1rem;
+      background: rgba(15, 23, 42, 0.95);
+      border-bottom: 1px solid rgba(51, 65, 85, 0.4);
+      scrollbar-width: none;
+    }
+    .tab-category-bar::-webkit-scrollbar {
+      display: none;
+    }
+    .cat-pill-btn {
+      background: rgba(30, 41, 59, 0.6);
+      border: 1px solid rgba(71, 85, 105, 0.4);
+      color: #94a3b8;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.3rem 0.75rem;
+      border-radius: 9999px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .cat-pill-btn:hover {
+      color: #ffffff;
+      border-color: rgba(56, 189, 248, 0.4);
+      background: rgba(30, 41, 59, 0.9);
+    }
+    .cat-pill-btn.active {
+      background: rgba(56, 189, 248, 0.2);
+      border-color: #38bdf8;
+      color: #38bdf8;
+      box-shadow: 0 0 10px rgba(56, 189, 248, 0.25);
+    }
+
+    /* 26-Tab Ribbon - Clean, Cybernetic, Never White! */
+    .app-tabs {
+      display: flex !important;
+      gap: 0.35rem !important;
+      padding: 0.65rem 1rem !important;
+      background: rgba(11, 17, 28, 0.98) !important;
+      border-bottom: 1px solid rgba(56, 189, 248, 0.2) !important;
+      overflow-x: auto !important;
+      white-space: nowrap !important;
+      scrollbar-width: thin !important;
+    }
+    .app-tabs::-webkit-scrollbar {
+      height: 4px;
+    }
+    .app-tabs::-webkit-scrollbar-track {
+      background: #090e17;
+    }
+    .app-tabs::-webkit-scrollbar-thumb {
+      background: #334155;
+      border-radius: 4px;
+    }
+    .app-tabs::-webkit-scrollbar-thumb:hover {
+      background: #38bdf8;
+    }
+
+    .tab-btn {
+      background: rgba(15, 23, 42, 0.9) !important;
+      border: 1px solid rgba(51, 65, 85, 0.6) !important;
+      color: #94a3b8 !important;
+      font-weight: 600 !important;
+      font-size: 0.78rem !important;
+      padding: 0.45rem 0.85rem !important;
+      border-radius: 0.75rem !important;
+      cursor: pointer !important;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 0.35rem !important;
+      white-space: nowrap !important;
+      flex-shrink: 0 !important;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2) !important;
+    }
+    .tab-btn:hover {
+      background: rgba(30, 41, 59, 0.9) !important;
+      color: #ffffff !important;
+      border-color: rgba(56, 189, 248, 0.5) !important;
+      transform: translateY(-1px) !important;
+    }
+    .tab-btn.active {
+      background: #0284c7 !important;
+      color: #ffffff !important;
+      border-color: #38bdf8 !important;
+      font-weight: 700 !important;
+      box-shadow: 0 0 14px rgba(56, 189, 248, 0.4) !important;
+    }
+
+    /* Enterprise Glass Cards */
+    .tier-section,
+    .xp-section,
+    .skills-rings,
+    .missions-preview,
+    .highlight-preview,
+    .card,
+    .feature-card,
+    .dash-box,
+    .friend-card,
+    .pathway-card,
+    .skill-tree,
+    .goalie-tree,
+    .combine-test,
+    .video-item {
+      background: rgba(15, 23, 42, 0.85) !important;
+      border: 1px solid rgba(51, 65, 85, 0.7) !important;
+      border-radius: 1.25rem !important;
+      padding: 1.25rem 1.5rem !important;
+      margin-bottom: 1.25rem !important;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4) !important;
+      backdrop-filter: blur(12px) !important;
+      color: #f8fafc !important;
+    }
+
+    .tier-section:hover,
+    .xp-section:hover,
+    .skills-rings:hover,
+    .missions-preview:hover,
+    .card:hover,
+    .friend-card:hover,
+    .pathway-card:hover {
+      border-color: rgba(56, 189, 248, 0.35) !important;
+    }
+
+    /* Action Buttons in Dashboard */
+    .btn-action-sm,
+    .btn-mission-complete,
+    .train-btn,
+    .nav-btn-sm {
+      background: rgba(30, 41, 59, 0.85) !important;
+      border: 1px solid rgba(71, 85, 105, 0.6) !important;
+      color: #e2e8f0 !important;
+      padding: 0.35rem 0.75rem !important;
+      border-radius: 0.6rem !important;
+      font-size: 0.75rem !important;
+      font-weight: 700 !important;
+      cursor: pointer !important;
+      transition: all 0.15s ease !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 0.35rem !important;
+      white-space: nowrap !important;
+    }
+    .btn-action-sm:hover,
+    .nav-btn-sm:hover {
+      background: rgba(51, 65, 85, 0.95) !important;
+      color: #ffffff !important;
+      border-color: #38bdf8 !important;
+    }
+    .train-btn,
+    .btn-mission-complete {
+      background: rgba(2, 132, 199, 0.25) !important;
+      border-color: rgba(56, 189, 248, 0.4) !important;
+      color: #38bdf8 !important;
+    }
+    .train-btn:hover,
+    .btn-mission-complete:hover {
+      background: #0284c7 !important;
+      color: #ffffff !important;
+      border-color: #38bdf8 !important;
+      box-shadow: 0 0 12px rgba(56, 189, 248, 0.4) !important;
+    }
+
+    .tier-badge {
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 0.35rem !important;
+      padding: 0.25rem 0.75rem !important;
+      border-radius: 9999px !important;
+      background: rgba(245, 158, 11, 0.2) !important;
+      color: #fbbf24 !important;
+      border: 1px solid rgba(245, 158, 11, 0.4) !important;
+      font-family: 'JetBrains Mono', monospace !important;
+      font-size: 0.8rem !important;
+      font-weight: 800 !important;
+    }
+
+    /* List items in action cards */
+    .dashboard-action-list {
+      list-style: none !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 0.65rem !important;
+    }
+    .dashboard-action-card {
+      display: flex !important;
+      justify-content: space-between !important;
+      align-items: center !important;
+      flex-wrap: wrap !important;
+      gap: 0.75rem !important;
+      padding: 0.85rem 1rem !important;
+      background: rgba(2, 6, 23, 0.6) !important;
+      border: 1px solid rgba(51, 65, 85, 0.6) !important;
+      border-radius: 0.85rem !important;
+      transition: all 0.2s ease !important;
+    }
+    .dashboard-action-card:hover {
+      border-color: rgba(56, 189, 248, 0.35) !important;
+      background: rgba(2, 6, 23, 0.85) !important;
+    }
+    .dashboard-card-info {
+      display: flex !important;
+      align-items: center !important;
+      gap: 0.75rem !important;
+      min-width: 0 !important;
+    }
+    .dashboard-card-icon {
+      width: 2.25rem !important;
+      height: 2.25rem !important;
+      border-radius: 0.65rem !important;
+      background: rgba(56, 189, 248, 0.15) !important;
+      border: 1px solid rgba(56, 189, 248, 0.3) !important;
+      color: #38bdf8 !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      font-size: 1.1rem !important;
+      flex-shrink: 0 !important;
+    }
+    .dashboard-card-meta {
+      min-width: 0 !important;
+    }
+    .dashboard-card-title {
+      display: block !important;
+      font-weight: 700 !important;
+      font-size: 0.88rem !important;
+      color: #ffffff !important;
+    }
+    .dashboard-card-sub {
+      display: block !important;
+      font-size: 0.75rem !important;
+      color: #94a3b8 !important;
+      margin-top: 0.15rem !important;
+    }
+    .dashboard-card-actions {
+      display: flex !important;
+      align-items: center !important;
+      gap: 0.4rem !important;
+      flex-wrap: wrap !important;
+    }
+
+    /* Highlight Clip Cards */
+    .highlight-clip-card {
+      display: flex !important;
+      justify-content: space-between !important;
+      align-items: center !important;
+      flex-wrap: wrap !important;
+      gap: 0.75rem !important;
+      padding: 0.85rem 1rem !important;
+      background: rgba(2, 6, 23, 0.6) !important;
+      border: 1px solid rgba(51, 65, 85, 0.6) !important;
+      border-radius: 0.85rem !important;
+    }
+
+    /* Tier Ladder in Tier View */
+    .tier-ladder {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin: 1rem 0;
+    }
+    .tier-step {
+      padding: 0.75rem 1rem;
+      border-radius: 0.75rem;
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid #334155;
+      color: #94a3b8;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+    .tier-step.active {
+      background: rgba(2, 132, 199, 0.2);
+      border-color: #38bdf8;
+      color: #38bdf8;
+      box-shadow: 0 0 12px rgba(56, 189, 248, 0.25);
+    }
+
+    /* Badges Grid */
+    .badge-grid {
+      display: grid;
+      gap: 0.75rem;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 140px), 1fr));
+    }
+    .badge {
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      color: #f8fafc;
+      padding: 0.85rem 0.5rem;
+      border-radius: 0.75rem;
+      text-align: center;
+      font-size: 0.8rem;
+      font-weight: 600;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .badge:hover {
+      border-color: #38bdf8;
+      transform: translateY(-2px);
+    }
+
+    /* Compare Table */
+    .compare-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.25rem;
+    }
+    .compare-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+      border-radius: 0.75rem;
+      overflow: hidden;
+      border: 1px solid #334155;
+    }
+    .compare-table th, .compare-table td {
+      padding: 0.75rem 1rem;
+      text-align: left;
+      border-bottom: 1px solid #1e293b;
+    }
+    .compare-table th {
+      background: #0f172a;
+      color: #38bdf8;
+      font-weight: 700;
+      font-size: 0.85rem;
+    }
+    .compare-table td {
+      color: #cbd5e1;
+      font-size: 0.85rem;
+    }
+
+    /* Modals & Popups */
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(8px);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-content {
+      background: #0b121e !important;
+      border: 1px solid rgba(56, 189, 248, 0.3) !important;
+      color: #f8fafc !important;
+      padding: 1.5rem !important;
+      border-radius: 1.25rem !important;
+      max-width: 90vw;
+      width: 480px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6) !important;
+    }
+
+    /* Mobile Floating Dock */
+    .mobile-nav {
+      display: flex !important;
+      justify-content: space-around !important;
+      align-items: center !important;
+      gap: 0.5rem !important;
+      padding: 0.5rem 1rem !important;
+      background: rgba(11, 17, 28, 0.95) !important;
+      border-radius: 1.25rem !important;
+      margin: 1rem auto !important;
+      max-width: 28rem !important;
+      border: 1px solid rgba(56, 189, 248, 0.25) !important;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5) !important;
+      backdrop-filter: blur(12px) !important;
+    }
+    .mobile-dock-btn {
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      gap: 0.2rem !important;
+      padding: 0.4rem 0.65rem !important;
+      background: transparent !important;
+      border: none !important;
+      color: #94a3b8 !important;
+      cursor: pointer !important;
+      transition: all 0.2s ease !important;
+      border-radius: 0.65rem !important;
+    }
+    .mobile-dock-btn:hover,
+    .mobile-dock-btn.active {
+      color: #38bdf8 !important;
+      background: rgba(56, 189, 248, 0.15) !important;
+      transform: translateY(-2px) !important;
+    }
+    .dock-icon {
+      font-size: 1.15rem !important;
+    }
+    .dock-label {
+      font-size: 0.65rem !important;
+      font-weight: 700 !important;
+      text-transform: uppercase !important;
+      font-family: 'JetBrains Mono', monospace !important;
+    }
+
+    /* Custom Scrollbar */
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #090e17;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #1e293b;
+      border-radius: 4px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: #38bdf8;
     }
   </style>
 
   <link rel="canonical" href="https://farmadvisorar-ux.github.io/puckpathway-hockey-os/app.html">
+
 </head>
 <body class="dark dark-mode">
 
@@ -236,241 +670,437 @@
   </div>
 
   <!-- APP SHELL -->
-  <header class="app-header">
-    <div class="logo">
-      <a href="scout.html" data-blueline-logo="true" onclick="return window.BlueLineAuth ? window.BlueLineAuth.handleLogoClick(event) : true" title="Return to Role Home (Parent, Coach, Scout, Athlete)" style="display:flex; align-items:center; gap:0.5rem; text-decoration:none; color:#ffffff;">
-        <img src="static/img/blueline_logo.jpg" alt="PuckPathway" style="width:32px; height:32px; border-radius:8px; border:1px solid rgba(56,189,248,0.4);">
-        <span>PuckPathway</span>
-      </a>
-    </div>
-    <div class="player-info" style="display:flex; align-items:center; gap:0.75rem; flex-wrap:wrap;">
-      <!-- Quick Role Switcher Toolbar -->
-      <div class="role-switcher-container" id="appRoleSwitcherContainer">
-        <span class="role-switcher-label">View As:</span>
-        <button type="button" class="role-chip-btn active" id="roleBtnAthlete" onclick="handleRoleSwitch('athlete')" title="Switch to Player / Athlete view">⚡ Athlete ($4.99)</button>
-        <button type="button" class="role-chip-btn" id="roleBtnCoach" onclick="handleRoleSwitch('coach')" title="Switch to Coach view">📋 Coach ($22.99)</button>
-        <button type="button" class="role-chip-btn" id="roleBtnScout" onclick="handleRoleSwitch('scout')" title="Switch to Scout / Recruiter view">🔭 Scout ($22.99)</button>
-        <button type="button" class="role-chip-btn" id="roleBtnParent" onclick="handleRoleSwitch('parent')" title="Switch to Family Advisor / Parent view">👨‍👩‍👧 Parent ($4.99)</button>
-        <button type="button" class="role-chip-btn" id="roleBtnAdmin" onclick="handleRoleSwitch('admin')" title="Switch to Admin Operations view">⚙️ Admin</button>
-        <a href="parent.html" class="role-chip-btn" style="border-color:#ec4899; color:#f472b6; background:rgba(236,72,153,0.15); font-weight:700; text-decoration:none;" title="Open Dedicated Parent & Family Advisor Portal">🛡️ Parent Portal</a>
-        <a href="coach.html" class="role-chip-btn" style="border-color:#6366f1; color:#818cf8; background:rgba(99,102,241,0.15); font-weight:700; text-decoration:none;" title="Open Dedicated Coach Command Center">📋 Coach Desk</a>
-        <a href="scout.html" class="role-chip-btn" style="border-color:#f59e0b; color:#fbbf24; background:rgba(245,158,11,0.15); font-weight:700; text-decoration:none;" title="Open Lead Scout Desk">🔭 Scout Desk</a>
-        <button type="button" class="role-chip-btn" onclick="window.GlobalNav && window.GlobalNav.openAppLauncher()" style="border-color:#38bdf8; color:#38bdf8; background:rgba(56,189,248,0.15); font-weight:700;" title="Open All 22 Enterprise Modules Launcher (Ctrl+K)">🌐 All Modules (Ctrl+K)</button>
-        <button type="button" class="role-chip-btn" id="roleToggleAllTabsBtn" onclick="toggleAllTabsVisibility()" title="Toggle seeing all tabs vs filtered role tabs">👁️ Filter Tabs</button>
+  
+  <!-- Top Enterprise Header Navigation Bar -->
+  <header class="sticky top-0 z-50 glass-panel border-b border-slate-800/80 bg-slate-950/95 backdrop-blur-xl">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+      
+      <!-- Brand Logo & Title with Dynamic Logo Routing -->
+      <div class="flex items-center gap-3 min-w-0">
+        <a href="scout.html" class="flex items-center gap-2.5 group" data-blueline-logo="true" onclick="return window.BlueLineAuth ? window.BlueLineAuth.handleLogoClick(event) : true" title="Return to Role Home (Parent, Coach, Scout, Athlete)">
+          <img src="static/img/blueline_logo.jpg" alt="BlueLine DataWorks Logo" class="w-9 h-9 sm:w-10 sm:h-10 shrink-0 rounded-xl border border-sky-400/50 object-cover shadow-lg shadow-sky-500/20 group-hover:scale-105 transition">
+          <div class="min-w-0">
+            <div class="flex items-center gap-1.5 sm:gap-2">
+              <span class="font-extrabold text-sm sm:text-base md:text-lg tracking-tight text-white group-hover:text-sky-400 transition truncate">BlueLine DataWorks</span>
+              <span class="text-[10px] uppercase font-mono tracking-widest px-1.5 py-0.5 rounded bg-sky-500/20 text-sky-300 font-bold shrink-0">PLAYER OS</span>
+            </div>
+            <p class="text-[10px] text-slate-400 hidden sm:block truncate">Athletic Passport & Lifelong Hockey Analytics</p>
+          </div>
+        </a>
       </div>
 
-      <div style="display:flex; align-items:center; gap:0.5rem;">
-        <span class="player-name" id="appHeaderPlayerName">Michael Hage</span>
-        <span class="tier-badge" id="appHeaderTierBadge">Tier 6</span>
-        <span id="appHeaderPlayerSub" style="font-size:0.75rem; color:#94a3b8; font-family:monospace; display:none;"></span>
+      <!-- Center Primary Navigation -->
+      <nav class="hidden lg:flex items-center gap-1 sm:gap-1.5 text-xs font-mono">
+        <a href="coach.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white font-semibold border border-slate-800 transition flex items-center gap-1.5">
+          <span>📋</span> <span>Coach Hub</span>
+        </a>
+        <a href="scout.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white font-semibold border border-slate-800 transition flex items-center gap-1.5">
+          <span>🔭</span> <span>Scout Desk</span>
+        </a>
+        <a href="database.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white font-semibold border border-slate-800 transition flex items-center gap-1.5">
+          <span>📊</span> <span>Directory</span>
+        </a>
+        <a href="scoreboard.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white font-semibold border border-slate-800 transition flex items-center gap-1.5">
+          <span>📡</span> <span>Game Center</span>
+        </a>
+        <a href="community.html" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white font-semibold border border-slate-800 transition flex items-center gap-1.5">
+          <span>🌐</span> <span>The Wire</span>
+        </a>
+      </nav>
+
+      <!-- Right Controls -->
+      <div class="flex items-center gap-2 sm:gap-3 shrink-0">
+        
+        <!-- All Modules App Launcher Button -->
+        <button onclick="window.GlobalNav ? window.GlobalNav.openAppLauncher() : (typeof toggleAppLauncher === 'function' ? toggleAppLauncher() : switchView('admin'))" class="px-3 py-1.5 rounded-xl bg-gradient-to-r from-sky-600/30 via-indigo-600/30 to-purple-600/30 hover:from-sky-600/50 hover:to-purple-600/50 text-sky-200 border border-sky-400/40 hover:border-sky-300 font-bold text-xs flex items-center gap-1.5 shadow-lg shadow-sky-500/10 transition active:scale-95 cursor-pointer" title="Open All 22 Enterprise Modules (Ctrl+K)">
+          <span class="text-sm">❖</span>
+          <span class="hidden sm:inline font-sans font-semibold">All Modules</span>
+          <span class="px-1.5 py-0.2 rounded-full bg-sky-400/20 text-sky-300 font-mono text-[10px] font-bold">22</span>
+          <span class="text-sky-400 text-[10px]">▾</span>
+        </button>
+
+        <!-- User Identity Chip -->
+        <div class="flex items-center gap-1.5 sm:gap-2 bg-slate-900/90 border border-slate-700/80 rounded-xl px-2.5 py-1 cursor-pointer hover:border-sky-400 transition shadow-inner" onclick="switchView('profile')" title="View Verified Athletic Passport">
+          <div class="w-6 h-6 rounded-full bg-gradient-to-tr from-cyan-600 to-blue-800 text-white font-black flex items-center justify-center text-[10px] border border-sky-400/40">
+            ⚡
+          </div>
+          <div class="text-left leading-none hidden xl:block">
+            <span class="text-xs font-bold text-white block" id="appHeaderPlayerName">Michael Hage</span>
+            <span class="text-[9px] text-amber-400 font-medium" id="appHeaderTierBadge">Tier 6 · Big Ten</span>
+          </div>
+        </div>
+
+        <!-- Dark Mode Toggle Button -->
+        <button class="p-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-800 text-xs transition cursor-pointer" onclick="toggleDarkMode()" title="Toggle Dark/Light Mode">
+          🌙
+        </button>
+
+        <!-- Sign Out Link -->
+        <button id="appHeaderSignOutBtn" onclick="handleDashboardSignOut()" class="text-xs text-slate-400 hover:text-white font-mono transition cursor-pointer hidden sm:block">
+          Sign Out
+        </button>
       </div>
-      <button class="btn" onclick="toggleDarkMode()">🌙 Dark Mode</button>
-      <button id="appHeaderSignOutBtn" onclick="handleDashboardSignOut()" style="background:none; border:none; color:#94a3b8; font-size:0.75rem; text-decoration:underline; cursor:pointer; margin-left:0.25rem;">Sign Out</button>
+
+    </div>
+
+    <!-- Quick Role Switcher Sub-Toolbar -->
+    <div class="border-t border-slate-800/80 bg-slate-950/90 px-3 sm:px-6 lg:px-8 py-2">
+      <div class="max-w-7xl mx-auto flex items-center justify-between gap-3 overflow-x-auto scrollbar-none">
+        
+        <div class="flex items-center gap-1.5 flex-nowrap" id="appRoleSwitcherContainer">
+          <span class="text-[10px] uppercase font-mono font-bold text-slate-400 tracking-wider shrink-0 mr-1">View As:</span>
+          <button type="button" class="role-chip-btn active" id="roleBtnAthlete" onclick="handleRoleSwitch('athlete')" title="Switch to Player / Athlete view">⚡ Athlete ($4.99)</button>
+          <button type="button" class="role-chip-btn" id="roleBtnCoach" onclick="window.location.href='coach.html'" title="Open Dedicated Coach Command Center">📋 Coach ($22.99)</button>
+          <button type="button" class="role-chip-btn" id="roleBtnScout" onclick="window.location.href='scout.html'" title="Open Lead Scout Desk">🔭 Scout ($22.99)</button>
+          <button type="button" class="role-chip-btn" id="roleBtnParent" onclick="window.location.href='parent.html'" title="Open Family Advisor / Parent Portal">👨‍👩‍👧 Parent ($4.99)</button>
+          <button type="button" class="role-chip-btn" id="roleBtnAdmin" onclick="switchView('admin')" title="Switch to Admin Operations view">⚙️ Admin</button>
+        </div>
+
+        <div class="flex items-center gap-1.5 shrink-0">
+          <a href="parent.html" class="px-2.5 py-1 rounded-lg bg-pink-950/40 text-pink-300 border border-pink-500/30 text-[11px] font-bold hover:bg-pink-900/50 transition">🛡️ Parent Portal</a>
+          <a href="coach.html" class="px-2.5 py-1 rounded-lg bg-indigo-950/40 text-indigo-300 border border-indigo-500/30 text-[11px] font-bold hover:bg-indigo-900/50 transition">📋 Coach Desk</a>
+          <a href="scout.html" class="px-2.5 py-1 rounded-lg bg-amber-950/40 text-amber-300 border border-amber-500/30 text-[11px] font-bold hover:bg-amber-900/50 transition">🔭 Scout Desk</a>
+          <a href="portal.html" class="px-2.5 py-1 rounded-lg bg-cyan-950/40 text-cyan-300 border border-cyan-500/30 text-[11px] font-bold hover:bg-cyan-900/50 transition">🏒 Transfer Portal</a>
+        </div>
+
+      </div>
     </div>
   </header>
 
-  <nav class="app-tabs">
-    <button class="tab-btn active" data-view="dashboard">Dashboard</button>
-    <button class="tab-btn" data-view="thewire">The Wire & X Profile</button>
-    <button class="tab-btn" data-view="playerdatabase">Player Database</button>
-    <button class="tab-btn" data-view="packages">Packages & Pricing</button>
-    <button class="tab-btn" data-view="admin">Admin Hub</button>
-    <button class="tab-btn" data-view="artraining">AR Training</button>
-    <button class="tab-btn" data-view="videobreakdown">Video Breakdown</button>
-    <button class="tab-btn" data-view="skilltree">Skill Tree</button>
-    <button class="tab-btn" data-view="tierprogression">Tier Progression</button>
-    <button class="tab-btn" data-view="dailymissions">Daily Missions</button>
-    <button class="tab-btn" data-view="xp">XP</button>
-    <button class="tab-btn" data-view="goalie">Goalie</button>
-    <button class="tab-btn" data-view="pathways">Pathways</button>
-    <button class="tab-btn" data-view="badges">Badges</button>
-    <button class="tab-btn" data-view="levelup">Level Up</button>
-    <button class="tab-btn" data-view="friends">Friends</button>
-    <button class="tab-btn" data-view="compare">Compare</button>
-    <button class="tab-btn" data-view="comparechart">Compare Chart</button>
-    <button class="tab-btn" data-view="profileeditor">Edit Profile</button>
-    <button class="tab-btn" data-view="uploadmanager">Uploads</button>
-    <button class="tab-btn" data-view="combine">Combine</button>
-    <button class="tab-btn" data-view="iqsim">IQ Sim</button>
-    <button class="tab-btn" data-view="social">Social</button>
-    <button class="tab-btn" data-view="profile">Profile</button>
-    <button class="tab-btn" data-view="recruiting">Recruiting</button>
-    <button class="tab-btn" data-view="settings">Settings</button>
+  <!-- Segmented Category Filter Controller -->
+  <div class="tab-category-bar">
+    <span class="text-[10px] font-mono text-slate-400 font-bold uppercase tracking-wider shrink-0 mr-1">Workspace Hub:</span>
+    <button type="button" class="cat-pill-btn active" onclick="filterTabsByCategory('all', this)">🌟 All (26)</button>
+    <button type="button" class="cat-pill-btn" onclick="filterTabsByCategory('core', this)">🏒 Core OS (5)</button>
+    <button type="button" class="cat-pill-btn" onclick="filterTabsByCategory('labs', this)">🔬 Labs & Skills (6)</button>
+    <button type="button" class="cat-pill-btn" onclick="filterTabsByCategory('scout', this)">📊 Scouting & Data (4)</button>
+    <button type="button" class="cat-pill-btn" onclick="filterTabsByCategory('social', this)">🌐 The Wire & Social (4)</button>
+    <button type="button" class="cat-pill-btn" onclick="filterTabsByCategory('tools', this)">🪪 Passport & Tools (7)</button>
+  </div>
+
+  <!-- All 26 Modules Horizontally Scrollable Ribbon -->
+  <nav class="app-tabs" id="mainAppTabNav">
+    <button class="tab-btn active" data-view="dashboard" data-category="core"><span class="text-sm">🏠</span> <span>Dashboard</span></button>
+    <button class="tab-btn" data-view="dailymissions" data-category="core"><span class="text-sm">🎯</span> <span>Daily Missions</span></button>
+    <button class="tab-btn" data-view="xp" data-category="core"><span class="text-sm">⚡</span> <span>XP Log</span></button>
+    <button class="tab-btn" data-view="tierprogression" data-category="core"><span class="text-sm">🪜</span> <span>Tier Progression</span></button>
+    <button class="tab-btn" data-view="skilltree" data-category="core"><span class="text-sm">🌳</span> <span>Skill Tree</span></button>
+    
+    <button class="tab-btn" data-view="videobreakdown" data-category="labs"><span class="text-sm">🎥</span> <span>Video Breakdown</span></button>
+    <button class="tab-btn" data-view="combine" data-category="labs"><span class="text-sm">🏋️</span> <span>Combine Lab</span></button>
+    <button class="tab-btn" data-view="artraining" data-category="labs"><span class="text-sm">🕶️</span> <span>AR Training</span></button>
+    <button class="tab-btn" data-view="iqsim" data-category="labs"><span class="text-sm">🧠</span> <span>IQ Simulator</span></button>
+    <button class="tab-btn" data-view="goalie" data-category="labs"><span class="text-sm">🥅</span> <span>Goalie Lab</span></button>
+    <button class="tab-btn" data-view="pathways" data-category="labs"><span class="text-sm">📈</span> <span>Pathways</span></button>
+
+    <button class="tab-btn" data-view="playerdatabase" data-category="scout"><span class="text-sm">📊</span> <span>Player Database</span></button>
+    <button class="tab-btn" data-view="compare" data-category="scout"><span class="text-sm">⚖️</span> <span>Compare Tool</span></button>
+    <button class="tab-btn" data-view="comparechart" data-category="scout"><span class="text-sm">📡</span> <span>Compare Radar</span></button>
+    <button class="tab-btn" data-view="recruiting" data-category="scout"><span class="text-sm">🎓</span> <span>Recruiting Board</span></button>
+
+    <button class="tab-btn" data-view="thewire" data-category="social"><span class="text-sm">🌐</span> <span>The Wire & X Profile</span></button>
+    <button class="tab-btn" data-view="social" data-category="social"><span class="text-sm">💬</span> <span>Social Feed</span></button>
+    <button class="tab-btn" data-view="friends" data-category="social"><span class="text-sm">👥</span> <span>Friends Network</span></button>
+    <button class="tab-btn" data-view="badges" data-category="social"><span class="text-sm">🏆</span> <span>Badges & Medals</span></button>
+
+    <button class="tab-btn" data-view="profile" data-category="tools"><span class="text-sm">🪪</span> <span>Player Passport</span></button>
+    <button class="tab-btn" data-view="profileeditor" data-category="tools"><span class="text-sm">✏️</span> <span>Edit Profile</span></button>
+    <button class="tab-btn" data-view="uploadmanager" data-category="tools"><span class="text-sm">📁</span> <span>Upload Manager</span></button>
+    <button class="tab-btn" data-view="levelup" data-category="tools"><span class="text-sm">🚀</span> <span>Level Up</span></button>
+    <button class="tab-btn" data-view="packages" data-category="tools"><span class="text-sm">💎</span> <span>Packages & Pricing</span></button>
+    <button class="tab-btn" data-view="admin" data-category="tools"><span class="text-sm">⚙️</span> <span>Admin Hub</span></button>
+    <button class="tab-btn" data-view="settings" data-category="tools"><span class="text-sm">🔧</span> <span>Settings</span></button>
   </nav>
 
-  <nav class="mobile-nav">
-    <button class="tab-btn" data-view="dashboard" title="Home Dashboard">🏠</button>
-    <button class="tab-btn" data-view="skills" title="Skills & Development">⚡</button>
-    <button class="tab-btn" data-view="thewire" title="The Wire (Universal Access)">🌐</button>
-    <button class="tab-btn" data-view="videobreakdown" title="Video Breakdown">🎥</button>
-    <button class="tab-btn" data-view="profile" title="Player Passport">👤</button>
+  <!-- Modern Floating Mobile Quick Dock -->
+  <nav class="mobile-nav" id="appMobileBottomDock">
+    <button type="button" class="mobile-dock-btn active" data-view="dashboard" onclick="switchView('dashboard')">
+      <span class="dock-icon">🏠</span>
+      <span class="dock-label">Home</span>
+    </button>
+    <button type="button" class="mobile-dock-btn" data-view="skilltree" onclick="switchView('skilltree')">
+      <span class="dock-icon">🌳</span>
+      <span class="dock-label">Skills</span>
+    </button>
+    <button type="button" class="mobile-dock-btn" data-view="thewire" onclick="switchView('thewire')">
+      <span class="dock-icon">🌐</span>
+      <span class="dock-label">The Wire</span>
+    </button>
+    <button type="button" class="mobile-dock-btn" data-view="videobreakdown" onclick="switchView('videobreakdown')">
+      <span class="dock-icon">🎥</span>
+      <span class="dock-label">Film Lab</span>
+    </button>
+    <button type="button" class="mobile-dock-btn" data-view="profile" onclick="switchView('profile')">
+      <span class="dock-icon">🪪</span>
+      <span class="dock-label">Passport</span>
+    </button>
   </nav>
+
+
 
   <main class="app-main">
     <!-- DASHBOARD VIEW -->
     <section id="view-dashboard" class="app-view active">
-      <!-- Subscription & Active Role Status Banner -->
-      <div id="dashboardPlanStatusBanner" style="background:rgba(15,23,42,0.85); border:1px solid rgba(56,189,248,0.3); border-radius:12px; padding:0.85rem 1.25rem; margin-bottom:1.5rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.75rem;">
-        <div style="display:flex; align-items:center; gap:0.6rem;">
-          <span style="font-size:1.3rem;">💳</span>
+      
+      <!-- Athlete Hero Passport Banner -->
+      <div class="p-5 sm:p-6 rounded-3xl bg-gradient-to-r from-sky-950/60 via-slate-900 to-indigo-950/60 border border-sky-500/30 shadow-2xl mb-6">
+        <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+          <div class="flex items-center gap-4">
+            <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-tr from-cyan-600 to-blue-800 text-white font-black flex items-center justify-center text-xl sm:text-2xl border-2 border-sky-400/50 shadow-lg shadow-sky-500/25">
+              MH
+            </div>
+            <div>
+              <div class="flex items-center gap-2 flex-wrap">
+                <h1 class="text-xl sm:text-2xl font-display font-extrabold text-white tracking-tight m-0" id="dashHeroPlayerName">Michael Hage</h1>
+                <span class="px-2.5 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 font-mono text-[10px] font-bold border border-cyan-500/40">VERIFIED ATHLETE</span>
+                <span class="px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 font-mono text-[10px] font-bold border border-amber-500/40" id="dashHeroTier">TIER 6: NCAA D1</span>
+              </div>
+              <p class="text-xs sm:text-sm text-slate-300 font-mono mt-1">#19 Center · University of Michigan (Big Ten) · Montreal Canadiens (1st Round, 2024)</p>
+              <div class="flex items-center gap-3 text-xs text-slate-400 mt-2 font-mono flex-wrap">
+                <span>Height: <strong class="text-white">6'1"</strong></span>
+                <span>•</span>
+                <span>Weight: <strong class="text-white">190 lbs</strong></span>
+                <span>•</span>
+                <span>Shoots: <strong class="text-white">Right</strong></span>
+                <span>•</span>
+                <span>Composite Score: <strong class="text-emerald-400">87.2 / 100</strong></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Dossier Deep-Links -->
+          <div class="flex items-center gap-2 flex-wrap w-full md:w-auto justify-start md:justify-end">
+            <a href="player.html?player=mp_0013" class="px-3 py-1.5 rounded-xl bg-sky-600/30 hover:bg-sky-600/50 text-sky-200 border border-sky-500/40 text-xs font-bold transition flex items-center gap-1.5">
+              <span>🪪</span> <span>Public Passport</span>
+            </a>
+            <a href="scout.html?player=mp_0013" class="px-3 py-1.5 rounded-xl bg-amber-600/30 hover:bg-amber-600/50 text-amber-200 border border-amber-500/40 text-xs font-bold transition flex items-center gap-1.5">
+              <span>🔭</span> <span>Scout Dossier</span>
+            </a>
+            <a href="film.html?player=mp_0013" class="px-3 py-1.5 rounded-xl bg-purple-600/30 hover:bg-purple-600/50 text-purple-200 border border-purple-500/40 text-xs font-bold transition flex items-center gap-1.5">
+              <span>🎥</span> <span>Film Room</span>
+            </a>
+            <a href="compare.html?p1=mp_0013" class="px-3 py-1.5 rounded-xl bg-indigo-600/30 hover:bg-indigo-600/50 text-indigo-200 border border-indigo-500/40 text-xs font-bold transition flex items-center gap-1.5">
+              <span>⚖️</span> <span>Compare</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Active Plan Status Banner -->
+      <div id="dashboardPlanStatusBanner" class="p-4 rounded-2xl bg-gradient-to-r from-sky-950/40 via-slate-900 to-indigo-950/40 border border-sky-500/30 shadow-lg mb-6 flex items-center justify-between flex-wrap gap-4">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-sky-500/20 border border-sky-400/40 text-sky-300 flex items-center justify-center text-lg">
+            💳
+          </div>
           <div>
-            <div style="font-size:0.9rem; font-weight:800; color:#fff;" id="dashActivePlanName">Active Plan: Player Passport ($4.99/mo)</div>
-            <div style="font-size:0.75rem; color:#94a3b8;" id="dashActivePlanPerks">Includes Personal OS, 3,050+ Player Directory, and Unrestricted Access to The Wire</div>
+            <div class="text-sm font-bold text-white flex items-center gap-2">
+              <span id="dashActivePlanName">Active Plan: Player Passport ($4.99/mo)</span>
+              <span class="px-2 py-0.2 rounded bg-emerald-500/20 text-emerald-300 text-[10px] font-mono font-bold">ACTIVE</span>
+            </div>
+            <p class="text-xs text-slate-400 mt-0.5" id="dashActivePlanPerks">Personal OS • 3,050+ Player Directory • Unlimited Access to The Wire Social Network</p>
           </div>
         </div>
-        <div style="display:flex; align-items:center; gap:0.5rem;">
-          <button type="button" class="btn primary" id="dashUpgradePlanBtn" onclick="openPaywallModal('Coach & Recruiter Pro Upgrade', 'Unlock all 22 modules combined, AI film breakdown, and combine testing.')" style="padding:0.4rem 0.85rem; font-size:0.8rem; font-weight:700;">
-            ⚡ Upgrade to Pro ($22.99/mo)
+        <div class="flex items-center gap-2">
+          <button type="button" class="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 text-white font-bold text-xs shadow-md transition flex items-center gap-1.5 cursor-pointer" onclick="openPaywallModal('Coach & Recruiter Pro Upgrade', 'Unlock all 22 analytical modules, AI film breakdown, combine testing, and NCAA transfer portal.')">
+            <i class="fa-solid fa-bolt"></i>
+            <span>Upgrade to Pro ($22.99/mo)</span>
           </button>
-          <button type="button" class="btn secondary" onclick="switchView('packages')" style="padding:0.4rem 0.85rem; font-size:0.8rem;">
-            Manage Payment
+          <button type="button" class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700 text-xs font-semibold transition cursor-pointer" onclick="switchView('packages')">
+            Manage Subscription
           </button>
         </div>
       </div>
 
-      <h1>My Hockey Dashboard</h1>
+      <!-- 2-Column Progression & XP Mastery Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        
+        <!-- Column 1: Tier Level Card -->
+        <div class="tier-section">
+          <div class="flex items-center justify-between gap-2 mb-3">
+            <h2 class="text-base font-bold text-white m-0 flex items-center gap-2">
+              <span>🪜</span> <span>Tier Progression Level</span>
+            </h2>
+            <div class="flex items-center gap-1.5">
+              <button type="button" class="btn-action-sm nav-btn-sm" onclick="switchView('tierprogression')" title="View Full Tier Progression Ladder">Ladder</button>
+              <button type="button" class="btn-action-sm nav-btn-sm" onclick="switchView('pathways')" title="Explore Position Pathways">Pathways</button>
+            </div>
+          </div>
+          
+          <div class="p-3.5 rounded-xl bg-slate-950/80 border border-slate-800 flex items-center justify-between gap-3 mb-3">
+            <div>
+              <span class="text-[10px] font-mono text-slate-400 uppercase tracking-wider block">Current Milestone</span>
+              <span class="text-sm font-bold text-amber-300 font-display" id="dashboardTierBadge">Tier 6: Elite NCAA Division I</span>
+              <p class="text-[11px] text-slate-400 mt-0.5">Prospect Track • 100% NCAA Clearinghouse Certified</p>
+            </div>
+            <span class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-300 font-black text-sm flex items-center justify-center border border-amber-500/40">
+              T6
+            </span>
+          </div>
 
-      <!-- Tier Level Card with Working Actions -->
-      <div class="tier-section">
-        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem; margin-bottom:0.5rem;">
-          <h2 style="margin:0;">Tier Level</h2>
-          <div style="display:flex; gap:0.5rem;">
-            <button type="button" class="btn-action-sm nav-btn-sm" onclick="switchView('tierprogression')" title="View Full Tier Progression Ladder">🪜 Tier Ladder</button>
-            <button type="button" class="btn-action-sm nav-btn-sm" onclick="switchView('pathways')" title="Explore Position Pathways">📊 Position Pathway</button>
+          <div class="text-[11px] font-mono text-slate-400 flex justify-between mb-1.5">
+            <span>Next: <strong>Tier 7 (Pro / AHL / NHL Debut)</strong></span>
+            <span class="text-cyan-400">85% Ready</span>
+          </div>
+          <div class="w-full bg-slate-950 h-2 rounded-full overflow-hidden border border-slate-800">
+            <div class="bg-gradient-to-r from-amber-500 to-cyan-400 h-full rounded-full" style="width: 85%;"></div>
           </div>
         </div>
-        <div style="display:flex; align-items:center; gap:0.85rem; flex-wrap:wrap;">
-          <div class="tier-badge" id="dashboardTierBadge">Tier 4</div>
-          <span style="font-size:0.85rem; color:#94a3b8;" id="dashboardTierSubtitle">NCAA Division I Prospect Track • Verified Athletic Passport</span>
-        </div>
-      </div>
 
-      <!-- XP Progress Card with Working Daily XP Claim -->
-      <div class="xp-section">
-        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem; margin-bottom:0.5rem;">
-          <h2 style="margin:0;">XP Progress & Mastery</h2>
-          <div style="display:flex; gap:0.5rem;">
-            <button type="button" class="btn-action-sm train-btn" id="claimDailyBonusBtn" onclick="claimDailyBonus()" title="Claim Daily 50 XP Training Bonus">⭐ Claim Daily XP (+50)</button>
-            <button type="button" class="btn-action-sm nav-btn-sm" onclick="switchView('xp')" title="View Full XP History">📈 XP Log</button>
+        <!-- Column 2: XP Progress Card -->
+        <div class="xp-section">
+          <div class="flex items-center justify-between gap-2 mb-3">
+            <h2 class="text-base font-bold text-white m-0 flex items-center gap-2">
+              <span>⚡</span> <span>XP Progress & Daily Mastery</span>
+            </h2>
+            <div class="flex items-center gap-1.5">
+              <button type="button" class="btn-action-sm train-btn" id="claimDailyBonusBtn" onclick="claimDailyBonus()" title="Claim Daily 50 XP Training Bonus">⭐ Claim Daily (+50)</button>
+              <button type="button" class="btn-action-sm nav-btn-sm" onclick="switchView('xp')" title="View Full XP History">XP Log</button>
+            </div>
+          </div>
+
+          <div class="p-3.5 rounded-xl bg-slate-950/80 border border-slate-800 flex items-center justify-between gap-3 mb-3">
+            <div>
+              <span class="text-[10px] font-mono text-slate-400 uppercase tracking-wider block">Active Season XP</span>
+              <span class="text-lg font-bold text-cyan-300 font-display" id="dashboardXpText">650 / 1,000 XP</span>
+              <p class="text-[11px] text-emerald-400 mt-0.5 flex items-center gap-1">
+                <span>🔥</span> <span>14-Day Consecutive Training Streak Active!</span>
+              </p>
+            </div>
+            <span class="text-xs font-mono font-bold px-2 py-1 rounded bg-sky-500/20 text-sky-300 border border-sky-500/30" id="dashboardXpPercent">
+              65%
+            </span>
+          </div>
+
+          <div class="text-[11px] font-mono text-slate-400 flex justify-between mb-1.5">
+            <span>Progress to Next Rank</span>
+            <span class="text-sky-300">350 XP Needed</span>
+          </div>
+          <div class="w-full bg-slate-950 h-2 rounded-full overflow-hidden border border-slate-800">
+            <div class="bg-gradient-to-r from-sky-500 to-cyan-400 h-full rounded-full transition-all duration-500" id="dashboardXpFill" style="width: 65%;"></div>
           </div>
         </div>
-        <div class="xp-bar animated">
-          <div class="xp-fill" id="dashboardXpFill" data-fill="60" style="width: 60%;"></div>
-        </div>
-        <div style="display:flex; justify-content:space-between; font-size:0.85rem; color:#94a3b8; margin-top:0.35rem;">
-          <span id="dashboardXpText">650 / 1000 XP</span>
-          <span id="dashboardXpPercent">65% to Tier 5</span>
-        </div>
+
       </div>
 
-      <!-- Skill Rings with Working Train and Lab Endpoints -->
-      <div class="skills-rings">
-        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem; margin-bottom:0.75rem;">
-          <h2 style="margin:0;">Skill Rings & Performance Metrics</h2>
-          <div style="display:flex; gap:0.5rem;">
+      <!-- Skills Matrix Card -->
+      <div class="skills-rings mb-6">
+        <div class="flex items-center justify-between flex-wrap gap-2 mb-3">
+          <div>
+            <h2 class="text-base font-bold text-white m-0 flex items-center gap-2">
+              <span>⚡</span> <span>Skill Rings & Performance Metrics</span>
+            </h2>
+            <p class="text-xs text-slate-400 mt-0.5">Biometric and game telemetry ratings verified across 2025–26 season play</p>
+          </div>
+          <div class="flex items-center gap-1.5">
             <button type="button" class="btn-action-sm nav-btn-sm" onclick="switchView('skilltree')" title="Open Skill Tree">🌳 Full Skill Tree</button>
-            <button type="button" class="btn-action-sm nav-btn-sm" onclick="switchView('compare')" title="Compare Against Division 1 Benchmarks">🔬 Compare Benchmarks</button>
+            <button type="button" class="btn-action-sm nav-btn-sm" onclick="switchView('compare')" title="Compare Against Division 1 Benchmarks">🔬 Benchmarks</button>
           </div>
         </div>
+
         <ul class="dashboard-action-list">
           <li class="dashboard-action-card">
             <div class="dashboard-card-info">
               <span class="dashboard-card-icon">⚡</span>
               <div class="dashboard-card-meta">
-                <span class="dashboard-card-title" id="skillNameSkating">Skating: <span id="valSkating">72</span>/100</span>
-                <span class="dashboard-card-sub">Edge work, stride cadence, top velocity</span>
+                <span class="dashboard-card-title" id="skillNameSkating">Skating: <span id="valSkating" class="text-cyan-400">72</span>/100</span>
+                <span class="dashboard-card-sub">Edge work, stride cadence, top velocity (22.4 MPH)</span>
               </div>
             </div>
             <div class="dashboard-card-actions">
               <button type="button" class="btn-action-sm train-btn" onclick="trainSkill('Skating', 2)">⚡ Train (+2)</button>
               <button type="button" class="btn-action-sm nav-btn-sm" onclick="window.location.href='film.html'" title="Open AI Stride Analysis">🎥 AI Stride Lab</button>
             </div>
-          </li>
+          </div>
           <li class="dashboard-action-card">
             <div class="dashboard-card-info">
               <span class="dashboard-card-icon">🎯</span>
               <div class="dashboard-card-meta">
-                <span class="dashboard-card-title" id="skillNameShooting">Shooting: <span id="valShooting">68</span>/100</span>
-                <span class="dashboard-card-sub">Quick release, shooting in stride, accuracy</span>
+                <span class="dashboard-card-title" id="skillNameShooting">Shooting: <span id="valShooting" class="text-cyan-400">68</span>/100</span>
+                <span class="dashboard-card-sub">Quick release (0.32s), shooting in stride, accuracy</span>
               </div>
             </div>
             <div class="dashboard-card-actions">
               <button type="button" class="btn-action-sm train-btn" onclick="trainSkill('Shooting', 2)">⚡ Train (+2)</button>
               <button type="button" class="btn-action-sm nav-btn-sm" onclick="switchView('skilltree')" title="View Shooting Drills">🏒 Shooting Drills</button>
             </div>
-          </li>
+          </div>
           <li class="dashboard-action-card">
             <div class="dashboard-card-info">
               <span class="dashboard-card-icon">🏒</span>
               <div class="dashboard-card-meta">
-                <span class="dashboard-card-title" id="skillNamePassing">Passing: <span id="valPassing">64</span>/100</span>
-                <span class="dashboard-card-sub">Saucer precision, reception in motion</span>
+                <span class="dashboard-card-title" id="skillNamePassing">Passing: <span id="valPassing" class="text-cyan-400">64</span>/100</span>
+                <span class="dashboard-card-sub">Saucer precision, reception in motion, neutral zone vision</span>
               </div>
             </div>
             <div class="dashboard-card-actions">
               <button type="button" class="btn-action-sm train-btn" onclick="trainSkill('Passing', 2)">⚡ Train (+2)</button>
               <button type="button" class="btn-action-sm nav-btn-sm" onclick="switchView('skilltree')" title="Open Passing Web">🔬 Passing Web</button>
             </div>
-          </li>
+          </div>
           <li class="dashboard-action-card">
             <div class="dashboard-card-info">
               <span class="dashboard-card-icon">🛡️</span>
               <div class="dashboard-card-meta">
-                <span class="dashboard-card-title" id="skillNameDefense">Defense: <span id="valDefense">59</span>/100</span>
-                <span class="dashboard-card-sub">Stick positioning, angling, gap control</span>
+                <span class="dashboard-card-title" id="skillNameDefense">Defense: <span id="valDefense" class="text-cyan-400">59</span>/100</span>
+                <span class="dashboard-card-sub">Stick positioning, angling, gap control, backcheck pressure</span>
               </div>
             </div>
             <div class="dashboard-card-actions">
               <button type="button" class="btn-action-sm train-btn" onclick="trainSkill('Defense', 2)">⚡ Train (+2)</button>
               <button type="button" class="btn-action-sm nav-btn-sm" onclick="window.location.href='tactics.html'" title="Open Defensive Tactics Lab">📐 Tactics Lab</button>
             </div>
-          </li>
+          </div>
           <li class="dashboard-action-card">
             <div class="dashboard-card-info">
               <span class="dashboard-card-icon">🧠</span>
               <div class="dashboard-card-meta">
-                <span class="dashboard-card-title" id="skillNameIQ">Hockey IQ: <span id="valHockeyIQ">70</span>/100</span>
-                <span class="dashboard-card-sub">Anticipation, spatial awareness, scanning</span>
+                <span class="dashboard-card-title" id="skillNameIQ">Hockey IQ: <span id="valHockeyIQ" class="text-cyan-400">70</span>/100</span>
+                <span class="dashboard-card-sub">Anticipation, spatial awareness, scanning, faceoff reads</span>
               </div>
             </div>
             <div class="dashboard-card-actions">
               <button type="button" class="btn-action-sm train-btn" onclick="trainSkill('Hockey IQ', 2)">⚡ Train (+2)</button>
               <button type="button" class="btn-action-sm nav-btn-sm" onclick="switchView('iqsim')" title="Launch IQ Simulator">🧠 Play IQ Sim</button>
             </div>
-          </li>
+          </div>
         </ul>
       </div>
 
-      <!-- Today's Missions with Working Endpoints and Completion Buttons -->
-      <div class="missions-preview">
-        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem; margin-bottom:0.75rem;">
-          <h2 style="margin:0;">Today’s Missions</h2>
-          <div style="display:flex; gap:0.5rem;">
+      <!-- Today's Missions Card -->
+      <div class="missions-preview mb-6">
+        <div class="flex items-center justify-between flex-wrap gap-2 mb-3">
+          <div>
+            <h2 class="text-base font-bold text-white m-0 flex items-center gap-2">
+              <span>🎯</span> <span>Today’s Missions & Challenges</span>
+            </h2>
+            <p class="text-xs text-slate-400 mt-0.5">Complete daily development objectives to level up your player tier</p>
+          </div>
+          <div class="flex items-center gap-1.5">
             <button type="button" class="btn-action-sm nav-btn-sm" onclick="switchView('dailymissions')" title="View Complete Daily Missions List">📋 View All</button>
             <button type="button" class="btn-action-sm train-btn" onclick="completeAllDashboardMissions()" title="Complete all 3 missions for +150 XP">⚡ Complete All (+150 XP)</button>
-            <button type="button" class="btn-action-sm nav-btn-sm" onclick="resetDashboardMissions()" title="Reset missions to incomplete">🔄 Reset</button>
           </div>
         </div>
+
         <ul class="dashboard-action-list">
           <li class="dashboard-action-card" id="cardMission1">
             <div class="dashboard-card-info">
-              <span class="dashboard-card-icon">🎯</span>
+              <span class="dashboard-card-icon">🕶️</span>
               <div class="dashboard-card-meta">
-                <span class="dashboard-card-title">Shoot 50 pucks</span>
-                <span class="dashboard-card-sub">Daily shooting volume • Corner targets</span>
+                <span class="dashboard-card-title">Log 20 puck touches in AR Training</span>
+                <span class="dashboard-card-sub">Augmented vision drills • Spatial coordination • +50 XP</span>
               </div>
             </div>
             <div class="dashboard-card-actions">
-              <button type="button" class="btn-action-sm nav-btn-sm" onclick="switchView('skilltree')">🏒 Drills</button>
-              <button type="button" class="btn-mission-complete" id="btnMission1" onclick="completeDashboardMission(1, 'Shoot 50 pucks', 50)">⚡ Complete (+50 XP)</button>
+              <button type="button" class="btn-action-sm nav-btn-sm" onclick="switchView('artraining')">🕶️ AR Sim</button>
+              <button type="button" class="btn-mission-complete" id="btnMission1" onclick="completeDashboardMission(1, 'Log 20 puck touches in AR Training', 50)">⚡ Complete (+50 XP)</button>
             </div>
-          </li>
+          </div>
           <li class="dashboard-action-card" id="cardMission2">
             <div class="dashboard-card-info">
               <span class="dashboard-card-icon">🎥</span>
               <div class="dashboard-card-meta">
                 <span class="dashboard-card-title">Record a skating stride video</span>
-                <span class="dashboard-card-sub">AI joint tracking • Hip extension analysis</span>
+                <span class="dashboard-card-sub">AI joint tracking • Hip extension analysis • +50 XP</span>
               </div>
             </div>
             <div class="dashboard-card-actions">
@@ -478,13 +1108,13 @@
               <button type="button" class="btn-action-sm nav-btn-sm" onclick="switchView('uploadmanager')">📤 Upload</button>
               <button type="button" class="btn-mission-complete" id="btnMission2" onclick="completeDashboardMission(2, 'Record a skating stride video', 50)">⚡ Complete (+50 XP)</button>
             </div>
-          </li>
+          </div>
           <li class="dashboard-action-card" id="cardMission3">
             <div class="dashboard-card-info">
               <span class="dashboard-card-icon">🧠</span>
               <div class="dashboard-card-meta">
                 <span class="dashboard-card-title">Complete 2 IQ scenarios</span>
-                <span class="dashboard-card-sub">3v2 rush & offensive zone cycle reads</span>
+                <span class="dashboard-card-sub">3v2 rush & offensive zone cycle reads • +50 XP</span>
               </div>
             </div>
             <div class="dashboard-card-actions">
@@ -492,8 +1122,47 @@
               <button type="button" class="btn-action-sm nav-btn-sm" onclick="window.location.href='rink3d.html'">📐 3D Rink Sim</button>
               <button type="button" class="btn-mission-complete" id="btnMission3" onclick="completeDashboardMission(3, 'Complete 2 IQ scenarios', 50)">⚡ Complete (+50 XP)</button>
             </div>
-          </li>
+          </div>
         </ul>
+      </div>
+
+      <!-- Quick Enterprise Labs Launchpad (6 Tiles) -->
+      <div class="mb-6">
+        <h2 class="text-base font-bold text-white mb-3 flex items-center gap-2">
+          <span>🚀</span> <span>Enterprise Hockey Labs & Analytical Desks</span>
+        </h2>
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+          <a href="film.html" class="p-3 rounded-2xl bg-slate-900/90 border border-slate-800 hover:border-purple-500/50 hover:bg-slate-800/90 transition text-center group shadow-md">
+            <span class="text-2xl block mb-1">🎥</span>
+            <strong class="text-xs text-white group-hover:text-purple-300 transition block">Film Studio</strong>
+            <span class="text-[10px] text-slate-400 font-mono block mt-0.5">AI Telestration</span>
+          </a>
+          <a href="combine.html" class="p-3 rounded-2xl bg-slate-900/90 border border-slate-800 hover:border-emerald-500/50 hover:bg-slate-800/90 transition text-center group shadow-md">
+            <span class="text-2xl block mb-1">🏋️</span>
+            <strong class="text-xs text-white group-hover:text-emerald-300 transition block">Combine Lab</strong>
+            <span class="text-[10px] text-slate-400 font-mono block mt-0.5">NHL Benchmark</span>
+          </a>
+          <a href="compare.html" class="p-3 rounded-2xl bg-slate-900/90 border border-slate-800 hover:border-indigo-500/50 hover:bg-slate-800/90 transition text-center group shadow-md">
+            <span class="text-2xl block mb-1">⚖️</span>
+            <strong class="text-xs text-white group-hover:text-indigo-300 transition block">Compare Tool</strong>
+            <span class="text-[10px] text-slate-400 font-mono block mt-0.5">Head-to-Head</span>
+          </a>
+          <a href="database.html" class="p-3 rounded-2xl bg-slate-900/90 border border-slate-800 hover:border-sky-500/50 hover:bg-slate-800/90 transition text-center group shadow-md">
+            <span class="text-2xl block mb-1">📊</span>
+            <strong class="text-xs text-white group-hover:text-sky-300 transition block">Directory</strong>
+            <span class="text-[10px] text-slate-400 font-mono block mt-0.5">4,000+ Players</span>
+          </a>
+          <a href="portal.html" class="p-3 rounded-2xl bg-slate-900/90 border border-slate-800 hover:border-cyan-500/50 hover:bg-slate-800/90 transition text-center group shadow-md">
+            <span class="text-2xl block mb-1">🏒</span>
+            <strong class="text-xs text-white group-hover:text-cyan-300 transition block">Transfer Portal</strong>
+            <span class="text-[10px] text-slate-400 font-mono block mt-0.5">NIL War Room</span>
+          </a>
+          <a href="tactics.html" class="p-3 rounded-2xl bg-slate-900/90 border border-slate-800 hover:border-amber-500/50 hover:bg-slate-800/90 transition text-center group shadow-md">
+            <span class="text-2xl block mb-1">📐</span>
+            <strong class="text-xs text-white group-hover:text-amber-300 transition block">Tactics Lab</strong>
+            <span class="text-[10px] text-slate-400 font-mono block mt-0.5">Faceoff Engine</span>
+          </a>
+        </div>
       </div>
 
       <!-- Highlight Reel with Working Launchers and Clips -->
@@ -773,7 +1442,7 @@
           <li>Save Selection</li>
           <li>Rebound Control</li>
         </ul>
-        <button onclick="switchToGoalie()">Switch to Goalie Mode</button>
+        <button type="button" class="btn primary" onclick="switchToGoalie()"><i class="fa-solid fa-shield"></i> Switch to Goalie Mode</button>
       </div>
     </section>
 
@@ -948,7 +1617,7 @@
         <li>Complete 2 IQ scenarios</li>
       </ul>
 
-      <button onclick="addXP(50)">Complete Mission</button>
+      <button type="button" class="btn primary" onclick="addXP(50)"><i class="fa-solid fa-bolt"></i> Complete Mission (+50 XP)</button>
 
       <h2>Weekly Goals</h2>
       <ul class="mission-list">
@@ -2006,6 +2675,39 @@
   <script src="static/js/blueline_ui_kit.js"></script>
 
   <script>
+    
+    // Category tab filtering function
+    window.currentCategoryFilter = 'all';
+
+    function filterTabsByCategory(category, btnEl) {
+      window.currentCategoryFilter = category || 'all';
+      document.querySelectorAll('.cat-pill-btn').forEach(b => b.classList.remove('active'));
+      if (btnEl) {
+        btnEl.classList.add('active');
+      } else {
+        const matchingBtn = document.querySelector(`.cat-pill-btn[onclick*="'${window.currentCategoryFilter}'"]`);
+        if (matchingBtn) matchingBtn.classList.add('active');
+      }
+
+      const isPro = (currentActiveRole === 'coach' || currentActiveRole === 'scout' || currentActiveRole === 'admin');
+      const allowed = isPro ? ALL_APP_VIEWS : (ROLE_TABS_CONFIG[currentActiveRole] || ROLE_TABS_CONFIG.athlete);
+
+      const tabs = document.querySelectorAll('.app-tabs .tab-btn');
+      tabs.forEach(tab => {
+        const cat = tab.getAttribute('data-category');
+        const view = tab.getAttribute('data-view');
+        const roleAllowed = isPro || allowed.includes(view);
+        const catMatch = (window.currentCategoryFilter === 'all' || cat === window.currentCategoryFilter);
+
+        if (catMatch && roleAllowed) {
+          tab.style.display = 'inline-flex';
+        } else {
+          tab.style.display = 'none';
+        }
+      });
+    }
+    window.filterTabsByCategory = filterTabsByCategory;
+
     const tabButtons = document.querySelectorAll('.tab-btn');
     const views = document.querySelectorAll('.app-view');
 
@@ -2070,7 +2772,14 @@
       });
 
       if (btn) {
+        if (btn.style.display === 'none') {
+          const cat = btn.getAttribute('data-category');
+          if (typeof filterTabsByCategory === 'function') {
+            filterTabsByCategory(cat || 'all');
+          }
+        }
         btn.click();
+        try { btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' }); } catch(e) {}
       } else {
         // Fallback: direct element display toggle if tab is filtered out or missing
         views.forEach(v => {
@@ -3091,11 +3800,10 @@
 
         // For non-pro roles (athlete, parent), strictly show only their allowed tabs.
         // Even if forceAll is toggled, non-pro users never see unauthorized coaching/admin views.
-        if (isPro) {
-          tab.style.display = (forceAll || allowed.includes(view)) ? 'inline-block' : 'none';
-        } else {
-          tab.style.display = allowed.includes(view) ? 'inline-block' : 'none';
-        }
+        const cat = tab.getAttribute("data-category");
+        const catMatch = (!window.currentCategoryFilter || window.currentCategoryFilter === "all" || cat === window.currentCategoryFilter);
+        const roleMatch = isPro ? (forceAll || allowed.includes(view)) : allowed.includes(view);
+        tab.style.display = (catMatch && roleMatch) ? "inline-flex" : "none";
       });
 
       updateViewPaywallStates();
