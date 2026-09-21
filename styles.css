@@ -4764,6 +4764,26 @@ body.dark-mode .mobile-nav-toggle-btn {
   textarea {
     font-size: 16px !important;
   }
+
+  /* Responsive Tables, Canvases & Modals (< 640px) */
+  table {
+    display: block !important;
+    width: 100% !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  canvas {
+    max-width: 100% !important;
+    height: auto !important;
+  }
+
+  .modal-dialog,
+  .inline-paywall-card {
+    max-width: 95vw !important;
+    padding: 1rem !important;
+  }
 }
+
 
 

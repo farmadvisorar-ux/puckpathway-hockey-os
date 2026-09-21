@@ -387,40 +387,40 @@
 
     const modal = document.createElement('div');
     modal.id = 'playerFeatureHubModal';
-    modal.className = 'fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/80 backdrop-blur-md overflow-y-auto';
+    modal.className = 'fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-slate-950/85 backdrop-blur-md overflow-y-auto';
     modal.onclick = (e) => { if (e.target === modal) modal.remove(); };
 
     modal.innerHTML = `
-      <div class="relative w-full max-w-4xl rounded-3xl bg-slate-950 border border-sky-500/40 shadow-2xl p-5 sm:p-6 text-white my-8 max-h-[90vh] overflow-y-auto space-y-5" style="background:#020617; border:1px solid rgba(56,189,248,0.4);">
+      <div class="relative w-full max-w-4xl rounded-2xl sm:rounded-3xl bg-slate-950 border border-sky-500/40 shadow-2xl p-4 sm:p-6 text-white my-2 sm:my-8 max-h-[92vh] overflow-y-auto space-y-4 sm:space-y-5" style="background:#020617; border:1px solid rgba(56,189,248,0.4);">
         <!-- Close Button -->
-        <button type="button" onclick="document.getElementById('playerFeatureHubModal').remove()" class="absolute right-4 top-4 w-8 h-8 rounded-full bg-slate-900 border border-slate-700 text-slate-400 hover:text-white flex items-center justify-center text-sm cursor-pointer transition">✕</button>
+        <button type="button" onclick="document.getElementById('playerFeatureHubModal').remove()" class="absolute right-3 sm:right-4 top-3 sm:top-4 w-9 h-9 rounded-full bg-slate-900 border border-slate-700 text-slate-400 hover:text-white flex items-center justify-center text-sm cursor-pointer transition z-10" aria-label="Close Modal">✕</button>
 
         <!-- Header -->
-        <div class="flex flex-wrap items-start justify-between gap-4 border-b border-slate-800 pb-4 pr-8">
-          <div class="flex items-center gap-3.5">
-            <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-sky-600 to-indigo-800 text-white flex items-center justify-center text-2xl font-black shadow-lg border border-sky-400/40">
+        <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-3 sm:gap-4 border-b border-slate-800 pb-3 sm:pb-4 pr-8 sm:pr-8">
+          <div class="flex items-center gap-3">
+            <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-gradient-to-tr from-sky-600 to-indigo-800 text-white flex items-center justify-center text-xl sm:text-2xl font-black shadow-lg border border-sky-400/40 shrink-0">
               ${athlete.pos === 'G' ? '🥅' : (athlete.pos === 'D' ? '🛡️' : '⚡')}
             </div>
-            <div>
-              <div class="flex items-center gap-2 flex-wrap">
-                <span class="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-[10px] font-mono font-bold uppercase">
+            <div class="min-w-0">
+              <div class="flex items-center gap-1.5 sm:gap-2 flex-wrap">
+                <span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-[9px] sm:text-[10px] font-mono font-bold uppercase">
                   ${athlete.tier || 'VERIFIED PROSPECT'}
                 </span>
-                <span class="px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40 text-[10px] font-mono font-bold">
+                <span class="px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40 text-[9px] sm:text-[10px] font-mono font-bold">
                   Score: ${score}
                 </span>
-                <span class="px-2.5 py-0.5 rounded-full bg-sky-500/20 text-sky-300 border border-sky-500/40 text-[10px] font-mono font-bold">
+                <span class="px-2 py-0.5 rounded-full bg-sky-500/20 text-sky-300 border border-sky-500/40 text-[9px] sm:text-[10px] font-mono font-bold">
                   ${meta.priority || 'Tier 1 - Priority Target'}
                 </span>
               </div>
-              <h2 class="text-xl sm:text-2xl font-black text-white tracking-tight mt-1">${athlete.name}</h2>
-              <p class="text-xs text-slate-300 font-sans">${athlete.team || 'Independent'} · Position: <strong class="text-white">${athlete.pos || 'F'}</strong> · Status: <strong class="text-amber-400">${meta.status || 'In Evaluation'}</strong></p>
+              <h2 class="text-lg sm:text-2xl font-black text-white tracking-tight mt-0.5 truncate">${athlete.name}</h2>
+              <p class="text-[11px] sm:text-xs text-slate-300 font-sans truncate">${athlete.team || 'Independent'} · Position: <strong class="text-white">${athlete.pos || 'F'}</strong> · Status: <strong class="text-amber-400">${meta.status || 'In Evaluation'}</strong></p>
             </div>
           </div>
 
           <!-- Watchlist Toggle -->
-          <div class="flex items-center gap-2">
-            <button type="button" id="modalToggleLedgerBtn" onclick="window.BlueLineUI.togglePlayerInLedger('${athlete.id}', '${athlete.name.replace(/'/g, "\\'")}'); window.BlueLineUI.openPlayerFeatureHubModal('${athlete.id}');" class="px-3.5 py-1.5 rounded-xl ${isWatched ? 'bg-amber-500 text-slate-950 font-black' : 'bg-slate-900 border border-amber-500/50 text-amber-300 hover:text-white'} text-xs font-bold transition flex items-center gap-1.5 cursor-pointer shadow-md">
+          <div class="flex items-center gap-2 pt-1 sm:pt-0">
+            <button type="button" id="modalToggleLedgerBtn" onclick="window.BlueLineUI.togglePlayerInLedger('${athlete.id}', '${athlete.name.replace(/'/g, "\\'")}'); window.BlueLineUI.openPlayerFeatureHubModal('${athlete.id}');" class="w-full sm:w-auto px-3.5 py-1.5 rounded-xl ${isWatched ? 'bg-amber-500 text-slate-950 font-black' : 'bg-slate-900 border border-amber-500/50 text-amber-300 hover:text-white'} text-xs font-bold transition flex items-center justify-center gap-1.5 cursor-pointer shadow-md min-h-[40px]">
               <span>${isWatched ? '⭐ Tracked on List' : '+ Add to Tracked List'}</span>
             </button>
           </div>
@@ -431,13 +431,13 @@
           <h3 class="text-xs font-mono font-bold text-sky-400 uppercase tracking-wider flex items-center gap-1.5">
             <span>🚀</span> Recruiter Multi-Feature Workspace (${modules.length} Enterprise Tools)
           </h3>
-          <p class="text-xs text-slate-400 mt-0.5">
+          <p class="text-[11px] sm:text-xs text-slate-400 mt-0.5">
             Launch any analytics lab or command desk contextualized for <strong>${athlete.name}</strong>. All telemetry and data will pre-load automatically.
           </p>
         </div>
 
         <!-- Modules Grid -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-3">
           ${modules.map(m => `
             <div onclick="window.BlueLineUI.launchAthleteInModule('${m.id}', '${athlete.id}')" class="p-3.5 rounded-2xl bg-slate-900/80 hover:bg-slate-850 border border-slate-800 hover:border-sky-400/60 transition cursor-pointer flex flex-col justify-between space-y-2 shadow-sm group">
               <div class="space-y-1">

@@ -487,15 +487,54 @@
         }
       }
 
-      /* Global Mobile Touch Ergonomics & Anti-Horizontal-Wobble */
+      /* Global Mobile Touch Ergonomics, Canvas Scaling & Anti-Horizontal-Wobble */
       html, body {
         max-width: 100vw !important;
         overflow-x: hidden !important;
+        position: relative !important;
+        -webkit-text-size-adjust: 100% !important;
+        text-size-adjust: 100% !important;
+      }
+
+      img, video, svg {
+        max-width: 100% !important;
+        height: auto !important;
+      }
+
+      canvas {
+        max-width: 100% !important;
       }
 
       @media screen and (max-width: 768px) {
         input[type="text"], input[type="email"], input[type="password"], input[type="search"], input[type="number"], select, textarea {
           font-size: 16px !important;
+          max-width: 100% !important;
+          box-sizing: border-box !important;
+        }
+
+        button, a, select, input[type="button"], input[type="submit"], .role-chip-btn, .tab-btn {
+          touch-action: manipulation !important;
+          -webkit-tap-highlight-color: transparent !important;
+        }
+
+        .blueline-bottom-nav-item, .nav-btn-sm, .btn-action-sm {
+          min-height: 40px !important;
+        }
+
+        /* Responsive table scrolling */
+        .table-responsive, .overflow-x-auto, [data-mobile-scroll="true"] {
+          -webkit-overflow-scrolling: touch !important;
+        }
+      }
+
+      @media (pointer: coarse) {
+        ::-webkit-scrollbar {
+          width: 4px !important;
+          height: 4px !important;
+        }
+        ::-webkit-scrollbar-thumb {
+          background: rgba(56, 189, 248, 0.3) !important;
+          border-radius: 9999px !important;
         }
       }
     `;

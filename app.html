@@ -1022,7 +1022,7 @@
         </div>
       </div>
 
-      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:1.25rem; margin-bottom:1.5rem;">
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap:1.25rem; margin-bottom:1.5rem;">
         <!-- Card 1: Athlete Bio Snapshot -->
         <div style="background:#0f172a; border:1px solid rgba(56,189,248,0.3); border-radius:14px; padding:1.25rem; box-shadow:0 8px 24px rgba(0,0,0,0.3);">
           <div style="display:flex; align-items:center; gap:0.85rem; margin-bottom:1rem;">
@@ -1134,14 +1134,14 @@
 
           <!-- Quick Select & Add Prospect Bar -->
           <div style="background:#0f172a; border:1px solid #334155; border-radius:1rem; padding:0.85rem 1rem; margin-bottom:1.25rem; display:flex; flex-wrap:wrap; gap:0.75rem; align-items:center; justify-content:space-between;">
-            <div style="display:flex; align-items:center; gap:0.5rem; flex:1; min-width:280px;">
+            <div style="display:flex; align-items:center; gap:0.5rem; flex:1 1 240px; min-width:0; width:100%;">
               <label for="appRecruiterAthleteSelect" style="font-size:0.75rem; font-family:monospace; color:#38bdf8; font-weight:700; white-space:nowrap;">+ Select Prospect:</label>
-              <select id="appRecruiterAthleteSelect" style="flex:1; background:#020617; border:1px solid #475569; border-radius:0.5rem; color:#f8fafc; padding:0.45rem 0.75rem; font-size:0.8rem; outline:none; cursor:pointer;">
+              <select id="appRecruiterAthleteSelect" style="flex:1; min-width:0; width:100%; background:#020617; border:1px solid #475569; border-radius:0.5rem; color:#f8fafc; padding:0.45rem 0.75rem; font-size:0.8rem; outline:none; cursor:pointer;">
                 <option value="">-- Choose from 4,019+ Verified Amateur Prospects --</option>
               </select>
-              <button type="button" onclick="handleAppAddSelectedToLedger()" class="btn primary" style="padding:0.45rem 1rem; font-size:0.8rem; font-weight:800; white-space:nowrap; background:#0284c7; border-color:#0369a1; cursor:pointer;">+ Track</button>
+              <button type="button" onclick="handleAppAddSelectedToLedger()" class="btn primary" style="padding:0.45rem 1rem; font-size:0.8rem; font-weight:800; white-space:nowrap; background:#0284c7; border-color:#0369a1; cursor:pointer; min-height:38px;">+ Track</button>
             </div>
-            <div style="display:flex; align-items:center; gap:0.5rem;">
+            <div style="display:flex; align-items:center; gap:0.5rem; flex-wrap:wrap;">
               <button type="button" onclick="exportAppRecruiterCsv()" class="btn secondary" style="padding:0.45rem 0.85rem; font-size:0.75rem; font-family:monospace; color:#94a3b8; border-color:#475569; cursor:pointer;" title="Export Watched Prospects to CSV">📥 CSV</button>
               <a href="scout.html" class="btn secondary" style="padding:0.45rem 0.85rem; font-size:0.75rem; font-family:monospace; color:#fbbf24; border-color:#f59e0b; text-decoration:none;" title="Open Dedicated Lead Scout Desk">🔭 Lead Scout Desk →</a>
             </div>
@@ -1162,7 +1162,7 @@
           </div>
 
           <!-- Dynamic Prospects Cards Grid -->
-          <div id="appRecruiterProspectsGrid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(320px, 1fr)); gap:1rem; margin-bottom:2rem;">
+          <div id="appRecruiterProspectsGrid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(min(100%, 280px), 1fr)); gap:1rem; margin-bottom:2rem;">
             <!-- Populated by renderAppRecruitingBoard() -->
           </div>
         </div>
@@ -1519,7 +1519,7 @@
       </div>
 
       <!-- Player Cards Grid -->
-      <div id="playerDbCardsGrid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr)); gap:1rem;">
+      <div id="playerDbCardsGrid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(min(100%, 280px), 1fr)); gap:1rem;">
         <!-- Dynamically rendered -->
       </div>
     </section>
@@ -4318,12 +4318,12 @@
               </button>
 
               <!-- Quick direct launcher icons -->
-              <div style="display:grid; grid-template-columns:repeat(5, 1fr); gap:0.25rem;">
-                <button type="button" onclick="window.location.href='film.html?player=${p.id}'" class="btn secondary" style="padding:0.3rem 0; font-size:0.7rem; text-align:center; cursor:pointer;" title="AI Film Room">🎥 Film</button>
-                <button type="button" onclick="window.location.href='combine.html?player=${p.id}'" class="btn secondary" style="padding:0.3rem 0; font-size:0.7rem; text-align:center; cursor:pointer;" title="Combine Lab">🔬 Lab</button>
-                <button type="button" onclick="window.location.href='compare.html?p1=${p.id}'" class="btn secondary" style="padding:0.3rem 0; font-size:0.7rem; text-align:center; cursor:pointer;" title="Compare Radar">⚖️ Radar</button>
-                <button type="button" onclick="window.location.href='pathway.html?player=${p.id}'" class="btn secondary" style="padding:0.3rem 0; font-size:0.7rem; text-align:center; cursor:pointer;" title="Career Pathway Simulator">📈 Path</button>
-                <button type="button" onclick="window.location.href='player.html?id=${p.id}'" class="btn secondary" style="padding:0.3rem 0; font-size:0.7rem; text-align:center; cursor:pointer;" title="Verified Passport">👤 Pass</button>
+              <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(50px, 1fr)); gap:0.25rem;">
+                <button type="button" onclick="window.location.href='film.html?player=${p.id}'" class="btn secondary" style="padding:0.35rem 0.15rem; font-size:clamp(0.6rem, 1.8vw, 0.7rem); text-align:center; cursor:pointer; min-height:36px;" title="AI Film Room">🎥 Film</button>
+                <button type="button" onclick="window.location.href='combine.html?player=${p.id}'" class="btn secondary" style="padding:0.35rem 0.15rem; font-size:clamp(0.6rem, 1.8vw, 0.7rem); text-align:center; cursor:pointer; min-height:36px;" title="Combine Lab">🔬 Lab</button>
+                <button type="button" onclick="window.location.href='compare.html?p1=${p.id}'" class="btn secondary" style="padding:0.35rem 0.15rem; font-size:clamp(0.6rem, 1.8vw, 0.7rem); text-align:center; cursor:pointer; min-height:36px;" title="Compare Radar">⚖️ Radar</button>
+                <button type="button" onclick="window.location.href='pathway.html?player=${p.id}'" class="btn secondary" style="padding:0.35rem 0.15rem; font-size:clamp(0.6rem, 1.8vw, 0.7rem); text-align:center; cursor:pointer; min-height:36px;" title="Career Pathway Simulator">📈 Path</button>
+                <button type="button" onclick="window.location.href='player.html?id=${p.id}'" class="btn secondary" style="padding:0.35rem 0.15rem; font-size:clamp(0.6rem, 1.8vw, 0.7rem); text-align:center; cursor:pointer; min-height:36px;" title="Verified Passport">👤 Pass</button>
               </div>
             </div>
           </div>
@@ -4359,7 +4359,7 @@
 
       const modal = document.createElement('div');
       modal.id = 'appScoutNotesModal';
-      modal.className = 'fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm';
+      modal.className = 'fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/80 backdrop-blur-sm overflow-y-auto';
       modal.style.position = 'fixed';
       modal.style.top = '0';
       modal.style.left = '0';
@@ -4374,7 +4374,7 @@
       modal.onclick = (e) => { if (e.target === modal) modal.remove(); };
 
       modal.innerHTML = `
-        <div style="background:#090d16; border:1px solid rgba(56,189,248,0.4); border-radius:1rem; padding:1.25rem; max-width:480px; width:90%; color:#ffffff; box-shadow:0 20px 25px -5px rgba(0,0,0,0.5);">
+        <div style="background:#090d16; border:1px solid rgba(56,189,248,0.4); border-radius:1rem; padding:1.25rem; max-width:min(480px, 94vw); width:100%; max-height:90vh; overflow-y:auto; color:#ffffff; box-shadow:0 20px 25px -5px rgba(0,0,0,0.5); box-sizing:border-box;">
           <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #334155; padding-bottom:0.75rem; margin-bottom:1rem;">
             <div>
               <h3 style="margin:0; font-size:1rem; font-weight:800;">📝 Confidential Scout Notes</h3>
