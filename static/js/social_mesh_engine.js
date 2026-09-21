@@ -447,6 +447,7 @@
     if (customData.banner) user.banner = customData.banner;
     if (customData.avatar) user.avatar = customData.avatar;
     if (customData.logoOverlay !== undefined) user.logoOverlay = customData.logoOverlay;
+    if (customData.website) user.website = customData.website;
 
     // Sync in users array
     const idx = state.users.findIndex(u => u.id === user.id);

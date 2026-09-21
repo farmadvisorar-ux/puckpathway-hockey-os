@@ -197,6 +197,7 @@
               <span id="sidebarUserBadge" class="text-[10px]"></span>
             </div>
             <span id="sidebarUserHandle" class="text-[10px] text-slate-400 block truncate font-mono"></span>
+            <a id="profileHeaderWebsite" href="#" target="_blank" class="text-[10px] text-sky-400 hover:text-sky-300 flex items-center gap-1 mt-0.5 hidden"><span>🔗</span><span id="profileHeaderWebsiteText"></span></a>
           </div>
         </div>
         <button onclick="event.stopPropagation(); typeof window.openUserDrawer === 'function' ? window.openUserDrawer() : (window.location.href='login.html')" class="text-slate-400 hover:text-white text-xs p-1 cursor-pointer" title="Account Ledger & Personas">👤</button>
@@ -626,6 +627,11 @@
           </div>
         </div>
 
+        <div>
+          <label class="block text-slate-400 font-bold mb-1">Avatar Image URL</label>
+          <input type="text" id="editProfileAvatarInput" placeholder="https://... or leave blank to keep current" class="w-full bg-slate-900 border border-slate-800 rounded-xl p-2.5 text-white">
+        </div>
+
         <div class="grid grid-cols-2 gap-3">
           <div>
             <label class="block text-slate-400 font-bold mb-1">Display Name</label>
@@ -651,6 +657,17 @@
         <div>
           <label class="block text-slate-400 font-bold mb-1">Bio / Elevator Pitch</label>
           <textarea id="editProfileBioInput" rows="3" class="w-full bg-slate-900 border border-slate-800 rounded-xl p-2.5 text-white resize-none"></textarea>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-slate-400 font-bold mb-1">Website / Link</label>
+            <input type="text" id="editProfileWebsiteInput" placeholder="https://yoursite.com" class="w-full bg-slate-900 border border-slate-800 rounded-xl p-2.5 text-white">
+          </div>
+          <div>
+            <label class="block text-slate-400 font-bold mb-1">Location</label>
+            <input type="text" id="editProfileLocationInput" placeholder="City, State" class="w-full bg-slate-900 border border-slate-800 rounded-xl p-2.5 text-white">
+          </div>
         </div>
       </div>
 
@@ -774,6 +791,19 @@
         if (sidebarHandle) sidebarHandle.textContent = `@${u.handle}`;
         if (sidebarBadge) sidebarBadge.textContent = u.badge ? u.badge.icon : '🏒';
         if (composerAvatar) composerAvatar.src = u.avatar;
+
+        // Website link in sidebar card
+        const websiteEl = document.getElementById('profileHeaderWebsite');
+        const websiteTextEl = document.getElementById('profileHeaderWebsiteText');
+        if (websiteEl && websiteTextEl) {
+          if (u.website) {
+            websiteTextEl.textContent = u.website.replace(/^https?:\/\//, '');
+            websiteEl.href = u.website.startsWith('http') ? u.website : `https://${u.website}`;
+            websiteEl.classList.remove('hidden');
+          } else {
+            websiteEl.classList.add('hidden');
+          }
+        }
 
         // Gamified Status
         const xpLevelBadge = document.getElementById('xpLevelBadge');
@@ -1293,6 +1323,12 @@
         document.getElementById('editProfileOrgInput').value = u.organization;
         document.getElementById('editProfileTitleInput').value = u.title;
         document.getElementById('editProfileBannerInput').value = u.banner;
+        const avatarInput = document.getElementById('editProfileAvatarInput');
+        if (avatarInput) avatarInput.value = u.avatar || '';
+        const websiteInput = document.getElementById('editProfileWebsiteInput');
+        if (websiteInput) websiteInput.value = u.website || '';
+        const locationInput = document.getElementById('editProfileLocationInput');
+        if (locationInput) locationInput.value = u.location || '';
         document.getElementById('profileCustomizerModal').classList.remove('hidden');
       };
 
@@ -1536,7 +1572,10 @@
             bio: document.getElementById('editProfileBioInput').value,
             organization: document.getElementById('editProfileOrgInput').value,
             title: document.getElementById('editProfileTitleInput').value,
-            banner: document.getElementById('editProfileBannerInput').value
+            banner: document.getElementById('editProfileBannerInput').value,
+            avatar: document.getElementById('editProfileAvatarInput')?.value || null,
+            website: document.getElementById('editProfileWebsiteInput')?.value || null,
+            location: document.getElementById('editProfileLocationInput')?.value || null
           });
           state = social.getState();
           document.getElementById('profileCustomizerModal').classList.add('hidden');
