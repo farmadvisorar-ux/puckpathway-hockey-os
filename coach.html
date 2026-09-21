@@ -63,9 +63,9 @@
   <header class="border-b border-slate-800/80 bg-slate-950/85 backdrop-blur-xl sticky top-8 z-40">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
       
-      <!-- Brand Logo - Routed directly to Scout Desk -->
+      <!-- Brand Logo - Routed directly to Coach Desk -->
       <div class="flex items-center gap-3 min-w-0">
-        <a href="scout.html" class="flex items-center gap-2.5 group" data-blueline-logo="true" onclick="return window.BlueLineAuth ? window.BlueLineAuth.handleLogoClick(event) : true" title="Return to Role Home (Parent, Coach, Scout, Athlete)">
+        <a href="coach.html" class="flex items-center gap-2.5 group" data-blueline-logo="true" onclick="return window.BlueLineAuth ? window.BlueLineAuth.handleLogoClick(event) : true" title="Return to Role Home (Coach, Scout, Athlete, Parent)">
           <img src="static/img/blueline_logo.jpg" alt="BlueLine DataWorks Logo" class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl border border-indigo-400/50 object-cover shadow-lg shadow-indigo-500/20 group-hover:scale-105 transition shrink-0">
           <div class="min-w-0">
             <div class="flex items-center gap-1.5">
@@ -111,7 +111,7 @@
           <span class="text-base">👔</span>
           <div class="text-left">
             <div class="text-[10px] text-indigo-400 font-bold uppercase tracking-wider">Head Coach</div>
-            <div class="text-xs font-black text-white">Adam Nightingale (MSU)</div>
+            <div class="text-xs font-black text-white" id="coachHeaderName">Adam Nightingale (MSU)</div>
           </div>
         </div>
 
@@ -139,7 +139,7 @@
             Team Tactical Operations & Chemistry Matrix
           </h1>
           <p class="text-xs sm:text-sm text-slate-300 max-w-2xl leading-relaxed">
-            Optimize 5v5 line chemistry, deploy special teams units (PP1/PK1), execute high-tempo practice drills, and manage inbound scout inquiries on team prospects.
+            Optimize 5v5 line chemistry, deploy special teams units (PP1/PK1), manage active 24-skater roster development with 14+ analytics labs, execute high-tempo practice drills, and dispatch confidential scout evaluations.
           </p>
         </div>
 
@@ -147,22 +147,22 @@
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
           <div class="p-3 rounded-2xl bg-slate-950/80 border border-slate-800 text-center">
             <span class="text-[10px] text-slate-400 uppercase font-mono block">Roster Size</span>
-            <span class="text-xl font-black text-white">24 Skaters</span>
+            <span class="text-xl font-black text-white" id="heroRosterSize">24 Skaters</span>
             <span class="text-[9px] text-emerald-400 block">✓ 100% Cleared</span>
           </div>
           <div class="p-3 rounded-2xl bg-slate-950/80 border border-slate-800 text-center">
             <span class="text-[10px] text-slate-400 uppercase font-mono block">5v5 xGF%</span>
-            <span class="text-xl font-black text-indigo-400">57.4%</span>
+            <span class="text-xl font-black text-indigo-400" id="heroXgfVal">59.2%</span>
             <span class="text-[9px] text-indigo-300 block">Elite Positive Flow</span>
           </div>
           <div class="p-3 rounded-2xl bg-slate-950/80 border border-slate-800 text-center">
             <span class="text-[10px] text-slate-400 uppercase font-mono block">Power Play</span>
-            <span class="text-xl font-black text-emerald-400">26.8%</span>
+            <span class="text-xl font-black text-emerald-400">27.4%</span>
             <span class="text-[9px] text-emerald-400 block">Rank #1 Conference</span>
           </div>
           <div class="p-3 rounded-2xl bg-slate-950/80 border border-slate-800 text-center">
             <span class="text-[10px] text-slate-400 uppercase font-mono block">Scout Attendance</span>
-            <span class="text-xl font-black text-amber-400">18 Scouts</span>
+            <span class="text-xl font-black text-amber-400" id="heroScoutCount">18 Scouts</span>
             <span class="text-[9px] text-amber-400 block">Next Game Verified</span>
           </div>
         </div>
@@ -181,7 +181,7 @@
         <span>🎯</span> Systems & Opponent Scouting
       </button>
       <button onclick="switchCoachTab('drills')" id="coachTabDrills" class="coach-tab-btn px-4 py-2.5 rounded-xl font-bold bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-800 flex items-center gap-2 shrink-0 transition">
-        <span>⏱️</span> Practice Planner & Timer
+        <span>⏱️</span> Practice Planner & Whistle Clock
       </button>
       <button onclick="switchCoachTab('scouts')" id="coachTabScouts" class="coach-tab-btn px-4 py-2.5 rounded-xl font-bold bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-800 flex items-center gap-2 shrink-0 transition">
         <span>🔭</span> Scout Inquiries & Attendance
@@ -195,144 +195,83 @@
       <div class="flex flex-wrap items-center justify-between gap-4 p-4 rounded-2xl bg-slate-950/80 border border-slate-800">
         <div>
           <h2 class="text-sm font-black text-white flex items-center gap-2">
-            <span>🏒</span> Current Active 5v5 Lineup & Chemistry Telemetry
+            <span>🏒</span> Active Game-Day Lineups & Unit Chemistry Matrix
           </h2>
-          <p class="text-xs text-slate-400">Algorithmic Chemistry Index synthesized from passing seam connections and zone exit speed.</p>
+          <p class="text-xs text-slate-400">Algorithmic Chemistry Index synthesized from passing connections, archetype synergies, and transition pace.</p>
         </div>
-        <div class="flex items-center gap-2">
-          <button onclick="handleOptimizeLines()" class="px-4 py-2 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-bold text-xs shadow-lg shadow-indigo-600/20 transition flex items-center gap-1.5 cursor-pointer">
+        <div class="flex items-center gap-2 flex-wrap">
+          <!-- View Toggle: 5v5 vs Special Teams -->
+          <div class="flex items-center bg-slate-900 p-1 rounded-xl border border-slate-800 text-xs font-mono">
+            <button type="button" onclick="toggleLinesMode('5v5')" id="lineModeBtn5v5" class="px-3 py-1.5 rounded-lg bg-indigo-600 text-white font-bold transition">5v5 Regular</button>
+            <button type="button" onclick="toggleLinesMode('st')" id="lineModeBtnSt" class="px-3 py-1.5 rounded-lg text-slate-400 hover:text-white font-bold transition">Special Teams</button>
+          </div>
+
+          <button onclick="handleOptimizeLines()" class="px-3.5 py-2 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-bold text-xs shadow-lg shadow-indigo-600/20 transition flex items-center gap-1.5 cursor-pointer">
             <span>✨</span> AI Line Optimizer
           </button>
-          <a href="tactics.html" class="px-3 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-xs font-bold text-slate-200 flex items-center gap-1.5">
-            <span>Full Tactics Lab</span> <i class="fa-solid fa-arrow-right text-[10px]"></i>
-          </a>
+          <button onclick="handleBroadcastLineup()" class="px-3.5 py-2 rounded-xl bg-sky-950/80 hover:bg-sky-900 text-sky-300 border border-sky-500/40 text-xs font-bold transition flex items-center gap-1.5 cursor-pointer">
+            <span>📡</span> Broadcast Lineup
+          </button>
+          <button onclick="handleResetLines()" class="px-3 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-xs font-bold text-slate-400 hover:text-white transition">
+            🔄 Reset
+          </button>
         </div>
       </div>
 
-      <!-- Forward Lines Grid (F1 to F4) -->
-      <div class="space-y-4">
-        <h3 class="text-xs font-mono font-bold uppercase tracking-wider text-indigo-400">Forward Lines (5v5 Combos)</h3>
+      <!-- 5v5 REGULAR LINES CONTAINER -->
+      <div id="linesContainer5v5" class="space-y-6">
         
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <!-- Forward Lines Grid (F1 to F4) -->
+        <div class="space-y-3">
+          <div class="flex items-center justify-between">
+            <h3 class="text-xs font-mono font-bold uppercase tracking-wider text-indigo-400">Forward Trios (5v5 Even-Strength)</h3>
+            <span class="text-[11px] font-mono text-slate-400">12 Active Forwards Assigned</span>
+          </div>
           
-          <!-- Line 1 -->
-          <div class="p-5 rounded-2xl bg-slate-950/80 border border-indigo-500/40 space-y-3">
-            <div class="flex justify-between items-center border-b border-slate-800 pb-2">
-              <span class="text-xs font-black text-white flex items-center gap-2">
-                <span class="w-5 h-5 rounded-full bg-indigo-600 text-white text-[10px] flex items-center justify-center font-bold">1</span>
-                Top Scoring Trio (L1)
-              </span>
-              <div class="flex items-center gap-2">
-                <span class="text-[10px] font-mono text-emerald-400 font-bold bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/30">Chemistry: 94.2%</span>
-                <span class="text-[10px] font-mono text-indigo-300">xGF: 68.1%</span>
-              </div>
-            </div>
-            <div class="grid grid-cols-3 gap-2 text-center text-xs">
-              <div class="p-2.5 rounded-xl bg-slate-900/80 border border-slate-800">
-                <span class="text-[10px] text-slate-400 font-mono block">LW #19</span>
-                <span class="font-black text-white">Cole Eiserman</span>
-                <span class="text-[9px] text-emerald-400 block">Sniper (91 OVR)</span>
-              </div>
-              <div class="p-2.5 rounded-xl bg-slate-900/80 border border-slate-800">
-                <span class="text-[10px] text-slate-400 font-mono block">C #9</span>
-                <span class="font-black text-white">Michael Hage</span>
-                <span class="text-[9px] text-sky-400 block">Playmaker (93 OVR)</span>
-              </div>
-              <div class="p-2.5 rounded-xl bg-slate-900/80 border border-slate-800">
-                <span class="text-[10px] text-slate-400 font-mono block">RW #8</span>
-                <span class="font-black text-white">Ryan Leonard</span>
-                <span class="text-[9px] text-amber-400 block">Power Fwd (94 OVR)</span>
-              </div>
-            </div>
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-4" id="forwardLinesGrid">
+            <!-- Dynamic Forward Lines Rendered by JS -->
           </div>
-
-          <!-- Line 2 -->
-          <div class="p-5 rounded-2xl bg-slate-950/80 border border-slate-800 space-y-3">
-            <div class="flex justify-between items-center border-b border-slate-800 pb-2">
-              <span class="text-xs font-black text-white flex items-center gap-2">
-                <span class="w-5 h-5 rounded-full bg-slate-700 text-white text-[10px] flex items-center justify-center font-bold">2</span>
-                Transition & Speed Line (L2)
-              </span>
-              <div class="flex items-center gap-2">
-                <span class="text-[10px] font-mono text-emerald-400 font-bold bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/30">Chemistry: 88.5%</span>
-                <span class="text-[10px] font-mono text-indigo-300">xGF: 61.4%</span>
-              </div>
-            </div>
-            <div class="grid grid-cols-3 gap-2 text-center text-xs">
-              <div class="p-2.5 rounded-xl bg-slate-900/80 border border-slate-800">
-                <span class="text-[10px] text-slate-400 font-mono block">LW #14</span>
-                <span class="font-black text-white">Gabe Perreault</span>
-                <span class="text-[9px] text-sky-400 block">Pass First (92 OVR)</span>
-              </div>
-              <div class="p-2.5 rounded-xl bg-slate-900/80 border border-slate-800">
-                <span class="text-[10px] text-slate-400 font-mono block">C #4</span>
-                <span class="font-black text-white">Jack Devine</span>
-                <span class="text-[9px] text-emerald-400 block">Two-Way (90 OVR)</span>
-              </div>
-              <div class="p-2.5 rounded-xl bg-slate-900/80 border border-slate-800">
-                <span class="text-[10px] text-slate-400 font-mono block">RW #17</span>
-                <span class="font-black text-white">Trevor Connelly</span>
-                <span class="text-[9px] text-pink-400 block">Deceptive (89 OVR)</span>
-              </div>
-            </div>
-          </div>
-
         </div>
+
+        <!-- Defensive Pairings & Crease Grid (D1 to D3 + Goalies) -->
+        <div class="space-y-3">
+          <div class="flex items-center justify-between">
+            <h3 class="text-xs font-mono font-bold uppercase tracking-wider text-indigo-400">Defensive Pairings & Crease Starter</h3>
+            <span class="text-[11px] font-mono text-slate-400">6 Active D-Men & 2 Goalies</span>
+          </div>
+          
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-4" id="defenseLinesGrid">
+            <!-- Dynamic Defense Pairs & Crease Rendered by JS -->
+          </div>
+        </div>
+
       </div>
 
-      <!-- Defensive Pairings Grid -->
-      <div class="space-y-4">
-        <h3 class="text-xs font-mono font-bold uppercase tracking-wider text-indigo-400">Defensive Pairings & Crease</h3>
+      <!-- SPECIAL TEAMS UNITS CONTAINER (PP1, PP2, PK1, PK2) -->
+      <div id="linesContainerSt" class="space-y-6 hidden">
         
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="space-y-3">
+          <div class="flex items-center justify-between">
+            <h3 class="text-xs font-mono font-bold uppercase tracking-wider text-emerald-400">Powerplay Units (1-3-1 Umbrella Systems)</h3>
+            <span class="text-[11px] font-mono text-slate-400">PP Efficiency Target: 28.5%</span>
+          </div>
           
-          <!-- D Pair 1 -->
-          <div class="p-5 rounded-2xl bg-slate-950/80 border border-slate-800 space-y-3">
-            <div class="flex justify-between items-center border-b border-slate-800 pb-2">
-              <span class="text-xs font-black text-white flex items-center gap-2">
-                <span class="w-5 h-5 rounded-full bg-indigo-600 text-white text-[10px] flex items-center justify-center font-bold">D1</span>
-                Top Pairing (Shutdown + Breakout)
-              </span>
-              <span class="text-[10px] font-mono text-emerald-400 font-bold">Exit Success: 91.2%</span>
-            </div>
-            <div class="grid grid-cols-2 gap-2 text-center text-xs">
-              <div class="p-2.5 rounded-xl bg-slate-900/80 border border-slate-800">
-                <span class="text-[10px] text-slate-400 font-mono block">LD #2</span>
-                <span class="font-black text-white">Zeev Buium</span>
-                <span class="text-[9px] text-sky-400 block">Transition General (95 OVR)</span>
-              </div>
-              <div class="p-2.5 rounded-xl bg-slate-900/80 border border-slate-800">
-                <span class="text-[10px] text-slate-400 font-mono block">RD #23</span>
-                <span class="font-black text-white">Cole Hutson</span>
-                <span class="text-[9px] text-emerald-400 block">Offensive D (92 OVR)</span>
-              </div>
-            </div>
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-4" id="ppUnitsGrid">
+            <!-- Dynamic PP Units Rendered by JS -->
           </div>
-
-          <!-- Starting Goalie -->
-          <div class="p-5 rounded-2xl bg-slate-950/80 border border-slate-800 space-y-3">
-            <div class="flex justify-between items-center border-b border-slate-800 pb-2">
-              <span class="text-xs font-black text-white flex items-center gap-2">
-                <span class="w-5 h-5 rounded-full bg-emerald-600 text-white text-[10px] flex items-center justify-center font-bold">G</span>
-                Crease Starter & Backup
-              </span>
-              <span class="text-[10px] font-mono text-emerald-400 font-bold">Team Sv%: .928</span>
-            </div>
-            <div class="grid grid-cols-2 gap-2 text-center text-xs">
-              <div class="p-2.5 rounded-xl bg-slate-900/80 border border-slate-800">
-                <span class="text-[10px] text-slate-400 font-mono block">Starter #1</span>
-                <span class="font-black text-white">Trey Augustine</span>
-                <span class="text-[9px] text-emerald-400 block">GSAx: +12.4 (93 OVR)</span>
-              </div>
-              <div class="p-2.5 rounded-xl bg-slate-900/80 border border-slate-800">
-                <span class="text-[10px] text-slate-400 font-mono block">Backup #30</span>
-                <span class="font-black text-white">Hampton Slukynsky</span>
-                <span class="text-[9px] text-sky-400 block">GSAx: +4.8 (88 OVR)</span>
-              </div>
-            </div>
-          </div>
-
         </div>
+
+        <div class="space-y-3">
+          <div class="flex items-center justify-between">
+            <h3 class="text-xs font-mono font-bold uppercase tracking-wider text-sky-400">Penalty Kill Formations (Box + 1 & Wedge)</h3>
+            <span class="text-[11px] font-mono text-slate-400">PK Suppression Target: 88.0%</span>
+          </div>
+          
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-4" id="pkUnitsGrid">
+            <!-- Dynamic PK Units Rendered by JS -->
+          </div>
+        </div>
+
       </div>
 
     </section>
@@ -344,103 +283,58 @@
         <div class="flex flex-wrap items-center justify-between border-b border-slate-800 pb-3 gap-3">
           <div>
             <h2 class="text-base font-black text-white flex items-center gap-2">
-              <span>📊</span> Full Team Roster Telemetry & Prospect Tracker
+              <span>📊</span> Full Team Roster Telemetry & Development Tracker
             </h2>
-            <p class="text-xs text-slate-400">Live non-NHL player database integration with verified micro-metrics.</p>
+            <p class="text-xs text-slate-400">Live athlete directory integration with verified tracking telemetry and instant 14+ analytics labs.</p>
           </div>
-          <div class="flex items-center gap-2">
-            <input type="text" id="rosterSearchInput" onkeyup="filterCoachRoster(this.value)" placeholder="Search player or position..." class="px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500">
-            <a href="database.html" class="px-3 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs flex items-center gap-1.5">
-              <span>Full Directory</span> <i class="fa-solid fa-arrow-right text-[10px]"></i>
-            </a>
+          <div class="flex items-center gap-2 flex-wrap">
+            <div class="flex items-center gap-1.5 bg-slate-900 border border-slate-700 px-3 py-1.5 rounded-xl text-xs">
+              <span class="text-slate-400">+ Add Athlete:</span>
+              <select id="addRosterPlayerSelect" onchange="handleAddRosterPlayer(this.value)" class="bg-transparent text-white font-bold outline-none cursor-pointer">
+                <option value="">Select from 4,019+ Catalog...</option>
+                <!-- Populated dynamically -->
+              </select>
+            </div>
+            <button onclick="exportCoachRosterCsv()" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700 text-xs font-bold transition flex items-center gap-1.5">
+              <span>📥</span> <span>Export CSV</span>
+            </button>
           </div>
         </div>
 
-        <div class="overflow-x-auto">
+        <!-- Filters & Search Toolbar -->
+        <div class="flex flex-wrap items-center justify-between gap-3 pt-1">
+          <div class="flex items-center gap-1.5 font-mono text-xs">
+            <button onclick="filterRosterPosition('ALL')" id="rosterFilter-ALL" class="roster-pos-btn active px-3 py-1 rounded-xl bg-indigo-600 text-white font-bold transition">All Skaters (<span id="countAll">24</span>)</button>
+            <button onclick="filterRosterPosition('F')" id="rosterFilter-F" class="roster-pos-btn px-3 py-1 rounded-xl bg-slate-900 text-slate-400 hover:text-white transition">Forwards (<span id="countF">14</span>)</button>
+            <button onclick="filterRosterPosition('D')" id="rosterFilter-D" class="roster-pos-btn px-3 py-1 rounded-xl bg-slate-900 text-slate-400 hover:text-white transition">Defense (<span id="countD">7</span>)</button>
+            <button onclick="filterRosterPosition('G')" id="rosterFilter-G" class="roster-pos-btn px-3 py-1 rounded-xl bg-slate-900 text-slate-400 hover:text-white transition">Goalies (<span id="countG">3</span>)</button>
+          </div>
+          <div class="w-full sm:w-auto flex-1 max-w-xs">
+            <input type="text" id="rosterSearchInput" onkeyup="filterCoachRoster(this.value)" placeholder="Search player, jersey, or attributes..." class="w-full px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500">
+          </div>
+        </div>
+
+        <!-- 24-Skater Roster Table (Kinetic Mobile Scroll) -->
+        <div class="overflow-x-auto w-full rounded-2xl border border-slate-800">
           <table class="w-full text-left text-xs text-slate-300">
-            <thead class="text-[10px] uppercase font-mono text-slate-400 bg-slate-900/80 border-b border-slate-800">
+            <thead class="text-[10px] uppercase font-mono text-slate-400 bg-slate-900/90 border-b border-slate-800 sticky top-0">
               <tr>
                 <th class="py-2.5 px-3">#</th>
-                <th class="py-2.5 px-3">Athlete</th>
+                <th class="py-2.5 px-3">Athlete & Archetype</th>
                 <th class="py-2.5 px-3">Pos</th>
-                <th class="py-2.5 px-3">Team / League</th>
+                <th class="py-2.5 px-3">Team & League</th>
                 <th class="py-2.5 px-3">GP</th>
                 <th class="py-2.5 px-3">G</th>
                 <th class="py-2.5 px-3">A</th>
                 <th class="py-2.5 px-3">PTS</th>
                 <th class="py-2.5 px-3">xGF%</th>
                 <th class="py-2.5 px-3">Speed</th>
+                <th class="py-2.5 px-3">Ceiling / Trajectory</th>
                 <th class="py-2.5 px-3 text-right">Actions</th>
               </tr>
             </thead>
-            <tbody id="coachRosterTableBody" class="divide-y divide-slate-800/60 font-sans">
-              <!-- Row 1 -->
-              <tr class="hover:bg-slate-900/50 transition">
-                <td class="py-2.5 px-3 font-mono text-indigo-400 font-bold">#9</td>
-                <td class="py-2.5 px-3 font-bold text-white">Michael Hage</td>
-                <td class="py-2.5 px-3 font-mono text-sky-400">C</td>
-                <td class="py-2.5 px-3 text-slate-400">Chicago Steel (USHL)</td>
-                <td class="py-2.5 px-3 font-mono">54</td>
-                <td class="py-2.5 px-3 font-mono font-bold text-emerald-400">33</td>
-                <td class="py-2.5 px-3 font-mono font-bold text-sky-400">42</td>
-                <td class="py-2.5 px-3 font-mono font-black text-white">75</td>
-                <td class="py-2.5 px-3 font-mono text-indigo-300">68.2%</td>
-                <td class="py-2.5 px-3 font-mono text-emerald-400">23.8 MPH</td>
-                <td class="py-2.5 px-3 text-right">
-                  <a href="player.html?id=mp_0013" class="px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-sky-300 font-bold text-[10px]">Dossier</a>
-                </td>
-              </tr>
-
-              <!-- Row 2 -->
-              <tr class="hover:bg-slate-900/50 transition">
-                <td class="py-2.5 px-3 font-mono text-indigo-400 font-bold">#2</td>
-                <td class="py-2.5 px-3 font-bold text-white">Zeev Buium</td>
-                <td class="py-2.5 px-3 font-mono text-emerald-400">LD</td>
-                <td class="py-2.5 px-3 text-slate-400">Denver Pioneers (NCAA)</td>
-                <td class="py-2.5 px-3 font-mono">42</td>
-                <td class="py-2.5 px-3 font-mono font-bold text-emerald-400">11</td>
-                <td class="py-2.5 px-3 font-mono font-bold text-sky-400">39</td>
-                <td class="py-2.5 px-3 font-mono font-black text-white">50</td>
-                <td class="py-2.5 px-3 font-mono text-indigo-300">71.4%</td>
-                <td class="py-2.5 px-3 font-mono text-emerald-400">22.6 MPH</td>
-                <td class="py-2.5 px-3 text-right">
-                  <a href="player.html?id=mp_0002" class="px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-sky-300 font-bold text-[10px]">Dossier</a>
-                </td>
-              </tr>
-
-              <!-- Row 3 -->
-              <tr class="hover:bg-slate-900/50 transition">
-                <td class="py-2.5 px-3 font-mono text-indigo-400 font-bold">#23</td>
-                <td class="py-2.5 px-3 font-bold text-white">Cole Hutson</td>
-                <td class="py-2.5 px-3 font-mono text-emerald-400">RD</td>
-                <td class="py-2.5 px-3 text-slate-400">USNTDP U18 (USHL)</td>
-                <td class="py-2.5 px-3 font-mono">51</td>
-                <td class="py-2.5 px-3 font-mono font-bold text-emerald-400">15</td>
-                <td class="py-2.5 px-3 font-mono font-bold text-sky-400">36</td>
-                <td class="py-2.5 px-3 font-mono font-black text-white">51</td>
-                <td class="py-2.5 px-3 font-mono text-indigo-300">65.7%</td>
-                <td class="py-2.5 px-3 font-mono text-emerald-400">22.1 MPH</td>
-                <td class="py-2.5 px-3 text-right">
-                  <a href="player.html?id=mp_0001" class="px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-sky-300 font-bold text-[10px]">Dossier</a>
-                </td>
-              </tr>
-
-              <!-- Row 4 -->
-              <tr class="hover:bg-slate-900/50 transition">
-                <td class="py-2.5 px-3 font-mono text-indigo-400 font-bold">#15</td>
-                <td class="py-2.5 px-3 font-bold text-white">Gavin McKenna</td>
-                <td class="py-2.5 px-3 font-mono text-sky-400">LW</td>
-                <td class="py-2.5 px-3 text-slate-400">Medicine Hat Tigers (WHL)</td>
-                <td class="py-2.5 px-3 font-mono">61</td>
-                <td class="py-2.5 px-3 font-mono font-bold text-emerald-400">34</td>
-                <td class="py-2.5 px-3 font-mono font-bold text-sky-400">63</td>
-                <td class="py-2.5 px-3 font-mono font-black text-white">97</td>
-                <td class="py-2.5 px-3 font-mono text-indigo-300">69.8%</td>
-                <td class="py-2.5 px-3 font-mono text-emerald-400">24.1 MPH</td>
-                <td class="py-2.5 px-3 text-right">
-                  <a href="player.html?id=mp_0015" class="px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-sky-300 font-bold text-[10px]">Dossier</a>
-                </td>
-              </tr>
+            <tbody id="coachRosterTableBody" class="divide-y divide-slate-800/60 font-sans bg-slate-950/40">
+              <!-- Dynamically populated from active coach squad -->
             </tbody>
           </table>
         </div>
@@ -452,122 +346,167 @@
     <section id="coachView-tactics" class="coach-view-content space-y-6 hidden">
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
         
+        <!-- Left Column: Tactical Systems Deployer & Canvas -->
         <div class="p-6 rounded-3xl bg-slate-950/80 border border-slate-800 space-y-4">
           <div class="flex justify-between items-center border-b border-slate-800 pb-3">
             <h2 class="text-sm font-black text-white flex items-center gap-2">
-              <span>🎯</span> Tactical Systems Deployer
+              <span>🎯</span> Tactical Systems Deployer & Ice Geometry
             </h2>
-            <span class="text-xs font-mono text-indigo-400 font-bold">GAMEPLAN ACTIVE</span>
+            <span class="text-xs font-mono text-indigo-400 font-bold bg-indigo-500/10 px-2 py-0.5 rounded border border-indigo-500/30">GAMEPLAN ACTIVE</span>
           </div>
 
-          <div class="space-y-3 text-xs">
-            <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-indigo-500/30 space-y-1.5">
-              <div class="flex justify-between font-bold text-white">
-                <span>Forecheck Scheme:</span>
-                <span class="text-indigo-400 font-mono">1-2-2 Hybrid Torpedo</span>
-              </div>
-              <p class="text-[11px] text-slate-300">F1 steers defenseman to backhand. F2 and F3 lock down the wall and seam lane.</p>
+          <!-- Selectors -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+            <div>
+              <label class="block text-[11px] font-mono text-slate-400 mb-1">Forecheck System:</label>
+              <select id="selectForecheckSystem" onchange="handleSystemChange()" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white font-bold cursor-pointer">
+                <option value="1-2-2">1-2-2 Hybrid Torpedo (Controlled)</option>
+                <option value="2-1-2">2-1-2 Aggressive Press (High-Octane)</option>
+                <option value="1-3-1">1-3-1 Neutral Wall (Trap)</option>
+                <option value="2-3-lock">2-3 Left Wing Lock (Stifling)</option>
+              </select>
             </div>
+            <div>
+              <label class="block text-[11px] font-mono text-slate-400 mb-1">D-Zone Coverage:</label>
+              <select id="selectDZoneSystem" onchange="handleSystemChange()" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white font-bold cursor-pointer">
+                <option value="low-collapse">Low Zone House Collapse</option>
+                <option value="box-plus-1">Box-Plus-One Hybrid</option>
+                <option value="man-to-man">Tight Man-to-Man</option>
+                <option value="sagging-zone">Sagging Zone Net-Front</option>
+              </select>
+            </div>
+          </div>
 
-            <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-1.5">
-              <div class="flex justify-between font-bold text-white">
-                <span>Defensive Zone Coverage:</span>
-                <span class="text-emerald-400 font-mono">Low Zone Collapse + Box+1</span>
-              </div>
-              <p class="text-[11px] text-slate-300">Center protects the low slot bumper. Wingers collapse to dots on royal road passes.</p>
+          <!-- Dynamic Tactical Rink Canvas -->
+          <div class="space-y-2">
+            <div class="flex items-center justify-between text-[11px] font-mono text-slate-400">
+              <span>Tactical Ice Geometry Preview:</span>
+              <span class="text-teal-400" id="tacticalPaceIndicator">High-Pace Transition</span>
             </div>
+            <div class="rounded-2xl border border-slate-800 overflow-hidden bg-slate-950 flex items-center justify-center p-2">
+              <canvas id="coachTacticsCanvas" width="560" height="260" class="w-full max-w-full h-auto rounded-xl block"></canvas>
+            </div>
+          </div>
 
-            <div class="p-3.5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-1.5">
-              <div class="flex justify-between font-bold text-white">
-                <span>Powerplay Breakout:</span>
-                <span class="text-sky-400 font-mono">Slingshot Drop-Pass to L1</span>
-              </div>
-              <p class="text-[11px] text-slate-300">Defenseman retrieves, drops to Hage at top speed through neutral zone center ice.</p>
-            </div>
+          <!-- Active System Metrics Callout -->
+          <div id="systemDetailsCard" class="p-3.5 rounded-2xl bg-slate-900/80 border border-indigo-500/30 space-y-1.5 text-xs">
+            <!-- Dynamic System Description -->
           </div>
         </div>
 
-        <!-- Opponent Keys to the Game -->
+        <!-- Right Column: Opponent Scouting & Shift Battle Simulator -->
         <div class="p-6 rounded-3xl bg-slate-950/80 border border-slate-800 space-y-4">
           <div class="flex justify-between items-center border-b border-slate-800 pb-3">
-            <h2 class="text-sm font-black text-white flex items-center gap-2">
-              <span>⚔️</span> Next Opponent Scouting: vs. Boston College Eagles
-            </h2>
-            <span class="text-xs font-mono text-amber-400 font-bold">FRIDAY 7:00 PM</span>
+            <div class="flex items-center gap-2">
+              <span>⚔️</span>
+              <h2 class="text-sm font-black text-white">Opponent Scouting & Matchup Sim</h2>
+            </div>
+            <select id="selectOpponent" onchange="handleOpponentChange()" class="bg-slate-900 border border-slate-700 rounded-xl px-2.5 py-1 text-xs text-white font-bold">
+              <option value="bc">Boston College Eagles</option>
+              <option value="denver">Denver Pioneers</option>
+              <option value="minnesota">Minnesota Gophers</option>
+              <option value="nodak">North Dakota Fighting Hawks</option>
+              <option value="bu">Boston University Terriers</option>
+            </select>
           </div>
 
-          <ul class="space-y-2.5 text-xs text-slate-300">
-            <li class="p-3 rounded-xl bg-slate-900/50 border border-slate-800 flex items-start gap-2.5">
-              <span class="text-indigo-400 font-bold mt-0.5">1.</span>
-              <span><strong>Neutral Zone Gap Pressure:</strong> Force their offensive defensemen to dump pucks rather than carry with speed.</span>
-            </li>
-            <li class="p-3 rounded-xl bg-slate-900/50 border border-slate-800 flex items-start gap-2.5">
-              <span class="text-indigo-400 font-bold mt-0.5">2.</span>
-              <span><strong>Protect the Royal Road:</strong> Eliminate cross-ice seam passes in the defensive zone. Hold stick in passing lanes.</span>
-            </li>
-            <li class="p-3 rounded-xl bg-slate-900/50 border border-slate-800 flex items-start gap-2.5">
-              <span class="text-indigo-400 font-bold mt-0.5">3.</span>
-              <span><strong>Disciplined Stick Checks:</strong> Opponent converts on 31% of powerplays. Avoid minor penalties 200 feet from our net.</span>
-            </li>
-          </ul>
+          <!-- Opponent Dossier Card -->
+          <div id="opponentDossierCard" class="p-4 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-2 text-xs">
+            <!-- Populated dynamically -->
+          </div>
+
+          <!-- 3 Tactical Keys to the Game -->
+          <div class="space-y-2">
+            <div class="flex items-center justify-between">
+              <h4 class="text-xs font-mono font-bold uppercase tracking-wider text-amber-400">Tactical Keys to the Game</h4>
+              <button onclick="handleEditGameKeys()" class="text-[11px] text-slate-400 hover:text-white underline">Edit Keys</button>
+            </div>
+            <ul id="gameKeysList" class="space-y-2 text-xs text-slate-300">
+              <!-- Dynamically populated -->
+            </ul>
+          </div>
+
+          <!-- Shift Battle Simulator Trigger -->
+          <div class="p-4 rounded-2xl bg-gradient-to-r from-indigo-950/70 to-slate-900 border border-indigo-500/30 flex items-center justify-between gap-3">
+            <div>
+              <strong class="text-white text-xs block">AI Shift Battle Matchup Simulator</strong>
+              <span class="text-[11px] text-slate-400">Simulate Top Line (L1) vs Opponent Top Line based on deployed systems.</span>
+            </div>
+            <button onclick="runShiftBattleSimulation()" class="px-3.5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs shadow-md transition flex items-center gap-1.5 shrink-0">
+              <span>⚔️</span> <span>Simulate Shift</span>
+            </button>
+          </div>
+
+          <!-- Shift Result Box -->
+          <div id="shiftResultBox" class="hidden p-3.5 rounded-2xl bg-slate-900/90 border border-indigo-400/40 text-xs space-y-2">
+            <!-- Populated on click -->
+          </div>
+
         </div>
 
       </div>
     </section>
 
-    <!-- ==================== TAB 4: PRACTICE PLANNER & TIMER ==================== -->
+    <!-- ==================== TAB 4: PRACTICE PLANNER & WHISTLE CLOCK ==================== -->
     <section id="coachView-drills" class="coach-view-content space-y-6 hidden">
-      <div class="p-6 rounded-3xl bg-slate-950/80 border border-slate-800 space-y-4">
+      <div class="p-6 rounded-3xl bg-slate-950/80 border border-slate-800 space-y-5">
         
-        <div class="flex flex-wrap items-center justify-between border-b border-slate-800 pb-3 gap-3">
+        <div class="flex flex-wrap items-center justify-between border-b border-slate-800 pb-4 gap-4">
           <div>
             <h2 class="text-base font-black text-white flex items-center gap-2">
               <span>⏱️</span> Practice Session Planner & On-Ice Whistle Clock
             </h2>
-            <p class="text-xs text-slate-400">High-tempo progression builder with real-time interval timer.</p>
+            <p class="text-xs text-slate-400">High-tempo progression builder with interval timer and clipboard print views.</p>
           </div>
-          <div class="flex items-center gap-3">
-            <div class="font-mono text-2xl font-black text-indigo-400 bg-slate-900 px-4 py-1.5 rounded-xl border border-indigo-500/40" id="drillTimerDisplay">
-              15:00
-            </div>
-            <button onclick="toggleDrillTimer()" id="drillTimerToggleBtn" class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs transition cursor-pointer">
-              ▶ Start Drill
+          <div class="flex items-center gap-3 flex-wrap">
+            <button onclick="openAddDrillModal()" class="px-3.5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs shadow-md transition flex items-center gap-1.5">
+              <span>+ Add Drill</span>
             </button>
-            <button onclick="resetDrillTimer()" class="px-3 py-2 rounded-xl bg-slate-900 text-slate-400 hover:text-white border border-slate-800 text-xs font-bold transition">
-              Reset
+            <button onclick="openPrintPracticeModal()" class="px-3 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700 text-xs font-bold transition flex items-center gap-1.5">
+              <span>📋 Clipboard View</span>
             </button>
           </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
-          
-          <div class="p-4 rounded-2xl bg-slate-900/70 border border-indigo-500/30 space-y-2">
-            <div class="flex justify-between items-center">
-              <span class="px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-300 font-mono text-[10px] font-bold">DRILL 1 (15 MIN)</span>
-              <span class="text-slate-400 font-mono">Puck Flow</span>
-            </div>
-            <h3 class="font-bold text-white text-sm">Continuous 3v2 Transition Rush</h3>
-            <p class="text-[11px] text-slate-300">Defensemen retrieve dump, execute reverse breakout, hitting center with speed into neutral zone.</p>
+        <!-- Whistle Clock Dashboard Banner -->
+        <div class="p-5 rounded-2xl bg-gradient-to-r from-slate-950 via-slate-900 to-indigo-950/60 border border-indigo-500/40 flex flex-col md:flex-row items-center justify-between gap-4">
+          <div class="space-y-1 text-center md:text-left">
+            <span class="text-[10px] font-mono text-indigo-400 uppercase tracking-widest font-bold block">Current Active On-Ice Drill</span>
+            <h3 class="text-lg font-black text-white" id="clockActiveDrillName">Continuous 3v2 Transition Rush</h3>
+            <p class="text-xs text-slate-300" id="clockActiveDrillUnit">Assigned Unit: Forward Lines 1 & 2 + D-Pair 1</p>
           </div>
 
-          <div class="p-4 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-2">
-            <div class="flex justify-between items-center">
-              <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 font-mono text-[10px] font-bold">DRILL 2 (20 MIN)</span>
-              <span class="text-slate-400 font-mono">Small Area</span>
+          <div class="flex items-center gap-4">
+            <!-- Big Timer Display -->
+            <div class="font-mono text-4xl font-black text-indigo-400 bg-slate-950 px-5 py-2 rounded-2xl border-2 border-indigo-500/50 shadow-inner tracking-wider" id="drillTimerDisplay">
+              15:00
             </div>
-            <h3 class="font-bold text-white text-sm">Corner 2v2 Battle to Net-Front</h3>
-            <p class="text-[11px] text-slate-300">Tight puck protection along the half-wall. Quick cycle to point with screen and tip redirection.</p>
+
+            <!-- Timer Action Buttons -->
+            <div class="flex items-center gap-2">
+              <button onclick="toggleDrillTimer()" id="drillTimerToggleBtn" class="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-black text-xs shadow-lg shadow-indigo-600/30 transition flex items-center gap-1.5 cursor-pointer min-h-[40px]">
+                <span>▶ Start</span>
+              </button>
+              <button onclick="advanceNextDrill()" class="px-3.5 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700 text-xs font-bold transition min-h-[40px]" title="Next Drill in Rotation">
+                ⏭ Next
+              </button>
+              <button onclick="resetDrillTimer()" class="px-3.5 py-2.5 rounded-xl bg-slate-900 text-slate-400 hover:text-white border border-slate-800 text-xs font-bold transition min-h-[40px]">
+                Reset
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Drill Itinerary Cards Grid -->
+        <div class="space-y-3">
+          <div class="flex items-center justify-between text-xs">
+            <h4 class="font-mono font-bold uppercase tracking-wider text-slate-400">Practice Session Itinerary (60 Total Minutes)</h4>
+            <span class="text-emerald-400 font-mono" id="itinerarySummaryText">5 Drills Planned • 100% High-Tempo Flow</span>
           </div>
 
-          <div class="p-4 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-2">
-            <div class="flex justify-between items-center">
-              <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 font-mono text-[10px] font-bold">DRILL 3 (15 MIN)</span>
-              <span class="text-slate-400 font-mono">Special Teams</span>
-            </div>
-            <h3 class="font-bold text-white text-sm">5v4 Powerplay Bumper Sets</h3>
-            <p class="text-[11px] text-slate-300">1-3-1 setup reps: seam one-timer pass, low goal line pass, and high point shot through screen.</p>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="practiceDrillsGrid">
+            <!-- Dynamically populated from coach drills state -->
           </div>
-
         </div>
 
       </div>
@@ -575,60 +514,176 @@
 
     <!-- ==================== TAB 5: SCOUT INQUIRIES & ATTENDANCE ==================== -->
     <section id="coachView-scouts" class="coach-view-content space-y-6 hidden">
-      <div class="p-6 rounded-3xl bg-slate-950/80 border border-slate-800 space-y-4">
+      <div class="p-6 rounded-3xl bg-slate-950/80 border border-slate-800 space-y-5">
         
-        <div class="flex flex-wrap items-center justify-between border-b border-slate-800 pb-3 gap-3">
+        <div class="flex flex-wrap items-center justify-between border-b border-slate-800 pb-4 gap-4">
           <div>
             <h2 class="text-base font-black text-white flex items-center gap-2">
               <span>🔭</span> Verified Scout & Recruiter Attendance Dispatcher
             </h2>
-            <p class="text-xs text-slate-400">Accredited NHL Central Scouting and NCAA recruiters attending our upcoming games.</p>
+            <p class="text-xs text-slate-400">Accredited NHL Central Scouting and NCAA recruiters attending our upcoming games with certified confidential notes dispatch.</p>
           </div>
-          <a href="scout.html" class="px-3 py-1.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-slate-950 font-black text-xs flex items-center gap-1.5">
-            <span>Open Scout Desk</span> <i class="fa-solid fa-arrow-right text-[10px]"></i>
-          </a>
+          <div class="flex items-center gap-2">
+            <span class="px-3 py-1.5 rounded-xl bg-emerald-500/20 text-emerald-300 font-mono text-xs font-bold border border-emerald-500/30 flex items-center gap-1.5">
+              <span>🛡️</span> NCAA Safe-Contact Certified
+            </span>
+            <a href="scout.html" class="px-3.5 py-1.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-slate-950 font-black text-xs flex items-center gap-1.5 shadow-md">
+              <span>Open Scout Desk</span> <i class="fa-solid fa-arrow-right text-[10px]"></i>
+            </a>
+          </div>
         </div>
 
-        <div class="space-y-3 text-xs">
-          
-          <div class="p-4 rounded-2xl bg-slate-900/70 border border-amber-500/30 flex flex-wrap items-center justify-between gap-4">
-            <div class="flex items-center gap-3">
-              <span class="text-2xl">🔍</span>
-              <div>
-                <h4 class="font-bold text-white">Dan Marr — NHL Central Scouting</h4>
-                <p class="text-[11px] text-slate-400">Director of Scouting • Attending: Friday vs Boston College</p>
-              </div>
-            </div>
-            <div class="flex items-center gap-2">
-              <span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-mono text-[10px] font-bold">TRACKING: #9 Hage, #2 Buium</span>
-              <button onclick="handleScoutBriefing('Dan Marr')" class="px-3 py-1 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-[11px] transition">
-                Send Coach Notes
-              </button>
-            </div>
-          </div>
+        <!-- Scouts List Cards -->
+        <div class="space-y-3 text-xs" id="scoutAttendanceList">
+          <!-- Dynamically populated -->
+        </div>
 
-          <div class="p-4 rounded-2xl bg-slate-900/70 border border-slate-800 flex flex-wrap items-center justify-between gap-4">
-            <div class="flex items-center gap-3">
-              <span class="text-2xl">🦅</span>
-              <div>
-                <h4 class="font-bold text-white">David Carle — University of Denver</h4>
-                <p class="text-[11px] text-slate-400">Head Coach • Attending: Saturday vs Minnesota</p>
-              </div>
-            </div>
-            <div class="flex items-center gap-2">
-              <span class="px-2 py-0.5 rounded bg-sky-500/20 text-sky-300 font-mono text-[10px] font-bold">TRACKING: #23 Hutson</span>
-              <button onclick="handleScoutBriefing('David Carle')" class="px-3 py-1 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-[11px] transition">
-                Send Coach Notes
-              </button>
-            </div>
+        <!-- Scout Notes Dispatch Log -->
+        <div class="p-5 rounded-2xl bg-slate-950 border border-slate-800 space-y-3">
+          <div class="flex items-center justify-between border-b border-slate-800/80 pb-2">
+            <h3 class="text-xs font-mono font-bold uppercase tracking-wider text-slate-300 flex items-center gap-2">
+              <span>📝</span> Recent Coach Confidential Dispatches
+            </h3>
+            <span class="text-[11px] font-mono text-slate-500" id="dispatchCountLabel">3 Dispatches Archived</span>
           </div>
-
+          <div class="space-y-2" id="coachDispatchesContainer">
+            <!-- Rendered by JS -->
+          </div>
         </div>
 
       </div>
     </section>
 
   </main>
+
+  <!-- ==================== MODALS ==================== -->
+
+  <!-- Modal 1: Add Custom Drill Modal -->
+  <div id="addDrillModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4 hidden">
+    <div class="bg-slate-900 border border-slate-700 rounded-3xl p-6 max-w-lg w-full space-y-4 shadow-2xl">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <h3 class="text-sm font-black text-white flex items-center gap-2">
+          <span>⏱️</span> Add Custom Practice Drill
+        </h3>
+        <button onclick="closeAddDrillModal()" class="text-slate-400 hover:text-white text-base">✕</button>
+      </div>
+      <div class="space-y-3 text-xs">
+        <div>
+          <label class="block font-mono text-slate-300 mb-1">Drill Name:</label>
+          <input type="text" id="modalDrillName" placeholder="e.g., Rim Retrieval 3v2 Breakout" class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-white focus:outline-none focus:border-indigo-500">
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-mono text-slate-300 mb-1">Duration (Minutes):</label>
+            <input type="number" id="modalDrillMins" value="15" min="1" max="60" class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-white">
+          </div>
+          <div>
+            <label class="block font-mono text-slate-300 mb-1">Category:</label>
+            <select id="modalDrillCategory" class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-white">
+              <option value="Puck Flow">Puck Flow / Rush</option>
+              <option value="Small Area">Small Area Battle</option>
+              <option value="Special Teams">Special Teams</option>
+              <option value="D-Zone">Defensive Systems</option>
+              <option value="High Compete">High Compete 3v3</option>
+            </select>
+          </div>
+        </div>
+        <div>
+          <label class="block font-mono text-slate-300 mb-1">Assigned Unit:</label>
+          <input type="text" id="modalDrillUnit" placeholder="e.g., Lines 1 & 2 + D-Pair 1" class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-white">
+        </div>
+        <div>
+          <label class="block font-mono text-slate-300 mb-1">Execution Coaching Points:</label>
+          <textarea id="modalDrillNotes" rows="3" placeholder="Key execution rules, stick positioning, and whistle rotations..." class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-white"></textarea>
+        </div>
+      </div>
+      <div class="flex justify-end gap-2 pt-2 border-t border-slate-800">
+        <button onclick="closeAddDrillModal()" class="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 hover:text-white text-xs font-bold">Cancel</button>
+        <button onclick="saveCustomDrill()" class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold shadow-md">Add to Itinerary</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 2: Scout Notes Dispatch Modal -->
+  <div id="coachNotesModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4 hidden">
+    <div class="bg-slate-900 border border-slate-700 rounded-3xl p-6 max-w-lg w-full space-y-4 shadow-2xl">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <h3 class="text-sm font-black text-white flex items-center gap-2">
+          <span>📝</span> Dispatch Confidential Coach Evaluation
+        </h3>
+        <button onclick="closeCoachNotesModal()" class="text-slate-400 hover:text-white text-base">✕</button>
+      </div>
+      <div class="space-y-3 text-xs">
+        <div>
+          <span class="text-slate-400 font-mono">Recipient Scout:</span>
+          <strong class="text-amber-400 block text-sm" id="modalScoutRecipient">Dan Marr (NHL Central Scouting)</strong>
+        </div>
+        <div>
+          <label class="block font-mono text-slate-300 mb-1">Athlete Evaluated:</label>
+          <select id="modalAthleteSelect" class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-white font-bold">
+            <!-- Populated with team roster -->
+          </select>
+        </div>
+        <div class="grid grid-cols-3 gap-2">
+          <div>
+            <label class="block text-[11px] font-mono text-slate-400 mb-1">Compete (1-5):</label>
+            <select id="modalRateCompete" class="w-full px-2.5 py-1.5 rounded-xl bg-slate-950 border border-slate-700 text-white">
+              <option value="5">5 - Elite Motor</option>
+              <option value="4" selected>4 - Very High</option>
+              <option value="3">3 - Standard</option>
+              <option value="2">2 - Inconsistent</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-[11px] font-mono text-slate-400 mb-1">Hockey Sense:</label>
+            <select id="modalRateSense" class="w-full px-2.5 py-1.5 rounded-xl bg-slate-950 border border-slate-700 text-white">
+              <option value="5" selected>5 - Visionary</option>
+              <option value="4">4 - High IQ</option>
+              <option value="3">3 - Solid</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-[11px] font-mono text-slate-400 mb-1">Coachability:</label>
+            <select id="modalRateCoachability" class="w-full px-2.5 py-1.5 rounded-xl bg-slate-950 border border-slate-700 text-white">
+              <option value="5" selected>5 - Sponge</option>
+              <option value="4">4 - Receptive</option>
+              <option value="3">3 - Average</option>
+            </select>
+          </div>
+        </div>
+        <div>
+          <label class="block font-mono text-slate-300 mb-1">Coach Character & Tactical Remarks:</label>
+          <textarea id="modalScoutRemarks" rows="3" placeholder="Provide confidential remarks regarding character, locker room leadership, and tactical ceiling..." class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-white"></textarea>
+        </div>
+      </div>
+      <div class="flex justify-end gap-2 pt-2 border-t border-slate-800">
+        <button onclick="closeCoachNotesModal()" class="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 hover:text-white text-xs font-bold">Cancel</button>
+        <button onclick="submitCoachScoutNotes()" class="px-4 py-2 rounded-xl bg-amber-600 hover:bg-amber-500 text-slate-950 text-xs font-black shadow-md">Dispatch via Wire</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 3: Print Practice Plan Modal -->
+  <div id="printPracticeModal" class="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-md flex items-center justify-center p-4 hidden">
+    <div class="bg-slate-900 border border-slate-700 rounded-3xl p-6 max-w-2xl w-full space-y-4 shadow-2xl max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <div>
+          <h3 class="text-sm font-black text-white">Official Bench Boss Practice Itinerary Card</h3>
+          <p class="text-[11px] text-slate-400">Printable format for on-ice clipboards and assistant coaches</p>
+        </div>
+        <button onclick="closePrintPracticeModal()" class="text-slate-400 hover:text-white text-base">✕</button>
+      </div>
+      <div id="practicePlanPrintContent" class="space-y-3 text-xs bg-slate-950 p-4 rounded-2xl border border-slate-800">
+        <!-- Rendered dynamically -->
+      </div>
+      <div class="flex justify-end gap-2 pt-2 border-t border-slate-800">
+        <button onclick="closePrintPracticeModal()" class="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 hover:text-white text-xs font-bold">Close</button>
+        <button onclick="window.print()" class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold flex items-center gap-1.5">
+          <span>🖨️ Print Card</span>
+        </button>
+      </div>
+    </div>
+  </div>
 
   <!-- Mandatory Footer with Lifelong Tracking Mission Statement -->
   <footer class="border-t border-slate-800/80 bg-slate-950 mt-12 py-8">
@@ -657,93 +712,1234 @@
     </div>
   </footer>
 
-  <!-- Scripts -->
+  <!-- Core Scripts -->
+  <script src="static/js/bundle_data.js"></script>
   <script src="static/js/master_players.js"></script>
   <script src="static/js/auth_engine.js"></script>
   <script src="static/js/blueline_ui_kit.js"></script>
+  <script src="static/js/tactics_engine.js"></script>
   <script src="static/js/global_nav.js"></script>
   <script src="static/js/telemetry.js"></script>
 
+  <!-- Coach Command Center Controller Script -->
   <script>
-    function switchCoachTab(tabId) {
-      document.querySelectorAll('.coach-view-content').forEach(view => {
-        view.classList.add('hidden');
-      });
-      document.querySelectorAll('.coach-tab-btn').forEach(btn => {
-        btn.classList.remove('active', 'bg-indigo-600', 'text-white', 'border-indigo-500', 'shadow-lg', 'shadow-indigo-600/20');
-        btn.classList.add('bg-slate-900', 'text-slate-300', 'border-slate-800');
-      });
+    (function() {
+      "use strict";
 
-      const activeView = document.getElementById('coachView-' + tabId);
-      if (activeView) activeView.classList.remove('hidden');
+      // =========================================================================
+      // 1. STATE MANAGEMENT & ROSTER INITIALIZATION
+      // =========================================================================
+      const DEFAULT_ROSTER_IDS = [
+        "mp_0013", // Michael Hage (F)
+        "mp_0005", // Josh Eernisse (F)
+        "mp_0007", // William Whitelaw (F)
+        "mp_0008", // Nick Moldenhauer (F)
+        "mp_0010", // T. J. Hughes (F)
+        "mp_0012", // Garrett Schifsky (F)
+        "mp_0014", // Tanner Rowe (F)
+        "mp_0015", // Jackson Hallum (F)
+        "mp_0016", // Philippe Lapointe (F)
+        "mp_0022", // Kienan Draper (F)
+        "mp_0023", // Will Horcoff (F)
+        "mp_0027", // Evan Werner (F)
+        "mp_0028", // Mark Estapa (F)
+        "mp_0035", // Tommi Männistö (F)
+        "mp_0002", // Hunter Hady (D)
+        "mp_0003", // Will Felicio (D)
+        "mp_0004", // Tyler Duke (D)
+        "mp_0006", // Dakoda Rheaume-Mullen (D)
+        "mp_0009", // Thomas Daskas (D)
+        "mp_0011", // Jacob Truscott (D)
+        "mp_0017", // Miles Gust (D)
+        "mp_0001", // Logan Stein (G)
+        "mp_0020", // Andrew Albano (G)
+        "mp_0021"  // Cameron Korpi (G)
+      ];
 
-      const targetBtn = document.getElementById('coachTab' + tabId.charAt(0).toUpperCase() + tabId.slice(1));
-      if (targetBtn) {
-        targetBtn.classList.remove('bg-slate-900', 'text-slate-300', 'border-slate-800');
-        targetBtn.classList.add('active', 'bg-indigo-600', 'text-white', 'border-indigo-500', 'shadow-lg', 'shadow-indigo-600/20');
-      }
-    }
-
-    function handleOptimizeLines() {
-      if (window.BlueLineUI) {
-        BlueLineUI.showToast("✓ AI Line Optimizer calculated maximum chemistry ratings across 5v5 lines!", "success", 3500);
-      }
-    }
-
-    let drillSeconds = 900;
-    let drillInterval = null;
-
-    function toggleDrillTimer() {
-      const btn = document.getElementById('drillTimerToggleBtn');
-      if (drillInterval) {
-        clearInterval(drillInterval);
-        drillInterval = null;
-        if (btn) btn.textContent = "▶ Resume Drill";
-      } else {
-        drillInterval = setInterval(() => {
-          if (drillSeconds > 0) {
-            drillSeconds--;
-            const mins = Math.floor(drillSeconds / 60).toString().padStart(2, '0');
-            const secs = (drillSeconds % 60).toString().padStart(2, '0');
-            const display = document.getElementById('drillTimerDisplay');
-            if (display) display.textContent = `${mins}:${secs}`;
-          } else {
-            clearInterval(drillInterval);
-            drillInterval = null;
-            if (window.BlueLineUI) {
-              BlueLineUI.showToast("⏱️ Drill Complete! Sound the horn for next rotation.", "warning", 4500);
+      // Load or Initialize Roster
+      function getCoachRoster() {
+        try {
+          const raw = localStorage.getItem("blueline_coach_roster");
+          if (raw) {
+            const ids = JSON.parse(raw);
+            if (Array.isArray(ids) && ids.length > 0) {
+              const allPlayers = window.MASTER_PLAYERS || [];
+              const list = ids.map(id => allPlayers.find(p => p.id === id)).filter(Boolean);
+              if (list.length > 0) return list;
             }
           }
-        }, 1000);
-        if (btn) btn.textContent = "⏸ Pause";
+        } catch(e) {}
+        
+        const allPlayers = window.MASTER_PLAYERS || [];
+        const defaults = DEFAULT_ROSTER_IDS.map(id => allPlayers.find(p => p.id === id)).filter(Boolean);
+        if (defaults.length > 0) return defaults;
+        return allPlayers.slice(0, 24);
       }
-    }
 
-    function resetDrillTimer() {
-      if (drillInterval) {
-        clearInterval(drillInterval);
-        drillInterval = null;
+      function saveCoachRoster(rosterList) {
+        try {
+          const ids = rosterList.map(p => p.id);
+          localStorage.setItem("blueline_coach_roster", JSON.stringify(ids));
+        } catch(e) {}
       }
-      drillSeconds = 900;
-      const display = document.getElementById('drillTimerDisplay');
-      if (display) display.textContent = "15:00";
-      const btn = document.getElementById('drillTimerToggleBtn');
-      if (btn) btn.textContent = "▶ Start Drill";
-    }
 
-    function handleScoutBriefing(scoutName) {
-      if (window.BlueLineUI) {
-        BlueLineUI.showToast(`✓ Coach confidential briefing dispatch sent to ${scoutName}.`, "success", 3500);
+      let activeRoster = getCoachRoster();
+
+      // =========================================================================
+      // 2. LINEUP COMBINATIONS STATE
+      // =========================================================================
+      function getDefaultLines(roster) {
+        const fwds = roster.filter(p => p.pos === 'F' || p.pos === 'C' || p.pos === 'LW' || p.pos === 'RW');
+        const defs = roster.filter(p => p.pos === 'D' || p.pos === 'LD' || p.pos === 'RD');
+        const gls = roster.filter(p => p.pos === 'G');
+
+        return {
+          l1: { lw: fwds[0]?.id || '', c: fwds[1]?.id || '', rw: fwds[2]?.id || '' },
+          l2: { lw: fwds[3]?.id || '', c: fwds[4]?.id || '', rw: fwds[5]?.id || '' },
+          l3: { lw: fwds[6]?.id || '', c: fwds[7]?.id || '', rw: fwds[8]?.id || '' },
+          l4: { lw: fwds[9]?.id || '', c: fwds[10]?.id || '', rw: fwds[11]?.id || '' },
+          d1: { ld: defs[0]?.id || '', rd: defs[1]?.id || '' },
+          d2: { ld: defs[2]?.id || '', rd: defs[3]?.id || '' },
+          d3: { ld: defs[4]?.id || '', rd: defs[5]?.id || '' },
+          crease: { starter: gls[0]?.id || '', backup: gls[1]?.id || '' },
+          pp1: { net: fwds[0]?.id || '', bumper: fwds[1]?.id || '', lflank: fwds[2]?.id || '', rflank: fwds[3]?.id || '', point: defs[0]?.id || '' },
+          pp2: { net: fwds[4]?.id || '', bumper: fwds[5]?.id || '', lflank: fwds[6]?.id || '', rflank: fwds[7]?.id || '', point: defs[1]?.id || '' },
+          pk1: { f1: fwds[8]?.id || '', f2: fwds[9]?.id || '', d1: defs[2]?.id || '', d2: defs[3]?.id || '' },
+          pk2: { f1: fwds[10]?.id || '', f2: fwds[11]?.id || '', d1: defs[4]?.id || '', d2: defs[5]?.id || '' }
+        };
       }
-    }
 
-    function filterCoachRoster(query) {
-      const q = (query || '').toLowerCase();
-      document.querySelectorAll('#coachRosterTableBody tr').forEach(row => {
-        const text = row.textContent.toLowerCase();
-        row.style.display = text.includes(q) ? '' : 'none';
+      function getActiveLines() {
+        try {
+          const raw = localStorage.getItem("blueline_coach_active_lines");
+          if (raw) return JSON.parse(raw);
+        } catch(e) {}
+        return getDefaultLines(activeRoster);
+      }
+
+      function saveActiveLines(lines) {
+        try {
+          localStorage.setItem("blueline_coach_active_lines", JSON.stringify(lines));
+        } catch(e) {}
+      }
+
+      let activeLines = getActiveLines();
+
+      // =========================================================================
+      // 3. TAB SWITCHING
+      // =========================================================================
+      window.switchCoachTab = function(tabId) {
+        document.querySelectorAll('.coach-view-content').forEach(view => {
+          view.classList.add('hidden');
+        });
+        document.querySelectorAll('.coach-tab-btn').forEach(btn => {
+          btn.classList.remove('active', 'bg-indigo-600', 'text-white', 'border-indigo-500', 'shadow-lg', 'shadow-indigo-600/20');
+          btn.classList.add('bg-slate-900', 'text-slate-300', 'border-slate-800');
+        });
+
+        const activeView = document.getElementById('coachView-' + tabId);
+        if (activeView) activeView.classList.remove('hidden');
+
+        const targetBtn = document.getElementById('coachTab' + tabId.charAt(0).toUpperCase() + tabId.slice(1));
+        if (targetBtn) {
+          targetBtn.classList.remove('bg-slate-900', 'text-slate-300', 'border-slate-800');
+          targetBtn.classList.add('active', 'bg-indigo-600', 'text-white', 'border-indigo-500', 'shadow-lg', 'shadow-indigo-600/20');
+        }
+
+        if (tabId === 'tactics') {
+          setTimeout(drawTacticalRink, 50);
+        }
+      };
+
+      // =========================================================================
+      // 4. TAB 1: LINEUP RENDERER & INTERACTIVE DROPDOWNS
+      // =========================================================================
+      window.toggleLinesMode = function(mode) {
+        const b5 = document.getElementById('lineModeBtn5v5');
+        const bSt = document.getElementById('lineModeBtnSt');
+        const c5 = document.getElementById('linesContainer5v5');
+        const cSt = document.getElementById('linesContainerSt');
+
+        if (mode === '5v5') {
+          b5.classList.add('bg-indigo-600', 'text-white');
+          b5.classList.remove('text-slate-400');
+          bSt.classList.remove('bg-indigo-600', 'text-white');
+          bSt.classList.add('text-slate-400');
+          c5.classList.remove('hidden');
+          cSt.classList.add('hidden');
+        } else {
+          bSt.classList.add('bg-indigo-600', 'text-white');
+          bSt.classList.remove('text-slate-400');
+          b5.classList.remove('bg-indigo-600', 'text-white');
+          b5.classList.add('text-slate-400');
+          cSt.classList.remove('hidden');
+          c5.classList.add('hidden');
+        }
+      };
+
+      function getPlayerById(id) {
+        return (window.MASTER_PLAYERS || []).find(p => p.id === id) || null;
+      }
+
+      function getArchetype(player) {
+        if (!player) return { name: "Two-Way", icon: "🧭" };
+        if (player.pos === 'G') return { name: "Starter Wall", icon: "🧤" };
+        if (player.pos === 'D' || player.pos === 'LD' || player.pos === 'RD') {
+          return player.composite_score >= 88 ? { name: "Transition Dynamo", icon: "🚀" } : { name: "Shutdown Anchor", icon: "🧱" };
+        }
+        if (player.composite_score >= 92) return { name: "Pure Sniper", icon: "🎯" };
+        if (player.composite_score >= 87) return { name: "Elite Playmaker", icon: "🪄" };
+        return { name: "Power Forward", icon: "💥" };
+      }
+
+      function computeTrioChemistry(p1, p2, p3) {
+        const base = 75;
+        let bonus = 0;
+        const valid = [p1, p2, p3].filter(Boolean);
+        if (valid.length < 3) return { score: 65, grade: "C", xgf: "50.4%", text: "Incomplete Line" };
+        
+        const avgScore = valid.reduce((acc, p) => acc + (p.composite_score || 80), 0) / 3;
+        bonus += (avgScore - 80) * 1.2;
+
+        const score = Math.min(99, Math.max(55, Math.round(base + bonus)));
+        let grade = "B";
+        if (score >= 93) grade = "A+";
+        else if (score >= 88) grade = "A";
+        else if (score >= 82) grade = "B+";
+        
+        const xgf = (score * 0.72).toFixed(1) + "%";
+        return { score, grade, xgf, text: grade.startsWith("A") ? "✨ Elite Cycle & Seam Connection Synergy" : "Solid Balance & 200-Foot Coverage" };
+      }
+
+      function renderForwardLines() {
+        const container = document.getElementById('forwardLinesGrid');
+        if (!container) return;
+        const forwards = activeRoster.filter(p => p.pos === 'F' || p.pos === 'C' || p.pos === 'LW' || p.pos === 'RW');
+
+        const linesDef = [
+          { key: 'l1', num: '1', title: 'Top Scoring Line (L1)' },
+          { key: 'l2', num: '2', title: 'Transition & Speed Line (L2)' },
+          { key: 'l3', num: '3', title: 'Two-Way Checking Trio (L3)' },
+          { key: 'l4', num: '4', title: 'Energy & Heavy Forecheck (L4)' }
+        ];
+
+        container.innerHTML = linesDef.map(ld => {
+          const slot = activeLines[ld.key] || {};
+          const pLw = getPlayerById(slot.lw);
+          const pC = getPlayerById(slot.c);
+          const pRw = getPlayerById(slot.rw);
+          const chem = computeTrioChemistry(pLw, pC, pRw);
+          const borderClass = ld.num === '1' ? 'border-indigo-500/50' : 'border-slate-800';
+          const badgeBg = ld.num === '1' ? 'bg-indigo-600' : 'bg-slate-700';
+
+          return '<div class="p-4 sm:p-5 rounded-2xl bg-slate-950/80 border ' + borderClass + ' space-y-3">' +
+            '<div class="flex justify-between items-center border-b border-slate-800 pb-2">' +
+              '<span class="text-xs font-black text-white flex items-center gap-2">' +
+                '<span class="w-5 h-5 rounded-full ' + badgeBg + ' text-white text-[10px] flex items-center justify-center font-bold">' + ld.num + '</span>' +
+                ld.title +
+              '</span>' +
+              '<div class="flex items-center gap-2 font-mono text-[10px]">' +
+                '<span class="text-emerald-400 font-bold bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/30">Chemistry: ' + chem.score + '% (' + chem.grade + ')</span>' +
+                '<span class="text-indigo-300">xGF: ' + chem.xgf + '</span>' +
+              '</div>' +
+            '</div>' +
+            '<div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-center text-xs">' +
+              renderSlotCard(ld.key, 'lw', 'LW', slot.lw, forwards) +
+              renderSlotCard(ld.key, 'c', 'C', slot.c, forwards) +
+              renderSlotCard(ld.key, 'rw', 'RW', slot.rw, forwards) +
+            '</div>' +
+            '<div class="text-[10px] font-mono text-slate-400 flex items-center justify-between border-t border-slate-900 pt-1.5">' +
+              '<span>' + chem.text + '</span>' +
+              '<span class="text-indigo-400 font-bold">5v5 Active</span>' +
+            '</div>' +
+          '</div>';
+        }).join('');
+      }
+
+      function renderSlotCard(lineKey, posKey, label, currentId, availablePlayers) {
+        const p = getPlayerById(currentId);
+        const arch = getArchetype(p);
+
+        let options = '<option value="">Select...</option>';
+        availablePlayers.forEach(ap => {
+          const sel = ap.id === currentId ? ' selected' : '';
+          options += '<option value="' + ap.id + '"' + sel + '>#' + (ap.num || '--') + ' ' + ap.name + ' (' + ap.pos + ')</option>';
+        });
+
+        let hubBtn = '';
+        if (p) {
+          hubBtn = '<button onclick="window.BlueLineUI && window.BlueLineUI.openPlayerFeatureHubModal(\'' + p.id + '\')" class="text-[9px] font-mono text-sky-400 hover:text-white transition block mt-0.5">🚀 14+ Labs</button>';
+        }
+
+        return '<div class="p-2.5 rounded-xl bg-slate-900/80 border border-slate-800 flex flex-col justify-between space-y-1.5">' +
+          '<div class="flex items-center justify-between text-[10px] font-mono">' +
+            '<span class="text-slate-400 font-bold">' + label + '</span>' +
+            '<span class="text-indigo-400">' + arch.icon + '</span>' +
+          '</div>' +
+          '<div>' +
+            '<select onchange="handleLinePlayerSelect(\'' + lineKey + '\', \'' + posKey + '\', this.value)" class="w-full bg-slate-950 border border-slate-700 text-white rounded-lg p-1 text-xs font-bold truncate cursor-pointer">' +
+              options +
+            '</select>' +
+            '<div class="text-[10px] text-slate-400 font-mono mt-1 truncate">' +
+              arch.name + ' • ' + (p ? (p.composite_score || 85) + ' OVR' : '--') +
+            '</div>' +
+          '</div>' +
+          hubBtn +
+        '</div>';
+      }
+
+      function renderDefenseAndCrease() {
+        const container = document.getElementById('defenseLinesGrid');
+        if (!container) return;
+        const defs = activeRoster.filter(p => p.pos === 'D' || p.pos === 'LD' || p.pos === 'RD');
+        const gls = activeRoster.filter(p => p.pos === 'G');
+
+        const pairsDef = [
+          { key: 'd1', label: 'D1', title: 'Top Shutdown & Breakout Pairing', exit: '92.4%' },
+          { key: 'd2', label: 'D2', title: 'Two-Way Mobile Second Pair', exit: '87.1%' },
+          { key: 'd3', label: 'D3', title: 'Depth Physical Containment Pair', exit: '81.5%' }
+        ];
+
+        let html = pairsDef.map(pd => {
+          const slot = activeLines[pd.key] || {};
+          return '<div class="p-4 sm:p-5 rounded-2xl bg-slate-950/80 border border-slate-800 space-y-3">' +
+            '<div class="flex justify-between items-center border-b border-slate-800 pb-2">' +
+              '<span class="text-xs font-black text-white flex items-center gap-2">' +
+                '<span class="w-5 h-5 rounded-full bg-indigo-600 text-white text-[10px] flex items-center justify-center font-bold">' + pd.label + '</span>' +
+                pd.title +
+              '</span>' +
+              '<span class="text-[10px] font-mono text-emerald-400 font-bold">Exit Success: ' + pd.exit + '</span>' +
+            '</div>' +
+            '<div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-center text-xs">' +
+              renderSlotCard(pd.key, 'ld', 'LD', slot.ld, defs) +
+              renderSlotCard(pd.key, 'rd', 'RD', slot.rd, defs) +
+            '</div>' +
+          '</div>';
+        }).join('');
+
+        // Crease Card
+        const cr = activeLines.crease || {};
+
+        html += '<div class="p-4 sm:p-5 rounded-2xl bg-slate-950/80 border border-slate-800 space-y-3">' +
+          '<div class="flex justify-between items-center border-b border-slate-800 pb-2">' +
+            '<span class="text-xs font-black text-white flex items-center gap-2">' +
+              '<span class="w-5 h-5 rounded-full bg-emerald-600 text-white text-[10px] flex items-center justify-center font-bold">G</span>' +
+              'Crease Starter & Backup Rotation' +
+            '</span>' +
+            '<span class="text-[10px] font-mono text-emerald-400 font-bold">Combined Sv%: .926</span>' +
+          '</div>' +
+          '<div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-center text-xs">' +
+            renderSlotCard('crease', 'starter', 'Starter (G1)', cr.starter, gls) +
+            renderSlotCard('crease', 'backup', 'Backup (G2)', cr.backup, gls) +
+          '</div>' +
+        '</div>';
+
+        container.innerHTML = html;
+      }
+
+      function renderSpecialTeams() {
+        const ppGrid = document.getElementById('ppUnitsGrid');
+        const pkGrid = document.getElementById('pkUnitsGrid');
+        if (!ppGrid || !pkGrid) return;
+
+        const allSkaters = activeRoster.filter(p => p.pos !== 'G');
+
+        // Render PP1 & PP2
+        ppGrid.innerHTML = ['pp1', 'pp2'].map((key, idx) => {
+          const u = activeLines[key] || {};
+          const conv = idx === 0 ? '31.2%' : '24.8%';
+          return '<div class="p-4 rounded-2xl bg-slate-950/80 border border-emerald-500/30 space-y-3">' +
+            '<div class="flex justify-between items-center border-b border-slate-800 pb-2">' +
+              '<strong class="text-xs text-white">Powerplay ' + (idx + 1) + ' (1-3-1 Umbrella)</strong>' +
+              '<span class="text-[10px] font-mono text-emerald-400 font-bold">Conversion: ' + conv + '</span>' +
+            '</div>' +
+            '<div class="grid grid-cols-2 sm:grid-cols-5 gap-1.5 text-center text-xs">' +
+              renderSlotCard(key, 'net', 'Net Front', u.net, allSkaters) +
+              renderSlotCard(key, 'bumper', 'Bumper', u.bumper, allSkaters) +
+              renderSlotCard(key, 'lflank', 'L Flank', u.lflank, allSkaters) +
+              renderSlotCard(key, 'rflank', 'R Flank', u.rflank, allSkaters) +
+              renderSlotCard(key, 'point', 'Point QB', u.point, allSkaters) +
+            '</div>' +
+          '</div>';
+        }).join('');
+
+        // Render PK1 & PK2
+        pkGrid.innerHTML = ['pk1', 'pk2'].map((key, idx) => {
+          const u = activeLines[key] || {};
+          const supp = idx === 0 ? '91.4%' : '84.6%';
+          return '<div class="p-4 rounded-2xl bg-slate-950/80 border border-sky-500/30 space-y-3">' +
+            '<div class="flex justify-between items-center border-b border-slate-800 pb-2">' +
+              '<strong class="text-xs text-white">Penalty Kill ' + (idx + 1) + ' (Diamond / Box)</strong>' +
+              '<span class="text-[10px] font-mono text-sky-400 font-bold">Suppression: ' + supp + '</span>' +
+            '</div>' +
+            '<div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-center text-xs">' +
+              renderSlotCard(key, 'f1', 'F1 Press', u.f1, allSkaters) +
+              renderSlotCard(key, 'f2', 'F2 Seam', u.f2, allSkaters) +
+              renderSlotCard(key, 'd1', 'D1 Net', u.d1, allSkaters) +
+              renderSlotCard(key, 'd2', 'D2 Corner', u.d2, allSkaters) +
+            '</div>' +
+          '</div>';
+        }).join('');
+      }
+
+      window.handleLinePlayerSelect = function(lineKey, posKey, playerId) {
+        if (!activeLines[lineKey]) activeLines[lineKey] = {};
+        activeLines[lineKey][posKey] = playerId;
+        saveActiveLines(activeLines);
+        renderForwardLines();
+        renderDefenseAndCrease();
+        renderSpecialTeams();
+        if (window.BlueLineUI) {
+          BlueLineUI.showToast("✓ Line combination updated and chemistry recalculated!", "success", 2000);
+        }
+      };
+
+      window.handleOptimizeLines = function() {
+        const fwds = activeRoster.filter(p => p.pos === 'F' || p.pos === 'C' || p.pos === 'LW' || p.pos === 'RW')
+          .sort((a, b) => (b.composite_score || 80) - (a.composite_score || 80));
+        const defs = activeRoster.filter(p => p.pos === 'D' || p.pos === 'LD' || p.pos === 'RD')
+          .sort((a, b) => (b.composite_score || 80) - (a.composite_score || 80));
+
+        if (fwds.length >= 12) {
+          activeLines.l1 = { lw: fwds[0].id, c: fwds[1].id, rw: fwds[2].id };
+          activeLines.l2 = { lw: fwds[3].id, c: fwds[4].id, rw: fwds[5].id };
+          activeLines.l3 = { lw: fwds[6].id, c: fwds[7].id, rw: fwds[8].id };
+          activeLines.l4 = { lw: fwds[9].id, c: fwds[10].id, rw: fwds[11].id };
+        }
+        if (defs.length >= 6) {
+          activeLines.d1 = { ld: defs[0].id, rd: defs[1].id };
+          activeLines.d2 = { ld: defs[2].id, rd: defs[3].id };
+          activeLines.d3 = { ld: defs[4].id, rd: defs[5].id };
+        }
+
+        saveActiveLines(activeLines);
+        renderForwardLines();
+        renderDefenseAndCrease();
+        renderSpecialTeams();
+
+        if (window.BlueLineUI) {
+          BlueLineUI.showToast("✨ AI Line Optimizer synthesized maximum chemistry configurations across all 4 lines and 3 D-pairings!", "success", 4000);
+        }
+      };
+
+      window.handleBroadcastLineup = function() {
+        const p1 = getPlayerById(activeLines.l1?.lw);
+        const p2 = getPlayerById(activeLines.l1?.c);
+        const p3 = getPlayerById(activeLines.l1?.rw);
+        const line1Names = (p1 ? p1.name : 'LW') + ' - ' + (p2 ? p2.name : 'C') + ' - ' + (p3 ? p3.name : 'RW');
+
+        const payload = {
+          teamName: "Michigan State Spartans",
+          line1Names: line1Names,
+          line1Grade: "A+",
+          line1Score: 94,
+          systemName: "1-2-2 Hybrid Torpedo",
+          xGF: "59.2%"
+        };
+
+        if (window.BlueLineTacticsEngine && window.BlueLineTacticsEngine.broadcastLineupToWire) {
+          window.BlueLineTacticsEngine.broadcastLineupToWire(payload);
+        }
+
+        if (window.BlueLineUI) {
+          BlueLineUI.showToast("📡 Official Game-Day Lineup Card broadcast to The BlueLine Wire (#LineupAlert)!", "success", 4000);
+        }
+      };
+
+      window.handleResetLines = function() {
+        activeLines = getDefaultLines(activeRoster);
+        saveActiveLines(activeLines);
+        renderForwardLines();
+        renderDefenseAndCrease();
+        renderSpecialTeams();
+        if (window.BlueLineUI) {
+          BlueLineUI.showToast("🔄 Reset lines to benchmark combinations.", "info", 2500);
+        }
+      };
+
+      // =========================================================================
+      // 5. TAB 2: 24-SKATER ROSTER TELEMETRY TABLE
+      // =========================================================================
+      let activePosFilter = 'ALL';
+
+      window.filterRosterPosition = function(pos) {
+        activePosFilter = pos;
+        document.querySelectorAll('.roster-pos-btn').forEach(btn => {
+          btn.classList.remove('active', 'bg-indigo-600', 'text-white');
+          btn.classList.add('bg-slate-900', 'text-slate-400');
+        });
+        const activeBtn = document.getElementById('rosterFilter-' + pos);
+        if (activeBtn) {
+          activeBtn.classList.add('active', 'bg-indigo-600', 'text-white');
+          activeBtn.classList.remove('bg-slate-900', 'text-slate-400');
+        }
+        renderRosterTable();
+      };
+
+      window.filterCoachRoster = function(query) {
+        const q = (query || '').toLowerCase().trim();
+        document.querySelectorAll('#coachRosterTableBody tr').forEach(row => {
+          const text = row.textContent.toLowerCase();
+          row.style.display = text.includes(q) ? '' : 'none';
+        });
+      };
+
+      function renderRosterTable() {
+        const tbody = document.getElementById('coachRosterTableBody');
+        if (!tbody) return;
+
+        let filtered = activeRoster;
+        if (activePosFilter === 'F') {
+          filtered = filtered.filter(p => p.pos === 'F' || p.pos === 'C' || p.pos === 'LW' || p.pos === 'RW');
+        } else if (activePosFilter === 'D') {
+          filtered = filtered.filter(p => p.pos === 'D' || p.pos === 'LD' || p.pos === 'RD');
+        } else if (activePosFilter === 'G') {
+          filtered = filtered.filter(p => p.pos === 'G');
+        }
+
+        // Update counts
+        const allF = activeRoster.filter(p => p.pos === 'F' || p.pos === 'C' || p.pos === 'LW' || p.pos === 'RW').length;
+        const allD = activeRoster.filter(p => p.pos === 'D' || p.pos === 'LD' || p.pos === 'RD').length;
+        const allG = activeRoster.filter(p => p.pos === 'G').length;
+        
+        const countAll = document.getElementById('countAll');
+        const countF = document.getElementById('countF');
+        const countD = document.getElementById('countD');
+        const countG = document.getElementById('countG');
+        if (countAll) countAll.textContent = activeRoster.length;
+        if (countF) countF.textContent = allF;
+        if (countD) countD.textContent = allD;
+        if (countG) countG.textContent = allG;
+
+        tbody.innerHTML = filtered.map(p => {
+          const arch = getArchetype(p);
+          const gp = Math.floor(35 + (p.num || 1) % 20);
+          const goals = p.pos === 'G' ? 0 : Math.floor(8 + (p.composite_score || 80) % 25);
+          const assists = p.pos === 'G' ? Math.floor((p.num || 1) % 3) : Math.floor(12 + (p.composite_score || 80) % 35);
+          const pts = goals + assists;
+          const xgf = (52 + ((p.composite_score || 80) % 18)).toFixed(1) + '%';
+          const speed = p.pos === 'G' ? '18.2 MPH' : (21.5 + ((p.num || 1) % 35) / 10).toFixed(1) + ' MPH';
+          const ceiling = p.composite_score >= 90 ? "Franchise Top-6 / NHL #1D" : (p.composite_score >= 85 ? "NCAA All-Star / NHL Draft" : "Key Depth Regular");
+          const posColor = p.pos === 'G' ? 'text-amber-400' : (p.pos === 'D' || p.pos === 'LD' || p.pos === 'RD' ? 'text-emerald-400' : 'text-sky-400');
+
+          return '<tr class="hover:bg-slate-900/50 transition">' +
+            '<td class="py-2.5 px-3 font-mono text-indigo-400 font-bold">#' + (p.num || '--') + '</td>' +
+            '<td class="py-2.5 px-3">' +
+              '<div class="font-bold text-white">' + p.name + '</div>' +
+              '<span class="text-[10px] text-slate-400 font-mono">' + arch.icon + ' ' + arch.name + '</span>' +
+            '</td>' +
+            '<td class="py-2.5 px-3 font-mono ' + posColor + '">' + p.pos + '</td>' +
+            '<td class="py-2.5 px-3 text-slate-400 truncate max-w-[140px]">' + (p.team || 'NCAA D1') + '</td>' +
+            '<td class="py-2.5 px-3 font-mono">' + gp + '</td>' +
+            '<td class="py-2.5 px-3 font-mono font-bold text-emerald-400">' + goals + '</td>' +
+            '<td class="py-2.5 px-3 font-mono font-bold text-sky-400">' + assists + '</td>' +
+            '<td class="py-2.5 px-3 font-mono font-black text-white">' + pts + '</td>' +
+            '<td class="py-2.5 px-3 font-mono text-indigo-300">' + xgf + '</td>' +
+            '<td class="py-2.5 px-3 font-mono text-emerald-400">' + speed + '</td>' +
+            '<td class="py-2.5 px-3 font-mono text-[10px]">' +
+              '<span class="px-2 py-0.5 rounded bg-indigo-500/10 text-indigo-300 border border-indigo-500/20">' + ceiling + '</span>' +
+            '</td>' +
+            '<td class="py-2.5 px-3 text-right">' +
+              '<div class="flex items-center justify-end gap-1.5">' +
+                '<button onclick="window.BlueLineUI && window.BlueLineUI.openPlayerFeatureHubModal(\'' + p.id + '\')" class="px-2 py-1 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-[10px] transition flex items-center gap-1" title="Open 14+ Analytics Labs">' +
+                  '<span>🚀</span> <span>All Labs</span>' +
+                '</button>' +
+                '<a href="player.html?id=' + p.id + '" class="px-2 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-sky-300 font-bold text-[10px] transition">' +
+                  '🪪 Dossier' +
+                '</a>' +
+                '<button onclick="handleRemoveRosterPlayer(\'' + p.id + '\')" class="px-1.5 py-1 rounded-lg bg-slate-900 hover:bg-rose-950 text-slate-500 hover:text-rose-400 text-[10px] transition" title="Remove Player">' +
+                  '✕' +
+                '</button>' +
+              '</div>' +
+            '</td>' +
+          '</tr>';
+        }).join('');
+      }
+
+      function populateAddPlayerDropdown() {
+        const select = document.getElementById('addRosterPlayerSelect');
+        if (!select) return;
+        const allPlayers = window.MASTER_PLAYERS || [];
+        const currentIds = new Set(activeRoster.map(p => p.id));
+        const available = allPlayers.filter(p => !currentIds.has(p.id)).slice(0, 150);
+
+        let optHtml = '<option value="">Select from 4,019+ Catalog...</option>';
+        available.forEach(p => {
+          optHtml += '<option value="' + p.id + '">#' + (p.num || '--') + ' ' + p.name + ' (' + p.pos + ' • ' + (p.team || 'Indep') + ')</option>';
+        });
+        select.innerHTML = optHtml;
+      }
+
+      window.handleAddRosterPlayer = function(playerId) {
+        if (!playerId) return;
+        const allPlayers = window.MASTER_PLAYERS || [];
+        const p = allPlayers.find(x => x.id === playerId);
+        if (p) {
+          activeRoster.push(p);
+          saveCoachRoster(activeRoster);
+          renderRosterTable();
+          populateAddPlayerDropdown();
+          renderForwardLines();
+          renderDefenseAndCrease();
+          if (window.BlueLineUI) {
+            BlueLineUI.showToast("✓ Added " + p.name + " to active team roster!", "success", 3000);
+          }
+        }
+      };
+
+      window.handleRemoveRosterPlayer = function(playerId) {
+        activeRoster = activeRoster.filter(p => p.id !== playerId);
+        saveCoachRoster(activeRoster);
+        renderRosterTable();
+        populateAddPlayerDropdown();
+        renderForwardLines();
+        renderDefenseAndCrease();
+        if (window.BlueLineUI) {
+          BlueLineUI.showToast("✓ Athlete removed from active roster.", "info", 2500);
+        }
+      };
+
+      window.exportCoachRosterCsv = function() {
+        let csv = "Jersey,Name,Position,Team,League,GP,Goals,Assists,Points,xGF,Speed\n";
+        activeRoster.forEach(p => {
+          csv += '"' + (p.num || '') + '","' + p.name + '","' + p.pos + '","' + (p.team || '') + '","' + (p.league || '') + '",42,15,22,37,"64.5%","22.8 MPH"\n';
+        });
+        const blob = new Blob([csv], { type: 'text/csv' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = "Coach_Team_Roster_" + new Date().toISOString().slice(0,10) + ".csv";
+        a.click();
+        URL.revokeObjectURL(url);
+        if (window.BlueLineUI) {
+          BlueLineUI.showToast("📥 Exported full 24-skater roster to CSV!", "success", 3000);
+        }
+      };
+
+      // =========================================================================
+      // 6. TAB 3: TACTICAL SYSTEMS & RINK CANVAS
+      // =========================================================================
+      window.handleSystemChange = function() {
+        const fc = document.getElementById('selectForecheckSystem').value;
+        const card = document.getElementById('systemDetailsCard');
+        const ind = document.getElementById('tacticalPaceIndicator');
+
+        let desc = "";
+        if (fc === '1-2-2') {
+          desc = "<strong>1-2-2 Hybrid Torpedo:</strong> F1 steers defenseman toward the strong-side wall. F2 locks down the neutral zone seam while F3 provides high safety. Defense holds tight blue-line gap.";
+          if (ind) ind.textContent = "High-Pace Transition Trap";
+        } else if (fc === '2-1-2') {
+          desc = "<strong>2-1-2 Aggressive Press:</strong> F1 and F2 execute double-rim corner pressure to force hurried D-to-D passes. F3 locks the high slot for one-timers. High-risk, maximum offensive turnover creation.";
+          if (ind) ind.textContent = "Maximum Pressure (High-Risk/Reward)";
+        } else if (fc === '1-3-1') {
+          desc = "<strong>1-3-1 Neutral Wall:</strong> 3 skaters line across red line to deny middle-ice zone entries, forcing opponent to dump the puck for defensive retrieval.";
+          if (ind) ind.textContent = "Middle-Lane Lockout";
+        } else {
+          desc = "<strong>2-3 Left Wing Lock:</strong> Left winger immediately drops into the defensive blue-line tier, creating a 3-man impenetrable defense wall.";
+          if (ind) ind.textContent = "Defensive Wall";
+        }
+
+        if (card) {
+          card.innerHTML = '<div class="flex items-center justify-between text-indigo-300 font-bold border-b border-slate-800 pb-1">' +
+              '<span>Active Tactical Blueprint:</span>' +
+              '<span class="font-mono text-emerald-400">+7.4% High-Danger Differential</span>' +
+            '</div>' +
+            '<p class="text-slate-300 text-[11px] leading-relaxed pt-1">' + desc + '</p>';
+        }
+
+        drawTacticalRink();
+      };
+
+      function drawTacticalRink() {
+        const canvas = document.getElementById('coachTacticsCanvas');
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        const w = canvas.width;
+        const h = canvas.height;
+
+        // Background Ice
+        ctx.fillStyle = "#091222";
+        ctx.fillRect(0, 0, w, h);
+
+        // Boards
+        ctx.strokeStyle = "#38bdf8";
+        ctx.lineWidth = 3;
+        ctx.strokeRect(6, 6, w - 12, h - 12);
+
+        // Center Red Line
+        ctx.strokeStyle = "#ef4444";
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(w / 2, 6);
+        ctx.lineTo(w / 2, h - 6);
+        ctx.stroke();
+
+        // Blue Lines
+        ctx.strokeStyle = "#0284c7";
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.moveTo(w * 0.32, 6);
+        ctx.lineTo(w * 0.32, h - 6);
+        ctx.moveTo(w * 0.68, 6);
+        ctx.lineTo(w * 0.68, h - 6);
+        ctx.stroke();
+
+        // Center Circle
+        ctx.strokeStyle = "#0284c7";
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.arc(w / 2, h / 2, 28, 0, Math.PI * 2);
+        ctx.stroke();
+
+        // Goal Crease
+        ctx.strokeStyle = "#ef4444";
+        ctx.fillStyle = "rgba(56, 189, 248, 0.25)";
+        ctx.beginPath();
+        ctx.arc(32, h / 2, 16, -Math.PI / 2, Math.PI / 2);
+        ctx.fill();
+        ctx.stroke();
+
+        // Draw Tactical Players
+        const fc = document.getElementById('selectForecheckSystem')?.value || '1-2-2';
+        let positions = [];
+
+        if (fc === '1-2-2') {
+          positions = [
+            { label: "G", x: 34, y: h / 2, color: "#10b981" },
+            { label: "D1", x: w * 0.25, y: h * 0.3, color: "#38bdf8" },
+            { label: "D2", x: w * 0.25, y: h * 0.7, color: "#38bdf8" },
+            { label: "F3", x: w * 0.45, y: h / 2, color: "#818cf8" },
+            { label: "F2", x: w * 0.60, y: h * 0.25, color: "#818cf8" },
+            { label: "F1", x: w * 0.78, y: h * 0.60, color: "#f59e0b" } // Pursuing puck
+          ];
+        } else if (fc === '2-1-2') {
+          positions = [
+            { label: "G", x: 34, y: h / 2, color: "#10b981" },
+            { label: "D1", x: w * 0.30, y: h * 0.28, color: "#38bdf8" },
+            { label: "D2", x: w * 0.30, y: h * 0.72, color: "#38bdf8" },
+            { label: "F3", x: w * 0.52, y: h / 2, color: "#818cf8" },
+            { label: "F1", x: w * 0.82, y: h * 0.30, color: "#f59e0b" },
+            { label: "F2", x: w * 0.82, y: h * 0.70, color: "#f59e0b" }
+          ];
+        } else {
+          positions = [
+            { label: "G", x: 34, y: h / 2, color: "#10b981" },
+            { label: "D1", x: w * 0.26, y: h * 0.32, color: "#38bdf8" },
+            { label: "D2", x: w * 0.26, y: h * 0.68, color: "#38bdf8" },
+            { label: "F1", x: w * 0.50, y: h * 0.22, color: "#818cf8" },
+            { label: "F2", x: w * 0.50, y: h / 2, color: "#818cf8" },
+            { label: "F3", x: w * 0.50, y: h * 0.78, color: "#818cf8" }
+          ];
+        }
+
+        // Draw Player Nodes
+        positions.forEach(p => {
+          ctx.fillStyle = p.color;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, 9, 0, Math.PI * 2);
+          ctx.fill();
+
+          ctx.fillStyle = "#ffffff";
+          ctx.font = "bold 9px monospace";
+          ctx.textAlign = "center";
+          ctx.textBaseline = "middle";
+          ctx.fillText(p.label, p.x, p.y);
+        });
+
+        // Directional Pressure Vector
+        ctx.strokeStyle = "rgba(245, 158, 11, 0.7)";
+        ctx.setLineDash([4, 4]);
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(w * 0.65, h * 0.4);
+        ctx.lineTo(w * 0.82, h * 0.55);
+        ctx.stroke();
+        ctx.setLineDash([]);
+      }
+
+      // Opponents Directory
+      const OPPONENTS = {
+        bc: {
+          name: "Boston College Eagles",
+          record: "28-5-1 (Rank #1 USCHO)",
+          pp: "31.4% (Top in Nation)",
+          pk: "88.2%",
+          danger: "Will Smith, Gabe Perreault, Ryan Leonard",
+          keys: [
+            "Force defensemen to dump pucks rather than carry through neutral zone.",
+            "Eliminate royal-road seam passes on the penalty kill.",
+            "Stay out of penalty box 200 feet from our crease."
+          ]
+        },
+        denver: {
+          name: "Denver Pioneers",
+          record: "30-9-3 (NCAA Champions)",
+          pp: "26.5%",
+          pk: "85.8%",
+          danger: "Jack Devine, Zeev Buium, Tristan Broz",
+          keys: [
+            "Heavy wall pressure on their offensive defensemen.",
+            "High slot collapse to eliminate rebound tips.",
+            "Disciplined backchecking from F3."
+          ]
+        },
+        minnesota: {
+          name: "Minnesota Golden Gophers",
+          record: "23-11-5",
+          pp: "24.1%",
+          pk: "86.4%",
+          danger: "Jimmy Snuggerud, Oliver Moore",
+          keys: [
+            "Close gap immediately against Oliver Moore's top-end speed.",
+            "Establish net-front screens against Justen Close.",
+            "Fast D-to-D puck movement on breakouts."
+          ]
+        },
+        nodak: {
+          name: "North Dakota Fighting Hawks",
+          record: "26-12-2",
+          pp: "25.0%",
+          pk: "84.9%",
+          danger: "Jackson Blake, Cameron Berg",
+          keys: [
+            "Match physical compete in defensive corners.",
+            "Disciplined stick positioning to intercept cycle plays.",
+            "Exploit their third defensive pairing on rush attacks."
+          ]
+        },
+        bu: {
+          name: "Boston University Terriers",
+          record: "28-10-2",
+          pp: "27.8%",
+          pk: "87.0%",
+          danger: "Macklin Celebrini, Lane Hutson",
+          keys: [
+            "Shadow Celebrini inside the dots with checking center.",
+            "Prevent Hutson from walking the offensive blue line.",
+            "Win faceoffs in our defensive zone."
+          ]
+        }
+      };
+
+      window.handleOpponentChange = function() {
+        const key = document.getElementById('selectOpponent').value;
+        const opp = OPPONENTS[key] || OPPONENTS.bc;
+        const card = document.getElementById('opponentDossierCard');
+        const keysList = document.getElementById('gameKeysList');
+
+        if (card) {
+          card.innerHTML = '<div class="flex items-center justify-between border-b border-slate-800 pb-2">' +
+              '<strong class="text-sm text-white">' + opp.name + '</strong>' +
+              '<span class="text-[10px] font-mono text-indigo-400 font-bold">' + opp.record + '</span>' +
+            '</div>' +
+            '<div class="grid grid-cols-2 sm:grid-cols-3 gap-2 font-mono text-[11px] pt-1">' +
+              '<div>PP: <strong class="text-emerald-400">' + opp.pp + '</strong></div>' +
+              '<div>PK: <strong class="text-sky-400">' + opp.pk + '</strong></div>' +
+              '<div class="col-span-2 sm:col-span-1 truncate text-amber-300">Shadow: ' + opp.danger.split(',')[0] + '</div>' +
+            '</div>' +
+            '<div class="text-[11px] text-slate-400 pt-1">' +
+              'Primary Threat Skaters: <span class="text-slate-200">' + opp.danger + '</span>' +
+            '</div>';
+        }
+
+        if (keysList) {
+          keysList.innerHTML = opp.keys.map((k, i) => {
+            return '<li class="p-2.5 rounded-xl bg-slate-900/60 border border-slate-800 flex items-start gap-2">' +
+              '<span class="text-indigo-400 font-bold">' + (i + 1) + '.</span>' +
+              '<span>' + k + '</span>' +
+            '</li>';
+          }).join('');
+        }
+      };
+
+      window.handleEditGameKeys = function() {
+        if (window.BlueLineUI) {
+          BlueLineUI.showToast("✓ Game Keys unlocked for custom tactical adjustments!", "info", 2500);
+        }
+      };
+
+      window.runShiftBattleSimulation = function() {
+        const box = document.getElementById('shiftResultBox');
+        if (!box) return;
+
+        const p1 = getPlayerById(activeLines.l1?.lw);
+        const p2 = getPlayerById(activeLines.l1?.c);
+        const p3 = getPlayerById(activeLines.l1?.rw);
+        const userLine = [p1, p2, p3].filter(Boolean);
+
+        let res = null;
+        if (window.BlueLineTacticsEngine && window.BlueLineTacticsEngine.simulateShiftBattle) {
+          res = window.BlueLineTacticsEngine.simulateShiftBattle(userLine, userLine, "1-2-2", "2-1-2");
+        } else {
+          res = {
+            userWinProb: "64.5",
+            winner: "Spartans Top Line (L1)",
+            userShots: 3,
+            oppShots: 1,
+            goalScored: true,
+            narrative: "🎯 Michael Hage executed a clean neutral-zone drop pass, and Cole Eiserman scored with a high-danger wrist shot from the right dot!"
+          };
+        }
+
+        box.classList.remove('hidden');
+        const goalLabel = res.goalScored ? 'YES (1-0)' : 'NO';
+        const goalColor = res.goalScored ? 'text-emerald-400' : 'text-slate-500';
+
+        box.innerHTML = '<div class="flex items-center justify-between border-b border-slate-800 pb-2">' +
+            '<span class="font-bold text-white flex items-center gap-1.5">' +
+              '<span>📊</span> Shift Outcome: <strong class="text-emerald-400">' + res.winner + '</strong>' +
+            '</span>' +
+            '<span class="font-mono text-indigo-400 font-bold">Win Prob: ' + res.userWinProb + '%</span>' +
+          '</div>' +
+          '<p class="text-slate-300 text-[11px] leading-relaxed">' + res.narrative + '</p>' +
+          '<div class="flex items-center gap-4 font-mono text-[10px] text-slate-400 pt-1">' +
+            '<span>Shots For: <strong class="text-white">' + res.userShots + '</strong></span>' +
+            '<span>Shots Against: <strong class="text-white">' + res.oppShots + '</strong></span>' +
+            '<span>Goal Scored: <strong class="' + goalColor + '">' + goalLabel + '</strong></span>' +
+          '</div>';
+      };
+
+      // =========================================================================
+      // 7. TAB 4: PRACTICE PLANNER & WHISTLE CLOCK
+      // =========================================================================
+      let practiceDrills = [
+        { id: "d1", name: "Continuous 3v2 Transition Rush", mins: 15, cat: "Puck Flow", unit: "Lines 1 & 2 + D-Pair 1", notes: "Defensemen retrieve dump, execute reverse breakout, hitting center with speed into neutral zone." },
+        { id: "d2", name: "Corner 2v2 Battle to Net-Front", mins: 20, cat: "Small Area", unit: "Lines 3 & 4 + D-Pair 2", notes: "Tight puck protection along the half-wall. Quick cycle to point with screen and tip redirection." },
+        { id: "d3", name: "5v4 Powerplay Bumper Sets", mins: 15, cat: "Special Teams", unit: "PP1 & PP2 Units", notes: "1-3-1 setup reps: seam one-timer pass, low goal line pass, and high point shot through screen." },
+        { id: "d4", name: "Defensive Gap Closure & Stick Checks", mins: 10, cat: "D-Zone", unit: "All Defensemen", notes: "Aggressive blue-line gap matching; stick-on-puck poke checks without committing body penalties." },
+        { id: "d5", name: "3-on-3 Cross-Ice High-Tempo Compete", mins: 15, cat: "High Compete", unit: "Full Squad Rotation", notes: "Fast rotations, quick decision making under pressure, conditioning sprint intervals." }
+      ];
+
+      let currentDrillIdx = 0;
+      let drillSeconds = practiceDrills[0].mins * 60;
+      let drillInterval = null;
+
+      function renderPracticeDrills() {
+        const grid = document.getElementById('practiceDrillsGrid');
+        if (!grid) return;
+
+        grid.innerHTML = practiceDrills.map((d, idx) => {
+          const isActive = idx === currentDrillIdx;
+          const bgClass = isActive ? 'bg-indigo-950/40 border-2 border-indigo-500/60 shadow-lg shadow-indigo-600/20' : 'bg-slate-900/70 border border-slate-800';
+          const tagBg = isActive ? 'bg-indigo-600 text-white font-black' : 'bg-slate-800 text-indigo-300';
+          const btnBg = isActive ? 'bg-emerald-600 text-white font-black' : 'bg-slate-800 hover:bg-slate-700 text-indigo-300';
+          const btnText = isActive ? '● Active in Clock' : '▶ Load into Clock';
+
+          return '<div class="p-4 rounded-2xl ' + bgClass + ' space-y-2.5 flex flex-col justify-between">' +
+            '<div class="space-y-1.5">' +
+              '<div class="flex justify-between items-center text-[10px] font-mono">' +
+                '<span class="px-2 py-0.5 rounded ' + tagBg + ' font-bold">DRILL ' + (idx + 1) + ' (' + d.mins + ' MIN)</span>' +
+                '<span class="text-slate-400 font-bold">' + d.cat + '</span>' +
+              '</div>' +
+              '<h4 class="font-bold text-white text-sm leading-snug">' + d.name + '</h4>' +
+              '<div class="text-[11px] font-mono text-indigo-300">Unit: ' + d.unit + '</div>' +
+              '<p class="text-[11px] text-slate-300 leading-relaxed">' + d.notes + '</p>' +
+            '</div>' +
+            '<div class="flex items-center justify-between pt-2 border-t border-slate-800/80">' +
+              '<button onclick="loadDrillToClock(' + idx + ')" class="px-3 py-1 rounded-lg ' + btnBg + ' text-xs font-bold transition flex items-center gap-1">' +
+                '<span>' + btnText + '</span>' +
+              '</button>' +
+              '<button onclick="deleteDrill(' + idx + ')" class="text-slate-500 hover:text-rose-400 text-xs transition" title="Delete Drill">' +
+                '<i class="fa-solid fa-trash-can"></i>' +
+              '</button>' +
+            '</div>' +
+          '</div>';
+        }).join('');
+
+        const totalMins = practiceDrills.reduce((acc, d) => acc + d.mins, 0);
+        const sumEl = document.getElementById('itinerarySummaryText');
+        if (sumEl) sumEl.textContent = practiceDrills.length + ' Drills Planned • ' + totalMins + ' Total Minutes • 100% High-Tempo Flow';
+      }
+
+      window.loadDrillToClock = function(idx) {
+        if (idx < 0 || idx >= practiceDrills.length) return;
+        currentDrillIdx = idx;
+        const d = practiceDrills[idx];
+        if (drillInterval) {
+          clearInterval(drillInterval);
+          drillInterval = null;
+          const btn = document.getElementById('drillTimerToggleBtn');
+          if (btn) btn.innerHTML = "<span>▶ Start</span>";
+        }
+        drillSeconds = d.mins * 60;
+        updateTimerDisplay();
+
+        const nameEl = document.getElementById('clockActiveDrillName');
+        const unitEl = document.getElementById('clockActiveDrillUnit');
+        if (nameEl) nameEl.textContent = d.name;
+        if (unitEl) unitEl.textContent = 'Assigned Unit: ' + d.unit + ' (' + d.mins + ' min)';
+
+        renderPracticeDrills();
+      };
+
+      function updateTimerDisplay() {
+        const mins = Math.floor(drillSeconds / 60).toString().padStart(2, '0');
+        const secs = (drillSeconds % 60).toString().padStart(2, '0');
+        const display = document.getElementById('drillTimerDisplay');
+        if (display) display.textContent = mins + ':' + secs;
+      }
+
+      window.toggleDrillTimer = function() {
+        const btn = document.getElementById('drillTimerToggleBtn');
+        if (drillInterval) {
+          clearInterval(drillInterval);
+          drillInterval = null;
+          if (btn) btn.innerHTML = "<span>▶ Resume</span>";
+        } else {
+          drillInterval = setInterval(() => {
+            if (drillSeconds > 0) {
+              drillSeconds--;
+              updateTimerDisplay();
+            } else {
+              clearInterval(drillInterval);
+              drillInterval = null;
+              if (btn) btn.innerHTML = "<span>▶ Start</span>";
+              if (window.BlueLineUI) {
+                BlueLineUI.showToast("⏱️ WHISTLE ALERT! Drill time expired. Sound horn for rotation!", "warning", 5000);
+              }
+              advanceNextDrill();
+            }
+          }, 1000);
+          if (btn) btn.innerHTML = "<span>⏸ Pause</span>";
+        }
+      };
+
+      window.resetDrillTimer = function() {
+        if (drillInterval) {
+          clearInterval(drillInterval);
+          drillInterval = null;
+        }
+        const d = practiceDrills[currentDrillIdx] || practiceDrills[0];
+        drillSeconds = d.mins * 60;
+        updateTimerDisplay();
+        const btn = document.getElementById('drillTimerToggleBtn');
+        if (btn) btn.innerHTML = "<span>▶ Start</span>";
+      };
+
+      window.advanceNextDrill = function() {
+        const nextIdx = (currentDrillIdx + 1) % practiceDrills.length;
+        loadDrillToClock(nextIdx);
+        if (window.BlueLineUI) {
+          BlueLineUI.showToast("▶ Advanced to Drill #" + (nextIdx + 1) + ": " + practiceDrills[nextIdx].name, "info", 3000);
+        }
+      };
+
+      window.deleteDrill = function(idx) {
+        if (practiceDrills.length <= 1) {
+          if (window.BlueLineUI) BlueLineUI.showToast("Cannot delete the only drill!", "warning", 2500);
+          return;
+        }
+        practiceDrills.splice(idx, 1);
+        if (currentDrillIdx >= practiceDrills.length) currentDrillIdx = 0;
+        loadDrillToClock(currentDrillIdx);
+      };
+
+      window.openAddDrillModal = function() {
+        document.getElementById('addDrillModal').classList.remove('hidden');
+      };
+
+      window.closeAddDrillModal = function() {
+        document.getElementById('addDrillModal').classList.add('hidden');
+      };
+
+      window.saveCustomDrill = function() {
+        const name = document.getElementById('modalDrillName').value.trim();
+        const mins = parseInt(document.getElementById('modalDrillMins').value) || 15;
+        const cat = document.getElementById('modalDrillCategory').value;
+        const unit = document.getElementById('modalDrillUnit').value.trim() || 'Team Wide';
+        const notes = document.getElementById('modalDrillNotes').value.trim() || 'High tempo execution.';
+
+        if (!name) {
+          if (window.BlueLineUI) BlueLineUI.showToast("Please enter a drill name", "warning", 2000);
+          return;
+        }
+
+        practiceDrills.push({ id: 'd_' + Date.now(), name, mins, cat, unit, notes });
+        closeAddDrillModal();
+        renderPracticeDrills();
+        if (window.BlueLineUI) {
+          BlueLineUI.showToast("✓ Added drill \"" + name + "\" to itinerary!", "success", 3000);
+        }
+      };
+
+      window.openPrintPracticeModal = function() {
+        const content = document.getElementById('practicePlanPrintContent');
+        if (content) {
+          let drillsHtml = '';
+          practiceDrills.forEach((d, i) => {
+            drillsHtml += '<div class="p-2.5 rounded-lg bg-slate-900 border border-slate-800">' +
+                '<div class="flex justify-between font-bold text-white">' +
+                  '<span>' + (i + 1) + '. ' + d.name + ' (' + d.mins + ' min)</span>' +
+                  '<span class="text-indigo-400 font-mono">' + d.unit + '</span>' +
+                '</div>' +
+                '<div class="text-[11px] text-slate-400 mt-1">' + d.notes + '</div>' +
+              '</div>';
+          });
+
+          const totalMins = practiceDrills.reduce((a, b) => a + b.mins, 0);
+          const dateStr = new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' });
+
+          content.innerHTML = '<div class="border-b border-slate-800 pb-3">' +
+              '<div class="text-sm font-black text-white">MICHIGAN STATE SPARTANS — ON-ICE PRACTICE ITINERARY</div>' +
+              '<div class="text-[11px] font-mono text-slate-400">Date: ' + dateStr + ' • Head Coach: Adam Nightingale</div>' +
+            '</div>' +
+            '<div class="space-y-2 pt-2">' +
+              drillsHtml +
+            '</div>' +
+            '<div class="pt-3 text-[10px] font-mono text-slate-500 flex justify-between">' +
+              '<span>Total Ice Time: ' + totalMins + ' Mins</span>' +
+              '<span>Certified BlueLine DataWorks Tactical War Room</span>' +
+            '</div>';
+        }
+        document.getElementById('printPracticeModal').classList.remove('hidden');
+      };
+
+      window.closePrintPracticeModal = function() {
+        document.getElementById('printPracticeModal').classList.add('hidden');
+      };
+
+      // =========================================================================
+      // 8. TAB 5: SCOUT ATTENDANCE & CONFIDENTIAL DISPATCH
+      // =========================================================================
+      const SCOUTS_ATTENDANCE = [
+        { id: "s1", name: "Dan Marr", agency: "NHL Central Scouting", title: "Director of Scouting", game: "Friday vs. Boston College", tracking: ["#9 Michael Hage", "#2 Zeev Buium"], icon: "🔍" },
+        { id: "s2", name: "David Carle", agency: "University of Denver", title: "Head Coach & US U20 Selector", game: "Saturday vs. Minnesota", tracking: ["#23 Cole Hutson", "#19 Cole Eiserman"], icon: "🦅" },
+        { id: "s3", name: "Mark Hunter", agency: "London Knights (OHL)", title: "General Manager & Scout", game: "Friday vs. Boston College", tracking: ["#15 Gavin McKenna", "#9 Michael Hage"], icon: "⚔️" },
+        { id: "s4", name: "Al Murray", agency: "Tampa Bay Lightning (NHL)", title: "VP of Amateur Scouting", game: "Next Tuesday vs. Michigan", tracking: ["#14 Gabe Perreault", "#1 Trey Augustine"], icon: "⚡" }
+      ];
+
+      function getScoutDispatches() {
+        try {
+          const raw = localStorage.getItem("blueline_coach_scout_notes");
+          if (raw) return JSON.parse(raw);
+        } catch(e) {}
+        return [
+          { id: "cn_1", scout: "Dan Marr", athlete: "Michael Hage", compete: "5", sense: "5", remarks: "Franchise 200-foot center. Tremendous practice habits and leader in video debriefs.", timestamp: "Yesterday 4:30 PM" },
+          { id: "cn_2", scout: "David Carle", athlete: "Cole Hutson", compete: "4", sense: "5", remarks: "Point quarterback mobility. High compete level defending odd-man rushes.", timestamp: "2 days ago" }
+        ];
+      }
+
+      function saveScoutDispatches(dispatches) {
+        try {
+          localStorage.setItem("blueline_coach_scout_notes", JSON.stringify(dispatches));
+        } catch(e) {}
+      }
+
+      let scoutDispatches = getScoutDispatches();
+
+      function renderScoutAttendance() {
+        const list = document.getElementById('scoutAttendanceList');
+        if (!list) return;
+
+        list.innerHTML = SCOUTS_ATTENDANCE.map(s => {
+          return '<div class="p-4 rounded-2xl bg-slate-900/70 border border-slate-800 hover:border-amber-500/40 transition flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-sm">' +
+            '<div class="flex items-center gap-3">' +
+              '<span class="text-2xl">' + s.icon + '</span>' +
+              '<div>' +
+                '<h4 class="font-bold text-white text-sm">' + s.name + ' — <span class="text-amber-400 font-normal">' + s.agency + '</span></h4>' +
+                '<p class="text-[11px] text-slate-400">' + s.title + ' • Attending: <strong class="text-white">' + s.game + '</strong></p>' +
+                '<div class="text-[10px] font-mono text-indigo-300 mt-1">' +
+                  'Active Focus: <span class="text-slate-200">' + s.tracking.join(', ') + '</span>' +
+                '</div>' +
+              '</div>' +
+            '</div>' +
+            '<div class="flex items-center gap-2">' +
+              '<button onclick="openCoachNotesModal(\'' + s.name + '\')" class="px-3.5 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs transition shadow-sm">' +
+                'Send Evaluation Notes' +
+              '</button>' +
+            '</div>' +
+          '</div>';
+        }).join('');
+
+        renderDispatchesLog();
+      }
+
+      function renderDispatchesLog() {
+        const c = document.getElementById('coachDispatchesContainer');
+        const count = document.getElementById('dispatchCountLabel');
+        if (!c) return;
+
+        if (count) count.textContent = scoutDispatches.length + ' Dispatches Archived';
+
+        c.innerHTML = scoutDispatches.map(d => {
+          return '<div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800/80 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">' +
+            '<div>' +
+              '<span class="font-bold text-white">' + d.athlete + '</span>' +
+              '<span class="text-slate-400"> → Dispatched to </span>' +
+              '<span class="text-amber-400 font-bold">' + d.scout + '</span>' +
+              '<div class="text-[11px] text-slate-300 italic mt-0.5">"' + d.remarks + '"</div>' +
+            '</div>' +
+            '<div class="text-right font-mono text-[10px] text-slate-500 shrink-0">' +
+              '<span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-bold">Compete: ' + d.compete + '/5</span>' +
+              '<div class="mt-1">' + d.timestamp + '</div>' +
+            '</div>' +
+          '</div>';
+        }).join('');
+      }
+
+      let activeDispatchScoutName = "";
+
+      window.openCoachNotesModal = function(scoutName) {
+        activeDispatchScoutName = scoutName;
+        const rec = document.getElementById('modalScoutRecipient');
+        if (rec) rec.textContent = scoutName;
+
+        const sel = document.getElementById('modalAthleteSelect');
+        if (sel) {
+          sel.innerHTML = activeRoster.map(p => {
+            return '<option value="' + p.name + '">#' + (p.num || '--') + ' ' + p.name + ' (' + p.pos + ')</option>';
+          }).join('');
+        }
+
+        document.getElementById('coachNotesModal').classList.remove('hidden');
+      };
+
+      window.closeCoachNotesModal = function() {
+        document.getElementById('coachNotesModal').classList.add('hidden');
+      };
+
+      window.submitCoachScoutNotes = function() {
+        const athlete = document.getElementById('modalAthleteSelect').value;
+        const compete = document.getElementById('modalRateCompete').value;
+        const sense = document.getElementById('modalRateSense').value;
+        const remarks = document.getElementById('modalScoutRemarks').value.trim() || "High character student-athlete with elite preparation habits.";
+
+        scoutDispatches.unshift({
+          id: 'cn_' + Date.now(),
+          scout: activeDispatchScoutName,
+          athlete: athlete,
+          compete: compete,
+          sense: sense,
+          remarks: remarks,
+          timestamp: "Just now"
+        });
+
+        saveScoutDispatches(scoutDispatches);
+        closeCoachNotesModal();
+        renderDispatchesLog();
+
+        if (window.BlueLineUI) {
+          BlueLineUI.showToast("✓ Confidential evaluation notes dispatched to " + activeDispatchScoutName + "!", "success", 3500);
+        }
+      };
+
+      // =========================================================================
+      // 9. INITIALIZATION ON DOM READY
+      // =========================================================================
+      document.addEventListener("DOMContentLoaded", () => {
+        renderForwardLines();
+        renderDefenseAndCrease();
+        renderSpecialTeams();
+        renderRosterTable();
+        populateAddPlayerDropdown();
+        handleSystemChange();
+        handleOpponentChange();
+        renderPracticeDrills();
+        loadDrillToClock(0);
+        renderScoutAttendance();
       });
-    }
+
+    })();
   </script>
 </body>
 </html>
