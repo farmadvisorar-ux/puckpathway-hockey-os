@@ -227,6 +227,25 @@
           </div>
         </div>
 
+        <!-- Quick Select & Add Prospect to Tracking List -->
+        <div class="flex flex-wrap items-center justify-between gap-3 bg-slate-900/80 p-3 rounded-2xl border border-slate-800">
+          <div class="flex items-center gap-2 flex-1 min-w-[280px]">
+            <span class="text-xs font-mono text-amber-400 font-bold shrink-0">⭐ Add to List:</span>
+            <select id="quickAddAthleteSelect" class="w-full bg-slate-950 border border-amber-500/40 text-white rounded-xl px-3 py-1.5 text-xs font-sans focus:border-amber-400 focus:outline-none transition cursor-pointer">
+              <!-- Dynamically populated from master_players.js -->
+            </select>
+          </div>
+          <div class="flex items-center gap-2">
+            <button type="button" onclick="handleAddSelectedToLedger()" class="px-3.5 py-1.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs flex items-center gap-1.5 transition cursor-pointer shadow-md">
+              <i class="fa-solid fa-plus"></i>
+              <span>Add Player</span>
+            </button>
+            <button type="button" onclick="switchScoutTab('directory')" class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700 text-xs font-mono transition cursor-pointer">
+              <span>Browse 3,050+ Directory →</span>
+            </button>
+          </div>
+        </div>
+
         <!-- Watched Players Grid -->
         <div id="watchingLedgerCardsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
           <!-- Dynamically rendered -->
@@ -290,9 +309,9 @@
                 <i class="fa-solid fa-video text-sky-400"></i>
                 <span>AI Film Room</span>
               </button>
-              <button onclick="launchCurrentAthlete('rink3d')" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-850 text-slate-200 hover:text-white border border-slate-700 hover:border-sky-400 text-xs font-semibold transition flex items-center gap-1.5 cursor-pointer shadow-md">
-                <i class="fa-solid fa-cube text-cyan-400"></i>
-                <span>3D Virtual Rink</span>
+              <button onclick="launchCurrentAthlete('combine')" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-850 text-slate-200 hover:text-white border border-slate-700 hover:border-sky-400 text-xs font-semibold transition flex items-center gap-1.5 cursor-pointer shadow-md">
+                <i class="fa-solid fa-microscope text-purple-400"></i>
+                <span>Combine Lab</span>
               </button>
               <button onclick="launchCurrentAthlete('compare')" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-850 text-slate-200 hover:text-white border border-slate-700 hover:border-sky-400 text-xs font-semibold transition flex items-center gap-1.5 cursor-pointer shadow-md">
                 <i class="fa-solid fa-scale-balanced text-teal-400"></i>
@@ -301,6 +320,9 @@
               <button onclick="launchCurrentAthlete('player')" class="px-3 py-1.5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white border border-sky-400/50 text-xs font-bold transition flex items-center gap-1.5 cursor-pointer shadow-md">
                 <i class="fa-solid fa-id-card"></i>
                 <span>Full Passport</span>
+              </button>
+              <button type="button" onclick="BlueLineUI.openPlayerFeatureHubModal(activeAthlete ? activeAthlete.id : 'mp_0013')" class="px-3 py-1.5 rounded-xl bg-gradient-to-r from-sky-600 to-indigo-600 hover:from-sky-500 hover:to-indigo-500 text-white font-bold text-xs transition flex items-center gap-1.5 cursor-pointer shadow-md">
+                <span>🚀 All 14+ Features</span>
               </button>
               <button id="heroWatchlistToggleBtn" type="button" onclick="toggleActiveAthleteInLedger()" class="px-3 py-1.5 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 text-xs font-bold transition flex items-center gap-1.5 cursor-pointer shadow-md">
                 <i id="heroWatchlistIcon" class="fa-solid fa-star text-amber-400"></i>
@@ -1136,13 +1158,30 @@
 
     function populateAthleteSelectDropdown() {
       const select = document.getElementById('athleteQuickSelect');
-      if (!select) return;
+      const addSelect = document.getElementById('quickAddAthleteSelect');
 
-      // Select top 30 notable prospects for rapid switching
-      const notable = allAthletes.slice(0, 35);
-      select.innerHTML = notable.map(p => `
+      // Select top 60 notable prospects for rapid switching & tracking
+      const notable = allAthletes.slice(0, 60);
+      const optionsHtml = notable.map(p => `
         <option value="${p.id}">${p.name} (${p.team || 'Independent'} · ${p.pos || 'F'})</option>
       `).join('');
+
+      if (select) select.innerHTML = optionsHtml;
+      if (addSelect) addSelect.innerHTML = optionsHtml;
+    }
+
+    function handleAddSelectedToLedger() {
+      const select = document.getElementById('quickAddAthleteSelect');
+      if (!select || !select.value) return;
+      const athleteId = select.value;
+      const athlete = allAthletes.find(p => p.id === athleteId);
+      const name = athlete ? athlete.name : athleteId;
+      if (!isInWatchingLedger(athleteId)) {
+        togglePlayerInLedger(athleteId, name);
+        BlueLineUI.showToast(`⭐ Added ${name} to your active tracking list!`, 'success');
+      } else {
+        BlueLineUI.showToast(`${name} is already in your tracking ledger.`, 'info');
+      }
     }
 
     function setActiveAthlete(athlete) {
@@ -1492,43 +1531,90 @@
       container.innerHTML = shortlistAthletes.map(p => {
         const isActive = activeAthlete && activeAthlete.id === p.id;
         const score = p.composite_score ? p.composite_score.toFixed(1) : '88.0';
+        const meta = (typeof BlueLineUI !== 'undefined' && BlueLineUI.getTrackedPlayerMeta)
+          ? BlueLineUI.getTrackedPlayerMeta(p.id)
+          : { priority: 'Tier 1 - Priority Target', status: 'In Evaluation', notes: '' };
+        const posIcon = p.pos === 'G' ? '🥅' : (p.pos === 'D' ? '🛡️' : '⚡');
+
         return `
-          <div class="p-4 rounded-2xl ${isActive ? 'bg-slate-900 border-2 border-emerald-500/80 shadow-xl' : 'bg-slate-950/90 border border-amber-500/30'} space-y-3 shadow-lg hover:border-amber-400 transition">
-            <div class="flex items-start justify-between gap-2">
-              <div>
-                <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-bold border border-amber-500/30">PRIORITY TARGET</span>
-                <h4 class="text-sm font-bold text-white mt-1 hover:text-sky-300 transition cursor-pointer" onclick="selectAthleteFromDirectory('${p.id}')">${p.name}</h4>
-                <p class="text-[11px] text-slate-400">${p.team || 'Independent'} · ${p.pos || 'F'}</p>
+          <div class="p-4 rounded-2xl ${isActive ? 'bg-slate-900 border-2 border-emerald-500/80 shadow-xl' : 'bg-slate-950/90 border border-amber-500/30'} space-y-3 shadow-lg hover:border-amber-400 transition flex flex-col justify-between">
+            <div class="space-y-2.5">
+              <div class="flex items-start justify-between gap-2">
+                <div class="flex items-center gap-2.5 min-w-0">
+                  <div class="w-10 h-10 rounded-xl bg-slate-800 border border-slate-700 flex items-center justify-center text-base font-bold text-sky-400 shrink-0">
+                    ${posIcon}
+                  </div>
+                  <div class="min-w-0">
+                    <h4 class="text-sm font-bold text-white hover:text-sky-300 transition cursor-pointer truncate" onclick="selectAthleteFromDirectory('${p.id}')">${p.name}</h4>
+                    <p class="text-[11px] text-slate-400 font-mono truncate">${p.team || 'Independent'} · ${p.pos || 'F'} · #${p.num || '17'}</p>
+                  </div>
+                </div>
+                <button type="button" onclick="togglePlayerInLedger('${p.id}')" class="text-amber-400 hover:text-rose-400 p-1 text-base transition cursor-pointer shrink-0" title="Remove from Target Board">
+                  ⭐
+                </button>
               </div>
-              <button type="button" onclick="togglePlayerInLedger('${p.id}')" class="text-amber-400 hover:text-rose-400 p-1 text-base transition cursor-pointer" title="Remove from Targets">
-                ⭐
-              </button>
+
+              ${isActive ? `
+                <div class="flex items-center gap-1.5 px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-[10px] font-mono font-bold">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
+                  <span>ACTIVE IN LOGGER</span>
+                </div>
+              ` : ''}
+
+              <!-- Priority Tier & Recruitment Status Dropdowns -->
+              <div class="grid grid-cols-2 gap-1.5 text-[10px] font-mono">
+                <select onchange="updatePlayerPriority('${p.id}', this.value)" class="bg-slate-900 border border-slate-700 text-sky-300 rounded-lg px-2 py-1 focus:outline-none focus:border-sky-400 cursor-pointer">
+                  <option value="Tier 1 - Priority Target" ${meta.priority === 'Tier 1 - Priority Target' ? 'selected' : ''}>⭐ Tier 1</option>
+                  <option value="Tier 2 - High Interest" ${meta.priority === 'Tier 2 - High Interest' ? 'selected' : ''}>⚡ Tier 2</option>
+                  <option value="Tier 3 - Watchlist" ${meta.priority === 'Tier 3 - Watchlist' ? 'selected' : ''}>👁️ Tier 3</option>
+                </select>
+                <select onchange="updatePlayerStatus('${p.id}', this.value)" class="bg-slate-900 border border-slate-700 text-amber-300 rounded-lg px-2 py-1 focus:outline-none focus:border-amber-400 cursor-pointer">
+                  <option value="In Evaluation" ${meta.status === 'In Evaluation' ? 'selected' : ''}>🔍 Evaluating</option>
+                  <option value="Offered" ${meta.status === 'Offered' ? 'selected' : ''}>🎯 Offered</option>
+                  <option value="Official Visit" ${meta.status === 'Official Visit' ? 'selected' : ''}>🏛️ Visit Set</option>
+                  <option value="Committed" ${meta.status === 'Committed' ? 'selected' : ''}>✓ Committed</option>
+                  <option value="Monitoring" ${meta.status === 'Monitoring' ? 'selected' : ''}>📡 Monitor</option>
+                </select>
+              </div>
+
+              <!-- Confidential Notes Preview & Editor -->
+              <div class="flex items-center justify-between text-[10px] font-mono p-1.5 rounded-lg bg-slate-900/80 border border-slate-800">
+                <span class="text-slate-400 truncate flex-1 pr-1">${meta.notes ? `📝 ${meta.notes}` : 'No notes entered'}</span>
+                <button type="button" onclick="openScoutNotesModal('${p.id}')" class="text-sky-400 hover:text-sky-300 font-bold shrink-0">Edit</button>
+              </div>
+
+              <div class="p-2 rounded-xl bg-slate-900 text-[10px] font-mono text-slate-300 flex items-center justify-between">
+                <span>Score: <strong class="text-emerald-400">${score}</strong></span>
+                <span class="text-slate-400">${p.draft_status || '2025 Draft'}</span>
+              </div>
             </div>
 
-            ${isActive ? `
-              <div class="flex items-center gap-1.5 px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-[10px] font-mono font-bold">
-                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
-                <span>ACTIVE IN LOGGER</span>
+            <!-- Action Buttons: Evaluate + Top 4 Tools + Full Hub -->
+            <div class="space-y-1.5 pt-2 border-t border-slate-800/80">
+              <button onclick="selectAthleteFromDirectory('${p.id}')" class="w-full py-1.5 rounded-xl ${isActive ? 'bg-emerald-600 hover:bg-emerald-500' : 'bg-sky-600 hover:bg-sky-500'} text-white font-bold text-xs transition cursor-pointer flex items-center justify-center gap-1.5 shadow-sm">
+                <i class="fa-solid fa-bolt text-xs"></i>
+                <span>${isActive ? 'Active Evaluated' : 'Load in Telemetry Logger'}</span>
+              </button>
+
+              <div class="grid grid-cols-4 gap-1">
+                <button onclick="BlueLineUI.launchAthleteInModule('film', '${p.id}')" class="py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-200 text-xs border border-slate-700 cursor-pointer flex items-center justify-center" title="AI Film Room">
+                  <i class="fa-solid fa-video text-sky-400"></i>
+                </button>
+                <button onclick="BlueLineUI.launchAthleteInModule('combine', '${p.id}')" class="py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-200 text-xs border border-slate-700 cursor-pointer flex items-center justify-center" title="Combine Lab">
+                  <i class="fa-solid fa-microscope text-purple-400"></i>
+                </button>
+                <button onclick="BlueLineUI.launchAthleteInModule('compare', '${p.id}')" class="py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-200 text-xs border border-slate-700 cursor-pointer flex items-center justify-center" title="Compare Lab">
+                  <i class="fa-solid fa-scale-balanced text-teal-400"></i>
+                </button>
+                <button onclick="BlueLineUI.launchAthleteInModule('player', '${p.id}')" class="py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-200 text-xs border border-slate-700 cursor-pointer flex items-center justify-center" title="Passport">
+                  <i class="fa-solid fa-id-card text-emerald-400"></i>
+                </button>
               </div>
-            ` : ''}
 
-            <div class="p-2 rounded-xl bg-slate-900 text-[10px] font-mono text-slate-300 flex items-center justify-between">
-              <span>Score: <strong class="text-emerald-400">${score}</strong></span>
-              <span>${p.draft_status || '2025 Draft'}</span>
-            </div>
-
-            <div class="flex items-center gap-2 pt-1">
-              <button onclick="selectAthleteFromDirectory('${p.id}')" class="flex-1 py-1.5 rounded-xl ${isActive ? 'bg-emerald-600 hover:bg-emerald-500' : 'bg-sky-600 hover:bg-sky-500'} text-white font-bold text-xs transition cursor-pointer">
-                ${isActive ? 'Active Evaluated' : 'Evaluate'}
-              </button>
-              <button onclick="BlueLineUI.launchAthleteInModule('film', '${p.id}')" class="px-2.5 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-200 text-xs border border-slate-700 cursor-pointer" title="AI Film Room">
-                <i class="fa-solid fa-video text-sky-400"></i>
-              </button>
-              <button onclick="BlueLineUI.launchAthleteInModule('compare', '${p.id}')" class="px-2.5 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-200 text-xs border border-slate-700 cursor-pointer" title="Compare Lab">
-                <i class="fa-solid fa-scale-balanced text-teal-400"></i>
-              </button>
-              <button onclick="BlueLineUI.launchAthleteInModule('player', '${p.id}')" class="px-2.5 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-200 text-xs border border-slate-700 cursor-pointer" title="Passport">
-                <i class="fa-solid fa-id-card text-emerald-400"></i>
+              <!-- Contextual Multi-Feature Hub -->
+              <button type="button" onclick="BlueLineUI.openPlayerFeatureHubModal('${p.id}')" class="w-full py-1.5 rounded-xl bg-gradient-to-r from-sky-600/30 to-indigo-600/30 hover:from-sky-600/50 hover:to-indigo-600/50 text-sky-200 border border-sky-500/40 text-[11px] font-bold transition flex items-center justify-center gap-1.5 cursor-pointer shadow-sm">
+                <i class="fa-solid fa-rocket text-sky-400"></i>
+                <span>All Features for ${p.name.split(' ')[0]}</span>
               </button>
             </div>
           </div>
@@ -1701,9 +1787,12 @@
         const ht = p.height_str || (p.height_in ? `${Math.floor(p.height_in/12)}'${p.height_in%12}"` : "6'0\"");
         const wt = p.weight_lbs ? `${p.weight_lbs} lbs` : "185 lbs";
         const posIcon = p.pos === 'G' ? '🥅' : (p.pos === 'D' ? '🛡️' : '⚡');
+        const meta = (window.BlueLineUI && window.BlueLineUI.getTrackedPlayerMeta)
+          ? window.BlueLineUI.getTrackedPlayerMeta(p.id)
+          : { priority: 'Tier 1 - Priority Target', status: 'In Evaluation', notes: '' };
 
         return `
-          <div class="p-3.5 rounded-2xl ${isActive ? 'bg-slate-900 border-2 border-emerald-500/80 shadow-lg shadow-emerald-950/40' : 'bg-slate-950/90 border border-slate-800 hover:border-amber-500/40'} flex flex-col justify-between gap-3 transition">
+          <div class="p-3.5 rounded-2xl ${isActive ? 'bg-slate-900 border-2 border-emerald-500/80 shadow-lg shadow-emerald-950/40' : 'bg-slate-950/90 border border-slate-800 hover:border-sky-500/40'} flex flex-col justify-between gap-3 transition">
             <div class="space-y-2">
               <div class="flex items-start justify-between gap-2">
                 <div class="flex items-center gap-2">
@@ -1717,7 +1806,7 @@
                     <p class="text-[10px] text-slate-400 font-mono">${p.pos || 'F'} · #${p.num || '17'} · ${p.league || 'Tier 1'}</p>
                   </div>
                 </div>
-                <button type="button" onclick="togglePlayerInLedger('${p.id}')" class="text-slate-500 hover:text-rose-400 text-xs p-1 transition cursor-pointer" title="Remove from Watched Ledger">
+                <button type="button" onclick="togglePlayerInLedger('${p.id}')" class="text-slate-500 hover:text-rose-400 text-xs p-1 transition cursor-pointer shrink-0" title="Remove from Watched Ledger">
                   <i class="fa-solid fa-xmark"></i>
                 </button>
               </div>
@@ -1728,6 +1817,28 @@
                   <span>ACTIVE IN LOGGER</span>
                 </div>
               ` : ''}
+
+              <!-- Priority Tier & Recruitment Status Dropdowns -->
+              <div class="grid grid-cols-2 gap-1.5 text-[10px] font-mono">
+                <select onchange="updatePlayerPriority('${p.id}', this.value)" class="bg-slate-900 border border-slate-700 text-sky-300 rounded-lg px-2 py-1 focus:outline-none focus:border-sky-400 cursor-pointer">
+                  <option value="Tier 1 - Priority Target" ${meta.priority === 'Tier 1 - Priority Target' ? 'selected' : ''}>⭐ Tier 1</option>
+                  <option value="Tier 2 - High Interest" ${meta.priority === 'Tier 2 - High Interest' ? 'selected' : ''}>⚡ Tier 2</option>
+                  <option value="Tier 3 - Watchlist" ${meta.priority === 'Tier 3 - Watchlist' ? 'selected' : ''}>👁️ Tier 3</option>
+                </select>
+                <select onchange="updatePlayerStatus('${p.id}', this.value)" class="bg-slate-900 border border-slate-700 text-amber-300 rounded-lg px-2 py-1 focus:outline-none focus:border-amber-400 cursor-pointer">
+                  <option value="In Evaluation" ${meta.status === 'In Evaluation' ? 'selected' : ''}>🔍 Evaluating</option>
+                  <option value="Offered" ${meta.status === 'Offered' ? 'selected' : ''}>🎯 Offered</option>
+                  <option value="Official Visit" ${meta.status === 'Official Visit' ? 'selected' : ''}>🏛️ Visit Set</option>
+                  <option value="Committed" ${meta.status === 'Committed' ? 'selected' : ''}>✓ Committed</option>
+                  <option value="Monitoring" ${meta.status === 'Monitoring' ? 'selected' : ''}>📡 Monitor</option>
+                </select>
+              </div>
+
+              <!-- Confidential Notes Preview & Editor -->
+              <div class="flex items-center justify-between text-[10px] font-mono p-1.5 rounded-lg bg-slate-900/80 border border-slate-800">
+                <span class="text-slate-400 truncate flex-1 pr-1">${meta.notes ? `📝 ${meta.notes}` : 'No notes entered'}</span>
+                <button type="button" onclick="openScoutNotesModal('${p.id}')" class="text-sky-400 hover:text-sky-300 font-bold shrink-0">Edit</button>
+              </div>
 
               <div class="p-2 rounded-xl bg-slate-900/90 text-[10px] font-mono text-slate-300 flex items-center justify-between">
                 <span>Team: <strong class="text-white">${p.team || 'Indep'}</strong></span>
@@ -1746,8 +1857,8 @@
                 <button type="button" onclick="BlueLineUI.launchAthleteInModule('film', '${p.id}')" class="py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-800 text-[10px] font-mono transition text-center cursor-pointer" title="AI Film Room">
                   <i class="fa-solid fa-video text-sky-400"></i>
                 </button>
-                <button type="button" onclick="BlueLineUI.launchAthleteInModule('rink3d', '${p.id}')" class="py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-800 text-[10px] font-mono transition text-center cursor-pointer" title="3D Virtual Rink">
-                  <i class="fa-solid fa-cube text-cyan-400"></i>
+                <button type="button" onclick="BlueLineUI.launchAthleteInModule('combine', '${p.id}')" class="py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-800 text-[10px] font-mono transition text-center cursor-pointer" title="Combine Lab">
+                  <i class="fa-solid fa-microscope text-purple-400"></i>
                 </button>
                 <button type="button" onclick="BlueLineUI.launchAthleteInModule('compare', '${p.id}')" class="py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-800 text-[10px] font-mono transition text-center cursor-pointer" title="Compare Lab">
                   <i class="fa-solid fa-scale-balanced text-teal-400"></i>
@@ -1756,6 +1867,12 @@
                   <i class="fa-solid fa-id-card text-emerald-400"></i>
                 </button>
               </div>
+
+              <!-- Contextual Multi-Feature Hub -->
+              <button type="button" onclick="BlueLineUI.openPlayerFeatureHubModal('${p.id}')" class="w-full py-1.5 rounded-xl bg-gradient-to-r from-sky-600/30 to-indigo-600/30 hover:from-sky-600/50 hover:to-indigo-600/50 text-sky-200 border border-sky-500/40 text-[11px] font-bold transition flex items-center justify-center gap-1.5 cursor-pointer shadow-sm">
+                <i class="fa-solid fa-rocket text-sky-400"></i>
+                <span>All Features for ${p.name.split(' ')[0]}</span>
+              </button>
             </div>
           </div>
         `;
@@ -1771,21 +1888,29 @@
         return;
       }
 
-      const headers = ["ID", "Name", "Position", "Number", "Team", "League", "Height", "Weight", "Hometown", "Birth Year", "Composite Score", "Draft Status"];
-      const rows = athletes.map(p => [
-        p.id,
-        `"${(p.name || '').replace(/"/g, '""')}"`,
-        p.pos || 'F',
-        p.num || '',
-        `"${(p.team || '').replace(/"/g, '""')}"`,
-        `"${(p.league || '').replace(/"/g, '""')}"`,
-        `"${(p.height_str || '').replace(/"/g, '""')}"`,
-        p.weight_lbs || '',
-        `"${(p.hometown || '').replace(/"/g, '""')}"`,
-        p.date_of_birth ? p.date_of_birth.split('-')[0] : '',
-        p.composite_score ? p.composite_score.toFixed(1) : '88.0',
-        `"${(p.draft_status || '').replace(/"/g, '""')}"`
-      ]);
+      const headers = ["ID", "Name", "Position", "Number", "Team", "League", "Height", "Weight", "Hometown", "Birth Year", "Composite Score", "Draft Status", "Priority Tier", "Recruiting Status", "Scout Notes"];
+      const rows = athletes.map(p => {
+        const meta = (window.BlueLineUI && window.BlueLineUI.getTrackedPlayerMeta)
+          ? window.BlueLineUI.getTrackedPlayerMeta(p.id)
+          : { priority: 'Tier 1 - Priority Target', status: 'In Evaluation', notes: '' };
+        return [
+          p.id,
+          `"${(p.name || '').replace(/"/g, '""')}"`,
+          p.pos || 'F',
+          p.num || '',
+          `"${(p.team || '').replace(/"/g, '""')}"`,
+          `"${(p.league || '').replace(/"/g, '""')}"`,
+          `"${(p.height_str || '').replace(/"/g, '""')}"`,
+          p.weight_lbs || '',
+          `"${(p.hometown || '').replace(/"/g, '""')}"`,
+          p.date_of_birth ? p.date_of_birth.split('-')[0] : '',
+          p.composite_score ? p.composite_score.toFixed(1) : '88.0',
+          `"${(p.draft_status || '').replace(/"/g, '""')}"`,
+          `"${(meta.priority || '').replace(/"/g, '""')}"`,
+          `"${(meta.status || '').replace(/"/g, '""')}"`,
+          `"${(meta.notes || '').replace(/"/g, '""')}"`
+        ];
+      });
 
       const csvContent = [headers.join(','), ...rows.map(r => r.join(','))].join('\r\n');
       const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
@@ -1798,7 +1923,82 @@
       document.body.removeChild(link);
       URL.revokeObjectURL(url);
 
-      BlueLineUI.showToast(`✓ Exported ${athletes.length} watched prospects to CSV.`, "success");
+      BlueLineUI.showToast(`✓ Exported ${athletes.length} watched prospects to CSV with recruiter metadata.`, "success");
+    }
+
+    // =========================================================================
+    // RECRUITER TRACKING METADATA & NOTES EDITING
+    // =========================================================================
+    function updatePlayerPriority(athleteId, priority) {
+      if (window.BlueLineUI && window.BlueLineUI.setTrackedPlayerMeta) {
+        window.BlueLineUI.setTrackedPlayerMeta(athleteId, { priority });
+        BlueLineUI.showToast(`Priority set to: ${priority}`, "info");
+        updateLedgerUI();
+      }
+    }
+
+    function updatePlayerStatus(athleteId, status) {
+      if (window.BlueLineUI && window.BlueLineUI.setTrackedPlayerMeta) {
+        window.BlueLineUI.setTrackedPlayerMeta(athleteId, { status });
+        BlueLineUI.showToast(`Recruitment status set to: ${status}`, "info");
+        updateLedgerUI();
+      }
+    }
+
+    function openScoutNotesModal(athleteId) {
+      const p = allAthletes.find(a => a.id === athleteId);
+      if (!p) return;
+      const meta = (window.BlueLineUI && window.BlueLineUI.getTrackedPlayerMeta)
+        ? window.BlueLineUI.getTrackedPlayerMeta(athleteId)
+        : { notes: '' };
+
+      const existing = document.getElementById('scoutNotesModal');
+      if (existing) existing.remove();
+
+      const modal = document.createElement('div');
+      modal.id = 'scoutNotesModal';
+      modal.className = 'fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm';
+      modal.onclick = (e) => { if (e.target === modal) modal.remove(); };
+      modal.innerHTML = `
+        <div class="relative w-full max-w-lg rounded-2xl bg-slate-900 border border-sky-500/40 p-5 text-white shadow-2xl space-y-4" style="background:#090d16; border:1px solid rgba(56,189,248,0.4);">
+          <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+            <div class="flex items-center gap-2.5">
+              <div class="w-8 h-8 rounded-lg bg-sky-500/20 text-sky-400 border border-sky-500/40 flex items-center justify-center text-sm">
+                📝
+              </div>
+              <div>
+                <h3 class="text-sm font-bold text-white">Confidential Scout Intel & Notes</h3>
+                <p class="text-[11px] text-slate-400 font-mono">${p.name} · ${p.team || 'Independent'} (${p.pos || 'F'})</p>
+              </div>
+            </div>
+            <button type="button" onclick="document.getElementById('scoutNotesModal').remove()" class="w-7 h-7 rounded-full bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center text-xs transition cursor-pointer">✕</button>
+          </div>
+          <div>
+            <label class="block text-xs font-mono text-slate-300 mb-1.5 font-bold">Confidential Scouting Observations & Interview Intel</label>
+            <textarea id="scoutNotesInput" rows="5" placeholder="Enter private remarks on skating stride, compete level, character interviews, contact dates, or recruitment leverage..." class="w-full rounded-xl bg-slate-950 border border-slate-700 p-3 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-sky-400 font-sans leading-relaxed resize-none">${meta.notes || ''}</textarea>
+          </div>
+          <div class="flex items-center justify-between pt-2 border-t border-slate-800">
+            <span class="text-[11px] font-mono text-slate-500">Auto-saved to private recruiter cache</span>
+            <div class="flex items-center gap-2">
+              <button type="button" onclick="document.getElementById('scoutNotesModal').remove()" class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-mono cursor-pointer transition">Cancel</button>
+              <button type="button" onclick="saveScoutNotes('${athleteId}')" class="px-4 py-1.5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white text-xs font-bold font-mono cursor-pointer shadow-md transition">Save Intel</button>
+            </div>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(modal);
+    }
+
+    function saveScoutNotes(athleteId) {
+      const input = document.getElementById('scoutNotesInput');
+      const notes = input ? input.value.trim() : '';
+      if (window.BlueLineUI && window.BlueLineUI.setTrackedPlayerMeta) {
+        window.BlueLineUI.setTrackedPlayerMeta(athleteId, { notes });
+      }
+      const modal = document.getElementById('scoutNotesModal');
+      if (modal) modal.remove();
+      BlueLineUI.showToast("✓ Confidential scout intel saved successfully.", "success");
+      updateLedgerUI();
     }
 
     // =========================================================================

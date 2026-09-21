@@ -1098,42 +1098,112 @@
         <div style="margin-top:0.75rem;"><button type="button" class="paywall-testdrive-btn" onclick="executeTestDrive('scout')">🔍 Test Drive as Scout (Dan Marr)</button></div>
       </div>
       <div id="proContent-recruiting">
-        <h1>Recruiting Profile</h1>
-
-        <div class="profile-header">
-          <h2 id="recruitingPlayerName">Player Name</h2>
-          <p id="recruitingPlayerPosTier">Forward — Tier 4</p>
+        <!-- View Header & Mode Switcher Tabs -->
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:0.75rem; margin-bottom:1.25rem; padding-bottom:1rem; border-bottom:1px solid #334155;">
+          <div>
+            <h1 style="font-size:1.5rem; font-weight:900; margin:0; color:#ffffff;">Recruiting Target Board & Prospect Pipeline</h1>
+            <p style="font-size:0.8rem; color:#94a3b8; margin:0.25rem 0 0 0;">Synchronized recruiter ledger across Lead Scout Desk and Player OS. Contextual feature launcher for all 4,019+ verified prospects.</p>
+          </div>
+          <div style="display:inline-flex; background:#0f172a; padding:0.25rem; border-radius:0.75rem; border:1px solid #334155; gap:0.25rem;">
+            <button type="button" id="recruitingTabBtnRecruiter" onclick="switchRecruitingTab('recruiter')" class="btn-action-sm" style="padding:0.4rem 0.85rem; border-radius:0.5rem; font-size:0.75rem; font-weight:700; background:#0284c7; color:#ffffff; border:none; cursor:pointer;">🎯 Recruiter Target Board</button>
+            <button type="button" id="recruitingTabBtnPlayer" onclick="switchRecruitingTab('player')" class="btn-action-sm" style="padding:0.4rem 0.85rem; border-radius:0.5rem; font-size:0.75rem; font-weight:700; background:transparent; color:#94a3b8; border:none; cursor:pointer;">👤 Player Dossier & Inquiries</button>
+          </div>
         </div>
 
-        <div class="profile-stats">
-          <h3>Skill Snapshot</h3>
-          <ul>
-            <li>Skating: 72</li>
-            <li>Shooting: 68</li>
-            <li>Passing: 64</li>
-            <li>Defense: 59</li>
-            <li>Hockey IQ: 70</li>
-          </ul>
+        <!-- RECRUITER TARGET BOARD CONTAINER -->
+        <div id="appRecruiterBoardContainer">
+          <!-- Metrics Ribbon -->
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(130px, 1fr)); gap:0.75rem; margin-bottom:1.25rem;">
+            <div style="background:rgba(15,23,42,0.8); border:1px solid rgba(56,189,248,0.25); border-radius:0.75rem; padding:0.75rem 1rem;">
+              <span style="display:block; font-size:0.65rem; color:#94a3b8; font-family:monospace; text-transform:uppercase;">Tracked Prospects</span>
+              <span id="appRecruiterTotalWatched" style="font-size:1.35rem; font-weight:900; color:#38bdf8;">0</span>
+            </div>
+            <div style="background:rgba(15,23,42,0.8); border:1px solid rgba(245,158,11,0.25); border-radius:0.75rem; padding:0.75rem 1rem;">
+              <span style="display:block; font-size:0.65rem; color:#94a3b8; font-family:monospace; text-transform:uppercase;">Tier 1 Priority</span>
+              <span id="appRecruiterTier1Count" style="font-size:1.35rem; font-weight:900; color:#fbbf24;">0</span>
+            </div>
+            <div style="background:rgba(15,23,42,0.8); border:1px solid rgba(16,185,129,0.25); border-radius:0.75rem; padding:0.75rem 1rem;">
+              <span style="display:block; font-size:0.65rem; color:#94a3b8; font-family:monospace; text-transform:uppercase;">In Evaluation</span>
+              <span id="appRecruiterEvalCount" style="font-size:1.35rem; font-weight:900; color:#34d399;">0</span>
+            </div>
+            <div style="background:rgba(15,23,42,0.8); border:1px solid rgba(168,85,247,0.25); border-radius:0.75rem; padding:0.75rem 1rem;">
+              <span style="display:block; font-size:0.65rem; color:#94a3b8; font-family:monospace; text-transform:uppercase;">Offered / Visits</span>
+              <span id="appRecruiterOffersCount" style="font-size:1.35rem; font-weight:900; color:#c084fc;">0</span>
+            </div>
+          </div>
+
+          <!-- Quick Select & Add Prospect Bar -->
+          <div style="background:#0f172a; border:1px solid #334155; border-radius:1rem; padding:0.85rem 1rem; margin-bottom:1.25rem; display:flex; flex-wrap:wrap; gap:0.75rem; align-items:center; justify-content:space-between;">
+            <div style="display:flex; align-items:center; gap:0.5rem; flex:1; min-width:280px;">
+              <label for="appRecruiterAthleteSelect" style="font-size:0.75rem; font-family:monospace; color:#38bdf8; font-weight:700; white-space:nowrap;">+ Select Prospect:</label>
+              <select id="appRecruiterAthleteSelect" style="flex:1; background:#020617; border:1px solid #475569; border-radius:0.5rem; color:#f8fafc; padding:0.45rem 0.75rem; font-size:0.8rem; outline:none; cursor:pointer;">
+                <option value="">-- Choose from 4,019+ Verified Amateur Prospects --</option>
+              </select>
+              <button type="button" onclick="handleAppAddSelectedToLedger()" class="btn primary" style="padding:0.45rem 1rem; font-size:0.8rem; font-weight:800; white-space:nowrap; background:#0284c7; border-color:#0369a1; cursor:pointer;">+ Track</button>
+            </div>
+            <div style="display:flex; align-items:center; gap:0.5rem;">
+              <button type="button" onclick="exportAppRecruiterCsv()" class="btn secondary" style="padding:0.45rem 0.85rem; font-size:0.75rem; font-family:monospace; color:#94a3b8; border-color:#475569; cursor:pointer;" title="Export Watched Prospects to CSV">📥 CSV</button>
+              <a href="scout.html" class="btn secondary" style="padding:0.45rem 0.85rem; font-size:0.75rem; font-family:monospace; color:#fbbf24; border-color:#f59e0b; text-decoration:none;" title="Open Dedicated Lead Scout Desk">🔭 Lead Scout Desk →</a>
+            </div>
+          </div>
+
+          <!-- Position & Priority Filters Bar -->
+          <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:0.5rem; margin-bottom:1rem;">
+            <div style="display:flex; gap:0.35rem; flex-wrap:wrap;">
+              <button type="button" onclick="setAppLedgerFilter('all')" class="app-ledger-filter-btn" id="appFilterBtn_all" style="font-size:0.75rem; padding:0.3rem 0.75rem; border-radius:0.5rem; background:#0284c7; color:#ffffff; border:1px solid #0284c7; cursor:pointer; font-weight:700;">All</button>
+              <button type="button" onclick="setAppLedgerFilter('F')" class="app-ledger-filter-btn" id="appFilterBtn_F" style="font-size:0.75rem; padding:0.3rem 0.75rem; border-radius:0.5rem; background:#0f172a; color:#94a3b8; border:1px solid #334155; cursor:pointer; font-weight:700;">Forwards</button>
+              <button type="button" onclick="setAppLedgerFilter('D')" class="app-ledger-filter-btn" id="appFilterBtn_D" style="font-size:0.75rem; padding:0.3rem 0.75rem; border-radius:0.5rem; background:#0f172a; color:#94a3b8; border:1px solid #334155; cursor:pointer; font-weight:700;">Defensemen</button>
+              <button type="button" onclick="setAppLedgerFilter('G')" class="app-ledger-filter-btn" id="appFilterBtn_G" style="font-size:0.75rem; padding:0.3rem 0.75rem; border-radius:0.5rem; background:#0f172a; color:#94a3b8; border:1px solid #334155; cursor:pointer; font-weight:700;">Goalies</button>
+              <button type="button" onclick="setAppLedgerFilter('tier1')" class="app-ledger-filter-btn" id="appFilterBtn_tier1" style="font-size:0.75rem; padding:0.3rem 0.75rem; border-radius:0.5rem; background:#0f172a; color:#fbbf24; border:1px solid rgba(245,158,11,0.4); cursor:pointer; font-weight:700;">⭐ Tier 1 Only</button>
+            </div>
+            <div style="font-size:0.75rem; font-family:monospace; color:#94a3b8;">
+              <span id="appLedgerShowingCountText">Showing 0 prospects</span>
+            </div>
+          </div>
+
+          <!-- Dynamic Prospects Cards Grid -->
+          <div id="appRecruiterProspectsGrid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(320px, 1fr)); gap:1rem; margin-bottom:2rem;">
+            <!-- Populated by renderAppRecruitingBoard() -->
+          </div>
         </div>
 
-        <div class="combine-results">
-          <h3>Combine Results</h3>
-          <ul>
-            <li>Speed: 4.8s</li>
-            <li>Agility: 7.2s</li>
-            <li>Shooting Accuracy: 78%</li>
-            <li>Reaction Time: 0.42s</li>
-          </ul>
-        </div>
+        <!-- PLAYER DOSSIER CONTAINER (Visible when toggled or for athlete/parent roles) -->
+        <div id="playerRecruitingDossierSection" style="display:none;">
+          <div class="profile-header">
+            <h2 id="recruitingPlayerName">Player Name</h2>
+            <p id="recruitingPlayerPosTier">Forward — Tier 4</p>
+          </div>
 
-        <div class="highlight-reel">
-          <h3>Highlight Reel</h3>
-          <p>Upload clips to build your recruiting reel.</p>
-        </div>
+          <div class="profile-stats">
+            <h3>Skill Snapshot</h3>
+            <ul>
+              <li>Skating: 72</li>
+              <li>Shooting: 68</li>
+              <li>Passing: 64</li>
+              <li>Defense: 59</li>
+              <li>Hockey IQ: 70</li>
+            </ul>
+          </div>
 
-        <div class="share-link">
-          <h3>Shareable Profile Link</h3>
-          <p>Coming soon</p>
+          <div class="combine-results">
+            <h3>Combine Results</h3>
+            <ul>
+              <li>Speed: 4.8s</li>
+              <li>Agility: 7.2s</li>
+              <li>Shooting Accuracy: 78%</li>
+              <li>Reaction Time: 0.42s</li>
+            </ul>
+          </div>
+
+          <div class="highlight-reel">
+            <h3>Highlight Reel</h3>
+            <p>Upload clips to build your recruiting reel.</p>
+          </div>
+
+          <div class="share-link">
+            <h3>Shareable Profile Link</h3>
+            <p>Certified NCAA Clearinghouse Prospect ID: #25-NCAA-8849</p>
+          </div>
         </div>
       </div>
     </section>
@@ -1976,6 +2046,9 @@
         if (typeof updateViewPaywallStates === 'function') {
           updateViewPaywallStates();
         }
+        if (target === 'recruiting' && typeof renderAppRecruitingBoard === 'function') {
+          renderAppRecruitingBoard();
+        }
       });
     });
 
@@ -2010,6 +2083,9 @@
           }
         });
         window.location.hash = cleanTarget;
+      }
+      if (cleanTarget === 'recruiting' && typeof renderAppRecruitingBoard === 'function') {
+        renderAppRecruitingBoard();
       }
     }
     window.switchView = switchView;
@@ -2968,6 +3044,14 @@
         renderAdminHub();
       }
 
+      if (typeof switchRecruitingTab === 'function') {
+        if (currentActiveRole === 'scout' || currentActiveRole === 'coach' || currentActiveRole === 'admin') {
+          switchRecruitingTab('recruiter');
+        } else {
+          switchRecruitingTab('player');
+        }
+      }
+
       updateViewPaywallStates();
       showPopup("Switched to " + currentActiveRole.toUpperCase() + " view");
     }
@@ -3091,65 +3175,97 @@
         }
       } else if (role === 'scout') {
         dashTitle.textContent = "Scout & Recruiter War Room — Prospect Pipeline";
+        const ledgerIds = (window.BlueLineUI && window.BlueLineUI.getScoutWatchingLedger) ? window.BlueLineUI.getScoutWatchingLedger() : [];
+        const allProspects = (window.MASTER_PLAYERS || (window.BlueLinePlayers ? window.BlueLinePlayers : []));
+        const trackedProspects = ledgerIds.map(id => allProspects.find(p => p.id === id)).filter(Boolean);
+        const tier1Count = trackedProspects.filter(p => {
+          const m = window.BlueLineUI && window.BlueLineUI.getTrackedPlayerMeta ? window.BlueLineUI.getTrackedPlayerMeta(p.id) : {};
+          return m.priority === 'Tier 1 - Priority Target';
+        }).length;
+
         if (tierSection) {
           tierSection.innerHTML = `
-            <h2>Recruitment Pipeline</h2>
+            <h2>Active Recruitment Pipeline</h2>
             <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:8px;">
-              <span class="tier-badge" style="background:#7c3aed;">142 Priority Watchlist</span>
-              <span class="tier-badge" style="background:#0284c7;">18 High-Danger Forwards</span>
-              <span class="tier-badge" style="background:#059669;">3,050+ Database Active</span>
+              <span class="tier-badge" style="background:#7c3aed;">⭐ ${trackedProspects.length} Tracked Prospects</span>
+              <span class="tier-badge" style="background:#0284c7;">🎯 ${tier1Count} Tier 1 Priority</span>
+              <span class="tier-badge" style="background:#059669;">🌐 4,019+ Database Active</span>
             </div>
           `;
         }
         if (missionsSection) {
           missionsSection.innerHTML = `
             <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem; margin-bottom:0.75rem;">
-              <h2 style="margin:0;">Scouting Directives</h2>
-              <a href="scout.html" class="btn-action-sm nav-btn-sm" style="text-decoration:none;">🔭 Open Scout Desk</a>
+              <h2 style="margin:0;">Tracked Recruiter Prospects — Instant Action Hub</h2>
+              <div style="display:flex; gap:0.5rem;">
+                <button type="button" class="btn-action-sm nav-btn-sm" onclick="switchView('recruiting')">🎯 Target Board</button>
+                <a href="scout.html" class="btn-action-sm nav-btn-sm" style="text-decoration:none;">🔭 Lead Scout Desk</a>
+              </div>
             </div>
+            
+            ${trackedProspects.length > 0 ? `
+              <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(270px, 1fr)); gap:0.75rem; margin-bottom:1rem;">
+                ${trackedProspects.slice(0, 4).map(p => {
+                  const meta = window.BlueLineUI && window.BlueLineUI.getTrackedPlayerMeta ? window.BlueLineUI.getTrackedPlayerMeta(p.id) : { priority: 'Tier 1' };
+                  return `
+                    <div style="background:#0f172a; border:1px solid #334155; border-radius:0.75rem; padding:0.75rem; display:flex; flex-direction:column; justify-content:space-between; gap:0.5rem;">
+                      <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+                        <div>
+                          <strong style="color:#ffffff; font-size:0.85rem; display:block;">${p.name}</strong>
+                          <span style="font-size:0.7rem; color:#94a3b8; font-family:monospace;">${p.pos || 'F'} · ${p.team || 'Indep'} · ${meta.priority || 'Tier 1'}</span>
+                        </div>
+                        <span style="font-size:0.75rem; font-family:monospace; color:#34d399; font-weight:700;">${p.composite_score ? p.composite_score.toFixed(1) : '88.0'}</span>
+                      </div>
+                      <div style="display:flex; gap:0.35rem; pt:0.25rem;">
+                        <button type="button" onclick="BlueLineUI.openPlayerFeatureHubModal('${p.id}')" class="btn primary" style="flex:1; padding:0.35rem; font-size:0.7rem; font-weight:800; background:linear-gradient(135deg, #0284c7, #4f46e5); border:none; cursor:pointer;">
+                          🚀 All Features
+                        </button>
+                        <button type="button" onclick="window.location.href='film.html?player=${p.id}'" class="btn secondary" style="padding:0.35rem 0.6rem; font-size:0.7rem; cursor:pointer;" title="AI Film Room">🎥</button>
+                        <button type="button" onclick="window.location.href='combine.html?player=${p.id}'" class="btn secondary" style="padding:0.35rem 0.6rem; font-size:0.7rem; cursor:pointer;" title="Combine Lab">🔬</button>
+                        <button type="button" onclick="window.location.href='compare.html?p1=${p.id}'" class="btn secondary" style="padding:0.35rem 0.6rem; font-size:0.7rem; cursor:pointer;" title="Compare Radar">⚖️</button>
+                      </div>
+                    </div>
+                  `;
+                }).join('')}
+              </div>
+            ` : `
+              <div style="padding:1rem; text-align:center; background:rgba(15,23,42,0.6); border:1px dashed #334155; border-radius:0.75rem; margin-bottom:1rem;">
+                <p style="font-size:0.8rem; color:#94a3b8; margin:0;">No prospects tracked yet. Head to your Target Board to select players.</p>
+                <button type="button" onclick="switchView('recruiting')" class="btn primary" style="margin-top:0.5rem; padding:0.35rem 0.85rem; font-size:0.75rem;">+ Add Recruits</button>
+              </div>
+            `}
+
             <ul class="dashboard-action-list">
               <li class="dashboard-action-card">
                 <div class="dashboard-card-info">
                   <span class="dashboard-card-icon">📝</span>
                   <div class="dashboard-card-meta">
-                    <span class="dashboard-card-title">Submit Michigan vs Minnesota weekend series evaluation</span>
-                    <span class="dashboard-card-sub">USHL / NCAA scout report intake</span>
+                    <span class="dashboard-card-title">Lead Scout Telemetry & Microstat Logger</span>
+                    <span class="dashboard-card-sub">Live rinkside event logger, pass accuracy & puck touches</span>
                   </div>
                 </div>
                 <div class="dashboard-card-actions">
                   <button type="button" class="btn-action-sm nav-btn-sm" onclick="window.location.href='scout.html'">🔭 Scout Desk</button>
-                  <button type="button" class="btn-action-sm train-btn" onclick="showPopup('Evaluation intake form opened in Scout Desk'); window.location.href='scout.html';">📝 Evaluate</button>
+                  <button type="button" class="btn-action-sm train-btn" onclick="window.location.href='scout.html'">📝 Live Logger</button>
                 </div>
               </li>
               <li class="dashboard-action-card">
                 <div class="dashboard-card-info">
-                  <span class="dashboard-card-icon">🔍</span>
+                  <span class="dashboard-card-icon">🎯</span>
                   <div class="dashboard-card-meta">
-                    <span class="dashboard-card-title">Filter Tier 1 AAA prospects with SQM score >= 90</span>
-                    <span class="dashboard-card-sub">Global verified directory search</span>
+                    <span class="dashboard-card-title">Recruiter Target Board & Priority Ledger</span>
+                    <span class="dashboard-card-sub">Manage tiers, official visits, and per-player feature suites</span>
                   </div>
                 </div>
                 <div class="dashboard-card-actions">
-                  <button type="button" class="btn-action-sm nav-btn-sm" onclick="window.location.href='database.html'">🔍 Directory Search</button>
-                  <button type="button" class="btn-action-sm nav-btn-sm" onclick="switchView('compare')">🔬 Compare Chart</button>
-                </div>
-              </li>
-              <li class="dashboard-action-card">
-                <div class="dashboard-card-info">
-                  <span class="dashboard-card-icon">🔗</span>
-                  <div class="dashboard-card-meta">
-                    <span class="dashboard-card-title">Inspect tamper-evident cryptographic ledger blocks</span>
-                    <span class="dashboard-card-sub">Sha-256 verified milestone integrity</span>
-                  </div>
-                </div>
-                <div class="dashboard-card-actions">
-                  <button type="button" class="btn-action-sm nav-btn-sm" onclick="window.location.href='security.html'">🛡️ Security Shield</button>
-                  <button type="button" class="btn-action-sm train-btn" onclick="showPopup('✓ Cryptographic Ledger verified: 0 tamper flags across 4,019 athlete records.')">🔗 Verify Ledger</button>
+                  <button type="button" class="btn-action-sm nav-btn-sm" onclick="switchView('recruiting')">🎯 Target Board</button>
+                  <button type="button" class="btn-action-sm nav-btn-sm" onclick="window.location.href='database.html'">🔍 Directory</button>
                 </div>
               </li>
             </ul>
-            <div style="margin-top:1rem;">
-              <a href="scout.html" class="btn primary" style="display:inline-flex; align-items:center; gap:0.5rem; text-decoration:none; font-size:0.8rem; font-weight:800; background:#f59e0b; border-color:#d97706; color:#0f172a;">🔭 Launch Dedicated Lead Scout Desk →</a>
+            <div style="margin-top:1rem; display:flex; gap:0.5rem; flex-wrap:wrap;">
+              <button type="button" onclick="switchView('recruiting')" class="btn primary" style="display:inline-flex; align-items:center; gap:0.5rem; font-size:0.8rem; font-weight:800; background:#0284c7; border-color:#0369a1; cursor:pointer;">🎯 Open Full Recruiter Target Board →</button>
+              <a href="scout.html" class="btn secondary" style="display:inline-flex; align-items:center; gap:0.5rem; text-decoration:none; font-size:0.8rem; font-weight:800; border-color:#f59e0b; color:#fbbf24;">🔭 Lead Scout Desk →</a>
             </div>
           `;
         }
@@ -3960,6 +4076,379 @@
       }
     }
 
+    // =========================================================================
+    // RECRUITER TARGET BOARD & PROSPECT PIPELINE ENGINE
+    // =========================================================================
+    let appCurrentRecruitingTab = 'recruiter';
+    let appCurrentLedgerFilter = 'all';
+
+    function switchRecruitingTab(tab) {
+      appCurrentRecruitingTab = tab;
+      const recBtn = document.getElementById('recruitingTabBtnRecruiter');
+      const plyBtn = document.getElementById('recruitingTabBtnPlayer');
+      const recSec = document.getElementById('appRecruiterBoardContainer');
+      const plySec = document.getElementById('playerRecruitingDossierSection');
+
+      if (tab === 'recruiter') {
+        if (recBtn) {
+          recBtn.style.background = '#0284c7';
+          recBtn.style.color = '#ffffff';
+        }
+        if (plyBtn) {
+          plyBtn.style.background = 'transparent';
+          plyBtn.style.color = '#94a3b8';
+        }
+        if (recSec) recSec.style.display = 'block';
+        if (plySec) plySec.style.display = 'none';
+        renderAppRecruitingBoard();
+      } else {
+        if (recBtn) {
+          recBtn.style.background = 'transparent';
+          recBtn.style.color = '#94a3b8';
+        }
+        if (plyBtn) {
+          plyBtn.style.background = '#0284c7';
+          plyBtn.style.color = '#ffffff';
+        }
+        if (recSec) recSec.style.display = 'none';
+        if (plySec) plySec.style.display = 'block';
+      }
+    }
+
+    function populateAppRecruitingDropdown() {
+      const select = document.getElementById('appRecruiterAthleteSelect');
+      if (!select || select.options.length > 2) return;
+
+      const players = (window.MASTER_PLAYERS || (window.BlueLinePlayers ? window.BlueLinePlayers : []));
+      if (!Array.isArray(players) || players.length === 0) return;
+
+      // Sort alphabetically by name
+      const sorted = [...players].sort((a, b) => (a.name || '').localeCompare(b.name || ''));
+      sorted.forEach(p => {
+        const opt = document.createElement('option');
+        opt.value = p.id;
+        const score = p.composite_score ? p.composite_score.toFixed(1) : '88.0';
+        opt.textContent = `${p.name} (${p.pos || 'F'}) — ${p.team || 'Indep'} [Score: ${score}]`;
+        select.appendChild(opt);
+      });
+    }
+
+    function handleAppAddSelectedToLedger() {
+      const select = document.getElementById('appRecruiterAthleteSelect');
+      const athleteId = select ? select.value : '';
+      if (!athleteId) {
+        if (window.BlueLineUI) BlueLineUI.showToast("Please select a prospect from the dropdown first.", "warning");
+        return;
+      }
+      const players = (window.MASTER_PLAYERS || (window.BlueLinePlayers ? window.BlueLinePlayers : []));
+      const athlete = players.find(p => p.id === athleteId);
+      const name = athlete ? athlete.name : athleteId;
+
+      if (window.BlueLineUI) {
+        const isWatched = window.BlueLineUI.isInWatchingLedger(athleteId);
+        if (!isWatched) {
+          window.BlueLineUI.togglePlayerInLedger(athleteId, name);
+          BlueLineUI.showToast(`⭐ Added ${name} to your Recruiter Target Board.`, "success");
+        } else {
+          BlueLineUI.showToast(`${name} is already on your tracking board.`, "info");
+        }
+      }
+      renderAppRecruitingBoard();
+      select.value = '';
+    }
+
+    function setAppLedgerFilter(filter) {
+      appCurrentLedgerFilter = filter;
+      ['all', 'F', 'D', 'G', 'tier1'].forEach(f => {
+        const btn = document.getElementById('appFilterBtn_' + f);
+        if (btn) {
+          if (f === filter) {
+            btn.style.background = '#0284c7';
+            btn.style.color = '#ffffff';
+            btn.style.borderColor = '#0284c7';
+          } else {
+            btn.style.background = '#0f172a';
+            btn.style.color = f === 'tier1' ? '#fbbf24' : '#94a3b8';
+            btn.style.borderColor = f === 'tier1' ? 'rgba(245,158,11,0.4)' : '#334155';
+          }
+        }
+      });
+      renderAppRecruitingBoard();
+    }
+
+    function renderAppRecruitingBoard() {
+      populateAppRecruitingDropdown();
+      const grid = document.getElementById('appRecruiterProspectsGrid');
+      if (!grid) return;
+
+      const ledgerIds = (window.BlueLineUI && window.BlueLineUI.getScoutWatchingLedger)
+        ? window.BlueLineUI.getScoutWatchingLedger()
+        : [];
+
+      const players = (window.MASTER_PLAYERS || (window.BlueLinePlayers ? window.BlueLinePlayers : []));
+      let athletes = ledgerIds.map(id => players.find(p => p.id === id)).filter(Boolean);
+
+      // Compute summary stats
+      const totalWatched = athletes.length;
+      let tier1Count = 0;
+      let inEvalCount = 0;
+      let offersCount = 0;
+
+      athletes.forEach(p => {
+        const meta = window.BlueLineUI && window.BlueLineUI.getTrackedPlayerMeta ? window.BlueLineUI.getTrackedPlayerMeta(p.id) : {};
+        if (meta.priority === 'Tier 1 - Priority Target' || !meta.priority) tier1Count++;
+        if (meta.status === 'In Evaluation' || !meta.status) inEvalCount++;
+        if (meta.status === 'Offered' || meta.status === 'Official Visit' || meta.status === 'Committed') offersCount++;
+      });
+
+      const totalEl = document.getElementById('appRecruiterTotalWatched');
+      const tier1El = document.getElementById('appRecruiterTier1Count');
+      const evalEl = document.getElementById('appRecruiterEvalCount');
+      const offersEl = document.getElementById('appRecruiterOffersCount');
+      if (totalEl) totalEl.textContent = totalWatched;
+      if (tier1El) tier1El.textContent = tier1Count;
+      if (evalEl) evalEl.textContent = inEvalCount;
+      if (offersEl) offersEl.textContent = offersCount;
+
+      // Filter by position or priority
+      let filtered = [...athletes];
+      if (appCurrentLedgerFilter === 'F') {
+        filtered = filtered.filter(p => !((p.pos || '').toUpperCase().includes('G') || (p.pos || '').toUpperCase().includes('D')));
+      } else if (appCurrentLedgerFilter === 'D') {
+        filtered = filtered.filter(p => (p.pos || '').toUpperCase().includes('D'));
+      } else if (appCurrentLedgerFilter === 'G') {
+        filtered = filtered.filter(p => (p.pos || '').toUpperCase().includes('G'));
+      } else if (appCurrentLedgerFilter === 'tier1') {
+        filtered = filtered.filter(p => {
+          const meta = window.BlueLineUI && window.BlueLineUI.getTrackedPlayerMeta ? window.BlueLineUI.getTrackedPlayerMeta(p.id) : {};
+          return meta.priority === 'Tier 1 - Priority Target' || !meta.priority;
+        });
+      }
+
+      const countText = document.getElementById('appLedgerShowingCountText');
+      if (countText) countText.textContent = `Showing ${filtered.length} of ${totalWatched} tracked prospects`;
+
+      if (filtered.length === 0) {
+        if (totalWatched === 0) {
+          grid.innerHTML = `
+            <div style="grid-column:1/-1; background:rgba(15,23,42,0.6); border:1px dashed #334155; border-radius:1rem; padding:2rem 1.5rem; text-align:center;">
+              <span style="font-size:2.5rem; display:block; margin-bottom:0.5rem;">📋</span>
+              <h3 style="font-size:1.1rem; font-weight:800; color:#ffffff; margin:0 0 0.5rem 0;">Your Recruiter Target Board is Empty</h3>
+              <p style="font-size:0.85rem; color:#94a3b8; max-width:550px; margin:0 auto 1.25rem auto;">
+                Select any athlete from the 4,019+ master catalog above, or click below to instantly track top consensus draft targets:
+              </p>
+              <div style="display:flex; justify-content:center; gap:0.75rem; flex-wrap:wrap;">
+                <button type="button" onclick="window.BlueLineUI.togglePlayerInLedger('mp_0013', 'Michael Hage'); renderAppRecruitingBoard();" class="btn primary" style="padding:0.5rem 1rem; font-size:0.8rem; font-weight:800; background:#0284c7; cursor:pointer;">+ Track Michael Hage (Michigan/MTL)</button>
+                <button type="button" onclick="window.BlueLineUI.togglePlayerInLedger('mp_0020', 'Cole Eiserman'); renderAppRecruitingBoard();" class="btn primary" style="padding:0.5rem 1rem; font-size:0.8rem; font-weight:800; background:#4f46e5; cursor:pointer;">+ Track Cole Eiserman (BU/NYI)</button>
+                <button type="button" onclick="window.BlueLineUI.togglePlayerInLedger('mp_0001', 'James Hagens'); renderAppRecruitingBoard();" class="btn primary" style="padding:0.5rem 1rem; font-size:0.8rem; font-weight:800; background:#059669; cursor:pointer;">+ Track James Hagens (BC/2025 #1)</button>
+              </div>
+            </div>
+          `;
+        } else {
+          grid.innerHTML = `
+            <div style="grid-column:1/-1; background:rgba(15,23,42,0.4); border:1px dashed #334155; border-radius:1rem; padding:1.5rem; text-align:center;">
+              <p style="font-size:0.85rem; color:#94a3b8; margin:0;">No prospects matching the current filter "${appCurrentLedgerFilter}".</p>
+            </div>
+          `;
+        }
+        return;
+      }
+
+      grid.innerHTML = filtered.map(p => {
+        const meta = (window.BlueLineUI && window.BlueLineUI.getTrackedPlayerMeta)
+          ? window.BlueLineUI.getTrackedPlayerMeta(p.id)
+          : { priority: 'Tier 1 - Priority Target', status: 'In Evaluation', notes: '' };
+        const score = p.composite_score ? p.composite_score.toFixed(1) : '88.0';
+        const posIcon = p.pos === 'G' ? '🥅' : (p.pos === 'D' ? '🛡️' : '⚡');
+
+        return `
+          <div style="background:#090d16; border:1px solid #1e293b; border-radius:1rem; padding:1rem; display:flex; flex-direction:column; justify-content:space-between; gap:0.75rem; box-shadow:0 4px 12px rgba(0,0,0,0.4);">
+            <!-- Header row -->
+            <div>
+              <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:0.5rem; margin-bottom:0.5rem;">
+                <div style="display:flex; align-items:center; gap:0.65rem;">
+                  <div style="width:36px; height:36px; border-radius:0.5rem; background:#1e293b; border:1px solid #334155; display:flex; align-items:center; justify-content:center; font-size:1.1rem;">
+                    ${posIcon}
+                  </div>
+                  <div>
+                    <h4 style="margin:0; font-size:0.95rem; font-weight:800; color:#ffffff;">${p.name}</h4>
+                    <span style="font-size:0.7rem; color:#94a3b8; font-family:monospace;">${p.pos || 'F'} · #${p.num || '17'} · ${p.team || 'Independent'}</span>
+                  </div>
+                </div>
+                <button type="button" onclick="window.BlueLineUI.togglePlayerInLedger('${p.id}', '${p.name.replace(/'/g, "\\'")}'); renderAppRecruitingBoard();" style="background:none; border:none; color:#fbbf24; cursor:pointer; font-size:1.1rem; padding:2px;" title="Remove from Target Board">⭐</button>
+              </div>
+
+              <!-- Priority & Status Selectors -->
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.5rem; margin-bottom:0.5rem;">
+                <select onchange="handleAppChangePriority('${p.id}', this.value)" style="background:#020617; border:1px solid #334155; color:#38bdf8; border-radius:0.4rem; padding:0.25rem 0.4rem; font-size:0.7rem; font-family:monospace; outline:none; cursor:pointer;">
+                  <option value="Tier 1 - Priority Target" ${meta.priority === 'Tier 1 - Priority Target' ? 'selected' : ''}>⭐ Tier 1 Priority</option>
+                  <option value="Tier 2 - High Interest" ${meta.priority === 'Tier 2 - High Interest' ? 'selected' : ''}>⚡ Tier 2 High</option>
+                  <option value="Tier 3 - Watchlist" ${meta.priority === 'Tier 3 - Watchlist' ? 'selected' : ''}>👁️ Tier 3 Watch</option>
+                </select>
+                <select onchange="handleAppChangeStatus('${p.id}', this.value)" style="background:#020617; border:1px solid #334155; color:#fbbf24; border-radius:0.4rem; padding:0.25rem 0.4rem; font-size:0.7rem; font-family:monospace; outline:none; cursor:pointer;">
+                  <option value="In Evaluation" ${meta.status === 'In Evaluation' ? 'selected' : ''}>🔍 In Eval</option>
+                  <option value="Offered" ${meta.status === 'Offered' ? 'selected' : ''}>🎯 Offered</option>
+                  <option value="Official Visit" ${meta.status === 'Official Visit' ? 'selected' : ''}>🏛️ Visit Set</option>
+                  <option value="Committed" ${meta.status === 'Committed' ? 'selected' : ''}>✓ Committed</option>
+                  <option value="Monitoring" ${meta.status === 'Monitoring' ? 'selected' : ''}>📡 Monitoring</option>
+                </select>
+              </div>
+
+              <!-- Notes bar -->
+              <div style="background:#020617; border:1px solid #1e293b; border-radius:0.5rem; padding:0.35rem 0.5rem; display:flex; align-items:center; justify-content:space-between; gap:0.5rem; font-size:0.7rem; font-family:monospace; margin-bottom:0.5rem;">
+                <span style="color:#94a3b8; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; flex:1;">
+                  ${meta.notes ? `📝 ${meta.notes}` : 'No scout notes yet'}
+                </span>
+                <button type="button" onclick="handleAppEditNotes('${p.id}')" style="background:none; border:none; color:#38bdf8; font-weight:700; cursor:pointer; font-size:0.7rem; white-space:nowrap;">Edit</button>
+              </div>
+
+              <!-- Vitals row -->
+              <div style="display:flex; justify-content:space-between; align-items:center; background:rgba(15,23,42,0.8); padding:0.35rem 0.6rem; border-radius:0.5rem; font-size:0.7rem; font-family:monospace; color:#94a3b8;">
+                <span>Score: <strong style="color:#34d399;">${score}</strong></span>
+                <span>${p.league || 'Amateur Tier 1'}</span>
+                <span>${p.draft_status || '2025 Draft'}</span>
+              </div>
+            </div>
+
+            <!-- Action buttons: Full Hub + Direct labs -->
+            <div style="display:flex; flex-direction:column; gap:0.4rem; padding-top:0.4rem; border-top:1px solid #1e293b;">
+              <!-- All Features Launcher -->
+              <button type="button" onclick="BlueLineUI.openPlayerFeatureHubModal('${p.id}')" class="btn primary" style="width:100%; padding:0.45rem; font-size:0.75rem; font-weight:800; background:linear-gradient(135deg, #0284c7, #6366f1); border:1px solid rgba(56,189,248,0.4); border-radius:0.5rem; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:0.4rem;">
+                <span>🚀 All 14+ Features for ${p.name.split(' ')[0]}</span>
+              </button>
+
+              <!-- Quick direct launcher icons -->
+              <div style="display:grid; grid-template-columns:repeat(5, 1fr); gap:0.25rem;">
+                <button type="button" onclick="window.location.href='film.html?player=${p.id}'" class="btn secondary" style="padding:0.3rem 0; font-size:0.7rem; text-align:center; cursor:pointer;" title="AI Film Room">🎥 Film</button>
+                <button type="button" onclick="window.location.href='combine.html?player=${p.id}'" class="btn secondary" style="padding:0.3rem 0; font-size:0.7rem; text-align:center; cursor:pointer;" title="Combine Lab">🔬 Lab</button>
+                <button type="button" onclick="window.location.href='compare.html?p1=${p.id}'" class="btn secondary" style="padding:0.3rem 0; font-size:0.7rem; text-align:center; cursor:pointer;" title="Compare Radar">⚖️ Radar</button>
+                <button type="button" onclick="window.location.href='pathway.html?player=${p.id}'" class="btn secondary" style="padding:0.3rem 0; font-size:0.7rem; text-align:center; cursor:pointer;" title="Career Pathway Simulator">📈 Path</button>
+                <button type="button" onclick="window.location.href='player.html?id=${p.id}'" class="btn secondary" style="padding:0.3rem 0; font-size:0.7rem; text-align:center; cursor:pointer;" title="Verified Passport">👤 Pass</button>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function handleAppChangePriority(athleteId, priority) {
+      if (window.BlueLineUI && window.BlueLineUI.setTrackedPlayerMeta) {
+        window.BlueLineUI.setTrackedPlayerMeta(athleteId, { priority });
+        BlueLineUI.showToast(`Updated priority to: ${priority}`, "info");
+        renderAppRecruitingBoard();
+      }
+    }
+
+    function handleAppChangeStatus(athleteId, status) {
+      if (window.BlueLineUI && window.BlueLineUI.setTrackedPlayerMeta) {
+        window.BlueLineUI.setTrackedPlayerMeta(athleteId, { status });
+        BlueLineUI.showToast(`Updated recruitment status to: ${status}`, "info");
+        renderAppRecruitingBoard();
+      }
+    }
+
+    function handleAppEditNotes(athleteId) {
+      const players = (window.MASTER_PLAYERS || (window.BlueLinePlayers ? window.BlueLinePlayers : []));
+      const p = players.find(a => a.id === athleteId) || { name: "Prospect" };
+      const meta = (window.BlueLineUI && window.BlueLineUI.getTrackedPlayerMeta)
+        ? window.BlueLineUI.getTrackedPlayerMeta(athleteId)
+        : { notes: '' };
+
+      const existing = document.getElementById('appScoutNotesModal');
+      if (existing) existing.remove();
+
+      const modal = document.createElement('div');
+      modal.id = 'appScoutNotesModal';
+      modal.className = 'fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm';
+      modal.style.position = 'fixed';
+      modal.style.top = '0';
+      modal.style.left = '0';
+      modal.style.right = '0';
+      modal.style.bottom = '0';
+      modal.style.background = 'rgba(2, 6, 23, 0.85)';
+      modal.style.backdropFilter = 'blur(8px)';
+      modal.style.display = 'flex';
+      modal.style.alignItems = 'center';
+      modal.style.justifyContent = 'center';
+      modal.style.zIndex = '99999';
+      modal.onclick = (e) => { if (e.target === modal) modal.remove(); };
+
+      modal.innerHTML = `
+        <div style="background:#090d16; border:1px solid rgba(56,189,248,0.4); border-radius:1rem; padding:1.25rem; max-width:480px; width:90%; color:#ffffff; box-shadow:0 20px 25px -5px rgba(0,0,0,0.5);">
+          <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #334155; padding-bottom:0.75rem; margin-bottom:1rem;">
+            <div>
+              <h3 style="margin:0; font-size:1rem; font-weight:800;">📝 Confidential Scout Notes</h3>
+              <span style="font-size:0.75rem; color:#94a3b8; font-family:monospace;">${p.name} (${p.pos || 'F'} · ${p.team || 'Independent'})</span>
+            </div>
+            <button type="button" onclick="document.getElementById('appScoutNotesModal').remove()" style="background:none; border:none; color:#94a3b8; font-size:1.1rem; cursor:pointer;">✕</button>
+          </div>
+          <div style="margin-bottom:1rem;">
+            <label style="display:block; font-size:0.75rem; font-family:monospace; color:#cbd5e1; margin-bottom:0.4rem; font-weight:700;">Private Scouting Intel & Observations</label>
+            <textarea id="appScoutNotesInput" rows="5" placeholder="Enter private observations on skating mechanics, work ethic, family interview notes, recruitment leverage..." style="width:100%; box-sizing:border-box; background:#020617; border:1px solid #475569; border-radius:0.5rem; padding:0.6rem; color:#ffffff; font-size:0.8rem; font-family:sans-serif; outline:none; resize:none;">${meta.notes || ''}</textarea>
+          </div>
+          <div style="display:flex; justify-content:flex-end; gap:0.5rem; border-top:1px solid #334155; padding-top:0.75rem;">
+            <button type="button" onclick="document.getElementById('appScoutNotesModal').remove()" class="btn secondary" style="padding:0.4rem 0.85rem; font-size:0.75rem; cursor:pointer;">Cancel</button>
+            <button type="button" onclick="handleAppSaveNotes('${athleteId}')" class="btn primary" style="padding:0.4rem 1rem; font-size:0.75rem; font-weight:800; background:#0284c7; cursor:pointer;">Save Intel</button>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(modal);
+    }
+
+    function handleAppSaveNotes(athleteId) {
+      const input = document.getElementById('appScoutNotesInput');
+      const notes = input ? input.value.trim() : '';
+      if (window.BlueLineUI && window.BlueLineUI.setTrackedPlayerMeta) {
+        window.BlueLineUI.setTrackedPlayerMeta(athleteId, { notes });
+      }
+      const modal = document.getElementById('appScoutNotesModal');
+      if (modal) modal.remove();
+      if (window.BlueLineUI) BlueLineUI.showToast("✓ Confidential scout notes saved.", "success");
+      renderAppRecruitingBoard();
+    }
+
+    function exportAppRecruiterCsv() {
+      const ledgerIds = (window.BlueLineUI && window.BlueLineUI.getScoutWatchingLedger) ? window.BlueLineUI.getScoutWatchingLedger() : [];
+      const players = (window.MASTER_PLAYERS || (window.BlueLinePlayers ? window.BlueLinePlayers : []));
+      const athletes = ledgerIds.map(id => players.find(p => p.id === id)).filter(Boolean);
+
+      if (athletes.length === 0) {
+        if (window.BlueLineUI) BlueLineUI.showToast("Target Board is empty. Track prospects first.", "warning");
+        return;
+      }
+
+      const headers = ["ID", "Name", "Position", "Number", "Team", "League", "Composite Score", "Draft Status", "Priority Tier", "Recruitment Status", "Scout Notes"];
+      const rows = athletes.map(p => {
+        const meta = (window.BlueLineUI && window.BlueLineUI.getTrackedPlayerMeta) ? window.BlueLineUI.getTrackedPlayerMeta(p.id) : {};
+        return [
+          p.id,
+          `"${(p.name || '').replace(/"/g, '""')}"`,
+          p.pos || 'F',
+          p.num || '',
+          `"${(p.team || '').replace(/"/g, '""')}"`,
+          `"${(p.league || '').replace(/"/g, '""')}"`,
+          p.composite_score ? p.composite_score.toFixed(1) : '88.0',
+          `"${(p.draft_status || '').replace(/"/g, '""')}"`,
+          `"${(meta.priority || 'Tier 1 - Priority Target').replace(/"/g, '""')}"`,
+          `"${(meta.status || 'In Evaluation').replace(/"/g, '""')}"`,
+          `"${(meta.notes || '').replace(/"/g, '""')}"`
+        ];
+      });
+
+      const csvContent = [headers.join(','), ...rows.map(r => r.join(','))].join('\r\n');
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.setAttribute("href", url);
+      link.setAttribute("download", `blueline_recruiter_pipeline_${new Date().toISOString().slice(0, 10)}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+
+      if (window.BlueLineUI) BlueLineUI.showToast(`✓ Exported ${athletes.length} tracked recruits to CSV.`, "success");
+    }
+
     // Initialize Role Navigation and Views on Startup
     setTimeout(() => {
       applyRoleTabFilter(currentActiveRole, false);
@@ -3967,6 +4456,7 @@
       renderWirePosts('all');
       renderPlayerDatabaseGrid();
       renderPackagesView();
+      renderAppRecruitingBoard();
     }, 150);
 
   </script>

@@ -227,7 +227,7 @@
   }
 
   // =========================================================================
-  // 3. CROSS-MODULE DEEP LINKING ROUTER
+  // 3. CROSS-MODULE DEEP LINKING ROUTER & PER-PLAYER FEATURE HUB
   // =========================================================================
   function getModuleUrl(moduleName, playerId) {
     const validModules = {
@@ -239,7 +239,17 @@
       crease: 'crease.html',
       combine: 'combine.html',
       database: 'database.html',
-      community: 'community.html'
+      community: 'community.html',
+      tactics: 'tactics.html',
+      pathway: 'pathway.html',
+      draft: 'draft.html',
+      portal: 'portal.html',
+      tracking: 'tracking.html',
+      caplab: 'caplab.html',
+      tournament: 'tournament.html',
+      scoreboard: 'scoreboard.html',
+      agents: 'agents.html',
+      app: 'app.html'
     };
     const file = validModules[moduleName] || 'scout.html';
     const param = file === 'player.html' ? 'id' : 'player';
@@ -265,6 +275,7 @@
   }
 
   const SCOUT_LEDGER_STORAGE_KEY = 'blueline_scout_watching_ledger';
+  const SCOUT_TRACKING_META_KEY = 'blueline_scout_tracking_metadata';
 
   function getScoutWatchingLedger() {
     try {
@@ -279,6 +290,34 @@
     try {
       localStorage.setItem(SCOUT_LEDGER_STORAGE_KEY, JSON.stringify(ledger || []));
     } catch (e) {}
+  }
+
+  function getScoutTrackingMetadata() {
+    try {
+      const raw = localStorage.getItem(SCOUT_TRACKING_META_KEY);
+      return raw ? JSON.parse(raw) : {};
+    } catch (e) {
+      return {};
+    }
+  }
+
+  function saveScoutTrackingMetadata(metaObj) {
+    try {
+      localStorage.setItem(SCOUT_TRACKING_META_KEY, JSON.stringify(metaObj || {}));
+    } catch (e) {}
+  }
+
+  function getTrackedPlayerMeta(athleteId) {
+    if (!athleteId) return { priority: 'Tier 1 - Priority Target', status: 'In Evaluation', notes: '' };
+    const allMeta = getScoutTrackingMetadata();
+    return allMeta[athleteId] || { priority: 'Tier 1 - Priority Target', status: 'In Evaluation', notes: '' };
+  }
+
+  function setTrackedPlayerMeta(athleteId, meta) {
+    if (!athleteId) return;
+    const allMeta = getScoutTrackingMetadata();
+    allMeta[athleteId] = { ...(allMeta[athleteId] || {}), ...(meta || {}), updated_at: new Date().toISOString() };
+    saveScoutTrackingMetadata(allMeta);
   }
 
   function isInWatchingLedger(athleteId) {
@@ -304,6 +343,128 @@
     }
     saveScoutWatchingLedger(ledger);
     return isAdded;
+  }
+
+  // =========================================================================
+  // PER-PLAYER ALL-FEATURE ACTION HUB MODAL
+  // =========================================================================
+  function openPlayerFeatureHubModal(playerId) {
+    if (!playerId) return;
+    const existing = document.getElementById('playerFeatureHubModal');
+    if (existing) existing.remove();
+
+    let athlete = null;
+    if (typeof allAthletes !== 'undefined' && Array.isArray(allAthletes)) {
+      athlete = allAthletes.find(p => p.id === playerId);
+    }
+    if (!athlete && typeof MASTER_PLAYERS !== 'undefined' && Array.isArray(MASTER_PLAYERS)) {
+      athlete = MASTER_PLAYERS.find(p => p.id === playerId);
+    }
+    if (!athlete) {
+      athlete = { id: playerId, name: playerId, pos: 'F', team: 'Prospect Dossier', composite_score: 88.5 };
+    }
+
+    const meta = getTrackedPlayerMeta(athlete.id);
+    const score = athlete.composite_score ? athlete.composite_score.toFixed(1) : '88.5';
+    const isWatched = isInWatchingLedger(athlete.id);
+
+    const modules = [
+      { id: 'film', name: 'AI Film Room', icon: '🎥', desc: 'Biomechanical shift telestration & stride cadence analysis', tag: 'AI Vision' },
+      { id: 'combine', name: 'Combine Lab', icon: '🔬', desc: 'Laser 30m sprint, vertical leap & physical test telemetry', tag: 'Biometrics' },
+      { id: 'compare', name: 'Compare Radar', icon: '⚖️', desc: 'Head-to-head radar benchmark against peer cohort or NHL standard', tag: 'Analytics' },
+      { id: 'player', name: 'Verified Passport', icon: '👤', desc: 'Official biometric dossier, certified measurables & career records', tag: 'Verified' },
+      { id: 'pathway', name: 'Career Pathway', icon: '📈', desc: 'Monte Carlo career simulator & D1/NHL advancement odds', tag: 'Trajectory' },
+      { id: 'rink3d', name: '3D Virtual Rink', icon: '🧊', desc: 'Spatial 3D shot angle replay & release telemetry', tag: 'Spatial' },
+      { id: 'tactics', name: 'Tactics Board', icon: '📐', desc: 'Tactical system fit, forecheck chemistry & PP/PK deployment', tag: 'Systems' },
+      { id: 'crease', name: 'Crease Analysis', icon: '🥅', desc: 'High-danger scoring chances & shot angle heatmaps', tag: 'Expected Goals' },
+      { id: 'tracking', name: 'CV Shift Tracking', icon: '📊', desc: 'Computer vision tracking, zone transitions & microstats', tag: 'Computer Vision' },
+      { id: 'draft', name: 'Mock Draft Room', icon: '🎯', desc: 'Consensus draft ranking, round projection & scout board', tag: 'Scout Bureau' },
+      { id: 'portal', name: 'NCAA Portal Hub', icon: '🎓', desc: 'Clearinghouse eligibility, core credits & transfer status', tag: 'Compliance' },
+      { id: 'scout', name: 'Rinkside Logger', icon: '📋', desc: 'Load prospect directly into Live Micro-Telemetry Logger', tag: 'Live Desk' },
+      { id: 'community', name: 'Direct Recruiter DM', icon: '💬', desc: 'Send direct recruiter inquiry via The Wire social mesh', tag: 'Comms' },
+      { id: 'database', name: 'Directory Record', icon: '🌐', desc: 'Inspect full directory entry & institutional affiliation', tag: 'Database' }
+    ];
+
+    const modal = document.createElement('div');
+    modal.id = 'playerFeatureHubModal';
+    modal.className = 'fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/80 backdrop-blur-md overflow-y-auto';
+    modal.onclick = (e) => { if (e.target === modal) modal.remove(); };
+
+    modal.innerHTML = `
+      <div class="relative w-full max-w-4xl rounded-3xl bg-slate-950 border border-sky-500/40 shadow-2xl p-5 sm:p-6 text-white my-8 max-h-[90vh] overflow-y-auto space-y-5" style="background:#020617; border:1px solid rgba(56,189,248,0.4);">
+        <!-- Close Button -->
+        <button type="button" onclick="document.getElementById('playerFeatureHubModal').remove()" class="absolute right-4 top-4 w-8 h-8 rounded-full bg-slate-900 border border-slate-700 text-slate-400 hover:text-white flex items-center justify-center text-sm cursor-pointer transition">✕</button>
+
+        <!-- Header -->
+        <div class="flex flex-wrap items-start justify-between gap-4 border-b border-slate-800 pb-4 pr-8">
+          <div class="flex items-center gap-3.5">
+            <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-sky-600 to-indigo-800 text-white flex items-center justify-center text-2xl font-black shadow-lg border border-sky-400/40">
+              ${athlete.pos === 'G' ? '🥅' : (athlete.pos === 'D' ? '🛡️' : '⚡')}
+            </div>
+            <div>
+              <div class="flex items-center gap-2 flex-wrap">
+                <span class="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-[10px] font-mono font-bold uppercase">
+                  ${athlete.tier || 'VERIFIED PROSPECT'}
+                </span>
+                <span class="px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40 text-[10px] font-mono font-bold">
+                  Score: ${score}
+                </span>
+                <span class="px-2.5 py-0.5 rounded-full bg-sky-500/20 text-sky-300 border border-sky-500/40 text-[10px] font-mono font-bold">
+                  ${meta.priority || 'Tier 1 - Priority Target'}
+                </span>
+              </div>
+              <h2 class="text-xl sm:text-2xl font-black text-white tracking-tight mt-1">${athlete.name}</h2>
+              <p class="text-xs text-slate-300 font-sans">${athlete.team || 'Independent'} · Position: <strong class="text-white">${athlete.pos || 'F'}</strong> · Status: <strong class="text-amber-400">${meta.status || 'In Evaluation'}</strong></p>
+            </div>
+          </div>
+
+          <!-- Watchlist Toggle -->
+          <div class="flex items-center gap-2">
+            <button type="button" id="modalToggleLedgerBtn" onclick="window.BlueLineUI.togglePlayerInLedger('${athlete.id}', '${athlete.name.replace(/'/g, "\\'")}'); window.BlueLineUI.openPlayerFeatureHubModal('${athlete.id}');" class="px-3.5 py-1.5 rounded-xl ${isWatched ? 'bg-amber-500 text-slate-950 font-black' : 'bg-slate-900 border border-amber-500/50 text-amber-300 hover:text-white'} text-xs font-bold transition flex items-center gap-1.5 cursor-pointer shadow-md">
+              <span>${isWatched ? '⭐ Tracked on List' : '+ Add to Tracked List'}</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Instructions -->
+        <div>
+          <h3 class="text-xs font-mono font-bold text-sky-400 uppercase tracking-wider flex items-center gap-1.5">
+            <span>🚀</span> Recruiter Multi-Feature Workspace (${modules.length} Enterprise Tools)
+          </h3>
+          <p class="text-xs text-slate-400 mt-0.5">
+            Launch any analytics lab or command desk contextualized for <strong>${athlete.name}</strong>. All telemetry and data will pre-load automatically.
+          </p>
+        </div>
+
+        <!-- Modules Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+          ${modules.map(m => `
+            <div onclick="window.BlueLineUI.launchAthleteInModule('${m.id}', '${athlete.id}')" class="p-3.5 rounded-2xl bg-slate-900/80 hover:bg-slate-850 border border-slate-800 hover:border-sky-400/60 transition cursor-pointer flex flex-col justify-between space-y-2 shadow-sm group">
+              <div class="space-y-1">
+                <div class="flex items-center justify-between">
+                  <span class="text-xl">${m.icon}</span>
+                  <span class="px-1.5 py-0.5 rounded bg-sky-950 border border-sky-700/50 text-sky-300 text-[9px] font-mono font-bold">${m.tag}</span>
+                </div>
+                <h4 class="text-sm font-bold text-white group-hover:text-sky-300 transition">${m.name}</h4>
+                <p class="text-[11px] text-slate-400 leading-snug">${m.desc}</p>
+              </div>
+              <div class="pt-1 text-[11px] font-mono text-sky-400 group-hover:text-sky-300 flex items-center justify-between font-bold">
+                <span>Launch for ${athlete.name.split(' ')[0]}</span>
+                <span>→</span>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+
+        <!-- Modal Footer -->
+        <div class="pt-3 border-t border-slate-800 flex items-center justify-between flex-wrap gap-2 text-xs font-mono text-slate-400">
+          <span>Official Recruit ID: <strong class="text-white">${athlete.id}</strong></span>
+          <button type="button" onclick="document.getElementById('playerFeatureHubModal').remove()" class="px-4 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700 cursor-pointer">Close</button>
+        </div>
+      </div>
+    `;
+
+    document.body.appendChild(modal);
   }
 
   // =========================================================================
@@ -527,7 +688,15 @@
     getScoutWatchingLedger,
     saveScoutWatchingLedger,
     isInWatchingLedger,
-    togglePlayerInLedger
+    togglePlayerInLedger,
+    openPlayerFeatureHubModal,
+    getScoutTrackingMetadata,
+    saveScoutTrackingMetadata,
+    getTrackedPlayerMeta,
+    setTrackedPlayerMeta
   };
+
+  // Expose global convenience function
+  window.openPlayerFeatureHubModal = openPlayerFeatureHubModal;
 
 })(window);
