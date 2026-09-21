@@ -78,6 +78,45 @@
     .custom-scrollbar::-webkit-scrollbar-thumb:hover {
       background: #334155;
     }
+
+    @media print {
+      body * {
+        visibility: hidden !important;
+      }
+      #executiveDossierModal, #executiveDossierModal * {
+        visibility: visible !important;
+      }
+      #executiveDossierModal {
+        position: absolute !important;
+        left: 0 !important;
+        top: 0 !important;
+        width: 100% !important;
+        max-height: none !important;
+        height: auto !important;
+        background: #ffffff !important;
+        color: #0f172a !important;
+        padding: 20px !important;
+        margin: 0 !important;
+        border: none !important;
+        box-shadow: none !important;
+        z-index: 99999 !important;
+      }
+      .no-print {
+        display: none !important;
+      }
+      .print-card {
+        border: 1px solid #cbd5e1 !important;
+        background: #f8fafc !important;
+        color: #0f172a !important;
+      }
+      .print-text-dark {
+        color: #0f172a !important;
+      }
+      .print-text-muted {
+        color: #475569 !important;
+      }
+    }
+
   </style>
 
   <link rel="canonical" href="https://farmadvisorar-ux.github.io/puckpathway-hockey-os/compare.html">
@@ -192,8 +231,12 @@
 
       <!-- Quick Action Buttons -->
       <div class="flex items-center gap-2 flex-wrap text-xs font-mono">
-        <button id="swapDuelBtn" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-sky-400 border border-slate-700 font-bold transition flex items-center gap-1 cursor-pointer">
-          <i class="fa-solid fa-arrows-rotate text-xs"></i> <span>Swap Sides</span>
+        <button id="swapDuelBtn" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-sky-400 border border-slate-700 font-bold transition flex items-center gap-1 cursor-pointer" title="Swap or cycle comparison order">
+          <i class="fa-solid fa-arrows-rotate text-xs"></i> <span>Swap / Cycle</span>
+        </button>
+
+        <button id="exportDossierBtn" onclick="openExecutiveDossierModal()" class="px-3.5 py-1.5 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 font-bold transition flex items-center gap-1.5 cursor-pointer shadow-sm active:scale-95">
+          <span>📄</span> <span>Executive Dossier (PDF)</span>
         </button>
 
         <button id="broadcastCompareBtn" class="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-sky-500 via-indigo-600 to-purple-600 hover:from-sky-400 hover:to-purple-500 text-white font-extrabold transition flex items-center gap-1.5 shadow-lg shadow-sky-500/20 active:scale-95 cursor-pointer">
@@ -210,194 +253,112 @@
     <!-- ==================== 1. ATHLETE RADAR COMPARISON VIEW ==================== -->
     <div id="athleteCompareView" class="space-y-6">
 
-      <!-- Player Selection Cards (Side-by-Side Tale of the Tape Header) -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="playerDuelHeader">
-      
-      <!-- Player A Card -->
-      <div class="glass-panel p-4 rounded-3xl border-2 border-sky-500/40 space-y-3">
-        <div class="flex items-center justify-between">
+      <!-- Multi-Slot Athlete Comparison Header (2 to 5 Players) -->
+      <div class="space-y-3">
+        <div class="flex items-center justify-between flex-wrap gap-2.5">
+          <div class="flex items-center gap-2.5">
+            <span class="text-xs font-mono font-bold text-slate-300">Comparing <span id="activePlayerCount" class="text-sky-400 font-extrabold text-sm">2</span> of 5 Active Athletes</span>
+            <span class="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-sky-500/10 text-sky-400 border border-sky-500/30">⚡ Simultaneous Multi-Radar Overlay</span>
+          </div>
           <div class="flex items-center gap-2">
-            <span class="text-2xl" id="cardLogoA">🦈</span>
-            <div>
-              <span class="text-[10px] font-mono text-sky-400 font-bold uppercase">Player 1 (Primary)</span>
-              <select id="selectPlayerA" class="bg-slate-900 text-white font-black text-sm rounded-lg px-2 py-1 border border-slate-700 block cursor-pointer">
-                <!-- Populated by JS -->
-              </select>
-            </div>
-          </div>
-          <span class="px-2.5 py-1 rounded-xl bg-sky-500/20 text-sky-300 font-mono font-bold text-xs" id="cardDraftA">2024 #1 Overall</span>
-        </div>
-
-        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-center text-xs font-mono bg-slate-950/80 p-2.5 rounded-2xl border border-slate-800">
-          <div>
-            <div class="text-[9px] text-slate-500 uppercase">Pos / Hand</div>
-            <strong class="text-white text-[11px]" id="cardPosHandA">C • Left</strong>
-          </div>
-          <div>
-            <div class="text-[9px] text-slate-500 uppercase">Age / Size</div>
-            <strong class="text-white text-[11px]" id="cardAgeSizeA">18 • 6'0 197#</strong>
-          </div>
-          <div>
-            <div class="text-[9px] text-slate-500 uppercase">Current Team</div>
-            <strong class="text-sky-400 text-[11px] truncate block" id="cardTeamA">Boston Univ</strong>
-          </div>
-          <div>
-            <div class="text-[9px] text-slate-500 uppercase">NHL Pro Comp</div>
-            <strong class="text-amber-400 text-[11px] truncate block" id="cardCompA">J. Toews</strong>
+            <button id="addPlayerSlotBtn" class="px-3 py-1.5 rounded-xl bg-sky-500/20 hover:bg-sky-500/30 text-sky-300 border border-sky-500/40 font-bold text-xs transition flex items-center gap-1.5 cursor-pointer shadow-sm">
+              <span>➕</span> <span>Add Athlete (Up to 5)</span>
+            </button>
+            <button onclick="openExecutiveDossierModal()" class="px-3 py-1.5 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 font-bold text-xs transition flex items-center gap-1.5 cursor-pointer shadow-sm">
+              <span>📄</span> <span>Executive Dossier</span>
+            </button>
           </div>
         </div>
 
-        <p class="text-[11px] text-slate-400 italic line-clamp-2" id="cardScoutSummaryA">
-          Complete 200-foot franchise center. Hobey Baker Award winner at age 17. Unrivaled motor and transition speed.
-        </p>
-        <div class="flex items-center gap-2 pt-2 border-t border-slate-800 text-xs font-mono">
-          <a id="cardPassportLinkA" href="player.html" class="px-2.5 py-1 rounded-lg bg-sky-500/20 hover:bg-sky-500/30 text-sky-300 border border-sky-500/40 font-bold transition flex items-center gap-1">
-            <span>🪪</span> <span>Passport</span>
-          </a>
-          <a id="cardScoutLinkA" href="scout.html" class="px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700 font-bold transition flex items-center gap-1">
-            <span>🔭</span> <span>Scout</span>
-          </a>
-          <button type="button" id="cardWatchBtnA" onclick="toggleWatchingCompare('A')" class="px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700 font-bold transition flex items-center gap-1 cursor-pointer">
-            <span>⭐</span> <span id="cardWatchTextA">Watch</span>
-          </button>
+        <!-- Dynamic Multi-Slot Athlete Cards Container -->
+        <div id="playerSlotsContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-3.5">
+          <!-- Populated by JS for 2 to 5 athletes -->
         </div>
       </div>
 
-      <!-- Player B Card -->
-      <div class="glass-panel p-4 rounded-3xl border-2 border-amber-500/40 space-y-3">
-        <div class="flex items-center justify-between">
-          <div class="flex items-center gap-2">
-            <span class="text-2xl" id="cardLogoB">⚔️</span>
-            <div>
-              <span class="text-[10px] font-mono text-amber-400 font-bold uppercase">Player 2 (Benchmark)</span>
-              <select id="selectPlayerB" class="bg-slate-900 text-white font-black text-sm rounded-lg px-2 py-1 border border-slate-700 block cursor-pointer">
-                <!-- Populated by JS -->
-              </select>
-            </div>
-          </div>
-          <span class="px-2.5 py-1 rounded-xl bg-amber-500/20 text-amber-300 font-mono font-bold text-xs" id="cardDraftB">2024 #2 Overall</span>
-        </div>
-
-        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-center text-xs font-mono bg-slate-950/80 p-2.5 rounded-2xl border border-slate-800">
-          <div>
-            <div class="text-[9px] text-slate-500 uppercase">Pos / Hand</div>
-            <strong class="text-white text-[11px]" id="cardPosHandB">RHD • Right</strong>
-          </div>
-          <div>
-            <div class="text-[9px] text-slate-500 uppercase">Age / Size</div>
-            <strong class="text-white text-[11px]" id="cardAgeSizeB">18 • 6'2 208#</strong>
-          </div>
-          <div>
-            <div class="text-[9px] text-slate-500 uppercase">Current Team</div>
-            <strong class="text-amber-400 text-[11px] truncate block" id="cardTeamB">Michigan St</strong>
-          </div>
-          <div>
-            <div class="text-[9px] text-slate-500 uppercase">NHL Pro Comp</div>
-            <strong class="text-amber-400 text-[11px] truncate block" id="cardCompB">Pietrangelo</strong>
-          </div>
-        </div>
-
-        <p class="text-[11px] text-slate-400 italic line-clamp-2" id="cardScoutSummaryB">
-          Franchise right-shot #1 defenseman. Pro frame, four-way mobility, and dynamic offensive blue-line activation.
-        </p>
-        <div class="flex items-center gap-2 pt-2 border-t border-slate-800 text-xs font-mono">
-          <a id="cardPassportLinkB" href="player.html" class="px-2.5 py-1 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 font-bold transition flex items-center gap-1">
-            <span>🪪</span> <span>Passport</span>
-          </a>
-          <a id="cardScoutLinkB" href="scout.html" class="px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700 font-bold transition flex items-center gap-1">
-            <span>🔭</span> <span>Scout</span>
-          </a>
-          <button type="button" id="cardWatchBtnB" onclick="toggleWatchingCompare('B')" class="px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700 font-bold transition flex items-center gap-1 cursor-pointer">
-            <span>⭐</span> <span id="cardWatchTextB">Watch</span>
-          </button>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- Visual Comparison Analytics (Radar + Trajectory) -->
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-      
-      <!-- 8-Axis Radar Canvas (6 cols) -->
-      <div class="lg:col-span-6 glass-panel p-5 rounded-3xl space-y-4 border border-slate-800 flex flex-col">
-        <div class="flex items-center justify-between border-b border-slate-800/80 pb-2">
-          <div class="flex items-center gap-2">
-            <span class="text-lg">🕸️</span>
-            <h3 class="text-sm font-black text-white uppercase tracking-wider">8-Axis Biometric & Skill Radar</h3>
-          </div>
-          <div class="flex items-center gap-3 text-xs font-mono">
-            <span class="flex items-center gap-1 text-sky-400">
-              <span class="w-2.5 h-2.5 rounded-full bg-sky-400"></span> <span id="radarLegendA">Celebrini</span>
-            </span>
-            <span class="flex items-center gap-1 text-amber-400">
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span> <span id="radarLegendB">Levshunov</span>
-            </span>
-          </div>
-        </div>
-
-        <!-- Canvas Container -->
-        <div class="flex-1 flex items-center justify-center p-2 min-h-[340px]">
-          <canvas id="radarChartCanvas" width="480" height="360" class="max-w-full h-auto"></canvas>
-        </div>
-
-        <div class="text-center text-[10px] font-mono text-slate-500 border-t border-slate-800/60 pt-2">
-          Ratings normalized from USHL/NCAA/CHL tracking data into 0-100 pro percentiles.
-        </div>
-      </div>
-
-      <!-- NHLe Career Trajectory Curves & Tale of the Tape (6 cols) -->
-      <div class="lg:col-span-6 space-y-5">
+      <!-- Visual Comparison Analytics (Radar + Trajectory) -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
         
-        <!-- Category Edge Breakdown & Tale of the Tape -->
-        <div class="glass-panel p-5 rounded-3xl space-y-3.5 border border-slate-800">
-          <div class="flex items-center justify-between border-b border-slate-800/80 pb-2">
+        <!-- 8-Axis Radar Canvas (6 cols) -->
+        <div class="lg:col-span-6 glass-panel p-5 rounded-3xl space-y-4 border border-slate-800 flex flex-col">
+          <div class="flex items-center justify-between border-b border-slate-800/80 pb-2.5 flex-wrap gap-2">
             <div class="flex items-center gap-2">
-              <span class="text-lg">📊</span>
-              <h3 class="text-sm font-black text-white uppercase tracking-wider">Tale of the Tape: Category Edges</h3>
+              <span class="text-lg">🕸️</span>
+              <h3 class="text-sm font-black text-white uppercase tracking-wider">8-Axis Biometric & Skill Radar</h3>
             </div>
-            <span class="text-xs font-mono font-bold text-slate-400" id="overallScoreSplit">5-3 Edge Split</span>
-          </div>
-
-          <!-- Category Bars Grid -->
-          <div class="space-y-2 text-xs font-mono" id="categoryEdgesList">
-            <!-- Populated by JS -->
-          </div>
-        </div>
-
-        <!-- Overlaid NHLe Career Trajectory Curves -->
-        <div class="glass-panel p-5 rounded-3xl space-y-3 border border-slate-800">
-          <div class="flex items-center justify-between border-b border-slate-800/80 pb-2">
-            <div class="flex items-center gap-2">
-              <span class="text-lg">📈</span>
-              <h3 class="text-sm font-black text-white uppercase tracking-wider">NHLe Career Trajectory (Ages 15–25)</h3>
+            <div class="flex items-center gap-2 text-xs font-mono flex-wrap" id="radarLegendContainer">
+              <!-- Populated dynamically by JS -->
             </div>
-            <span class="text-[10px] font-mono text-slate-400">Projected 82-Game NHL Points</span>
           </div>
 
-          <!-- Trajectory SVG Visualizer -->
-          <div class="p-3 rounded-2xl bg-slate-950/80 border border-slate-800" id="trajectoryCurveContainer">
-            <!-- Populated by JS SVG -->
+          <!-- Canvas Container -->
+          <div class="flex-1 flex items-center justify-center p-2 min-h-[340px]">
+            <canvas id="radarChartCanvas" width="480" height="360" class="max-w-full h-auto"></canvas>
           </div>
+
+          <div class="text-center text-[10px] font-mono text-slate-500 border-t border-slate-800/60 pt-2">
+            Ratings normalized from USHL/NCAA/CHL tracking data into 0-100 pro percentiles.
+          </div>
+        </div>
+
+        <!-- NHLe Career Trajectory Curves & Tale of the Tape (6 cols) -->
+        <div class="lg:col-span-6 space-y-5">
+          
+          <!-- Category Edge Breakdown & Tale of the Tape -->
+          <div class="glass-panel p-5 rounded-3xl space-y-3.5 border border-slate-800">
+            <div class="flex items-center justify-between border-b border-slate-800/80 pb-2 flex-wrap gap-2">
+              <div class="flex items-center gap-2">
+                <span class="text-lg">📊</span>
+                <h3 class="text-sm font-black text-white uppercase tracking-wider">Tale of the Tape: Percentile Matrix</h3>
+              </div>
+              <span class="text-xs font-mono font-bold text-slate-400" id="overallScoreSplit">Multi-Player Matrix</span>
+            </div>
+
+            <!-- Category Bars Grid -->
+            <div class="space-y-2 text-xs font-mono" id="categoryEdgesList">
+              <!-- Populated by JS -->
+            </div>
+          </div>
+
+          <!-- Overlaid NHLe Career Trajectory Curves -->
+          <div class="glass-panel p-5 rounded-3xl space-y-3 border border-slate-800">
+            <div class="flex items-center justify-between border-b border-slate-800/80 pb-2">
+              <div class="flex items-center gap-2">
+                <span class="text-lg">📈</span>
+                <h3 class="text-sm font-black text-white uppercase tracking-wider">NHLe Career Trajectory (Ages 15–25)</h3>
+              </div>
+              <span class="text-[10px] font-mono text-slate-400">Projected 82-Game NHL Points</span>
+            </div>
+
+            <!-- Trajectory SVG Visualizer -->
+            <div class="p-3 rounded-2xl bg-slate-950/80 border border-slate-800" id="trajectoryCurveContainer">
+              <!-- Populated by JS SVG -->
+            </div>
+          </div>
+
         </div>
 
       </div>
 
-    </div>
-
-    <!-- Overall Scout Verdict Card -->
-    <div class="glass-panel p-5 rounded-3xl border border-sky-500/30 space-y-3">
-      <div class="flex items-center justify-between border-b border-slate-800 pb-2">
-        <div class="flex items-center gap-2">
-          <span class="text-lg">🎯</span>
-          <h3 class="text-sm font-black text-white uppercase tracking-wider">BlueLine AI Scout Verdict</h3>
+      <!-- Overall Scout Verdict Card -->
+      <div class="glass-panel p-5 rounded-3xl border border-sky-500/30 space-y-3">
+        <div class="flex items-center justify-between border-b border-slate-800 pb-2 flex-wrap gap-2">
+          <div class="flex items-center gap-2">
+            <span class="text-lg">🎯</span>
+            <h3 class="text-sm font-black text-white uppercase tracking-wider">BlueLine AI Scout Consensus Verdict</h3>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="px-2.5 py-0.5 rounded bg-sky-500/20 text-sky-300 font-mono text-[10px] font-bold">Consensus Model Stamped</span>
+            <button onclick="openExecutiveDossierModal()" class="px-2.5 py-1 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 font-mono text-[10px] font-bold transition flex items-center gap-1 cursor-pointer">
+              <span>📄</span> <span>Executive Dossier & PDF</span>
+            </button>
+          </div>
         </div>
-        <span class="px-2.5 py-0.5 rounded bg-sky-500/20 text-sky-300 font-mono text-[10px] font-bold">Consensus Model Stamped</span>
-      </div>
 
-      <div class="p-4 rounded-2xl bg-slate-950/80 border border-slate-800 text-xs font-mono leading-relaxed" id="scoutVerdictText">
-        <!-- Populated by JS -->
+        <div class="p-4 rounded-2xl bg-slate-950/80 border border-slate-800 text-xs font-mono leading-relaxed" id="scoutVerdictText">
+          <!-- Populated by JS -->
+        </div>
       </div>
-    </div>
 
     </div>
     <!-- End athleteCompareView -->
@@ -552,6 +513,44 @@
       </div>
     </div>
 
+
+    <!-- ==================== EXECUTIVE SCOUTING DOSSIER MODAL ==================== -->
+    <div id="executiveDossierModal" class="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 hidden">
+      <div class="glass-panel max-w-5xl w-full max-h-[92vh] overflow-y-auto rounded-3xl border border-sky-500/40 p-5 sm:p-8 space-y-6 text-slate-200 shadow-2xl relative">
+        <!-- Modal Top Bar -->
+        <div class="flex items-start justify-between border-b border-slate-800 pb-4 gap-3 no-print">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-sky-500 via-indigo-600 to-purple-600 flex items-center justify-center text-xl shadow-lg shrink-0">
+              📋
+            </div>
+            <div>
+              <h2 class="text-base sm:text-lg font-black text-white uppercase tracking-wider">Executive Scouting Dossier & Draft Matrix</h2>
+              <p class="text-xs font-mono text-slate-400">BlueLine DataWorks // Confidential Organizational Prospect Evaluation</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-2 shrink-0">
+            <button onclick="window.print()" class="px-3.5 py-1.5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-bold text-xs transition flex items-center gap-1.5 cursor-pointer shadow-md">
+              <span>🖨️</span> <span>Print / Save PDF</span>
+            </button>
+            <button onclick="closeExecutiveDossierModal()" class="w-8 h-8 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-white border border-slate-700 flex items-center justify-center font-bold transition cursor-pointer">
+              ✕
+            </button>
+          </div>
+        </div>
+
+        <!-- Printable Content Container -->
+        <div id="dossierModalBody" class="space-y-6">
+          <!-- Rendered dynamically by JS -->
+        </div>
+
+        <!-- Modal Footer -->
+        <div class="flex items-center justify-between border-t border-slate-800 pt-4 text-[10px] font-mono text-slate-500 no-print">
+          <span>BlueLine DataWorks Proprietary Scouting Intelligence</span>
+          <button onclick="closeExecutiveDossierModal()" class="text-slate-400 hover:text-white underline cursor-pointer">Close Dossier</button>
+        </div>
+      </div>
+    </div>
+
   </main>
 
   <!-- Global Toast Notification Container -->
@@ -559,6 +558,13 @@
 
   <!-- Scripts -->
   <script src="static/js/bundle_data.js"></script>
+  <script src="static/js/institutions_catalog.js"></script>
+  <script src="static/js/master_players.js"></script>
+  <script src="static/js/compare_engine.js"></script>
+  <script src="static/js/telemetry.js"></script>
+  <script src="static/js/auth_engine.js"></script>
+  <script src="static/js/blueline_ui_kit.js"></script>
+    <script src="static/js/bundle_data.js"></script>
   <script src="static/js/institutions_catalog.js"></script>
   <script src="static/js/master_players.js"></script>
   <script src="static/js/compare_engine.js"></script>
@@ -574,79 +580,42 @@
 
       let currentMode = 'athlete'; // 'athlete' or 'institution'
 
-      // Athlete Registration Bridge for non-indexed master players
-      function registerPlayerIfMissing(pid) {
-        if (!pid || !engine || engine.COMPARISON_PLAYERS[pid]) return pid;
-        const allList = window.MASTER_NON_PRO_REGISTRY || window.MASTER_PLAYERS || [];
-        const mp = allList.find(p => p.id === pid || (p.name && p.name.toLowerCase() === pid.toLowerCase()));
-        if (mp) {
-          engine.COMPARISON_PLAYERS[mp.id] = {
-            id: mp.id,
-            name: mp.name,
-            team: mp.team || "Collegiate Program",
-            league: mp.league || "NCAA Division I",
-            pos: mp.pos || "F",
-            hand: (mp.num % 2 === 0) ? "L" : "R",
-            age: mp.date_of_birth ? Math.max(16, 2026 - parseInt(mp.date_of_birth.substring(0, 4))) : 20,
-            height: mp.height_str || (mp.height_in ? `${Math.floor(mp.height_in/12)}'${mp.height_in%12}"` : "6'1\""),
-            weight: mp.weight_lbs ? `${mp.weight_lbs} lbs` : "190 lbs",
-            draft: mp.draft_status || "Active Non-Pro Roster",
-            avatar: mp.pos === 'G' ? "🥅" : (mp.pos === 'D' ? "🛡️" : "⚡"),
-            color: "#0284c7",
-            accent: "#38bdf8",
-            nhlComp: mp.nhl_comp || "Developing Collegiate Prospect",
-            scoutSummary: mp.notes || `Elite ${mp.pos} verified with ${mp.composite_score ? Math.round(mp.composite_score) : 88} composite trajectory rating under BlueLine DataWorks tracking.`,
-            ratings: {
-              skating: Math.min(99, Math.round((mp.composite_score || 88) * 1.04)),
-              shooting: Math.min(99, Math.round((mp.composite_score || 88) * 0.98)),
-              hockeyIQ: Math.min(99, Math.round((mp.composite_score || 88) * 1.02)),
-              physicality: Math.min(99, Math.round((mp.composite_score || 88) * 0.94)),
-              defense: Math.min(99, Math.round((mp.composite_score || 88) * 0.96)),
-              transition: Math.min(99, Math.round((mp.composite_score || 88) * 1.03)),
-              biometrics: 90,
-              clutch: 92
-            },
-            nhleTrajectory: [
-              { age: 16, nhle: 32, league: "Prep / U16" },
-              { age: 17, nhle: 52, league: "Junior / USHL" },
-              { age: 18, nhle: 68, league: "NCAA D1" },
-              { age: 19, nhle: 62, league: "Current Roster" },
-              { age: 20, nhle: 76, league: "Projected Pro" },
-              { age: 22, nhle: 88, league: "Pro Prime" }
-            ]
-          };
-          return mp.id;
-        }
-        return pid;
-      }
+      // Multi-Athlete State (2 to 5 Players)
+      let activePlayerIds = ["celebrini", "levshunov"];
 
-      // Query Parameter Ingestion (?p1=, ?p2=, ?player=, ?id=)
+      // Ingest Query Parameters (?p1=, ?p2=, ?p3=, ?ids=, ?player=)
       const urlParams = new URLSearchParams(window.location.search);
+      const paramIds = urlParams.get('ids');
       const paramP1 = (window.BlueLineUI && typeof window.BlueLineUI.getActivePlayerIdFromUrl === 'function')
         ? window.BlueLineUI.getActivePlayerIdFromUrl()
         : (urlParams.get('p1') || urlParams.get('player') || urlParams.get('id'));
       const paramP2 = urlParams.get('p2');
+      const paramP3 = urlParams.get('p3');
+      const paramP4 = urlParams.get('p4');
+      const paramP5 = urlParams.get('p5');
 
-      // Athlete Mode State
-      let activeIdA = "celebrini";
-      let activeIdB = "levshunov";
-
-      if (paramP1) {
-        const regA = registerPlayerIfMissing(paramP1);
-        if (engine && engine.COMPARISON_PLAYERS[regA]) {
-          activeIdA = regA;
+      if (paramIds) {
+        const splitIds = paramIds.split(',').map(s => s.trim()).filter(Boolean);
+        if (splitIds.length >= 2) {
+          activePlayerIds = splitIds.slice(0, 5);
         }
-        if (paramP2) {
-          const regB = registerPlayerIfMissing(paramP2);
-          if (engine && engine.COMPARISON_PLAYERS[regB]) {
-            activeIdB = regB;
-          }
-        } else if (activeIdA === 'celebrini') {
-          activeIdB = 'levshunov';
-        } else if (activeIdA === activeIdB) {
-          activeIdB = 'celebrini';
+      } else if (paramP1) {
+        const parsed = [paramP1];
+        if (paramP2) parsed.push(paramP2);
+        if (paramP3) parsed.push(paramP3);
+        if (paramP4) parsed.push(paramP4);
+        if (paramP5) parsed.push(paramP5);
+        if (parsed.length === 1) {
+          parsed.push(paramP1 === 'celebrini' ? 'levshunov' : 'celebrini');
         }
+        activePlayerIds = parsed;
       }
+
+      // Ensure all players in activePlayerIds are registered
+      activePlayerIds = activePlayerIds.map(id => {
+        const resolved = engine.resolvePlayer(id);
+        return resolved ? resolved.id : id;
+      });
 
       // Institution Mode State
       let activeInstIdA = "denver";
@@ -660,11 +629,10 @@
       const presetContainer = document.getElementById('presetPillButtons');
       const presetLabel = document.getElementById('presetLabel');
 
-      const selectA = document.getElementById('selectPlayerA');
-      const selectB = document.getElementById('selectPlayerB');
       const selectInstA = document.getElementById('selectInstA');
       const selectInstB = document.getElementById('selectInstB');
       const canvas = document.getElementById('radarChartCanvas');
+      const addPlayerSlotBtn = document.getElementById('addPlayerSlotBtn');
 
       // Curated Rivalry Presets for Institutions
       const INSTITUTION_PRESETS = [
@@ -684,7 +652,7 @@
           modeInstBtn.className = 'px-3.5 py-1.5 rounded-xl font-bold text-xs bg-transparent text-slate-400 hover:text-white flex items-center gap-1.5 transition cursor-pointer';
           athleteView.classList.remove('hidden');
           instView.classList.add('hidden');
-          presetLabel.textContent = "Curated Duels:";
+          presetLabel.textContent = "Curated Draft Matchups:";
           populatePresets();
           renderComparison();
         } else {
@@ -701,60 +669,199 @@
       modeAthleteBtn.addEventListener('click', () => setMode('athlete'));
       modeInstBtn.addEventListener('click', () => setMode('institution'));
 
-      // 2. Populate Athlete Dropdowns
-      function populateDropdowns() {
-        if (!engine) return;
-        const players = Object.values(engine.COMPARISON_PLAYERS);
-        const optionsA = players.map(p => `<option value="${p.id}" ${p.id === activeIdA ? 'selected' : ''}>${p.avatar} ${p.name} (${p.pos})</option>`).join('');
-        const optionsB = players.map(p => `<option value="${p.id}" ${p.id === activeIdB ? 'selected' : ''}>${p.avatar} ${p.name} (${p.pos})</option>`).join('');
+      // 2. Build Options list for Player Selector
+      function buildPlayerOptionsHtml(selectedId) {
+        if (!engine) return '';
+        const curated = Object.values(engine.COMPARISON_PLAYERS);
+        let html = '<optgroup label="⭐ Curated NHL Draft Stars">';
+        curated.forEach(p => {
+          html += `<option value="${p.id}" ${p.id === selectedId ? 'selected' : ''}>${p.avatar} ${p.name} (${p.pos})</option>`;
+        });
+        html += '</optgroup>';
 
-        selectA.innerHTML = optionsA;
-        selectB.innerHTML = optionsB;
+        // Sample top non-curated players from MASTER_PLAYERS
+        if (allPlayers && allPlayers.length > 0) {
+          html += '<optgroup label="📋 Master Registry Prospects">';
+          const sample = allPlayers.slice(0, 35);
+          sample.forEach(mp => {
+            if (!engine.COMPARISON_PLAYERS[mp.id]) {
+              html += `<option value="${mp.id}" ${mp.id === selectedId ? 'selected' : ''}>${mp.name} (${mp.pos} - ${mp.team || 'Collegiate'})</option>`;
+            }
+          });
+          html += '</optgroup>';
+        }
+        return html;
       }
 
-      // 3. Populate Institution Dropdowns
+      // 3. Render Dynamic Player Slots (2 to 5)
+      function renderPlayerSlots() {
+        const container = document.getElementById('playerSlotsContainer');
+        const countBadge = document.getElementById('activePlayerCount');
+        if (countBadge) countBadge.textContent = activePlayerIds.length;
+
+        // Manage Add button state
+        if (addPlayerSlotBtn) {
+          if (activePlayerIds.length >= 5) {
+            addPlayerSlotBtn.classList.add('opacity-50', 'pointer-events-none');
+            addPlayerSlotBtn.title = "Maximum 5 players supported simultaneously";
+          } else {
+            addPlayerSlotBtn.classList.remove('opacity-50', 'pointer-events-none');
+            addPlayerSlotBtn.title = "Add another athlete to comparison";
+          }
+        }
+
+        const slotLabels = ["Primary", "Benchmark", "Challenger 1", "Challenger 2", "Challenger 3"];
+
+        container.innerHTML = activePlayerIds.map((pid, idx) => {
+          const p = engine.resolvePlayer(pid) || engine.COMPARISON_PLAYERS[pid] || engine.COMPARISON_PLAYERS.celebrini;
+          const palette = engine.PLAYER_PALETTE[idx % engine.PLAYER_PALETTE.length];
+          const isLedgerWatched = window.BlueLineUI && typeof window.BlueLineUI.isPlayerInLedger === 'function' && window.BlueLineUI.isPlayerInLedger(p.id);
+
+          return `
+            <div class="glass-panel p-4 rounded-3xl border-2 ${palette.borderClass} space-y-3 flex flex-col justify-between transition relative group">
+              <!-- Top Row: Slot Badge & Remove Button -->
+              <div class="flex items-center justify-between gap-2">
+                <div class="flex items-center gap-2">
+                  <span class="text-xl shrink-0">${p.avatar || '🏒'}</span>
+                  <div>
+                    <span class="text-[9px] font-mono ${palette.textClass} font-bold uppercase tracking-wider block">Player ${idx + 1} (${slotLabels[idx] || 'Prospect'})</span>
+                    <select onchange="onSlotPlayerChange(${idx}, this.value)" class="bg-slate-900 text-white font-black text-xs rounded-lg px-2 py-1 border border-slate-700 block cursor-pointer max-w-[170px] truncate">
+                      ${buildPlayerOptionsHtml(p.id)}
+                    </select>
+                  </div>
+                </div>
+                <div class="flex items-center gap-1 shrink-0">
+                  <span class="px-2 py-0.5 rounded-lg ${palette.badgeBg} ${palette.textClass} font-mono font-bold text-[10px] hidden sm:inline-block">
+                    ${p.draft ? p.draft.split(' ')[0] : 'Prospect'}
+                  </span>
+                  ${activePlayerIds.length > 2 ? `
+                    <button onclick="removePlayerSlot(${idx})" title="Remove slot" class="w-6 h-6 rounded-lg bg-slate-900 hover:bg-rose-900/60 text-slate-400 hover:text-rose-300 border border-slate-700 hover:border-rose-500/50 flex items-center justify-center text-xs font-bold transition cursor-pointer">
+                      ✕
+                    </button>
+                  ` : ''}
+                </div>
+              </div>
+
+              <!-- Vitals Grid -->
+              <div class="grid grid-cols-2 gap-1.5 text-center text-xs font-mono bg-slate-950/80 p-2 rounded-2xl border border-slate-800/80">
+                <div>
+                  <div class="text-[8px] text-slate-500 uppercase">Pos / Hand</div>
+                  <strong class="text-white text-[10px]">${p.pos} • ${p.hand === 'L' ? 'Left' : 'Right'}</strong>
+                </div>
+                <div>
+                  <div class="text-[8px] text-slate-500 uppercase">Age / Size</div>
+                  <strong class="text-white text-[10px]">${p.age} • ${p.height}</strong>
+                </div>
+                <div class="col-span-2 text-left px-1">
+                  <div class="text-[8px] text-slate-500 uppercase">Team & Comp</div>
+                  <div class="text-[10px] truncate">
+                    <span class="${palette.textClass} font-bold">${p.team}</span>
+                    <span class="text-slate-400"> (Comp: ${p.nhlComp ? p.nhlComp.split(' ')[0] : 'Pro'})</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Scout Summary -->
+              <p class="text-[11px] text-slate-400 italic line-clamp-2 leading-relaxed">
+                ${p.scoutSummary || 'Verified prospect under BlueLine DataWorks tracking.'}
+              </p>
+
+              <!-- Action Links -->
+              <div class="flex items-center gap-1.5 pt-2 border-t border-slate-800 text-[11px] font-mono flex-wrap">
+                <a href="player.html?id=${encodeURIComponent(p.id)}" class="px-2 py-0.5 rounded-lg ${palette.badgeBg} hover:opacity-80 ${palette.textClass} border ${palette.borderClass} font-bold transition flex items-center gap-1">
+                  <span>🪪</span> <span>Passport</span>
+                </a>
+                <a href="scout.html?player=${encodeURIComponent(p.id)}" class="px-2 py-0.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700 font-bold transition flex items-center gap-1">
+                  <span>🔭</span> <span>Scout</span>
+                </a>
+                <button type="button" onclick="toggleWatchingSlot(${idx})" class="px-2 py-0.5 rounded-lg ${isLedgerWatched ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40' : 'bg-slate-900 text-slate-300 border-slate-700'} hover:bg-slate-800 border font-bold transition flex items-center gap-1 cursor-pointer">
+                  <span>⭐</span> <span>${isLedgerWatched ? 'Watching' : 'Watch'}</span>
+                </button>
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      // Slot Event Handlers
+      window.onSlotPlayerChange = function(slotIdx, newPlayerId) {
+        if (slotIdx >= 0 && slotIdx < activePlayerIds.length) {
+          activePlayerIds[slotIdx] = newPlayerId;
+          renderPlayerSlots();
+          renderComparison();
+          showToast(`Updated Player ${slotIdx + 1} selection!`, "info");
+        }
+      };
+
+      window.removePlayerSlot = function(slotIdx) {
+        if (activePlayerIds.length <= 2) {
+          showToast("Minimum of 2 athletes required for comparison.", "error");
+          return;
+        }
+        activePlayerIds.splice(slotIdx, 1);
+        renderPlayerSlots();
+        renderComparison();
+        showToast("Removed comparison slot.", "info");
+      };
+
+      if (addPlayerSlotBtn) {
+        addPlayerSlotBtn.addEventListener('click', () => {
+          if (activePlayerIds.length >= 5) {
+            showToast("Maximum 5 athletes can be compared simultaneously.", "error");
+            return;
+          }
+          // Pick next player from curated not in activePlayerIds
+          const curatedKeys = Object.keys(engine.COMPARISON_PLAYERS);
+          const nextKey = curatedKeys.find(k => !activePlayerIds.includes(k)) || "buium";
+          activePlayerIds.push(nextKey);
+          renderPlayerSlots();
+          renderComparison();
+          showToast(`Added Player ${activePlayerIds.length} slot!`, "success");
+        });
+      }
+
+      // 4. Populate Presets
+      function populatePresets() {
+        if (currentMode === 'athlete') {
+          if (!engine) return;
+          presetContainer.innerHTML = engine.COMPARISON_PRESETS.map(preset => `
+            <button class="px-2.5 py-1 rounded-lg bg-slate-950 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-800 text-[11px] font-mono transition cursor-pointer flex items-center gap-1.5" onclick="loadPreset('${preset.id}')">
+              <span>${preset.badge ? '⚡' : '🏒'}</span>
+              <span>${preset.title}</span>
+            </button>
+          `).join('');
+        } else {
+          presetContainer.innerHTML = INSTITUTION_PRESETS.map(preset => `
+            <button class="px-2.5 py-1 rounded-lg bg-slate-950 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-800 text-[11px] font-mono transition cursor-pointer flex items-center gap-1.5" onclick="loadInstitutionPreset('${preset.id}')">
+              <span>🏫</span>
+              <span>${preset.title}</span>
+            </button>
+          `).join('');
+        }
+      }
+
+      window.loadPreset = function(presetId) {
+        if (!engine) return;
+        const preset = engine.COMPARISON_PRESETS.find(p => p.id === presetId);
+        if (preset && preset.playerIds.length >= 2) {
+          activePlayerIds = [...preset.playerIds.slice(0, 5)];
+          renderPlayerSlots();
+          renderComparison();
+          showToast(`Loaded Preset: ${preset.title} (${activePlayerIds.length} Athletes)!`, "success");
+        }
+      };
+
+      // 5. Populate Institution Dropdowns
       function populateInstitutionDropdowns() {
         if (!catalog) return;
         const institutions = catalog.getAll();
         const optionsA = institutions.map(i => `<option value="${i.id}" ${i.id === activeInstIdA ? 'selected' : ''}>${i.category.includes('High School') ? '🏫' : (i.category.includes('Women') ? '🏒' : '🏛️')} ${i.name}</option>`).join('');
         const optionsB = institutions.map(i => `<option value="${i.id}" ${i.id === activeInstIdB ? 'selected' : ''}>${i.category.includes('High School') ? '🏫' : (i.category.includes('Women') ? '🏒' : '🏛️')} ${i.name}</option>`).join('');
 
-        selectInstA.innerHTML = optionsA;
-        selectInstB.innerHTML = optionsB;
+        if (selectInstA) selectInstA.innerHTML = optionsA;
+        if (selectInstB) selectInstB.innerHTML = optionsB;
       }
 
-      // 4. Populate Preset Buttons
-      function populatePresets() {
-        if (currentMode === 'athlete') {
-          if (!engine) return;
-          presetContainer.innerHTML = engine.COMPARISON_PRESETS.map(preset => `
-            <button class="px-2.5 py-1 rounded-lg bg-slate-950 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-800 text-[11px] font-mono transition cursor-pointer" onclick="loadPreset('${preset.id}')">
-              ${preset.title}
-            </button>
-          `).join('');
-        } else {
-          presetContainer.innerHTML = INSTITUTION_PRESETS.map(preset => `
-            <button class="px-2.5 py-1 rounded-lg bg-slate-950 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-800 text-[11px] font-mono transition cursor-pointer" onclick="loadInstitutionPreset('${preset.id}')">
-              ${preset.title}
-            </button>
-          `).join('');
-        }
-      }
-
-      // Load Athlete Preset
-      window.loadPreset = function(presetId) {
-        if (!engine) return;
-        const preset = engine.COMPARISON_PRESETS.find(p => p.id === presetId);
-        if (preset && preset.playerIds.length >= 2) {
-          activeIdA = preset.playerIds[0];
-          activeIdB = preset.playerIds[1];
-          populateDropdowns();
-          renderComparison();
-          showToast(`Loaded ${preset.title}!`, "success");
-        }
-      };
-
-      // Load Institution Preset
       window.loadInstitutionPreset = function(presetId) {
         const preset = INSTITUTION_PRESETS.find(p => p.id === presetId);
         if (preset) {
@@ -766,178 +873,190 @@
         }
       };
 
-      // 5. Athlete Comparison Render
+      // 6. Athlete Comparison Core Render
       function renderComparison() {
         if (!engine) return;
-        const playerA = engine.COMPARISON_PLAYERS[activeIdA];
-        const playerB = engine.COMPARISON_PLAYERS[activeIdB];
-        if (!playerA || !playerB) return;
+        const activePlayers = activePlayerIds.map(id => engine.resolvePlayer(id)).filter(Boolean);
+        if (activePlayers.length < 2) return;
 
-        updatePlayerCards(playerA, playerB);
-        engine.drawRadarChart(canvas, [playerA, playerB]);
-        document.getElementById('radarLegendA').textContent = playerA.name;
-        document.getElementById('radarLegendB').textContent = playerB.name;
+        // Render Canvas
+        engine.drawRadarChart(canvas, activePlayers);
 
-        const verdict = engine.calculateComparisonVerdict(playerA, playerB);
-        renderCategoryEdges(verdict);
-        renderVerdict(verdict);
-        renderNHLeCurves(playerA, playerB);
+        // Render Dynamic Legend
+        const legendContainer = document.getElementById('radarLegendContainer');
+        if (legendContainer) {
+          legendContainer.innerHTML = activePlayers.map((p, idx) => {
+            const palette = engine.PLAYER_PALETTE[idx % engine.PLAYER_PALETTE.length];
+            return `
+              <span class="flex items-center gap-1.5 px-2 py-0.5 rounded-md ${palette.badgeBg} ${palette.textClass} font-bold text-[10px]">
+                <span class="w-2 h-2 rounded-full" style="background-color: ${palette.stroke}"></span>
+                <span>${p.name.split(' ').pop()}</span>
+                <span class="text-[9px] opacity-75">(${p.pos})</span>
+              </span>
+            `;
+          }).join('');
+        }
+
+        // Compute Verdict & Matrix
+        const verdict = engine.calculateComparisonVerdict(activePlayers);
+        if (!verdict) return;
+
+        renderPercentileMatrix(verdict);
+        renderVerdictCard(verdict);
+        renderMultiNHLeCurves(activePlayers);
       }
 
-      function updatePlayerCards(pA, pB) {
-        document.getElementById('cardLogoA').textContent = pA.avatar;
-        document.getElementById('cardDraftA').textContent = pA.draft;
-        document.getElementById('cardPosHandA').textContent = `${pA.pos} • ${pA.hand === 'L' ? 'Left' : 'Right'}`;
-        document.getElementById('cardAgeSizeA').textContent = `${pA.age} • ${pA.height} ${pA.weight}`;
-        document.getElementById('cardTeamA').textContent = pA.team;
-        document.getElementById('cardCompA').textContent = pA.nhlComp;
-        document.getElementById('cardScoutSummaryA').textContent = pA.scoutSummary;
-
-        const passA = document.getElementById('cardPassportLinkA');
-        const scA = document.getElementById('cardScoutLinkA');
-        if (passA) passA.href = `player.html?id=${encodeURIComponent(pA.id)}`;
-        if (scA) scA.href = `scout.html?player=${encodeURIComponent(pA.id)}`;
-
-        document.getElementById('cardLogoB').textContent = pB.avatar;
-        document.getElementById('cardDraftB').textContent = pB.draft;
-        document.getElementById('cardPosHandB').textContent = `${pB.pos} • ${pB.hand === 'L' ? 'Left' : 'Right'}`;
-        document.getElementById('cardAgeSizeB').textContent = `${pB.age} • ${pB.height} ${pB.weight}`;
-        document.getElementById('cardTeamB').textContent = pB.team;
-        document.getElementById('cardCompB').textContent = pB.nhlComp;
-        document.getElementById('cardScoutSummaryB').textContent = pB.scoutSummary;
-
-        const passB = document.getElementById('cardPassportLinkB');
-        const scB = document.getElementById('cardScoutLinkB');
-        if (passB) passB.href = `player.html?id=${encodeURIComponent(pB.id)}`;
-        if (scB) scB.href = `scout.html?player=${encodeURIComponent(pB.id)}`;
-
-        updateWatchButtons();
-      }
-
-      function updateWatchButtons() {
-        if (!window.BlueLineUI) return;
-        const isA = window.BlueLineUI.isPlayerInLedger(activeIdA);
-        const isB = window.BlueLineUI.isPlayerInLedger(activeIdB);
-        const btnA = document.getElementById('cardWatchBtnA');
-        const txtA = document.getElementById('cardWatchTextA');
-        const btnB = document.getElementById('cardWatchBtnB');
-        const txtB = document.getElementById('cardWatchTextB');
-        if (btnA && txtA) {
-          txtA.textContent = isA ? "Watching" : "Watch";
-          btnA.className = isA 
-            ? "px-2.5 py-1 rounded-lg bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-500/40 font-bold transition flex items-center gap-1 cursor-pointer"
-            : "px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700 font-bold transition flex items-center gap-1 cursor-pointer";
-        }
-        if (btnB && txtB) {
-          txtB.textContent = isB ? "Watching" : "Watch";
-          btnB.className = isB 
-            ? "px-2.5 py-1 rounded-lg bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-500/40 font-bold transition flex items-center gap-1 cursor-pointer"
-            : "px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700 font-bold transition flex items-center gap-1 cursor-pointer";
-        }
-      }
-
-      window.toggleWatchingCompare = function(slot) {
-        const pid = (slot === 'A') ? activeIdA : activeIdB;
-        const pObj = engine && engine.COMPARISON_PLAYERS ? engine.COMPARISON_PLAYERS[pid] : null;
-        const pName = pObj ? pObj.name : pid;
-        if (window.BlueLineUI && typeof window.BlueLineUI.togglePlayerInLedger === 'function') {
-          const isNowWatching = window.BlueLineUI.togglePlayerInLedger(pid, pName);
-          updateWatchButtons();
-          showToast(isNowWatching ? `Added ${pName} to Scout Ledger watchlist.` : `Removed ${pName} from Scout Ledger watchlist.`, 'info');
-        } else {
-          showToast(`Ledger tracking toggled for ${pName}`, 'info');
-        }
-      };
-
-      function renderCategoryEdges(verdict) {
-        const pA = verdict.playerA;
-        const pB = verdict.playerB;
-        document.getElementById('overallScoreSplit').textContent = `${pA.name}: ${verdict.winsA} Edges | ${pB.name}: ${verdict.winsB} Edges`;
+      // 7. Render Tale of the Tape: Percentile Matrix
+      function renderPercentileMatrix(verdict) {
+        const isMulti = verdict.players.length > 2;
+        const splitText = isMulti 
+          ? `👑 Leader: ${verdict.overallLeader.player.name.split(' ').pop()} (${verdict.overallLeader.categoryWins} Crowns)`
+          : `${verdict.playerA.name.split(' ').pop()}: ${verdict.winsA} Edges | ${verdict.playerB.name.split(' ').pop()}: ${verdict.winsB} Edges`;
+        
+        document.getElementById('overallScoreSplit').textContent = splitText;
 
         const container = document.getElementById('categoryEdgesList');
-        container.innerHTML = engine.RADAR_METRICS.map(m => {
-          const valA = pA.ratings[m.key];
-          const valB = pB.ratings[m.key];
-          const edge = verdict.edges[m.key];
+        if (!container) return;
 
-          const winnerClass = edge.winner === pA.id ? 'text-sky-400 font-bold' :
-                              edge.winner === pB.id ? 'text-amber-400 font-bold' : 'text-slate-400';
-
+        container.innerHTML = verdict.metricBreakdown.map(m => {
+          const leaderNames = m.leaders.map(l => l.playerName.split(' ').pop()).join(' & ');
+          
           return `
-            <div class="p-2 rounded-xl bg-slate-950/70 border border-slate-800/80 flex items-center justify-between gap-2">
-              <span class="w-32 truncate text-slate-300">${m.label}</span>
-              <div class="flex items-center gap-2 flex-1 justify-center">
-                <span class="text-sky-400 font-bold">${valA}</span>
-                <div class="w-24 h-1.5 rounded-full bg-slate-900 border border-slate-800 overflow-hidden flex">
-                  <div class="bg-sky-400 h-full" style="width: ${valA / (valA + valB) * 100}%"></div>
-                  <div class="bg-amber-400 h-full" style="width: ${valB / (valA + valB) * 100}%"></div>
+            <div class="p-2.5 rounded-2xl bg-slate-950/70 border border-slate-800/80 space-y-1.5 transition hover:border-slate-700">
+              <div class="flex items-center justify-between text-xs gap-2">
+                <div class="flex items-center gap-1.5">
+                  <span class="font-bold text-white">${m.label}</span>
+                  <span class="text-[9px] text-slate-500 hidden sm:inline" title="${m.desc}">ⓘ</span>
                 </div>
-                <span class="text-amber-400 font-bold">${valB}</span>
+                <div class="flex items-center gap-1 text-[11px] font-mono">
+                  <span class="text-amber-400 font-bold">👑 ${leaderNames}</span>
+                  <span class="text-slate-500">(${m.maxVal})</span>
+                </div>
               </div>
-              <span class="w-28 text-right text-[11px] ${winnerClass}">
-                ${edge.winner === 'tie' ? 'Even' : edge.winnerName.split(' ').pop() + ' ' + edge.delta}
-              </span>
+
+              <!-- Multi-Player Score Columns & Distribution Bar -->
+              <div class="grid grid-cols-${verdict.players.length} gap-2 pt-1">
+                ${m.scores.map(s => `
+                  <div class="flex items-center justify-between px-2 py-1 rounded-lg bg-slate-900/90 border border-slate-800/80 text-[11px]">
+                    <span class="${s.palette.textClass} truncate font-medium">${s.playerName.split(' ').pop()}</span>
+                    <div class="flex items-center gap-1 font-mono">
+                      <span class="font-bold text-white">${s.value}</span>
+                      <span class="text-[9px] text-slate-400">(${s.percentile}%)</span>
+                    </div>
+                  </div>
+                `).join('')}
+              </div>
+
+              <!-- Stacked Visual Bar -->
+              <div class="w-full h-1.5 rounded-full bg-slate-900 border border-slate-800 overflow-hidden flex">
+                ${m.scores.map(s => {
+                  const total = m.scores.reduce((sum, item) => sum + item.value, 0);
+                  const pct = total > 0 ? (s.value / total) * 100 : 20;
+                  return `<div style="width: ${pct}%; background-color: ${s.palette.stroke};" class="h-full"></div>`;
+                }).join('')}
+              </div>
             </div>
           `;
         }).join('');
       }
 
-      function renderVerdict(verdict) {
+      // 8. Render Scout Verdict Card
+      function renderVerdictCard(verdict) {
         const box = document.getElementById('scoutVerdictText');
+        if (!box) return;
+
+        const isMulti = verdict.players.length > 2;
         box.innerHTML = `
-          <div class="space-y-1.5">
-            <div class="text-sm font-bold text-white">${verdict.overallVerdict}</div>
-            <div class="text-slate-400 pt-1 border-t border-slate-800/80">
-              ${verdict.playerA.name} averages <strong>${verdict.avgA}/100</strong> across 8 scout pillars; ${verdict.playerB.name} averages <strong>${verdict.avgB}/100</strong>.
+          <div class="space-y-2">
+            <div class="text-sm font-bold text-white leading-relaxed">${verdict.overallVerdict}</div>
+            <div class="grid grid-cols-1 sm:grid-cols-${verdict.players.length} gap-2 pt-2 border-t border-slate-800/80">
+              ${verdict.playerStats.map(ps => `
+                <div class="p-2.5 rounded-xl bg-slate-900/60 border border-slate-800 text-xs">
+                  <div class="flex items-center justify-between font-bold ${ps.palette.textClass}">
+                    <span>${ps.player.name}</span>
+                    <span class="text-white font-mono">${ps.avgRating}/100</span>
+                  </div>
+                  <div class="text-[10px] text-slate-400 pt-1">${ps.tier}</div>
+                  <div class="text-[10px] text-amber-400 font-mono pt-0.5">👑 ${ps.categoryWins} Category Crowns</div>
+                </div>
+              `).join('')}
             </div>
           </div>
         `;
       }
 
-      function renderNHLeCurves(pA, pB) {
+      // 9. Render Multi-Curve NHLe Trajectory Visualizer (Up to 5 Players)
+      function renderMultiNHLeCurves(players) {
         const container = document.getElementById('trajectoryCurveContainer');
-        const trajA = pA.nhleTrajectory || [];
-        const trajB = pB.nhleTrajectory || [];
+        if (!container || !players || players.length === 0) return;
 
         let svg = `
-          <svg viewBox="0 0 500 160" class="w-full h-36">
+          <svg viewBox="0 0 500 170" class="w-full h-40">
             <line x1="40" y1="20" x2="480" y2="20" stroke="#1e293b" stroke-dasharray="3" />
-            <line x1="40" y1="60" x2="480" y2="60" stroke="#1e293b" stroke-dasharray="3" />
-            <line x1="40" y1="100" x2="480" y2="100" stroke="#1e293b" stroke-dasharray="3" />
-            <line x1="40" y1="140" x2="480" y2="140" stroke="#334155" />
-            <text x="10" y="24" fill="#64748b" font-size="9" font-family="monospace">100P</text>
-            <text x="10" y="64" fill="#64748b" font-size="9" font-family="monospace">70P</text>
-            <text x="10" y="104" fill="#64748b" font-size="9" font-family="monospace">40P</text>
-            <text x="10" y="144" fill="#64748b" font-size="9" font-family="monospace">10P</text>
+            <line x1="40" y1="55" x2="480" y2="55" stroke="#1e293b" stroke-dasharray="3" />
+            <line x1="40" y1="90" x2="480" y2="90" stroke="#1e293b" stroke-dasharray="3" />
+            <line x1="40" y1="125" x2="480" y2="125" stroke="#334155" />
+            <text x="10" y="24" fill="#64748b" font-size="9" font-family="monospace">110P</text>
+            <text x="10" y="59" fill="#64748b" font-size="9" font-family="monospace">80P</text>
+            <text x="10" y="94" fill="#64748b" font-size="9" font-family="monospace">50P</text>
+            <text x="10" y="129" fill="#64748b" font-size="9" font-family="monospace">20P</text>
         `;
 
         function getX(age) { return 60 + ((age - 15) / 10) * 400; }
-        function getY(nhle) { return 140 - ((nhle - 10) / 100) * 120; }
+        function getY(nhle) { return 125 - ((nhle - 20) / 90) * 105; }
 
-        const pointsA = trajA.map(t => `${getX(t.age)},${getY(t.nhle)}`).join(' ');
-        svg += `<polyline points="${pointsA}" fill="none" stroke="#38bdf8" stroke-width="2.5" />`;
+        players.forEach((p, pIdx) => {
+          const palette = engine.PLAYER_PALETTE[pIdx % engine.PLAYER_PALETTE.length];
+          const traj = p.nhleTrajectory || [];
+          if (traj.length === 0) return;
 
-        const pointsB = trajB.map(t => `${getX(t.age)},${getY(t.nhle)}`).join(' ');
-        svg += `<polyline points="${pointsB}" fill="none" stroke="#f59e0b" stroke-width="2.5" />`;
+          const points = traj.map(t => `${getX(t.age)},${getY(t.nhle)}`).join(' ');
+          svg += `<polyline points="${points}" fill="none" stroke="${palette.stroke}" stroke-width="2.5" />`;
 
-        trajA.forEach(t => { svg += `<circle cx="${getX(t.age)}" cy="${getY(t.nhle)}" r="3.5" fill="#38bdf8" />`; });
-        trajB.forEach(t => { svg += `<circle cx="${getX(t.age)}" cy="${getY(t.nhle)}" r="3.5" fill="#f59e0b" />`; });
+          traj.forEach(t => {
+            svg += `<circle cx="${getX(t.age)}" cy="${getY(t.nhle)}" r="3.5" fill="${palette.stroke}" stroke="#0f172a" stroke-width="1.5" />`;
+          });
+        });
 
+        // X Axis Labels
         [15, 17, 19, 21, 23, 25].forEach(age => {
-          svg += `<text x="${getX(age)}" y="155" fill="#64748b" font-size="8" font-family="monospace" text-anchor="middle">Age ${age}</text>`;
+          svg += `<text x="${getX(age)}" y="146" fill="#64748b" font-size="8" font-family="monospace" text-anchor="middle">Age ${age}</text>`;
+        });
+
+        // Legend below trajectory
+        let legendX = 40;
+        players.forEach((p, pIdx) => {
+          const palette = engine.PLAYER_PALETTE[pIdx % engine.PLAYER_PALETTE.length];
+          svg += `
+            <circle cx="${legendX}" cy="162" r="3" fill="${palette.stroke}" />
+            <text x="${legendX + 7}" y="165" fill="#94a3b8" font-size="8" font-family="monospace">${p.name.split(' ').pop()}</text>
+          `;
+          legendX += 90;
         });
 
         svg += `</svg>`;
         container.innerHTML = svg;
       }
 
-      // 6. INSTITUTIONAL COMPARISON RENDER
+      // 10. Watchlist Ledger Toggle for Slots
+      window.toggleWatchingSlot = function(slotIdx) {
+        if (slotIdx < 0 || slotIdx >= activePlayerIds.length) return;
+        const pid = activePlayerIds[slotIdx];
+        const pObj = engine.resolvePlayer(pid);
+        const pName = pObj ? pObj.name : pid;
+        if (window.BlueLineUI && typeof window.BlueLineUI.togglePlayerInLedger === 'function') {
+          const isNowWatching = window.BlueLineUI.togglePlayerInLedger(pid, pName);
+          renderPlayerSlots();
+          showToast(isNowWatching ? `Added ${pName} to Scout Ledger.` : `Removed ${pName} from Scout Ledger.`, 'info');
+        }
+      };
+
+      // 11. Institutional Comparison Render (Preserved)
       function renderInstitutionComparison() {
         if (!catalog) return;
         const instA = catalog.getById(activeInstIdA) || catalog.getAll()[0];
         const instB = catalog.getById(activeInstIdB) || catalog.getAll()[1];
 
-        // Match Rosters from MASTER_PLAYERS
         const queryA = (instA.shortName || instA.name).toLowerCase();
         const queryB = (instB.shortName || instB.name).toLowerCase();
 
@@ -951,7 +1070,6 @@
                  (p.institution && p.institution.toLowerCase().includes(queryB));
         });
 
-        // Compute Average Composite Score
         const avgScoreA = rosterA.length > 0 
           ? (rosterA.reduce((sum, p) => sum + (p.composite_score || 85), 0) / rosterA.length).toFixed(1)
           : (87.5 + (instA.tier === 'Tier 1 Elite' ? 2 : 0)).toFixed(1);
@@ -960,7 +1078,6 @@
           ? (rosterB.reduce((sum, p) => sum + (p.composite_score || 85), 0) / rosterB.length).toFixed(1)
           : (87.0 + (instB.tier === 'Tier 1 Elite' ? 2 : 0)).toFixed(1);
 
-        // Update Header Cards
         document.getElementById('cardCategoryInstA').textContent = instA.category.split(' ')[0];
         document.getElementById('cardConfInstA').textContent = instA.conference || instA.league;
         document.getElementById('cardRosterCountInstA').textContent = `${rosterA.length || 26} Athletes`;
@@ -977,13 +1094,11 @@
         document.getElementById('cardLocationInstB').textContent = `${instB.city}, ${instB.state}`;
         document.getElementById('cardDossierLinkInstB').href = `database.html?inst=${encodeURIComponent(instB.id)}`;
 
-        // Legends
         document.getElementById('metricLegendInstA').textContent = instA.shortName || instA.name;
         document.getElementById('metricLegendInstB').textContent = instB.shortName || instB.name;
         document.getElementById('rosterTitleA').textContent = `${instA.shortName || instA.name} Monitored Prospects`;
         document.getElementById('rosterTitleB').textContent = `${instB.shortName || instB.name} Monitored Prospects`;
 
-        // 6 Metrics Comparison
         const baseScoreA = parseFloat(avgScoreA);
         const baseScoreB = parseFloat(avgScoreB);
 
@@ -1046,7 +1161,6 @@
         renderRosterList(rosterA, document.getElementById('rosterListInstA'), 'text-emerald-400');
         renderRosterList(rosterB, document.getElementById('rosterListInstB'), 'text-indigo-400');
 
-        // Verdict Text
         const winsA = metrics.filter(m => m.valA > m.valB).length;
         const winsB = metrics.filter(m => m.valB > m.valA).length;
         const leader = winsA > winsB ? instA : (winsB > winsA ? instB : null);
@@ -1064,36 +1178,20 @@
         `;
       }
 
-      // Dropdown Listeners
-      selectA.addEventListener('change', (e) => {
-        activeIdA = e.target.value;
-        renderComparison();
-      });
+      if (selectInstA) selectInstA.addEventListener('change', (e) => { activeInstIdA = e.target.value; renderInstitutionComparison(); });
+      if (selectInstB) selectInstB.addEventListener('change', (e) => { activeInstIdB = e.target.value; renderInstitutionComparison(); });
 
-      selectB.addEventListener('change', (e) => {
-        activeIdB = e.target.value;
-        renderComparison();
-      });
-
-      selectInstA.addEventListener('change', (e) => {
-        activeInstIdA = e.target.value;
-        renderInstitutionComparison();
-      });
-
-      selectInstB.addEventListener('change', (e) => {
-        activeInstIdB = e.target.value;
-        renderInstitutionComparison();
-      });
-
-      // Swap Button
+      // 12. Swap / Cycle Button
       document.getElementById('swapDuelBtn').addEventListener('click', () => {
         if (currentMode === 'athlete') {
-          const temp = activeIdA;
-          activeIdA = activeIdB;
-          activeIdB = temp;
-          populateDropdowns();
+          if (activePlayerIds.length === 2) {
+            activePlayerIds.reverse();
+          } else {
+            activePlayerIds.push(activePlayerIds.shift());
+          }
+          renderPlayerSlots();
           renderComparison();
-          showToast("Swapped player comparison slots!", "info");
+          showToast("Cycled athlete comparison slots!", "info");
         } else {
           const temp = activeInstIdA;
           activeInstIdA = activeInstIdB;
@@ -1104,14 +1202,14 @@
         }
       });
 
-      // Broadcast to The Wire
+      // 13. Broadcast to The Wire
       document.getElementById('broadcastCompareBtn').addEventListener('click', () => {
         if (currentMode === 'athlete') {
-          const pA = engine.COMPARISON_PLAYERS[activeIdA];
-          const pB = engine.COMPARISON_PLAYERS[activeIdB];
-          const verdict = engine.calculateComparisonVerdict(pA, pB);
+          const activePlayers = activePlayerIds.map(id => engine.resolvePlayer(id)).filter(Boolean);
+          const verdict = engine.calculateComparisonVerdict(activePlayers);
           engine.broadcastComparisonToWire(verdict);
-          showToast(`Broadcasted ${pA.name} vs ${pB.name} Tale of the Tape to The Wire!`, "success");
+          const names = activePlayers.map(p => p.name.split(' ').pop()).join(' vs ');
+          showToast(`Broadcasted ${names} Tale of the Tape to The Wire!`, "success");
         } else {
           const instA = catalog.getById(activeInstIdA);
           const instB = catalog.getById(activeInstIdB);
@@ -1119,9 +1217,98 @@
         }
       });
 
-      // Toast Notification Helper
+      // 14. Executive Scouting Dossier Modal Handlers
+      window.openExecutiveDossierModal = function() {
+        const modal = document.getElementById('executiveDossierModal');
+        const body = document.getElementById('dossierModalBody');
+        if (!modal || !body || !engine) return;
+
+        const activePlayers = activePlayerIds.map(id => engine.resolvePlayer(id)).filter(Boolean);
+        const verdict = engine.calculateComparisonVerdict(activePlayers);
+        const dossier = engine.generateExecutiveScoutingDossier(activePlayers, verdict);
+
+        body.innerHTML = `
+          <!-- Dossier Stamp & Header -->
+          <div class="p-4 rounded-2xl bg-slate-900 border border-slate-800 flex items-center justify-between flex-wrap gap-2 print-card">
+            <div>
+              <span class="text-[10px] font-mono font-bold text-amber-400 block uppercase tracking-wider">${dossier.securityClearance}</span>
+              <h3 class="text-base font-black text-white uppercase tracking-wider print-text-dark">${dossier.title}</h3>
+              <p class="text-xs font-mono text-slate-400 print-text-muted">Generated: ${dossier.date} | ${dossier.athleteCount}-Athlete Multi-Radar Matrix</p>
+            </div>
+            <div class="px-3 py-1.5 rounded-xl bg-sky-500/20 text-sky-300 font-mono text-xs font-bold border border-sky-500/30">
+              Consensus Leader: ${dossier.leader} (${dossier.leaderRating}/100)
+            </div>
+          </div>
+
+          <!-- Draft Board Tier Matrix -->
+          <div class="grid grid-cols-1 sm:grid-cols-${dossier.players.length} gap-3">
+            ${dossier.players.map(p => `
+              <div class="p-3.5 rounded-2xl bg-slate-950/80 border border-slate-800 space-y-2 print-card">
+                <div class="flex items-center justify-between">
+                  <span class="font-bold text-sm text-white print-text-dark" style="color: ${p.color}">${p.name}</span>
+                  <span class="text-xs font-mono font-black text-white print-text-dark">${p.avgRating}/100</span>
+                </div>
+                <div class="text-[10px] font-mono text-slate-400 print-text-muted">${p.pos} • ${p.team}</div>
+                <div class="text-[10px] px-2 py-0.5 rounded bg-slate-900 border border-slate-800 text-slate-300 print-text-dark font-medium">${p.tier}</div>
+                <div class="grid grid-cols-2 gap-1 text-[10px] font-mono pt-1 text-slate-400 print-text-muted">
+                  <div>Draft: <strong class="text-white print-text-dark">${p.draft.split(' ')[0]}</strong></div>
+                  <div>Peak NHLe: <strong class="text-sky-400 print-text-dark">${p.peakNhle}P</strong></div>
+                </div>
+                <p class="text-[11px] text-slate-400 italic pt-1 border-t border-slate-800/60 print-text-muted line-clamp-3">
+                  ${p.scoutSummary}
+                </p>
+              </div>
+            `).join('')}
+          </div>
+
+          <!-- Tale of the Tape Matrix Table -->
+          <div class="rounded-2xl bg-slate-950/80 border border-slate-800 overflow-x-auto print-card">
+            <table class="w-full text-left text-xs font-mono">
+              <thead class="bg-slate-900 text-slate-400 border-b border-slate-800">
+                <tr>
+                  <th class="p-3">Scouting Dimension</th>
+                  ${dossier.players.map(p => `<th class="p-3 text-center print-text-dark" style="color: ${p.color}">${p.name}</th>`).join('')}
+                  <th class="p-3 text-right">Category Crown</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-800/80 text-slate-300 print-text-dark">
+                ${dossier.metrics.map(m => `
+                  <tr class="hover:bg-slate-900/50">
+                    <td class="p-3 font-semibold text-white print-text-dark">${m.label}</td>
+                    ${m.scores.map(s => `
+                      <td class="p-3 text-center font-bold">
+                        <span class="${s.isLeader ? 'text-amber-400 underline font-black' : ''}">${s.value}</span>
+                        <span class="text-[9px] text-slate-500 font-normal">(${s.percentile}%)</span>
+                      </td>
+                    `).join('')}
+                    <td class="p-3 text-right text-amber-400 font-bold">
+                      👑 ${m.leaders.map(l => l.playerName.split(' ').pop()).join(' & ')}
+                    </td>
+                  </tr>
+                `).join('')}
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Overall Verdict Section -->
+          <div class="p-4 rounded-2xl bg-slate-950/90 border border-sky-500/30 space-y-1.5 print-card">
+            <div class="text-xs font-mono font-bold text-sky-400 uppercase">Consensus Evaluation Recommendation</div>
+            <p class="text-xs font-mono text-slate-300 leading-relaxed print-text-dark">${dossier.overallVerdict}</p>
+          </div>
+        `;
+
+        modal.classList.remove('hidden');
+      };
+
+      window.closeExecutiveDossierModal = function() {
+        const modal = document.getElementById('executiveDossierModal');
+        if (modal) modal.classList.add('hidden');
+      };
+
+      // 15. Toast Notification Helper
       function showToast(msg, type = 'info') {
         const toastEl = document.getElementById('compareToast');
+        if (!toastEl) return;
         const colorClasses = type === 'success' ? 'bg-emerald-600 text-white border border-emerald-400/50 shadow-emerald-500/30' :
                              type === 'error' ? 'bg-rose-600 text-white border border-rose-400/50 shadow-rose-500/30' :
                              'bg-sky-600 text-white border border-sky-400/50 shadow-sky-500/30';
@@ -1134,26 +1321,12 @@
       }
 
       // Initial Render
-      populateDropdowns();
+      renderPlayerSlots();
       populateInstitutionDropdowns();
       populatePresets();
       renderComparison();
     });
   </script>
 
-  <!-- Service Worker Registration for Offline Rinkside PWA -->
-  <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('sw.js').then(reg => {
-          console.log('BlueLine Compare Service Worker registered:', reg.scope);
-          const pill = document.getElementById('pwaStatusPill');
-          if (pill) pill.textContent = '⚡ Rinkside PWA Active';
-        }).catch(err => {
-          console.warn('Service Worker registration skipped:', err);
-        });
-      });
-    }
-  </script>
 </body>
 </html>

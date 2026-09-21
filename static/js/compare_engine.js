@@ -2,11 +2,12 @@
  * BlueLine DataWorks: Multi-Player Head-to-Head Comparison & Radar Matrix Engine
  * 
  * Capabilities:
- * - Benchmarks 2 to 4 athletes simultaneously across 8 core scouting dimensions
+ * - Benchmarks 2 to 5 athletes simultaneously across 8 core scouting dimensions
  * - 8-Axis Radar Polygon Analytics (Skating, Shooting, Hockey IQ, Physicality, Defense, Transition, Biometrics, Clutch)
  * - Multi-league NHLe Translation & Age-Based Career Trajectory Modeling (Ages 15-28)
- * - Automated "Tale of the Tape" Category Edge Analysis & Scouting Verdict
- * - Curated Rivalry Presets (2024 #1 Pick Debate, Elite Blue-Liners, BC Triplets, Future Phenoms)
+ * - Automated "Tale of the Tape" Percentile Matrix & Category Edge Analysis
+ * - 1-Click Executive Scouting Dossier & PDF Export Engine
+ * - Curated Rivalry & Multi-Draft Presets (2024 Top 5 Draft Stars, Phenoms Trinity, Elite Blue-Liners)
  * - The BlueLine Wire Broadcast Engine (#TaleOfTheTape, #PlayerComparison, #BlueLineDataWorks)
  */
 
@@ -169,41 +170,41 @@
       ]
     },
 
-    hutson: {
-      id: "hutson",
-      name: "Lane Hutson",
-      team: "Montreal Canadiens / Boston University",
-      league: "NHL / NCAA (Hockey East)",
-      pos: "LHD",
-      hand: "L",
-      age: 20,
-      height: "5'10\"",
-      weight: "162 lbs",
-      draft: "2022 62nd Overall (MTL)",
-      avatar: "🔵",
-      color: "#1e3a8a",
-      accent: "#38bdf8",
-      nhlComp: "Quinn Hughes / Cale Makar power play profile",
-      scoutSummary: "Electric offensive defenseman. Jaw-dropping spin-o-ramas, uncanny escape ability, and one of the highest deceptive passing rates ever recorded in college hockey.",
+    parekh: {
+      id: "parekh",
+      name: "Zayne Parekh",
+      team: "Calgary Flames / Saginaw Spirit",
+      league: "NHL / OHL (Memorial Cup Champs)",
+      pos: "RHD",
+      hand: "R",
+      age: 18,
+      height: "6'0\"",
+      weight: "181 lbs",
+      draft: "2024 9th Overall (CGY)",
+      avatar: "🦅",
+      color: "#c2410c",
+      accent: "#fed7aa",
+      nhlComp: "Erik Karlsson / Brian Leetch",
+      scoutSummary: "33 goals and 96 points as an OHL draft-eligible defenseman. Historically prolific offensive instincts, lethal wrist shot, and Memorial Cup champion.",
       ratings: {
-        skating: 96,
-        shooting: 88,
-        hockeyIQ: 99,
-        physicality: 74,
-        defense: 83,
-        transition: 99,
-        biometrics: 85,
-        clutch: 94
+        skating: 94,
+        shooting: 93,
+        hockeyIQ: 96,
+        physicality: 79,
+        defense: 82,
+        transition: 97,
+        biometrics: 87,
+        clutch: 95
       },
       nhleTrajectory: [
-        { age: 15, nhle: 22, league: "Honeybaked U15" },
-        { age: 16, nhle: 39, league: "USNTDP (USHL)" },
-        { age: 17, nhle: 65, league: "USNTDP (USHL)" },
-        { age: 18, nhle: 68, league: "Boston Univ (NCAA)" },
-        { age: 19, nhle: 72, league: "Boston Univ (NCAA)" },
-        { age: 20, nhle: 56, league: "Canadiens (NHL)" },
-        { age: 22, nhle: 74, league: "NHL Prime" },
-        { age: 25, nhle: 84, league: "NHL Peak" }
+        { age: 15, nhle: 20, league: "Markham Majors" },
+        { age: 16, nhle: 42, league: "Saginaw Spirit 21G" },
+        { age: 17, nhle: 69, league: "Saginaw Spirit 96P" },
+        { age: 18, nhle: 46, league: "Calgary / Saginaw" },
+        { age: 19, nhle: 58, league: "Calgary Flames (NHL)" },
+        { age: 20, nhle: 70, league: "NHL Projected" },
+        { age: 22, nhle: 82, league: "NHL Prime" },
+        { age: 25, nhle: 90, league: "NHL Peak" }
       ]
     },
 
@@ -245,41 +246,41 @@
       ]
     },
 
-    parekh: {
-      id: "parekh",
-      name: "Zayne Parekh",
-      team: "Calgary Flames / Saginaw Spirit",
-      league: "NHL / OHL (Memorial Cup Champs)",
-      pos: "RHD",
-      hand: "R",
-      age: 18,
-      height: "6'0\"",
-      weight: "181 lbs",
-      draft: "2024 9th Overall (CGY)",
-      avatar: "🦅",
-      color: "#c2410c",
-      accent: "#fed7aa",
-      nhlComp: "Erik Karlsson / Brian Leetch",
-      scoutSummary: "33 goals and 96 points as an OHL draft-eligible defenseman. Historically prolific offensive instincts, lethal wrist shot, and Memorial Cup champion.",
+    hutson: {
+      id: "hutson",
+      name: "Lane Hutson",
+      team: "Montreal Canadiens / Boston University",
+      league: "NHL / NCAA (Hockey East)",
+      pos: "LHD",
+      hand: "L",
+      age: 20,
+      height: "5'10\"",
+      weight: "162 lbs",
+      draft: "2022 62nd Overall (MTL)",
+      avatar: "🔵",
+      color: "#1e3a8a",
+      accent: "#38bdf8",
+      nhlComp: "Quinn Hughes / Cale Makar power play profile",
+      scoutSummary: "Electric offensive defenseman. Jaw-dropping spin-o-ramas, uncanny escape ability, and one of the highest deceptive passing rates ever recorded in college hockey.",
       ratings: {
-        skating: 94,
-        shooting: 93,
-        hockeyIQ: 96,
-        physicality: 79,
-        defense: 82,
-        transition: 97,
-        biometrics: 87,
-        clutch: 95
+        skating: 96,
+        shooting: 88,
+        hockeyIQ: 99,
+        physicality: 74,
+        defense: 83,
+        transition: 99,
+        biometrics: 85,
+        clutch: 94
       },
       nhleTrajectory: [
-        { age: 15, nhle: 20, league: "Markham Majors" },
-        { age: 16, nhle: 42, league: "Saginaw Spirit 21G" },
-        { age: 17, nhle: 69, league: "Saginaw Spirit 96P" },
-        { age: 18, nhle: 46, league: "Calgary / Saginaw" },
-        { age: 19, nhle: 58, league: "Calgary Flames (NHL)" },
-        { age: 20, nhle: 70, league: "NHL Projected" },
-        { age: 22, nhle: 82, league: "NHL Prime" },
-        { age: 25, nhle: 90, league: "NHL Peak" }
+        { age: 15, nhle: 22, league: "Honeybaked U15" },
+        { age: 16, nhle: 39, league: "USNTDP (USHL)" },
+        { age: 17, nhle: 65, league: "USNTDP (USHL)" },
+        { age: 18, nhle: 68, league: "Boston Univ (NCAA)" },
+        { age: 19, nhle: 72, league: "Boston Univ (NCAA)" },
+        { age: 20, nhle: 56, league: "Canadiens (NHL)" },
+        { age: 22, nhle: 74, league: "NHL Prime" },
+        { age: 25, nhle: 84, league: "NHL Peak" }
       ]
     },
 
@@ -319,65 +320,374 @@
         { age: 22, nhle: 98, league: "NHL Prime" },
         { age: 25, nhle: 106, league: "NHL Peak" }
       ]
+    },
+
+    demidov: {
+      id: "demidov",
+      name: "Ivan Demidov",
+      team: "SKA Saint Petersburg / Montreal Canadiens",
+      league: "KHL / NHL (2024 5th Overall)",
+      pos: "RW",
+      hand: "L",
+      age: 18,
+      height: "5'11\"",
+      weight: "181 lbs",
+      draft: "2024 5th Overall (MTL)",
+      avatar: "🎯",
+      color: "#0f766e",
+      accent: "#2dd4bf",
+      nhlComp: "Nikita Kucherov / Artemi Panarin",
+      scoutSummary: "Electrifying 1-on-1 attacker. 10-and-2 skating stance, elite puck protection on outside edges, and world-class playmaking audacity.",
+      ratings: {
+        skating: 95,
+        shooting: 94,
+        hockeyIQ: 98,
+        physicality: 80,
+        defense: 84,
+        transition: 97,
+        biometrics: 90,
+        clutch: 97
+      },
+      nhleTrajectory: [
+        { age: 15, nhle: 26, league: "Vityaz U16" },
+        { age: 16, nhle: 48, league: "SKA-1946 (MHL)" },
+        { age: 17, nhle: 72, league: "SKA-1946 60 Pts" },
+        { age: 18, nhle: 64, league: "SKA (KHL)" },
+        { age: 19, nhle: 76, league: "Montreal (NHL)" },
+        { age: 20, nhle: 88, league: "NHL Projected" },
+        { age: 22, nhle: 98, league: "NHL Prime" },
+        { age: 25, nhle: 108, league: "NHL Peak" }
+      ]
+    },
+
+    eiserman: {
+      id: "eiserman",
+      name: "Cole Eiserman",
+      team: "Boston University / USNTDP",
+      league: "NCAA / NHL (2024 20th Overall)",
+      pos: "LW",
+      hand: "L",
+      age: 18,
+      height: "6'0\"",
+      weight: "198 lbs",
+      draft: "2024 20th Overall (NYI)",
+      avatar: "⚡",
+      color: "#0369a1",
+      accent: "#38bdf8",
+      nhlComp: "Brett Hull / Cole Caufield size profile",
+      scoutSummary: "All-time USNTDP goal scoring champion (127 career goals). Lethal one-timer from right circle, heavy wrist shot through goalie screens.",
+      ratings: {
+        skating: 91,
+        shooting: 99,
+        hockeyIQ: 89,
+        physicality: 86,
+        defense: 81,
+        transition: 90,
+        biometrics: 92,
+        clutch: 95
+      },
+      nhleTrajectory: [
+        { age: 15, nhle: 30, league: "Shattuck St. Mary's" },
+        { age: 16, nhle: 56, league: "USNTDP 69 Pts" },
+        { age: 17, nhle: 75, league: "USNTDP 58 Goals" },
+        { age: 18, nhle: 60, league: "Boston Univ (NCAA)" },
+        { age: 19, nhle: 68, league: "NY Islanders (NHL)" },
+        { age: 20, nhle: 80, league: "NHL Projected" },
+        { age: 22, nhle: 92, league: "NHL Prime" },
+        { age: 25, nhle: 98, league: "NHL Peak" }
+      ]
     }
   };
 
   // ==========================================
-  // 2. CURATED RIVALRY PRESETS
+  // 2. CURATED RIVALRY & MULTI-PLAYER PRESETS
   // ==========================================
   const COMPARISON_PRESETS = [
+    {
+      id: "top5_2024_draft",
+      title: "2024 Top 5 Draft Stars",
+      subtitle: "Celebrini • Levshunov • Buium • Smith • Parekh",
+      playerIds: ["celebrini", "levshunov", "buium", "smith", "parekh"],
+      badge: "5-Player Matrix"
+    },
+    {
+      id: "generational_phenoms",
+      title: "Generational Phenoms & 1st Overalls",
+      subtitle: "Celebrini (2024) • Bedard (2023) • Hagens (2025)",
+      playerIds: ["celebrini", "bedard", "hagens"],
+      badge: "3-Player Radar"
+    },
     {
       id: "celebrini_vs_levshunov",
       title: "The 2024 #1 Draft Pick Debate",
       subtitle: "Franchise 1C vs Franchise Right-Shot #1D",
-      playerIds: ["celebrini", "levshunov"]
+      playerIds: ["celebrini", "levshunov"],
+      badge: "Classic 1v1"
+    },
+    {
+      id: "defensemen_trinity",
+      title: "2024 First-Round Defensemen Trinity",
+      subtitle: "Levshunov (2nd) • Parekh (9th) • Buium (12th)",
+      playerIds: ["levshunov", "parekh", "buium"],
+      badge: "3 Blue-Liners"
     },
     {
       id: "buium_vs_hutson",
       title: "Elite NCAA Offensive Blue-Liners",
       subtitle: "Zeev Buium (Denver) vs Lane Hutson (BU)",
-      playerIds: ["buium", "hutson"]
+      playerIds: ["buium", "hutson"],
+      badge: "1v1 Duel"
     },
     {
-      id: "bedard_vs_celebrini",
-      title: "Back-to-Back Generational 1st Overalls",
-      subtitle: "Connor Bedard (2023) vs Macklin Celebrini (2024)",
-      playerIds: ["bedard", "celebrini"]
+      id: "ncaa_scoring_kings",
+      title: "NCAA Freshmen Scoring Kings",
+      subtitle: "Celebrini (BU) • Will Smith (BC) • James Hagens (BC)",
+      playerIds: ["celebrini", "smith", "hagens"],
+      badge: "3 NCAA Stars"
     },
     {
-      id: "celebrini_vs_smith_vs_hagens",
-      title: "NCAA Freshmen Scoring Phenoms",
-      subtitle: "Celebrini (BU) vs Will Smith (BC) vs James Hagens (BC)",
-      playerIds: ["celebrini", "smith", "hagens"]
-    },
-    {
-      id: "levshunov_vs_buium_vs_parekh",
-      title: "2024 First-Round Defensemen Trinity",
-      subtitle: "Levshunov (2nd) vs Parekh (9th) vs Buium (12th)",
-      playerIds: ["levshunov", "buium", "parekh"]
+      id: "montreal_future_core",
+      title: "Habs Pipeline: Demidov vs Hutson",
+      subtitle: "Ivan Demidov (5th Overall) vs Lane Hutson (62nd)",
+      playerIds: ["demidov", "hutson"],
+      badge: "Montreal Core"
     }
   ];
 
   // ==========================================
-  // 3. COMPARISON & RADAR CALCULATIONS
+  // 3. COLOR PALETTES (UP TO 5 PLAYERS)
   // ==========================================
-  const RADAR_METRICS = [
-    { key: "skating", label: "Pure Skating", max: 100 },
-    { key: "shooting", label: "Shot Release", max: 100 },
-    { key: "hockeyIQ", label: "Hockey IQ", max: 100 },
-    { key: "physicality", label: "Physicality", max: 100 },
-    { key: "defense", label: "Defensive 200ft", max: 100 },
-    { key: "transition", label: "Transition Zone", max: 100 },
-    { key: "biometrics", label: "Biometrics & Vitals", max: 100 },
-    { key: "clutch", label: "Playoff / Clutch", max: 100 }
+  const PLAYER_PALETTE = [
+    {
+      id: 0,
+      label: "Player 1",
+      stroke: "#38bdf8",
+      fill: "rgba(56, 189, 248, 0.22)",
+      point: "#38bdf8",
+      glow: "rgba(56, 189, 248, 0.5)",
+      badgeBg: "bg-sky-500/20",
+      textClass: "text-sky-400",
+      borderClass: "border-sky-500/40",
+      solidBg: "bg-sky-500"
+    },
+    {
+      id: 1,
+      label: "Player 2",
+      stroke: "#f59e0b",
+      fill: "rgba(245, 158, 11, 0.22)",
+      point: "#f59e0b",
+      glow: "rgba(245, 158, 11, 0.5)",
+      badgeBg: "bg-amber-500/20",
+      textClass: "text-amber-400",
+      borderClass: "border-amber-500/40",
+      solidBg: "bg-amber-500"
+    },
+    {
+      id: 2,
+      label: "Player 3",
+      stroke: "#10b981",
+      fill: "rgba(16, 185, 129, 0.22)",
+      point: "#10b981",
+      glow: "rgba(16, 185, 129, 0.5)",
+      badgeBg: "bg-emerald-500/20",
+      textClass: "text-emerald-400",
+      borderClass: "border-emerald-500/40",
+      solidBg: "bg-emerald-500"
+    },
+    {
+      id: 3,
+      label: "Player 4",
+      stroke: "#c084fc",
+      fill: "rgba(192, 132, 252, 0.22)",
+      point: "#c084fc",
+      glow: "rgba(192, 132, 252, 0.5)",
+      badgeBg: "bg-purple-500/20",
+      textClass: "text-purple-400",
+      borderClass: "border-purple-500/40",
+      solidBg: "bg-purple-500"
+    },
+    {
+      id: 4,
+      label: "Player 5",
+      stroke: "#f87171",
+      fill: "rgba(248, 113, 113, 0.22)",
+      point: "#f87171",
+      glow: "rgba(248, 113, 113, 0.5)",
+      badgeBg: "bg-rose-500/20",
+      textClass: "text-rose-400",
+      borderClass: "border-rose-500/40",
+      solidBg: "bg-rose-500"
+    }
   ];
 
-  /**
-   * Calculates category-by-category advantages and declares scouting verdict
-   */
-  function calculateComparisonVerdict(playerA, playerB) {
-    if (!playerA || !playerB) return null;
+  // ==========================================
+  // 4. RADAR METRICS DEFINITIONS
+  // ==========================================
+  const RADAR_METRICS = [
+    { key: "skating", label: "Pure Skating", max: 100, desc: "Acceleration, top speed, edge agility & lateral escape" },
+    { key: "shooting", label: "Shot Release", max: 100, desc: "Release velocity, angle change deception & catch-and-shoot accuracy" },
+    { key: "hockeyIQ", label: "Hockey IQ", max: 100, desc: "Anticipation, playmaking vision & spatial awareness 2 steps ahead" },
+    { key: "physicality", label: "Physicality", max: 100, desc: "Wall battle leverage, body checking & puck protection strength" },
+    { key: "defense", label: "Defensive 200ft", max: 100, desc: "Stick checking, backcheck discipline & d-zone coverage" },
+    { key: "transition", label: "Transition Zone", max: 100, desc: "Controlled exits, neutral zone carry & offensive blue-line activation" },
+    { key: "biometrics", label: "Biometrics & Vitals", max: 100, desc: "Physical stature, reach leverage & athletic durability profile" },
+    { key: "clutch", label: "Playoff / Clutch", max: 100, desc: "Performance in one-goal games, tournament elimination & high-leverage shifts" }
+  ];
 
+  // ==========================================
+  // 5. PLAYER RESOLVER / REGISTRY BRIDGE
+  // ==========================================
+  function resolvePlayer(idOrObj) {
+    if (!idOrObj) return null;
+    if (typeof idOrObj === 'object' && idOrObj.ratings) return idOrObj;
+    const pid = String(idOrObj);
+    if (COMPARISON_PLAYERS[pid]) return COMPARISON_PLAYERS[pid];
+
+    // Master non-pro registry search
+    const allList = (typeof window !== 'undefined' ? (window.MASTER_NON_PRO_REGISTRY || window.MASTER_PLAYERS) : null) || [];
+    const mp = allList.find(p => p.id === pid || (p.name && p.name.toLowerCase() === pid.toLowerCase()));
+    if (mp) {
+      const composite = mp.composite_score || 88;
+      const resolved = {
+        id: mp.id,
+        name: mp.name,
+        team: mp.team || "Collegiate Program",
+        league: mp.league || "NCAA Division I",
+        pos: mp.pos || "F",
+        hand: (mp.num && mp.num % 2 === 0) ? "L" : "R",
+        age: mp.date_of_birth ? Math.max(16, 2026 - parseInt(mp.date_of_birth.substring(0, 4))) : 20,
+        height: mp.height_str || (mp.height_in ? `${Math.floor(mp.height_in/12)}'${mp.height_in%12}\"` : "6'1\""),
+        weight: mp.weight_lbs ? `${mp.weight_lbs} lbs` : "190 lbs",
+        draft: mp.draft_status || "Active Non-Pro Roster",
+        avatar: mp.pos === 'G' ? "🥅" : (mp.pos === 'D' ? "🛡️" : "⚡"),
+        color: "#0284c7",
+        accent: "#38bdf8",
+        nhlComp: mp.nhl_comp || "Developing Collegiate Prospect",
+        scoutSummary: mp.notes || `Elite ${mp.pos} verified with ${Math.round(composite)} composite rating under BlueLine DataWorks tracking.`,
+        ratings: {
+          skating: Math.min(99, Math.round(composite * 1.04)),
+          shooting: Math.min(99, Math.round(composite * 0.98)),
+          hockeyIQ: Math.min(99, Math.round(composite * 1.02)),
+          physicality: Math.min(99, Math.round(composite * 0.94)),
+          defense: Math.min(99, Math.round(composite * 0.96)),
+          transition: Math.min(99, Math.round(composite * 1.03)),
+          biometrics: 90,
+          clutch: 92
+        },
+        nhleTrajectory: [
+          { age: 16, nhle: 32, league: "Prep / U16" },
+          { age: 17, nhle: 52, league: "Junior / USHL" },
+          { age: 18, nhle: 68, league: "NCAA D1" },
+          { age: 19, nhle: 62, league: "Current Roster" },
+          { age: 20, nhle: 76, league: "Projected Pro" },
+          { age: 22, nhle: 88, league: "Pro Prime" },
+          { age: 25, nhle: 94, league: "Peak Form" }
+        ]
+      };
+      COMPARISON_PLAYERS[mp.id] = resolved;
+      return resolved;
+    }
+    return null;
+  }
+
+  // ==========================================
+  // 6. MULTI-PLAYER COMPARISON & PERCENTILE CALCULATION
+  // ==========================================
+  /**
+   * Evaluates 2 to 5 athletes across 8 scouting dimensions.
+   * Backward compatible with calculateComparisonVerdict(playerA, playerB)
+   */
+  function calculateComparisonVerdict(playersInput, secondPlayerOptional) {
+    let players = [];
+    if (Array.isArray(playersInput)) {
+      players = playersInput.map(p => resolvePlayer(p)).filter(Boolean);
+    } else if (playersInput && secondPlayerOptional) {
+      players = [resolvePlayer(playersInput), resolvePlayer(secondPlayerOptional)].filter(Boolean);
+    } else if (playersInput) {
+      players = [resolvePlayer(playersInput)].filter(Boolean);
+    }
+
+    if (players.length === 0) return null;
+
+    const isDuel = players.length === 2;
+    const playerA = players[0];
+    const playerB = players[1] || players[0];
+
+    // Compute player aggregates
+    const playerStats = players.map((p, idx) => {
+      const ratingsArr = Object.values(p.ratings || {});
+      const avgRating = ratingsArr.length > 0 ? (ratingsArr.reduce((a, b) => a + b, 0) / ratingsArr.length) : 80;
+      const palette = PLAYER_PALETTE[idx % PLAYER_PALETTE.length];
+      
+      // Tier assessment
+      let tier = "Tier 4: Projected Asset";
+      if (avgRating >= 94) tier = "Tier 1: Franchise Cornerstone (Lottery Consensus)";
+      else if (avgRating >= 90) tier = "Tier 2: Top-Line / 1st-Pair Impact";
+      else if (avgRating >= 85) tier = "Tier 3: Core NHL Roster Prospect";
+
+      // NHLe Peak
+      const traj = p.nhleTrajectory || [];
+      const peakNhle = traj.length > 0 ? Math.max(...traj.map(t => t.nhle)) : 75;
+
+      return {
+        player: p,
+        index: idx,
+        palette: palette,
+        avgRating: parseFloat(avgRating.toFixed(1)),
+        categoryWins: 0,
+        tier: tier,
+        peakNhle: peakNhle
+      };
+    });
+
+    // Metric Breakdown & Leader detection across up to 5 athletes
+    const metricBreakdown = RADAR_METRICS.map(m => {
+      const scores = playerStats.map(ps => {
+        const val = ps.player.ratings[m.key] || 75;
+        // Normalized percentile benchmark: maps 60-100 to 50-99
+        const percentile = Math.min(99, Math.max(50, Math.round(50 + (val - 70) * 1.6)));
+        return {
+          player: ps.player,
+          playerId: ps.player.id,
+          playerName: ps.player.name,
+          palette: ps.palette,
+          value: val,
+          percentile: percentile
+        };
+      });
+
+      const maxVal = Math.max(...scores.map(s => s.value));
+      const leaders = scores.filter(s => s.value === maxVal);
+      
+      // Give category win points to leaders
+      leaders.forEach(l => {
+        const ps = playerStats.find(p => p.player.id === l.playerId);
+        if (ps) ps.categoryWins++;
+      });
+
+      // Rank scores descending
+      const rankedScores = [...scores].sort((a, b) => b.value - a.value).map((s, rankIdx) => ({
+        ...s,
+        rank: rankIdx + 1,
+        isLeader: s.value === maxVal
+      }));
+
+      return {
+        key: m.key,
+        label: m.label,
+        desc: m.desc,
+        maxVal: maxVal,
+        leaders: leaders,
+        scores: rankedScores,
+        isTie: leaders.length > 1
+      };
+    });
+
+    // Sort player overall rankings by avgRating descending
+    const rankings = [...playerStats].sort((a, b) => b.avgRating - a.avgRating);
+    const overallLeader = rankings[0];
+
+    // Build category edges map for 1v1 backward compatibility
     const edges = {};
     let winsA = 0;
     let winsB = 0;
@@ -400,33 +710,43 @@
       }
     });
 
-    const avgA = Object.values(playerA.ratings).reduce((a, b) => a + b, 0) / 8;
-    const avgB = Object.values(playerB.ratings).reduce((a, b) => a + b, 0) / 8;
-
+    // Construct Overall Verdict Text
     let overallVerdict = "";
-    if (avgA > avgB + 1.5) {
-      overallVerdict = `**${playerA.name} holds the comprehensive tactical edge** with superior ${winsA} category advantages, notably in play driving and transitional tempo.`;
-    } else if (avgB > avgA + 1.5) {
-      overallVerdict = `**${playerB.name} holds the comprehensive tactical edge** with superior ${winsB} category advantages, driven by high-impact execution.`;
+    if (isDuel) {
+      if (playerStats[0].avgRating > playerStats[1].avgRating + 1.2) {
+        overallVerdict = `**${playerA.name} holds the comprehensive tactical edge** with ${winsA} category advantages, notably in dynamic pace, transitional drive, and hockey IQ.`;
+      } else if (playerStats[1].avgRating > playerStats[0].avgRating + 1.2) {
+        overallVerdict = `**${playerB.name} holds the comprehensive tactical edge** with ${winsB} category advantages, driven by pro-ready execution and elite single-skill ceiling.`;
+      } else {
+        overallVerdict = `**Dead Heat Technical Split:** ${playerA.name} and ${playerB.name} exhibit near-identical aggregate value (${playerStats[0].avgRating} vs ${playerStats[1].avgRating}), each dominating distinct tactical phases of the game.`;
+      }
     } else {
-      overallVerdict = `**Dead Heat Technical Split:** ${playerA.name} and ${playerB.name} exhibit near-identical aggregate value (${avgA.toFixed(1)} vs ${avgB.toFixed(1)}), each dominating distinct tactical phases.`;
+      overallVerdict = `**Multi-Player Draft Matrix Verdict:** ${overallLeader.player.name} paces the comparison group with an aggregate rating of ${overallLeader.avgRating}/100 and ${overallLeader.categoryWins} category crowns. ` +
+        rankings.slice(1).map(r => `${r.player.name} (${r.avgRating}/100, ${r.categoryWins} edges)`).join(', ') + ` follow in sequence with specialized elite tools.`;
     }
 
     return {
+      players: players,
+      playerStats: playerStats,
+      rankings: rankings,
+      overallLeader: overallLeader,
+      metricBreakdown: metricBreakdown,
+      isDuel: isDuel,
+      // Backward compatibility fields
       playerA: playerA,
       playerB: playerB,
       edges: edges,
       winsA: winsA,
       winsB: winsB,
       ties: ties,
-      avgA: avgA.toFixed(1),
-      avgB: avgB.toFixed(1),
+      avgA: playerStats[0].avgRating.toFixed(1),
+      avgB: (playerStats[1] ? playerStats[1].avgRating.toFixed(1) : playerStats[0].avgRating.toFixed(1)),
       overallVerdict: overallVerdict
     };
   }
 
   // ==========================================
-  // 4. RADAR CANVAS DRAWER
+  // 7. RADAR CANVAS DRAWER (2 TO 5 PLAYERS)
   // ==========================================
   function drawRadarChart(canvas, players) {
     if (!canvas || !players || players.length === 0) return;
@@ -442,11 +762,11 @@
     const numAxes = RADAR_METRICS.length;
     const angleSlice = (Math.PI * 2) / numAxes;
 
-    // Draw background concentric webs
+    // Draw background concentric polygon webs (5 levels)
     ctx.lineWidth = 1;
     for (let level = 1; level <= 5; level++) {
       const levelRadius = (radius / 5) * level;
-      ctx.strokeStyle = level === 5 ? "rgba(148, 163, 184, 0.3)" : "rgba(148, 163, 184, 0.1)";
+      ctx.strokeStyle = level === 5 ? "rgba(148, 163, 184, 0.35)" : "rgba(148, 163, 184, 0.12)";
       ctx.beginPath();
       for (let i = 0; i < numAxes; i++) {
         const angle = i * angleSlice - Math.PI / 2;
@@ -457,9 +777,17 @@
       }
       ctx.closePath();
       ctx.stroke();
+
+      // Benchmark level label
+      if (level === 3 || level === 5) {
+        ctx.font = "8px monospace";
+        ctx.fillStyle = "rgba(148, 163, 184, 0.4)";
+        ctx.textAlign = "center";
+        ctx.fillText(`${level * 20}%`, centerX, centerY - levelRadius + 9);
+      }
     }
 
-    // Draw axis lines and labels
+    // Draw axis spokes and outer metric labels
     ctx.font = "10px JetBrains Mono, monospace";
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
@@ -469,39 +797,35 @@
       const x = centerX + Math.cos(angle) * radius;
       const y = centerY + Math.sin(angle) * radius;
 
-      // Axis line
-      ctx.strokeStyle = "rgba(148, 163, 184, 0.2)";
+      // Spoke line
+      ctx.strokeStyle = "rgba(148, 163, 184, 0.25)";
       ctx.beginPath();
       ctx.moveTo(centerX, centerY);
       ctx.lineTo(x, y);
       ctx.stroke();
 
-      // Label text
-      const labelX = centerX + Math.cos(angle) * (radius + 24);
-      const labelY = centerY + Math.sin(angle) * (radius + 24);
-      ctx.fillStyle = "#94a3b8";
+      // Spoke vertex dot
+      ctx.fillStyle = "rgba(148, 163, 184, 0.5)";
+      ctx.beginPath();
+      ctx.arc(x, y, 2, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Label text with slight offset
+      const labelX = centerX + Math.cos(angle) * (radius + 26);
+      const labelY = centerY + Math.sin(angle) * (radius + 26);
+      ctx.fillStyle = "#cbd5e1";
       ctx.fillText(RADAR_METRICS[i].label, labelX, labelY);
     }
 
-    // Palette for comparison players
-    const colorPalette = [
-      { stroke: "#38bdf8", fill: "rgba(56, 189, 248, 0.25)", point: "#38bdf8" },
-      { stroke: "#f59e0b", fill: "rgba(245, 158, 11, 0.25)", point: "#f59e0b" },
-      { stroke: "#10b981", fill: "rgba(16, 185, 129, 0.25)", point: "#10b981" },
-      { stroke: "#ec4899", fill: "rgba(236, 72, 153, 0.25)", point: "#ec4899" }
-    ];
-
-    // Draw each player's polygon
+    // Draw each player's polygon overlay (up to 5 players)
     players.forEach((player, pIdx) => {
-      const style = colorPalette[pIdx % colorPalette.length];
-      ctx.strokeStyle = style.stroke;
-      ctx.lineWidth = 2.5;
-      ctx.fillStyle = style.fill;
-
+      const palette = PLAYER_PALETTE[pIdx % PLAYER_PALETTE.length];
+      
+      // Fill and outline polygon
       ctx.beginPath();
       for (let i = 0; i < numAxes; i++) {
         const metric = RADAR_METRICS[i];
-        const val = Math.max(50, Math.min(100, player.ratings[metric.key] || 75));
+        const val = Math.max(50, Math.min(100, (player.ratings && player.ratings[metric.key]) || 75));
         const normalized = (val - 50) / 50; // map 50-100 to 0-1
         const r = radius * (0.2 + normalized * 0.8);
         const angle = i * angleSlice - Math.PI / 2;
@@ -512,49 +836,108 @@
         else ctx.lineTo(x, y);
       }
       ctx.closePath();
+
+      // Fill polygon with alpha
+      ctx.fillStyle = palette.fill;
       ctx.fill();
+
+      // Stroke polygon
+      ctx.strokeStyle = palette.stroke;
+      ctx.lineWidth = 2.4;
       ctx.stroke();
 
-      // Draw points
+      // Draw vertex anchor points
       for (let i = 0; i < numAxes; i++) {
         const metric = RADAR_METRICS[i];
-        const val = Math.max(50, Math.min(100, player.ratings[metric.key] || 75));
+        const val = Math.max(50, Math.min(100, (player.ratings && player.ratings[metric.key]) || 75));
         const normalized = (val - 50) / 50;
         const r = radius * (0.2 + normalized * 0.8);
         const angle = i * angleSlice - Math.PI / 2;
         const x = centerX + Math.cos(angle) * r;
         const y = centerY + Math.sin(angle) * r;
 
-        ctx.fillStyle = style.point;
+        // Outer dark ring
+        ctx.fillStyle = "#0f172a";
         ctx.beginPath();
-        ctx.arc(x, y, 4, 0, Math.PI * 2);
+        ctx.arc(x, y, 4.5, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Inner color dot
+        ctx.fillStyle = palette.point;
+        ctx.beginPath();
+        ctx.arc(x, y, 3, 0, Math.PI * 2);
         ctx.fill();
       }
     });
   }
 
   // ==========================================
-  // 5. SOCIAL WIRE BROADCAST
+  // 8. EXECUTIVE SCOUTING DOSSIER GENERATOR
+  // ==========================================
+  function generateExecutiveScoutingDossier(players, verdictData) {
+    if (!players || players.length === 0) return null;
+    const verdict = verdictData || calculateComparisonVerdict(players);
+    const currentDate = new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+
+    const dossier = {
+      title: "BLUELINE DATAWORKS // EXECUTIVE SCOUTING EVALUATION & DRAFT MATRIX",
+      date: currentDate,
+      securityClearance: "CONFIDENTIAL // ORGANIZATIONAL DISTRIBUTION ONLY",
+      athleteCount: players.length,
+      leader: verdict.overallLeader.player.name,
+      leaderRating: verdict.overallLeader.avgRating,
+      overallVerdict: verdict.overallVerdict,
+      players: verdict.playerStats.map(ps => ({
+        id: ps.player.id,
+        name: ps.player.name,
+        team: ps.player.team,
+        league: ps.player.league,
+        pos: ps.player.pos,
+        age: ps.player.age,
+        height: ps.player.height,
+        weight: ps.player.weight,
+        draft: ps.player.draft,
+        nhlComp: ps.player.nhlComp,
+        scoutSummary: ps.player.scoutSummary,
+        avgRating: ps.avgRating,
+        tier: ps.tier,
+        categoryWins: ps.categoryWins,
+        peakNhle: ps.peakNhle,
+        color: ps.palette.stroke,
+        ratings: ps.player.ratings
+      })),
+      metrics: verdict.metricBreakdown
+    };
+
+    return dossier;
+  }
+
+  // ==========================================
+  // 9. SOCIAL WIRE BROADCAST
   // ==========================================
   function broadcastComparisonToWire(verdictData) {
-    const pA = verdictData.playerA;
-    const pB = verdictData.playerB;
+    if (!verdictData || !verdictData.players) return null;
+
+    const names = verdictData.players.map(p => p.name).join(" vs ");
+    const isMulti = verdictData.players.length > 2;
 
     const post = {
       id: `post-compare-${Date.now()}`,
       authorId: "usr_blueline_scout",
       timestamp: "Just now",
-      content: `⚖️ **OFFICIAL SCOUTING DUEL: ${pA.name.toUpperCase()} vs ${pB.name.toUpperCase()}**\n\n8-Axis Radar Comparison complete. Verdict: ${verdictData.overallVerdict}\n\n• ${pA.name}: Avg Rating ${verdictData.avgA}/100 (${verdictData.winsA} Category Advantages)\n• ${pB.name}: Avg Rating ${verdictData.avgB}/100 (${verdictData.winsB} Category Advantages)\n\n#TaleOfTheTape #PlayerComparison #DraftScout #BlueLineDataWorks`,
-      likes: 63,
-      reposts: 28,
-      replies: 19,
+      content: isMulti 
+        ? `⚖️ **MULTI-PLAYER DRAFT MATRIX: ${names.toUpperCase()}**\n\nSimultaneous ${verdictData.players.length}-way radar benchmark complete. Leader: ${verdictData.overallLeader.player.name} (${verdictData.overallLeader.avgRating}/100 with ${verdictData.overallLeader.categoryWins} crowns).\n\n${verdictData.overallVerdict}\n\n#TaleOfTheTape #PlayerComparison #DraftScout #BlueLineDataWorks`
+        : `⚖️ **OFFICIAL SCOUTING DUEL: ${verdictData.playerA.name.toUpperCase()} vs ${verdictData.playerB.name.toUpperCase()}**\n\n8-Axis Radar Comparison complete. Verdict: ${verdictData.overallVerdict}\n\n• ${verdictData.playerA.name}: Avg Rating ${verdictData.avgA}/100 (${verdictData.winsA} Category Advantages)\n• ${verdictData.playerB.name}: Avg Rating ${verdictData.avgB}/100 (${verdictData.winsB} Category Advantages)\n\n#TaleOfTheTape #PlayerComparison #DraftScout #BlueLineDataWorks`,
+      likes: 84,
+      reposts: 37,
+      replies: 24,
       likedByMe: false,
       pinned: false,
       tags: ["#TaleOfTheTape", "#PlayerComparison", "#DraftScout", "#BlueLineDataWorks"],
       media: {
         type: "banner",
-        title: `${pA.name.toUpperCase()} vs ${pB.name.toUpperCase()}`,
-        subtitle: `Tale of the Tape: ${verdictData.winsA}-${verdictData.winsB} Edge Split`
+        title: names,
+        subtitle: isMulti ? `${verdictData.players.length}-Way Radar Overlay` : `Tale of the Tape: ${verdictData.winsA}-${verdictData.winsB} Edge Split`
       }
     };
 
@@ -571,14 +954,17 @@
     return post;
   }
 
-  // Export to Global
+  // Export to Global Window
   window.BlueLineCompareEngine = {
     COMPARISON_PLAYERS,
     COMPARISON_PRESETS,
+    PLAYER_PALETTE,
     RADAR_METRICS,
+    resolvePlayer,
     calculateComparisonVerdict,
     drawRadarChart,
+    generateExecutiveScoutingDossier,
     broadcastComparisonToWire
   };
 
-})(window);
+})(typeof window !== 'undefined' ? window : global);
