@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-09-26T04:25:01.689Z",
+  "timestamp": "2026-09-26T12:51:46.533Z",
   "institutionsAudited": 190,
   "candidatesEvaluated": 2058,
   "duplicatesPrevented": 2058,
@@ -28,5 +28,5 @@
     }
   },
   "status": "COMPLETE_SUCCESS",
-  "nextCycleScheduledAt": "2026-09-26T08:25:01.689Z"
+  "nextCycleScheduledAt": "2026-09-26T16:51:46.533Z"
 }
