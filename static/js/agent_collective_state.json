@@ -1,8 +1,16 @@
 {
-  "activeSquadron": 18,
-  "lastSyncTimestamp": "2026-09-29T17:55:34.616Z",
-  "totalTrialsConducted": 7665,
+  "activeSquadron": 24,
+  "lastSyncTimestamp": "2026-09-29T23:34:21.167Z",
+  "totalTrialsConducted": 7717,
   "recentLogs": [
+    {
+      "timestamp": "23:34:21",
+      "event": "LIVE_HTTP_CRAWL_COMPLETE",
+      "agent": "Agent-6.4",
+      "copilot": "Agent-5.4",
+      "targetId": "ALL_52_LIVE_TARGETS",
+      "msg": "24-AGENT SWARM HARVEST: Agent-6.4 & Co-Pilot Agent-5.4 crawled all 52 live data sources. Ingested 9696.4 KB at 482ms avg latency. 44 channels ranked Tier-S. Non-NHL registry verified."
+    },
     {
       "timestamp": "17:55:34",
       "event": "LIVE_HTTP_CRAWL_COMPLETE",
@@ -234,14 +242,6 @@
       "copilot": "Agent-4.1",
       "targetId": "ALL_52_LIVE_TARGETS",
       "msg": "24-AGENT SWARM HARVEST: Agent-5.1 & Co-Pilot Agent-4.1 crawled all 52 live data sources. Ingested 9770.0 KB at 134ms avg latency. 52 channels ranked Tier-S. Non-NHL registry verified."
-    },
-    {
-      "timestamp": "20:20:15",
-      "event": "LIVE_HTTP_CRAWL_COMPLETE",
-      "agent": "Agent-3.4",
-      "copilot": "Agent-2.4",
-      "targetId": "ALL_52_LIVE_TARGETS",
-      "msg": "24-AGENT SWARM HARVEST: Agent-3.4 & Co-Pilot Agent-2.4 crawled all 52 live data sources. Ingested 9770.0 KB at 139ms avg latency. 52 channels ranked Tier-S. Non-NHL registry verified."
     }
   ]
 }
