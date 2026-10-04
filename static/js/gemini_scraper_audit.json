@@ -1,14 +1,14 @@
 {
-  "timestamp": "2026-10-04T19:23:06.515Z",
+  "timestamp": "2026-10-04T22:55:45.249Z",
   "institutionsAudited": 190,
   "candidatesEvaluated": 2058,
-  "duplicatesPrevented": 2026,
-  "newPlayersMinted": 32,
+  "duplicatesPrevented": 2058,
+  "newPlayersMinted": 0,
   "totalDatabasePlayers": 4072,
   "categoryBreakdown": {
     "collegesD1": {
       "audited": 64,
-      "added": 32
+      "added": 0
     },
     "collegesD3": {
       "audited": 20,
@@ -28,5 +28,5 @@
     }
   },
   "status": "COMPLETE_SUCCESS",
-  "nextCycleScheduledAt": "2026-10-04T23:23:06.515Z"
+  "nextCycleScheduledAt": "2026-10-05T02:55:45.249Z"
 }
