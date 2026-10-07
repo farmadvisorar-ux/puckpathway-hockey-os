@@ -4787,3 +4787,45 @@ body.dark-mode .mobile-nav-toggle-btn {
 
 
 
+
+
+/* ==========================================================================
+   BlueLine DataWorks 3.0 Platform Upgrade Additions
+   ========================================================================== */
+
+.ice-glow-blue {
+  box-shadow: 0 0 20px -3px rgba(37, 99, 235, 0.45);
+}
+
+.ice-glow-cyan {
+  box-shadow: 0 0 20px -3px rgba(6, 182, 212, 0.45);
+}
+
+.ice-glow-emerald {
+  box-shadow: 0 0 20px -3px rgba(16, 185, 129, 0.45);
+}
+
+.ice-glow-amber {
+  box-shadow: 0 0 20px -3px rgba(245, 158, 11, 0.45);
+}
+
+.cmd-shortcut-hint {
+  background: rgba(15, 23, 42, 0.9);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.15);
+}
+
+@keyframes pulse-ice {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.03);
+  }
+}
+
+.animate-pulse-ice {
+  animation: pulse-ice 2.5s infinite ease-in-out;
+}
