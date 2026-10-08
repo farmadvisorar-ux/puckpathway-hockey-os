@@ -2758,48 +2758,92 @@
       });
     });
 
-    // Programmatic view switcher (fixes missing switchView function)
+    // Robust Programmatic View Switcher & Alias Resolver
     function switchView(target) {
       if (!target) return;
       const cleanTarget = String(target).replace(/^#/, '').replace(/^view-/, '').toLowerCase().trim();
-      
-      const allTabs = Array.from(document.querySelectorAll('.tab-btn'));
-      let btn = allTabs.find(b => {
-        const v = (b.getAttribute('data-view') || '').toLowerCase();
-        return v === cleanTarget ||
-               (cleanTarget === 'skills' && v === 'skilltree') ||
-               (cleanTarget === 'skilltree' && v === 'skills') ||
-               (cleanTarget === 'missions' && v === 'dailymissions') ||
-               (cleanTarget === 'dailymissions' && v === 'missions') ||
-               (cleanTarget === 'pathway' && v === 'tierprogression') ||
-               (cleanTarget === 'tierprogression' && v === 'pathways');
+
+      // Normalize target aliases
+      const targetMap = {
+        'skills': 'skilltree',
+        'skill': 'skilltree',
+        'skilltree': 'skilltree',
+        'filmlab': 'videobreakdown',
+        'film': 'videobreakdown',
+        'videobreakdown': 'videobreakdown',
+        'wire': 'thewire',
+        'thewire': 'thewire',
+        'social': 'social',
+        'passport': 'profile',
+        'profile': 'profile',
+        'packages': 'packages',
+        'pricing': 'packages',
+        'ladder': 'tierprogression',
+        'pathway': 'tierprogression',
+        'pathways': 'pathways',
+        'tierprogression': 'tierprogression',
+        'missions': 'dailymissions',
+        'dailymissions': 'dailymissions',
+        'home': 'dashboard',
+        'dashboard': 'dashboard'
+      };
+
+      const resolvedTarget = targetMap[cleanTarget] || cleanTarget;
+
+      const views = document.querySelectorAll('.app-view');
+
+      views.forEach(v => {
+        const viewId = v.id.replace(/^view-/, '').toLowerCase();
+        const isMatch = (viewId === resolvedTarget) ||
+                        (resolvedTarget === 'skilltree' && viewId === 'skilltree') ||
+                        (resolvedTarget === 'videobreakdown' && viewId === 'videobreakdown') ||
+                        (resolvedTarget === 'thewire' && (viewId === 'thewire' || viewId === 'social')) ||
+                        (resolvedTarget === 'profile' && viewId === 'profile') ||
+                        (resolvedTarget === 'packages' && viewId === 'packages') ||
+                        (resolvedTarget === 'tierprogression' && (viewId === 'tierprogression' || viewId === 'pathways')) ||
+                        (resolvedTarget === 'pathways' && viewId === 'pathways');
+
+        v.classList.toggle('active', isMatch);
+        if (isMatch) {
+          v.classList.remove('fade');
+          void v.offsetWidth;
+          v.classList.add('fade');
+        }
       });
 
-      if (btn) {
-        if (btn.style.display === 'none') {
-          const cat = btn.getAttribute('data-category');
-          if (typeof filterTabsByCategory === 'function') {
-            filterTabsByCategory(cat || 'all');
-          }
+      // Update active tab buttons if present
+      const allTabs = Array.from(document.querySelectorAll('.tab-btn'));
+      allTabs.forEach(b => {
+        const v = (b.getAttribute('data-view') || '').toLowerCase();
+        const isMatch = (v === resolvedTarget) || (v === cleanTarget);
+        b.classList.toggle('active', isMatch);
+        if (isMatch && b.style.display === 'none') {
+          b.style.display = 'inline-flex';
         }
-        btn.click();
-        try { btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' }); } catch(e) {}
-      } else {
-        // Fallback: direct element display toggle if tab is filtered out or missing
-        views.forEach(v => {
-          const isMatch = (v.id === 'view-' + cleanTarget);
-          v.classList.toggle('active', isMatch);
-          if (isMatch) {
-            v.classList.remove('fade');
-            void v.offsetWidth;
-            v.classList.add('fade');
-          }
-        });
-        window.location.hash = cleanTarget;
-      }
-      if (cleanTarget === 'recruiting' && typeof renderAppRecruitingBoard === 'function') {
+      });
+
+      // Update mobile bottom dock active state
+      const dockBtns = document.querySelectorAll('.mobile-dock-btn');
+      dockBtns.forEach(d => {
+        const v = (d.getAttribute('data-view') || '').toLowerCase();
+        const isMatch = (v === resolvedTarget) || (v === cleanTarget);
+        d.classList.toggle('active', isMatch);
+      });
+
+      window.location.hash = resolvedTarget;
+
+      // Trigger re-renders if applicable
+      if (resolvedTarget === 'recruiting' && typeof renderAppRecruitingBoard === 'function') {
         renderAppRecruitingBoard();
+      } else if (resolvedTarget === 'thewire' || resolvedTarget === 'social') {
+        if (typeof renderWirePosts === 'function') renderWirePosts('all');
+      } else if (resolvedTarget === 'playerdatabase') {
+        if (typeof renderPlayerDatabaseGrid === 'function') renderPlayerDatabaseGrid();
+      } else if (resolvedTarget === 'packages') {
+        if (typeof renderPackagesView === 'function') renderPackagesView();
       }
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
     window.switchView = switchView;
 
@@ -3488,7 +3532,7 @@
 
     let pendingPaywallTarget = null;
 
-    function openPaywallModal(featureView) {
+    function openPaywallModal(featureView, customDesc) {
       pendingPaywallTarget = featureView || 'coach';
       const modal = document.getElementById('bluelinePaywallModal');
       const titleEl = document.getElementById('paywallModalTitle');
@@ -3504,9 +3548,13 @@
         scout: "Director of Scouting Dossier Export"
       };
 
-      const name = featureNames[featureView] || "Coach & Recruiter Pro Feature";
-      if (titleEl) titleEl.textContent = `Unlock ${name} ($22.99/mo)`;
-      if (subEl) subEl.textContent = `${name} is an elite professional tool reserved for certified coaches and scouts on the $22.99/mo Pro Plan. Your current active plan is ${currentActiveRole.toUpperCase()} ($4.99/mo). Remember: The Wire and athlete directory are 100% free and open for everyone! You can test drive as Coach Adam Nightingale or Scout Dan Marr below to unlock this feature right now.`;
+      const name = featureNames[featureView] || featureView || "Coach & Recruiter Pro Feature";
+      if (titleEl) {
+        titleEl.textContent = name.includes('Upgrade') || name.includes('Unlock') || name.includes('Pro') ? name : `Unlock ${name} ($22.99/mo)`;
+      }
+      if (subEl) {
+        subEl.textContent = customDesc || `${name} is an elite professional tool reserved for certified coaches and scouts on the $22.99/mo Pro Plan. Your current active plan is ${currentActiveRole.toUpperCase()} ($4.99/mo). Remember: The Wire and athlete directory are 100% free and open for everyone! You can test drive as Coach Adam Nightingale or Scout Dan Marr below to unlock this feature right now.`;
+      }
 
       if (modal) {
         modal.classList.remove('hidden');
