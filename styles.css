@@ -4829,3 +4829,29 @@ body.dark-mode .mobile-nav-toggle-btn {
 .animate-pulse-ice {
   animation: pulse-ice 2.5s infinite ease-in-out;
 }
+
+
+/* ==========================================================================
+   Universal Dark Select & Dropdown Option Styling Fix
+   Eliminates white-on-white text in Chrome/Edge/Windows native select popups
+   ========================================================================== */
+
+select {
+  background-color: #0f172a !important;
+  color: #f8fafc !important;
+  border: 1px solid rgba(56, 189, 248, 0.3) !important;
+}
+
+select option {
+  background-color: #0f172a !important;
+  color: #f8fafc !important;
+  padding: 10px 14px !important;
+}
+
+select option:hover,
+select option:focus,
+select option:active,
+select option:checked {
+  background-color: #0284c7 !important;
+  color: #ffffff !important;
+}
