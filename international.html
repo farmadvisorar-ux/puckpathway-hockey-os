@@ -405,6 +405,51 @@
 
     </div>
 
+    <!-- Full-Width Overseas Professional Hockey Clubs Explorer Module -->
+    <section class="mt-8 border-t border-slate-800/80 pt-8">
+      <div class="glass-panel p-6 rounded-3xl border border-slate-800 space-y-6">
+        
+        <!-- Header -->
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-800 pb-5">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="text-2xl">🌍</span>
+              <h2 class="text-lg font-black text-white uppercase tracking-wider">Overseas Professional Hockey Clubs Directory</h2>
+              <span class="px-2 py-0.5 rounded-full bg-rose-500/20 border border-rose-500/30 text-rose-300 text-[10px] font-mono font-bold" id="overseasClubCountBadge">61 VERIFIED CLUBS</span>
+            </div>
+            <p class="text-xs text-slate-400 mt-1">Explore top European, Asian & Australian pro teams, ice dimensions, arena capacities, and import player opportunities on DraftLineup.com.</p>
+          </div>
+
+          <!-- Search & Filter Controls -->
+          <div class="flex flex-wrap items-center gap-2">
+            <div class="relative">
+              <input type="text" id="overseasSearchInput" placeholder="Search clubs, cities, arenas..." class="bg-slate-900 border border-slate-700 focus:border-rose-500 text-slate-100 text-xs rounded-xl px-3 py-2 pl-8 outline-none w-56 placeholder-slate-500 transition">
+              <span class="absolute left-2.5 top-2.5 text-slate-500 text-xs">🔍</span>
+            </div>
+            <select id="overseasLeagueFilter" class="bg-slate-900 border border-slate-700 text-slate-100 text-xs rounded-xl px-3 py-2 outline-none cursor-pointer focus:border-rose-500 transition">
+              <option value="ALL">All Overseas Leagues (61)</option>
+              <option value="SHL">🇸🇪 Sweden - SHL (Tier 1)</option>
+              <option value="HockeyAllsvenskan">🇸🇪 Sweden - Allsvenskan (Tier 2)</option>
+              <option value="Liiga">🇫🇮 Finland - Liiga (Tier 1)</option>
+              <option value="National League">🇨🇭 Switzerland - NL (Tier 1)</option>
+              <option value="DEL">🇩🇪 Germany - DEL (Tier 1)</option>
+              <option value="DEL2">🇩🇪 Germany - DEL2 (Tier 2)</option>
+              <option value="Extraliga">🇨🇿 Czechia - Extraliga (Tier 1)</option>
+              <option value="EIHL">🇬🇧 UK - EIHL (Tier 1)</option>
+              <option value="Asia League">🇯🇵/🇰🇷 Asia League</option>
+              <option value="AIHL">🇦🇺 Australia - AIHL</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Clubs Grid Container -->
+        <div id="overseasClubsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <!-- Populated by JS -->
+        </div>
+
+      </div>
+    </section>
+
   </main>
 
   <!-- Global Toast Notification Container -->
@@ -413,6 +458,7 @@
   <!-- Scripts -->
   <script src="static/js/bundle_data.js"></script>
   <script src="static/js/master_players.js"></script>
+  <script src="static/js/overseas_clubs_database.js"></script>
   <script src="static/js/international_engine.js"></script>
   <script src="static/js/telemetry.js"></script>
   <script src="static/js/auth_engine.js"></script>
@@ -441,6 +487,7 @@
         renderSchedule();
         updateTopGoldFavorite();
         updateMatchPredictorOdds();
+        renderOverseasClubs();
       }
 
       // 1. Nation Selection Tabs
@@ -737,6 +784,94 @@
         toastEl._timer = setTimeout(() => {
           toastEl.className = 'fixed bottom-6 right-6 z-50 px-4 py-2.5 rounded-2xl text-xs font-bold shadow-2xl flex items-center gap-2 transition-all duration-300 transform translate-y-10 opacity-0 pointer-events-none';
         }, 2800);
+      }
+
+      // 4. Overseas Professional Hockey Clubs Master Directory Renderer
+      function renderOverseasClubs() {
+        const clubs = window.DRAFTLINEUP_OVERSEAS_CLUBS || [];
+        const container = document.getElementById('overseasClubsGrid');
+        const badge = document.getElementById('overseasClubCountBadge');
+        const searchInput = document.getElementById('overseasSearchInput');
+        const leagueFilter = document.getElementById('overseasLeagueFilter');
+
+        if (!container) return;
+
+        function updateList() {
+          const query = (searchInput ? searchInput.value : '').toLowerCase().trim();
+          const selectedLeague = leagueFilter ? leagueFilter.value : 'ALL';
+
+          const filtered = clubs.filter(c => {
+            const matchesQuery = !query || 
+              (c.name && c.name.toLowerCase().includes(query)) || 
+              (c.city && c.city.toLowerCase().includes(query)) || 
+              (c.arena && c.arena.toLowerCase().includes(query)) || 
+              (c.league && c.league.toLowerCase().includes(query)) ||
+              (c.country && c.country.toLowerCase().includes(query));
+
+            const matchesLeague = selectedLeague === 'ALL' || (c.league && c.league.toUpperCase().includes(selectedLeague.toUpperCase()));
+
+            return matchesQuery && matchesLeague;
+          });
+
+          if (badge) {
+            badge.textContent = `${filtered.length} OF ${clubs.length} CLUBS`;
+          }
+
+          if (filtered.length === 0) {
+            container.innerHTML = `
+              <div class="col-span-full p-8 text-center glass-panel rounded-2xl border border-slate-800 text-slate-400 font-mono text-xs">
+                No overseas clubs found matching "${query}". Try adjusting your league filter or search query.
+              </div>
+            `;
+            return;
+          }
+
+          container.innerHTML = filtered.map(c => `
+            <div class="p-4 rounded-2xl glass-panel border border-slate-800 hover:border-rose-500/50 transition-all duration-200 space-y-3 flex flex-col justify-between group">
+              <div class="space-y-2">
+                <div class="flex items-start justify-between gap-2">
+                  <div>
+                    <span class="text-xs font-mono font-bold text-rose-400 flex items-center gap-1">
+                      <span>${c.flag || '🏒'}</span> <span>${c.country}</span> • <span>${c.league}</span>
+                    </span>
+                    <h3 class="font-extrabold text-sm text-white group-hover:text-rose-300 transition truncate mt-0.5">${c.name}</h3>
+                  </div>
+                  <span class="text-[9px] font-mono px-2 py-0.5 rounded-full bg-slate-900 border border-slate-800 text-slate-300 font-bold shrink-0">${c.tier}</span>
+                </div>
+
+                <div class="grid grid-cols-2 gap-2 text-[11px] font-mono bg-slate-950/60 p-2.5 rounded-xl border border-slate-800/60">
+                  <div>
+                    <span class="text-[9px] text-slate-500 uppercase block">City / Metro</span>
+                    <span class="text-slate-200 font-semibold truncate block">${c.city}</span>
+                  </div>
+                  <div>
+                    <span class="text-[9px] text-slate-500 uppercase block">Capacity</span>
+                    <span class="text-slate-200 font-semibold truncate block">${c.capacity ? c.capacity.toLocaleString() : 'N/A'} Seats</span>
+                  </div>
+                </div>
+
+                <div class="text-[11px] font-mono text-slate-400 space-y-1">
+                  <div class="flex items-center gap-1.5 text-slate-300 truncate">
+                    <span>🏟️</span> <span class="truncate">${c.arena}</span>
+                  </div>
+                  <p class="text-[10px] text-slate-400 line-clamp-2 leading-relaxed bg-slate-900/40 p-2 rounded-lg border border-slate-800/40">${c.notes || c.pathway || 'Top professional pathway.'}</p>
+                </div>
+              </div>
+
+              <div class="pt-2 border-t border-slate-800/60 flex items-center justify-between gap-2">
+                <a href="scout.html?search=${encodeURIComponent(c.name)}" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-rose-600 text-slate-300 hover:text-white border border-slate-700 text-xs font-bold transition flex items-center gap-1.5 cursor-pointer">
+                  <span>🔭 Scout Club Players</span>
+                </a>
+                <span class="text-[10px] font-mono text-sky-400 font-semibold truncate">${c.rinkSize || 'Olympic Rink'}</span>
+              </div>
+            </div>
+          `).join('');
+        }
+
+        if (searchInput) searchInput.addEventListener('input', updateList);
+        if (leagueFilter) leagueFilter.addEventListener('change', updateList);
+
+        updateList();
       }
 
       // Initial Render
