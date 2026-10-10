@@ -1508,7 +1508,8 @@
   }
 
   // Export to Global Scope
-  window.BlueLineAgentMesh = {
+  const exportTarget = (typeof window !== 'undefined' ? window : (typeof global !== 'undefined' ? global : this));
+  exportTarget.BlueLineAgentMesh = {
     AGENTS: AGENTS,
     OPEN_SOURCE_TARGETS: OPEN_SOURCE_TARGETS,
     calculateSQM: calculateSQM,
@@ -1533,4 +1534,8 @@
     runGeminiIngestionCycle: runGeminiIngestionCycle
   };
 
-})(window);
+  if (typeof module === 'object' && module.exports) {
+    module.exports = exportTarget.BlueLineAgentMesh;
+  }
+
+})(typeof window !== 'undefined' ? window : (typeof global !== 'undefined' ? global : this));

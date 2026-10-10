@@ -16,8 +16,7 @@ for (const f of jsFiles) {
   }
 }
 
-console.log('\nValidating system invariants across HTML files...');
-const EXACT_MISSION = "BlueLine DataWorks is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory.";
+const EXACT_MISSION = "DraftLineup.com is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory.";
 const htmlFiles = fs.readdirSync(ROOT).filter(f => f.endsWith('.html'));
 
 for (const f of htmlFiles) {
