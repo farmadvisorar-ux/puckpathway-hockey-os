@@ -201,9 +201,9 @@
         </div>
       </div>
 
-      <!-- Primary Directory Mode Switcher (Athletes & Staff vs Colleges & High Schools) -->
+      <!-- Primary Directory Mode Switcher (Athletes & Staff vs Colleges & High Schools vs Overseas Pro Clubs) -->
       <div class="flex items-center justify-between flex-wrap gap-3 pt-3 border-t border-slate-800">
-        <div class="flex items-center gap-1.5 bg-slate-950 p-1.5 rounded-2xl border border-slate-800">
+        <div class="flex items-center gap-1.5 bg-slate-950 p-1.5 rounded-2xl border border-slate-800 flex-wrap">
           <button id="modeAthletesBtn" class="px-4 py-2 rounded-xl bg-sky-600 text-white font-bold text-xs flex items-center gap-2 transition active shadow-sm">
             <span>🏒</span> <span>Athletes & Staff Directory</span>
             <span class="px-2 py-0.5 rounded-full bg-sky-400/20 text-sky-200 text-[10px] font-mono font-bold" id="badgeAthletesCount">3,770</span>
@@ -212,10 +212,14 @@
             <span>🏫</span> <span>Colleges & High Schools Registry</span>
             <span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-[10px] font-mono font-bold" id="badgeInstitutionsCount">170 Programs</span>
           </button>
+          <button id="modeOverseasBtn" class="px-4 py-2 rounded-xl text-slate-400 hover:text-white font-bold text-xs flex items-center gap-2 transition">
+            <span>🌍</span> <span>Overseas Pro Clubs Registry</span>
+            <span class="px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-300 text-[10px] font-mono font-bold" id="badgeOverseasCount">61 Teams</span>
+          </button>
         </div>
         <div class="flex items-center gap-2 text-xs font-mono text-slate-400">
           <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-          <span>100% Non-NHL Verified (All Colleges & High Schools)</span>
+          <span>100% Verified Global Hockey Intelligence</span>
         </div>
       </div>
 
@@ -547,6 +551,66 @@
 
     </div>
 
+    <!-- WRAPPER 3: OVERSEAS PRO CLUBS REGISTRY -->
+    <div id="overseasClubsDirectorySection" class="space-y-6 hidden">
+
+      <!-- Faceted Search & Filters Panel for Overseas Clubs -->
+      <div class="glass-panel p-5 rounded-3xl space-y-4 shadow-xl border border-slate-800">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div class="relative flex-1">
+            <input type="text" id="overseasDbSearchInput" placeholder="🔍 Search 61 overseas pro clubs, cities, arenas, leagues..." class="w-full bg-slate-950/90 border border-rose-500/40 rounded-2xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-rose-400 focus:ring-2 focus:ring-rose-400/20 transition shadow-inner">
+            <button id="clearOverseasSearchBtn" class="absolute right-3.5 top-3.5 text-slate-400 hover:text-white text-xs hidden" title="Clear search">✕</button>
+          </div>
+
+          <div class="flex items-center gap-2">
+            <select id="overseasDbLeagueFilter" class="bg-slate-900 border border-slate-700 text-slate-100 text-xs rounded-xl px-3 py-2.5 outline-none cursor-pointer focus:border-rose-500 transition font-mono">
+              <option value="ALL">All Overseas Leagues (61 Teams)</option>
+              <option value="SHL">🇸🇪 Sweden - SHL (Tier 1)</option>
+              <option value="HockeyAllsvenskan">🇸🇪 Sweden - Allsvenskan (Tier 2)</option>
+              <option value="Liiga">🇫🇮 Finland - Liiga (Tier 1)</option>
+              <option value="National League">🇨🇭 Switzerland - NL (Tier 1)</option>
+              <option value="DEL">🇩🇪 Germany - DEL (Tier 1)</option>
+              <option value="DEL2">🇩🇪 Germany - DEL2 (Tier 2)</option>
+              <option value="Extraliga">🇨🇿 Czechia - Extraliga (Tier 1)</option>
+              <option value="EIHL">🇬🇧 UK - EIHL (Tier 1)</option>
+              <option value="Asia League">🇯🇵/🇰🇷 Asia League</option>
+              <option value="AIHL">🇦🇺 Australia - AIHL</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Overseas Clubs Table Container -->
+      <div class="glass-panel rounded-2xl border border-slate-800 overflow-hidden shadow-2xl">
+        <div class="p-4 border-b border-slate-800 flex items-center justify-between text-xs text-slate-400">
+          <div>
+            <span class="font-bold text-white text-sm" id="overseasDbResultCountLabel">Showing 61 Overseas Clubs</span>
+          </div>
+          <div class="font-mono text-[11px] text-rose-400 font-semibold">
+            Official DraftLineup.com International League Registry
+          </div>
+        </div>
+        <div class="overflow-x-auto max-h-[700px] overflow-y-auto">
+          <table class="w-full text-left text-xs border-collapse">
+            <thead class="sticky top-0 z-20 bg-slate-950/95 backdrop-blur border-b border-slate-800 text-[10px] text-slate-400 uppercase tracking-wider font-mono">
+              <tr>
+                <th class="py-3 px-4">CLUB / NATION</th>
+                <th class="py-3 px-3">LEAGUE / TIER</th>
+                <th class="py-3 px-3">ARENA / CAPACITY</th>
+                <th class="py-3 px-3">CITY / LOCATION</th>
+                <th class="py-3 px-3">ICE DIMENSION</th>
+                <th class="py-3 px-4 text-right">ACTION</th>
+              </tr>
+            </thead>
+            <tbody id="overseasDbTableBody" class="divide-y divide-slate-800/60 font-sans text-slate-200">
+              <!-- Dynamically populated by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+
   </main>
 
   <!-- ==================== INSTITUTIONAL DOSSIER DRAWER / MODAL ==================== -->
@@ -679,6 +743,7 @@
   <script src="static/js/bundle_data.js"></script>
   <script src="static/js/master_players.js"></script>
   <script src="static/js/institutions_catalog.js"></script>
+  <script src="static/js/overseas_clubs_database.js"></script>
   <script>
     let allAthletes = [];
     let filteredAthletes = [];
@@ -1207,28 +1272,161 @@
       // Hook up mode switcher buttons
       const modeAthletesBtn = document.getElementById('modeAthletesBtn');
       const modeInstitutionsBtn = document.getElementById('modeInstitutionsBtn');
+      const modeOverseasBtn = document.getElementById('modeOverseasBtn');
+
       const athletesSection = document.getElementById('athletesDirectorySection');
       const instSection = document.getElementById('institutionsDirectorySection');
+      const overseasSection = document.getElementById('overseasClubsDirectorySection');
 
-      if (modeAthletesBtn && modeInstitutionsBtn) {
-        modeAthletesBtn.addEventListener('click', () => {
-          modeAthletesBtn.classList.add('bg-sky-600', 'text-white');
-          modeAthletesBtn.classList.remove('text-slate-400');
-          modeInstitutionsBtn.classList.remove('bg-sky-600', 'text-white');
-          modeInstitutionsBtn.classList.add('text-slate-400');
-          if (athletesSection) athletesSection.classList.remove('hidden');
-          if (instSection) instSection.classList.add('hidden');
+      function activateAthletesMode() {
+        if (modeAthletesBtn) { modeAthletesBtn.className = "px-4 py-2 rounded-xl bg-sky-600 text-white font-bold text-xs flex items-center gap-2 transition active shadow-sm"; }
+        if (modeInstitutionsBtn) { modeInstitutionsBtn.className = "px-4 py-2 rounded-xl text-slate-400 hover:text-white font-bold text-xs flex items-center gap-2 transition"; }
+        if (modeOverseasBtn) { modeOverseasBtn.className = "px-4 py-2 rounded-xl text-slate-400 hover:text-white font-bold text-xs flex items-center gap-2 transition"; }
+
+        if (athletesSection) athletesSection.classList.remove('hidden');
+        if (instSection) instSection.classList.add('hidden');
+        if (overseasSection) overseasSection.classList.add('hidden');
+      }
+
+      function activateInstitutionsMode() {
+        if (modeAthletesBtn) { modeAthletesBtn.className = "px-4 py-2 rounded-xl text-slate-400 hover:text-white font-bold text-xs flex items-center gap-2 transition"; }
+        if (modeInstitutionsBtn) { modeInstitutionsBtn.className = "px-4 py-2 rounded-xl bg-emerald-600 text-white font-bold text-xs flex items-center gap-2 transition active shadow-sm"; }
+        if (modeOverseasBtn) { modeOverseasBtn.className = "px-4 py-2 rounded-xl text-slate-400 hover:text-white font-bold text-xs flex items-center gap-2 transition"; }
+
+        if (athletesSection) athletesSection.classList.add('hidden');
+        if (instSection) instSection.classList.remove('hidden');
+        if (overseasSection) overseasSection.classList.add('hidden');
+        renderInstitutions();
+      }
+
+      function activateOverseasMode() {
+        if (modeAthletesBtn) { modeAthletesBtn.className = "px-4 py-2 rounded-xl text-slate-400 hover:text-white font-bold text-xs flex items-center gap-2 transition"; }
+        if (modeInstitutionsBtn) { modeInstitutionsBtn.className = "px-4 py-2 rounded-xl text-slate-400 hover:text-white font-bold text-xs flex items-center gap-2 transition"; }
+        if (modeOverseasBtn) { modeOverseasBtn.className = "px-4 py-2 rounded-xl bg-rose-600 text-white font-bold text-xs flex items-center gap-2 transition active shadow-sm"; }
+
+        if (athletesSection) athletesSection.classList.add('hidden');
+        if (instSection) instSection.classList.add('hidden');
+        if (overseasSection) overseasSection.classList.remove('hidden');
+        renderOverseasDbTable();
+      }
+
+      if (modeAthletesBtn) modeAthletesBtn.addEventListener('click', activateAthletesMode);
+      if (modeInstitutionsBtn) modeInstitutionsBtn.addEventListener('click', activateInstitutionsMode);
+      if (modeOverseasBtn) modeOverseasBtn.addEventListener('click', activateOverseasMode);
+
+      // Check URL hashtag or parameter for initial tab mode
+      if (window.location.hash === '#overseas' || urlParams.get('mode') === 'overseas') {
+        activateOverseasMode();
+      } else if (window.location.hash === '#institutions' || urlParams.get('mode') === 'institutions') {
+        activateInstitutionsMode();
+      }
+
+      // =========================================================================
+      // OVERSEAS PRO CLUBS DIRECTORY CONTROLLER
+      // =========================================================================
+      let allOverseasClubs = window.DRAFTLINEUP_OVERSEAS_CLUBS || [];
+
+      function renderOverseasDbTable() {
+        const tbody = document.getElementById('overseasDbTableBody');
+        const countLabel = document.getElementById('overseasDbResultCountLabel');
+        const searchInput = document.getElementById('overseasDbSearchInput');
+        const leagueFilter = document.getElementById('overseasDbLeagueFilter');
+
+        if (!tbody) return;
+
+        const query = (searchInput ? searchInput.value : '').toLowerCase().trim();
+        const selectedLeague = leagueFilter ? leagueFilter.value : 'ALL';
+
+        const filtered = allOverseasClubs.filter(c => {
+          const matchesQuery = !query || 
+            (c.name && c.name.toLowerCase().includes(query)) ||
+            (c.city && c.city.toLowerCase().includes(query)) ||
+            (c.arena && c.arena.toLowerCase().includes(query)) ||
+            (c.league && c.league.toLowerCase().includes(query)) ||
+            (c.country && c.country.toLowerCase().includes(query));
+
+          const matchesLeague = selectedLeague === 'ALL' || (c.league && c.league.toUpperCase().includes(selectedLeague.toUpperCase()));
+
+          return matchesQuery && matchesLeague;
         });
 
-        modeInstitutionsBtn.addEventListener('click', () => {
-          modeInstitutionsBtn.classList.add('bg-sky-600', 'text-white');
-          modeInstitutionsBtn.classList.remove('text-slate-400');
-          modeAthletesBtn.classList.remove('bg-sky-600', 'text-white');
-          modeAthletesBtn.classList.add('text-slate-400');
-          if (athletesSection) athletesSection.classList.add('hidden');
-          if (instSection) instSection.classList.remove('hidden');
-          renderInstitutions();
+        if (countLabel) {
+          countLabel.textContent = `Showing ${filtered.length} of ${allOverseasClubs.length} Overseas Clubs`;
+        }
+
+        if (filtered.length === 0) {
+          tbody.innerHTML = `
+            <tr>
+              <td colspan="6" class="p-8 text-center text-slate-400">
+                <div class="text-3xl mb-2">🌍</div>
+                <div class="text-sm font-bold text-white">No overseas pro clubs match your search query.</div>
+              </td>
+            </tr>
+          `;
+          return;
+        }
+
+        tbody.innerHTML = filtered.map(c => `
+          <tr class="hover:bg-slate-900/60 transition group border-b border-slate-800/60">
+            <td class="py-3.5 px-4 font-bold text-white">
+              <div class="flex items-center gap-2">
+                <span class="text-base">${c.flag || '🏒'}</span>
+                <div>
+                  <div class="font-extrabold text-sm text-white group-hover:text-rose-300 transition">${c.name}</div>
+                  <div class="text-[10px] font-mono text-slate-400">${c.country}</div>
+                </div>
+              </div>
+            </td>
+            <td class="py-3.5 px-3">
+              <div class="flex items-center gap-1.5">
+                <span class="px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-300 text-[10px] font-mono font-bold border border-rose-500/30">${c.league}</span>
+                <span class="px-1.5 py-0.5 rounded bg-slate-900 text-slate-400 text-[9px] font-mono">${c.tier}</span>
+              </div>
+            </td>
+            <td class="py-3.5 px-3 font-mono text-xs">
+              <div class="text-slate-200 font-semibold truncate max-w-[200px]">${c.arena}</div>
+              <div class="text-[10px] text-slate-400">${c.capacity ? c.capacity.toLocaleString() : 'N/A'} Seats</div>
+            </td>
+            <td class="py-3.5 px-3 font-mono text-xs text-slate-300">
+              ${c.city}
+            </td>
+            <td class="py-3.5 px-3 font-mono text-xs text-sky-400 font-semibold">
+              ${c.rinkSize || 'Olympic Rink'}
+            </td>
+            <td class="py-3.5 px-4 text-right">
+              <a href="scout.html?search=${encodeURIComponent(c.name)}" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-rose-600 text-slate-300 hover:text-white border border-slate-700 text-xs font-bold transition inline-flex items-center gap-1 cursor-pointer">
+                <span>🔭 Scout Club</span>
+              </a>
+            </td>
+          </tr>
+        `).join('');
+      }
+
+      const overseasSearchInput = document.getElementById('overseasDbSearchInput');
+      const clearOverseasSearchBtn = document.getElementById('clearOverseasSearchBtn');
+      const overseasLeagueFilter = document.getElementById('overseasDbLeagueFilter');
+
+      if (overseasSearchInput) {
+        overseasSearchInput.addEventListener('input', () => {
+          if (overseasSearchInput.value.trim()) {
+            if (clearOverseasSearchBtn) clearOverseasSearchBtn.classList.remove('hidden');
+          } else {
+            if (clearOverseasSearchBtn) clearOverseasSearchBtn.classList.add('hidden');
+          }
+          renderOverseasDbTable();
         });
+      }
+
+      if (clearOverseasSearchBtn) {
+        clearOverseasSearchBtn.addEventListener('click', () => {
+          if (overseasSearchInput) overseasSearchInput.value = '';
+          clearOverseasSearchBtn.classList.add('hidden');
+          renderOverseasDbTable();
+        });
+      }
+
+      if (overseasLeagueFilter) {
+        overseasLeagueFilter.addEventListener('change', renderOverseasDbTable);
       }
 
       const instSearchInput = document.getElementById('instSearchInput');

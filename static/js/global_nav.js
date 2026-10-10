@@ -834,6 +834,43 @@
             }
           }
 
+          if (window.DRAFTLINEUP_OVERSEAS_CLUBS && Array.isArray(window.DRAFTLINEUP_OVERSEAS_CLUBS)) {
+            const matchingOverseas = window.DRAFTLINEUP_OVERSEAS_CLUBS.filter(c => {
+              return (c.name && c.name.toLowerCase().includes(query)) ||
+                     (c.city && c.city.toLowerCase().includes(query)) ||
+                     (c.league && c.league.toLowerCase().includes(query)) ||
+                     (c.arena && c.arena.toLowerCase().includes(query)) ||
+                     (c.country && c.country.toLowerCase().includes(query));
+            }).slice(0, 4);
+
+            if (matchingOverseas.length > 0) {
+              entityMatchCount += matchingOverseas.length;
+              entityHtml += `
+                <div style="display:flex; flex-direction:column; gap:0.5rem; margin-bottom:1rem; border-bottom:1px solid rgba(51,65,85,0.6); padding-bottom:1rem;">
+                  <div style="display:flex; align-items:center; justify-content:space-between; padding:0 0.25rem;">
+                    <span style="font-size:0.75rem; font-family:monospace; font-weight:bold; color:#f43f5e; letter-spacing:0.05em; text-transform:uppercase;">
+                      🌍 OVERSEAS PRO CLUBS (${matchingOverseas.length} Matches)
+                    </span>
+                    <a href="database.html?mode=overseas&q=${encodeURIComponent(query)}" style="font-size:0.72rem; color:#f43f5e; font-weight:bold; text-decoration:none;">View Overseas Registry &rarr;</a>
+                  </div>
+                  <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(260px, 1fr)); gap:0.65rem;">
+                    ${matchingOverseas.map(c => `
+                      <a href="scout.html?search=${encodeURIComponent(c.name)}" class="module-card" style="border-color:rgba(244,63,94,0.4);">
+                        <div class="module-icon-box" style="border-color:rgba(244,63,94,0.4); color:#f43f5e; font-weight:bold; font-size:0.85rem;">
+                          ${c.flag || '🏒'}
+                        </div>
+                        <div class="module-content">
+                          <div class="module-name" style="color:#ffffff;">${c.name}</div>
+                          <div class="module-desc" style="color:#94a3b8;">${c.league} (${c.tier}) · ${c.city}, ${c.country}</div>
+                        </div>
+                      </a>
+                    `).join('')}
+                  </div>
+                </div>
+              `;
+            }
+          }
+
           if (entityHtml) {
             entityContainer.innerHTML = entityHtml;
             entityContainer.classList.remove("hidden");

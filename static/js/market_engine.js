@@ -48,7 +48,11 @@
     { id: "asset_05", name: "Nikolaj Ehlers", team: "dal", pos: "LW", capHit: 6000000, expiry: "2025 (UFA)", valuePoints: 420, role: "Dynamic Transition Winger" },
     { id: "asset_06", name: "David Savard", team: "mtl", pos: "RD", capHit: 3500000, expiry: "2025 (UFA)", valuePoints: 190, role: "Veteran Shot Blocker & PK Anchor" },
     { id: "asset_07", name: "Taylor Hall", team: "chi", pos: "LW", capHit: 6000000, expiry: "2025 (UFA)", valuePoints: 260, role: "Former MVP Middle-6 Winger" },
-    { id: "asset_08", name: "Mikael Granlund", team: "sjs", pos: "C", capHit: 5000000, expiry: "2025 (UFA)", valuePoints: 310, role: "Two-Way Playmaking Veteran C" }
+    { id: "asset_08", name: "Mikael Granlund", team: "sjs", pos: "C", capHit: 5000000, expiry: "2025 (UFA)", valuePoints: 310, role: "Two-Way Playmaking Veteran C" },
+    { id: "asset_09", name: "Michael Hage", team: "mtl", pos: "C", capHit: 950000, expiry: "Entry-Level (NCAA)", valuePoints: 520, role: "NCAA Phenom / 1st Round Center" },
+    { id: "asset_10", name: "Zeev Buium", team: "min", pos: "D", capHit: 950000, expiry: "Entry-Level (NCAA)", valuePoints: 580, role: "Puck-Moving NCAA Defenseman" },
+    { id: "asset_11", name: "Ivan Demidov", team: "mtl", pos: "RW", capHit: 950000, expiry: "Entry-Level (KHL Loan)", valuePoints: 720, role: "Franchise Dynamic Winger (Overseas)" },
+    { id: "asset_12", name: "Axel Sandin Pellikka", team: "det", pos: "RD", capHit: 950000, expiry: "Entry-Level (SHL Loan)", valuePoints: 540, role: "Skellefteå AIK Top Defender (SHL)" }
   ];
 
   // =========================================================================
