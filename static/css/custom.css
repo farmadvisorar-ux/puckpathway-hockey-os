@@ -442,3 +442,45 @@ select option:checked {
   background-color: #0284c7 !important;
   color: #ffffff !important;
 }
+
+/* Printable Executive Dossier & Scouting Report Optimization */
+@media print {
+  body {
+    background: #ffffff !important;
+    color: #0f172a !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  header, nav, #mobileBottomNav, #aiScoutingCopilotDrawer, #aiScoutingCopilotToggleBtn, .no-print, button, #scoutSearchResultsDropdown, #passportEditPanel {
+    display: none !important;
+  }
+  .glass-panel, .glass-card {
+    background: #ffffff !important;
+    border: 1px solid #cbd5e1 !important;
+    box-shadow: none !important;
+    color: #0f172a !important;
+  }
+  .text-white, .text-slate-100, .text-slate-300 {
+    color: #0f172a !important;
+  }
+  .text-slate-400, .text-slate-500 {
+    color: #475569 !important;
+  }
+  .text-sky-300, .text-sky-400 {
+    color: #0284c7 !important;
+  }
+  .text-emerald-300, .text-emerald-400 {
+    color: #059669 !important;
+  }
+  .text-amber-300, .text-amber-400 {
+    color: #d97706 !important;
+  }
+  .bg-slate-950, .bg-slate-900, .bg-slate-950\/90, .bg-slate-950\/80, .bg-slate-900\/70 {
+    background: #f8fafc !important;
+    border-color: #e2e8f0 !important;
+  }
+  .glass-panel, .glass-card, tr, blockquote {
+    page-break-inside: avoid;
+  }
+}
+

@@ -1071,6 +1071,11 @@
   function initGlobalNav() {
     renderAppLauncherModal();
     renderMobileBottomNav();
+    if (!window.BlueLineAIScoutingCopilot && typeof document !== 'undefined' && !document.querySelector('script[src*="ai_scouting_copilot.js"]')) {
+      const s = document.createElement('script');
+      s.src = 'static/js/ai_scouting_copilot.js';
+      document.head.appendChild(s);
+    }
   }
 
   if (document.readyState === "loading") {
