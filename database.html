@@ -6,31 +6,33 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>DraftLineup.com - Lifelong Hockey Intelligence & Draft OS</title>
-  <meta name="description" content="DraftLineup.com is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory.">
-  <link rel="icon" type="image/jpeg" href="static/img/blueline_logo.jpg">
-  <link rel="apple-touch-icon" href="static/img/blueline_logo.jpg">
+  <!-- Favicons & Icons -->
+  <link rel="icon" type="image/svg+xml" href="static/img/draftlineup_crest.svg">
+  <link rel="icon" type="image/jpeg" href="static/img/draftlineup_logo.jpg">
+  <link rel="apple-touch-icon" href="static/img/draftlineup_logo.jpg">
 
-    <!-- Open Graph / Social Link Preview -->
+  <!-- Open Graph / Social Link Preview -->
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="DraftLineup.com">
-  
   <meta property="og:url" content="https://draftlineup.com/database.html">
-  <meta property="og:title" content="DraftLineup.com - Master Directory">
+  <meta property="og:title" content="Master Global Hockey Directory & Player Passport Registry | DraftLineup.com">
   <meta property="og:description" content="DraftLineup.com is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory.">
-  <meta property="og:image" content="https://draftlineup.com/static/img/blueline_og_preview.jpg">
-  <meta property="og:image:secure_url" content="https://draftlineup.com/static/img/blueline_og_preview.jpg">
+  <meta property="og:image" content="https://draftlineup.com/static/img/draftlineup_og_banner.jpg">
+  <meta property="og:image:secure_url" content="https://draftlineup.com/static/img/draftlineup_og_banner.jpg">
   <meta property="og:image:type" content="image/jpeg">
   <meta property="og:image:width" content="1280">
   <meta property="og:image:height" content="720">
-  <meta property="og:image:alt" content="DraftLineup.com Master Directory">
-  <link rel="image_src" href="https://draftlineup.com/static/img/blueline_og_preview.jpg">
-  <meta name="thumbnail" content="https://draftlineup.com/static/img/blueline_og_preview.jpg">
+  <meta property="og:image:alt" content="DraftLineup.com - Lifelong Hockey Intelligence & Draft OS">
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="DraftLineup.com - Master Directory">
+  <meta name="twitter:site" content="@DraftLineup">
+  <meta name="twitter:title" content="Master Global Hockey Directory & Player Passport Registry | DraftLineup.com">
   <meta name="twitter:description" content="DraftLineup.com is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory.">
-  <meta name="twitter:image" content="https://draftlineup.com/static/img/blueline_og_preview.jpg">
+  <meta name="twitter:image" content="https://draftlineup.com/static/img/draftlineup_og_banner.jpg">
+  <meta name="twitter:image:alt" content="DraftLineup.com - Lifelong Hockey Intelligence & Draft OS">
+
+  <meta name="description" content="DraftLineup.com is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory.">
 
   <!-- JSON-LD Schema -->
   <script type="application/ld+json">
@@ -214,7 +216,7 @@
           </button>
           <button id="modeOverseasBtn" class="px-4 py-2 rounded-xl text-slate-400 hover:text-white font-bold text-xs flex items-center gap-2 transition">
             <span>🌍</span> <span>Overseas Pro Clubs Registry</span>
-            <span class="px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-300 text-[10px] font-mono font-bold" id="badgeOverseasCount">61 Teams</span>
+            <span class="px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-300 text-[10px] font-mono font-bold" id="badgeOverseasCount">118 Teams</span>
           </button>
         </div>
         <div class="flex items-center gap-2 text-xs font-mono text-slate-400">
@@ -558,23 +560,27 @@
       <div class="glass-panel p-5 rounded-3xl space-y-4 shadow-xl border border-slate-800">
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div class="relative flex-1">
-            <input type="text" id="overseasDbSearchInput" placeholder="🔍 Search 61 overseas pro clubs, cities, arenas, leagues..." class="w-full bg-slate-950/90 border border-rose-500/40 rounded-2xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-rose-400 focus:ring-2 focus:ring-rose-400/20 transition shadow-inner">
+            <input type="text" id="overseasDbSearchInput" placeholder="🔍 Search 118 overseas pro clubs, cities, arenas, leagues..." class="w-full bg-slate-950/90 border border-rose-500/40 rounded-2xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-rose-400 focus:ring-2 focus:ring-rose-400/20 transition shadow-inner">
             <button id="clearOverseasSearchBtn" class="absolute right-3.5 top-3.5 text-slate-400 hover:text-white text-xs hidden" title="Clear search">✕</button>
           </div>
 
           <div class="flex items-center gap-2">
             <select id="overseasDbLeagueFilter" class="bg-slate-900 border border-slate-700 text-slate-100 text-xs rounded-xl px-3 py-2.5 outline-none cursor-pointer focus:border-rose-500 transition font-mono">
-              <option value="ALL">All Overseas Leagues (61 Teams)</option>
+              <option value="ALL">All Overseas Leagues (118 Teams)</option>
               <option value="SHL">🇸🇪 Sweden - SHL (Tier 1)</option>
               <option value="HockeyAllsvenskan">🇸🇪 Sweden - Allsvenskan (Tier 2)</option>
               <option value="Liiga">🇫🇮 Finland - Liiga (Tier 1)</option>
               <option value="National League">🇨🇭 Switzerland - NL (Tier 1)</option>
               <option value="DEL">🇩🇪 Germany - DEL (Tier 1)</option>
               <option value="DEL2">🇩🇪 Germany - DEL2 (Tier 2)</option>
-              <option value="Extraliga">🇨🇿 Czechia - Extraliga (Tier 1)</option>
+              <option value="Mestis">🇫🇮 Finland - Mestis (Tier 2)</option>
+              <option value="Extraliga">🇨🇿 Czechia - Tipsport Extraliga (Tier 1)</option>
+              <option value="ICEHL">🇦🇹/🇮🇹/🇭🇺 Austria - ICEHL (Tier 1)</option>
+              <option value="EliteHockey">🇳🇴 Norway - EliteHockey (Tier 1)</option>
               <option value="EIHL">🇬🇧 UK - EIHL (Tier 1)</option>
               <option value="Asia League">🇯🇵/🇰🇷 Asia League</option>
               <option value="AIHL">🇦🇺 Australia - AIHL</option>
+              <option value="KHL">🇷🇺 Europe/KHL Pro</option>
             </select>
           </div>
         </div>
@@ -584,7 +590,7 @@
       <div class="glass-panel rounded-2xl border border-slate-800 overflow-hidden shadow-2xl">
         <div class="p-4 border-b border-slate-800 flex items-center justify-between text-xs text-slate-400">
           <div>
-            <span class="font-bold text-white text-sm" id="overseasDbResultCountLabel">Showing 61 Overseas Clubs</span>
+            <span class="font-bold text-white text-sm" id="overseasDbResultCountLabel">Showing 118 Overseas Clubs</span>
           </div>
           <div class="font-mono text-[11px] text-rose-400 font-semibold">
             Official DraftLineup.com International League Registry
@@ -741,6 +747,7 @@
 
   <!-- Scripts -->
   <script src="static/js/bundle_data.js"></script>
+  <script src="static/js/overseas_players_database.js"></script>
   <script src="static/js/master_players.js"></script>
   <script src="static/js/institutions_catalog.js"></script>
   <script src="static/js/overseas_clubs_database.js"></script>
@@ -1325,6 +1332,9 @@
       // OVERSEAS PRO CLUBS DIRECTORY CONTROLLER
       // =========================================================================
       let allOverseasClubs = window.DRAFTLINEUP_OVERSEAS_CLUBS || [];
+      if (document.getElementById('badgeOverseasCount')) {
+        document.getElementById('badgeOverseasCount').textContent = `${allOverseasClubs.length} Teams`;
+      }
 
       function renderOverseasDbTable() {
         const tbody = document.getElementById('overseasDbTableBody');
