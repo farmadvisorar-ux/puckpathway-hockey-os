@@ -6,13 +6,15 @@ const overseasPlayers = global.DRAFTLINEUP_OVERSEAS_PLAYERS || [];
 const masterPlayers = global.MASTER_PLAYERS || [];
 const allPersonnel = global.MASTER_ALL_REGISTRY || [];
 
-console.log('Overseas players count:', overseasPlayers.length, '(Expected: 80)');
-console.log('Master players count:', masterPlayers.length, '(Expected: 4160)');
-console.log('All personnel count:', allPersonnel.length, '(Expected: 4301)');
+console.log('Overseas players count:', overseasPlayers.length, '(Expected: 110)');
+console.log('Master players count:', masterPlayers.length, '(Expected: 4190)');
+console.log('All personnel count:', allPersonnel.length, '(Expected: 4331)');
 
 const targetClubs = [
   'Tingsryds AIF', 'Almtuna IS', 'Kalmar HC', 'Nybro Vikings IF', 'Vimmerby HC',
-  'RoKi Rovaniemi', 'Kokkolan Hermes', 'JoKP Joensuu', 'Kiekko-Vantaa', 'KeuPa HT'
+  'RoKi Rovaniemi', 'Kokkolan Hermes', 'JoKP Joensuu', 'Kiekko-Vantaa', 'KeuPa HT',
+  'EHC Olten', 'EHC Visp', 'HC La Chaux-de-Fonds', 'HC Sierre', 'EHC Basel',
+  'Kassel Huskies', 'Krefeld Pinguine', 'Ravensburg Towerstars', 'EV Landshut', 'Dresdner Eislöwen'
 ];
 
 targetClubs.forEach((club, idx) => {

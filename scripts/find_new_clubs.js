@@ -24,8 +24,9 @@ const clubObjMap = new Map(allClubs.map(c => [c.id, c]));
 
 console.log('Old count:', oldClubs.length, 'Cur count:', curClubs.length, 'Newly added:', newlyAdded.length);
 
-console.log('\nFirst 10 newly added clubs:');
-newlyAdded.slice(0, 10).forEach((id, idx) => {
+console.log('\nNext 10 newly added clubs (11 to 20):');
+newlyAdded.slice(10, 20).forEach((id, idx) => {
   const c = clubObjMap.get(id);
-  console.log(`${idx + 1}. [${id}] ${c ? c.name : ''} (${c ? c.league : ''}, ${c ? c.country : ''})`);
+  console.log(`${idx + 11}. [${id}] ${c ? c.name : ''} (${c ? c.league : ''}, ${c ? c.country : ''})`);
+  console.log('   Arena: ' + (c ? c.arena : '') + ', Capacity: ' + (c ? c.capacity : '') + ', City: ' + (c ? c.city : ''));
 });
