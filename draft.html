@@ -245,7 +245,7 @@
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-3 border-t border-slate-800/80 text-xs font-mono">
         <div class="p-2.5 rounded-xl bg-slate-900/60 border border-slate-800">
           <div class="text-[10px] text-slate-400">PICKS COMPLETED</div>
-          <div class="text-base sm:text-lg font-black text-cyan-400" id="statCompletedPicks">0 / 32</div>
+          <div class="text-base sm:text-lg font-black text-cyan-400" id="statCompletedPicks">0 / 64</div>
         </div>
         <div class="p-2.5 rounded-xl bg-slate-900/60 border border-slate-800">
           <div class="text-[10px] text-slate-400">TOP AVAILABLE PROSPECT</div>
@@ -259,6 +259,71 @@
           <div class="text-[10px] text-slate-400">LEAD EVALUATOR</div>
           <div class="text-base sm:text-lg font-black text-emerald-400 truncate">Director of Scouting</div>
         </div>
+      </div>
+    </div>
+
+    
+    <!-- ON THE CLOCK & SIMULATION COMMAND CONSOLE -->
+    <div class="glass-panel p-4 sm:p-5 rounded-3xl border border-sky-500/40 shadow-2xl bg-slate-950/80 space-y-4">
+      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+        
+        <!-- OTC Franchise Status -->
+        <div class="flex items-center gap-3.5 min-w-0">
+          <div class="w-14 h-14 rounded-2xl bg-slate-900 border border-slate-800 flex items-center justify-center text-3xl shadow-inner shrink-0" id="otcTeamLogo">
+            🦈
+          </div>
+          <div class="space-y-1 min-w-0">
+            <div class="flex items-center gap-2 flex-wrap">
+              <span id="clockBadge" class="px-2.5 py-1 rounded-lg bg-red-500/20 text-red-400 font-mono font-bold text-[11px] border border-red-500/40 uppercase tracking-wider flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-red-400 animate-ping"></span> ROUND 1 • ON THE CLOCK
+              </span>
+              <span class="text-xs font-mono text-cyan-400 font-bold">PICK #<span id="currentPickNumDisplay">1</span> OVERALL</span>
+              <span class="text-xs font-mono text-slate-400 bg-slate-900 px-2 py-0.5 rounded border border-slate-800 flex items-center gap-1">
+                ⏱️ <span id="pickTimerDisplay">02:00</span>
+              </span>
+            </div>
+            <h2 class="text-lg sm:text-xl font-black text-white truncate" id="otcTeamName">San Jose Sharks</h2>
+            <p class="text-xs text-slate-400 font-mono truncate" id="otcNeeds">Needs: 1C Franchise Center, Top-Pair RHD, Puck-Moving D</p>
+          </div>
+        </div>
+
+        <!-- User Franchise Selector & Action Buttons -->
+        <div class="flex flex-wrap items-center gap-2 shrink-0">
+          <!-- Select Your Team -->
+          <div class="flex items-center gap-2 bg-slate-900/90 border border-slate-800 px-3 py-1.5 rounded-xl">
+            <span class="text-xs font-mono text-slate-400 font-bold">YOUR TEAM:</span>
+            <select id="userTeamSelect" class="bg-slate-950 border border-slate-700 text-white text-xs rounded-lg px-2 py-1 font-mono outline-none focus:border-cyan-400 cursor-pointer">
+              <!-- Populated by JS -->
+            </select>
+          </div>
+
+          <!-- Trade Machine Button -->
+          <button id="openTradeModalBtn" type="button" class="px-3 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-amber-400 border border-amber-500/40 font-bold text-xs flex items-center gap-1.5 transition active:scale-95 cursor-pointer">
+            🤝 Trade Machine
+          </button>
+
+          <!-- Simulation Actions -->
+          <button id="simNextPickBtn" type="button" class="px-3.5 py-2 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-bold text-xs shadow-md transition flex items-center gap-1.5 active:scale-95 cursor-pointer">
+            <i class="fa-solid fa-play"></i> Sim Next Pick
+          </button>
+
+          <button id="simToUserBtn" type="button" class="px-3.5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs shadow-md transition flex items-center gap-1.5 active:scale-95 cursor-pointer">
+            ⏩ Sim to Your Pick
+          </button>
+
+          <button id="simRoundBtn" type="button" class="px-3.5 py-2 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-bold text-xs shadow-md transition flex items-center gap-1.5 active:scale-95 cursor-pointer">
+            ⚡ Sim Round 1
+          </button>
+
+          <button id="simFullDraftBtn" type="button" class="px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs shadow-md transition flex items-center gap-1.5 active:scale-95 cursor-pointer">
+            🏆 Sim Entire Draft (64 Picks)
+          </button>
+
+          <button id="resetDraftBtn" type="button" class="px-3 py-2 rounded-xl bg-slate-900 hover:bg-red-950 text-slate-400 hover:text-red-300 border border-slate-800 hover:border-red-800 font-bold text-xs transition active:scale-95 cursor-pointer" title="Reset Draft">
+            🔄 Reset
+          </button>
+        </div>
+
       </div>
     </div>
 
@@ -306,7 +371,7 @@
               </h3>
               <p class="text-[10px] text-slate-400 font-mono">Ranked by Lifelong Development & Feeder Score</p>
             </div>
-            <span class="text-[11px] font-mono text-cyan-400" id="availCount">32 Available</span>
+            <span class="text-[11px] font-mono text-cyan-400" id="availCount">64 Available</span>
           </div>
 
           <!-- Dual Filter Ribbons: Positional & Institutional Feeder Pipeline -->
@@ -444,6 +509,7 @@
       let state = engine.getState();
       let activePosFilter = 'all';
       let activePipeFilter = 'all';
+      let activeRoundFilter = 'all';
 
       // 1. Populate User Team Select Dropdown
       const userTeamSelect = document.getElementById('userTeamSelect');
@@ -762,7 +828,7 @@
         renderBigBoard();
         renderInspector();
 
-        document.getElementById('statCompletedPicks').textContent = `${state.draftLog.length} / 32`;
+        document.getElementById('statCompletedPicks').textContent = `${state.draftLog.length} / 64`;
         document.getElementById('statTradesCount').textContent = state.tradesMade.length;
         document.getElementById('statTopProspect').textContent = state.availableProspects[0] ? `${state.availableProspects[0].name} (${state.availableProspects[0].pos})` : 'None Available';
       }
