@@ -579,7 +579,7 @@
                   <span>🛡️</span> Immutable Verification Ledger Policy
                 </div>
                 <p class="text-[11px] text-slate-300 leading-relaxed">
-                  All profiles registered on BlueLine DataWorks are stamped with a cryptographic block signature. Any subsequent combine biometrics, GPA attestations, or video clips are immutably logged on your ledger to guarantee recruiter integrity.
+                  All profiles registered on DraftLineup.com are stamped with a cryptographic block signature. Any subsequent combine biometrics, GPA attestations, or video clips are immutably logged on your ledger to guarantee recruiter integrity.
                 </p>
               </div>
 
@@ -1854,7 +1854,7 @@
           role: "admin",
           role_title: "Platform Administrator",
           badge: "PLATFORM ADMIN",
-          team: "BlueLine DataWorks HQ",
+          team: "DraftLineup.com HQ",
           league: "Operations Bureau",
           avatar: "⚙️",
           avatar_gradient: "from-slate-700 to-indigo-950",

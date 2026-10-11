@@ -1,5 +1,5 @@
 /* ==========================================================================
-   PuckPathway Hockey OS - Stylesheet
+   DraftLineup.com - Lifelong Hockey Intelligence & Draft OS Stylesheet
    ========================================================================== */
 
 :root {
@@ -3765,7 +3765,7 @@ body.dark-mode .section-subtitle strong {
   border-radius: 4px;
 }
 
-/* Why Each Role Uses PuckPathway Grid */
+/* Why Each Role Uses DraftLineup.com Grid */
 .why-roles-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));

@@ -609,7 +609,7 @@
     let visibleModules = MODULES;
     let suiteTitle = "All Enterprise Modules";
     let suiteBadge = "22 Active";
-    let suiteSub = "BlueLine DataWorks Integrated Hockey Analytics Ecosystem";
+    let suiteSub = "DraftLineup.com Integrated Hockey Analytics Ecosystem";
     let searchPlaceholder = "Search 22 modules, 170 colleges & high schools, or athletes... (e.g. 'Denver', 'Edina', 'scout', 'draft')";
     let upgradeBannerHtml = "";
 
@@ -738,7 +738,7 @@
             <span style="font-family:monospace; font-size:0.75rem;">Press <strong style="color:#e2e8f0;">Ctrl+K</strong> anywhere to open</span>
           </div>
           <div style="font-size:0.72rem; color:#64748b; text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">
-            BlueLine DataWorks • The only hockey analytics platform tracking athletes from youth through pro careers.
+            DraftLineup.com • The only hockey analytics platform tracking athletes from youth through pro careers.
           </div>
         </div>
 

@@ -1,4 +1,4 @@
-﻿// Automatically generated bundle data for PuckPathway OS
+// Automatically generated bundle data for DraftLineup.com
 window.EMBEDDED_PUCKPATHWAY_DATA = {
     "levels":  [
                    {
@@ -25246,3 +25246,4 @@ window.EMBEDDED_PUCKPATHWAY_DATA = {
                         }
                     ]
 };
+window.EMBEDDED_DRAFTLINEUP_DATA = window.EMBEDDED_PUCKPATHWAY_DATA;

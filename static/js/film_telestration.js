@@ -265,7 +265,7 @@ class FilmTelestrationCanvas {
 
   exportPNG() {
     const link = document.createElement('a');
-    link.download = puckpathway_film_breakdown_.png;
+    link.download = `draftlineup_film_breakdown_${Date.now()}.png`;
     link.href = this.canvas.toDataURL('image/png');
     link.click();
   }

@@ -115,7 +115,7 @@ class HockeyRinkCanvas {
 
   exportPNG() {
     const link = document.createElement('a');
-    link.download = `puckpathway_drill_${Date.now()}.png`;
+    link.download = `draftlineup_drill_${Date.now()}.png`;
     link.href = this.canvas.toDataURL('image/png');
     link.click();
   }

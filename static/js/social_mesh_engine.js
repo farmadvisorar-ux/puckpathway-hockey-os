@@ -32,9 +32,9 @@
       role: "scout",
       badge: BADGES.SCOUT,
       title: "Head of Scouting & Recruitment",
-      organization: "BlueLine DataWorks Bureau",
+      organization: "DraftLineup.com Bureau",
       location: "Minneapolis / Chicago",
-      bio: "Head of Scouting at BlueLine DataWorks. Tracking 2,974+ non-NHL athletes across NCAA D1, USHL, NAHL, and prep academies. DMs open for verified prospect submissions.",
+      bio: "Head of Scouting at DraftLineup.com. Tracking 3,770+ non-NHL athletes across NCAA D1, USHL, NAHL, and prep academies. DMs open for verified prospect submissions.",
       avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=250&q=80",
       avatarColor: "from-amber-500 to-indigo-600",
       banner: "https://images.unsplash.com/photo-1580748141549-71748dbe0bdc?auto=format&fit=crop&w=1200&q=80",
@@ -135,7 +135,7 @@
       id: "post_001",
       authorId: "usr_scout_director",
       timestamp: "12m ago",
-      content: "Deep scouting review on Michael Hage (#19) from Michigan's weekend series. Elite edge work on the regroup with high-danger slot pass completion at 88%. Look for his transition speed to translate seamlessly to the next level. Complete dossier stamped in BlueLine DataWorks. #NCAA #ScoutingReport #MichiganHockey",
+      content: "Deep scouting review on Michael Hage (#19) from Michigan's weekend series. Elite edge work on the regroup with high-danger slot pass completion at 88%. Look for his transition speed to translate seamlessly to the next level. Complete dossier stamped in DraftLineup.com. #NCAA #ScoutingReport #MichiganHockey",
       tags: ["#NCAA", "#ScoutingReport", "#MichiganHockey"],
       likes: 142,
       reposts: 38,
@@ -221,7 +221,7 @@
       lastTimestamp: "18m ago",
       unread: 1,
       messages: [
-        { senderId: "usr_scout_director", text: "Hey Michael, Director of Scouting here from BlueLine DataWorks. Outstanding game against Wisconsin on Friday.", time: "Yesterday 4:15 PM" },
+        { senderId: "usr_scout_director", text: "Hey Michael, Director of Scouting here from DraftLineup.com. Outstanding game against Wisconsin on Friday.", time: "Yesterday 4:15 PM" },
         { senderId: "usr_michael_hage", text: "Thanks Director! Really appreciate you coming out to Yost. The transition speed felt crisp.", time: "Yesterday 4:45 PM" },
         { senderId: "usr_scout_director", text: "Looking forward to reviewing your weekend film. Great execution on that 2nd period cutback.", time: "18m ago" }
       ]
@@ -288,9 +288,9 @@
     const name = authUser.name || "Hockey Athlete";
     const handle = authUser.username || name.toLowerCase().replace(/[^a-z0-9_]/g, '_');
     const title = authUser.role_title || (dossier ? `${dossier.primary_role} (#${dossier.num})` : (authUser.num ? `Forward (#${authUser.num})` : "Verified Athlete"));
-    const org = authUser.team || (dossier ? dossier.team : "BlueLine DataWorks");
+    const org = authUser.team || (dossier ? dossier.team : "DraftLineup.com");
     const loc = authUser.location || (dossier ? (dossier.hometown || dossier.league) : "USA / Canada");
-    const bio = authUser.bio || (dossier ? `Verified athlete dossier for ${dossier.name}. Competing in ${dossier.league || 'Amateur'} for ${dossier.team || 'Amateur Club'}.` : "BlueLine DataWorks registered member.");
+    const bio = authUser.bio || (dossier ? `Verified athlete dossier for ${dossier.name}. Competing in ${dossier.league || 'Amateur'} for ${dossier.team || 'Amateur Club'}.` : "DraftLineup.com registered member.");
     const avatar = authUser.avatarImg || "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=250&q=80";
 
     return {
@@ -403,7 +403,7 @@
       title: formData.title || (formData.role === 'athlete' ? "Forward / Defenseman" : "Team Personnel"),
       organization: formData.organization || "Independent Amateur",
       location: formData.location || "USA / Canada",
-      bio: formData.bio || "BlueLine DataWorks registered member. Dedicated to lifelong hockey development and analytics.",
+      bio: formData.bio || "DraftLineup.com registered member. Dedicated to lifelong hockey development and analytics.",
       avatar: formData.avatar || "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=250&q=80",
       avatarColor: "from-sky-500 to-indigo-600",
       banner: formData.banner || "https://images.unsplash.com/photo-1580748141549-71748dbe0bdc?auto=format&fit=crop&w=1200&q=80",
@@ -942,9 +942,9 @@
         role: fallbackObj.role || 'scout',
         badge: BADGES.SCOUT,
         title: fallbackObj.title || 'Scouting Specialist',
-        organization: fallbackObj.organization || 'BlueLine DataWorks',
+        organization: fallbackObj.organization || 'DraftLineup.com',
         location: 'North America',
-        bio: 'Verified BlueLine Scouting Bureau contributor.',
+        bio: 'Verified DraftLineup Scouting Bureau contributor.',
         avatar: fallbackObj.avatar || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=250&q=80',
         banner: 'https://images.unsplash.com/photo-1580748141549-71748dbe0bdc?auto=format&fit=crop&w=1200&q=80',
         level: 88,

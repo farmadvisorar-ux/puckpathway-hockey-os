@@ -563,7 +563,7 @@
         color: "#0284c7",
         accent: "#38bdf8",
         nhlComp: mp.nhl_comp || "Developing Collegiate Prospect",
-        scoutSummary: mp.notes || `Elite ${mp.pos} verified with ${Math.round(composite)} composite rating under BlueLine DataWorks tracking.`,
+        scoutSummary: mp.notes || `Elite ${mp.pos} verified with ${Math.round(composite)} composite rating under DraftLineup.com tracking.`,
         ratings: {
           skating: Math.min(99, Math.round(composite * 1.04)),
           shooting: Math.min(99, Math.round(composite * 0.98)),
@@ -880,7 +880,7 @@
     const currentDate = new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
 
     const dossier = {
-      title: "BLUELINE DATAWORKS // EXECUTIVE SCOUTING EVALUATION & DRAFT MATRIX",
+      title: "DRAFTLINEUP.COM // EXECUTIVE SCOUTING EVALUATION & DRAFT MATRIX",
       date: currentDate,
       securityClearance: "CONFIDENTIAL // ORGANIZATIONAL DISTRIBUTION ONLY",
       athleteCount: players.length,

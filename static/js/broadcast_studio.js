@@ -1,5 +1,5 @@
-﻿/**
- * PuckPathway OS - Live Broadcast Commentary & Voice AI Telemetry Studio
+/**
+ * DraftLineup.com - Live Broadcast Commentary & Voice AI Telemetry Studio
  * 
  * Ingestion Channels:
  * 1. Live Continuous Broadcast Microphone (Web Speech API)
@@ -1232,7 +1232,7 @@ function downloadJsonReport() {
 }
 
 function copyMarkdownReport() {
-  let md = `# BlueLine DataWorks - Broadcast Telemetry & Scout Report\n`;
+  let md = `# DraftLineup.com - Broadcast Telemetry & Scout Report\n`;
   md += `**Matchup:** ${homeTeam.name} (${gameState.homeScore}) vs. ${awayTeam.name} (${gameState.awayScore})\n`;
   md += `**Momentum:** ${homeTeam.name.split(' ')[0]} ${gameState.homeMomentum}% | ${awayTeam.name.split(' ')[0]} ${gameState.awayMomentum}%\n\n`;
   md += `## Top Performer Highlights\n`;

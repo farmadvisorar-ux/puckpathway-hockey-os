@@ -1,5 +1,5 @@
 /**
- * BlueLine DataWorks - Emergent Swarm Intelligence & Multi-Agent Consensus Engine
+ * DraftLineup.com - Emergent Swarm Intelligence & Multi-Agent Consensus Engine
  * Module: EmergentSwarmEngine
  * 
  * An isomorphic (Node.js & Browser) autonomous swarm intelligence engine that powers
@@ -7,7 +7,7 @@
  * 3-node Byzantine consensus quorum, and emergent prospect trajectory synthesis.
  * 
  * Platform Mission:
- * "BlueLine DataWorks is the only hockey analytics platform that tracks athletes
+ * "DraftLineup.com is the only hockey analytics platform that tracks athletes
  * from their earliest competitive stages through their professional careers — 
  * giving scouts, coaches, and organizations a complete view of a player’s 
  * evolution, potential, and performance trajectory."
@@ -407,7 +407,7 @@
     getSwarmSnapshot() {
       const shift = this.computeShiftMetrics();
       return {
-        platformMission: "BlueLine DataWorks is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory.",
+        platformMission: "DraftLineup.com is the only hockey analytics platform that tracks athletes from their earliest competitive stages through their professional careers — giving scouts, coaches, and organizations a complete view of a player’s evolution, potential, and performance trajectory.",
         shift,
         totalAgents: this.registry.length,
         activeDivision: shift.lead.division,

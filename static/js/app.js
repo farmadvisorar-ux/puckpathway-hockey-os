@@ -1,5 +1,5 @@
-﻿/**
- * PuckPathway OS: Client-Side Controller & Enterprise ADM Practice Suite (v5.6 Pro)
+/**
+ * DraftLineup.com: Client-Side Controller & Enterprise ADM Practice Suite (v5.6 Pro)
  * Supports Universal Field Editing & Recalculation Across All Modules,
  * Enterprise Hockey Whiteboard, Live Micro-Telemetry Event Logger, Visual Interactive Shot Chart,
  * Film Room Video Breakdown, Dynamic Radar Charts, and Immutable Change Audit Ledgers.
@@ -140,7 +140,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   window.appData = appData;
-  console.log('🏒 PuckPathway Enterprise Suite Loaded:', appData);
+  console.log('🏒 DraftLineup.com Enterprise Suite Loaded:', appData);
   
   if (appData) {
     try { updateSummaryCounters(); } catch (e) { console.warn("updateSummaryCounters error:", e); }
@@ -5115,7 +5115,7 @@ function openCoachIceCardModal() {
           <span>Date: <strong>${new Date().toLocaleDateString()}</strong></span>
         </div>
         <div class="font-mono text-emerald-400 font-bold">
-          PuckPathway OS Certified ADM Sheet
+          DraftLineup.com Certified ADM Practice Sheet
         </div>
       </div>
     </div>
@@ -6365,7 +6365,7 @@ function openGameBoxScoreModal() {
           <span>Head Coach: <strong>Mike Callahan</strong></span>
         </div>
         <div class="font-mono text-sky-400 font-bold">
-          Official PuckPathway OS Game Record
+          Official DraftLineup.com Game Record
         </div>
       </div>
 
@@ -6397,7 +6397,7 @@ window.resetBenchGameUI = resetBenchGameUI;
 
 
 // =========================================================================================
-// PUCKPATHWAY OS: WORLDWIDE MINOR LEAGUES, FREE AGENTS & PATH SCOUTING PROFILE ENGINE
+// DRAFTLINEUP.COM: WORLDWIDE MINOR LEAGUES, FREE AGENTS & PATH SCOUTING PROFILE ENGINE
 // =========================================================================================
 
 function resetAllPlayerFilters() {

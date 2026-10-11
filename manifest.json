@@ -8,6 +8,12 @@
   "theme_color": "#060b14",
   "icons": [
     {
+      "src": "static/img/draftlineup_crest.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
       "src": "static/img/blueline_logo.jpg",
       "sizes": "192x192 512x512",
       "type": "image/jpeg",
@@ -18,12 +24,12 @@
   "shortcuts": [
     { "name": "Draft Board", "url": "draft.html", "description": "Draft War Room & Trade Simulator" },
     { "name": "NIL & Transfer Portal", "url": "portal.html", "description": "Collegiate Portal & Valuation Engine" },
-    { "name": "Master Scouting", "url": "scout.html", "description": "2,974 Athlete Directory & Scout Desk" },
+    { "name": "Master Scouting", "url": "scout.html", "description": "3,770+ Athlete Directory & Scout Desk" },
     { "name": "3D Virtual Rink", "url": "rink3d.html", "description": "WebGL Spatial Play Execution" },
     { "name": "Video Film Studio", "url": "film.html", "description": "60 FPS Telestration & Velocity Telemetry" },
     { "name": "Cyber Shield", "url": "security.html", "description": "Aegis AI Security & RASP Swarm" },
     { "name": "Crease Lab", "url": "crease.html", "description": "Goalie Crease Geometry & GSAx Studio" },
     { "name": "Compare Lab", "url": "compare.html", "description": "Player Radar & Head-to-Head Matrix" },
-    { "name": "The BlueLine Wire", "url": "community.html", "description": "Social Feed & Commitment Announcements" }
+    { "name": "The Wire", "url": "community.html", "description": "DraftLineup Social Wire & Commitment Announcements" }
   ]
 }
