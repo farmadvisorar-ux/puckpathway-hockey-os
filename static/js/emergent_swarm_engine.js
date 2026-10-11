@@ -63,6 +63,19 @@
 
   // League Quality & Equivalency Baselines (for emergent trajectory conversion)
   const LEAGUE_EQUIVALENCIES = {
+    // European Elite & Secondary Professional Leagues
+    "SHL": { factor: 0.65, name: "Swedish Hockey League", level: 5 },
+    "Liiga": { factor: 0.58, name: "Finnish Liiga", level: 5 },
+    "NL": { factor: 0.62, name: "Swiss National League", level: 5 },
+    "DEL": { factor: 0.55, name: "Deutsche Eishockey Liga", level: 5 },
+    "Extraliga": { factor: 0.54, name: "Czech Tipsport Extraliga", level: 5 },
+    "Tipos_Extraliga": { factor: 0.42, name: "Slovakia Tipos Extraliga", level: 4 },
+    "Swiss_League": { factor: 0.40, name: "Swiss League Tier 2", level: 4 },
+    "HockeyAllsvenskan": { factor: 0.48, name: "HockeyAllsvenskan Tier 2", level: 4 },
+    "DEL2": { factor: 0.38, name: "DEL2 German Tier 2 Pro", level: 3 },
+    "Maxa_Liga": { factor: 0.36, name: "Czech Maxa Liga Tier 2", level: 3 },
+    "Mestis": { factor: 0.34, name: "Finnish Mestis Tier 2", level: 3 },
+    "EIHL": { factor: 0.35, name: "UK Elite Ice Hockey League", level: 3 },
     "NCAA_D1": { factor: 0.45, name: "NCAA Division I", level: 4 },
     "USHL": { factor: 0.38, name: "USHL Tier 1 Junior", level: 3 },
     "OHL": { factor: 0.32, name: "OHL Major Junior", level: 3 },
@@ -274,7 +287,7 @@
       });
 
       const isNonNhl = !/nhl|national hockey league|stanley cup/i.test(candidateData.currentLeague || candidateData.team || "");
-      const isAgeValid = (candidateData.age || 18) >= 12 && (candidateData.age || 18) <= 26;
+      const isAgeValid = (candidateData.age || 18) >= 12 && (candidateData.age || 18) <= 45;
       const auditorApproval = isNonNhl && isAgeValid;
 
       this.blackboard.castVote(

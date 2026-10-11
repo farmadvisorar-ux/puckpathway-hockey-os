@@ -126,6 +126,43 @@
         </div>
       </div>
     </div>
+
+    <!-- Active Shift Status Bar -->
+    <div class="border-t border-slate-800/80 bg-slate-950/80">
+      <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-2 flex flex-wrap items-center justify-between gap-3 text-xs">
+        <div class="flex items-center gap-2.5 flex-wrap">
+          <span class="px-2.5 py-1 rounded-lg bg-emerald-500/20 text-emerald-300 font-mono font-bold text-[11px] border border-emerald-500/40 uppercase tracking-wider flex items-center gap-1.5" id="activeShiftBadge">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+            <span>SHIFT 04/24 ACTIVE</span>
+          </span>
+          <div class="flex items-center gap-2 text-slate-300 font-semibold text-xs bg-slate-900/80 px-3 py-1 rounded-xl border border-slate-800">
+            <span>Lead Pilot:</span>
+            <span class="text-emerald-400 font-black font-mono flex items-center gap-1" id="leadAgentLabel">
+              <span>Agent-1.4</span>
+              <span class="text-[10px] text-emerald-300/70 font-normal">(DELTA PIONEER)</span>
+            </span>
+            <span class="text-slate-600">|</span>
+            <span class="text-amber-400">Co-Pilot:</span>
+            <span class="text-cyan-400 font-black font-mono flex items-center gap-1" id="copilotAgentLabel">
+              <span>Agent-6.3</span>
+              <span class="text-[10px] text-cyan-300/70 font-normal">(GAMMA INTEGRATOR)</span>
+            </span>
+          </div>
+          <span class="text-slate-400 text-[10px] hidden lg:inline font-mono bg-sky-950/40 px-2 py-0.5 rounded border border-sky-800/40">
+            🔄 Started last hour → Now active Co-Pilot
+          </span>
+        </div>
+
+        <div class="flex items-center gap-3 text-[11px] font-mono">
+          <span class="text-slate-300 flex items-center gap-1.5 bg-slate-900/90 px-2.5 py-1 rounded-lg border border-slate-800">
+            <span>⏳ Next Rotation:</span> <strong class="text-sky-400 font-bold" id="shiftCountdown">--:--</strong>
+          </span>
+          <span class="text-slate-300 hidden sm:flex items-center gap-1.5 bg-slate-900/90 px-2.5 py-1 rounded-lg border border-slate-800">
+            <span>📦 12h Master Compile:</span> <strong class="text-amber-400 font-bold" id="compileCountdown">--:--</strong>
+          </span>
+        </div>
+      </div>
+    </div>
   </header>
 
   <!-- Main Container -->
@@ -488,29 +525,44 @@
       let activeFilter = 'all';
       let activeSquadFilter = 'all';
 
-      // 1. Render Active Shift Status
+            // 1. Render Active Shift Status
       function renderShiftStatus() {
         const shift = mesh.getCurrentShift();
-        document.getElementById('activeShiftBadge').innerHTML = `
-          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-          <span>SHIFT ${String(shift.shiftIndex).padStart(2, '0')}/24 ACTIVE (${shift.shiftStartHour} - ${shift.shiftEndHour})</span>
-        `;
-        document.getElementById('leadAgentLabel').innerHTML = `
-          <span>${shift.leadAgent.name}</span>
-          <span class="text-[10px] text-emerald-300/70 font-normal">(${shift.leadAgent.codename})</span>
-        `;
-        document.getElementById('copilotAgentLabel').innerHTML = `
-          <span>${shift.copilotAgent.name}</span>
-          <span class="text-[10px] text-cyan-300/70 font-normal">(${shift.copilotAgent.codename})</span>
-        `;
+        const badgeEl = document.getElementById('activeShiftBadge');
+        if (badgeEl) {
+          badgeEl.innerHTML = `
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+            <span>SHIFT ${String(shift.shiftIndex).padStart(2, '0')}/24 ACTIVE (${shift.shiftStartHour} - ${shift.shiftEndHour})</span>
+          `;
+        }
+        const leadEl = document.getElementById('leadAgentLabel');
+        if (leadEl) {
+          leadEl.innerHTML = `
+            <span>${shift.leadAgent.name}</span>
+            <span class="text-[10px] text-emerald-300/70 font-normal">(${shift.leadAgent.codename})</span>
+          `;
+        }
+        const copilotEl = document.getElementById('copilotAgentLabel');
+        if (copilotEl) {
+          copilotEl.innerHTML = `
+            <span>${shift.copilotAgent.name}</span>
+            <span class="text-[10px] text-cyan-300/70 font-normal">(${shift.copilotAgent.codename})</span>
+          `;
+        }
 
         const minsLeft = Math.floor(shift.secondsRemainingInShift / 60);
         const secsLeft = shift.secondsRemainingInShift % 60;
-        document.getElementById('shiftCountdown').textContent = `${String(minsLeft).padStart(2, '0')}m ${String(secsLeft).padStart(2, '0')}s`;
+        const shiftCountdownEl = document.getElementById('shiftCountdown');
+        if (shiftCountdownEl) {
+          shiftCountdownEl.textContent = `${String(minsLeft).padStart(2, '0')}m ${String(secsLeft).padStart(2, '0')}s`;
+        }
 
         const compileHoursLeft = Math.floor(shift.minutesUntilMasterCompile / 60);
         const compileMinsLeft = shift.minutesUntilMasterCompile % 60;
-        document.getElementById('compileCountdown').textContent = `${compileHoursLeft}h ${compileMinsLeft}m`;
+        const compileCountdownEl = document.getElementById('compileCountdown');
+        if (compileCountdownEl) {
+          compileCountdownEl.textContent = `${compileHoursLeft}h ${compileMinsLeft}m`;
+        }
       }
 
       // 2. Render 24 Agent Cards
@@ -1067,5 +1119,5 @@
   <script src="static/js/auth_engine.js"></script>
   <script src="static/js/blueline_ui_kit.js"></script>
   <script src="static/js/global_nav.js"></script>
-  <script src="static/js/blueline-core.js"></script>`n</body>
+  <script src="static/js/blueline-core.js"></script></body>
 </html>

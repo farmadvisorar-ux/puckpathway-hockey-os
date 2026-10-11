@@ -6,15 +6,17 @@ const overseasPlayers = global.DRAFTLINEUP_OVERSEAS_PLAYERS || [];
 const masterPlayers = global.MASTER_PLAYERS || [];
 const allPersonnel = global.MASTER_ALL_REGISTRY || [];
 
-console.log('Overseas players count:', overseasPlayers.length, '(Expected: 110)');
-console.log('Master players count:', masterPlayers.length, '(Expected: 4190)');
-console.log('All personnel count:', allPersonnel.length, '(Expected: 4331)');
+console.log('Overseas players count:', overseasPlayers.length, '(Expected: 140)');
+console.log('Master players count:', masterPlayers.length, '(Expected: 4220)');
+console.log('All personnel count:', allPersonnel.length, '(Expected: 4361)');
 
 const targetClubs = [
   'Tingsryds AIF', 'Almtuna IS', 'Kalmar HC', 'Nybro Vikings IF', 'Vimmerby HC',
   'RoKi Rovaniemi', 'Kokkolan Hermes', 'JoKP Joensuu', 'Kiekko-Vantaa', 'KeuPa HT',
   'EHC Olten', 'EHC Visp', 'HC La Chaux-de-Fonds', 'HC Sierre', 'EHC Basel',
-  'Kassel Huskies', 'Krefeld Pinguine', 'Ravensburg Towerstars', 'EV Landshut', 'Dresdner Eislöwen'
+  'Kassel Huskies', 'Krefeld Pinguine', 'Ravensburg Towerstars', 'EV Landshut', 'Dresdner Eislöwen',
+  'ESV Kaufbeuren', 'VHK Vsetín', 'PSG Berani Zlín', 'HC Stadion Litoměřice', 'SK Horácká Slavia Třebíč',
+  'HC Baník Sokolov', 'HC Košice', 'HC Slovan Bratislava', 'HK Poprad', 'HKM Zvolen'
 ];
 
 targetClubs.forEach((club, idx) => {
