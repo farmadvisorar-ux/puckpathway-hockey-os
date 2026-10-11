@@ -34,7 +34,7 @@
       title: "Head of Scouting & Recruitment",
       organization: "DraftLineup.com Bureau",
       location: "Minneapolis / Chicago",
-      bio: "Head of Scouting at DraftLineup.com. Tracking 3,770+ non-NHL athletes across NCAA D1, USHL, NAHL, and prep academies. DMs open for verified prospect submissions.",
+      bio: "Head of Scouting at DraftLineup.com. Tracking 4,130+ non-NHL athletes across NCAA D1, USHL, NAHL, European Pro, and prep academies. DMs open for verified prospect submissions.",
       avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=250&q=80",
       avatarColor: "from-amber-500 to-indigo-600",
       banner: "https://images.unsplash.com/photo-1580748141549-71748dbe0bdc?auto=format&fit=crop&w=1200&q=80",

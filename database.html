@@ -208,7 +208,7 @@
         <div class="flex items-center gap-1.5 bg-slate-950 p-1.5 rounded-2xl border border-slate-800 flex-wrap">
           <button id="modeAthletesBtn" class="px-4 py-2 rounded-xl bg-sky-600 text-white font-bold text-xs flex items-center gap-2 transition active shadow-sm">
             <span>🏒</span> <span>Athletes & Staff Directory</span>
-            <span class="px-2 py-0.5 rounded-full bg-sky-400/20 text-sky-200 text-[10px] font-mono font-bold" id="badgeAthletesCount">3,770</span>
+            <span class="px-2 py-0.5 rounded-full bg-sky-400/20 text-sky-200 text-[10px] font-mono font-bold" id="badgeAthletesCount">4,271</span>
           </button>
           <button id="modeInstitutionsBtn" class="px-4 py-2 rounded-xl text-slate-400 hover:text-white font-bold text-xs flex items-center gap-2 transition">
             <span>🏫</span> <span>Colleges & High Schools Registry</span>
@@ -216,7 +216,7 @@
           </button>
           <button id="modeOverseasBtn" class="px-4 py-2 rounded-xl text-slate-400 hover:text-white font-bold text-xs flex items-center gap-2 transition">
             <span>🌍</span> <span>Overseas Pro Clubs Registry</span>
-            <span class="px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-300 text-[10px] font-mono font-bold" id="badgeOverseasCount">118 Teams</span>
+            <span class="px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-300 text-[10px] font-mono font-bold" id="badgeOverseasCount">195 Teams</span>
           </button>
         </div>
         <div class="flex items-center gap-2 text-xs font-mono text-slate-400">
@@ -235,7 +235,7 @@
 
       <!-- Quick Search Bar -->
       <div class="relative">
-        <input type="text" id="masterSearchInput" placeholder="🔍 Search across 3,770+ players, coaches, staff, schools (e.g. Director of Scouting, David Carle, Edina, Shattuck, Michigan, Hershey Bears, Lincoln Stars)..." class="w-full bg-slate-950/90 border border-sky-500/40 rounded-2xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-sky-400 focus:ring-2 focus:ring-sky-400/20 transition shadow-inner">
+        <input type="text" id="masterSearchInput" placeholder="🔍 Search across 4,130+ players, coaches, staff, schools (e.g. Director of Scouting, David Carle, Edina, Shattuck, Michigan, Hershey Bears, Lincoln Stars)..." class="w-full bg-slate-950/90 border border-sky-500/40 rounded-2xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-sky-400 focus:ring-2 focus:ring-sky-400/20 transition shadow-inner">
         <button id="clearMasterSearchBtn" class="absolute right-3.5 top-3.5 text-slate-400 hover:text-white text-xs hidden" title="Clear search">✕</button>
       </div>
 
@@ -372,7 +372,7 @@
     <!-- Active Stats & Pagination Header -->
     <div class="flex flex-wrap items-center justify-between gap-3 text-xs text-slate-400 px-1">
       <div class="flex items-center gap-2">
-        <span class="font-bold text-white text-sm" id="resultCountLabel">Showing 1 to 50 of 2,412 athletes</span>
+        <span class="font-bold text-white text-sm" id="resultCountLabel">Showing 1 to 50 of 4,271 athletes</span>
         <span class="text-slate-600">•</span>
         <span id="activeFilterSummary">All records active</span>
       </div>
@@ -560,27 +560,33 @@
       <div class="glass-panel p-5 rounded-3xl space-y-4 shadow-xl border border-slate-800">
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div class="relative flex-1">
-            <input type="text" id="overseasDbSearchInput" placeholder="🔍 Search 118 overseas pro clubs, cities, arenas, leagues..." class="w-full bg-slate-950/90 border border-rose-500/40 rounded-2xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-rose-400 focus:ring-2 focus:ring-rose-400/20 transition shadow-inner">
+            <input type="text" id="overseasDbSearchInput" placeholder="🔍 Search 195 overseas pro clubs, cities, arenas, leagues..." class="w-full bg-slate-950/90 border border-rose-500/40 rounded-2xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-rose-400 focus:ring-2 focus:ring-rose-400/20 transition shadow-inner">
             <button id="clearOverseasSearchBtn" class="absolute right-3.5 top-3.5 text-slate-400 hover:text-white text-xs hidden" title="Clear search">✕</button>
           </div>
 
           <div class="flex items-center gap-2">
             <select id="overseasDbLeagueFilter" class="bg-slate-900 border border-slate-700 text-slate-100 text-xs rounded-xl px-3 py-2.5 outline-none cursor-pointer focus:border-rose-500 transition font-mono">
-              <option value="ALL">All Overseas Leagues (118 Teams)</option>
+              <option value="ALL">All Overseas Leagues (195 Teams)</option>
               <option value="SHL">🇸🇪 Sweden - SHL (Tier 1)</option>
               <option value="HockeyAllsvenskan">🇸🇪 Sweden - Allsvenskan (Tier 2)</option>
               <option value="Liiga">🇫🇮 Finland - Liiga (Tier 1)</option>
+              <option value="Mestis">🇫🇮 Finland - Mestis (Tier 2)</option>
               <option value="National League">🇨🇭 Switzerland - NL (Tier 1)</option>
+              <option value="Swiss League">🇨🇭 Switzerland - Swiss League (Tier 2)</option>
               <option value="DEL">🇩🇪 Germany - DEL (Tier 1)</option>
               <option value="DEL2">🇩🇪 Germany - DEL2 (Tier 2)</option>
-              <option value="Mestis">🇫🇮 Finland - Mestis (Tier 2)</option>
               <option value="Extraliga">🇨🇿 Czechia - Tipsport Extraliga (Tier 1)</option>
+              <option value="Maxa Liga">🇨🇿 Czechia - Maxa Liga (Tier 2)</option>
+              <option value="Tipos Extraliga">🇸🇰 Slovakia - Tipos Extraliga (Tier 1)</option>
               <option value="ICEHL">🇦🇹/🇮🇹/🇭🇺 Austria - ICEHL (Tier 1)</option>
               <option value="EliteHockey">🇳🇴 Norway - EliteHockey (Tier 1)</option>
+              <option value="Ligue Magnus">🇫🇷 France - Ligue Magnus (Tier 1)</option>
+              <option value="Metal Ligaen">🇩🇰 Denmark - Metal Ligaen (Tier 1)</option>
+              <option value="TAURON Hokej Liga">🇵🇱 Poland - TAURON Hokej Liga (Tier 1)</option>
               <option value="EIHL">🇬🇧 UK - EIHL (Tier 1)</option>
               <option value="Asia League">🇯🇵/🇰🇷 Asia League</option>
               <option value="AIHL">🇦🇺 Australia - AIHL</option>
-              <option value="KHL">🇷🇺 Europe/KHL Pro</option>
+              <option value="KHL">🇷🇺 Eurasia/KHL Pro</option>
             </select>
           </div>
         </div>
@@ -590,7 +596,7 @@
       <div class="glass-panel rounded-2xl border border-slate-800 overflow-hidden shadow-2xl">
         <div class="p-4 border-b border-slate-800 flex items-center justify-between text-xs text-slate-400">
           <div>
-            <span class="font-bold text-white text-sm" id="overseasDbResultCountLabel">Showing 118 Overseas Clubs</span>
+            <span class="font-bold text-white text-sm" id="overseasDbResultCountLabel">Showing 195 Overseas Clubs</span>
           </div>
           <div class="font-mono text-[11px] text-rose-400 font-semibold">
             Official DraftLineup.com International League Registry

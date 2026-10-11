@@ -114,7 +114,7 @@
           <input
             id="draftlineup-cmd-input"
             type="text"
-            placeholder="Search DraftLineup.com (2,974 athletes, draft board, suites...)"
+            placeholder="Search DraftLineup.com (4,130+ athletes, draft board, suites...)"
             className="w-full bg-transparent text-sm font-medium text-slate-100 placeholder-slate-500 outline-none"
           />
           <kbd className="hidden sm:inline-block px-2 py-0.5 bg-slate-800 border border-slate-700 rounded text-[10px] font-mono text-slate-400">ESC</kbd>
@@ -151,7 +151,7 @@
             <span className="w-7 h-7 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold text-xs">🔭</span>
             <div className="flex-1">
               <div className="font-semibold text-slate-100 group-hover:text-amber-300">Master Scouting Directory</div>
-              <div className="text-xs text-slate-400">2,974 verified athletes, scouts & evaluation ledgers</div>
+              <div className="text-xs text-slate-400">4,130+ verified athletes, scouts & evaluation ledgers</div>
             </div>
             <span className="text-xs font-mono text-slate-500 group-hover:text-amber-400">scout.html ↵</span>
           </a>

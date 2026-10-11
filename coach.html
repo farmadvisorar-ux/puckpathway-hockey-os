@@ -294,7 +294,7 @@
             <div class="flex items-center gap-1.5 bg-slate-900 border border-slate-700 px-3 py-1.5 rounded-xl text-xs">
               <span class="text-slate-400">+ Add Athlete:</span>
               <select id="addRosterPlayerSelect" onchange="handleAddRosterPlayer(this.value)" class="bg-transparent text-white font-bold outline-none cursor-pointer">
-                <option value="">Select from 4,019+ Catalog...</option>
+                <option value="">Select from 4,130+ Catalog...</option>
                 <!-- Populated dynamically -->
               </select>
             </div>
@@ -717,6 +717,8 @@
 
   <!-- Core Scripts -->
   <script src="static/js/bundle_data.js"></script>
+  <script src="static/js/overseas_players_database.js"></script>
+  <script src="static/js/overseas_clubs_database.js"></script>
   <script src="static/js/master_players.js"></script>
   <script src="static/js/auth_engine.js"></script>
   <script src="static/js/blueline_ui_kit.js"></script>
@@ -1266,7 +1268,7 @@
         const currentIds = new Set(activeRoster.map(p => p.id));
         const available = allPlayers.filter(p => !currentIds.has(p.id)).slice(0, 150);
 
-        let optHtml = '<option value="">Select from 4,019+ Catalog...</option>';
+        let optHtml = '<option value="">Select from 4,130+ Catalog...</option>';
         available.forEach(p => {
           optHtml += '<option value="' + p.id + '">#' + (p.num || '--') + ' ' + p.name + ' (' + p.pos + ' • ' + (p.team || 'Indep') + ')</option>';
         });

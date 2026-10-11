@@ -24,7 +24,7 @@
   "shortcuts": [
     { "name": "Draft Board", "url": "draft.html", "description": "Draft War Room & Trade Simulator" },
     { "name": "NIL & Transfer Portal", "url": "portal.html", "description": "Collegiate Portal & Valuation Engine" },
-    { "name": "Master Scouting", "url": "scout.html", "description": "3,770+ Athlete Directory & Scout Desk" },
+    { "name": "Master Scouting", "url": "scout.html", "description": "4,130+ Athlete Directory & Scout Desk" },
     { "name": "3D Virtual Rink", "url": "rink3d.html", "description": "WebGL Spatial Play Execution" },
     { "name": "Video Film Studio", "url": "film.html", "description": "60 FPS Telestration & Velocity Telemetry" },
     { "name": "Cyber Shield", "url": "security.html", "description": "Aegis AI Security & RASP Swarm" },

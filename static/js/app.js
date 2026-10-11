@@ -7557,7 +7557,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const overflowNote = filtered.length > 75 ? `
       <div class="col-span-full p-3.5 rounded-2xl bg-sky-950/40 border border-sky-500/30 text-center text-xs text-sky-300">
         Showing first 75 of ${filtered.length.toLocaleString()} matches.
-        <a href="database.html" class="font-bold underline ml-1 text-white hover:text-sky-200">Open Full Master Database Hub (2,412+ Athletes) &rarr;</a>
+        <a href="database.html" class="font-bold underline ml-1 text-white hover:text-sky-200">Open Full Master Database Hub (4,130+ Athletes) &rarr;</a>
       </div>
     ` : '';
 

@@ -11,7 +11,7 @@
  * - Monte Carlo Simulation Engine (1,000 Rapid Tournament Simulations per Tournament)
  * - Elo & Goal-Expectancy Matchup Predictor
  * - Interactive Pick-by-Pick Bracket Trees for all 4 Tournaments
- * - Head-to-Head Prospect Showcase (linked to 2,974 Master Player Directory)
+ * - Head-to-Head Prospect Showcase (linked to 4,130+ Master Player Directory)
  * - The BlueLine Wire Broadcast Engine with #ClarkCup, #FrozenFour, #WorldJuniors, #MemorialCup
  */
 

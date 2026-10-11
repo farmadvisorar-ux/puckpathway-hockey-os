@@ -441,7 +441,7 @@
             📝 Create Account
           </button>
           <button class="auth-tab-btn px-3 py-2 border-b-2 border-transparent text-slate-400 hover:text-white transition" data-tab="claim">
-            ⚡ Claim Profile (3,050+)
+            ⚡ Claim Profile (4,130+)
           </button>
           <button class="auth-tab-btn px-3 py-2 border-b-2 border-transparent text-slate-400 hover:text-white transition" data-tab="create-profile">
             ➕ Create Athlete Dossier
@@ -594,7 +594,7 @@
             <div class="space-y-3">
               <div class="p-3 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-xs">
                 <div class="font-bold text-amber-300 flex items-center gap-1.5">
-                  <span>⚡</span> Claim Existing Dossier from 3,050+ Athlete Database
+                  <span>⚡</span> Claim Existing Dossier from 4,130+ Athlete Database
                 </div>
                 <p class="text-[11px] text-slate-300 mt-1">
                   Search by your name, jersey number, or program. Once verified, this official athlete dossier is linked permanently to your login account, giving you full control over your combine updates, video film, and development logs.
@@ -648,7 +648,7 @@
                 <span>➕</span> Mint New Athlete Passport Dossier
               </div>
               <p class="text-[11px] text-slate-300 mt-1">
-                Not listed in our 3,050+ collegiate/junior database yet? Enter your biometrics and playing profile to mint a new official dossier with an initial composite trajectory score and genesis ledger block.
+                Not listed in our 4,130+ collegiate/junior database yet? Enter your biometrics and playing profile to mint a new official dossier with an initial composite trajectory score and genesis ledger block.
               </p>
             </div>
 
@@ -1279,7 +1279,7 @@
     if (!query || query.length < 2) {
       container.innerHTML = `
         <div class="text-center py-6 text-slate-500 text-xs">
-          Type at least 2 letters of your name or team to search the 3,050+ player registry.
+          Type at least 2 letters of your name or team to search the 4,130+ player registry.
         </div>
       `;
       return;
@@ -1810,7 +1810,7 @@
           features: [
             "Dynamic Roster Management & Line Combination Matrix",
             "AI Film Studio & Tactical Telestration Whiteboard",
-            "Searchable 3,050+ Player Scouting Database",
+            "Searchable 4,130+ Player Scouting Database",
             "Direct Messaging (DMs) with Prospects & Family Advisors",
             "ADM Practice Planning & Team Combine Benchmarks",
             "Unrestricted Access to All 22 Analytical Hubs"
@@ -1826,7 +1826,7 @@
           description: "Comprehensive scouting bureau with draft war rooms, salary cap modeling, and verified recruitment pipelines.",
           features: [
             "War Room Draft Simulator & Franchise Cap Lab",
-            "Unrestricted 3,050+ Master Athlete Database with Ledger Audit",
+            "Unrestricted 4,130+ Master Athlete Database with Ledger Audit",
             "Verified Recruiter Outreach DMs Directly to Prospects",
             "Tournament Bracketology & Frozen Four Simulator",
             "Talent Radar, SQM Metrics & Exportable Dossiers",

@@ -959,7 +959,7 @@
         copilot: shift.leadAgent.name, 
         event: "VERACITY_AUDIT", 
         targetId: "ncaa_d1_live", 
-        msg: "Cross-checked 2,974 athlete profiles against NCAA registrar directories. 0 NHL records detected. 100% Non-NHL amateur mandate confirmed." 
+        msg: "Cross-checked 4,130+ athlete profiles against NCAA registrar directories. 0 NHL records detected. 100% Non-NHL amateur mandate confirmed." 
       },
       { 
         timestamp: formatTime(new Date(now.getTime() - 15000)), 
@@ -1006,7 +1006,7 @@
         totalTrialsConducted: 14835,
         totalBytesIngested: 2988000,
         totalChannelsDiscovered: rankedTargets.length,
-        totalCandidatesIngested: 2974,
+        totalCandidatesIngested: 4130,
         avgSignalVeracity: 98.2,
         last12HourCompile: new Date(Date.now() - 3600000 * 2.5).toISOString(),
         next12HourCompile: new Date(Date.now() + 3600000 * 9.5).toISOString(),
@@ -1275,7 +1275,7 @@
       id: "gemini_auditor",
       name: "Gemini-Auditor-02",
       role: "Zero-Duplicate Biometric Filter",
-      specialty: "Audits candidates against 3,050+ registered master players to strictly enforce the zero-duplicate rule.",
+      specialty: "Audits candidates against 4,130+ registered master players to strictly enforce the zero-duplicate rule.",
       avatar: "🛡️",
       status: "ACTIVE"
     },
