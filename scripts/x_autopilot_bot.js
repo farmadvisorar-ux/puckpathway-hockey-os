@@ -3,7 +3,7 @@
  * Handle: @DraftLineup
  *
  * Fully autonomous background bot that:
- * 1. Pulls from the unified 4,220+ verified player database.
+ * 1. Pulls from the unified 8,000+ verified player database (8,387+ athletes).
  * 2. Formats high-impact tweets with player stats, combine metrics, micro-telemetry,
  *    and verified athlete passport deep-links (https://draftlineup.com/player.html?player={id}).
  * 3. Enforces X 280-character limits with smart hashtag rotation.
@@ -24,12 +24,16 @@ const crypto = require('crypto');
 // Load database files
 const ROOT_DIR = path.resolve(__dirname, '..');
 const OVERSEAS_PATH = path.join(ROOT_DIR, 'static', 'js', 'overseas_players_database.js');
+const EXPANSION_PATH = path.join(ROOT_DIR, 'static', 'js', 'rosters_expansion_database.js');
 const MASTER_PATH = path.join(ROOT_DIR, 'static', 'js', 'master_players.js');
 const LEDGER_PATH = path.join(ROOT_DIR, 'static', 'js', 'x_dispatched_posts.json');
 
 // Initialize Node globals
 if (fs.existsSync(OVERSEAS_PATH)) {
   require(OVERSEAS_PATH);
+}
+if (fs.existsSync(EXPANSION_PATH)) {
+  require(EXPANSION_PATH);
 }
 if (fs.existsSync(MASTER_PATH)) {
   require(MASTER_PATH);
@@ -61,6 +65,9 @@ function loadLedger() {
   if (fs.existsSync(LEDGER_PATH)) {
     try {
       const data = JSON.parse(fs.readFileSync(LEDGER_PATH, 'utf8'));
+      if (data && data.stats) {
+        data.stats.player_pool_size = ALL_PLAYERS.length;
+      }
       return data;
     } catch (err) {
       console.warn('[X_AUTOPILOT WARN] Corrupt ledger, rebuilding anew.');
@@ -510,7 +517,7 @@ async function main() {
 
   if (args.includes('--dry-run')) {
     console.log('\n🧪 [DRAFTLINEUP X.COM AUTOPILOT DRY-RUN VALIDATION]');
-    console.log(`Sampling 5 distinct player archetypes from 4,220+ database...\n`);
+    console.log(`Sampling 5 distinct player archetypes from 8,000+ unified database (${ALL_PLAYERS.length} active athletes)...\n`);
     const ledger = loadLedger();
 
     for (let i = 0; i < 5; i++) {
@@ -530,7 +537,7 @@ async function main() {
 
     console.log(`\n🚀 [X.COM AUTOPILOT DAEMON ACTIVATED]`);
     console.log(`Cadence: Auto-posting every ${intervalMinutes} minutes.`);
-    console.log(`Database: 4,220+ verified non-NHL athletes.`);
+    console.log(`Database: 8,000+ verified active non-NHL athletes (${ALL_PLAYERS.length} loaded).`);
     console.log(`Hands-free autonomous mode: User action required = 0.`);
     console.log(`Press Ctrl+C to terminate background daemon.\n`);
 
