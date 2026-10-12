@@ -216,7 +216,7 @@
       return {
         text: "<strong>Swedish Hockey League (SHL) Directory:</strong><br>• 14 Premier Tier-1 Clubs (Frölunda 12,044 seats, Färjestad, Skellefteå, Rögle, etc.)<br>• Rink Size: <strong>98.4 ft (Olympic Width)</strong> — rewards perimeter edge speed and 2-point passing.",
         link: "database.html#overseas",
-        linkText: "Explore 195 Overseas Clubs →"
+        linkText: "Explore 300 Overseas Clubs →"
       };
     }
     if (q.includes("liiga") || q.includes("finland") || q.includes("tappara") || q.includes("ilves")) {
@@ -228,7 +228,7 @@
     }
     if (q.includes("overseas") || q.includes("europe") || q.includes("club") || q.includes("del") || q.includes("swiss")) {
       return {
-        text: "DraftLineup.com indexes <strong>195 elite overseas pro clubs</strong> across 10 leagues (SHL, Liiga, Swiss NL, DEL, Extraliga, EIHL, ALIH, AIHL) with seating capacities, arena geometry, and import roster limits.",
+        text: "DraftLineup.com indexes <strong>300 elite overseas pro clubs</strong> across 20 leagues (SHL, Liiga, Swiss NL, DEL, Extraliga, EIHL, ALIH, AIHL) with seating capacities, arena geometry, and import roster limits.",
         link: "database.html#overseas",
         linkText: "View Overseas Pro Clubs Registry →"
       };
@@ -246,7 +246,7 @@
     // 4. Colleges & Prep Query
     if (q.includes("ncaa") || q.includes("college") || q.includes("denver") || q.includes("michigan") || q.includes("shattuck") || q.includes("edina")) {
       return {
-        text: "<strong>Institutions Registry (170 Programs):</strong><br>• NCAA D1 Men & Women, NCAA D3, ACHA, USHL, NAHL, and Prep Academies (Shattuck-St. Mary's, Edina HS, Avon Old Farms).",
+        text: "<strong>Institutions Registry (190 Programs):</strong><br>• NCAA D1 Men & Women, NCAA D3, ACHA, USHL, NAHL, and Prep Academies (Shattuck-St. Mary's, Edina HS, Avon Old Farms).",
         link: "database.html?mode=institutions",
         linkText: "Browse Institutions Registry →"
       };
@@ -254,7 +254,7 @@
 
     // Default Fallback
     return {
-      text: `Analyzed query "${query}". I can inspect prospect trajectories, evaluate 61 overseas pro teams, calculate draft pick trade points, or search NCAA/Prep rosters.`,
+      text: `Analyzed query "${query}". I can inspect prospect trajectories, evaluate 300 overseas pro teams, calculate draft pick trade points, or search NCAA/Prep rosters.`,
       link: "database.html",
       linkText: "Search Master Directory →"
     };

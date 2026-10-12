@@ -11,6 +11,17 @@
   let COMBINED_PLAYERS = SMRP_PLAYERS;
   if (overseas.length > 0) COMBINED_PLAYERS = COMBINED_PLAYERS.concat(overseas);
   if (expansions.length > 0) COMBINED_PLAYERS = COMBINED_PLAYERS.concat(expansions);
+  const nhlAthletes = (typeof window !== 'undefined' && window.DraftLineupNHL && typeof window.DraftLineupNHL.getAllAthletes === 'function') ? window.DraftLineupNHL.getAllAthletes() :
+                      ((typeof global !== 'undefined' && global.DraftLineupNHL && typeof global.DraftLineupNHL.getAllAthletes === 'function') ? global.DraftLineupNHL.getAllAthletes() : []);
+  if (nhlAthletes.length > 0) {
+    const existingIds = new Set(COMBINED_PLAYERS.map(p => p.id));
+    nhlAthletes.forEach(p => {
+      if (!existingIds.has(p.id)) {
+        COMBINED_PLAYERS.push(p);
+        existingIds.add(p.id);
+      }
+    });
+  }
   const SMRP_ALL_REGISTRY = COMBINED_PLAYERS.concat(SMRP_STAFF);
 
   root.MASTER_PLAYERS = COMBINED_PLAYERS; // Players directory

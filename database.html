@@ -185,11 +185,11 @@
           <div class="flex items-center gap-2.5">
             <h1 class="text-xl sm:text-2xl font-black text-white tracking-tight">DraftLineup.com MASTER DIRECTORY</h1>
             <span class="text-xs px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 font-bold" id="heroTotalBadge">
-              Active Personnel
+              31,085 Active Personnel
             </span>
           </div>
           <p class="text-xs sm:text-sm text-slate-400 mt-1">
-            Complete collegiate, junior, minor pro, prep & amateur hockey ecosystem: NCAA D1 Men & Women, NCAA D3, ACHA, USHL, NAHL, AHL, ECHL, Canadian U Sports, Junior A, and Prep Academies (Zero NHL).
+            Complete collegiate, junior, minor pro, prep, overseas & pro hockey ecosystem: NHL MoneyPuck analytics, NCAA D1 Men & Women, NCAA D3, ACHA, USHL, NAHL, AHL, ECHL, European Pro Leagues, Canadian U Sports, Junior A, and Prep Academies.
           </p>
         </div>
 
@@ -208,15 +208,15 @@
         <div class="flex items-center gap-1.5 bg-slate-950 p-1.5 rounded-2xl border border-slate-800 flex-wrap">
           <button id="modeAthletesBtn" class="px-4 py-2 rounded-xl bg-sky-600 text-white font-bold text-xs flex items-center gap-2 transition active shadow-sm">
             <span>🏒</span> <span>Athletes & Staff Directory</span>
-            <span class="px-2 py-0.5 rounded-full bg-sky-400/20 text-sky-200 text-[10px] font-mono font-bold" id="badgeAthletesCount">4,361</span>
+            <span class="px-2 py-0.5 rounded-full bg-sky-400/20 text-sky-200 text-[10px] font-mono font-bold" id="badgeAthletesCount">31,085</span>
           </button>
           <button id="modeInstitutionsBtn" class="px-4 py-2 rounded-xl text-slate-400 hover:text-white font-bold text-xs flex items-center gap-2 transition">
             <span>🏫</span> <span>Colleges & High Schools Registry</span>
-            <span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-[10px] font-mono font-bold" id="badgeInstitutionsCount">170 Programs</span>
+            <span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-[10px] font-mono font-bold" id="badgeInstitutionsCount">190 Programs</span>
           </button>
           <button id="modeOverseasBtn" class="px-4 py-2 rounded-xl text-slate-400 hover:text-white font-bold text-xs flex items-center gap-2 transition">
             <span>🌍</span> <span>Overseas Pro Clubs Registry</span>
-            <span class="px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-300 text-[10px] font-mono font-bold" id="badgeOverseasCount">195 Teams</span>
+            <span class="px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-300 text-[10px] font-mono font-bold" id="badgeOverseasCount">300 Teams</span>
           </button>
         </div>
         <div class="flex items-center gap-2 text-xs font-mono text-slate-400">
@@ -254,7 +254,13 @@
         <div>
           <label class="text-[10px] text-slate-400 font-bold block mb-1">League / Tier</label>
           <select id="filterLeague" class="w-full bg-slate-900 border border-slate-800 rounded-xl p-2 text-slate-200 text-xs focus:border-sky-500">
-            <option value="all">All Leagues (Non-NHL)</option>
+            <option value="all">All Leagues (30,000+ Unified)</option>
+            <option value="NHL">NHL Pro (MoneyPuck 724)</option>
+            <option value="SHL">SHL Sweden Pro</option>
+            <option value="Liiga">Liiga Finland Pro</option>
+            <option value="National League">Swiss National League</option>
+            <option value="DEL">DEL Germany Pro</option>
+            <option value="Extraliga">Czech Tipsport Extraliga</option>
             <option value="AHL">AHL Pro Minor (318)</option>
             <option value="ECHL">ECHL AA Minor (26)</option>
             <option value="NCAA Division I Men">NCAA D1 Men</option>
@@ -372,7 +378,7 @@
     <!-- Active Stats & Pagination Header -->
     <div class="flex flex-wrap items-center justify-between gap-3 text-xs text-slate-400 px-1">
       <div class="flex items-center gap-2">
-        <span class="font-bold text-white text-sm" id="resultCountLabel">Showing 1 to 50 of 4,361 athletes</span>
+        <span class="font-bold text-white text-sm" id="resultCountLabel">Showing 1 to 50 of 31,085 athletes</span>
         <span class="text-slate-600">•</span>
         <span id="activeFilterSummary">All records active</span>
       </div>
@@ -475,31 +481,31 @@
               <span>🏫</span> Canonical Colleges & High Schools Registry
             </h2>
             <p class="text-xs text-slate-400">
-              Complete index of 170 monitored hockey institutions: NCAA Division I Men & Women, NCAA Division III, ACHA Club, Elite High Schools, Prep Academies, and Junior Feeder Programs.
+              Complete index of 190 monitored hockey institutions: NCAA Division I Men & Women, NCAA Division III, ACHA Club, Elite High Schools, Prep Academies, and Junior Feeder Programs.
             </p>
           </div>
           <div class="flex items-center gap-2">
             <span class="text-[11px] font-mono px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-bold flex items-center gap-1.5">
               <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
-              170 INSTITUTIONS ACTIVE
+              190 INSTITUTIONS ACTIVE
             </span>
           </div>
         </div>
 
         <!-- Institutional Search Input -->
         <div class="relative">
-          <input type="text" id="instSearchInput" placeholder="🔍 Search all 170 colleges, high schools, preps (e.g. Edina, Shattuck, Denver, Michigan, Avon Old Farms, Trinity, Minnetonka, Prior Lake)..." class="w-full bg-slate-950 border border-emerald-500/40 rounded-2xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-emerald-400 focus:ring-2 focus:ring-emerald-400/20 transition shadow-inner">
+          <input type="text" id="instSearchInput" placeholder="🔍 Search all 190 colleges, high schools, preps (e.g. Edina, Shattuck, Denver, Michigan, Avon Old Farms, Trinity, Minnetonka, Prior Lake)..." class="w-full bg-slate-950 border border-emerald-500/40 rounded-2xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-emerald-400 focus:ring-2 focus:ring-emerald-400/20 transition shadow-inner">
           <button id="clearInstSearchBtn" class="absolute right-3.5 top-3.5 text-slate-400 hover:text-white text-xs hidden" title="Clear search">✕</button>
         </div>
 
         <!-- Category Filter Pills -->
         <div class="flex flex-wrap items-center gap-1.5 text-xs">
-          <button class="inst-cat-btn px-3 py-1.5 rounded-xl font-bold bg-emerald-600 text-white transition active" data-cat="all">All (170)</button>
+          <button class="inst-cat-btn px-3 py-1.5 rounded-xl font-bold bg-emerald-600 text-white transition active" data-cat="all">All (190)</button>
           <button class="inst-cat-btn px-3 py-1.5 rounded-xl font-bold bg-slate-900 text-slate-300 border border-slate-800 hover:text-white transition" data-cat="NCAA Division I Men">NCAA D1 Men (64)</button>
           <button class="inst-cat-btn px-3 py-1.5 rounded-xl font-bold bg-slate-900 text-slate-300 border border-slate-800 hover:text-white transition" data-cat="NCAA Division I Women">NCAA D1 Women (12)</button>
           <button class="inst-cat-btn px-3 py-1.5 rounded-xl font-bold bg-slate-900 text-slate-300 border border-slate-800 hover:text-white transition" data-cat="NCAA Division III">NCAA D3 (20)</button>
           <button class="inst-cat-btn px-3 py-1.5 rounded-xl font-bold bg-slate-900 text-slate-300 border border-slate-800 hover:text-white transition" data-cat="ACHA Club Hockey">ACHA Club (8)</button>
-          <button class="inst-cat-btn px-3 py-1.5 rounded-xl font-bold bg-slate-900 text-slate-300 border border-slate-800 hover:text-white transition" data-cat="High School Varsity">High Schools (26)</button>
+          <button class="inst-cat-btn px-3 py-1.5 rounded-xl font-bold bg-slate-900 text-slate-300 border border-slate-800 hover:text-white transition" data-cat="High School Varsity">High Schools (46)</button>
           <button class="inst-cat-btn px-3 py-1.5 rounded-xl font-bold bg-slate-900 text-slate-300 border border-slate-800 hover:text-white transition" data-cat="Prep Academy">Prep Academies (26)</button>
           <button class="inst-cat-btn px-3 py-1.5 rounded-xl font-bold bg-slate-900 text-slate-300 border border-slate-800 hover:text-white transition" data-cat="Junior Feeder Program">Junior Feeders (14)</button>
         </div>
@@ -526,7 +532,7 @@
       <div class="glass-panel rounded-2xl border border-slate-800 overflow-hidden shadow-2xl">
         <div class="p-4 border-b border-slate-800 flex items-center justify-between text-xs text-slate-400">
           <div>
-            <span class="font-bold text-white text-sm" id="instResultCountLabel">Showing 170 Institutions</span>
+            <span class="font-bold text-white text-sm" id="instResultCountLabel">Showing 190 Institutions</span>
           </div>
           <div class="font-mono text-[11px] text-emerald-400">
             Click 'View Roster' to inspect all personnel
@@ -560,13 +566,13 @@
       <div class="glass-panel p-5 rounded-3xl space-y-4 shadow-xl border border-slate-800">
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div class="relative flex-1">
-            <input type="text" id="overseasDbSearchInput" placeholder="🔍 Search 195 overseas pro clubs, cities, arenas, leagues..." class="w-full bg-slate-950/90 border border-rose-500/40 rounded-2xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-rose-400 focus:ring-2 focus:ring-rose-400/20 transition shadow-inner">
+            <input type="text" id="overseasDbSearchInput" placeholder="🔍 Search 300 overseas pro clubs, cities, arenas, leagues..." class="w-full bg-slate-950/90 border border-rose-500/40 rounded-2xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-rose-400 focus:ring-2 focus:ring-rose-400/20 transition shadow-inner">
             <button id="clearOverseasSearchBtn" class="absolute right-3.5 top-3.5 text-slate-400 hover:text-white text-xs hidden" title="Clear search">✕</button>
           </div>
 
           <div class="flex items-center gap-2">
             <select id="overseasDbLeagueFilter" class="bg-slate-900 border border-slate-700 text-slate-100 text-xs rounded-xl px-3 py-2.5 outline-none cursor-pointer focus:border-rose-500 transition font-mono">
-              <option value="ALL">All Overseas Leagues (195 Teams)</option>
+              <option value="ALL">All Overseas Leagues (300 Teams)</option>
               <option value="SHL">🇸🇪 Sweden - SHL (Tier 1)</option>
               <option value="HockeyAllsvenskan">🇸🇪 Sweden - Allsvenskan (Tier 2)</option>
               <option value="Liiga">🇫🇮 Finland - Liiga (Tier 1)</option>
@@ -596,7 +602,7 @@
       <div class="glass-panel rounded-2xl border border-slate-800 overflow-hidden shadow-2xl">
         <div class="p-4 border-b border-slate-800 flex items-center justify-between text-xs text-slate-400">
           <div>
-            <span class="font-bold text-white text-sm" id="overseasDbResultCountLabel">Showing 195 Overseas Clubs</span>
+            <span class="font-bold text-white text-sm" id="overseasDbResultCountLabel">Showing 300 Overseas Clubs</span>
           </div>
           <div class="font-mono text-[11px] text-rose-400 font-semibold">
             Official DraftLineup.com International League Registry
@@ -841,8 +847,8 @@
   <script src="static/js/bundle_data.js"></script>
   <script src="static/js/overseas_players_database.js"></script>
   <script src="static/js/rosters_expansion_database.js"></script>
-  <script src="static/js/nhl_analytics_database.js"></script>
   <script src="static/js/master_players.js"></script>
+  <script src="static/js/nhl_analytics_database.js"></script>
   <script src="static/js/institutions_catalog.js"></script>
   <script src="static/js/overseas_clubs_database.js"></script>
   <script>
@@ -883,7 +889,37 @@
         }));
       }
 
-      document.getElementById('heroTotalBadge').textContent = `${allAthletes.length.toLocaleString()} Active Personnel (Non-NHL)`;
+      // Ensure NHL MoneyPuck athletes are fully merged into allAthletes
+      if (window.DraftLineupNHL && typeof window.DraftLineupNHL.getAllAthletes === 'function') {
+        const nhlAthletes = window.DraftLineupNHL.getAllAthletes();
+        const existingIds = new Set(allAthletes.map(p => p.id));
+        nhlAthletes.forEach(p => {
+          if (!existingIds.has(p.id)) {
+            allAthletes.push(p);
+            existingIds.add(p.id);
+          }
+        });
+      }
+
+      // Dynamic Badges & Counters
+      if (document.getElementById('heroTotalBadge')) {
+        document.getElementById('heroTotalBadge').textContent = `${allAthletes.length.toLocaleString()} Active Personnel`;
+      }
+      if (document.getElementById('badgeAthletesCount')) {
+        document.getElementById('badgeAthletesCount').textContent = allAthletes.length.toLocaleString();
+      }
+      if (document.getElementById('badgeInstitutionsCount')) {
+        const instCount = (window.BlueLineInstitutionsCatalog && window.BlueLineInstitutionsCatalog.getAll)
+          ? window.BlueLineInstitutionsCatalog.getAll().length
+          : 190;
+        document.getElementById('badgeInstitutionsCount').textContent = `${instCount} Programs`;
+      }
+      if (document.getElementById('badgeOverseasCount')) {
+        const ovCount = (window.DRAFTLINEUP_OVERSEAS_CLUBS && window.DRAFTLINEUP_OVERSEAS_CLUBS.length)
+          ? window.DRAFTLINEUP_OVERSEAS_CLUBS.length
+          : 300;
+        document.getElementById('badgeOverseasCount').textContent = `${ovCount} Teams`;
+      }
 
       // 1.1 Update Watched Ledger Counter Badge
       updateWatchedCountBadge();
