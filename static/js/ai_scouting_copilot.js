@@ -4,7 +4,7 @@
  * Capabilities:
  * - Isomorphic floating chat widget on all 28 HTML modules
  * - Natural Language Scouting Engine:
- *   • Athlete Trajectory & Bio Evaluation (12,000+ dossiers)
+ *   • Athlete Trajectory & Bio Evaluation (15,000+ dossiers)
  *   • Overseas Pro League & Rink Geometry Queries (195 clubs across SHL, Liiga, NL, DEL, etc.)
  *   • College & Prep Program Reconnaissance (170+ institutions)
  *   • Trade Machine Cap & Draft Pick Point Valuations
@@ -205,9 +205,9 @@
     }
     if (q.includes("player") || q.includes("prospect") || q.includes("athlete")) {
       return {
-        text: "DraftLineup.com tracks <strong>12,000+ verifiable non-NHL athletes</strong> across NCAA D1/D3, USHL, BCHL, CHL, and Prep Academies with real-time 8-axis radar metrics.",
+        text: "DraftLineup.com tracks <strong>15,000+ verifiable non-NHL athletes</strong> across NCAA D1/D3, USHL, BCHL, CHL, and Prep Academies with real-time 8-axis radar metrics.",
         link: "database.html",
-        linkText: "Search All 12,000+ Athletes →"
+        linkText: "Search All 15,000+ Athletes →"
       };
     }
 
