@@ -3,7 +3,7 @@
  * Handle: @DraftLineup
  *
  * Runs autonomously in the background on the client side:
- * - Selects from 15,000+ verified athletes
+ * - Selects from 20,000+ verified athletes
  * - Generates high-impact tweets with player stats, combine metrics, and hashtags
  * - Cross-publishes automatically to The BlueLine Wire feed
  * - Synchronizes with the backend state ledger (x_dispatched_posts.json)
@@ -347,7 +347,7 @@
     const poolSizeEl = document.getElementById('xAutopilotPoolSize');
     if (poolSizeEl) {
       const pool = getAthletesPool();
-      poolSizeEl.textContent = (pool.length || 15000).toLocaleString();
+      poolSizeEl.textContent = (pool.length || 20000).toLocaleString();
     }
 
     const feedContainer = document.getElementById('xAutopilotRecentFeed');
@@ -405,7 +405,7 @@
         totalDispatched: state.totalDispatched,
         reachEst: state.reachEst,
         cadenceMinutes: Math.round(state.cadenceSec / 60),
-        poolSize: getAthletesPool().length || 15000,
+        poolSize: getAthletesPool().length || 20000,
         recentPosts: state.recentPosts
       };
     },

@@ -294,7 +294,7 @@
             <div class="flex items-center gap-1.5 bg-slate-900 border border-slate-700 px-3 py-1.5 rounded-xl text-xs">
               <span class="text-slate-400">+ Add Athlete:</span>
               <select id="addRosterPlayerSelect" onchange="handleAddRosterPlayer(this.value)" class="bg-transparent text-white font-bold outline-none cursor-pointer">
-                <option value="">Select from 15,000+ Catalog...</option>
+                <option value="">Select from 20,000+ Catalog...</option>
                 <!-- Populated dynamically -->
               </select>
             </div>
@@ -1269,7 +1269,7 @@
         const currentIds = new Set(activeRoster.map(p => p.id));
         const available = allPlayers.filter(p => !currentIds.has(p.id)).slice(0, 150);
 
-        let optHtml = '<option value="">Select from 15,000+ Catalog...</option>';
+        let optHtml = '<option value="">Select from 20,000+ Catalog...</option>';
         available.forEach(p => {
           optHtml += '<option value="' + p.id + '">#' + (p.num || '--') + ' ' + p.name + ' (' + p.pos + ' • ' + (p.team || 'Indep') + ')</option>';
         });
