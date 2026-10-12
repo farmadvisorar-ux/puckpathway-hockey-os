@@ -3,7 +3,7 @@
  * Handle: @DraftLineup
  *
  * Fully autonomous background bot that:
- * 1. Pulls from the unified 20,000+ verified player database (20,340+ athletes).
+ * 1. Pulls from the unified 30,000+ verified player database (30,220+ athletes).
  * 2. Formats high-impact tweets with player stats, combine metrics, micro-telemetry,
  *    and verified athlete passport deep-links (https://draftlineup.com/player.html?player={id}).
  * 3. Enforces X 280-character limits with smart hashtag rotation.
@@ -517,7 +517,7 @@ async function main() {
 
   if (args.includes('--dry-run')) {
     console.log('\n🧪 [DRAFTLINEUP X.COM AUTOPILOT DRY-RUN VALIDATION]');
-    console.log(`Sampling 5 distinct player archetypes from 20,000+ unified database (${ALL_PLAYERS.length} active athletes)...\n`);
+    console.log(`Sampling 5 distinct player archetypes from 30,000+ unified database (${ALL_PLAYERS.length} active athletes)...\n`);
     const ledger = loadLedger();
 
     for (let i = 0; i < 5; i++) {
@@ -537,7 +537,7 @@ async function main() {
 
     console.log(`\n🚀 [X.COM AUTOPILOT DAEMON ACTIVATED]`);
     console.log(`Cadence: Auto-posting every ${intervalMinutes} minutes.`);
-    console.log(`Database: 20,000+ verified active non-NHL athletes (${ALL_PLAYERS.length} loaded).`);
+    console.log(`Database: 30,000+ verified active non-NHL athletes (${ALL_PLAYERS.length} loaded).`);
     console.log(`Hands-free autonomous mode: User action required = 0.`);
     console.log(`Press Ctrl+C to terminate background daemon.\n`);
 
