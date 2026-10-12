@@ -8,7 +8,7 @@
     "total_dispatched": 3,
     "last_dispatched_at": "2026-10-12T00:01:14.510Z",
     "next_scheduled_at": "2026-10-12T00:31:14.510Z",
-    "player_pool_size": 4000,
+    "player_pool_size": 30944,
     "reach_impressions_est": 4620
   },
   "recent_player_ids": [

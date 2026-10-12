@@ -25,18 +25,22 @@ const crypto = require('crypto');
 const ROOT_DIR = path.resolve(__dirname, '..');
 const OVERSEAS_PATH = path.join(ROOT_DIR, 'static', 'js', 'overseas_players_database.js');
 const EXPANSION_PATH = path.join(ROOT_DIR, 'static', 'js', 'rosters_expansion_database.js');
+const NHL_PATH = path.join(ROOT_DIR, 'static', 'js', 'nhl_analytics_database.js');
 const MASTER_PATH = path.join(ROOT_DIR, 'static', 'js', 'master_players.js');
 const LEDGER_PATH = path.join(ROOT_DIR, 'static', 'js', 'x_dispatched_posts.json');
 
 // Initialize Node globals
+if (fs.existsSync(MASTER_PATH)) {
+  require(MASTER_PATH);
+}
 if (fs.existsSync(OVERSEAS_PATH)) {
   require(OVERSEAS_PATH);
 }
 if (fs.existsSync(EXPANSION_PATH)) {
   require(EXPANSION_PATH);
 }
-if (fs.existsSync(MASTER_PATH)) {
-  require(MASTER_PATH);
+if (fs.existsSync(NHL_PATH)) {
+  require(NHL_PATH);
 }
 
 const RAW_PLAYERS = (global.MASTER_PLAYERS && global.MASTER_PLAYERS.length)
