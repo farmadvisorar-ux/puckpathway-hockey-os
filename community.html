@@ -498,6 +498,69 @@
         </div>
       </div>
 
+            <!-- ==================== X.COM AUTOPILOT ENGINE (@DraftLineup) ==================== -->
+      <div class="glass-panel p-4 rounded-3xl space-y-3.5 border border-cyan-500/40 bg-gradient-to-br from-slate-950 via-slate-900 to-sky-950/40 shadow-xl relative overflow-hidden">
+        <div class="absolute -right-10 -top-10 w-32 h-32 bg-sky-500/10 rounded-full blur-2xl pointer-events-none"></div>
+
+        <!-- Header -->
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="w-7 h-7 rounded-xl bg-slate-900 border border-slate-700 flex items-center justify-center text-sm font-black text-white shadow-inner">𝕏</span>
+            <div>
+              <div class="flex items-center gap-1.5">
+                <span class="text-xs font-black text-white">X.com Autopilot</span>
+                <span class="text-[10px] text-sky-400 font-mono">@DraftLineup</span>
+              </div>
+              <span class="text-[9px] text-slate-400 block font-sans">Autonomous Player & Stats Broadcaster</span>
+            </div>
+          </div>
+          <span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-mono text-[9px] border border-emerald-500/40 font-bold flex items-center gap-1">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
+            ACTIVE
+          </span>
+        </div>
+
+        <!-- Live Status Ribbon -->
+        <div class="p-2.5 rounded-2xl bg-slate-900/90 border border-slate-800 space-y-1.5">
+          <div class="flex items-center justify-between text-[11px]">
+            <span class="text-slate-400 flex items-center gap-1">
+              <span>⏱️</span> Next Auto-Dispatch:
+            </span>
+            <span id="xAutopilotCountdown" class="font-mono font-black text-cyan-300 text-xs">--:--</span>
+          </div>
+          <div class="grid grid-cols-3 gap-1.5 pt-1.5 border-t border-slate-800 text-center font-mono">
+            <div class="p-1 rounded-xl bg-slate-950/60">
+              <span class="text-[8px] text-slate-500 uppercase block">Dispatched</span>
+              <span id="xAutopilotPostCount" class="text-xs font-bold text-white">--</span>
+            </div>
+            <div class="p-1 rounded-xl bg-slate-950/60">
+              <span class="text-[8px] text-slate-500 uppercase block">Est. Reach</span>
+              <span id="xAutopilotReachEst" class="text-xs font-bold text-sky-300">--</span>
+            </div>
+            <div class="p-1 rounded-xl bg-slate-950/60">
+              <span class="text-[8px] text-slate-500 uppercase block">Pool</span>
+              <span id="xAutopilotPoolSize" class="text-xs font-bold text-emerald-300">4,220+</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Live Feed of Dispatched Posts -->
+        <div class="space-y-2">
+          <div class="flex items-center justify-between text-[10px] text-slate-400 font-mono">
+            <span>LATEST BROADCASTS</span>
+            <button onclick="window.DraftLineupXBot?.syncWithBackendLedger()" class="hover:text-cyan-300 transition cursor-pointer">🔄 Sync</button>
+          </div>
+          <div id="xAutopilotRecentFeed" class="space-y-2 max-h-60 overflow-y-auto custom-scroll pr-0.5">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+
+        <!-- Trigger Button -->
+        <button onclick="window.DraftLineupXBot?.forcePostNow()" class="w-full py-2 rounded-xl bg-gradient-to-r from-sky-600 to-cyan-600 hover:from-sky-500 hover:to-cyan-500 text-white font-black text-xs shadow-md transition flex items-center justify-center gap-1.5 active:scale-95 cursor-pointer">
+          <span>⚡</span> <span>Force Instant X Broadcast Now</span>
+        </button>
+      </div>
+
       <!-- Trending in Hockey -->
       <div class="glass-panel p-4 rounded-3xl space-y-3 border border-slate-800 shadow-xl">
         <h3 class="text-xs font-mono font-bold uppercase tracking-wider text-slate-400">Trending on DraftLineup Wire</h3>
@@ -771,6 +834,7 @@
   <script src="static/js/master_players.js"></script>
   <script src="static/js/auth_engine.js"></script>
   <script src="static/js/social_mesh_engine.js"></script>
+  <script src="static/js/x_autopilot_engine.js"></script>
   <script src="static/js/telemetry.js"></script>
   <script src="static/js/global_nav.js"></script>
   <script>

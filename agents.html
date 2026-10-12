@@ -377,6 +377,76 @@
       </div>
     </div>
 
+        <!-- ==================== 1.5 X.COM AUTONOMOUS BROADCASTER SWARM (@DraftLineup) ==================== -->
+    <div class="glass-panel p-6 rounded-3xl border border-cyan-500/40 bg-gradient-to-br from-slate-900/95 via-sky-950/20 to-slate-950 shadow-2xl relative overflow-hidden space-y-5">
+      <div class="absolute -right-16 -top-16 w-64 h-64 bg-sky-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+      <!-- Header & Badges -->
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-b border-slate-800 pb-4">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-2xl bg-slate-900 border border-slate-700 flex items-center justify-center text-xl font-black text-white shadow-inner shrink-0">
+            𝕏
+          </div>
+          <div>
+            <div class="flex items-center gap-2 flex-wrap">
+              <h2 class="text-base sm:text-lg font-black text-white flex items-center gap-2">
+                X.com Autonomous Broadcaster Swarm
+              </h2>
+              <span class="text-xs font-mono text-sky-400 font-bold">@DraftLineup</span>
+              <span class="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-mono text-[10px] border border-emerald-500/40 font-bold flex items-center gap-1.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
+                AUTONOMOUS DISPATCH ACTIVE
+              </span>
+            </div>
+            <p class="text-xs text-slate-300 mt-0.5">
+              Hands-free background broadcaster pulling verified telemetry, laser combine scores, and micro-KPIs from 4,220+ non-NHL athletes with targeted hashtag routing and deep links.
+            </p>
+          </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="flex items-center gap-2 shrink-0">
+          <button onclick="window.DraftLineupXBot?.forcePostNow()" class="px-3.5 py-2 rounded-xl bg-gradient-to-r from-sky-600 to-cyan-600 hover:from-sky-500 hover:to-cyan-500 text-white font-black text-xs shadow-lg shadow-sky-600/30 transition flex items-center gap-1.5 active:scale-95 cursor-pointer">
+            <span>⚡</span> <span>Force Immediate Post</span>
+          </button>
+          <button onclick="window.DraftLineupXBot?.syncWithBackendLedger()" class="px-3 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-300 font-bold text-xs transition flex items-center gap-1 cursor-pointer">
+            <span>🔄</span> <span>Sync Ledger</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Real-Time Metrics Ribbon -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
+        <div class="p-3 rounded-2xl bg-slate-900/80 border border-slate-800">
+          <div class="text-[10px] text-slate-400 font-mono uppercase">Next Auto-Dispatch In</div>
+          <div class="text-lg sm:text-xl font-black text-cyan-300 font-mono" id="xAutopilotCountdown">--:--</div>
+        </div>
+        <div class="p-3 rounded-2xl bg-slate-900/80 border border-slate-800">
+          <div class="text-[10px] text-slate-400 font-mono uppercase">Total Posts Dispatched</div>
+          <div class="text-lg sm:text-xl font-black text-emerald-400 font-mono" id="xAutopilotPostCount">--</div>
+        </div>
+        <div class="p-3 rounded-2xl bg-slate-900/80 border border-slate-800">
+          <div class="text-[10px] text-slate-400 font-mono uppercase">Est. Social Impressions</div>
+          <div class="text-lg sm:text-xl font-black text-sky-400 font-mono" id="xAutopilotReachEst">--</div>
+        </div>
+        <div class="p-3 rounded-2xl bg-slate-900/80 border border-slate-800">
+          <div class="text-[10px] text-slate-400 font-mono uppercase">Active Player Pool</div>
+          <div class="text-lg sm:text-xl font-black text-white font-mono" id="xAutopilotPoolSize">4,220+</div>
+        </div>
+      </div>
+
+      <!-- Latest Dispatched Tweets Stream -->
+      <div class="space-y-2.5">
+        <div class="flex items-center justify-between text-xs font-mono text-slate-400">
+          <span class="uppercase tracking-wider">Recent Autonomous Broadcasts Ledger</span>
+          <span class="text-[11px] text-emerald-400">● Live State Synced</span>
+        </div>
+        <div id="xAutopilotRecentFeed" class="grid grid-cols-1 md:grid-cols-2 gap-3 max-h-72 overflow-y-auto custom-scroll pr-1">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+    </div>
+
     <!-- ==================== 2. REAL LIVE HOCKEY CHANNEL MATRIX ==================== -->
     <div class="glass-panel p-5 rounded-3xl space-y-4 shadow-xl border border-slate-800">
       
@@ -513,6 +583,7 @@
   <script src="static/js/institutions_catalog.js"></script>
   <script src="static/js/agent_mesh_engine.js"></script>
   <script src="static/js/emergent_swarm_engine.js"></script>
+  <script src="static/js/x_autopilot_engine.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const mesh = window.BlueLineAgentMesh;

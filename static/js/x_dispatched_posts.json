@@ -1,0 +1,105 @@
+{
+  "system": "DraftLineup.com X Autopilot Bot (@DraftLineup)",
+  "version": "2.4.0",
+  "status": "ACTIVE_AUTONOMOUS",
+  "mode": "AUTONOMOUS_CADENCE",
+  "cadence_minutes": 30,
+  "stats": {
+    "total_dispatched": 3,
+    "last_dispatched_at": "2026-10-12T00:01:14.510Z",
+    "next_scheduled_at": "2026-10-12T00:31:14.510Z",
+    "player_pool_size": 4000,
+    "reach_impressions_est": 4620
+  },
+  "recent_player_ids": [
+    "mp_3578",
+    "mp_1732",
+    "mp_1239"
+  ],
+  "dispatched_posts": [
+    {
+      "id": "sim_tweet_1791763274510",
+      "timestamp": "2026-10-12T00:01:14.510Z",
+      "player_id": "mp_3578",
+      "player_name": "Stanstead College Varsity Skater 94",
+      "team": "Stanstead College",
+      "league": "Prep",
+      "composite_score": 91.7,
+      "text": "📊 MICRO-TELEMETRY: Stanstead College Varsity Skater 94 (D, Stanstead College)\n🏒 High-Danger Pass Comp: 91%\n🛡️ Controlled Exits: 88%\n⚡ Controlled Entries: 87%\n🎯 Score: 91.7/100\n🔗 Passport: https://draftlineup.com/player.html?player=mp_3578\n#DraftLineup #HockeyAnalytics #HockeyTwitter",
+      "intent_url": "https://twitter.com/intent/tweet?text=%F0%9F%93%8A%20MICRO-TELEMETRY%3A%20Stanstead%20College%20Varsity%20Skater%2094%20(D%2C%20Stanstead%20College)%0A%F0%9F%8F%92%20High-Danger%20Pass%20Comp%3A%2091%25%0A%F0%9F%9B%A1%EF%B8%8F%20Controlled%20Exits%3A%2088%25%0A%E2%9A%A1%20Controlled%20Entries%3A%2087%25%0A%F0%9F%8E%AF%20Score%3A%2091.7%2F100%0A%F0%9F%94%97%20Passport%3A%20https%3A%2F%2Fdraftlineup.com%2Fplayer.html%3Fplayer%3Dmp_3578%0A%23DraftLineup%20%23HockeyAnalytics%20%23HockeyTwitter",
+      "mode": "AUTONOMOUS_SIMULATION",
+      "character_count": 261,
+      "metrics": {
+        "combine": {
+          "flying_30m_sec": 3.52,
+          "broad_jump_in": 118,
+          "pro_agility_5_10_5_sec": 3.94,
+          "grip_strength_lbs": 163,
+          "rotational_medball_mph": 51
+        },
+        "kpis": {
+          "high_danger_pass_comp_pct": 91,
+          "controlled_exit_pct": 88,
+          "controlled_entry_pct": 87,
+          "wall_battle_win_pct": 91
+        }
+      }
+    },
+    {
+      "id": "sim_tweet_1791763075548",
+      "timestamp": "2026-10-11T23:57:55.548Z",
+      "player_id": "mp_1732",
+      "player_name": "Adam Parsons",
+      "team": "University of Alaska Anchorage",
+      "league": "NCAA Division I Men",
+      "composite_score": 91.1,
+      "text": "🧬 COMBINE LAB RADAR: Adam Parsons (F, University of Alaska Anchorage)\n⚡ Flying 30m: 3.43s\n💥 Broad Jump: 121\"\n🏋️ Pro Agility: 3.95s\n🎯 Composite: 91.1/100\n🔗 Telemetry: https://draftlineup.com/player.html?player=mp_1732\n#DraftLineup #HockeyAnalytics #CollegeHockey",
+      "intent_url": "https://twitter.com/intent/tweet?text=%F0%9F%A7%AC%20COMBINE%20LAB%20RADAR%3A%20Adam%20Parsons%20(F%2C%20University%20of%20Alaska%20Anchorage)%0A%E2%9A%A1%20Flying%2030m%3A%203.43s%0A%F0%9F%92%A5%20Broad%20Jump%3A%20121%22%0A%F0%9F%8F%8B%EF%B8%8F%20Pro%20Agility%3A%203.95s%0A%F0%9F%8E%AF%20Composite%3A%2091.1%2F100%0A%F0%9F%94%97%20Telemetry%3A%20https%3A%2F%2Fdraftlineup.com%2Fplayer.html%3Fplayer%3Dmp_1732%0A%23DraftLineup%20%23HockeyAnalytics%20%23CollegeHockey",
+      "mode": "AUTONOMOUS_SIMULATION",
+      "character_count": 239,
+      "metrics": {
+        "combine": {
+          "flying_30m_sec": 3.43,
+          "broad_jump_in": 121,
+          "pro_agility_5_10_5_sec": 3.95,
+          "grip_strength_lbs": 162,
+          "rotational_medball_mph": 51
+        },
+        "kpis": {
+          "high_danger_pass_comp_pct": 90,
+          "controlled_exit_pct": 87,
+          "controlled_entry_pct": 86,
+          "wall_battle_win_pct": 90
+        }
+      }
+    },
+    {
+      "id": "sim_tweet_1791763060891",
+      "timestamp": "2026-10-11T23:57:40.891Z",
+      "player_id": "mp_1239",
+      "player_name": "Grant Riley",
+      "team": "Lake Superior State University",
+      "league": "NCAA Division I Men",
+      "composite_score": 89.8,
+      "text": "🚨 PROSPECT SPOTLIGHT: Grant Riley (G, Lake Superior State University)\n📏 6'4\" | 200 lbs | Score: 89.8/100\n⭐ Trajectory Score: 89.8/100\n⚡ Laser 30m: 3.9s | Jump: 108\"\n🔗 Dossier: https://draftlineup.com/player.html?player=mp_1239\n#DraftLineup #HockeyAnalytics #CollegeHockey",
+      "intent_url": "https://twitter.com/intent/tweet?text=%F0%9F%9A%A8%20PROSPECT%20SPOTLIGHT%3A%20Grant%20Riley%20(G%2C%20Lake%20Superior%20State%20University)%0A%F0%9F%93%8F%206'4%22%20%7C%20200%20lbs%20%7C%20Score%3A%2089.8%2F100%0A%E2%AD%90%20Trajectory%20Score%3A%2089.8%2F100%0A%E2%9A%A1%20Laser%2030m%3A%203.9s%20%7C%20Jump%3A%20108%22%0A%F0%9F%94%97%20Dossier%3A%20https%3A%2F%2Fdraftlineup.com%2Fplayer.html%3Fplayer%3Dmp_1239%0A%23DraftLineup%20%23HockeyAnalytics%20%23CollegeHockey",
+      "mode": "AUTONOMOUS_SIMULATION",
+      "character_count": 247,
+      "metrics": {
+        "combine": {
+          "flying_30m_sec": 3.9,
+          "broad_jump_in": 108,
+          "pro_agility_5_10_5_sec": 4.15,
+          "grip_strength_lbs": 160,
+          "rotational_medball_mph": 50
+        },
+        "kpis": {
+          "high_danger_pass_comp_pct": 88,
+          "controlled_exit_pct": 85,
+          "controlled_entry_pct": 84,
+          "wall_battle_win_pct": 88
+        }
+      }
+    }
+  ]
+}
