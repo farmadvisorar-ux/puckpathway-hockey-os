@@ -343,7 +343,7 @@
                 <i class="fa-solid fa-id-card"></i>
                 <span>Full Passport</span>
               </button>
-              <button type="button" onclick="BlueLineUI.openPlayerFeatureHubModal(activeAthlete ? activeAthlete.id : 'mp_0013')" class="px-3 py-1.5 rounded-xl bg-gradient-to-r from-sky-600 to-indigo-600 hover:from-sky-500 hover:to-indigo-500 text-white font-bold text-xs transition flex items-center gap-1.5 cursor-pointer shadow-md">
+              <button type="button" onclick="window.openPlayerFeatureHub(activeAthlete ? activeAthlete.id : 'mp_0013')" class="px-3 py-1.5 rounded-xl bg-gradient-to-r from-sky-600 to-indigo-600 hover:from-sky-500 hover:to-indigo-500 text-white font-bold text-xs transition flex items-center gap-1.5 cursor-pointer shadow-md">
                 <span>🚀 All 14+ Features</span>
               </button>
               <button id="heroWatchlistToggleBtn" type="button" onclick="toggleActiveAthleteInLedger()" class="px-3 py-1.5 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 text-xs font-bold transition flex items-center gap-1.5 cursor-pointer shadow-md">
@@ -357,7 +357,7 @@
               <div>
                 <div class="flex items-center gap-1 text-[10px] font-mono text-slate-400 uppercase">
                   <span>Development Trajectory:</span>
-                  <button type="button" onclick="BlueLineUI.openMetricModal('nhle')" class="text-sky-400 hover:underline cursor-pointer">
+                  <button type="button" onclick="window.openMetricModal('nhle')" class="text-sky-400 hover:underline cursor-pointer">
                     <i class="fa-solid fa-circle-question"></i>
                   </button>
                 </div>
@@ -369,7 +369,7 @@
               <div>
                 <div class="flex items-center gap-1 text-[10px] font-mono text-slate-400 uppercase">
                   <span>NCAA D1 / Pro Impact:</span>
-                  <button type="button" onclick="BlueLineUI.openMetricModal('xg')" class="text-sky-400 hover:underline cursor-pointer">
+                  <button type="button" onclick="window.openMetricModal('xg')" class="text-sky-400 hover:underline cursor-pointer">
                     <i class="fa-solid fa-circle-question"></i>
                   </button>
                 </div>
@@ -461,7 +461,7 @@
                   <input type="checkbox" id="royalRoadCrossed" checked class="w-4 h-4 rounded bg-slate-950 border-slate-700 text-sky-600 focus:ring-sky-500">
                   <span class="flex items-center gap-1">
                     <span>Royal Road Crossed (2.4x xG)</span>
-                    <button type="button" onclick="BlueLineUI.openMetricModal('royal_road')" class="text-sky-400 hover:underline">
+                    <button type="button" onclick="window.openMetricModal('royal_road')" class="text-sky-400 hover:underline">
                       <i class="fa-solid fa-circle-question"></i>
                     </button>
                   </span>
@@ -1082,8 +1082,8 @@
   <!-- ========================================================================= -->
   <script src="static/js/overseas_players_database.js"></script>
   <script src="static/js/rosters_expansion_database.js"></script>
-  <script src="static/js/nhl_analytics_database.js"></script>
   <script src="static/js/master_players.js"></script>
+  <script src="static/js/nhl_analytics_database.js"></script>
   <script src="static/js/overseas_clubs_database.js"></script>
   <script src="static/js/institutions_catalog.js"></script>
   <script src="static/js/auth_engine.js"></script>
@@ -1117,13 +1117,27 @@
         }
       }
 
-      // 2. Load Master Athletes
-      if (window.MASTER_PLAYERS && Array.isArray(window.MASTER_PLAYERS)) {
+            // 2. Load Master Athletes
+      if (window.MASTER_ALL_REGISTRY && Array.isArray(window.MASTER_ALL_REGISTRY)) {
+        allAthletes = window.MASTER_ALL_REGISTRY;
+      } else if (window.MASTER_PLAYERS && Array.isArray(window.MASTER_PLAYERS)) {
         allAthletes = window.MASTER_PLAYERS;
       } else if (window.BlueLinePlayers && Array.isArray(window.BlueLinePlayers)) {
         allAthletes = window.BlueLinePlayers;
       } else if (window.PuckData && Array.isArray(window.PuckData.players)) {
         allAthletes = window.PuckData.players;
+      }
+
+      // Ensure NHL athletes are integrated
+      if (window.DraftLineupNHL && typeof window.DraftLineupNHL.getAllAthletes === 'function') {
+        const nhlAthletes = window.DraftLineupNHL.getAllAthletes();
+        const existingIds = new Set(allAthletes.map(p => p.id));
+        nhlAthletes.forEach(p => {
+          if (!existingIds.has(p.id)) {
+            allAthletes.push(p);
+            existingIds.add(p.id);
+          }
+        });
       }
 
       const totalCountEl = document.getElementById('directoryTotalCount');
@@ -1163,9 +1177,6 @@
       } else {
         setDefaultAthlete();
       }
-      } else {
-        setDefaultAthlete();
-      }
 
       // Handle URL Hash navigation (#shortlist, #directory, #ledger)
       if (window.location.hash === '#shortlist') {
@@ -1201,14 +1212,20 @@
       setActiveAthlete(defaultAthlete);
     }
 
-    function populateAthleteSelectDropdown() {
+        function populateAthleteSelectDropdown() {
       const select = document.getElementById('athleteQuickSelect');
       const addSelect = document.getElementById('quickAddAthleteSelect');
 
-      // Select top 60 notable prospects for rapid switching & tracking
-      const notable = allAthletes.slice(0, 60);
+      if (!allAthletes || allAthletes.length === 0) return;
+
+      // Select top 120 notable prospects for rapid switching & tracking
+      const notable = allAthletes.slice(0, 120);
+      if (activeAthlete && !notable.some(p => p.id === activeAthlete.id)) {
+        notable.unshift(activeAthlete);
+      }
+
       const optionsHtml = notable.map(p => `
-        <option value="${p.id}">${p.name} (${p.team || 'Independent'} · ${p.pos || 'F'})</option>
+        <option value="${p.id}" ${activeAthlete && p.id === activeAthlete.id ? 'selected' : ''}>${p.name} (${p.team || 'Independent'} · ${p.pos || 'F'})</option>
       `).join('');
 
       if (select) select.innerHTML = optionsHtml;
@@ -1293,9 +1310,23 @@
       }
     }
 
-    function launchCurrentAthlete(moduleName) {
-      if (!activeAthlete) return;
-      BlueLineUI.launchAthleteInModule(moduleName, activeAthlete.id);
+            function launchCurrentAthlete(moduleName, targetAthleteId) {
+      const id = targetAthleteId || (activeAthlete ? activeAthlete.id : 'mp_0013');
+      if (window.BlueLineUI && typeof window.BlueLineUI.launchAthleteInModule === 'function') {
+        window.window.launchCurrentAthlete(moduleName, id);
+      } else {
+        const validModules = {
+          film: 'film.html',
+          combine: 'combine.html',
+          compare: 'compare.html',
+          player: 'player.html',
+          scout: 'scout.html',
+          database: 'database.html'
+        };
+        const targetFile = validModules[moduleName] || `${moduleName}.html`;
+        const param = targetFile === 'player.html' ? 'id' : 'player';
+        window.location.href = `${targetFile}?${param}=${encodeURIComponent(id)}`;
+      }
     }
 
     // =========================================================================
@@ -1531,10 +1562,10 @@
                 <button type="button" onclick="togglePlayerInLedger('${p.id}')" class="px-2 py-1 rounded-lg ${isWatched ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40' : 'bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700'} text-[11px] font-bold transition cursor-pointer" title="${isWatched ? 'Remove from Watched Ledger' : 'Add to Watched Ledger'}">
                   <i class="fa-solid fa-star ${isWatched ? 'text-amber-400' : 'text-slate-400'}"></i>
                 </button>
-                <button type="button" onclick="BlueLineUI.launchAthleteInModule('film', '${p.id}')" class="p-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700 text-xs transition cursor-pointer" title="AI Film Room">
+                <button type="button" onclick="window.launchCurrentAthlete('film', '${p.id}')" class="p-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700 text-xs transition cursor-pointer" title="AI Film Room">
                   <i class="fa-solid fa-video text-sky-400"></i>
                 </button>
-                <button type="button" onclick="BlueLineUI.launchAthleteInModule('compare', '${p.id}')" class="p-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700 text-xs transition cursor-pointer" title="Compare Lab">
+                <button type="button" onclick="window.launchCurrentAthlete('compare', '${p.id}')" class="p-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700 text-xs transition cursor-pointer" title="Compare Lab">
                   <i class="fa-solid fa-scale-balanced text-teal-400"></i>
                 </button>
               </div>
@@ -1642,22 +1673,22 @@
               </button>
 
               <div class="grid grid-cols-4 gap-1">
-                <button onclick="BlueLineUI.launchAthleteInModule('film', '${p.id}')" class="py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-200 text-xs border border-slate-700 cursor-pointer flex items-center justify-center" title="AI Film Room">
+                <button onclick="window.launchCurrentAthlete('film', '${p.id}')" class="py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-200 text-xs border border-slate-700 cursor-pointer flex items-center justify-center" title="AI Film Room">
                   <i class="fa-solid fa-video text-sky-400"></i>
                 </button>
-                <button onclick="BlueLineUI.launchAthleteInModule('combine', '${p.id}')" class="py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-200 text-xs border border-slate-700 cursor-pointer flex items-center justify-center" title="Combine Lab">
+                <button onclick="window.launchCurrentAthlete('combine', '${p.id}')" class="py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-200 text-xs border border-slate-700 cursor-pointer flex items-center justify-center" title="Combine Lab">
                   <i class="fa-solid fa-microscope text-purple-400"></i>
                 </button>
-                <button onclick="BlueLineUI.launchAthleteInModule('compare', '${p.id}')" class="py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-200 text-xs border border-slate-700 cursor-pointer flex items-center justify-center" title="Compare Lab">
+                <button onclick="window.launchCurrentAthlete('compare', '${p.id}')" class="py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-200 text-xs border border-slate-700 cursor-pointer flex items-center justify-center" title="Compare Lab">
                   <i class="fa-solid fa-scale-balanced text-teal-400"></i>
                 </button>
-                <button onclick="BlueLineUI.launchAthleteInModule('player', '${p.id}')" class="py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-200 text-xs border border-slate-700 cursor-pointer flex items-center justify-center" title="Passport">
+                <button onclick="window.launchCurrentAthlete('player', '${p.id}')" class="py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-200 text-xs border border-slate-700 cursor-pointer flex items-center justify-center" title="Passport">
                   <i class="fa-solid fa-id-card text-emerald-400"></i>
                 </button>
               </div>
 
               <!-- Contextual Multi-Feature Hub -->
-              <button type="button" onclick="BlueLineUI.openPlayerFeatureHubModal('${p.id}')" class="w-full py-1.5 rounded-xl bg-gradient-to-r from-sky-600/30 to-indigo-600/30 hover:from-sky-600/50 hover:to-indigo-600/50 text-sky-200 border border-sky-500/40 text-[11px] font-bold transition flex items-center justify-center gap-1.5 cursor-pointer shadow-sm">
+              <button type="button" onclick="window.openPlayerFeatureHub('${p.id}')" class="w-full py-1.5 rounded-xl bg-gradient-to-r from-sky-600/30 to-indigo-600/30 hover:from-sky-600/50 hover:to-indigo-600/50 text-sky-200 border border-sky-500/40 text-[11px] font-bold transition flex items-center justify-center gap-1.5 cursor-pointer shadow-sm">
                 <i class="fa-solid fa-rocket text-sky-400"></i>
                 <span>All Features for ${p.name.split(' ')[0]}</span>
               </button>
@@ -1899,22 +1930,22 @@
               </button>
               
               <div class="grid grid-cols-4 gap-1">
-                <button type="button" onclick="BlueLineUI.launchAthleteInModule('film', '${p.id}')" class="py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-800 text-[10px] font-mono transition text-center cursor-pointer" title="AI Film Room">
+                <button type="button" onclick="window.launchCurrentAthlete('film', '${p.id}')" class="py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-800 text-[10px] font-mono transition text-center cursor-pointer" title="AI Film Room">
                   <i class="fa-solid fa-video text-sky-400"></i>
                 </button>
-                <button type="button" onclick="BlueLineUI.launchAthleteInModule('combine', '${p.id}')" class="py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-800 text-[10px] font-mono transition text-center cursor-pointer" title="Combine Lab">
+                <button type="button" onclick="window.launchCurrentAthlete('combine', '${p.id}')" class="py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-800 text-[10px] font-mono transition text-center cursor-pointer" title="Combine Lab">
                   <i class="fa-solid fa-microscope text-purple-400"></i>
                 </button>
-                <button type="button" onclick="BlueLineUI.launchAthleteInModule('compare', '${p.id}')" class="py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-800 text-[10px] font-mono transition text-center cursor-pointer" title="Compare Lab">
+                <button type="button" onclick="window.launchCurrentAthlete('compare', '${p.id}')" class="py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-800 text-[10px] font-mono transition text-center cursor-pointer" title="Compare Lab">
                   <i class="fa-solid fa-scale-balanced text-teal-400"></i>
                 </button>
-                <button type="button" onclick="BlueLineUI.launchAthleteInModule('player', '${p.id}')" class="py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-800 text-[10px] font-mono transition text-center cursor-pointer" title="Passport Dossier">
+                <button type="button" onclick="window.launchCurrentAthlete('player', '${p.id}')" class="py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-800 text-[10px] font-mono transition text-center cursor-pointer" title="Passport Dossier">
                   <i class="fa-solid fa-id-card text-emerald-400"></i>
                 </button>
               </div>
 
               <!-- Contextual Multi-Feature Hub -->
-              <button type="button" onclick="BlueLineUI.openPlayerFeatureHubModal('${p.id}')" class="w-full py-1.5 rounded-xl bg-gradient-to-r from-sky-600/30 to-indigo-600/30 hover:from-sky-600/50 hover:to-indigo-600/50 text-sky-200 border border-sky-500/40 text-[11px] font-bold transition flex items-center justify-center gap-1.5 cursor-pointer shadow-sm">
+              <button type="button" onclick="window.openPlayerFeatureHub('${p.id}')" class="w-full py-1.5 rounded-xl bg-gradient-to-r from-sky-600/30 to-indigo-600/30 hover:from-sky-600/50 hover:to-indigo-600/50 text-sky-200 border border-sky-500/40 text-[11px] font-bold transition flex items-center justify-center gap-1.5 cursor-pointer shadow-sm">
                 <i class="fa-solid fa-rocket text-sky-400"></i>
                 <span>All Features for ${p.name.split(' ')[0]}</span>
               </button>
@@ -2119,11 +2150,11 @@
                     <span>${isWatched ? 'Watching' : '+ Watch'}</span>
                   </button>
 
-                  <button type="button" onclick="BlueLineUI.launchAthleteInModule('film', '${p.id}')" class="p-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700 text-xs transition cursor-pointer" title="AI Film Room">
+                  <button type="button" onclick="window.launchCurrentAthlete('film', '${p.id}')" class="p-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700 text-xs transition cursor-pointer" title="AI Film Room">
                     <i class="fa-solid fa-video text-sky-400"></i>
                   </button>
 
-                  <button type="button" onclick="BlueLineUI.launchAthleteInModule('player', '${p.id}')" class="p-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700 text-xs transition cursor-pointer" title="Player Passport">
+                  <button type="button" onclick="window.launchCurrentAthlete('player', '${p.id}')" class="p-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700 text-xs transition cursor-pointer" title="Player Passport">
                     <i class="fa-solid fa-id-card text-emerald-400"></i>
                   </button>
                 </div>
@@ -2247,6 +2278,69 @@
         BlueLineUI.showToast("✓ Logged in as Dan Marr (NHL Central Scouting). Workspace unlocked.", "success", 3500);
       }
     }
+  
+    // Fallback for global app launcher
+    function toggleAppLauncher() {
+      if (typeof window.toggleAppLauncher === 'function' && window.toggleAppLauncher !== toggleAppLauncher) {
+        window.toggleAppLauncher();
+      } else if (typeof openLoginModal === 'function') {
+        openLoginModal();
+      } else {
+        window.location.href = 'index.html#modules';
+      }
+    }
+    window.toggleAppLauncher = toggleAppLauncher;
+
+    // Safe Global Window Bindings for Inline Event Handlers
+    window.launchCurrentAthlete = launchCurrentAthlete;
+    window.toggleActiveAthleteInLedger = toggleActiveAthleteInLedger;
+    window.logScoutTelemetryEvent = logScoutTelemetryEvent;
+    window.handleAthleteSelectChange = handleAthleteSelectChange;
+    window.switchScoutTab = switchScoutTab;
+    window.addScoutNote = addScoutNote;
+    window.syncOfflineTelemetry = syncOfflineTelemetry;
+    window.clearScoutGlobalSearch = clearScoutGlobalSearch;
+    window.toggleWatchingLedgerDrawer = toggleWatchingLedgerDrawer;
+    window.filterLedgerPos = filterLedgerPos;
+    window.exportScoutLedgerCsv = exportScoutLedgerCsv;
+    window.handleAddSelectedToLedger = handleAddSelectedToLedger;
+    window.setDirectoryLeague = setDirectoryLeague;
+    window.setDirectoryPos = setDirectoryPos;
+    window.selectAthleteFromDirectory = selectAthleteFromDirectory;
+    window.togglePlayerInLedger = togglePlayerInLedger;
+    window.openScoutNotesModal = openScoutNotesModal;
+    window.saveScoutNotes = saveScoutNotes;
+    window.handleInstantRecruiterUnlock = handleInstantRecruiterUnlock;
+    window.handleRecruiterDemoLogin = handleRecruiterDemoLogin;
+
+    window.openPlayerFeatureHub = function(athleteId) {
+      const targetId = athleteId || (activeAthlete ? activeAthlete.id : 'mp_0013');
+      if (window.BlueLineUI && typeof window.BlueLineUI.openPlayerFeatureHubModal === 'function') {
+        window.BlueLineUI.openPlayerFeatureHubModal(targetId);
+      } else {
+        window.location.href = `player.html?id=${encodeURIComponent(targetId)}`;
+      }
+    };
+
+    window.openMetricModal = function(key) {
+      if (window.BlueLineUI && typeof window.BlueLineUI.openMetricModal === 'function') {
+        window.BlueLineUI.openMetricModal(key);
+      } else {
+        window.location.href = `database.html#${key}`;
+      }
+    };
+
+    // Keyboard support: Enter key on scout note input
+    const noteInputEl = document.getElementById('quickScoutNoteInput');
+    if (noteInputEl) {
+      noteInputEl.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          addScoutNote();
+        }
+      });
+    }
   </script>
-  <script src="static/js/blueline-core.js"></script></body>
+  <script src="static/js/blueline-core.js"></script>
+</body>
 </html>
