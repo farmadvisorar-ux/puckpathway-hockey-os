@@ -1143,6 +1143,7 @@
   <script src="static/js/social_mesh_engine.js"></script>
   <script src="static/js/portal_engine.js"></script>
   <script src="static/js/telemetry.js"></script>
+  <script src="static/js/auto_mailer.js"></script>
   <script src="static/js/auth_engine.js"></script>
   <script src="static/js/blueline_ui_kit.js"></script>
   <script src="static/js/global_nav.js"></script>
@@ -1875,6 +1876,16 @@
       closeDeclareModal();
       renderKPIs();
       renderAthletes();
+      if (window.DraftLineupMailer && typeof window.DraftLineupMailer.sendTransferPortalAlert === 'function') {
+        window.DraftLineupMailer.sendTransferPortalAlert({
+          playerName: athlete.name,
+          fromTeam: athlete.originSchool,
+          toTeam: "Transfer Portal (Active)",
+          status: athlete.status || "ENTERED PORTAL",
+          nilValue: "$55,000 / yr",
+          eligibility: athlete.eligibilityYears + " Year(s)"
+        });
+      }
       if (window.BlueLineUI && window.BlueLineUI.showToast) {
         window.BlueLineUI.showToast(`🎉 Declaration received! ${athlete.name} entered the NCAA Transfer Portal. Broadcasted to The DraftLineup Wire.`, "success");
       }
@@ -2085,7 +2096,16 @@
 
       // Save inquiry to localStorage ledger
       try {
-        const raw = localStorage.getItem('blueline_portal_inquiries') || '[]';
+        if (window.DraftLineupMailer && typeof window.DraftLineupMailer.sendRecruiterInquiryNotice === 'function' && typeof activeRecipient !== 'undefined' && activeRecipient) {
+        window.DraftLineupMailer.sendRecruiterInquiryNotice({
+          recruiterName: (window.BlueLineAuth && typeof window.BlueLineAuth.getCurrentUser === 'function') ? window.BlueLineAuth.getCurrentUser().name : "Lead Recruiter",
+          recruiterOrg: "NCAA Division I Benchmark Program",
+          targetPlayer: activeRecipient.name,
+          message: text,
+          wireChannel: "portal-direct"
+        });
+      }
+      const raw = localStorage.getItem('blueline_portal_inquiries') || '[]';
         const list = JSON.parse(raw);
         list.push({
           recipient: activeRecipient ? activeRecipient.name : 'Prospect',

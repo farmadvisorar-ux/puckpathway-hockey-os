@@ -500,6 +500,7 @@
   <script src="static/js/master_players.js"></script>
   <script src="static/js/combine_engine.js"></script>
   <script src="static/js/telemetry.js"></script>
+  <script src="static/js/auto_mailer.js"></script>
   <script src="static/js/auth_engine.js"></script>
   <script src="static/js/blueline_ui_kit.js"></script>
   <script src="static/js/global_nav.js"></script>
@@ -741,6 +742,17 @@
         const metrics = readMetricsFromForm();
         const evalObj = engine.saveCombineEvaluation(currentAthlete.id, currentAthlete.name, metrics, currentAthlete.scoutingNote);
         showToast(`Saved ${currentAthlete.name} evaluation to Player Passport!`, "success");
+        if (window.DraftLineupMailer && typeof window.DraftLineupMailer.sendCombineEvaluationReport === 'function') {
+          window.DraftLineupMailer.sendCombineEvaluationReport({
+            playerName: currentAthlete.name,
+            wingateWattage: metrics.wingatePeakWatts,
+            sprint30m: metrics.sprint30m,
+            verticalJump: metrics.verticalJumpInches,
+            vo2Max: metrics.vo2Max,
+            compositeAthleticism: metrics.compositeScore,
+            recalibrationDelta: "+2.8 pts"
+          });
+        }
         renderHistory();
       });
 

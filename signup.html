@@ -439,6 +439,7 @@
   </footer>
 
   <!-- Scripts -->
+  <script src="static/js/auto_mailer.js"></script>
   <script src="static/js/auth_engine.js"></script>
   <script src="static/js/global_nav.js"></script>
   <script src="static/js/blueline_ui_kit.js"></script>
@@ -517,6 +518,11 @@
         accs.push(newUser);
         localStorage.setItem('blueline_registered_users', JSON.stringify(accs));
       } catch(err) {}
+
+      // Dispatch automated sign-up confirmation auto-responder
+      if (window.DraftLineupMailer && typeof window.DraftLineupMailer.sendSignupConfirmation === 'function') {
+        window.DraftLineupMailer.sendSignupConfirmation(newUser);
+      }
 
       if (window.BlueLineUI && typeof window.BlueLineUI.showToast === 'function') {
         BlueLineUI.showToast(`Passport Minted for ${name}! Clearance active.`, 'success');

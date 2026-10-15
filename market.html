@@ -533,6 +533,7 @@
   <script src="static/js/overseas_clubs_database.js"></script>
   <script src="static/js/market_engine.js"></script>
   <script src="static/js/telemetry.js"></script>
+  <script src="static/js/auto_mailer.js"></script>
   <script src="static/js/auth_engine.js"></script>
   <script src="static/js/blueline_ui_kit.js"></script>
   <script src="static/js/global_nav.js"></script>
@@ -788,7 +789,18 @@
         );
 
         window.MarketEngine.broadcastTradeProposal(result);
-        showToast("💼 Published Blockbuster Trade Proposal to The DraftLineup Wire!");
+        if (window.DraftLineupMailer && typeof window.DraftLineupMailer.sendTradeEvaluationNotice === 'function') {
+          window.DraftLineupMailer.sendTradeEvaluationNotice({
+            teamA: result.teamA.name,
+            teamB: result.teamB.name,
+            assetsA: result.teamA.assetsOut.map(a => a.name).join(", ") || "Draft Capital",
+            assetsB: result.teamB.assetsOut.map(a => a.name).join(", ") || "Roster Player",
+            capDelta: result.teamA.netCapChangeFormatted,
+            cbaCompliance: result.compliant ? "Approved & CBA 2026 Compliant" : "Review Required",
+            draftSurplus: "+45.2 Pick Valuation Index"
+          });
+        }
+        showToast("💼 Published Blockbuster Trade Proposal & Dispatched Auto-Alert!");
       });
 
       function showToast(msg) {

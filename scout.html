@@ -170,6 +170,10 @@
           <i class="fa-solid fa-print text-sky-400"></i>
           <span>Export Dossier / PDF</span>
         </button>
+        <button type="button" onclick="emailScoutDossier()" class="px-3 py-1.5 rounded-xl bg-sky-600/30 hover:bg-sky-600/50 text-sky-200 border border-sky-400/50 font-mono text-[11px] font-bold flex items-center gap-1.5 transition cursor-pointer no-print" title="Dispatch Scout Dossier via DraftLineup Auto-Mailer">
+          <i class="fa-solid fa-paper-plane text-sky-400"></i>
+          <span>Email Dossier</span>
+        </button>
       </div>
 
     </div>
@@ -1086,6 +1090,7 @@
   <script src="static/js/nhl_analytics_database.js"></script>
   <script src="static/js/overseas_clubs_database.js"></script>
   <script src="static/js/institutions_catalog.js"></script>
+  <script src="static/js/auto_mailer.js"></script>
   <script src="static/js/auth_engine.js"></script>
   <script src="static/js/global_nav.js"></script>
   <script src="static/js/blueline_ui_kit.js"></script>
@@ -2297,6 +2302,25 @@
     window.logScoutTelemetryEvent = logScoutTelemetryEvent;
     window.handleAthleteSelectChange = handleAthleteSelectChange;
     window.switchScoutTab = switchScoutTab;
+    function emailScoutDossier() {
+      if (window.DraftLineupMailer && typeof window.DraftLineupMailer.sendScoutDossierExport === 'function') {
+        const athlete = activeAthlete || { name: "Michael Hage", team: "University of Michigan", pos: "C", league: "NCAA D1 / USHL" };
+        const user = (window.BlueLineAuth && typeof window.BlueLineAuth.getCurrentUser === 'function') ? window.BlueLineAuth.getCurrentUser() : { name: "Dan Marr" };
+        window.DraftLineupMailer.sendScoutDossierExport({
+          playerName: athlete.name,
+          team: athlete.team || "Independent Amateur",
+          pos: athlete.pos || "F",
+          league: athlete.league || "Tier 1 AAA / Junior",
+          scoutName: user.name || "Dan Marr",
+          scoutAgency: user.badge || "NHL Central Scouting Benchmark",
+          grades: { skating: "65/80", iq: "70/80", shooting: "65/80", compete: "60/80" },
+          notes: (scoutNotes && scoutNotes.length > 0) ? scoutNotes[0].text : "Scout evaluation dossier exported from Lead Scout Desk."
+        });
+        if (window.BlueLineUI) BlueLineUI.showToast("✓ Scout Intel Dossier dispatched to outbox!", "success");
+      }
+    }
+    window.emailScoutDossier = emailScoutDossier;
+
     window.addScoutNote = addScoutNote;
     window.syncOfflineTelemetry = syncOfflineTelemetry;
     window.clearScoutGlobalSearch = clearScoutGlobalSearch;
