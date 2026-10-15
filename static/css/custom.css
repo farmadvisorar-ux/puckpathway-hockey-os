@@ -1,18 +1,51 @@
-/* DraftLineup.com: Custom Theme & Glassmorphism Styles */
+/* ==========================================================================
+   DraftLineup.com - Unified Master Enterprise Design System (v4.0)
+   Modern Dark-Canvas Architecture, Bento Grid & Ice-Glow Glassmorphism
+   ========================================================================== */
 
+/* 1. MASTER DESIGN TOKENS & COLOR SYSTEM */
 :root {
+  /* Surface Layers */
+  --bg-canvas: #030712;
+  --bg-surface: #0a0f1d;
+  --bg-surface-elevated: #0f172a;
+  --bg-surface-hover: #162035;
+  --bg-card: rgba(15, 23, 42, 0.75);
+  --bg-card-hover: rgba(22, 32, 53, 0.85);
   --ice-bg: #090e17;
   --panel-bg: rgba(15, 23, 42, 0.85);
-  --panel-border: rgba(56, 189, 248, 0.2);
+
+  /* Enterprise Accents & Lighting */
   --ice-blue: #38bdf8;
+  --cyan-bright: #00f0ff;
+  --blue-primary: #0284c7;
+  --indigo-accent: #6366f1;
   --goalie-gold: #f59e0b;
   --danger-red: #ef4444;
   --assist-green: #10b981;
+  --purple-portal: #a855f7;
+
+  /* Hairline Borders & Shadows */
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-subtle-hover: rgba(255, 255, 255, 0.16);
+  --border-glow: rgba(56, 189, 248, 0.3);
+  --panel-border: rgba(56, 189, 248, 0.2);
+  --border-emerald: rgba(16, 185, 129, 0.3);
+  --border-amber: rgba(245, 158, 11, 0.3);
+
+  /* Typography Stack */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', 'Courier New', Courier, monospace;
 }
 
-/* Universal Resets: Eliminate raw browser default links and beveled buttons */
+/* 2. UNIVERSAL RESETS & TYPOGRAPHY POLISH */
 *, *::before, *::after {
   box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  color-scheme: dark;
 }
 
 html, body {
@@ -21,10 +54,24 @@ html, body {
   min-height: 100%;
 }
 
+body {
+  background-color: var(--bg-canvas);
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(2, 132, 199, 0.12) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, rgba(99, 102, 241, 0.09) 0px, transparent 50%),
+    radial-gradient(at 50% 100%, rgba(14, 165, 233, 0.07) 0px, transparent 60%);
+  color: #f1f5f9;
+  font-family: var(--font-sans);
+  font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11', 'tnum';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
 a {
   color: inherit;
   text-decoration: none;
-  transition: color 0.15s ease, opacity 0.15s ease;
+  transition: color 0.18s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.18s ease;
 }
 
 a:hover {
@@ -42,7 +89,7 @@ button {
   outline: none;
 }
 
-/* Resilient Layout Fallbacks (guarantees clean enterprise UI even if CDN is delayed or offline) */
+/* 3. RESILIENT LAYOUT & UTILITY CLASSES */
 .hidden { display: none !important; }
 .flex { display: flex; }
 .inline-flex { display: inline-flex; }
@@ -64,8 +111,10 @@ button {
 .w-full { width: 100%; }
 .max-w-7xl { max-width: 80rem; margin-left: auto; margin-right: auto; }
 
+/* Text colors */
 .text-white { color: #ffffff; }
 .text-slate-100 { color: #f1f5f9; }
+.text-slate-200 { color: #e2e8f0; }
 .text-slate-300 { color: #cbd5e1; }
 .text-slate-400 { color: #94a3b8; }
 .text-sky-300 { color: #7dd3fc; }
@@ -74,37 +123,203 @@ button {
 .text-emerald-400 { color: #34d399; }
 .text-amber-300 { color: #fcd34d; }
 .text-amber-400 { color: #fbbf24; }
+.text-rose-400 { color: #f87171; }
 
 .bg-slate-900 { background-color: #0f172a; }
 .bg-slate-950 { background-color: #020617; }
 
-body {
-  background-color: #06090e;
-  background-image: 
-    radial-gradient(at 0% 0%, rgba(14, 165, 233, 0.12) 0px, transparent 50%),
-    radial-gradient(at 100% 100%, rgba(99, 102, 241, 0.08) 0px, transparent 50%);
-  color: #f1f5f9;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  overflow-x: hidden;
+/* 4. ENTERPRISE GLASSMORPHISM & BENTO CARDS */
+.glass-panel {
+  background: rgba(15, 23, 42, 0.78);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-subtle);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Glassmorphism containers */
-.glass-panel {
-  background: rgba(15, 23, 42, 0.75);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+.glass-panel:hover {
+  border-color: var(--border-subtle-hover);
 }
 
 .glass-panel-glow {
-  background: rgba(15, 23, 42, 0.85);
-  backdrop-filter: blur(16px);
-  border: 1px solid rgba(56, 189, 248, 0.3);
-  box-shadow: 0 0 25px rgba(56, 189, 248, 0.15);
+  background: rgba(15, 23, 42, 0.88);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  border-radius: 20px;
+  box-shadow: 0 0 25px rgba(56, 189, 248, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
-/* Hockey Rink Canvas Container */
+.glow-card, .enterprise-card {
+  background: rgba(11, 17, 32, 0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(56, 189, 248, 0.22);
+  border-radius: 24px;
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7), 0 0 25px rgba(56, 189, 248, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glow-card:hover, .enterprise-card:hover {
+  border-color: rgba(56, 189, 248, 0.45);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8), 0 0 35px rgba(56, 189, 248, 0.2);
+  transform: translateY(-2px);
+}
+
+/* Bento Box Grid Item */
+.bento-card {
+  position: relative;
+  background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.07), transparent 70%), rgba(15, 23, 42, 0.8);
+  border: 1px solid var(--border-subtle);
+  border-radius: 20px;
+  padding: 1.5rem;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.36), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  overflow: hidden;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.bento-card:hover {
+  border-color: rgba(56, 189, 248, 0.35);
+  box-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.6), 0 0 20px rgba(56, 189, 248, 0.15);
+  transform: translateY(-2px);
+}
+
+/* 5. MODERN ENTERPRISE BUTTONS & INPUTS */
+.glow-input:focus, .input-enterprise:focus {
+  border-color: #38bdf8 !important;
+  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.25), 0 0 15px rgba(56, 189, 248, 0.15) !important;
+  outline: none;
+}
+
+.btn-enterprise-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background: linear-gradient(135deg, #0284c7 0%, #2563eb 100%);
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 0.85rem;
+  border-radius: 12px;
+  border: 1px solid rgba(56, 189, 248, 0.4);
+  box-shadow: 0 10px 20px -5px rgba(2, 132, 199, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.btn-enterprise-primary:hover {
+  background: linear-gradient(135deg, #0369a1 0%, #1d4ed8 100%);
+  border-color: #38bdf8;
+  box-shadow: 0 12px 25px -5px rgba(2, 132, 199, 0.55), 0 0 15px rgba(56, 189, 248, 0.3);
+  transform: translateY(-1px);
+}
+
+.btn-enterprise-primary:active {
+  transform: scale(0.98);
+}
+
+.btn-enterprise-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background: rgba(15, 23, 42, 0.9);
+  color: #f1f5f9;
+  font-weight: 700;
+  font-size: 0.85rem;
+  border-radius: 12px;
+  border: 1px solid var(--border-subtle);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-enterprise-secondary:hover {
+  background: rgba(30, 41, 59, 0.9);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+/* 6. STATUS BEACONS, PILLS & BADGES */
+.badge-ice {
+  background: rgba(56, 189, 248, 0.14);
+  color: #38bdf8;
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  border-radius: 9999px;
+  padding: 0.2rem 0.65rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.badge-gold {
+  background: rgba(245, 158, 11, 0.14);
+  color: #fbbf24;
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  border-radius: 9999px;
+  padding: 0.2rem 0.65rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.badge-green {
+  background: rgba(16, 185, 129, 0.14);
+  color: #34d399;
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  border-radius: 9999px;
+  padding: 0.2rem 0.65rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.badge-red {
+  background: rgba(239, 68, 68, 0.14);
+  color: #f87171;
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  border-radius: 9999px;
+  padding: 0.2rem 0.65rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+/* Micro Status Beacons */
+.status-beacon-live {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: #10b981;
+  box-shadow: 0 0 10px #10b981, 0 0 20px #10b981;
+  animation: beacon-pulse 2s infinite cubic-bezier(0.4, 0, 0.6, 1);
+}
+
+@keyframes beacon-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.9); }
+}
+
+/* 7. HOCKEY RINK CANVAS & VISUALIZATION FIXTURES */
 .rink-canvas-container {
   background: #f8fafc;
   border-radius: 24px;
@@ -112,66 +327,6 @@ body {
   border: 4px solid #334155;
   position: relative;
   overflow: hidden;
-}
-
-/* Scrollbars */
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-::-webkit-scrollbar-track {
-  background: rgba(15, 23, 42, 0.6);
-}
-::-webkit-scrollbar-thumb {
-  background: rgba(56, 189, 248, 0.3);
-  border-radius: 4px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(56, 189, 248, 0.6);
-}
-
-/* Hide scrollbar for clean mobile touch strips */
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
-}
-.no-scrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-
-/* Glow badges */
-.badge-ice {
-  background: rgba(56, 189, 248, 0.15);
-  color: #38bdf8;
-  border: 1px solid rgba(56, 189, 248, 0.3);
-}
-
-.badge-gold {
-  background: rgba(245, 158, 11, 0.15);
-  color: #fbbf24;
-  border: 1px solid rgba(245, 158, 11, 0.3);
-}
-
-.badge-green {
-  background: rgba(16, 185, 129, 0.15);
-  color: #34d399;
-  border: 1px solid rgba(16, 185, 129, 0.3);
-}
-
-.badge-red {
-  background: rgba(239, 68, 68, 0.15);
-  color: #f87171;
-  border: 1px solid rgba(239, 68, 68, 0.3);
-}
-
-/* Animations */
-@keyframes pulse-border {
-  0%, 100% { border-color: rgba(56, 189, 248, 0.4); }
-  50% { border-color: rgba(56, 189, 248, 0.9); }
-}
-
-.animate-pulse-glow {
-  animation: pulse-border 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
 /* Bench shift card active */
@@ -187,47 +342,94 @@ body {
   box-shadow: 0 0 15px rgba(239, 68, 68, 0.25);
 }
 
-
-/* ==================== PRINT STYLES FOR COACH ICE CARD & SCOUT DOSSIER ==================== */
-@media print {
-  body {
-    background: #ffffff !important;
-    color: #0f172a !important;
-  }
-  header, #mainNavBar, footer, #roleContextHUD, #toastContainer, button:not(.no-print) {
-    display: none !important;
-  }
-  #coachIceCardModal:not(.hidden), #scoutDossierModal:not(.hidden), #gameBoxScoreModal:not(.hidden) {
-    position: static !important;
-    display: block !important;
-    background: transparent !important;
-    backdrop-filter: none !important;
-    padding: 0 !important;
-    border: none !important;
-  }
-  #coachIceCardModal .glass-panel, #scoutDossierModal .glass-panel, #gameBoxScoreModal .glass-panel {
-    background: #ffffff !important;
-    color: #0f172a !important;
-    border: 1px solid #cbd5e1 !important;
-    box-shadow: none !important;
-    max-width: 100% !important;
-    max-height: none !important;
-    padding: 10px !important;
-  }
-  .glass-panel {
-    background: #ffffff !important;
-    color: #0f172a !important;
-    border-color: #cbd5e1 !important;
-  }
-  .print-card-box {
-    border: 1px solid #cbd5e1 !important;
-    background: #f8fafc !important;
-    color: #0f172a !important;
-  }
+/* 8. ENTERPRISE DATA TABLES */
+.table-enterprise {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 0.8rem;
 }
 
+.table-enterprise th {
+  background: rgba(15, 23, 42, 0.95);
+  backdrop-filter: blur(8px);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  padding: 0.75rem 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #94a3b8;
+  border-bottom: 1px solid rgba(56, 189, 248, 0.2);
+}
 
-/* ==================== PATH — SCOUTING PROFILE EDITORIAL THEME ==================== */
+.table-enterprise td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  color: #cbd5e1;
+  transition: background-color 0.15s ease;
+}
+
+.table-enterprise tr:hover td {
+  background-color: rgba(56, 189, 248, 0.05);
+  color: #ffffff;
+}
+
+/* 9. SCROLLBARS & MODAL BACKDROPS */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(3, 7, 18, 0.7);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(56, 189, 248, 0.28);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(56, 189, 248, 0.55);
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.modal-backdrop {
+  background: rgba(2, 6, 23, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+/* Universal Dark Select & Dropdown Option Styling */
+select {
+  background-color: #0f172a !important;
+  color: #f8fafc !important;
+  border: 1px solid rgba(56, 189, 248, 0.3) !important;
+}
+
+select option {
+  background-color: #0f172a !important;
+  color: #f8fafc !important;
+  padding: 10px 14px !important;
+}
+
+select option:hover,
+select option:focus,
+select option:active,
+select option:checked {
+  background-color: #0284c7 !important;
+  color: #ffffff !important;
+}
+
+/* 10. PATHWAY & EDITORIAL PROFILE THEME */
 .path-profile-container {
   --ice: #EFF3F2;
   --panel: #FFFFFF;
@@ -319,11 +521,7 @@ body {
 .path-stop + .path-stop { margin-left: 14px; }
 .path-stop.pending { border-left-color: var(--amber); background: var(--amber-bg); }
 
-/* ==========================================================================
-   Mobile-Friendly Menu, Bottom HUD & Touch Canvas Optimizations
-   ========================================================================== */
-
-/* Safe Area Insets for iOS & Modern Mobile Devices */
+/* 11. MOBILE & TOUCH DISPLAY OPTIMIZATIONS */
 @supports (padding-bottom: env(safe-area-inset-bottom)) {
   .safe-area-bottom {
     padding-bottom: calc(0.5rem + env(safe-area-inset-bottom)) !important;
@@ -335,28 +533,16 @@ body {
   }
 }
 
-/* Eliminate tap delay and unwanted highlight on mobile touch */
 * {
   -webkit-tap-highlight-color: transparent;
 }
 
-/* Hide scrollbar utility for sleek touch scrolling rows */
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
-}
-.no-scrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-
-/* Mobile Screen Layout Adjustments (< 1024px) */
 @media (max-width: 1023px) {
   body {
-    padding-bottom: 84px; /* Clearance for sticky bottom HUD */
+    padding-bottom: 84px;
     -webkit-overflow-scrolling: touch;
   }
 
-  /* Prevent auto-zoom on iOS Safari when tapping inputs */
   input[type="text"],
   input[type="search"],
   input[type="number"],
@@ -365,7 +551,6 @@ body {
     font-size: 16px !important;
   }
 
-  /* Optimize touch canvases to prevent unwanted page gestures while drawing */
   .rink-canvas-container,
   #filmCanvasWrapper,
   #practiceRinkCanvas,
@@ -375,7 +560,6 @@ body {
     -webkit-user-select: none;
   }
 
-  /* Ensure touch-friendly tap targets of at least 44x44px */
   .mobile-bottom-tab,
   #openMobileDrawerBottomBtn,
   #mobileMenuToggleBtn,
@@ -387,19 +571,16 @@ body {
     touch-action: manipulation;
   }
 
-  /* Make tab contents flow comfortably on mobile */
   .tab-content {
     overflow-x: hidden;
   }
 
-  /* Responsive video canvas container */
   #filmCanvasWrapper {
     width: 100% !important;
     max-width: 100vw;
   }
 }
 
-/* Slide-out Mobile Nav Drawer */
 #mobileNavDrawer {
   transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -413,37 +594,12 @@ body {
   transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Drag & Drop Highlight on Film Room Canvas */
 #filmCanvasWrapper.drag-over {
   border-color: #38bdf8 !important;
   box-shadow: 0 0 20px rgba(56, 189, 248, 0.35);
 }
 
-
-
-
-/* Universal Dark Select & Dropdown Option Styling Fix */
-select {
-  background-color: #0f172a !important;
-  color: #f8fafc !important;
-  border: 1px solid rgba(56, 189, 248, 0.3) !important;
-}
-
-select option {
-  background-color: #0f172a !important;
-  color: #f8fafc !important;
-  padding: 10px 14px !important;
-}
-
-select option:hover,
-select option:focus,
-select option:active,
-select option:checked {
-  background-color: #0284c7 !important;
-  color: #ffffff !important;
-}
-
-/* Printable Executive Dossier & Scouting Report Optimization */
+/* 12. PRINT MEDIA STYLES FOR COACH ICE CARD & SCOUT DOSSIER */
 @media print {
   body {
     background: #ffffff !important;
@@ -451,10 +607,10 @@ select option:checked {
     padding: 0 !important;
     margin: 0 !important;
   }
-  header, nav, #mobileBottomNav, #aiScoutingCopilotDrawer, #aiScoutingCopilotToggleBtn, .no-print, button, #scoutSearchResultsDropdown, #passportEditPanel {
+  header, nav, #mobileBottomNav, #aiScoutingCopilotDrawer, #aiScoutingCopilotToggleBtn, .no-print, button, #scoutSearchResultsDropdown, #passportEditPanel, #roleContextHUD, #toastContainer {
     display: none !important;
   }
-  .glass-panel, .glass-card {
+  .glass-panel, .glass-card, .glow-card, .enterprise-card, .bento-card {
     background: #ffffff !important;
     border: 1px solid #cbd5e1 !important;
     box-shadow: none !important;
@@ -483,4 +639,3 @@ select option:checked {
     page-break-inside: avoid;
   }
 }
-

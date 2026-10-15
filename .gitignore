@@ -1,0 +1,6 @@
+# Local backups
+backups/
+*.tar.gz
+
+# Node dependencies
+node_modules/
