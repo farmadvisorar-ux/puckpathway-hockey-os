@@ -14,9 +14,9 @@ from http.server import HTTPServer, BaseHTTPRequestHandler
 # Configuration
 SMTP_HOST = os.environ.get("SMTP_HOST", "smtp.zoho.com")
 SMTP_PORT = int(os.environ.get("SMTP_PORT", 587))
-SMTP_USER = os.environ.get("SMTP_USER", "support@draftlineup.com")
+SMTP_USER = os.environ.get("SMTP_USER", "hello@draftlineup.com")
 SMTP_PASS = os.environ.get("SMTP_PASS", "")
-DEFAULT_SENDER = os.environ.get("DEFAULT_SENDER", "DraftLineup Security <support@draftlineup.com>")
+DEFAULT_SENDER = os.environ.get("DEFAULT_SENDER", "DraftLineup <hello@draftlineup.com>")
 
 class EmailRelayHandler(BaseHTTPRequestHandler):
     def _set_headers(self, status=200):

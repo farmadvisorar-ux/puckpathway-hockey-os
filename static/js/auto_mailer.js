@@ -32,13 +32,14 @@
     brandName: "DraftLineup",
     platformTitle: "DraftLineup Hockey OS & Scouting Network",
     adminEmail: "furrhjohn10@gmail.com",
-    senderAddress: "DraftLineup Security <noreply@draftlineup.com>",
+    helloEmail: "hello@draftlineup.com",
+    senderAddress: "DraftLineup <hello@draftlineup.com>",
     supportEmail: "support@draftlineup.com",
     authEmail: "auth@draftlineup.com",
     scoutingEmail: "scouting@draftlineup.com",
     recruitingEmail: "recruiting@draftlineup.com",
     portalEmail: "transfers@draftlineup.com",
-    replyTo: "furrhjohn10@gmail.com",
+    replyTo: "hello@draftlineup.com",
     tokenExpiryMinutes: 15,
     relayUrl: "http://localhost:8025/api/relay"
   };
@@ -194,7 +195,7 @@
                       ${contextNote} (<a href="https://draftlineup.com" style="color: #38bdf8; text-decoration: none;">draftlineup.com</a>)
                     </p>
                     <p style="margin: 0 0 8px 0;">
-                      Sending & Operations Desk: <a href="mailto:${MAILER_CONFIG.adminEmail}" style="color: #38bdf8; text-decoration: none;">${MAILER_CONFIG.adminEmail}</a> · Official Inquiries: <a href="mailto:${MAILER_CONFIG.supportEmail}" style="color: #38bdf8; text-decoration: none;">${MAILER_CONFIG.supportEmail}</a>
+                      Sending & Operations Desk: <a href="mailto:${MAILER_CONFIG.adminEmail}" style="color: #38bdf8; text-decoration: none;">${MAILER_CONFIG.adminEmail}</a> · Direct Inquiries: <a href="mailto:${MAILER_CONFIG.helloEmail}" style="color: #38bdf8; text-decoration: none;">${MAILER_CONFIG.helloEmail}</a>
                     </p>
                     <p style="margin: 0 0 8px 0;">
                       This notification was dispatched to <span style="color: #cbd5e1; font-weight: 600;">${recipientEmail}</span>. Reply directly to this email to contact our operations desk.
