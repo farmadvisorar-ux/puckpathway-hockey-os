@@ -304,7 +304,8 @@
             <option value="all">All Positions & Staff</option>
             <option value="F">Forwards (F / C / W)</option>
             <option value="D">Defensemen (D)</option>
-            <option value="G">Goaltenders (G)</option>
+            <option value="GC">🧤 GC - Goalie Crease / Netminders</option>
+            <option value="G">Goaltenders (G / GC)</option>
             <option value="HC">Head Coaches (HC)</option>
             <option value="GM">General Managers (GM)</option>
             <option value="REC">Recruiters & Staff</option>
@@ -350,6 +351,12 @@
       <!-- Quick Filter Pills -->
       <div class="flex flex-wrap items-center gap-1.5 pt-1 border-t border-slate-800 text-xs overflow-x-auto">
         <span class="text-[10px] uppercase font-bold text-slate-500 mr-1">Quick Select:</span>
+        <button class="quick-team-pill px-2.5 py-1 rounded-lg bg-sky-950/80 hover:bg-sky-900 text-sky-300 border border-sky-500/50 font-bold text-[11px] flex items-center gap-1 shadow-sm" data-search="Austin Ice Bats">
+          <span>🦇</span> <span>Austin Ice Bats Spotlight</span>
+        </button>
+        <button id="quickGCPill" type="button" onclick="selectQuickGCPos()" class="quick-team-pill px-2.5 py-1 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 font-bold text-[11px] flex items-center gap-1 transition cursor-pointer shadow-sm" title="Filter to all GC (Goalie Crease) netminders">
+          <span>🧤</span> <span>GC Crease Category</span>
+        </button>
         <button class="quick-team-pill px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-sky-400 border border-slate-800 font-bold text-[11px]" data-search="Michigan">Michigan</button>
         <button class="quick-team-pill px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-sky-400 border border-slate-800 font-bold text-[11px]" data-search="Denver">Denver</button>
         <button class="quick-team-pill px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-sky-400 border border-slate-800 font-bold text-[11px]" data-search="Boston College">Boston College</button>
@@ -421,7 +428,61 @@
         </div>
       </div>
     
-    <div id="tableViewContainer" class="glass-panel rounded-2xl border border-slate-800 overflow-hidden shadow-2xl">
+    <!-- Austin Ice Bats & GC Crease Spotlight Banner -->
+      <div class="glass-panel p-4 sm:p-5 rounded-2xl border border-sky-500/30 bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 shadow-xl space-y-3">
+        <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-800/80 pb-3">
+          <div class="flex items-center gap-2">
+            <span class="px-2 py-0.5 rounded-full bg-sky-500/20 text-sky-300 border border-sky-500/40 text-[10px] font-mono font-bold">🦇 AUSTIN ICE BATS SPOTLIGHT</span>
+            <span class="px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40 text-[10px] font-mono font-bold">🧤 GC CREASE CATEGORY</span>
+          </div>
+          <div class="flex items-center gap-2 text-xs font-mono">
+            <button type="button" onclick="filterAustinIceBats()" class="px-3 py-1 rounded-lg bg-sky-600 hover:bg-sky-500 text-white font-bold transition flex items-center gap-1 shadow-sm text-xs cursor-pointer">
+              <span>🦇</span> <span>Filter Austin Ice Bats</span>
+            </button>
+            <button type="button" onclick="selectQuickGCPos()" class="px-3 py-1 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold transition flex items-center gap-1 shadow-sm text-xs cursor-pointer">
+              <span>🧤</span> <span>Filter All GC Netminders</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-1">
+          <!-- Left: Austin Ice Bats Top Players -->
+          <div class="p-3 rounded-xl bg-slate-900/80 border border-sky-500/20 space-y-2">
+            <div class="flex items-center justify-between text-xs">
+              <span class="font-bold text-sky-300 flex items-center gap-1.5">
+                <span>🦇</span> Top Austin Ice Bats Prospects (NA3HL)
+              </span>
+              <span class="text-[10px] text-slate-400 font-mono">The Crossover · Cedar Park, TX</span>
+            </div>
+            <div class="flex flex-wrap gap-1.5 text-[11px] font-mono">
+              <span class="px-2 py-0.5 rounded bg-slate-950 border border-slate-700 text-slate-200">#9 Arys Perardi <strong class="text-sky-400">89.2</strong></span>
+              <span class="px-2 py-0.5 rounded bg-slate-950 border border-slate-700 text-slate-200">#71 Jack Hanson <strong class="text-sky-400">88.9</strong></span>
+              <span class="px-2 py-0.5 rounded bg-slate-950 border border-slate-700 text-slate-200">#21 Jake Bamback <strong class="text-sky-400">88.6</strong></span>
+              <span class="px-2 py-0.5 rounded bg-slate-950 border border-slate-700 text-slate-200">#17 Guhnar Hillman <strong class="text-sky-400">87.8</strong></span>
+              <span class="px-2 py-0.5 rounded bg-slate-950 border border-slate-700 text-slate-200">#7 Michael Berman <strong class="text-sky-400">87.5</strong></span>
+              <span class="px-2 py-0.5 rounded bg-slate-950 border border-slate-700 text-slate-200">#91 Georgii Tokarskii <strong class="text-sky-400">87.4</strong></span>
+            </div>
+          </div>
+
+          <!-- Right: Top GC Netminders -->
+          <div class="p-3 rounded-xl bg-slate-900/80 border border-amber-500/20 space-y-2">
+            <div class="flex items-center justify-between text-xs">
+              <span class="font-bold text-amber-300 flex items-center gap-1.5">
+                <span>🧤</span> Top GC (Goalie Crease) Netminders
+              </span>
+              <span class="text-[10px] text-slate-400 font-mono">Biometric GSAx & RVH Tracking</span>
+            </div>
+            <div class="flex flex-wrap gap-1.5 text-[11px] font-mono">
+              <span class="px-2 py-0.5 rounded bg-slate-950 border border-amber-500/30 text-amber-200">#30 G. Benchowski <strong class="text-amber-400">+12.4 GSAx</strong></span>
+              <span class="px-2 py-0.5 rounded bg-slate-950 border border-amber-500/30 text-amber-200">#32 C. Lemanski <strong class="text-amber-400">+11.0 GSAx</strong></span>
+              <span class="px-2 py-0.5 rounded bg-slate-950 border border-amber-500/30 text-amber-200">#1 T. Augustine <strong class="text-amber-400">+18.2 GSAx</strong></span>
+              <span class="px-2 py-0.5 rounded bg-slate-950 border border-amber-500/30 text-amber-200">#31 A. Boija <strong class="text-amber-400">+19.4 GSAx</strong></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="tableViewContainer" class="glass-panel rounded-2xl border border-slate-800 overflow-hidden shadow-2xl">
       <div class="overflow-x-auto max-h-[700px] overflow-y-auto">
         <table class="w-full text-left text-xs border-collapse">
           <thead class="sticky top-0 z-20 bg-slate-950/95 backdrop-blur border-b border-slate-800 text-[10px] text-slate-400 uppercase tracking-wider">
@@ -1740,7 +1801,7 @@
         if (pos !== 'all') {
           if (pos === 'F' && !['F', 'C', 'LW', 'RW'].includes(p.pos)) return false;
           if (pos === 'D' && p.pos !== 'D') return false;
-          if (pos === 'G' && p.pos !== 'G') return false;
+          if ((pos === 'G' || pos === 'GC') && !['G', 'GC'].includes(p.pos)) return false;
           if (pos === 'HC' && p.pos !== 'HC') return false;
           if (pos === 'GM' && p.pos !== 'GM') return false;
           if (pos === 'REC' && !['REC', 'STAFF'].includes(p.pos)) return false;
@@ -1923,7 +1984,7 @@
               </span>
               <span class="group-hover:text-sky-300 transition">${p.name}</span>
             </td>
-            <td class="py-2.5 px-2 text-center font-bold ${p.pos === 'G' ? 'text-amber-400' : p.pos === 'D' ? 'text-emerald-400' : 'text-sky-400'}">${p.pos}</td>
+            <td class="py-2.5 px-2 text-center font-bold ${p.pos === 'G' || p.pos === 'GC' ? 'text-amber-400' : p.pos === 'D' ? 'text-emerald-400' : 'text-sky-400'}">${p.pos === 'G' || p.pos === 'GC' ? '🧤 GC' : p.pos}</td>
             <td class="py-2.5 px-3 font-sans text-slate-200">${p.team}</td>
             <td class="py-2.5 px-2 text-[10px] text-slate-400 font-sans">${p.conference || '--'}</td>
             <td class="py-2.5 px-2 text-[10px] font-sans">
@@ -2155,6 +2216,27 @@
       a.click();
     }
   </script>
+  <script>
+    window.selectQuickGCPos = function() {
+      const posSelect = document.getElementById('filterPosition');
+      if (posSelect) {
+        posSelect.value = 'GC';
+        currentPage = 1;
+        applyFilters();
+      }
+    };
+
+    window.filterAustinIceBats = function() {
+      const searchInput = document.getElementById('masterSearchInput');
+      if (searchInput) {
+        searchInput.value = 'Austin Ice Bats';
+        const clearBtn = document.getElementById('clearMasterSearchBtn');
+        if (clearBtn) clearBtn.classList.remove('hidden');
+        currentPage = 1;
+        applyFilters();
+      }
+    };
+</script>
   <script src="static/js/telemetry.js"></script>
   <script src="static/js/auth_engine.js"></script>
   <script src="static/js/global_nav.js"></script>

@@ -1202,6 +1202,25 @@
     players: PLAYERS,
     getAllPersonnel: function() {
       return [...COACHES_AND_STAFF, ...PLAYERS];
+    },
+    getTopPlayers: function(limit = 10) {
+      return [...PLAYERS].sort((a, b) => (b.composite_score || 0) - (a.composite_score || 0)).slice(0, limit);
+    },
+    getGoalies: function() {
+      return PLAYERS.filter(p => p.pos === 'G' || p.pos === 'GC');
+    },
+    getGC: function() {
+      return PLAYERS.filter(p => p.pos === 'G' || p.pos === 'GC');
+    },
+    getTopGC: function(limit = 6) {
+      return PLAYERS.filter(p => p.pos === 'G' || p.pos === 'GC')
+        .sort((a, b) => (b.composite_score || 0) - (a.composite_score || 0))
+        .slice(0, limit);
+    },
+    getTopSkaters: function(limit = 10) {
+      return PLAYERS.filter(p => p.pos !== 'G' && p.pos !== 'GC')
+        .sort((a, b) => (b.composite_score || 0) - (a.composite_score || 0))
+        .slice(0, limit);
     }
   };
 

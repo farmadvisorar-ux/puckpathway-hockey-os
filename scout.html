@@ -246,7 +246,7 @@
             <button type="button" onclick="filterLedgerPos('all')" class="ledger-pos-btn active px-2.5 py-1 rounded-lg bg-amber-500 text-slate-950 font-bold text-[11px]" data-lpos="all">All (<span id="lCountAll">0</span>)</button>
             <button type="button" onclick="filterLedgerPos('F')" class="ledger-pos-btn px-2.5 py-1 rounded-lg bg-slate-900 text-slate-300 hover:text-white text-[11px]" data-lpos="F">Forwards (<span id="lCountF">0</span>)</button>
             <button type="button" onclick="filterLedgerPos('D')" class="ledger-pos-btn px-2.5 py-1 rounded-lg bg-slate-900 text-slate-300 hover:text-white text-[11px]" data-lpos="D">Defense (<span id="lCountD">0</span>)</button>
-            <button type="button" onclick="filterLedgerPos('G')" class="ledger-pos-btn px-2.5 py-1 rounded-lg bg-slate-900 text-slate-300 hover:text-white text-[11px]" data-lpos="G">Goalies (<span id="lCountG">0</span>)</button>
+            <button type="button" onclick="filterLedgerPos('G')" class="ledger-pos-btn px-2.5 py-1 rounded-lg bg-slate-900 text-slate-300 hover:text-white text-[11px]" data-lpos="G">🧤 GC Crease (<span id="lCountG">0</span>)</button>
             <button type="button" onclick="exportScoutLedgerCsv()" class="px-3 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 text-[11px] font-bold flex items-center gap-1 transition cursor-pointer">
               <i class="fa-solid fa-download text-amber-400"></i> Export CSV
             </button>
@@ -637,6 +637,7 @@
             <button onclick="setDirectoryLeague('BCHL')" class="dir-league-btn px-2.5 py-1 rounded-lg bg-slate-900 text-slate-300 hover:text-white text-[11px]" data-league="BCHL">BCHL</button>
             <button onclick="setDirectoryLeague('CHL')" class="dir-league-btn px-2.5 py-1 rounded-lg bg-slate-900 text-slate-300 hover:text-white text-[11px]" data-league="CHL">Major Junior</button>
             <button onclick="setDirectoryLeague('Prep')" class="dir-league-btn px-2.5 py-1 rounded-lg bg-slate-900 text-slate-300 hover:text-white text-[11px]" data-league="Prep">Prep / High School</button>
+            <button onclick="setDirectoryLeague('NA3HL')" class="dir-league-btn px-2.5 py-1 rounded-lg bg-sky-950/70 hover:bg-sky-900 text-sky-300 border border-sky-500/40 text-[11px]" data-league="NA3HL">🦇 NA3HL / Ice Bats</button>
           </div>
 
           <div class="flex items-center gap-1.5" id="posFilterGroup">
@@ -644,7 +645,7 @@
             <button onclick="setDirectoryPos('all')" class="dir-pos-btn px-2.5 py-1 rounded-lg bg-sky-600 text-white font-bold text-[11px]" data-pos="all">All</button>
             <button onclick="setDirectoryPos('F')" class="dir-pos-btn px-2.5 py-1 rounded-lg bg-slate-900 text-slate-300 hover:text-white text-[11px]" data-pos="F">Forwards</button>
             <button onclick="setDirectoryPos('D')" class="dir-pos-btn px-2.5 py-1 rounded-lg bg-slate-900 text-slate-300 hover:text-white text-[11px]" data-pos="D">Defense</button>
-            <button onclick="setDirectoryPos('G')" class="dir-pos-btn px-2.5 py-1 rounded-lg bg-slate-900 text-slate-300 hover:text-white text-[11px]" data-pos="G">Goalies</button>
+            <button onclick="setDirectoryPos('G')" class="dir-pos-btn px-2.5 py-1 rounded-lg bg-slate-900 text-slate-300 hover:text-white text-[11px]" data-pos="G">🧤 GC Crease</button>
           </div>
         </div>
 
@@ -1501,7 +1502,7 @@
         // Pos Filter
         if (currentPosFilter !== 'all') {
           const pos = (p.pos || '').toUpperCase();
-          if (currentPosFilter === 'G' && !pos.includes('G')) return false;
+          if ((currentPosFilter === 'G' || currentPosFilter === 'GC') && !pos.includes('G') && !pos.includes('GC')) return false;
           if (currentPosFilter === 'D' && !pos.includes('D')) return false;
           if (currentPosFilter === 'F' && (pos.includes('G') || pos.includes('D'))) return false;
         }

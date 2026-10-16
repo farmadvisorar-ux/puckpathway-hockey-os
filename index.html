@@ -214,6 +214,639 @@
   
 
   <!-- =========================================================================
+       ELITE PROSPECT SPOTLIGHT & SCOUTING SHOWCASE (HOME PAGE RADAR)
+       Top players show up first on home page: Austin Ice Bats + Premier Stars + GC Category
+       ========================================================================= -->
+  <section id="elite-showcase" class="elite-showcase-section">
+    <div class="showcase-container">
+      
+      <!-- Section Header -->
+      <div class="showcase-header">
+        <div style="display: flex; align-items: center; justify-content: center; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.4rem;">
+          <span class="showcase-badge-pill">🔥 LIVE SCOUTING RADAR</span>
+          <span class="showcase-badge-pill badge-highlight">🦇 AUSTIN ICE BATS &amp; GLOBAL TALENT</span>
+        </div>
+        <h2 class="showcase-title">
+          Premier Player Showcase &amp; Scouting Spotlight
+        </h2>
+        <p class="showcase-subtitle">
+          Real-time trajectory tracking across <strong>Tier III Junior (Austin Ice Bats)</strong>, <strong>NCAA Division I</strong>, <strong>USHL</strong>, and the <strong>NHL</strong>. Explore premier snipers, blue-line anchors, and our dedicated <strong>Goalie Crease (GC)</strong> netminder directory.
+        </p>
+      </div>
+
+      <!-- Category Filter Pills Bar (Dedicated Category for all the GC, Austin Ice Bats, etc.) -->
+      <div class="showcase-filter-bar">
+        <button type="button" class="showcase-filter-pill active" data-cat="all" onclick="filterShowcaseCategory('all', this)">
+          <span>🌟</span> <span>All Top Prospects</span>
+          <span class="filter-count-chip" id="chipCountAll">12</span>
+        </button>
+        <button type="button" class="showcase-filter-pill" data-cat="ice_bats" onclick="filterShowcaseCategory('ice_bats', this)">
+          <span>🦇</span> <span>Austin Ice Bats Spotlight</span>
+          <span class="filter-count-chip badge-icebats" id="chipCountIceBats">7</span>
+        </button>
+        <button type="button" class="showcase-filter-pill pill-gc-highlight" data-cat="gc" onclick="filterShowcaseCategory('gc', this)">
+          <span>🧤</span> <span>GC (Goalie Crease / Netminders)</span>
+          <span class="filter-count-chip badge-gc" id="chipCountGC">4</span>
+        </button>
+        <button type="button" class="showcase-filter-pill" data-cat="forward" onclick="filterShowcaseCategory('forward', this)">
+          <span>⚡</span> <span>Elite Forwards (F)</span>
+        </button>
+        <button type="button" class="showcase-filter-pill" data-cat="defense" onclick="filterShowcaseCategory('defense', this)">
+          <span>🛡️</span> <span>Blue-Line Defense (D)</span>
+        </button>
+        <button type="button" class="showcase-filter-pill" data-cat="pro_ncaa" onclick="filterShowcaseCategory('pro_ncaa', this)">
+          <span>🏆</span> <span>NHL &amp; NCAA Stars</span>
+        </button>
+      </div>
+
+      <!-- Quick Category Context Notice for GC / Ice Bats -->
+      <div id="showcaseContextNotice" class="showcase-context-notice">
+        <div style="display: flex; align-items: center; gap: 0.5rem;">
+          <span style="color: #fbbf24; font-size: 1rem;">💡</span>
+          <span id="showcaseNoticeText">Showing top scout-ranked prospects: featuring elite talent from the Austin Ice Bats NA3HL franchise alongside premier NHL and NCAA D1 draft prospects.</span>
+        </div>
+        <a href="database.html" style="color: #38bdf8; font-family: monospace; font-size: 0.75rem; text-decoration: underline; white-space: nowrap;">
+          Open 31,000+ Full Database &rarr;
+        </a>
+      </div>
+
+      <!-- The Responsive Cards Grid -->
+      <div class="showcase-grid" id="showcaseGrid">
+        
+        <!-- 1. Arys Perardi (Austin Ice Bats - RW) -->
+        <div class="showcase-player-card is-icebats" data-categories="all ice_bats forward">
+          <div class="card-header-row">
+            <div class="card-avatar-group">
+              <div class="card-num-box" style="background: linear-gradient(135deg, #0284c7, #1e1b4b);">#9</div>
+              <div style="min-width: 0;">
+                <h3 class="card-name-title">Arys Perardi <span style="color: #38bdf8; font-size: 0.75rem;" title="Verified Profile">✓</span></h3>
+                <div class="card-team-sub">Austin Ice Bats · NA3HL Tier III</div>
+              </div>
+            </div>
+            <span class="card-pos-badge badge-pos-f">RW · SNIPER</span>
+          </div>
+          <div class="card-honor-pill honor-icebats">
+            🦇 NAHL Tender · Corpus Christi IceRays
+          </div>
+          <div class="card-rating-row">
+            <span style="font-size: 0.65rem; color: #94a3b8; font-family: monospace; text-transform: uppercase;">Scout Composite</span>
+            <div style="display: flex; align-items: baseline; gap: 0.25rem;">
+              <span class="rating-score-val">89.2</span>
+              <span style="font-size: 0.65rem; color: #64748b; font-family: monospace;">/100</span>
+            </div>
+          </div>
+          <div class="card-kpis-grid">
+            <div class="kpi-metric-chip">
+              <span class="kpi-label">xG DIFFERENTIAL</span>
+              <span class="kpi-value" style="color: #38bdf8;">+18.9 Diff</span>
+            </div>
+            <div class="kpi-metric-chip">
+              <span class="kpi-label">ZONE ENTRIES</span>
+              <span class="kpi-value">71.2% Controlled</span>
+            </div>
+            <div class="kpi-metric-chip">
+              <span class="kpi-label">HD SHOT SHARE</span>
+              <span class="kpi-value">64.5% Danger</span>
+            </div>
+            <div class="kpi-metric-chip">
+              <span class="kpi-label">30M SPRINT</span>
+              <span class="kpi-value">3.62s Laser</span>
+            </div>
+          </div>
+          <div class="card-actions-row">
+            <a href="scout.html?player=aib_p02" class="card-btn-action card-btn-primary">🔭 Scout Desk</a>
+            <a href="player.html?id=aib_p02" class="card-btn-action card-btn-secondary">⚡ Passport</a>
+          </div>
+        </div>
+
+        <!-- 2. Connor Bedard (Chicago Blackhawks - NHL) -->
+        <div class="showcase-player-card" data-categories="all pro_ncaa forward">
+          <div class="card-header-row">
+            <div class="card-avatar-group">
+              <div class="card-num-box" style="background: linear-gradient(135deg, #dc2626, #78350f);">#98</div>
+              <div style="min-width: 0;">
+                <h3 class="card-name-title">Connor Bedard <span style="color: #38bdf8; font-size: 0.75rem;" title="Verified Profile">✓</span></h3>
+                <div class="card-team-sub">Chicago Blackhawks · NHL</div>
+              </div>
+            </div>
+            <span class="card-pos-badge badge-pos-f">C · FRANCHISE</span>
+          </div>
+          <div class="card-honor-pill" style="background: rgba(220, 38, 38, 0.15); border-color: rgba(239, 68, 68, 0.35); color: #fca5a5;">
+            🏆 Calder Memorial Trophy · #1 Overall Pick
+          </div>
+          <div class="card-rating-row">
+            <span style="font-size: 0.65rem; color: #94a3b8; font-family: monospace; text-transform: uppercase;">Scout Composite</span>
+            <div style="display: flex; align-items: baseline; gap: 0.25rem;">
+              <span class="rating-score-val" style="color: #f59e0b;">99.5</span>
+              <span style="font-size: 0.65rem; color: #64748b; font-family: monospace;">/100</span>
+            </div>
+          </div>
+          <div class="card-kpis-grid">
+            <div class="kpi-metric-chip">
+              <span class="kpi-label">xG DIFFERENTIAL</span>
+              <span class="kpi-value" style="color: #38bdf8;">+28.4 Diff</span>
+            </div>
+            <div class="kpi-metric-chip">
+              <span class="kpi-label">SHOT RELEASE</span>
+              <span class="kpi-value">94.5 mph Quick</span>
+            </div>
+            <div class="kpi-metric-chip">
+              <span class="kpi-label">ZONE ENTRIES</span>
+              <span class="kpi-value">82.4% Carry</span>
+            </div>
+            <div class="kpi-metric-chip">
+              <span class="kpi-label">ROYAL ROAD</span>
+              <span class="kpi-value">6.8 Passes/60</span>
+            </div>
+          </div>
+          <div class="card-actions-row">
+            <a href="scout.html" class="card-btn-action card-btn-primary">🔭 Scout Desk</a>
+            <a href="database.html" class="card-btn-action card-btn-secondary">⚡ Passport</a>
+          </div>
+        </div>
+
+        <!-- 3. Gipton Benchowski (Austin Ice Bats - GC GOALIE CREASE) -->
+        <div class="showcase-player-card is-gc is-icebats" data-categories="all ice_bats gc">
+          <div class="card-header-row">
+            <div class="card-avatar-group">
+              <div class="card-num-box" style="background: linear-gradient(135deg, #d97706, #0c4a6e);">#30</div>
+              <div style="min-width: 0;">
+                <h3 class="card-name-title">Gipton Benchowski <span style="color: #fbbf24; font-size: 0.75rem;" title="Verified Goalie Profile">🧤</span></h3>
+                <div class="card-team-sub">Austin Ice Bats · NA3HL Tier III</div>
+              </div>
+            </div>
+            <span class="card-pos-badge badge-pos-gc">🧤 GC CREASE</span>
+          </div>
+          <div class="card-honor-pill honor-gc">
+            🧤 Starter · +12.4 GSAx Goalie Crease Anchor
+          </div>
+          <div class="card-rating-row" style="background: rgba(30, 27, 75, 0.4); border-color: rgba(245, 158, 11, 0.2);">
+            <span style="font-size: 0.65rem; color: #fbbf24; font-family: monospace; text-transform: uppercase;">GC Goalie Score</span>
+            <div style="display: flex; align-items: baseline; gap: 0.25rem;">
+              <span class="rating-score-val" style="color: #fcd34d;">88.4</span>
+              <span style="font-size: 0.65rem; color: #94a3b8; font-family: monospace;">/100</span>
+            </div>
+          </div>
+          <div class="card-kpis-grid">
+            <div class="kpi-metric-chip kpi-gold">
+              <span class="kpi-label">GSAx (IMPACT)</span>
+              <span class="kpi-value" style="color: #fbbf24;">+12.4 Saved</span>
+            </div>
+            <div class="kpi-metric-chip kpi-gold">
+              <span class="kpi-label">SAVE PCT (SV%)</span>
+              <span class="kpi-value">.924 SV%</span>
+            </div>
+            <div class="kpi-metric-chip kpi-gold">
+              <span class="kpi-label">RVH POST SEAL</span>
+              <span class="kpi-value">92.5% Lock</span>
+            </div>
+            <div class="kpi-metric-chip kpi-gold">
+              <span class="kpi-label">GAA (AVG)</span>
+              <span class="kpi-value">2.21 Goals</span>
+            </div>
+          </div>
+          <div class="card-actions-row">
+            <a href="scout.html?player=aib_p33" class="card-btn-action card-btn-primary" style="background: rgba(245, 158, 11, 0.2); border-color: rgba(245, 158, 11, 0.4); color: #fde68a;">🔭 Crease Lab</a>
+            <a href="player.html?id=aib_p33" class="card-btn-action card-btn-secondary">⚡ Passport</a>
+          </div>
+        </div>
+
+        <!-- 4. Jack Hanson (Austin Ice Bats - F) -->
+        <div class="showcase-player-card is-icebats" data-categories="all ice_bats forward">
+          <div class="card-header-row">
+            <div class="card-avatar-group">
+              <div class="card-num-box" style="background: linear-gradient(135deg, #0369a1, #312e81);">#71</div>
+              <div style="min-width: 0;">
+                <h3 class="card-name-title">Jack Hanson <span style="color: #38bdf8; font-size: 0.75rem;" title="Verified Profile">✓</span></h3>
+                <div class="card-team-sub">Austin Ice Bats · NA3HL Tier III</div>
+              </div>
+            </div>
+            <span class="card-pos-badge badge-pos-f">F · PLAYMAKER</span>
+          </div>
+          <div class="card-honor-pill honor-icebats">
+            🦇 43-Point Team Scoring Leader · Power Play QB
+          </div>
+          <div class="card-rating-row">
+            <span style="font-size: 0.65rem; color: #94a3b8; font-family: monospace; text-transform: uppercase;">Scout Composite</span>
+            <div style="display: flex; align-items: baseline; gap: 0.25rem;">
+              <span class="rating-score-val">88.9</span>
+              <span style="font-size: 0.65rem; color: #64748b; font-family: monospace;">/100</span>
+            </div>
+          </div>
+          <div class="card-kpis-grid">
+            <div class="kpi-metric-chip">
+              <span class="kpi-label">SCORING PACE</span>
+              <span class="kpi-value" style="color: #38bdf8;">1.28 Pts/GP</span>
+            </div>
+            <div class="kpi-metric-chip">
+              <span class="kpi-label">xG DIFFERENTIAL</span>
+              <span class="kpi-value">+16.4 Diff</span>
+            </div>
+            <div class="kpi-metric-chip">
+              <span class="kpi-label">ZONE ENTRIES</span>
+              <span class="kpi-value">67.8% Carry</span>
+            </div>
+            <div class="kpi-metric-chip">
+              <span class="kpi-label">PRO AGILITY</span>
+              <span class="kpi-value">4.14s Shuttle</span>
+            </div>
+          </div>
+          <div class="card-actions-row">
+            <a href="scout.html?player=aib_p21" class="card-btn-action card-btn-primary">🔭 Scout Desk</a>
+            <a href="player.html?id=aib_p21" class="card-btn-action card-btn-secondary">⚡ Passport</a>
+          </div>
+        </div>
+
+        <!-- 5. Macklin Celebrini (San Jose Sharks / NCAA - C) -->
+        <div class="showcase-player-card" data-categories="all pro_ncaa forward">
+          <div class="card-header-row">
+            <div class="card-avatar-group">
+              <div class="card-num-box" style="background: linear-gradient(135deg, #0d9488, #075985);">#71</div>
+              <div style="min-width: 0;">
+                <h3 class="card-name-title">Macklin Celebrini <span style="color: #38bdf8; font-size: 0.75rem;" title="Verified Profile">✓</span></h3>
+                <div class="card-team-sub">San Jose Sharks · NHL / Boston Univ</div>
+              </div>
+            </div>
+            <span class="card-pos-badge badge-pos-f">C · TWO-WAY</span>
+          </div>
+          <div class="card-honor-pill" style="background: rgba(13, 148, 136, 0.15); border-color: rgba(45, 212, 191, 0.35); color: #99f6e4;">
+            🏆 2024 NHL 1st Overall Pick · Hobey Baker Award
+          </div>
+          <div class="card-rating-row">
+            <span style="font-size: 0.65rem; color: #94a3b8; font-family: monospace; text-transform: uppercase;">Scout Composite</span>
+            <div style="display: flex; align-items: baseline; gap: 0.25rem;">
+              <span class="rating-score-val" style="color: #f59e0b;">99.4</span>
+              <span style="font-size: 0.65rem; color: #64748b; font-family: monospace;">/100</span>
+            </div>
+          </div>
+          <div class="card-kpis-grid">
+            <div class="kpi-metric-chip">
+              <span class="kpi-label">xG DIFFERENTIAL</span>
+              <span class="kpi-value" style="color: #38bdf8;">+26.1 Diff</span>
+            </div>
+            <div class="kpi-metric-chip">
+              <span class="kpi-label">CONTROLLED ENTRIES</span>
+              <span class="kpi-value">79.8% Rate</span>
+            </div>
+            <div class="kpi-metric-chip">
+              <span class="kpi-label">HD SHOT SHARE</span>
+              <span class="kpi-value">68.2% Danger</span>
+            </div>
+            <div class="kpi-metric-chip">
+              <span class="kpi-label">NCAA PRODUCTION</span>
+              <span class="kpi-value">32G 32A 64P</span>
+            </div>
+          </div>
+          <div class="card-actions-row">
+            <a href="scout.html" class="card-btn-action card-btn-primary">🔭 Scout Desk</a>
+            <a href="database.html" class="card-btn-action card-btn-secondary">⚡ Passport</a>
+          </div>
+        </div>
+
+        <!-- 6. Trey Augustine (Michigan State / Detroit Red Wings - GC GOALIE CREASE) -->
+        <div class="showcase-player-card is-gc" data-categories="all pro_ncaa gc">
+          <div class="card-header-row">
+            <div class="card-avatar-group">
+              <div class="card-num-box" style="background: linear-gradient(135deg, #059669, #0f172a);">#1</div>
+              <div style="min-width: 0;">
+                <h3 class="card-name-title">Trey Augustine <span style="color: #fbbf24; font-size: 0.75rem;" title="Verified Profile">🧤</span></h3>
+                <div class="card-team-sub">Michigan State · NCAA D1 / Red Wings</div>
+              </div>
+            </div>
+            <span class="card-pos-badge badge-pos-gc">🧤 GC CREASE</span>
+          </div>
+          <div class="card-honor-pill honor-gc">
+            🧤 Detroit Red Wings (41st Pick) · World Juniors Gold
+          </div>
+          <div class="card-rating-row" style="background: rgba(30, 27, 75, 0.4); border-color: rgba(245, 158, 11, 0.2);">
+            <span style="font-size: 0.65rem; color: #fbbf24; font-family: monospace; text-transform: uppercase;">GC Goalie Score</span>
+            <div style="display: flex; align-items: baseline; gap: 0.25rem;">
+              <span class="rating-score-val" style="color: #fcd34d;">96.9</span>
+              <span style="font-size: 0.65rem; color: #94a3b8; font-family: monospace;">/100</span>
+            </div>
+          </div>
+          <div class="card-kpis-grid">
+            <div class="kpi-metric-chip kpi-gold">
+              <span class="kpi-label">GSAx (IMPACT)</span>
+              <span class="kpi-value" style="color: #fbbf24;">+18.2 Saved</span>
+            </div>
+            <div class="kpi-metric-chip kpi-gold">
+              <span class="kpi-label">SAVE PCT (SV%)</span>
+              <span class="kpi-value">.928 SV%</span>
+            </div>
+            <div class="kpi-metric-chip kpi-gold">
+              <span class="kpi-label">LD SAVE PCT</span>
+              <span class="kpi-value">94.2% Vacuum</span>
+            </div>
+            <div class="kpi-metric-chip kpi-gold">
+              <span class="kpi-label">GAA (AVG)</span>
+              <span class="kpi-value">2.08 Goals</span>
+            </div>
+          </div>
+          <div class="card-actions-row">
+            <a href="scout.html" class="card-btn-action card-btn-primary" style="background: rgba(245, 158, 11, 0.2); border-color: rgba(245, 158, 11, 0.4); color: #fde68a;">🔭 Crease Lab</a>
+            <a href="database.html" class="card-btn-action card-btn-secondary">⚡ Passport</a>
+          </div>
+        </div>
+
+        <!-- 7. Jake Bamback (Austin Ice Bats - F) -->
+        <div class="showcase-player-card is-icebats" data-categories="all ice_bats forward">
+          <div class="card-header-row">
+            <div class="card-avatar-group">
+              <div class="card-num-box" style="background: linear-gradient(135deg, #059669, #064e3b);">#21</div>
+              <div style="min-width: 0;">
+                <h3 class="card-name-title">Jake Bamback <span style="color: #38bdf8; font-size: 0.75rem;" title="Verified Profile">✓</span></h3>
+                <div class="card-team-sub">Austin Ice Bats · NA3HL Tier III</div>
+              </div>
+            </div>
+            <span class="card-pos-badge badge-pos-f">F · DYNAMO</span>
+          </div>
+          <div class="card-honor-pill honor-icebats">
+            🦇 All-NA3HL 2nd Team · Arkansas Commit
+          </div>
+          <div class="card-rating-row">
+            <span style="font-size: 0.65rem; color: #94a3b8; font-family: monospace; text-transform: uppercase;">Scout Composite</span>
+            <div style="display: flex; align-items: baseline; gap: 0.25rem;">
+              <span class="rating-score-val">88.6</span>
+              <span style="font-size: 0.65rem; color: #64748b; font-family: monospace;">/100</span>
+            </div>
+          </div>
+          <div class="card-kpis-grid">
+            <div class="kpi-metric-chip">
+              <span class="kpi-label">xG DIFFERENTIAL</span>
+              <span class="kpi-value" style="color: #38bdf8;">+16.2 Diff</span>
+            </div>
+            <div class="kpi-metric-chip">
+              <span class="kpi-label">ZONE ENTRIES</span>
+              <span class="kpi-value">69.1% Carry</span>
+            </div>
+            <div class="kpi-metric-chip">
+              <span class="kpi-label">ROYAL ROAD</span>
+              <span class="kpi-value">4.5 Passes/60</span>
+            </div>
+            <div class="kpi-metric-chip">
+              <span class="kpi-label">BROAD JUMP</span>
+              <span class="kpi-value">112" Explosive</span>
+            </div>
+          </div>
+          <div class="card-actions-row">
+            <a href="scout.html?player=aib_p04" class="card-btn-action card-btn-primary">🔭 Scout Desk</a>
+            <a href="player.html?id=aib_p04" class="card-btn-action card-btn-secondary">⚡ Passport</a>
+          </div>
+        </div>
+
+        <!-- 8. Guhnar Hillman (Austin Ice Bats - C) -->
+        <div class="showcase-player-card is-icebats" data-categories="all ice_bats forward">
+          <div class="card-header-row">
+            <div class="card-avatar-group">
+              <div class="card-num-box" style="background: linear-gradient(135deg, #0284c7, #1e3a8a);">#17</div>
+              <div style="min-width: 0;">
+                <h3 class="card-name-title">Guhnar Hillman <span style="color: #38bdf8; font-size: 0.75rem;" title="Verified Profile">✓</span></h3>
+                <div class="card-team-sub">Austin Ice Bats · NA3HL Tier III</div>
+              </div>
+            </div>
+            <span class="card-pos-badge badge-pos-f">C · "G MONEY"</span>
+          </div>
+          <div class="card-honor-pill honor-icebats">
+            🦇 Austin Native · Tier II NAHL Prospect
+          </div>
+          <div class="card-rating-row">
+            <span style="font-size: 0.65rem; color: #94a3b8; font-family: monospace; text-transform: uppercase;">Scout Composite</span>
+            <div style="display: flex; align-items: baseline; gap: 0.25rem;">
+              <span class="rating-score-val">87.8</span>
+              <span style="font-size: 0.65rem; color: #64748b; font-family: monospace;">/100</span>
+            </div>
+          </div>
+          <div class="card-kpis-grid">
+            <div class="kpi-metric-chip">
+              <span class="kpi-label">xG DIFFERENTIAL</span>
+              <span class="kpi-value" style="color: #38bdf8;">+14.6 Diff</span>
+            </div>
+            <div class="kpi-metric-chip">
+              <span class="kpi-label">ZONE ENTRIES</span>
+              <span class="kpi-value">68.4% Controlled</span>
+            </div>
+            <div class="kpi-metric-chip">
+              <span class="kpi-label">ROYAL ROAD</span>
+              <span class="kpi-value">4.8 Passes/60</span>
+            </div>
+            <div class="kpi-metric-chip">
+              <span class="kpi-label">PRO AGILITY</span>
+              <span class="kpi-value">4.16s Lateral</span>
+            </div>
+          </div>
+          <div class="card-actions-row">
+            <a href="scout.html?player=aib_p01" class="card-btn-action card-btn-primary">🔭 Scout Desk</a>
+            <a href="player.html?id=aib_p01" class="card-btn-action card-btn-secondary">⚡ Passport</a>
+          </div>
+        </div>
+
+        <!-- 9. Albin Boija (Maine Black Bears - GC GOALIE CREASE) -->
+        <div class="showcase-player-card is-gc" data-categories="all pro_ncaa gc">
+          <div class="card-header-row">
+            <div class="card-avatar-group">
+              <div class="card-num-box" style="background: linear-gradient(135deg, #0284c7, #312e81);">#31</div>
+              <div style="min-width: 0;">
+                <h3 class="card-name-title">Albin Boija <span style="color: #fbbf24; font-size: 0.75rem;" title="Verified Profile">🧤</span></h3>
+                <div class="card-team-sub">Maine Black Bears · NCAA D1 Hockey East</div>
+              </div>
+            </div>
+            <span class="card-pos-badge badge-pos-gc">🧤 GC CREASE</span>
+          </div>
+          <div class="card-honor-pill honor-gc">
+            🧤 Mike Richter Award Finalist · Hockey East All-Star
+          </div>
+          <div class="card-rating-row" style="background: rgba(30, 27, 75, 0.4); border-color: rgba(245, 158, 11, 0.2);">
+            <span style="font-size: 0.65rem; color: #fbbf24; font-family: monospace; text-transform: uppercase;">GC Goalie Score</span>
+            <div style="display: flex; align-items: baseline; gap: 0.25rem;">
+              <span class="rating-score-val" style="color: #fcd34d;">96.8</span>
+              <span style="font-size: 0.65rem; color: #94a3b8; font-family: monospace;">/100</span>
+            </div>
+          </div>
+          <div class="card-kpis-grid">
+            <div class="kpi-metric-chip kpi-gold">
+              <span class="kpi-label">GSAx (IMPACT)</span>
+              <span class="kpi-value" style="color: #fbbf24;">+19.4 Saved</span>
+            </div>
+            <div class="kpi-metric-chip kpi-gold">
+              <span class="kpi-label">SAVE PCT (SV%)</span>
+              <span class="kpi-value">.938 SV%</span>
+            </div>
+            <div class="kpi-metric-chip kpi-gold">
+              <span class="kpi-label">RVH POST SEAL</span>
+              <span class="kpi-value">94.8% Shutout</span>
+            </div>
+            <div class="kpi-metric-chip kpi-gold">
+              <span class="kpi-label">GAA (AVG)</span>
+              <span class="kpi-value">1.64 Goals</span>
+            </div>
+          </div>
+          <div class="card-actions-row">
+            <a href="scout.html" class="card-btn-action card-btn-primary" style="background: rgba(245, 158, 11, 0.2); border-color: rgba(245, 158, 11, 0.4); color: #fde68a;">🔭 Crease Lab</a>
+            <a href="database.html" class="card-btn-action card-btn-secondary">⚡ Passport</a>
+          </div>
+        </div>
+
+        <!-- 10. Collin Lemanski (Austin Ice Bats - GC GOALIE CREASE) -->
+        <div class="showcase-player-card is-gc is-icebats" data-categories="all ice_bats gc">
+          <div class="card-header-row">
+            <div class="card-avatar-group">
+              <div class="card-num-box" style="background: linear-gradient(135deg, #0d9488, #1e293b);">#32</div>
+              <div style="min-width: 0;">
+                <h3 class="card-name-title">Collin Lemanski <span style="color: #fbbf24; font-size: 0.75rem;" title="Verified Profile">🧤</span></h3>
+                <div class="card-team-sub">Austin Ice Bats · NA3HL Tier III</div>
+              </div>
+            </div>
+            <span class="card-pos-badge badge-pos-gc">🧤 GC CREASE</span>
+          </div>
+          <div class="card-honor-pill honor-gc">
+            🧤 Veteran Standout Goaltender · Rebound Specialist
+          </div>
+          <div class="card-rating-row" style="background: rgba(30, 27, 75, 0.4); border-color: rgba(245, 158, 11, 0.2);">
+            <span style="font-size: 0.65rem; color: #fbbf24; font-family: monospace; text-transform: uppercase;">GC Goalie Score</span>
+            <div style="display: flex; align-items: baseline; gap: 0.25rem;">
+              <span class="rating-score-val" style="color: #fcd34d;">87.9</span>
+              <span style="font-size: 0.65rem; color: #94a3b8; font-family: monospace;">/100</span>
+            </div>
+          </div>
+          <div class="card-kpis-grid">
+            <div class="kpi-metric-chip kpi-gold">
+              <span class="kpi-label">GSAx (IMPACT)</span>
+              <span class="kpi-value" style="color: #fbbf24;">+11.0 Saved</span>
+            </div>
+            <div class="kpi-metric-chip kpi-gold">
+              <span class="kpi-label">SAVE PCT (SV%)</span>
+              <span class="kpi-value">.921 SV%</span>
+            </div>
+            <div class="kpi-metric-chip kpi-gold">
+              <span class="kpi-label">RVH POST SEAL</span>
+              <span class="kpi-value">91.0% Seal</span>
+            </div>
+            <div class="kpi-metric-chip kpi-gold">
+              <span class="kpi-label">GAA (AVG)</span>
+              <span class="kpi-value">2.45 Goals</span>
+            </div>
+          </div>
+          <div class="card-actions-row">
+            <a href="scout.html?player=aib_p37" class="card-btn-action card-btn-primary" style="background: rgba(245, 158, 11, 0.2); border-color: rgba(245, 158, 11, 0.4); color: #fde68a;">🔭 Crease Lab</a>
+            <a href="player.html?id=aib_p37" class="card-btn-action card-btn-secondary">⚡ Passport</a>
+          </div>
+        </div>
+
+        <!-- 11. Zeev Buium (Denver Pioneers / Minnesota Wild - D) -->
+        <div class="showcase-player-card" data-categories="all pro_ncaa defense">
+          <div class="card-header-row">
+            <div class="card-avatar-group">
+              <div class="card-num-box" style="background: linear-gradient(135deg, #d97706, #881337);">#28</div>
+              <div style="min-width: 0;">
+                <h3 class="card-name-title">Zeev Buium <span style="color: #38bdf8; font-size: 0.75rem;" title="Verified Profile">✓</span></h3>
+                <div class="card-team-sub">Denver Pioneers · NCAA D1 / MN Wild</div>
+              </div>
+            </div>
+            <span class="card-pos-badge badge-pos-d">D · PUCK-MOVER</span>
+          </div>
+          <div class="card-honor-pill" style="background: rgba(217, 119, 6, 0.15); border-color: rgba(245, 158, 11, 0.35); color: #fed7aa;">
+            🏆 NCAA National Champion · Minnesota Wild 1st Round
+          </div>
+          <div class="card-rating-row">
+            <span style="font-size: 0.65rem; color: #94a3b8; font-family: monospace; text-transform: uppercase;">Scout Composite</span>
+            <div style="display: flex; align-items: baseline; gap: 0.25rem;">
+              <span class="rating-score-val" style="color: #f59e0b;">97.6</span>
+              <span style="font-size: 0.65rem; color: #64748b; font-family: monospace;">/100</span>
+            </div>
+          </div>
+          <div class="card-kpis-grid">
+            <div class="kpi-metric-chip">
+              <span class="kpi-label">NCAA PRODUCTION</span>
+              <span class="kpi-value" style="color: #38bdf8;">50 Pts / 42 GP</span>
+            </div>
+            <div class="kpi-metric-chip">
+              <span class="kpi-label">xG DIFFERENTIAL</span>
+              <span class="kpi-value">+22.3 Diff</span>
+            </div>
+            <div class="kpi-metric-chip">
+              <span class="kpi-label">EXIT SUCCESS</span>
+              <span class="kpi-value">81.4% Clean</span>
+            </div>
+            <div class="kpi-metric-chip">
+              <span class="kpi-label">TRANSITION</span>
+              <span class="kpi-value">89.2 Rating</span>
+            </div>
+          </div>
+          <div class="card-actions-row">
+            <a href="scout.html" class="card-btn-action card-btn-primary">🔭 Scout Desk</a>
+            <a href="database.html" class="card-btn-action card-btn-secondary">⚡ Passport</a>
+          </div>
+        </div>
+
+        <!-- 12. Michael Berman (Austin Ice Bats - D) -->
+        <div class="showcase-player-card is-icebats" data-categories="all ice_bats defense">
+          <div class="card-header-row">
+            <div class="card-avatar-group">
+              <div class="card-num-box" style="background: linear-gradient(135deg, #e11d48, #4c0519);">#7</div>
+              <div style="min-width: 0;">
+                <h3 class="card-name-title">Michael Berman <span style="color: #38bdf8; font-size: 0.75rem;" title="Verified Profile">✓</span></h3>
+                <div class="card-team-sub">Austin Ice Bats · NA3HL Tier III</div>
+              </div>
+            </div>
+            <span class="card-pos-badge badge-pos-d">D · "BIG RED"</span>
+          </div>
+          <div class="card-honor-pill honor-icebats">
+            🦇 6'4" 210 lbs · Tier II NAHL Tender Prospect
+          </div>
+          <div class="card-rating-row">
+            <span style="font-size: 0.65rem; color: #94a3b8; font-family: monospace; text-transform: uppercase;">Scout Composite</span>
+            <div style="display: flex; align-items: baseline; gap: 0.25rem;">
+              <span class="rating-score-val">87.5</span>
+              <span style="font-size: 0.65rem; color: #64748b; font-family: monospace;">/100</span>
+            </div>
+          </div>
+          <div class="card-kpis-grid">
+            <div class="kpi-metric-chip">
+              <span class="kpi-label">WALL BATTLES</span>
+              <span class="kpi-value" style="color: #34d399;">84.2% Win Rate</span>
+            </div>
+            <div class="kpi-metric-chip">
+              <span class="kpi-label">xG DIFFERENTIAL</span>
+              <span class="kpi-value">+11.8 Diff</span>
+            </div>
+            <div class="kpi-metric-chip">
+              <span class="kpi-label">SHOT BLOCKS</span>
+              <span class="kpi-value">22 Blocks</span>
+            </div>
+            <div class="kpi-metric-chip">
+              <span class="kpi-label">GRIP STRENGTH</span>
+              <span class="kpi-value">168 lbs Peak</span>
+            </div>
+          </div>
+          <div class="card-actions-row">
+            <a href="scout.html?player=aib_p22" class="card-btn-action card-btn-primary">🔭 Scout Desk</a>
+            <a href="player.html?id=aib_p22" class="card-btn-action card-btn-secondary">⚡ Passport</a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Footer Action Bar -->
+      <div class="showcase-footer-bar">
+        <div style="display: flex; align-items: center; gap: 0.5rem; font-family: monospace; font-size: 0.72rem; color: #94a3b8;">
+          <span style="display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #34d399; animation: pulse 2s infinite;"></span>
+          <span>Live biometric tracking, xG differential &amp; official scouting consensus. Updated daily.</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap;">
+          <a href="database.html" class="btn secondary" style="padding: 0.5rem 1rem; font-size: 0.8rem; font-weight: 700; text-decoration: none;">
+            <span>📂</span> Explore All 31,000+ Athletes in Directory
+          </a>
+          <a href="scout.html" class="btn primary" style="padding: 0.5rem 1rem; font-size: 0.8rem; font-weight: 700; text-decoration: none;">
+            <span>🔭</span> Launch Scout Desk Terminal
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================================
        COMPLETE ROLE-BASED FEATURE MATRIX & BREAKDOWN SECTION
        ========================================================================= -->
   <section id="pricing-plans" class="role-features-section">
@@ -2343,6 +2976,42 @@
 
   </script>
 
+  <script>
+    function filterShowcaseCategory(cat, btn) {
+      document.querySelectorAll('.showcase-filter-pill').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+
+      const notice = document.getElementById('showcaseNoticeText');
+      if (notice) {
+        if (cat === 'all') {
+          notice.textContent = "Showing top scout-ranked prospects: featuring elite talent from the Austin Ice Bats NA3HL franchise alongside premier NHL and NCAA D1 draft prospects.";
+        } else if (cat === 'ice_bats') {
+          notice.innerHTML = "<strong>🦇 Austin Ice Bats Spotlight:</strong> Premier Tier III Junior talent from The Crossover (Cedar Park, TX) eligible for NAHL tenders and collegiate advancement.";
+        } else if (cat === 'gc') {
+          notice.innerHTML = "<strong>🧤 Dedicated Goalie Crease (GC) Directory:</strong> Tracking advanced netminder biometrics including Goals Saved Above Expected (GSAx), RVH post seals, and high-danger save rates.";
+        } else if (cat === 'forward') {
+          notice.innerHTML = "<strong>⚡ Elite Forwards (F):</strong> Dominant scoring drivers, playmaker pivots, and power forward snipers ranked by xG differential and controlled zone entries.";
+        } else if (cat === 'defense') {
+          notice.innerHTML = "<strong>🛡️ Blue-Line Anchors (D):</strong> Two-way puck-movers and shutdown defensemen with elite defensive zone exit percentages.";
+        } else if (cat === 'pro_ncaa') {
+          notice.innerHTML = "<strong>🏆 NHL &amp; NCAA Standouts:</strong> Hobey Baker winners, Calder Trophy superstars, and 1st Round draft selections.";
+        }
+      }
+
+      const cards = document.querySelectorAll('#showcaseGrid .showcase-player-card');
+      cards.forEach(card => {
+        const cats = (card.getAttribute('data-categories') || '').split(' ');
+        if (cat === 'all' || cats.includes(cat)) {
+          card.style.display = '';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+    window.filterShowcaseCategory = filterShowcaseCategory;
+  </script>
+
+  <script src="static/js/austin_ice_bats_roster.js"></script>
   <script src="static/js/auth_engine.js"></script>
   <script src="static/js/blueline_ui_kit.js"></script>
   <script src="static/js/global_nav.js"></script>

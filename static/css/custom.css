@@ -599,6 +599,472 @@ select option:checked {
   box-shadow: 0 0 20px rgba(56, 189, 248, 0.35);
 }
 
+/* ==========================================================================
+   11B. ELITE PROSPECT SPOTLIGHT & GC GOALIE CREASE SHOWCASE STYLES
+   ========================================================================== */
+.elite-showcase-section {
+  position: relative;
+  max-width: 80rem;
+  margin: 0 auto 3rem auto;
+  padding: 1.5rem 1rem;
+}
+
+@media (min-width: 640px) {
+  .elite-showcase-section {
+    padding: 2rem 1.5rem;
+  }
+}
+
+.showcase-container {
+  background: radial-gradient(circle at top right, rgba(56, 189, 248, 0.08), transparent 60%),
+              radial-gradient(circle at bottom left, rgba(245, 158, 11, 0.06), transparent 50%),
+              rgba(11, 17, 32, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  border-radius: 28px;
+  padding: 1.75rem 1.25rem;
+  box-shadow: 0 20px 50px -15px rgba(0, 0, 0, 0.7), 0 0 30px rgba(56, 189, 248, 0.08);
+}
+
+@media (min-width: 768px) {
+  .showcase-container {
+    padding: 2.25rem 2rem;
+  }
+}
+
+.showcase-header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.showcase-badge-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.25rem 0.65rem;
+  border-radius: 9999px;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: rgba(56, 189, 248, 0.15);
+  color: #38bdf8;
+  border: 1px solid rgba(56, 189, 248, 0.3);
+}
+
+.showcase-badge-pill.badge-highlight {
+  background: rgba(245, 158, 11, 0.15);
+  color: #fbbf24;
+  border-color: rgba(245, 158, 11, 0.35);
+}
+
+.showcase-title {
+  font-size: 1.75rem;
+  font-weight: 900;
+  letter-spacing: -0.025em;
+  margin: 0.5rem 0 0.5rem 0;
+  background: linear-gradient(180deg, #ffffff 0%, #cbd5e1 75%, #94a3b8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@media (min-width: 640px) {
+  .showcase-title {
+    font-size: 2.25rem;
+  }
+}
+
+.showcase-subtitle {
+  color: #94a3b8;
+  font-size: 0.85rem;
+  max-width: 48rem;
+  margin: 0 auto;
+  line-height: 1.5;
+}
+
+@media (min-width: 640px) {
+  .showcase-subtitle {
+    font-size: 0.95rem;
+  }
+}
+
+/* Category Filter Bar */
+.showcase-filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.showcase-filter-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.45rem 0.9rem;
+  border-radius: 9999px;
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #cbd5e1;
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.showcase-filter-pill:hover {
+  background: rgba(30, 41, 59, 0.9);
+  color: #ffffff;
+  border-color: rgba(56, 189, 248, 0.4);
+  transform: translateY(-1px);
+}
+
+.showcase-filter-pill.active {
+  background: linear-gradient(135deg, rgba(2, 132, 199, 0.85), rgba(14, 165, 233, 0.9));
+  color: #ffffff;
+  border-color: #38bdf8;
+  box-shadow: 0 4px 15px rgba(14, 165, 233, 0.3);
+}
+
+.showcase-filter-pill.pill-gc-highlight {
+  border-color: rgba(245, 158, 11, 0.4);
+  color: #fde68a;
+}
+
+.showcase-filter-pill.pill-gc-highlight.active {
+  background: linear-gradient(135deg, rgba(217, 119, 6, 0.9), rgba(245, 158, 11, 0.95));
+  color: #0f172a;
+  border-color: #fcd34d;
+  box-shadow: 0 4px 15px rgba(245, 158, 11, 0.35);
+  font-weight: 800;
+}
+
+.filter-count-chip {
+  padding: 0.1rem 0.4rem;
+  border-radius: 9999px;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 800;
+  background: rgba(255, 255, 255, 0.15);
+  color: inherit;
+}
+
+.filter-count-chip.badge-icebats {
+  background: rgba(56, 189, 248, 0.25);
+  color: #38bdf8;
+}
+
+.filter-count-chip.badge-gc {
+  background: rgba(245, 158, 11, 0.25);
+  color: #fbbf24;
+}
+
+.showcase-filter-pill.pill-gc-highlight.active .filter-count-chip.badge-gc {
+  background: rgba(15, 23, 42, 0.3);
+  color: #0f172a;
+}
+
+/* Context Notice */
+.showcase-context-notice {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-radius: 14px;
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid rgba(245, 158, 11, 0.25);
+  margin-bottom: 1.5rem;
+  font-size: 0.75rem;
+  color: #cbd5e1;
+}
+
+/* Showcase Grid */
+.showcase-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .showcase-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .showcase-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1280px) {
+  .showcase-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Player Card */
+.showcase-player-card {
+  position: relative;
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  padding: 1.15rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.9rem;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 8px 24px -6px rgba(0, 0, 0, 0.5);
+}
+
+.showcase-player-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(56, 189, 248, 0.4);
+  box-shadow: 0 16px 36px -8px rgba(0, 0, 0, 0.7), 0 0 20px rgba(56, 189, 248, 0.15);
+}
+
+.showcase-player-card.is-icebats {
+  border-color: rgba(56, 189, 248, 0.28);
+  background: radial-gradient(circle at top left, rgba(2, 132, 199, 0.08), transparent 70%), rgba(15, 23, 42, 0.85);
+}
+
+.showcase-player-card.is-icebats:hover {
+  border-color: rgba(56, 189, 248, 0.6);
+  box-shadow: 0 16px 36px -8px rgba(0, 0, 0, 0.7), 0 0 25px rgba(56, 189, 248, 0.22);
+}
+
+.showcase-player-card.is-gc {
+  border-color: rgba(245, 158, 11, 0.35);
+  background: radial-gradient(circle at top right, rgba(245, 158, 11, 0.09), transparent 70%), rgba(15, 23, 42, 0.88);
+}
+
+.showcase-player-card.is-gc:hover {
+  border-color: rgba(245, 158, 11, 0.7);
+  box-shadow: 0 16px 36px -8px rgba(0, 0, 0, 0.7), 0 0 25px rgba(245, 158, 11, 0.25);
+}
+
+/* Card Header */
+.card-header-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.6rem;
+}
+
+.card-avatar-group {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  min-width: 0;
+}
+
+.card-num-box {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 900;
+  color: #ffffff;
+  flex-shrink: 0;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.card-name-title {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #ffffff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.card-team-sub {
+  font-size: 0.7rem;
+  color: #94a3b8;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Badges */
+.card-pos-badge {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 800;
+  padding: 0.2rem 0.5rem;
+  border-radius: 8px;
+  text-transform: uppercase;
+  flex-shrink: 0;
+}
+
+.badge-pos-gc {
+  background: rgba(245, 158, 11, 0.2);
+  color: #fbbf24;
+  border: 1px solid rgba(245, 158, 11, 0.45);
+}
+
+.badge-pos-f {
+  background: rgba(56, 189, 248, 0.18);
+  color: #38bdf8;
+  border: 1px solid rgba(56, 189, 248, 0.35);
+}
+
+.badge-pos-d {
+  background: rgba(16, 185, 129, 0.18);
+  color: #34d399;
+  border: 1px solid rgba(16, 185, 129, 0.35);
+}
+
+/* Status / Honor Pill */
+.card-honor-pill {
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.35rem 0.6rem;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #e2e8f0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card-honor-pill.honor-icebats {
+  background: rgba(2, 132, 199, 0.12);
+  border-color: rgba(56, 189, 248, 0.3);
+  color: #7dd3fc;
+}
+
+.card-honor-pill.honor-gc {
+  background: rgba(245, 158, 11, 0.12);
+  border-color: rgba(245, 158, 11, 0.3);
+  color: #fde68a;
+}
+
+/* Rating / Score Row */
+.card-rating-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.4rem 0.6rem;
+  border-radius: 10px;
+  background: rgba(2, 6, 23, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.rating-score-val {
+  font-family: var(--font-mono);
+  font-weight: 900;
+  font-size: 1.05rem;
+  color: #fbbf24;
+}
+
+/* Micro KPIs Grid */
+.card-kpis-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+}
+
+.kpi-metric-chip {
+  background: rgba(2, 6, 23, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  padding: 0.3rem 0.45rem;
+}
+
+.kpi-metric-chip.kpi-gold {
+  border-color: rgba(245, 158, 11, 0.2);
+}
+
+.kpi-label {
+  color: #64748b;
+  font-size: 0.6rem;
+  display: block;
+}
+
+.kpi-value {
+  color: #ffffff;
+  font-weight: 700;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Card Action Buttons */
+.card-actions-row {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.card-btn-action {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  padding: 0.45rem 0.5rem;
+  border-radius: 10px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.15s ease;
+}
+
+.card-btn-primary {
+  background: rgba(56, 189, 248, 0.15);
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  color: #38bdf8;
+}
+
+.card-btn-primary:hover {
+  background: #0284c7;
+  color: #ffffff;
+  border-color: #38bdf8;
+}
+
+.card-btn-secondary {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #cbd5e1;
+}
+
+.card-btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+/* Footer Bar */
+.showcase-footer-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
 /* 12. PRINT MEDIA STYLES FOR COACH ICE CARD & SCOUT DOSSIER */
 @media print {
   body {
