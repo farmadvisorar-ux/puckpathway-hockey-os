@@ -11,6 +11,29 @@
   let COMBINED_PLAYERS = SMRP_PLAYERS;
   if (overseas.length > 0) COMBINED_PLAYERS = COMBINED_PLAYERS.concat(overseas);
   if (expansions.length > 0) COMBINED_PLAYERS = COMBINED_PLAYERS.concat(expansions);
+  const iceBats = (typeof window !== 'undefined' && window.AUSTIN_ICE_BATS && window.AUSTIN_ICE_BATS.players) || 
+                  (typeof global !== 'undefined' && global.AUSTIN_ICE_BATS && global.AUSTIN_ICE_BATS.players) || [];
+  const iceBatsCoaches = (typeof window !== 'undefined' && window.AUSTIN_ICE_BATS && window.AUSTIN_ICE_BATS.coaches) || 
+                         (typeof global !== 'undefined' && global.AUSTIN_ICE_BATS && global.AUSTIN_ICE_BATS.coaches) || [];
+  if (iceBats.length > 0) {
+    const existingIds = new Set(COMBINED_PLAYERS.map(p => p.id));
+    iceBats.forEach(p => {
+      if (!existingIds.has(p.id)) {
+        COMBINED_PLAYERS.push(p);
+        existingIds.add(p.id);
+      }
+    });
+  }
+  let COMBINED_STAFF = SMRP_STAFF;
+  if (iceBatsCoaches.length > 0) {
+    const existingStaffIds = new Set(COMBINED_STAFF.map(c => c.id));
+    iceBatsCoaches.forEach(c => {
+      if (!existingStaffIds.has(c.id)) {
+        COMBINED_STAFF.push(c);
+        existingStaffIds.add(c.id);
+      }
+    });
+  }
   const nhlAthletes = (typeof window !== 'undefined' && window.DraftLineupNHL && typeof window.DraftLineupNHL.getAllAthletes === 'function') ? window.DraftLineupNHL.getAllAthletes() :
                       ((typeof global !== 'undefined' && global.DraftLineupNHL && typeof global.DraftLineupNHL.getAllAthletes === 'function') ? global.DraftLineupNHL.getAllAthletes() : []);
   if (nhlAthletes.length > 0) {
@@ -22,10 +45,10 @@
       }
     });
   }
-  const SMRP_ALL_REGISTRY = COMBINED_PLAYERS.concat(SMRP_STAFF);
+  const SMRP_ALL_REGISTRY = COMBINED_PLAYERS.concat(COMBINED_STAFF);
 
   root.MASTER_PLAYERS = COMBINED_PLAYERS; // Players directory
-  root.MASTER_STAFF = SMRP_STAFF;     // Coaching & staff directory
+  root.MASTER_STAFF = COMBINED_STAFF;     // Coaching & staff directory
   root.MASTER_NON_PRO_REGISTRY = SMRP_ALL_REGISTRY; // Backward compatibility
   root.MASTER_ALL_REGISTRY = SMRP_ALL_REGISTRY;     // Universal SMRP registry
   root.SMRP_PLAYERS = COMBINED_PLAYERS;
