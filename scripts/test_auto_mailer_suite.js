@@ -165,9 +165,21 @@ const inviteRes = mailer.sendTryoutInvitation({
 }, "furrhjohn10@gmail.com");
 assert(inviteRes && inviteRes.success === true, "sendTryoutInvitation dispatches camp selection notice");
 
-// 12. Check Outbox Storage
+// 12. Contact Form Dispatch Linked to hello@draftkings.com
+const contactRes = mailer.sendContactSubmission({
+  name: "Gordie Howe",
+  email: "mr.hockey@draftlineup.com",
+  role: "Hall of Fame Scout",
+  subject: "NCAA D1 & Junior Showcase Inquiries",
+  message: "Testing direct link routing to hello@draftkings.com.",
+  priority: "High Priority (12h SLA)"
+});
+assert(contactRes && contactRes.success === true, "sendContactSubmission dispatches inquiry to operations");
+assert(contactRes.targetEmail === "hello@draftkings.com", "Contact form target is linked to hello@draftkings.com");
+
+// 13. Check Outbox Storage
 const outbox = mailer.getOutbox();
-assert(outbox.length >= 11, `Outbox successfully recorded ${outbox.length} dispatched autoresponder emails`);
+assert(outbox.length >= 13, `Outbox successfully recorded ${outbox.length} dispatched autoresponder emails`);
 
 // Verify outbox entries have correct metadata & domain
 const firstMail = outbox[0];
@@ -176,3 +188,4 @@ assert(firstMail.html.includes("draftlineup.com"), "HTML body includes official 
 assert(firstMail.html.includes("DraftLineup.com is the only hockey analytics platform"), "HTML body includes official mission statement");
 
 console.log(`\n🎉 SUCCESS: All ${passed}/${total} auto-mailer tests passed with 100% accuracy!`);
+

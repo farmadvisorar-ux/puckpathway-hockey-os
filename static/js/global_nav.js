@@ -49,7 +49,8 @@
     { id: "agents", name: "AI Swarm", icon: "🤖", url: "agents.html", cat: "system", desc: "Autonomous multi-agent cooperative scouting mesh" },
     { id: "community", name: "The Wire", icon: "🌐", url: "community.html", cat: "system", desc: "Scouting social network, direct messaging & bulletins" },
     { id: "database", name: "Master Directory", icon: "📊", url: "database.html", cat: "system", desc: "Comprehensive directory of 30,000+ athlete dossiers" },
-    { id: "player", name: "Player Passport", icon: "👤", url: "player.html", cat: "system", desc: "Comprehensive athlete dossier & development logs" }
+    { id: "player", name: "Player Passport", icon: "👤", url: "player.html", cat: "system", desc: "Comprehensive athlete dossier & development logs" },
+    { id: "contact", name: "Contact Operations", icon: "✉️", url: "index.html#contact-us", cat: "system", desc: "Direct operations wire & support (hello@draftkings.com)" }
   ];
 
   // Category labels and styling
