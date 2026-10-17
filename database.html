@@ -743,6 +743,14 @@
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-stretch">
           <!-- Left: 7 Interactive State Selector Cards (All NE + 6 States) -->
           <div class="lg:col-span-8 grid grid-cols-2 sm:grid-cols-4 gap-2.5" id="stateSelectorCardsGrid">
+            <button type="button" onclick="selectStateRegistry('PA')" data-state-card="PA" class="state-reg-card p-3 rounded-2xl border border-yellow-500/60 bg-amber-950/30 text-left transition cursor-pointer hover:border-yellow-400 col-span-2 sm:col-span-1 shadow-md shadow-amber-950/40">
+              <div class="flex items-center justify-between">
+                <span class="text-lg">🔔</span>
+                <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-yellow-500/20 text-yellow-300">PA</span>
+              </div>
+              <div class="font-black text-white text-xs mt-1.5">Pennsylvania (Keystone)</div>
+              <div class="text-[10px] font-mono text-yellow-300 font-bold">40 Teams · 640 Players</div>
+            </button>
             <button type="button" onclick="selectStateRegistry('WI')" data-state-card="WI" class="state-reg-card p-3 rounded-2xl border border-red-500/60 bg-red-950/40 text-left transition cursor-pointer hover:border-red-400 col-span-2 sm:col-span-1 shadow-md shadow-red-950/40">
               <div class="flex items-center justify-between">
                 <span class="text-lg">🦡</span>
@@ -778,10 +786,10 @@
             <button type="button" onclick="selectStateRegistry('ALL')" data-state-card="ALL" class="state-reg-card p-3 rounded-2xl border border-teal-400 bg-teal-950/50 text-left transition cursor-pointer hover:border-teal-300 col-span-2 sm:col-span-1">
               <div class="flex items-center justify-between">
                 <span class="text-lg">🗺️</span>
-                <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-teal-500/20 text-teal-300">10 STATES</span>
+                <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-teal-500/20 text-teal-300">11 STATES</span>
               </div>
               <div class="font-black text-white text-xs mt-1.5">All State Registries</div>
-              <div class="text-[10px] font-mono text-emerald-400 font-bold">349 Teams · 5,652 Players</div>
+              <div class="text-[10px] font-mono text-emerald-400 font-bold">389 Teams · 6,292 Players</div>
             </button>
             <button type="button" onclick="selectStateRegistry('ME')" data-state-card="ME" class="state-reg-card p-3 rounded-2xl border border-slate-800 bg-slate-900/80 text-left transition cursor-pointer hover:border-teal-400/60">
               <div class="flex items-center justify-between">
@@ -1844,7 +1852,11 @@
           if (activeStateRegistryCode === 'ALL' || activeStateRegistryCode === 'ALL_NE') {
             if (eyebrow) eyebrow.textContent = "🗺️ Complete State-by-State Hockey Registries (HS to Pro)";
             if (title) title.textContent = "Unified State Hockey Registries — High School Varsity, Prep, Junior, NCAA & Pro";
-            if (desc) desc.textContent = "Explore all 349 verified programs and 5,652 active rostered players across Wisconsin, New York, Michigan, Minnesota, Maine, Massachusetts, New Hampshire, Connecticut, Vermont, and Rhode Island.";
+            if (desc) desc.textContent = "Explore all 389 verified programs and 6,292 active rostered players across Pennsylvania, Wisconsin, New York, Michigan, Minnesota, Maine, Massachusetts, New Hampshire, Connecticut, Vermont, and Rhode Island.";
+          } else if (activeStateRegistryCode === 'PA') {
+            if (eyebrow) eyebrow.textContent = "🔔 State of Pennsylvania Complete Registry (The Keystone State)";
+            if (title) title.textContent = "State of Pennsylvania (PA) Hockey Teams & Full Player Rosters (High School & Up)";
+            if (desc) desc.textContent = "Every PIHL (Penguins Cup) and Flyers Cup high school varsity powerhouse (North Allegheny, Peters Township, Malvern Prep, La Salle), Tier 1 AAA (Pittsburgh Penguins Elite, Philadelphia Jr. Flyers), NAHL (Johnstown Tomahawks), NCAA Division I (Penn State, Robert Morris, Mercyhurst), NCAA Division III (Neumann 2009 National Champions, Alvernia, King's), and NHL/AHL/ECHL (Penguins, Flyers, Hershey Bears, Phantoms, WBS Penguins, Reading Royals).";
           } else if (activeStateRegistryCode === 'WI') {
             if (eyebrow) eyebrow.textContent = "🦡 State of Wisconsin Complete Registry (The Badger State)";
             if (title) title.textContent = "State of Wisconsin (WI) Hockey Teams & Full Player Rosters (High School & Up)";
@@ -1915,7 +1927,7 @@
           return;
         }
 
-        const stateIcons = { WI: '🦡', NY: '🗽', MI: '🌊', MN: '🏒', ME: '🌲', MA: '🍀', NH: '⛰️', VT: '🦌', CT: '🛡️', RI: '⚓' };
+        const stateIcons = { PA: '🔔', WI: '🦡', NY: '🗽', MI: '🌊', MN: '🏒', ME: '🌲', MA: '🍀', NH: '⛰️', VT: '🦌', CT: '🛡️', RI: '⚓' };
 
         container.innerHTML = filteredTeams.map((t, idx) => {
           const playersToShow = q && !(t.name.toLowerCase().includes(q) || t.city.toLowerCase().includes(q) || (t.headCoach && t.headCoach.toLowerCase().includes(q)))
