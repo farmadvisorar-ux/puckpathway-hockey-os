@@ -743,6 +743,22 @@
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-stretch">
           <!-- Left: 7 Interactive State Selector Cards (All NE + 6 States) -->
           <div class="lg:col-span-8 grid grid-cols-2 sm:grid-cols-4 gap-2.5" id="stateSelectorCardsGrid">
+            <button type="button" onclick="selectStateRegistry('WI')" data-state-card="WI" class="state-reg-card p-3 rounded-2xl border border-red-500/60 bg-red-950/40 text-left transition cursor-pointer hover:border-red-400 col-span-2 sm:col-span-1 shadow-md shadow-red-950/40">
+              <div class="flex items-center justify-between">
+                <span class="text-lg">🦡</span>
+                <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-red-500/20 text-red-300">WI</span>
+              </div>
+              <div class="font-black text-white text-xs mt-1.5">Wisconsin (Badger State)</div>
+              <div class="text-[10px] font-mono text-red-300 font-bold">35 Teams · 560 Players</div>
+            </button>
+            <button type="button" onclick="selectStateRegistry('NY')" data-state-card="NY" class="state-reg-card p-3 rounded-2xl border border-blue-500/60 bg-blue-950/40 text-left transition cursor-pointer hover:border-blue-400 col-span-2 sm:col-span-1 shadow-md shadow-blue-950/40">
+              <div class="flex items-center justify-between">
+                <span class="text-lg">🗽</span>
+                <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-blue-500/20 text-blue-300">NY</span>
+              </div>
+              <div class="font-black text-white text-xs mt-1.5">New York (Empire State)</div>
+              <div class="text-[10px] font-mono text-blue-300 font-bold">35 Teams · 560 Players</div>
+            </button>
             <button type="button" onclick="selectStateRegistry('MI')" data-state-card="MI" class="state-reg-card p-3 rounded-2xl border border-sky-400/60 bg-sky-950/40 text-left transition cursor-pointer hover:border-sky-300 col-span-2 sm:col-span-1 shadow-md shadow-sky-950/40">
               <div class="flex items-center justify-between">
                 <span class="text-lg">🌊</span>
@@ -762,10 +778,10 @@
             <button type="button" onclick="selectStateRegistry('ALL')" data-state-card="ALL" class="state-reg-card p-3 rounded-2xl border border-teal-400 bg-teal-950/50 text-left transition cursor-pointer hover:border-teal-300 col-span-2 sm:col-span-1">
               <div class="flex items-center justify-between">
                 <span class="text-lg">🗺️</span>
-                <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-teal-500/20 text-teal-300">8 STATES</span>
+                <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-teal-500/20 text-teal-300">10 STATES</span>
               </div>
               <div class="font-black text-white text-xs mt-1.5">All State Registries</div>
-              <div class="text-[10px] font-mono text-emerald-400 font-bold">279 Teams · 4,532 Players</div>
+              <div class="text-[10px] font-mono text-emerald-400 font-bold">349 Teams · 5,652 Players</div>
             </button>
             <button type="button" onclick="selectStateRegistry('ME')" data-state-card="ME" class="state-reg-card p-3 rounded-2xl border border-slate-800 bg-slate-900/80 text-left transition cursor-pointer hover:border-teal-400/60">
               <div class="flex items-center justify-between">
@@ -1828,7 +1844,15 @@
           if (activeStateRegistryCode === 'ALL' || activeStateRegistryCode === 'ALL_NE') {
             if (eyebrow) eyebrow.textContent = "🗺️ Complete State-by-State Hockey Registries (HS to Pro)";
             if (title) title.textContent = "Unified State Hockey Registries — High School Varsity, Prep, Junior, NCAA & Pro";
-            if (desc) desc.textContent = "Explore all 279 verified programs and 4,532 active rostered players across Michigan, Minnesota, Maine, Massachusetts, New Hampshire, Connecticut, Vermont, and Rhode Island.";
+            if (desc) desc.textContent = "Explore all 349 verified programs and 5,652 active rostered players across Wisconsin, New York, Michigan, Minnesota, Maine, Massachusetts, New Hampshire, Connecticut, Vermont, and Rhode Island.";
+          } else if (activeStateRegistryCode === 'WI') {
+            if (eyebrow) eyebrow.textContent = "🦡 State of Wisconsin Complete Registry (The Badger State)";
+            if (title) title.textContent = "State of Wisconsin (WI) Hockey Teams & Full Player Rosters (High School & Up)";
+            if (desc) desc.textContent = "Every WIAA high school varsity powerhouse (Notre Dame Academy, Hudson, Superior, Verona), USHL (Green Bay Gamblers, Madison Capitols), NAHL (Janesville Jets, Chippewa Steel, Wisconsin Windigo), NCAA Division I (Wisconsin Badgers - Big Ten), NCAA Division III (UW-Stevens Point 6x Champions, St. Norbert 5x Champions, UW-Eau Claire), and Milwaukee Admirals (AHL).";
+          } else if (activeStateRegistryCode === 'NY') {
+            if (eyebrow) eyebrow.textContent = "🗽 State of New York Complete Registry (The Empire State)";
+            if (title) title.textContent = "State of New York (NY) Hockey Teams & Full Player Rosters (High School & Up)";
+            if (desc) desc.textContent = "Every NYSPHSAA & Catholic powerhouse, Elite AAA (Buffalo Jr. Sabres, Long Island Gulls), NAHL Rochester Jr. Americans, Northwood Prep, NCAA Division I (Cornell, Clarkson, St. Lawrence, Colgate, Union, RPI, RIT, Niagara, Army, Canisius, LIU), NCAA D3 National Champions Hobart, SUNYAC, and NHL/AHL (Rangers, Islanders, Sabres, Amerks, Crunch, Comets).";
           } else if (activeStateRegistryCode === 'MI') {
             if (eyebrow) eyebrow.textContent = "🌊 State of Michigan Complete Registry (The Great Lakes State)";
             if (title) title.textContent = "State of Michigan (MI) Hockey Teams & Full Player Rosters (High School & Up)";
@@ -1891,7 +1915,7 @@
           return;
         }
 
-        const stateIcons = { MI: '🌊', MN: '🏒', ME: '🌲', MA: '🍀', NH: '⛰️', VT: '🦌', CT: '🛡️', RI: '⚓' };
+        const stateIcons = { WI: '🦡', NY: '🗽', MI: '🌊', MN: '🏒', ME: '🌲', MA: '🍀', NH: '⛰️', VT: '🦌', CT: '🛡️', RI: '⚓' };
 
         container.innerHTML = filteredTeams.map((t, idx) => {
           const playersToShow = q && !(t.name.toLowerCase().includes(q) || t.city.toLowerCase().includes(q) || (t.headCoach && t.headCoach.toLowerCase().includes(q)))
