@@ -743,6 +743,14 @@
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-stretch">
           <!-- Left: 7 Interactive State Selector Cards (All NE + 6 States) -->
           <div class="lg:col-span-8 grid grid-cols-2 sm:grid-cols-4 gap-2.5" id="stateSelectorCardsGrid">
+            <button type="button" onclick="selectStateRegistry('MI')" data-state-card="MI" class="state-reg-card p-3 rounded-2xl border border-sky-400/60 bg-sky-950/40 text-left transition cursor-pointer hover:border-sky-300 col-span-2 sm:col-span-1 shadow-md shadow-sky-950/40">
+              <div class="flex items-center justify-between">
+                <span class="text-lg">🌊</span>
+                <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-sky-500/20 text-sky-300">MI</span>
+              </div>
+              <div class="font-black text-white text-xs mt-1.5">Michigan (Great Lakes)</div>
+              <div class="text-[10px] font-mono text-sky-300 font-bold">60 Teams · 960 Players</div>
+            </button>
             <button type="button" onclick="selectStateRegistry('MN')" data-state-card="MN" class="state-reg-card p-3 rounded-2xl border border-amber-400/60 bg-amber-950/40 text-left transition cursor-pointer hover:border-amber-300 col-span-2 sm:col-span-1 shadow-md shadow-amber-950/40">
               <div class="flex items-center justify-between">
                 <span class="text-lg">🏒</span>
@@ -754,10 +762,10 @@
             <button type="button" onclick="selectStateRegistry('ALL')" data-state-card="ALL" class="state-reg-card p-3 rounded-2xl border border-teal-400 bg-teal-950/50 text-left transition cursor-pointer hover:border-teal-300 col-span-2 sm:col-span-1">
               <div class="flex items-center justify-between">
                 <span class="text-lg">🗺️</span>
-                <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-teal-500/20 text-teal-300">7 STATES</span>
+                <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-teal-500/20 text-teal-300">8 STATES</span>
               </div>
               <div class="font-black text-white text-xs mt-1.5">All State Registries</div>
-              <div class="text-[10px] font-mono text-emerald-400 font-bold">219 Teams · 3,572 Players</div>
+              <div class="text-[10px] font-mono text-emerald-400 font-bold">279 Teams · 4,532 Players</div>
             </button>
             <button type="button" onclick="selectStateRegistry('ME')" data-state-card="ME" class="state-reg-card p-3 rounded-2xl border border-slate-800 bg-slate-900/80 text-left transition cursor-pointer hover:border-teal-400/60">
               <div class="flex items-center justify-between">
@@ -1820,7 +1828,11 @@
           if (activeStateRegistryCode === 'ALL' || activeStateRegistryCode === 'ALL_NE') {
             if (eyebrow) eyebrow.textContent = "🗺️ Complete State-by-State Hockey Registries (HS to Pro)";
             if (title) title.textContent = "Unified State Hockey Registries — High School Varsity, Prep, Junior, NCAA & Pro";
-            if (desc) desc.textContent = "Explore all 219 verified programs and 3,572 active rostered players across Minnesota, Maine, Massachusetts, New Hampshire, Connecticut, Vermont, and Rhode Island.";
+            if (desc) desc.textContent = "Explore all 279 verified programs and 4,532 active rostered players across Michigan, Minnesota, Maine, Massachusetts, New Hampshire, Connecticut, Vermont, and Rhode Island.";
+          } else if (activeStateRegistryCode === 'MI') {
+            if (eyebrow) eyebrow.textContent = "🌊 State of Michigan Complete Registry (The Great Lakes State)";
+            if (title) title.textContent = "State of Michigan (MI) Hockey Teams & Full Player Rosters (High School & Up)";
+            if (desc) desc.textContent = "Every MHSAA Division 1, 2, and 3 varsity powerhouse (Detroit Catholic Central, Brother Rice, Cranbrook), USA Hockey NTDP (U18/U17), OHL (Saginaw Spirit, Flint Firebirds), USHL Muskegon Lumberjacks, NCAA Division I (Big Ten / NCHC / CCHA), Adrian College NCAA D3/ACHA National Champions, and NHL Detroit Red Wings.";
           } else if (activeStateRegistryCode === 'MN') {
             if (eyebrow) eyebrow.textContent = "🏒 State of Minnesota Complete Registry (The State of Hockey)";
             if (title) title.textContent = "State of Minnesota (MN) Hockey Teams & Full Player Rosters (High School & Up)";
@@ -1879,7 +1891,7 @@
           return;
         }
 
-        const stateIcons = { MN: '🏒', ME: '🌲', MA: '🍀', NH: '⛰️', VT: '🦌', CT: '🛡️', RI: '⚓' };
+        const stateIcons = { MI: '🌊', MN: '🏒', ME: '🌲', MA: '🍀', NH: '⛰️', VT: '🦌', CT: '🛡️', RI: '⚓' };
 
         container.innerHTML = filteredTeams.map((t, idx) => {
           const playersToShow = q && !(t.name.toLowerCase().includes(q) || t.city.toLowerCase().includes(q) || (t.headCoach && t.headCoach.toLowerCase().includes(q)))
