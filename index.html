@@ -158,55 +158,273 @@
     </div>
   </div>
 
-  <!-- HERO -->
-  <header class="hero">
-    <div class="hero-content">
-      <h1 class="hero-title" style="font-weight: 800; font-size: 2.85rem; line-height: 1.18; letter-spacing: -0.025em; margin: 0 0 1rem; color: #ffffff;">
-        Build Your Hockey Pathway. <span style="color: #38bdf8;">Level Up Your Game.</span>
-      </h1>
-      <p class="hero-subtitle" style="color:#94a3b8 !important; font-size:1.25rem; font-weight:500; line-height:1.6; max-width:820px; margin:0 auto 2rem auto;">
-        The unified hockey intelligence operating system. Built for Scouts, Coaches, Athletes, and Parents.
-      </p>
+  <!-- =========================================================================
+       ENTERPRISE HOCKEY INTELLIGENCE HERO (InStat / Hudl / EP Tier)
+       ========================================================================= -->
+  <header class="hero-enterprise">
+    <div class="hero-enterprise-container">
       
-      <!-- Prominent Home Screen Pricing Ticker -->
-      <div class="pricing-hero-ticker">
-        <div class="pricing-ticker-chip">
-          <span>🔭 Recruiters:</span> <strong>$22.99 / mo</strong> (All 22 Combined)
+      <!-- Top Authority Proof Row -->
+      <div class="hero-badge-row">
+        <div class="hero-badge">
+          <span class="pulse-dot"></span>
+          <span>OFFICIAL LIFELONG HOCKEY INTELLIGENCE OPERATING SYSTEM</span>
         </div>
-        <div class="pricing-ticker-chip">
-          <span>📋 Coaches:</span> <strong>$22.99 / mo</strong> (All 22 Combined)
-        </div>
-        <div class="pricing-ticker-chip">
-          <span>⚡ Players:</span> <strong>$4.99 / mo</strong> (Player OS)
-        </div>
-        <div class="pricing-ticker-chip">
-          <span>🛡️ Parents:</span> <strong>$4.99 / mo</strong> (Oversight)
-        </div>
-        <div class="pricing-ticker-chip wire-guarantee">
-          <span>🌐</span> <strong>ALL PLANS INCLUDE THE WIRE & DIRECT DMs</strong>
+        <div class="hero-subbadge">
+          <span>⚡ 30,000+ Verified Athletes &bull; Tier III to NHL Draft &bull; 22 Integrated Modules</span>
         </div>
       </div>
 
-      <!-- 4-Role Enterprise Dashboard Launchpad -->
-      <div class="hero-dashboard-launchpad" style="margin: 1.25rem 0 1.5rem; display: flex; flex-wrap: wrap; justify-content: center; gap: 0.65rem;">
-        <a href="app.html?role=athlete" style="padding: 0.55rem 1.15rem; font-size: 0.82rem; font-weight: 700; text-decoration: none; background: #0f172a; border: 1px solid rgba(56, 189, 248, 0.35); border-radius: 12px; color: #f8fafc; display: inline-flex; align-items: center; gap: 0.5rem; transition: all 0.15s ease;">
-          <span style="color: #38bdf8;">⚡</span> <span>Player OS <strong style="color: #94a3b8; font-weight: 500;">($4.99)</strong></span>
-        </a>
-        <a href="parent.html" style="padding: 0.55rem 1.15rem; font-size: 0.82rem; font-weight: 700; text-decoration: none; background: #0f172a; border: 1px solid rgba(244, 63, 94, 0.35); border-radius: 12px; color: #f8fafc; display: inline-flex; align-items: center; gap: 0.5rem; transition: all 0.15s ease;">
-          <span style="color: #f43f5e;">🛡️</span> <span>Parent Oversight <strong style="color: #94a3b8; font-weight: 500;">($4.99)</strong></span>
-        </a>
-        <a href="coach.html" style="padding: 0.55rem 1.15rem; font-size: 0.82rem; font-weight: 700; text-decoration: none; background: #0f172a; border: 1px solid rgba(99, 102, 241, 0.35); border-radius: 12px; color: #f8fafc; display: inline-flex; align-items: center; gap: 0.5rem; transition: all 0.15s ease;">
-          <span style="color: #818cf8;">📋</span> <span>Coach Desk <strong style="color: #94a3b8; font-weight: 500;">($22.99)</strong></span>
-        </a>
-        <a href="scout.html" onclick="return handleScoutDeskNav(event)" style="padding: 0.55rem 1.15rem; font-size: 0.82rem; font-weight: 700; text-decoration: none; background: #0f172a; border: 1px solid rgba(245, 158, 11, 0.35); border-radius: 12px; color: #f8fafc; display: inline-flex; align-items: center; gap: 0.5rem; transition: all 0.15s ease;">
-          <span style="color: #fbbf24;">🔭</span> <span>Lead Scout Desk <strong style="color: #94a3b8; font-weight: 500;">($22.99)</strong></span>
-        </a>
+      <!-- Main Dual-Column Hero Grid -->
+      <div class="hero-main-grid">
+        
+        <!-- Left Column: Commanding Positioning, Fast Universal Search, 4-Role Matrix, & CTAs -->
+        <div class="hero-text-col">
+          <h1 class="hero-main-title">
+            Enterprise Hockey Intelligence.
+            <span class="hero-highlight">From Early Junior to the NHL Draft.</span>
+          </h1>
+          
+          <p class="hero-lead-desc">
+            DraftLineup.com tracks athletes across their entire competitive lifecycle. Powered by micro-KPI puck telemetry, 8-pillar biometric combines, and predictive NCAA/NHL draft modeling trusted by scouts, coaches, and organizations worldwide.
+          </p>
+
+          <!-- Fast Live Universal Search Bar -->
+          <div class="hero-search-wrapper">
+            <form action="database.html" method="GET" class="hero-search-bar" onsubmit="return handleHeroSearchSubmit(event)">
+              <span class="search-icon">🔍</span>
+              <input type="text" name="q" id="heroSearchInput" placeholder="Search 30,000+ athletes, teams, colleges (e.g. Celebrini, Denver, Austin Ice Bats, USHL)..." autocomplete="off">
+              <button type="submit" class="search-submit-btn">Search Directory &rarr;</button>
+            </form>
+            
+            <!-- Quick Search Trending Tags -->
+            <div class="hero-trending-tags">
+              <span style="color:#94a3b8; font-weight:700;">Trending:</span>
+              <a href="database.html?q=Austin+Ice+Bats" class="trending-pill">🦇 Austin Ice Bats</a>
+              <a href="database.html?q=Connor+Bedard" class="trending-pill">⚡ Connor Bedard</a>
+              <a href="database.html?q=Michigan" class="trending-pill">🎓 NCAA D1</a>
+              <a href="database.html?position=GC" class="trending-pill">🧤 Goalie Crease</a>
+              <a href="database.html?league=USHL" class="trending-pill">🏒 USHL</a>
+            </div>
+          </div>
+
+          <!-- 4-Role Enterprise Matrix Cards with Transparent Pricing -->
+          <div class="hero-role-matrix">
+            <a href="app.html?role=athlete" class="hero-role-card role-athlete" title="Launch Player OS Dashboard">
+              <div class="role-icon" style="color: #38bdf8;">⚡</div>
+              <div class="role-info">
+                <span class="role-name">Player OS</span>
+                <span class="role-meta">Personal Passport &bull; $4.99/mo</span>
+              </div>
+            </a>
+            <a href="parent.html" class="hero-role-card role-parent" title="Launch Family Oversight Portal">
+              <div class="role-icon" style="color: #f43f5e;">🛡️</div>
+              <div class="role-info">
+                <span class="role-name">Parent Portal</span>
+                <span class="role-meta">Family Oversight &bull; $4.99/mo</span>
+              </div>
+            </a>
+            <a href="coach.html" class="hero-role-card role-coach" title="Launch Coach Desk PRO">
+              <div class="role-icon" style="color: #818cf8;">📋</div>
+              <div class="role-info">
+                <span class="role-name">Coach Desk</span>
+                <span class="role-meta">Film & Chemistry &bull; $22.99/mo</span>
+              </div>
+            </a>
+            <a href="scout.html" onclick="return handleScoutDeskNav(event)" class="hero-role-card role-scout" title="Launch Lead Scout Desk PRO">
+              <div class="role-icon" style="color: #fbbf24;">🔭</div>
+              <div class="role-info">
+                <span class="role-name">Lead Scout Desk</span>
+                <span class="role-meta">All 22 Modules &bull; $22.99/mo</span>
+              </div>
+            </a>
+          </div>
+
+          <!-- Primary Action CTA Row -->
+          <div class="hero-action-row">
+            <a href="database.html" class="hero-btn-primary">
+              <span>📊 Open Master Directory (30,000+)</span>
+            </a>
+            <a href="scout.html" onclick="return handleScoutDeskNav(event)" class="hero-btn-secondary">
+              <span>🔭 Launch Scout Desk PRO</span>
+            </a>
+            <button type="button" class="hero-btn-ghost" onclick="openHomePaymentModal('scout')">
+              <span>💳 Subscribe & Pay</span>
+            </button>
+          </div>
+
+        </div>
+
+        <!-- Right Column: Live Software Interface / Athlete Intelligence Console Mockup -->
+        <div class="hero-preview-col">
+          <div class="hero-terminal-window">
+            
+            <!-- Terminal Titlebar -->
+            <div class="terminal-titlebar">
+              <div class="terminal-dots">
+                <span class="dot red"></span>
+                <span class="dot yellow"></span>
+                <span class="dot green"></span>
+              </div>
+              <div class="terminal-title">
+                <span>DRAFTLINEUP VAULT &bull; VERIFIED DOSSIER</span>
+              </div>
+              <div class="terminal-status">
+                <span>● REAL-TIME</span>
+              </div>
+            </div>
+
+            <!-- Terminal Body -->
+            <div class="terminal-body">
+              
+              <!-- Athlete Header Card -->
+              <div class="terminal-athlete-header">
+                <div class="athlete-avatar-badge" style="background: linear-gradient(135deg, #0284c7, #1e1b4b);">
+                  #9
+                </div>
+                <div class="athlete-header-details">
+                  <div class="athlete-name-row">
+                    <h3 class="athlete-name">Arys Perardi</h3>
+                    <span class="verified-pill">✓ VERIFIED DOSSIER</span>
+                  </div>
+                  <div class="athlete-meta-sub">
+                    <span>RW &bull; Austin Ice Bats &bull; NA3HL Tier III</span>
+                  </div>
+                  <div class="athlete-tender-tag">
+                    <span>🦇 NAHL Tender &bull; Corpus Christi IceRays</span>
+                  </div>
+                </div>
+                
+                <!-- Trajectory Score Pill -->
+                <div class="athlete-score-box">
+                  <span class="score-label">TRAJECTORY</span>
+                  <span class="score-number">89.2</span>
+                  <span class="score-ceiling">NCAA D1 / USHL</span>
+                </div>
+              </div>
+
+              <!-- Telemetry KPI 4-Grid -->
+              <div class="terminal-kpi-grid">
+                <div class="terminal-kpi-chip">
+                  <span class="kpi-tag">EXPECTED GOALS (xG)</span>
+                  <span class="kpi-stat" style="color: #38bdf8;">+18.9 Diff</span>
+                  <span class="kpi-sub">94th percentile pace</span>
+                </div>
+                <div class="terminal-kpi-chip">
+                  <span class="kpi-tag">CONTROLLED ENTRIES</span>
+                  <span class="kpi-stat" style="color: #10b981;">71.2% Rate</span>
+                  <span class="kpi-sub">Neutral-zone transition</span>
+                </div>
+                <div class="terminal-kpi-chip">
+                  <span class="kpi-tag">HIGH DANGER SHOTS</span>
+                  <span class="kpi-stat" style="color: #fbbf24;">64.5% Danger</span>
+                  <span class="kpi-sub">Inner-slot shot share</span>
+                </div>
+                <div class="terminal-kpi-chip">
+                  <span class="kpi-tag">30M FLYING SPRINT</span>
+                  <span class="kpi-stat" style="color: #a855f7;">3.62s Laser</span>
+                  <span class="kpi-sub">Optical combine timing</span>
+                </div>
+              </div>
+
+              <!-- Career Advancement Trajectory Probabilities -->
+              <div class="terminal-probabilities-card">
+                <div class="prob-header">
+                  <span class="prob-title">AI ADVANCEMENT TRAJECTORY</span>
+                  <span class="prob-watermark">VAULT PROTECTED</span>
+                </div>
+                <div class="prob-bars">
+                  <div class="prob-row">
+                    <div class="prob-labels">
+                      <span>🎓 NCAA Division I</span>
+                      <span class="prob-val" style="color: #38bdf8;">88%</span>
+                    </div>
+                    <div class="prob-track">
+                      <div class="prob-fill" style="width: 88%; background: linear-gradient(90deg, #38bdf8, #0284c7);"></div>
+                    </div>
+                  </div>
+                  <div class="prob-row">
+                    <div class="prob-labels">
+                      <span>⚡ USHL Tier 1 Junior</span>
+                      <span class="prob-val" style="color: #f59e0b;">92%</span>
+                    </div>
+                    <div class="prob-track">
+                      <div class="prob-fill" style="width: 92%; background: linear-gradient(90deg, #f59e0b, #d97706);"></div>
+                    </div>
+                  </div>
+                  <div class="prob-row">
+                    <div class="prob-labels">
+                      <span>🏒 NAHL / BCHL Tier 2</span>
+                      <span class="prob-val" style="color: #10b981;">98%</span>
+                    </div>
+                    <div class="prob-track">
+                      <div class="prob-fill" style="width: 98%; background: linear-gradient(90deg, #10b981, #059669);"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Security & Provenance Footer -->
+              <div class="terminal-footer">
+                <div class="vault-stamp">
+                  <span>🔒 Proof-of-Work Guarded &bull; Single-Dossier Pacing &bull; COPPA Verified</span>
+                </div>
+                <a href="player.html?id=aib_p02" class="terminal-inspect-btn">
+                  <span>Inspect Full Passport &rarr;</span>
+                </a>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
       </div>
-      <div class="hero-buttons">
-        <a href="#pricing-plans" class="btn primary">💳 View Plans & Instant Checkout</a>
-        <button type="button" class="btn secondary" onclick="openHomePaymentModal('athlete')">⚡ Quick Subscribe ($4.99)</button>
-        <a href="app.html" class="btn demo">⚡ Explore Live Dashboard</a>
+
+      <!-- Live Institutional Proof Bar (5 Enterprise Stats) -->
+      <div class="hero-stats-bar">
+        <div class="stat-item">
+          <span class="stat-number">30,000+</span>
+          <span class="stat-title">Tracked Athletes</span>
+          <span class="stat-desc">Tier III to NHL Pro</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">190+</span>
+          <span class="stat-title">Colleges &amp; Preps</span>
+          <span class="stat-desc">NCAA D1/D3, High Schools</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">32</span>
+          <span class="stat-title">NHL Draft Pipelines</span>
+          <span class="stat-desc">Pro scouting models</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">300+</span>
+          <span class="stat-title">Overseas Pro Clubs</span>
+          <span class="stat-desc">SHL, Liiga, DEL &amp; NL</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">22</span>
+          <span class="stat-title">Integrated Modules</span>
+          <span class="stat-desc">Combine, Video &amp; Telemetry</span>
+        </div>
       </div>
+
+      <!-- Canonical Leagues Coverage Marquee -->
+      <div class="hero-leagues-marquee">
+        <span class="leagues-label">COVERING CANONICAL LEAGUES:</span>
+        <div class="leagues-badges">
+          <span class="league-pill">NHL</span>
+          <span class="league-pill">AHL</span>
+          <span class="league-pill">NCAA DIVISION I</span>
+          <span class="league-pill">USHL</span>
+          <span class="league-pill">CHL (OHL / WHL / QMJHL)</span>
+          <span class="league-pill">NAHL</span>
+          <span class="league-pill">NA3HL (AUSTIN ICE BATS)</span>
+          <span class="league-pill">SHL / LIIGA</span>
+          <span class="league-pill">PREP ACADEMIES</span>
+        </div>
+      </div>
+
     </div>
   </header>
   <!-- Anti-Scraping Honeytoken Canary Trap (Terms of Service § 5 & Bastion-Charlie Enforcement) -->
@@ -3026,5 +3244,19 @@
   <script src="static/js/global_nav.js"></script>
   <script src="static/js/athlete_vault.js"></script>
   <script src="static/js/auto_mailer.js"></script>
-  <script src="static/js/blueline-core.js"></script></body>
+  <script src="static/js/blueline-core.js"></script>
+  <script>
+    function handleHeroSearchSubmit(event) {
+      if (event) event.preventDefault();
+      const input = document.getElementById('heroSearchInput');
+      const q = input ? input.value.trim() : '';
+      if (q) {
+        window.location.href = 'database.html?q=' + encodeURIComponent(q);
+      } else {
+        window.location.href = 'database.html';
+      }
+      return false;
+    }
+  </script>
+</body>
 </html>

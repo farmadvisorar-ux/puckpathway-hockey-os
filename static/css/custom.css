@@ -1102,3 +1102,759 @@ select option:checked {
     page-break-inside: avoid;
   }
 }
+
+
+/* ==========================================================================
+   ENTERPRISE HOCKEY INTELLIGENCE HERO SECTION (InStat / Hudl / EP Tier)
+   ========================================================================== */
+
+.hero-enterprise {
+  position: relative;
+  background: #06090e;
+  background-image: 
+    radial-gradient(circle at 20% 10%, rgba(56, 189, 248, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 80% 90%, rgba(99, 102, 241, 0.06) 0%, transparent 50%),
+    linear-gradient(to bottom, rgba(15, 23, 42, 0.5) 0%, rgba(6, 9, 14, 0.95) 100%);
+  border-b: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 3.5rem 1.5rem 2.5rem;
+  overflow: hidden;
+}
+
+.hero-enterprise-container {
+  max-width: 1350px;
+  margin: 0 auto;
+}
+
+/* 1. Authority Badges Row */
+.hero-badge-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.85rem;
+  border-radius: 9999px;
+  background: rgba(56, 189, 248, 0.1);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #38bdf8;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.pulse-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #38bdf8;
+  box-shadow: 0 0 8px #38bdf8;
+  display: inline-block;
+  animation: heroPulseDot 2s infinite ease-in-out;
+}
+
+@keyframes heroPulseDot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.85); }
+}
+
+.hero-subbadge {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: #94a3b8;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+/* 2. Main Hero Grid (Two Columns: Text & Search Left, Terminal Mockup Right) */
+.hero-main-grid {
+  display: grid;
+  grid-template-columns: 1.12fr 0.88fr;
+  gap: 2.75rem;
+  align-items: center;
+  margin-bottom: 3rem;
+}
+
+@media (max-width: 1024px) {
+  .hero-main-grid {
+    grid-template-columns: 1fr;
+    gap: 2.25rem;
+  }
+}
+
+/* Left Column Content */
+.hero-text-col {
+  text-align: left;
+}
+
+.hero-main-title {
+  font-size: 3.25rem;
+  font-weight: 900;
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+  color: #ffffff;
+  margin: 0 0 1.15rem;
+}
+
+@media (max-width: 768px) {
+  .hero-main-title {
+    font-size: 2.35rem;
+  }
+}
+
+.hero-highlight {
+  display: block;
+  background: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-lead-desc {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #94a3b8;
+  margin: 0 0 1.5rem;
+  max-width: 620px;
+  font-weight: 450;
+}
+
+/* Universal Fast Search Bar */
+.hero-search-wrapper {
+  margin-bottom: 1.5rem;
+  max-width: 640px;
+}
+
+.hero-search-bar {
+  display: flex;
+  align-items: center;
+  background: rgba(15, 23, 42, 0.9);
+  border: 1px solid rgba(56, 189, 248, 0.4);
+  border-radius: 16px;
+  padding: 0.35rem 0.5rem 0.35rem 1rem;
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(12px);
+  transition: all 0.2s ease;
+}
+
+.hero-search-bar:focus-within {
+  border-color: #38bdf8;
+  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.15), 0 8px 24px rgba(0, 0, 0, 0.6);
+}
+
+.hero-search-bar .search-icon {
+  font-size: 1rem;
+  margin-right: 0.65rem;
+  color: #94a3b8;
+  flex-shrink: 0;
+}
+
+.hero-search-bar input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #ffffff;
+  font-size: 0.92rem;
+  font-family: inherit;
+  font-weight: 500;
+  min-width: 0;
+}
+
+.hero-search-bar input::placeholder {
+  color: #64748b;
+  font-size: 0.88rem;
+}
+
+.search-submit-btn {
+  padding: 0.65rem 1.25rem;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #0284c7, #0369a1);
+  color: #ffffff;
+  font-size: 0.82rem;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.search-submit-btn:hover {
+  background: linear-gradient(135deg, #0369a1, #075985);
+  transform: translateY(-1px);
+}
+
+.hero-trending-tags {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+  margin-top: 0.65rem;
+  font-size: 0.75rem;
+  font-family: var(--font-mono);
+  color: #64748b;
+}
+
+.trending-pill {
+  padding: 0.2rem 0.55rem;
+  border-radius: 6px;
+  background: rgba(30, 41, 59, 0.6);
+  border: 1px solid rgba(51, 65, 85, 0.6);
+  color: #cbd5e1;
+  text-decoration: none;
+  transition: all 0.15s ease;
+}
+
+.trending-pill:hover {
+  background: rgba(56, 189, 248, 0.15);
+  border-color: rgba(56, 189, 248, 0.4);
+  color: #38bdf8;
+}
+
+/* 4-Role Matrix Cards */
+.hero-role-matrix {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.65rem;
+  margin: 1.35rem 0 1.5rem;
+  max-width: 640px;
+}
+
+@media (max-width: 640px) {
+  .hero-role-matrix {
+    grid-template-columns: 1fr;
+  }
+}
+
+.hero-role-card {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.65rem 0.85rem;
+  border-radius: 14px;
+  background: rgba(15, 23, 42, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  text-decoration: none;
+  transition: all 0.18s ease;
+}
+
+.hero-role-card:hover {
+  background: rgba(30, 41, 59, 0.9);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px -2px rgba(0, 0, 0, 0.4);
+}
+
+.hero-role-card.role-athlete:hover { border-color: rgba(56, 189, 248, 0.5); }
+.hero-role-card.role-parent:hover { border-color: rgba(244, 63, 94, 0.5); }
+.hero-role-card.role-coach:hover { border-color: rgba(99, 102, 241, 0.5); }
+.hero-role-card.role-scout:hover { border-color: rgba(245, 158, 11, 0.5); }
+
+.hero-role-card .role-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.hero-role-card .role-info {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.hero-role-card .role-name {
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: #ffffff;
+}
+
+.hero-role-card .role-meta {
+  font-size: 0.72rem;
+  color: #94a3b8;
+  font-family: var(--font-mono);
+}
+
+/* Primary Action CTA Row */
+.hero-action-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.hero-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.4rem;
+  border-radius: 12px;
+  background: #0284c7;
+  color: #ffffff !important;
+  font-weight: 700;
+  font-size: 0.88rem;
+  text-decoration: none;
+  box-shadow: 0 4px 14px rgba(2, 132, 199, 0.35);
+  transition: all 0.15s ease;
+}
+
+.hero-btn-primary:hover {
+  background: #0369a1;
+  transform: translateY(-1px);
+}
+
+.hero-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.4rem;
+  border-radius: 12px;
+  background: rgba(15, 23, 42, 0.9);
+  border: 1px solid rgba(56, 189, 248, 0.4);
+  color: #38bdf8 !important;
+  font-weight: 700;
+  font-size: 0.88rem;
+  text-decoration: none;
+  transition: all 0.15s ease;
+}
+
+.hero-btn-secondary:hover {
+  background: rgba(30, 41, 59, 0.9);
+  border-color: #38bdf8;
+  transform: translateY(-1px);
+}
+
+.hero-btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  border-radius: 12px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #cbd5e1;
+  font-weight: 700;
+  font-size: 0.88rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.hero-btn-ghost:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+}
+
+/* 3. Right Column: High-Performance Software Terminal Preview */
+.hero-preview-col {
+  width: 100%;
+}
+
+.hero-terminal-window {
+  background: #090e17;
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(255, 255, 255, 0.05);
+  text-align: left;
+}
+
+.terminal-titlebar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.65rem 1rem;
+  background: rgba(15, 23, 42, 0.95);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.terminal-dots {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.terminal-dots .dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+}
+.terminal-dots .dot.red { background: #ef4444; }
+.terminal-dots .dot.yellow { background: #f59e0b; }
+.terminal-dots .dot.green { background: #10b981; }
+
+.terminal-title {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #94a3b8;
+  letter-spacing: 0.04em;
+}
+
+.terminal-status {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #10b981;
+}
+
+.terminal-body {
+  padding: 1.25rem;
+}
+
+.terminal-athlete-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+}
+
+.athlete-avatar-badge {
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  font-size: 1.15rem;
+  color: #ffffff;
+  border: 1px solid rgba(56, 189, 248, 0.4);
+  flex-shrink: 0;
+}
+
+.athlete-header-details {
+  flex: 1;
+  min-width: 0;
+}
+
+.athlete-name-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.athlete-name {
+  font-weight: 800;
+  font-size: 1.15rem;
+  color: #ffffff;
+  margin: 0;
+}
+
+.verified-pill {
+  padding: 0.15rem 0.45rem;
+  border-radius: 9999px;
+  background: rgba(16, 185, 129, 0.2);
+  border: 1px solid rgba(16, 185, 129, 0.4);
+  color: #34d399;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+}
+
+.athlete-meta-sub {
+  font-size: 0.78rem;
+  color: #94a3b8;
+  margin-top: 0.15rem;
+}
+
+.athlete-tender-tag {
+  font-size: 0.72rem;
+  color: #38bdf8;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  margin-top: 0.2rem;
+}
+
+.athlete-score-box {
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.score-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #64748b;
+}
+
+.score-number {
+  font-family: var(--font-mono);
+  font-size: 1.85rem;
+  font-weight: 900;
+  color: #38bdf8;
+  line-height: 1;
+}
+
+.score-ceiling {
+  display: block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #10b981;
+}
+
+/* Terminal KPI Grid */
+.terminal-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.6rem;
+  margin-bottom: 1rem;
+}
+
+.terminal-kpi-chip {
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  padding: 0.55rem 0.75rem;
+}
+
+.kpi-tag {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  color: #64748b;
+  font-weight: 700;
+  margin-bottom: 0.15rem;
+}
+
+.kpi-stat {
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  font-weight: 800;
+  display: block;
+}
+
+.kpi-sub {
+  font-size: 0.68rem;
+  color: #94a3b8;
+  display: block;
+  margin-top: 0.1rem;
+}
+
+/* AI Advancement Probabilities */
+.terminal-probabilities-card {
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 14px;
+  padding: 0.85rem;
+  margin-bottom: 1rem;
+}
+
+.prob-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.65rem;
+}
+
+.prob-title {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 800;
+  color: #cbd5e1;
+}
+
+.prob-watermark {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.1);
+  padding: 0.1rem 0.4rem;
+  border-radius: 4px;
+}
+
+.prob-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.prob-labels {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: #e2e8f0;
+  margin-bottom: 0.2rem;
+}
+
+.prob-val {
+  font-family: var(--font-mono);
+  font-weight: 800;
+}
+
+.prob-track {
+  width: 100%;
+  height: 6px;
+  border-radius: 9999px;
+  background: rgba(30, 41, 59, 0.8);
+  overflow: hidden;
+}
+
+.prob-fill {
+  height: 100%;
+  border-radius: 9999px;
+}
+
+/* Terminal Footer */
+.terminal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  padding-top: 0.65rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.vault-stamp {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: #64748b;
+}
+
+.terminal-inspect-btn {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #38bdf8;
+  text-decoration: none;
+  font-family: var(--font-mono);
+  transition: all 0.15s ease;
+}
+
+.terminal-inspect-btn:hover {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+/* 4. Live Institutional Proof Bar */
+.hero-stats-bar {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1rem;
+  padding: 1.5rem 1.25rem;
+  background: rgba(15, 23, 42, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 18px;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.4);
+}
+
+@media (max-width: 900px) {
+  .hero-stats-bar {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+  }
+}
+
+@media (max-width: 500px) {
+  .hero-stats-bar {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid rgba(255, 255, 255, 0.06);
+  padding-right: 1rem;
+}
+
+.stat-item:last-child {
+  border-right: none;
+  padding-right: 0;
+}
+
+@media (max-width: 900px) {
+  .stat-item {
+    border-right: none;
+    padding-right: 0;
+  }
+}
+
+.stat-number {
+  font-family: var(--font-mono);
+  font-size: 1.85rem;
+  font-weight: 900;
+  color: #38bdf8;
+  line-height: 1.1;
+}
+
+.stat-title {
+  font-weight: 800;
+  font-size: 0.88rem;
+  color: #ffffff;
+  margin-top: 0.25rem;
+}
+
+.stat-desc {
+  font-size: 0.72rem;
+  color: #94a3b8;
+  margin-top: 0.15rem;
+}
+
+/* 5. League Coverage Marquee */
+.hero-leagues-marquee {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  padding: 0.85rem 1.25rem;
+  background: rgba(10, 15, 29, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+}
+
+.leagues-label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 800;
+  color: #64748b;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+.leagues-badges {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.league-pill {
+  padding: 0.2rem 0.5rem;
+  border-radius: 6px;
+  background: rgba(30, 41, 59, 0.5);
+  border: 1px solid rgba(51, 65, 85, 0.5);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #94a3b8;
+  letter-spacing: 0.03em;
+  transition: all 0.15s ease;
+}
+
+.league-pill:hover {
+  background: rgba(56, 189, 248, 0.12);
+  border-color: rgba(56, 189, 248, 0.35);
+  color: #38bdf8;
+}
+
