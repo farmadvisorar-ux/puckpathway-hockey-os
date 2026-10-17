@@ -213,15 +213,15 @@
           </button>
           <button id="modeInstitutionsBtn" class="px-4 py-2 rounded-xl text-slate-400 hover:text-white font-bold text-xs flex items-center gap-2 transition">
             <span>🏫</span> <span>Colleges & High Schools Registry</span>
-            <span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-[10px] font-mono font-bold" id="badgeInstitutionsCount">261 Programs</span>
+            <span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-[10px] font-mono font-bold" id="badgeInstitutionsCount">292 Programs</span>
           </button>
           <button id="modeOverseasBtn" class="px-4 py-2 rounded-xl text-slate-400 hover:text-white font-bold text-xs flex items-center gap-2 transition">
             <span>🌍</span> <span>Overseas Pro Clubs Registry</span>
             <span class="px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-300 text-[10px] font-mono font-bold" id="badgeOverseasCount">300 Teams</span>
           </button>
           <button id="modeMaineBtn" class="px-4 py-2 rounded-xl text-teal-300 hover:text-white font-bold text-xs flex items-center gap-2 transition cursor-pointer">
-            <span>🗺️</span> <span>State Registries (ME · MA · NH · VT · CT · RI)</span>
-            <span class="px-2 py-0.5 rounded-full bg-teal-500/20 text-teal-300 text-[10px] font-mono font-bold" id="badgeMaineCount">159 Teams</span>
+            <span>🗺️</span> <span>State Registries (MN · ME · MA · NH · VT · CT · RI)</span>
+            <span class="px-2 py-0.5 rounded-full bg-teal-500/20 text-teal-300 text-[10px] font-mono font-bold" id="badgeMaineCount">219 Teams</span>
           </button>
         </div>
         <div class="flex items-center gap-2 text-xs font-mono text-slate-400">
@@ -565,26 +565,26 @@
               <span>🏫</span> Canonical Colleges & High Schools Registry
             </h2>
             <p class="text-xs text-slate-400">
-              Complete index of 261 monitored hockey institutions: NCAA Division I Men & Women, NCAA Division III, ACHA Club, Elite High Schools, Prep Academies, and Junior Feeder Programs.
+              Complete index of 292 monitored hockey institutions: NCAA Division I Men & Women, NCAA Division III, ACHA Club, Elite High Schools, Prep Academies, and Junior Feeder Programs.
             </p>
           </div>
           <div class="flex items-center gap-2">
             <span class="text-[11px] font-mono px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-bold flex items-center gap-1.5">
               <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
-              261 INSTITUTIONS ACTIVE
+              292 INSTITUTIONS ACTIVE
             </span>
           </div>
         </div>
 
         <!-- Institutional Search Input -->
         <div class="relative">
-          <input type="text" id="instSearchInput" placeholder="🔍 Search all 261 colleges, high schools, preps (e.g. Edina, Shattuck, Denver, Michigan, Avon Old Farms, Trinity, Minnetonka, Prior Lake)..." class="w-full bg-slate-950 border border-emerald-500/40 rounded-2xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-emerald-400 focus:ring-2 focus:ring-emerald-400/20 transition shadow-inner">
+          <input type="text" id="instSearchInput" placeholder="🔍 Search all 292 colleges, high schools, preps (e.g. Edina, Shattuck, Denver, Michigan, Avon Old Farms, Trinity, Minnetonka, Prior Lake)..." class="w-full bg-slate-950 border border-emerald-500/40 rounded-2xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-emerald-400 focus:ring-2 focus:ring-emerald-400/20 transition shadow-inner">
           <button id="clearInstSearchBtn" class="absolute right-3.5 top-3.5 text-slate-400 hover:text-white text-xs hidden" title="Clear search">✕</button>
         </div>
 
         <!-- Category Filter Pills -->
         <div class="flex flex-wrap items-center gap-1.5 text-xs">
-          <button class="inst-cat-btn px-3 py-1.5 rounded-xl font-bold bg-emerald-600 text-white transition active" data-cat="all">All (261)</button>
+          <button class="inst-cat-btn px-3 py-1.5 rounded-xl font-bold bg-emerald-600 text-white transition active" data-cat="all">All (292)</button>
           <button class="inst-cat-btn px-3 py-1.5 rounded-xl font-bold bg-slate-900 text-slate-300 border border-slate-800 hover:text-white transition" data-cat="NCAA Division I Men">NCAA D1 Men (64)</button>
           <button class="inst-cat-btn px-3 py-1.5 rounded-xl font-bold bg-slate-900 text-slate-300 border border-slate-800 hover:text-white transition" data-cat="NCAA Division I Women">NCAA D1 Women (12)</button>
           <button class="inst-cat-btn px-3 py-1.5 rounded-xl font-bold bg-slate-900 text-slate-300 border border-slate-800 hover:text-white transition" data-cat="NCAA Division III">NCAA D3 (20)</button>
@@ -616,7 +616,7 @@
       <div class="glass-panel rounded-2xl border border-slate-800 overflow-hidden shadow-2xl">
         <div class="p-4 border-b border-slate-800 flex items-center justify-between text-xs text-slate-400">
           <div>
-            <span class="font-bold text-white text-sm" id="instResultCountLabel">Showing 261 Institutions</span>
+            <span class="font-bold text-white text-sm" id="instResultCountLabel">Showing 292 Institutions</span>
           </div>
           <div class="font-mono text-[11px] text-emerald-400">
             Click 'View Roster' to inspect all personnel
@@ -742,14 +742,22 @@
         <!-- Interactive State Selector Cards & Regional Map Hub -->
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-stretch">
           <!-- Left: 7 Interactive State Selector Cards (All NE + 6 States) -->
-          <div class="lg:col-span-8 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2.5" id="stateSelectorCardsGrid">
-            <button type="button" onclick="selectStateRegistry('ALL_NE')" data-state-card="ALL_NE" class="state-reg-card p-3 rounded-2xl border border-teal-400 bg-teal-950/50 text-left transition cursor-pointer hover:border-teal-300 col-span-2 sm:col-span-1">
+          <div class="lg:col-span-8 grid grid-cols-2 sm:grid-cols-4 gap-2.5" id="stateSelectorCardsGrid">
+            <button type="button" onclick="selectStateRegistry('MN')" data-state-card="MN" class="state-reg-card p-3 rounded-2xl border border-amber-400/60 bg-amber-950/40 text-left transition cursor-pointer hover:border-amber-300 col-span-2 sm:col-span-1 shadow-md shadow-amber-950/40">
+              <div class="flex items-center justify-between">
+                <span class="text-lg">🏒</span>
+                <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300">MN</span>
+              </div>
+              <div class="font-black text-white text-xs mt-1.5">Minnesota (State of Hockey)</div>
+              <div class="text-[10px] font-mono text-amber-300 font-bold">60 Teams · 995 Players</div>
+            </button>
+            <button type="button" onclick="selectStateRegistry('ALL')" data-state-card="ALL" class="state-reg-card p-3 rounded-2xl border border-teal-400 bg-teal-950/50 text-left transition cursor-pointer hover:border-teal-300 col-span-2 sm:col-span-1">
               <div class="flex items-center justify-between">
                 <span class="text-lg">🗺️</span>
-                <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-teal-500/20 text-teal-300">6 STATES</span>
+                <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-teal-500/20 text-teal-300">7 STATES</span>
               </div>
-              <div class="font-black text-white text-xs mt-1.5">All New England</div>
-              <div class="text-[10px] font-mono text-emerald-400 font-bold">159 Teams · 2,577 Players</div>
+              <div class="font-black text-white text-xs mt-1.5">All State Registries</div>
+              <div class="text-[10px] font-mono text-emerald-400 font-bold">219 Teams · 3,572 Players</div>
             </button>
             <button type="button" onclick="selectStateRegistry('ME')" data-state-card="ME" class="state-reg-card p-3 rounded-2xl border border-slate-800 bg-slate-900/80 text-left transition cursor-pointer hover:border-teal-400/60">
               <div class="flex items-center justify-between">
@@ -855,7 +863,7 @@
             </svg>
             <div class="flex flex-wrap items-center gap-1 pt-2 border-t border-slate-800/80 text-[10px] font-mono">
               <span class="text-slate-500 mr-1">National Hubs:</span>
-              <button type="button" onclick="viewSchoolRoster('Minnesota')" class="px-1.5 py-0.5 rounded bg-slate-900 hover:bg-slate-800 text-sky-300 border border-slate-700 cursor-pointer">🌲 MN</button>
+              <button type="button" onclick="selectStateRegistry('MN')" class="px-1.5 py-0.5 rounded bg-amber-950/80 hover:bg-amber-900 text-amber-300 border border-amber-600/60 font-bold cursor-pointer">🏒 MN (60)</button>
               <button type="button" onclick="viewSchoolRoster('Michigan')" class="px-1.5 py-0.5 rounded bg-slate-900 hover:bg-slate-800 text-amber-300 border border-slate-700 cursor-pointer">〽️ MI</button>
               <button type="button" onclick="viewSchoolRoster('New York')" class="px-1.5 py-0.5 rounded bg-slate-900 hover:bg-slate-800 text-indigo-300 border border-slate-700 cursor-pointer">🗽 NY</button>
               <button type="button" onclick="viewSchoolRoster('Wisconsin')" class="px-1.5 py-0.5 rounded bg-slate-900 hover:bg-slate-800 text-rose-300 border border-slate-700 cursor-pointer">🦡 WI</button>
@@ -867,7 +875,7 @@
         <!-- Search & Tier Filter for Active State(s) -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
           <div class="md:col-span-2 relative">
-            <input type="text" id="maineSearchInput" placeholder="🔍 Search 159 teams, cities, arenas, coaches, or 2,577 players (e.g. Maine Mariners, Boston College, Cushing, Avon Old Farms, Quinnipiac, Bishop Hendricken, James Hagens, Albin Boija)..." class="w-full bg-slate-950 border border-teal-500/40 rounded-2xl px-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-teal-400 transition">
+            <input type="text" id="maineSearchInput" placeholder="🔍 Search 219 teams, cities, arenas, coaches, or 3,572 players (e.g. Maine Mariners, Boston College, Cushing, Avon Old Farms, Quinnipiac, Bishop Hendricken, James Hagens, Albin Boija)..." class="w-full bg-slate-950 border border-teal-500/40 rounded-2xl px-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-teal-400 transition">
           </div>
           <div>
             <select id="maineTierFilter" class="w-full bg-slate-900 border border-slate-700 text-slate-100 text-xs rounded-2xl px-3 py-2.5 font-mono cursor-pointer focus:border-teal-400">
@@ -1809,10 +1817,14 @@
           const eyebrow = document.getElementById('stateRegistryEyebrow');
           const title = document.getElementById('stateRegistryTitle');
           const desc = document.getElementById('stateRegistryDesc');
-          if (activeStateRegistryCode === 'ALL_NE') {
-            if (eyebrow) eyebrow.textContent = "🗺️ Complete 6-State New England Hockey Registry (HS to Pro)";
-            if (title) title.textContent = "New England Complete State Hockey Registries — High School Varsity, NEPSAC Prep, Junior, NCAA & Pro";
-            if (desc) desc.textContent = "Explore all 159 teams and 2,577 rostered players across Maine (51), Massachusetts (42), New Hampshire (21), Connecticut (20), Vermont (13), and Rhode Island (12).";
+          if (activeStateRegistryCode === 'ALL' || activeStateRegistryCode === 'ALL_NE') {
+            if (eyebrow) eyebrow.textContent = "🗺️ Complete State-by-State Hockey Registries (HS to Pro)";
+            if (title) title.textContent = "Unified State Hockey Registries — High School Varsity, Prep, Junior, NCAA & Pro";
+            if (desc) desc.textContent = "Explore all 219 verified programs and 3,572 active rostered players across Minnesota, Maine, Massachusetts, New Hampshire, Connecticut, Vermont, and Rhode Island.";
+          } else if (activeStateRegistryCode === 'MN') {
+            if (eyebrow) eyebrow.textContent = "🏒 State of Minnesota Complete Registry (The State of Hockey)";
+            if (title) title.textContent = "State of Minnesota (MN) Hockey Teams & Full Player Rosters (High School & Up)";
+            if (desc) desc.textContent = "Every MSHSL Class AA & Class A high school program, Shattuck-St. Mary's Prep, Junior (NAHL / NA3HL / USPHL), NCAA Division III (MIAC), NCAA Division I (Big Ten / NCHC / CCHA / WCHA), and Professional (PWHL Frost & NHL Minnesota Wild) team and player roster.";
           } else if (reg.states[activeStateRegistryCode]) {
             const st = reg.states[activeStateRegistryCode];
             if (eyebrow) eyebrow.textContent = `${st.icon} State of ${st.name} Complete Hockey Registry`;
@@ -1867,7 +1879,7 @@
           return;
         }
 
-        const stateIcons = { ME: '🌲', MA: '🍀', NH: '⛰️', VT: '🦌', CT: '🛡️', RI: '⚓' };
+        const stateIcons = { MN: '🏒', ME: '🌲', MA: '🍀', NH: '⛰️', VT: '🦌', CT: '🛡️', RI: '⚓' };
 
         container.innerHTML = filteredTeams.map((t, idx) => {
           const playersToShow = q && !(t.name.toLowerCase().includes(q) || t.city.toLowerCase().includes(q) || (t.headCoach && t.headCoach.toLowerCase().includes(q)))
