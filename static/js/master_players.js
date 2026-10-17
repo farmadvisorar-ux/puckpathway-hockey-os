@@ -8,22 +8,141 @@
                    (typeof global !== 'undefined' && global.DRAFTLINEUP_OVERSEAS_PLAYERS) || [];
   const expansions = (typeof window !== 'undefined' && window.DRAFTLINEUP_ROSTER_EXPANSIONS) || 
                       (typeof global !== 'undefined' && global.DRAFTLINEUP_ROSTER_EXPANSIONS) || [];
-  let COMBINED_PLAYERS = SMRP_PLAYERS;
-  if (overseas.length > 0) COMBINED_PLAYERS = COMBINED_PLAYERS.concat(overseas);
-  if (expansions.length > 0) COMBINED_PLAYERS = COMBINED_PLAYERS.concat(expansions);
   const iceBats = (typeof window !== 'undefined' && window.AUSTIN_ICE_BATS && window.AUSTIN_ICE_BATS.players) || 
                   (typeof global !== 'undefined' && global.AUSTIN_ICE_BATS && global.AUSTIN_ICE_BATS.players) || [];
   const iceBatsCoaches = (typeof window !== 'undefined' && window.AUSTIN_ICE_BATS && window.AUSTIN_ICE_BATS.coaches) || 
                          (typeof global !== 'undefined' && global.AUSTIN_ICE_BATS && global.AUSTIN_ICE_BATS.coaches) || [];
-  if (iceBats.length > 0) {
-    const existingIds = new Set(COMBINED_PLAYERS.map(p => p.id));
-    iceBats.forEach(p => {
-      if (!existingIds.has(p.id)) {
-        COMBINED_PLAYERS.push(p);
-        existingIds.add(p.id);
+  const nhlAthletes = (typeof window !== 'undefined' && window.DraftLineupNHL && typeof window.DraftLineupNHL.getAllAthletes === 'function') ? window.DraftLineupNHL.getAllAthletes() :
+                      ((typeof global !== 'undefined' && global.DraftLineupNHL && typeof global.DraftLineupNHL.getAllAthletes === 'function') ? global.DraftLineupNHL.getAllAthletes() : []);
+
+  function normalizePlayerName(name) {
+    if (!name) return '';
+    return name.trim().toLowerCase().replace(/[^a-z0-9]/g, '');
+  }
+
+  function getAthleteLeagueTier(league, team) {
+    const l = (league || '').toLowerCase();
+    const t = (team || '').toLowerCase();
+    if (l.includes('nhl') && !l.includes('na3hl')) return 100;
+    if (l.includes('shl') || l.includes('liiga') || l.includes('del') || l.includes('national league') || l.includes('extraliga') || l.includes('icehl') || l.includes('eihl')) return 90;
+    if (l.includes('ahl') || l.includes('echl')) return 85;
+    if (l.includes('ncaa division i') || l.includes('ncaa d1')) return 80;
+    if (l.includes('ushl') || l.includes('ohl') || l.includes('whl') || l.includes('qmjhl')) return 75;
+    if (l.includes('bchl') || l.includes('nahl') || l.includes('ncdc') || l.includes('ajhl') || l.includes('sjhl') || l.includes('mjhl')) return 70;
+    if (l.includes('na3hl') || t.includes('ice bats')) return 68;
+    if (l.includes('ncaa division iii') || l.includes('acha') || l.includes('u sports')) return 60;
+    return 50;
+  }
+
+  // Global Alias map: any historical or secondary ID resolves directly to the canonical profile ID
+  const playerAliases = new Map();
+
+  function mergePlayerRecords(canonical, incoming) {
+    const cTier = getAthleteLeagueTier(canonical.league, canonical.team);
+    const iTier = getAthleteLeagueTier(incoming.league, incoming.team);
+
+    // Primary record is the higher-tier league
+    const primary = (iTier > cTier) ? incoming : canonical;
+    const secondary = (iTier > cTier) ? canonical : incoming;
+
+    // ID resolution priority: nhl_ > mp_ > aib_ > os_ > exp_
+    function getIdRank(id) {
+      if (!id) return 0;
+      if (id.startsWith('nhl_')) return 50;
+      if (id.startsWith('mp_')) return 40;
+      if (id.startsWith('aib_')) return 30;
+      if (id.startsWith('os_')) return 20;
+      return 10;
+    }
+
+    const chosenId = (getIdRank(incoming.id) > getIdRank(canonical.id)) ? incoming.id : canonical.id;
+    const alternateId = (chosenId === incoming.id) ? canonical.id : incoming.id;
+
+    playerAliases.set(alternateId, chosenId);
+    playerAliases.set(chosenId, chosenId);
+
+    // Merge career path / feeder teams
+    const prevParts = [];
+    if (primary.previous_team) prevParts.push(primary.previous_team);
+    if (secondary.team && secondary.team !== primary.team) {
+      prevParts.push(`${secondary.team} (${secondary.league || ''})`);
+    }
+    if (secondary.previous_team && secondary.previous_team !== primary.previous_team) {
+      prevParts.push(secondary.previous_team);
+    }
+
+    // Retain detailed draft status
+    let draftStatus = primary.draft_status;
+    if (!draftStatus || draftStatus === 'Undrafted') {
+      draftStatus = secondary.draft_status || 'Undrafted';
+    } else if (secondary.draft_status && secondary.draft_status !== 'Undrafted' && !draftStatus.includes(secondary.draft_status)) {
+      draftStatus = `${secondary.draft_status} • ${draftStatus}`;
+    }
+
+    const allIds = Array.from(new Set([
+      canonical.id,
+      incoming.id,
+      ...(canonical.all_ids || []),
+      ...(incoming.all_ids || [])
+    ]));
+
+    allIds.forEach(id => playerAliases.set(id, chosenId));
+
+    return {
+      ...secondary,
+      ...primary,
+      id: chosenId,
+      all_ids: allIds,
+      composite_score: Math.max(canonical.composite_score || 0, incoming.composite_score || 0),
+      draft_status: draftStatus,
+      hometown: primary.hometown || secondary.hometown || '',
+      date_of_birth: primary.date_of_birth || secondary.date_of_birth || '',
+      height_in: primary.height_in || secondary.height_in || 72,
+      height_str: primary.height_str || secondary.height_str || "6'0\"",
+      weight_lbs: primary.weight_lbs || secondary.weight_lbs || 185,
+      country: primary.country || secondary.country || 'USA',
+      previous_team: Array.from(new Set(prevParts.filter(Boolean))).join(' / '),
+      combine: primary.combine || secondary.combine,
+      micro_kpis: primary.micro_kpis || secondary.micro_kpis,
+      skill_rubric: primary.skill_rubric || secondary.skill_rubric,
+      moneypuck: primary.moneypuck || secondary.moneypuck,
+      notes: [primary.notes, secondary.notes].filter(Boolean)[0] || ''
+    };
+  }
+
+  // Deduplicate and merge across all sources into strictly ONE profile per player
+  const canonicalPlayerMap = new Map();
+
+  function ingestPlayerList(list) {
+    if (!Array.isArray(list)) return;
+    list.forEach(p => {
+      if (!p || !p.name) return;
+      const key = normalizePlayerName(p.name);
+      if (!canonicalPlayerMap.has(key)) {
+        canonicalPlayerMap.set(key, { ...p, all_ids: [p.id] });
+        playerAliases.set(p.id, p.id);
+      } else {
+        const merged = mergePlayerRecords(canonicalPlayerMap.get(key), p);
+        canonicalPlayerMap.set(key, merged);
       }
     });
   }
+
+  // Ingest in deterministic priority order:
+  // 1. SMRP (base collegiate & junior)
+  ingestPlayerList(SMRP_PLAYERS);
+  // 2. Austin Ice Bats (official NA3HL roster)
+  ingestPlayerList(iceBats);
+  // 3. Overseas elite pros
+  ingestPlayerList(overseas);
+  // 4. Roster expansions
+  ingestPlayerList(expansions);
+  // 5. NHL pro analytics athletes
+  ingestPlayerList(nhlAthletes);
+
+  const COMBINED_PLAYERS = Array.from(canonicalPlayerMap.values());
+
+  // Staff aggregation (coaches)
   let COMBINED_STAFF = SMRP_STAFF;
   if (iceBatsCoaches.length > 0) {
     const existingStaffIds = new Set(COMBINED_STAFF.map(c => c.id));
@@ -34,23 +153,38 @@
       }
     });
   }
-  const nhlAthletes = (typeof window !== 'undefined' && window.DraftLineupNHL && typeof window.DraftLineupNHL.getAllAthletes === 'function') ? window.DraftLineupNHL.getAllAthletes() :
-                      ((typeof global !== 'undefined' && global.DraftLineupNHL && typeof global.DraftLineupNHL.getAllAthletes === 'function') ? global.DraftLineupNHL.getAllAthletes() : []);
-  if (nhlAthletes.length > 0) {
-    const existingIds = new Set(COMBINED_PLAYERS.map(p => p.id));
-    nhlAthletes.forEach(p => {
-      if (!existingIds.has(p.id)) {
-        COMBINED_PLAYERS.push(p);
-        existingIds.add(p.id);
-      }
-    });
-  }
+
   const SMRP_ALL_REGISTRY = COMBINED_PLAYERS.concat(COMBINED_STAFF);
 
-  root.MASTER_PLAYERS = COMBINED_PLAYERS; // Players directory
+  // Global Deduplicator Engine for dynamic runtime use across pages
+  root.DraftLineupDeduplicator = {
+    normalizeName: normalizePlayerName,
+    getLeagueTier: getAthleteLeagueTier,
+    mergePlayers: mergePlayerRecords,
+    getCanonicalId: function(id) {
+      return playerAliases.get(id) || id;
+    },
+    deduplicate: function(playerList) {
+      if (!Array.isArray(playerList)) return [];
+      const map = new Map();
+      playerList.forEach(p => {
+        if (!p || !p.name) return;
+        const key = normalizePlayerName(p.name);
+        if (!map.has(key)) {
+          map.set(key, p);
+        } else {
+          map.set(key, mergePlayerRecords(map.get(key), p));
+        }
+      });
+      return Array.from(map.values());
+    }
+  };
+
+  root.DRAFTLINEUP_PLAYER_ALIASES = playerAliases;
+  root.MASTER_PLAYERS = COMBINED_PLAYERS; // Single unified player directory (Zero duplicates)
   root.MASTER_STAFF = COMBINED_STAFF;     // Coaching & staff directory
-  root.MASTER_NON_PRO_REGISTRY = SMRP_ALL_REGISTRY; // Backward compatibility
-  root.MASTER_ALL_REGISTRY = SMRP_ALL_REGISTRY;     // Universal SMRP registry
+  root.MASTER_NON_PRO_REGISTRY = SMRP_ALL_REGISTRY; // Universal non-pro & pro registry
+  root.MASTER_ALL_REGISTRY = SMRP_ALL_REGISTRY;     // Universal registry
   root.SMRP_PLAYERS = COMBINED_PLAYERS;
   root.SMRP_MASTER_PLAYERS = COMBINED_PLAYERS;
   root.SMRP_ALL_REGISTRY = SMRP_ALL_REGISTRY;

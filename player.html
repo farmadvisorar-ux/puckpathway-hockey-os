@@ -211,18 +211,22 @@
         }
       }
       
+      if (window.DraftLineupDeduplicator && typeof window.DraftLineupDeduplicator.getCanonicalId === 'function') {
+        playerId = window.DraftLineupDeduplicator.getCanonicalId(playerId);
+      }
+      
       const embeddedData = window.EMBEDDED_PUCKPATHWAY_DATA || { players: [] };
-      let found = embeddedData.players.find(p => p.id === playerId);
+      let found = embeddedData.players.find(p => p.id === playerId || (p.all_ids && p.all_ids.includes(playerId)));
 
       // Check custom players created by users
       if (!found && window.BlueLineAuth && typeof window.BlueLineAuth.getCustomPlayers === 'function') {
         const customs = window.BlueLineAuth.getCustomPlayers();
-        found = customs.find(p => p.id === playerId);
+        found = customs.find(p => p.id === playerId || (p.all_ids && p.all_ids.includes(playerId)));
       }
 
       const allRegistry = window.MASTER_NON_PRO_REGISTRY || window.MASTER_PLAYERS || [];
       if (!found && allRegistry.length > 0) {
-        const mp = allRegistry.find(p => p.id === playerId);
+        const mp = allRegistry.find(p => p.id === playerId || (p.all_ids && p.all_ids.includes(playerId)));
         if (mp) {
           const isCoach = mp.entity_type === 'coach' || mp.pos === 'HC' || mp.pos === 'GM' || mp.pos === 'REC';
           if (isCoach) {
@@ -335,14 +339,14 @@
               status: 'active',
               status_badge: isDrafted ? `🏒 ${mp.draft_status}` : `${mp.league} Student-Athlete`,
               avatar_gradient: mp.avatar_gradient || 'from-sky-500 to-indigo-600',
-              combine: {
+              combine: mp.combine || {
                 flying_30m_sec: (mp.pos === 'G') ? 3.65 : 3.48,
                 broad_jump_in: 116,
                 pro_agility_5_10_5_sec: 4.12,
                 grip_strength_lbs: 165,
                 rotational_medball_mph: 51.0
               },
-              micro_kpis: {
+              micro_kpis: mp.micro_kpis || {
                 controlled_entry_pct: 88.0,
                 controlled_exit_pct: 92.0,
                 faceoff_win_pct: (mp.pos === 'C' ? 54.0 : 0.0),
@@ -350,7 +354,7 @@
                 shoulder_scans_per_possession: 6.8,
                 wall_battle_win_pct: 90.0
               },
-              skill_rubric: {
+              skill_rubric: mp.skill_rubric || {
                 edges: 92,
                 puck_skills: 90,
                 shooting: 88,

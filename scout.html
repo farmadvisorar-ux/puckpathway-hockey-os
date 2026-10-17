@@ -1135,14 +1135,20 @@
         allAthletes = window.PuckData.players;
       }
 
-      // Ensure NHL athletes are integrated
-      if (window.DraftLineupNHL && typeof window.DraftLineupNHL.getAllAthletes === 'function') {
+      // Ensure NHL athletes are integrated with strict single profile deduplication
+      if (window.DraftLineupDeduplicator && typeof window.DraftLineupDeduplicator.deduplicate === 'function') {
+        const nhlAthletes = (window.DraftLineupNHL && typeof window.DraftLineupNHL.getAllAthletes === 'function')
+          ? window.DraftLineupNHL.getAllAthletes()
+          : [];
+        allAthletes = window.DraftLineupDeduplicator.deduplicate(allAthletes.concat(nhlAthletes));
+      } else if (window.DraftLineupNHL && typeof window.DraftLineupNHL.getAllAthletes === 'function') {
         const nhlAthletes = window.DraftLineupNHL.getAllAthletes();
-        const existingIds = new Set(allAthletes.map(p => p.id));
+        const existingNames = new Set(allAthletes.map(p => (p.name || '').trim().toLowerCase()));
         nhlAthletes.forEach(p => {
-          if (!existingIds.has(p.id)) {
+          const norm = (p.name || '').trim().toLowerCase();
+          if (!existingNames.has(norm)) {
             allAthletes.push(p);
-            existingIds.add(p.id);
+            existingNames.add(norm);
           }
         });
       }

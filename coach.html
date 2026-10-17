@@ -886,7 +886,8 @@
       };
 
       function getPlayerById(id) {
-        return (window.MASTER_PLAYERS || []).find(p => p.id === id) || null;
+        const canonicalId = (window.DraftLineupDeduplicator && typeof window.DraftLineupDeduplicator.getCanonicalId === 'function') ? window.DraftLineupDeduplicator.getCanonicalId(id) : id;
+        return (window.MASTER_PLAYERS || []).find(p => p.id === canonicalId || (p.all_ids && p.all_ids.includes(id))) || null;
       }
 
       function getArchetype(player) {

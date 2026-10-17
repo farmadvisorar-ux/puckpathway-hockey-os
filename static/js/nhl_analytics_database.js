@@ -529441,37 +529441,41 @@
   root.DRAFTLINEUP_NHL_TEAMS = NHL_TEAMS;
   root.DRAFTLINEUP_NHL_LINES = NHL_LINES_BY_TEAM;
 
-  // Auto-merge NHL Athletes into MASTER_PLAYERS
-  if (typeof root.MASTER_PLAYERS !== 'undefined' && Array.isArray(root.MASTER_PLAYERS)) {
-    const existingIds = new Set(root.MASTER_PLAYERS.map(p => p.id));
-    NHL_ATHLETES.forEach(p => {
-      if (!existingIds.has(p.id)) {
-        root.MASTER_PLAYERS.push(p);
-        existingIds.add(p.id);
-      }
-    });
-  }
-
-  // Auto-merge into SMRP_PLAYERS
-  if (typeof root.SMRP_PLAYERS !== 'undefined' && Array.isArray(root.SMRP_PLAYERS)) {
-    const existingIds = new Set(root.SMRP_PLAYERS.map(p => p.id));
-    NHL_ATHLETES.forEach(p => {
-      if (!existingIds.has(p.id)) {
-        root.SMRP_PLAYERS.push(p);
-        existingIds.add(p.id);
-      }
-    });
-  }
-
-  // Auto-merge into MASTER_ALL_REGISTRY
-  if (typeof root.MASTER_ALL_REGISTRY !== 'undefined' && Array.isArray(root.MASTER_ALL_REGISTRY)) {
-    const existingIds = new Set(root.MASTER_ALL_REGISTRY.map(p => p.id));
-    NHL_ATHLETES.forEach(p => {
-      if (!existingIds.has(p.id)) {
-        root.MASTER_ALL_REGISTRY.push(p);
-        existingIds.add(p.id);
-      }
-    });
+  // Auto-merge NHL Athletes into MASTER_PLAYERS (Single Unified Profile Per Athlete)
+  if (typeof root.DraftLineupDeduplicator !== 'undefined' && typeof root.DraftLineupDeduplicator.deduplicate === 'function') {
+    if (typeof root.MASTER_PLAYERS !== 'undefined' && Array.isArray(root.MASTER_PLAYERS)) {
+      root.MASTER_PLAYERS = root.DraftLineupDeduplicator.deduplicate(root.MASTER_PLAYERS.concat(NHL_ATHLETES));
+      root.SMRP_PLAYERS = root.MASTER_PLAYERS;
+      root.SMRP_MASTER_PLAYERS = root.MASTER_PLAYERS;
+    }
+    if (typeof root.MASTER_ALL_REGISTRY !== 'undefined' && Array.isArray(root.MASTER_ALL_REGISTRY)) {
+      root.MASTER_ALL_REGISTRY = root.DraftLineupDeduplicator.deduplicate(root.MASTER_ALL_REGISTRY.concat(NHL_ATHLETES));
+      root.MASTER_NON_PRO_REGISTRY = root.MASTER_ALL_REGISTRY;
+      root.SMRP_ALL_REGISTRY = root.MASTER_ALL_REGISTRY;
+    }
+  } else {
+    // Fallback name-aware merger if DraftLineupDeduplicator not loaded yet
+    const normalize = s => (s || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+    if (typeof root.MASTER_PLAYERS !== 'undefined' && Array.isArray(root.MASTER_PLAYERS)) {
+      const existingNames = new Set(root.MASTER_PLAYERS.map(p => normalize(p.name)));
+      NHL_ATHLETES.forEach(p => {
+        const k = normalize(p.name);
+        if (!existingNames.has(k)) {
+          root.MASTER_PLAYERS.push(p);
+          existingNames.add(k);
+        }
+      });
+    }
+    if (typeof root.MASTER_ALL_REGISTRY !== 'undefined' && Array.isArray(root.MASTER_ALL_REGISTRY)) {
+      const existingNames = new Set(root.MASTER_ALL_REGISTRY.map(p => normalize(p.name)));
+      NHL_ATHLETES.forEach(p => {
+        const k = normalize(p.name);
+        if (!existingNames.has(k)) {
+          root.MASTER_ALL_REGISTRY.push(p);
+          existingNames.add(k);
+        }
+      });
+    }
   }
 
   // Lookup APIs
