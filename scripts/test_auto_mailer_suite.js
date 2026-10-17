@@ -98,55 +98,51 @@ const dossierRes = mailer.sendScoutDossierExport({
   team: "Boston University",
   pos: "LW",
   league: "NCAA D1",
-  scoutName: "Dan Marr",
-  scoutAgency: "NHL Central Scouting Benchmark"
+  dossierId: "DOS-2026-BOS-084"
 }, "furrhjohn10@gmail.com");
 assert(dossierRes && dossierRes.success === true, "sendScoutDossierExport dispatches confidential intel dossier");
 
-// 5. Transfer Portal Alert
+// 5. NCAA Transfer Portal Alert
 const portalRes = mailer.sendTransferPortalAlert({
-  playerName: "Logan Stein",
-  fromTeam: "Ferris State",
-  toTeam: "Michigan",
-  status: "COMMITMENT FINALIZED",
-  nilValue: "$65,000 / yr"
+  playerName: "Cutter Gauthier",
+  prevTeam: "Boston College",
+  newTeam: "Anaheim Ducks",
+  window: "Spring Window"
 }, "furrhjohn10@gmail.com");
 assert(portalRes && portalRes.success === true, "sendTransferPortalAlert dispatches portal status change notice");
 
-// 6. Recruiter Wire Message
+// 6. Recruiter Direct Inquiry Alert
 const wireRes = mailer.sendRecruiterInquiryNotice({
-  recruiterName: "Adam Nightingale",
-  recruiterOrg: "Michigan State University (NCAA D1)",
-  targetPlayer: "Michael Hage",
-  message: "Impressive neutral zone pace. Let's schedule a call."
+  scoutName: "Al Murray",
+  scoutOrg: "Tampa Bay Lightning",
+  athleteName: "Isaac Howard"
 }, "furrhjohn10@gmail.com");
 assert(wireRes && wireRes.success === true, "sendRecruiterInquiryNotice dispatches direct wire message alert");
 
-// 7. Combine Evaluation Report
+// 7. Combine Biometric Recalibration Notice
 const combineRes = mailer.sendCombineEvaluationReport({
-  playerName: "Macklin Celebrini",
-  wingateWattage: "1,240",
-  sprint30m: "3.72",
-  verticalJump: "33.5",
-  compositeAthleticism: "95.6"
+  playerName: "James Hagens",
+  speed30m: "3.52s",
+  broadJump: "118 in",
+  gripStrength: "168 lbs",
+  newComposite: "96.8"
 }, "furrhjohn10@gmail.com");
 assert(combineRes && combineRes.success === true, "sendCombineEvaluationReport dispatches biometric recalibration report");
 
-// 8. Trade Machine Notice
+// 8. Multi-Team Trade Machine Evaluation Notice
 const tradeRes = mailer.sendTradeEvaluationNotice({
-  teamA: "Montreal Canadiens",
-  teamB: "Calgary Flames",
-  assetsA: "1st Round Pick (2026)",
-  assetsB: "Top RHD (50% Retained)",
-  capDelta: "+$2,250,000"
+  tradeId: "TRD-2026-EDM-TOR",
+  teamsInvolved: "Edmonton Oilers & Toronto Maple Leafs",
+  capImpact: "$1,450,000",
+  verdict: "CBA Compliant - Grade A"
 }, "furrhjohn10@gmail.com");
 assert(tradeRes && tradeRes.success === true, "sendTradeEvaluationNotice dispatches CBA trade evaluation");
 
-// 9. Practice Plan Dispatch
+// 9. ADM Practice Plan Station Notice
 const planRes = mailer.sendPracticePlanNotice({
-  coachName: "Adam Nightingale",
-  teamName: "Michigan State Spartans",
-  focusArea: "1-2-2 Forecheck Pressure"
+  planTitle: "Small Area Transition & Inner Slot Escapes",
+  ageGroup: "U16 / Bantam AAA",
+  durationMin: "60"
 }, "furrhjohn10@gmail.com");
 assert(planRes && planRes.success === true, "sendPracticePlanNotice dispatches ADM station plan");
 
@@ -177,9 +173,31 @@ const contactRes = mailer.sendContactSubmission({
 assert(contactRes && contactRes.success === true, "sendContactSubmission dispatches inquiry to operations");
 assert(contactRes.targetEmail === "hello@draftkings.com", "Contact form target is linked to hello@draftkings.com");
 
-// 13. Check Outbox Storage
+// 13. Minor Athlete Under-18 Takedown & Parental Rights Form
+const takedownRes = mailer.sendMinorTakedownRequest({
+  parentName: "Sarah Lindgren",
+  parentEmail: "sarah.lindgren@example.com",
+  parentPhone: "+1 (512) 555-0199",
+  parentRelationship: "Mother (Biological Parent)",
+  athleteName: "Oskar Lindgren",
+  athleteDob: "2010-06-14",
+  athleteTeam: "Austin Ice Bats Youth AAA",
+  athleteId: "exp_00029",
+  requestTypes: [
+    "Complete Public & Subscriber Profile Erasure",
+    "Biometric & Combine Telemetry Purge",
+    "Recruiter Direct Contact Block"
+  ],
+  signature: "Sarah Lindgren",
+  notes: "Requesting full erasure under COPPA and state youth consumer privacy laws."
+});
+assert(takedownRes && takedownRes.success === true, "sendMinorTakedownRequest dispatches legal takedown notice");
+assert(takedownRes.ticketId && takedownRes.ticketId.startsWith("DL-OPT-"), "sendMinorTakedownRequest generates legal case ticket ID");
+assert(takedownRes.targetEmail === "hello@draftkings.com", "Takedown notice routes to legal desk hello@draftkings.com");
+
+// 14. Check Outbox Storage
 const outbox = mailer.getOutbox();
-assert(outbox.length >= 13, `Outbox successfully recorded ${outbox.length} dispatched autoresponder emails`);
+assert(outbox.length >= 15, `Outbox successfully recorded ${outbox.length} dispatched autoresponder emails`);
 
 // Verify outbox entries have correct metadata & domain
 const firstMail = outbox[0];
@@ -188,4 +206,3 @@ assert(firstMail.html.includes("draftlineup.com"), "HTML body includes official 
 assert(firstMail.html.includes("DraftLineup.com is the only hockey analytics platform"), "HTML body includes official mission statement");
 
 console.log(`\n🎉 SUCCESS: All ${passed}/${total} auto-mailer tests passed with 100% accuracy!`);
-

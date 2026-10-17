@@ -50,7 +50,14 @@
     { id: "community", name: "The Wire", icon: "🌐", url: "community.html", cat: "system", desc: "Scouting social network, direct messaging & bulletins" },
     { id: "database", name: "Master Directory", icon: "📊", url: "database.html", cat: "system", desc: "Comprehensive directory of 30,000+ athlete dossiers" },
     { id: "player", name: "Player Passport", icon: "👤", url: "player.html", cat: "system", desc: "Comprehensive athlete dossier & development logs" },
-    { id: "contact", name: "Contact Operations", icon: "✉️", url: "index.html#contact-us", cat: "system", desc: "Direct operations wire & support (hello@draftkings.com)" }
+    { id: "contact", name: "Contact Operations", icon: "✉️", url: "index.html#contact-us", cat: "system", desc: "Direct operations wire & support (hello@draftkings.com)" },
+
+    // 6. Legal Compliance & Parental Rights
+    { id: "optout", name: "Minor Opt-Out (U18)", icon: "🛡️", url: "optout.html", cat: "legal", desc: "Air-tight legal removal & data erasure portal for under-18 athletes" },
+    { id: "terms", name: "Terms of Service", icon: "📜", url: "terms.html", cat: "legal", desc: "Master institutional terms of service & user agreement" },
+    { id: "privacy", name: "Privacy Policy", icon: "🔒", url: "privacy.html", cat: "legal", desc: "Youth data protection charter, COPPA, BIPA & GDPR-K" },
+    { id: "disclaimer", name: "Scouting & NIL Disclaimer", icon: "⚖️", url: "disclaimer.html", cat: "legal", desc: "NCAA recruiting compliance & predictive modeling disclaimers" },
+    { id: "dmca", name: "DMCA Copyright Notice", icon: "📑", url: "dmca.html", cat: "legal", desc: "Designated DMCA copyright agent & takedown procedures" }
   ];
 
   // Category labels and styling
@@ -59,7 +66,8 @@
     labs: { title: "Performance & Analytics Labs", icon: "🔬" },
     coaching: { title: "Coaching & Tournaments", icon: "📋" },
     frontoffice: { title: "Front Office & Career Market", icon: "💼" },
-    system: { title: "Security & Intelligence", icon: "🛡️" }
+    system: { title: "Security & Intelligence", icon: "🛡️" },
+    legal: { title: "Legal & Youth Privacy", icon: "⚖️" }
   };
 
   // Self-Contained Scoped CSS Injection
@@ -544,8 +552,8 @@
 
 
   // Role-Specific Feature Suites
-  const ATHLETE_MODULE_IDS = ["app", "player", "community", "database", "combine", "compare", "pathway", "film"];
-  const PARENT_MODULE_IDS = ["parent", "app", "community", "database", "combine", "pathway", "compare"];
+  const ATHLETE_MODULE_IDS = ["app", "player", "community", "database", "combine", "compare", "pathway", "film", "optout", "terms", "privacy", "disclaimer"];
+  const PARENT_MODULE_IDS = ["parent", "optout", "app", "community", "database", "combine", "pathway", "compare", "terms", "privacy", "disclaimer"];
 
   function getUserActiveRole() {
     try {
@@ -733,13 +741,21 @@
         </div>
 
         <!-- Modal Footer -->
-        <div class="launcher-footer">
+        <div class="launcher-footer" style="padding:0.75rem 1.4rem; background:rgba(15,23,42,0.9); border-top:1px solid rgba(51,65,85,0.6); display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:0.75rem;">
           <div style="display:flex; align-items:center; gap:0.5rem;">
             <span style="width:0.5rem; height:0.5rem; border-radius:50%; background:#10b981; display:inline-block;"></span>
             <span style="font-family:monospace; font-size:0.75rem;">Press <strong style="color:#e2e8f0;">Ctrl+K</strong> anywhere to open</span>
           </div>
-          <div style="font-size:0.72rem; color:#64748b; text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">
-            DraftLineup.com • The only hockey analytics platform tracking athletes from youth through pro careers.
+          <div style="display:flex; flex-wrap:wrap; align-items:center; gap:0.6rem; font-size:0.72rem; color:#64748b;">
+            <a href="terms.html" style="color:#94a3b8; text-decoration:none;">Terms</a>
+            <span>•</span>
+            <a href="privacy.html" style="color:#94a3b8; text-decoration:none;">Privacy</a>
+            <span>•</span>
+            <a href="optout.html" style="color:#f43f5e; font-weight:bold; text-decoration:none;">Minor Opt-Out (U18)</a>
+            <span>•</span>
+            <a href="disclaimer.html" style="color:#94a3b8; text-decoration:none;">Disclaimer</a>
+            <span>•</span>
+            <a href="dmca.html" style="color:#94a3b8; text-decoration:none;">DMCA</a>
           </div>
         </div>
 

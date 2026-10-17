@@ -864,6 +864,99 @@
     };
   }
 
+  function createMinorTakedownTemplate(data) {
+    const { ticketId, parentName, parentEmail, parentPhone, parentRelationship, athleteName, athleteDob, athleteTeam, athleteId, requestTypes, signature, notes, targetEmail } = data;
+    const body = `
+      ${renderEmailHtmlHeader("Parental Rights Legal Notice", "COPPA TAKEDOWN")}
+      <div style="background-color: #450a0a; border: 1px solid #991b1b; border-radius: 8px; padding: 12px 16px; margin: 0 0 20px 0;">
+        <span style="display: inline-block; background-color: #ef4444; color: #ffffff; font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 4px; text-transform: uppercase; margin-bottom: 6px;">HIGH PRIORITY LEGAL STATUTORY DEMAND</span>
+        <div style="color: #fecaca; font-size: 13px; font-weight: 700;">
+          Verified Minor Athlete Profile Removal &amp; Data Erasure Notice Under COPPA / GDPR-K / State Youth Privacy Laws
+        </div>
+      </div>
+
+      <h2 style="margin: 0 0 16px 0; color: #ffffff; font-size: 18px; font-weight: 800;">
+        Case File: ${ticketId} &bull; Athlete: ${athleteName}
+      </h2>
+      <p style="margin: 0 0 20px 0; color: #cbd5e1; font-size: 14px; line-height: 1.6;">
+        A verified parent or court-appointed legal guardian has submitted an air-tight legal request demanding the immediate removal and data suppression of an under-18 athlete listed on DraftLineup.com.
+      </p>
+
+      <div style="background-color: #0f172a; border: 1px solid #1e293b; border-radius: 12px; padding: 20px; margin: 20px 0;">
+        <div style="font-size: 12px; font-weight: 800; color: #38bdf8; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px;">Section 1: Verified Parent / Guardian Identity</div>
+        <table width="100%" cellpadding="6" cellspacing="0" style="font-size: 13px; color: #cbd5e1;">
+          <tr>
+            <td width="35%" style="color: #64748b;">Parent/Guardian Name:</td>
+            <td style="color: #ffffff; font-weight: 700;">${parentName}</td>
+          </tr>
+          <tr>
+            <td style="color: #64748b;">Guardian Email:</td>
+            <td style="color: #38bdf8; font-weight: 700;"><a href="mailto:${parentEmail}" style="color: #38bdf8; text-decoration: none;">${parentEmail}</a></td>
+          </tr>
+          <tr>
+            <td style="color: #64748b;">Phone Contact:</td>
+            <td style="color: #ffffff; font-weight: 700;">${parentPhone || 'On File'}</td>
+          </tr>
+          <tr>
+            <td style="color: #64748b;">Legal Authority / Relationship:</td>
+            <td style="color: #10b981; font-weight: 700;">${parentRelationship}</td>
+          </tr>
+        </table>
+      </div>
+
+      <div style="background-color: #0f172a; border: 1px solid #1e293b; border-radius: 12px; padding: 20px; margin: 20px 0;">
+        <div style="font-size: 12px; font-weight: 800; color: #f59e0b; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px;">Section 2: Minor Athlete Dossier Under Takedown</div>
+        <table width="100%" cellpadding="6" cellspacing="0" style="font-size: 13px; color: #cbd5e1;">
+          <tr>
+            <td width="35%" style="color: #64748b;">Athlete Full Legal Name:</td>
+            <td style="color: #ffffff; font-weight: 700;">${athleteName}</td>
+          </tr>
+          <tr>
+            <td style="color: #64748b;">Minor Date of Birth:</td>
+            <td style="color: #ffffff; font-weight: 700;">${athleteDob} (Minor Status Confirmed)</td>
+          </tr>
+          <tr>
+            <td style="color: #64748b;">Current Team / Org:</td>
+            <td style="color: #ffffff; font-weight: 700;">${athleteTeam || 'Non-Pro Youth Circuit'}</td>
+          </tr>
+          <tr>
+            <td style="color: #64748b;">DraftLineup Player ID:</td>
+            <td style="color: #38bdf8; font-family: monospace; font-weight: 700;">${athleteId || 'Dynamic Search Match'}</td>
+          </tr>
+        </table>
+      </div>
+
+      <div style="background-color: #030712; border: 1px solid #1e293b; border-left: 4px solid #ef4444; border-radius: 8px; padding: 16px 20px; margin: 20px 0;">
+        <div style="font-size: 11px; font-weight: 800; color: #ef4444; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;">Scope of Privacy Enforcement Requested:</div>
+        <ul style="margin: 0; padding-left: 18px; color: #e2e8f0; font-size: 13px; line-height: 1.6;">
+          ${Array.isArray(requestTypes) ? requestTypes.map(r => `<li>${r}</li>`).join('') : `<li>Complete Public &amp; Subscriber Profile Erasure</li>`}
+        </ul>
+      </div>
+
+      <div style="background-color: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 16px; margin: 20px 0; font-size: 12px; color: #94a3b8;">
+        <p style="margin: 0 0 6px 0;"><strong>Sworn Affidavit Statement (28 U.S.C. &sect; 1746):</strong></p>
+        <p style="margin: 0 0 10px 0; font-style: italic; color: #cbd5e1;">
+          "I declare under penalty of perjury under the laws of the United States of America that I am the legal parent or court-appointed legal guardian of the minor athlete named above, and have full authority to request complete deletion of their profile."
+        </p>
+        <p style="margin: 0;"><strong>Digital Signature:</strong> <span style="font-family: serif; font-size: 15px; color: #ffffff; font-weight: 700;">${signature}</span> &bull; <strong>Timestamp:</strong> ${new Date().toISOString()}</p>
+        ${notes ? `<p style="margin: 10px 0 0 0; color: #cbd5e1;"><strong>Parent Notes:</strong> ${notes}</p>` : ''}
+      </div>
+
+      <div style="text-align: center; margin: 28px 0;">
+        <a href="mailto:${parentEmail}?subject=Re: [CONFIRMED] Minor Athlete Profile Removal - ${encodeURIComponent(athleteName)} (${ticketId})" style="display: inline-block; background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%); color: #ffffff; font-size: 14px; font-weight: 800; text-decoration: none; padding: 14px 32px; border-radius: 10px; box-shadow: 0 10px 15px -3px rgba(220, 38, 38, 0.4); text-transform: uppercase; letter-spacing: 0.5px;">
+          Confirm Legal Erasure SLA Execution &rarr;
+        </a>
+      </div>
+      ${renderEmailHtmlFooter(targetEmail || MAILER_CONFIG.contactEmail, "DraftLineup Legal Compliance & Youth Privacy Bureau")}
+    `;
+
+    return {
+      subject: `[LEGAL TAKEDOWN] Under-18 Minor Athlete Profile Removal: ${athleteName} (${ticketId})`,
+      html: body
+    };
+  }
+
+
   // =========================================================================
   // 5. DISPATCH ENGINE (Client-Side & Optional Python Relay)
   // =========================================================================
@@ -1325,6 +1418,95 @@
     return { success: true, targetEmail, mailId: logged.id, receiptId: loggedReceipt.id };
   }
 
+  function sendMinorTakedownRequest(data) {
+    const ticketId = 'DL-OPT-' + Date.now().toString(36).toUpperCase() + '-' + Math.floor(1000 + Math.random() * 9000);
+    const targetEmail = data.targetEmail || MAILER_CONFIG.contactEmail || "hello@draftkings.com";
+    const parentEmail = data.parentEmail || data.email || "parent@example.com";
+    const parentName = data.parentName || "Parent / Legal Guardian";
+    const parentPhone = data.parentPhone || "";
+    const parentRelationship = data.parentRelationship || "Legal Parent / Guardian";
+    const athleteName = data.athleteName || "Minor Athlete";
+    const athleteDob = data.athleteDob || "";
+    const athleteTeam = data.athleteTeam || "";
+    const athleteId = data.athleteId || "";
+    const requestTypes = data.requestTypes || ["Complete Profile & Biometric Erasure"];
+    const signature = data.signature || parentName;
+    const notes = data.notes || "";
+
+    const payload = {
+      ticketId,
+      parentName,
+      parentEmail,
+      parentPhone,
+      parentRelationship,
+      athleteName,
+      athleteDob,
+      athleteTeam,
+      athleteId,
+      requestTypes,
+      signature,
+      notes,
+      targetEmail
+    };
+
+    const template = createMinorTakedownTemplate(payload);
+
+    // 1. Dispatch official notice to legal & compliance desk
+    const loggedNotice = logDispatchedEmail({
+      to: targetEmail,
+      subject: template.subject,
+      html: template.html,
+      type: "MINOR_TAKEDOWN_REQUEST",
+      category: "LEGAL"
+    });
+
+    // 2. Dispatch statutory acknowledgment receipt to parent
+    const receiptHtml = `
+      ${renderEmailHtmlHeader("Parental Rights Confirmation", "LEGAL NOTICE")}
+      <h2 style="margin: 0 0 16px 0; color: #ffffff; font-size: 18px; font-weight: 800;">
+        Case File ${ticketId} &bull; Takedown Request Received
+      </h2>
+      <p style="margin: 0 0 16px 0; color: #cbd5e1; font-size: 14px; line-height: 1.6;">
+        Dear ${parentName},
+      </p>
+      <p style="margin: 0 0 16px 0; color: #cbd5e1; font-size: 14px; line-height: 1.6;">
+        DraftLineup.com has received your formal parental profile removal and privacy opt-out request for minor athlete <strong>${athleteName}</strong> under the Children's Online Privacy Protection Act (COPPA, 15 U.S.C. &sect;&sect; 6501&ndash;6506), the General Data Protection Regulation (GDPR-K), and applicable youth consumer protection statutes.
+      </p>
+      <div style="background-color: #0f172a; border: 1px solid #1e293b; border-radius: 10px; padding: 18px; margin: 20px 0; font-size: 13px; color: #cbd5e1;">
+        <p style="margin: 0 0 8px 0;"><strong>Official Case Reference:</strong> <span style="color: #38bdf8; font-family: monospace; font-weight: 700;">${ticketId}</span></p>
+        <p style="margin: 0 0 8px 0;"><strong>Athlete Protected:</strong> ${athleteName} (DOB: ${athleteDob || 'Verified Under 18'})</p>
+        <p style="margin: 0 0 8px 0;"><strong>Action Requested:</strong> ${Array.isArray(requestTypes) ? requestTypes.join(', ') : requestTypes}</p>
+        <p style="margin: 0 0 8px 0;"><strong>Statutory SLA:</strong> Profile suppression queued immediately; full indexing expungement completed within 24–48 hours</p>
+        <p style="margin: 0;"><strong>Compliance Desk Target:</strong> ${targetEmail}</p>
+      </div>
+      <p style="margin: 0 0 16px 0; color: #94a3b8; font-size: 13px; line-height: 1.6;">
+        Pursuant to your verified declaration under penalty of perjury, the athlete's dossier has been queued for immediate redaction across all public directories, search indexes, and verified scout dossiers. You will receive a final confirmation once the database purging cycle is finalized.
+      </p>
+      <p style="margin: 0 0 20px 0; color: #94a3b8; font-size: 13px; line-height: 1.6;">
+        If you have supplementary records or have questions regarding this case, please reply directly to this notice or contact our Data Protection Officer at <a href="mailto:${targetEmail}" style="color: #38bdf8;">${targetEmail}</a> quoting Case <strong>${ticketId}</strong>.
+      </p>
+      ${renderEmailHtmlFooter(parentEmail, "DraftLineup Legal Compliance & Minor Protection Bureau")}
+    `;
+
+    const loggedReceipt = logDispatchedEmail({
+      to: parentEmail,
+      subject: `Official Receipt: Minor Athlete Profile Removal Request (${ticketId})`,
+      html: receiptHtml,
+      type: "MINOR_TAKEDOWN_RECEIPT",
+      category: "LEGAL"
+    });
+
+    return {
+      success: true,
+      ticketId,
+      targetEmail,
+      parentEmail,
+      athleteName,
+      timestamp: new Date().toISOString()
+    };
+  }
+
+
   // Master Test Dispatcher for All 11 Types
   function sendTestAutoresponder(type, customEmail) {
     const targetEmail = customEmail || MAILER_CONFIG.adminEmail;
@@ -1657,6 +1839,7 @@
     sendFilmBreakdownNotice,
     sendTryoutInvitation,
     sendContactSubmission,
+    sendMinorTakedownRequest,
     sendTestAutoresponder,
     // Verifications
     verifySignupCode: (email, code) => verifyToken("SIGNUP", email, code),
