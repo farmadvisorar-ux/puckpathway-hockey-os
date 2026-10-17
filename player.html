@@ -177,6 +177,11 @@
       </div>
     </div>
 
+    
+  <!-- Defensive Anti-Scraping Honeytoken Canary Trap (Terms of Service § 5 Enforcement) -->
+  <div aria-hidden="true" style="position: absolute; left: -9999px; top: -9999px; width: 0; height: 0; opacity: 0; pointer-events: none; overflow: hidden;" tabindex="-1">
+    <a href="player.html?id=dl_canary_honeytoken_77" rel="nofollow" tabindex="-1">Canary Athlete Dossier Record</a>
+  </div>
     <div id="playerPassportContainer" class="space-y-6">
       <div class="p-8 text-center text-slate-400 text-sm">Loading Player Passport...</div>
     </div>
@@ -193,6 +198,7 @@
   <script src="static/js/auth_engine.js"></script>
   <script src="static/js/blueline_ui_kit.js"></script>
   <script src="static/js/global_nav.js"></script>
+  <script src="static/js/athlete_vault.js"></script>
   <script>
     let activePlayer = null;
     let passportChartInstance = null;
@@ -214,275 +220,138 @@
       if (window.DraftLineupDeduplicator && typeof window.DraftLineupDeduplicator.getCanonicalId === 'function') {
         playerId = window.DraftLineupDeduplicator.getCanonicalId(playerId);
       }
-      
-      const embeddedData = window.EMBEDDED_PUCKPATHWAY_DATA || { players: [] };
-      let found = embeddedData.players.find(p => p.id === playerId || (p.all_ids && p.all_ids.includes(playerId)));
 
-      // Check custom players created by users
-      if (!found && window.BlueLineAuth && typeof window.BlueLineAuth.getCustomPlayers === 'function') {
+      // Check custom players created by users first
+      if (window.BlueLineAuth && typeof window.BlueLineAuth.getCustomPlayers === 'function') {
         const customs = window.BlueLineAuth.getCustomPlayers();
-        found = customs.find(p => p.id === playerId || (p.all_ids && p.all_ids.includes(playerId)));
-      }
-
-      const allRegistry = window.MASTER_NON_PRO_REGISTRY || window.MASTER_PLAYERS || [];
-      if (!found && allRegistry.length > 0) {
-        const mp = allRegistry.find(p => p.id === playerId || (p.all_ids && p.all_ids.includes(playerId)));
-        if (mp) {
-          const isCoach = mp.entity_type === 'coach' || mp.pos === 'HC' || mp.pos === 'GM' || mp.pos === 'REC';
-          if (isCoach) {
-            found = {
-              id: mp.id,
-              name: mp.name,
-              num: 0,
-              pos: mp.pos || 'HC',
-              age: 45,
-              height_in: 72,
-              weight_lbs: 190,
-              handed: 'Staff',
-              level: 'coaching_staff',
-              league: mp.league || 'Non-Pro Hockey',
-              team: mp.team,
-              institution: mp.institution || mp.team,
-              conference: mp.conference || '',
-              hometown: mp.hometown || 'USA / CAN',
-              date_of_birth: mp.tenure || 'Active Staff',
-              previous_team: mp.alma_mater ? `Alma Mater: ${mp.alma_mater}` : (mp.previous_team || ''),
-              draft_status: mp.accolades || mp.draft_status || 'Staff Personnel',
-              class_level: mp.role_title || 'Head Coach',
-              gpa: 4.0,
-              grad_year: 2026,
-              primary_role: `👔 ${mp.role_title} • ${mp.team}`,
-              status: 'active',
-              status_badge: `👔 ${mp.role_title}`,
-              avatar_gradient: mp.avatar_gradient || 'from-amber-600 to-indigo-800',
-              combine: mp.combine || {
-                flying_30m_sec: 3.50,
-                broad_jump_in: 110,
-                pro_agility_5_10_5_sec: 4.20,
-                grip_strength_lbs: 160,
-                rotational_medball_mph: 50.0
-              },
-              micro_kpis: mp.micro_kpis || {
-                controlled_entry_pct: 95.0,
-                controlled_exit_pct: 94.0,
-                faceoff_win_pct: 60.0,
-                high_danger_pass_comp_pct: 92.0,
-                shoulder_scans_per_possession: 8.5,
-                wall_battle_win_pct: 94.0
-              },
-              skill_rubric: mp.skill_rubric || {
-                edges: 95,
-                puck_skills: 95,
-                shooting: 95,
-                hockey_iq: 99,
-                contact: 92,
-                d_zone: 96,
-                transition: 95,
-                goalie: 90
-              },
-              telemetry: {
-                decision_engine: { reaction_time_ms: 180.0, scan_rate_hz: 4.5 },
-                passing_analytics: { high_danger_attempts: 25, high_danger_completed: 24, slot_passes: 18, pass_completion_pct: 96, completed_tape_to_tape: 30 },
-                puck_possession: { avg_hold_duration_sec: 3.5, total_time_on_puck_sec: 140.0, wall_bank_escapes: 15, wall_usage_pct: 70 },
-                shot_telemetry: { avg_shot_distance_ft: 20.0, goals: 8, shots_on_goal: 30, total_shot_attempts: 40, shot_events: [] }
-              },
-              projection: {
-                player_id: mp.id,
-                player_name: mp.name,
-                composite_trajectory_score: 99.0,
-                athletic_index: 96.0,
-                kpi_index: 98.5,
-                tech_index: 99.0,
-                ceiling_label: `Premier Coaching Leadership (${mp.role_title})`,
-                probabilities: { ncaa_d1: 99.0, ushl_tier1: 99.0, nahl_tier2: 99.0, ncaa_d3_acha: 99.0 },
-                developmental_hurdles: []
-              },
-              audit_ledger: [
-                {
-                  id: `led_${mp.id}_01`,
-                  timestamp: '2026-09-10 12:00:00',
-                  account: 'Director of Scouting (DraftLineup.com)',
-                  category: 'Official Staff Roster Verification',
-                  action: 'Verified Non-Pro Coaching Dossier',
-                  diff: `Program: ${mp.team}, Role: ${mp.role_title}, Alma Mater: ${mp.alma_mater || '--'}`
-                }
-              ]
-            };
-          } else {
-            const ht = mp.height_in || 73;
-            const wt = mp.weight_lbs || 190;
-            const isDrafted = mp.draft_status && mp.draft_status !== 'Undrafted';
-            const score = mp.composite_score || 88.0;
-
-            found = {
-              id: mp.id,
-              name: mp.name,
-              num: mp.num || 0,
-              pos: mp.pos || 'F',
-              age: mp.date_of_birth ? Math.max(16, 2026 - parseInt(mp.date_of_birth.substring(0, 4))) : 20,
-              height_in: ht,
-              weight_lbs: wt,
-              handed: (mp.num % 2 === 0) ? 'L' : 'R',
-              level: 'collegiate',
-              league: mp.league || 'Collegiate Varsity',
-              team: mp.team,
-              institution: mp.institution || mp.team,
-              conference: mp.conference || '',
-              hometown: mp.hometown || '',
-              date_of_birth: mp.date_of_birth || '',
-              previous_team: mp.previous_team || '',
-              draft_status: mp.draft_status || 'Undrafted',
-              class_level: mp.class_level || 'Active',
-              gpa: 3.72,
-              grad_year: 2026,
-              primary_role: isDrafted ? `${mp.pos} • NHL Draft Affiliate` : `${mp.pos} • Active Non-Pro Roster`,
-              status: 'active',
-              status_badge: isDrafted ? `🏒 ${mp.draft_status}` : `${mp.league} Student-Athlete`,
-              avatar_gradient: mp.avatar_gradient || 'from-sky-500 to-indigo-600',
-              combine: mp.combine || {
-                flying_30m_sec: (mp.pos === 'G') ? 3.65 : 3.48,
-                broad_jump_in: 116,
-                pro_agility_5_10_5_sec: 4.12,
-                grip_strength_lbs: 165,
-                rotational_medball_mph: 51.0
-              },
-              micro_kpis: mp.micro_kpis || {
-                controlled_entry_pct: 88.0,
-                controlled_exit_pct: 92.0,
-                faceoff_win_pct: (mp.pos === 'C' ? 54.0 : 0.0),
-                high_danger_pass_comp_pct: 85.0,
-                shoulder_scans_per_possession: 6.8,
-                wall_battle_win_pct: 90.0
-              },
-              skill_rubric: mp.skill_rubric || {
-                edges: 92,
-                puck_skills: 90,
-                shooting: 88,
-                hockey_iq: 92,
-                contact: 88,
-                d_zone: 90,
-                transition: 91,
-                goalie: (mp.pos === 'G' ? 92 : 0)
-              },
-              telemetry: {
-                decision_engine: { reaction_time_ms: 230.0, scan_rate_hz: 3.2 },
-                passing_analytics: { high_danger_attempts: 18, high_danger_completed: 15, slot_passes: 12, pass_completion_pct: 86, completed_tape_to_tape: 22 },
-                puck_possession: { avg_hold_duration_sec: 2.8, total_time_on_puck_sec: 95.0, wall_bank_escapes: 11, wall_usage_pct: 62 },
-                shot_telemetry: { avg_shot_distance_ft: 24.0, goals: 4, shots_on_goal: 22, total_shot_attempts: 35, shot_events: [] }
-              },
-              projection: {
-                player_id: mp.id,
-                player_name: mp.name,
-                composite_trajectory_score: score,
-                athletic_index: 91.0,
-                kpi_index: 90.5,
-                tech_index: 92.0,
-                ceiling_label: isDrafted ? 'NHL Developing Prospect' : 'Premier Collegiate Contributor',
-                probabilities: { ncaa_d1: 99.0, ushl_tier1: 95.0, nahl_tier2: 95.0, ncaa_d3_acha: 99.0 },
-                developmental_hurdles: []
-              },
-              audit_ledger: [
-                {
-                  id: `led_${mp.id}_01`,
-                  timestamp: '2026-09-10 12:00:00',
-                  account: 'Director of Scouting (DraftLineup.com)',
-                  category: 'Official Roster Record Ingestion',
-                  action: 'Verified Non-Pro Athlete Registry',
-                  diff: `Program: ${mp.team}, League: ${mp.league}, Draft: ${mp.draft_status}`
-                }
-              ]
-            };
-          }
-        }
-      }
-
-      activePlayer = found || embeddedData.players[0];
-
-      if (!activePlayer) {
-        document.getElementById('playerPassportContainer').innerHTML = '<div class="p-8 text-center text-red-400">Player not found.</div>';
-        return;
-      }
-
-      renderPassport(activePlayer);
-
-      // Global Edit Toggle
-      window.togglePassportEdit = function() {
-        const editPanel = document.getElementById('passportEditPanel');
-        if (editPanel) {
-          editPanel.classList.toggle('hidden');
-          if (!editPanel.classList.contains('hidden') && activePlayer) {
-            populateEditInputs(activePlayer);
-            editPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-          }
-        }
-      };
-
-      const toggleBtn = document.getElementById('togglePassportEditBtn');
-      if (toggleBtn) {
-        toggleBtn.addEventListener('click', window.togglePassportEdit);
-      }
-
-      // Save Edit
-      const saveBtn = document.getElementById('savePassportEditBtn');
-      if (saveBtn) {
-        saveBtn.addEventListener('click', () => {
-          const speed = parseFloat(document.getElementById('passEditSpeed').value) || activePlayer.combine.flying_30m_sec;
-          const jump = parseFloat(document.getElementById('passEditJump').value) || activePlayer.combine.broad_jump_in;
-          const exitPct = parseFloat(document.getElementById('passEditExit').value) || activePlayer.micro_kpis.controlled_exit_pct;
-          const scans = parseFloat(document.getElementById('passEditScans').value) || activePlayer.micro_kpis.shoulder_scans_per_possession;
-          const gpa = parseFloat(document.getElementById('passEditGPA').value) || activePlayer.gpa;
-          const wt = parseFloat(document.getElementById('passEditWeight').value) || activePlayer.weight_lbs;
-          const ht = parseFloat(document.getElementById('passEditHeight').value) || activePlayer.height_in;
-          const stat = document.getElementById('passEditStatus').value || activePlayer.status_badge;
-
-          activePlayer.combine.flying_30m_sec = speed;
-          activePlayer.combine.broad_jump_in = jump;
-          activePlayer.micro_kpis.controlled_exit_pct = exitPct;
-          activePlayer.micro_kpis.shoulder_scans_per_possession = scans;
-          activePlayer.gpa = gpa;
-          activePlayer.weight_lbs = wt;
-          activePlayer.height_in = ht;
-          activePlayer.status_badge = stat;
-
-          // Mathematical recompute
-          const speedScore = Math.max(40, Math.min(99, 100 - (speed - 3.8) * 60));
-          const jumpScore = Math.max(40, Math.min(99, (jump / 100) * 88));
-          const athleticIndex = (speedScore * 0.6 + jumpScore * 0.4).toFixed(1);
-          const kpiIndex = (exitPct * 0.5 + Math.min(99, (scans / 5.5) * 90) * 0.5).toFixed(1);
-          const acad = Math.min(100, (gpa / 4.0) * 100);
-          const composite = (athleticIndex * 0.35 + kpiIndex * 0.45 + acad * 0.20).toFixed(1);
-
-          activePlayer.projection.composite_trajectory_score = parseFloat(composite);
-          activePlayer.projection.probabilities.ncaa_d1 = Math.min(98, (composite >= 88 ? 65 + (composite - 88) * 3.5 : 35 + (composite - 78) * 3.0)).toFixed(1);
-
-          // Cryptographic Immutable Ledger Stamping
-          const signerUser = window.BlueLineAuth ? window.BlueLineAuth.getCurrentUser() : null;
-          if (window.BlueLineAuth && typeof window.BlueLineAuth.stampImmutableLedger === 'function') {
-            window.BlueLineAuth.stampImmutableLedger(
-              activePlayer,
-              'Passport Biometrics & Trajectory Re-Assessment',
-              'Authenticated Ledger Update',
-              `Speed: ${speed}s; Jump: ${jump}in; Exit: ${exitPct}%; Scans: ${scans}; GPA: ${gpa}. Trajectory: ${composite}.`,
-              signerUser
-            );
-          } else {
-            activePlayer.audit_ledger.unshift({
-              id: `led_${Date.now()}`,
-              timestamp: new Date().toISOString(),
-              account: signerUser ? `${signerUser.name} (${signerUser.badge})` : 'Verified Staff Evaluator',
-              category: 'Passport Re-Assessment',
-              action: 'Updated Biometrics & Combine',
-              diff: `Speed: ${speed}s; Jump: ${jump}in; Exit: ${exitPct}%; Scans: ${scans}; GPA: ${gpa}. Trajectory: ${composite}.`,
-              status: 'CRYPTOGRAPHICALLY VERIFIED & LOCKED'
-            });
-          }
-
-          editPanel.classList.add('hidden');
+        const customFound = customs.find(p => p.id === playerId || (p.all_ids && p.all_ids.includes(playerId)));
+        if (customFound) {
+          activePlayer = customFound;
           renderPassport(activePlayer);
-          if (window.BlueLineUI && typeof window.BlueLineUI.showToast === 'function') {
-            window.BlueLineUI.showToast(`✓ Trajectory and biometrics saved for ${activePlayer.name}. Cryptographic ledger stamped.`, 'success');
+          setupEditHandlers();
+          return;
+        }
+      }
+
+      const container = document.getElementById('playerPassportContainer');
+      container.innerHTML = `
+        <div class="p-12 text-center space-y-4 rounded-3xl bg-slate-950/80 border border-slate-800 animate-pulse font-mono">
+          <div class="w-12 h-12 rounded-2xl bg-sky-500/10 border border-sky-400/30 text-sky-400 flex items-center justify-center text-xl mx-auto shadow-sm">
+            🛡️
+          </div>
+          <div>
+            <h3 class="text-sm font-bold text-white uppercase tracking-wider">Resolving Verified Athlete Dossier</h3>
+            <p class="text-xs text-slate-400 mt-1">Proof-of-Work Micro-Challenge Active &bull; Human Verification Handshake...</p>
+          </div>
+          <div class="inline-flex items-center gap-2 text-[10px] text-emerald-400 bg-emerald-950/60 border border-emerald-800/50 py-1 px-3.5 rounded-full">
+            <span>🔒 Protected by DraftLineup Vault Anti-Harvesting Gateway</span>
+          </div>
+        </div>
+      `;
+
+      if (window.DraftLineupVault && typeof window.DraftLineupVault.resolveAthleteDossier === 'function') {
+        DraftLineupVault.resolveAthleteDossier(playerId).then(dossier => {
+          if (!dossier) {
+            container.innerHTML = '<div class="p-8 text-center text-rose-400 font-mono">Athlete dossier could not be resolved from verified registry.</div>';
+            return;
           }
+          activePlayer = dossier;
+          renderPassport(activePlayer);
+          setupEditHandlers();
+        }).catch(err => {
+          container.innerHTML = `
+            <div class="p-8 text-center space-y-3 rounded-2xl bg-rose-950/40 border border-rose-800/60 font-mono text-rose-300">
+              <div class="text-2xl">⚠️</div>
+              <div class="text-xs font-bold">${err.message || 'Single-Athlete Inspection Pacing Active'}</div>
+              <p class="text-[11px] text-slate-400">Automated multi-record scraping is restricted under Terms of Service (§ 5). Please allow a brief cooldown between individual athlete inspections.</p>
+              <button onclick="location.reload()" class="mt-3 px-4 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-xs text-white font-bold transition">
+                Retry Resolution
+              </button>
+            </div>
+          `;
         });
+      } else {
+        container.innerHTML = '<div class="p-8 text-center text-rose-400 font-mono">DraftLineup Vault engine initializing...</div>';
+      }
+
+      function setupEditHandlers() {
+        // Global Edit Toggle
+        window.togglePassportEdit = function() {
+          const editPanel = document.getElementById('passportEditPanel');
+          if (editPanel) {
+            editPanel.classList.toggle('hidden');
+            if (!editPanel.classList.contains('hidden') && activePlayer) {
+              populateEditInputs(activePlayer);
+              editPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+          }
+        };
+
+        const toggleBtn = document.getElementById('togglePassportEditBtn');
+        if (toggleBtn) {
+          toggleBtn.addEventListener('click', window.togglePassportEdit);
+        }
+
+        // Save Edit
+        const saveBtn = document.getElementById('savePassportEditBtn');
+        if (saveBtn) {
+          saveBtn.addEventListener('click', () => {
+            const speed = parseFloat(document.getElementById('passEditSpeed').value) || activePlayer.combine.flying_30m_sec;
+            const jump = parseFloat(document.getElementById('passEditJump').value) || activePlayer.combine.broad_jump_in;
+            const exitPct = parseFloat(document.getElementById('passEditExit').value) || activePlayer.micro_kpis.controlled_exit_pct;
+            const scans = parseFloat(document.getElementById('passEditScans').value) || activePlayer.micro_kpis.shoulder_scans_per_possession;
+            const gpa = parseFloat(document.getElementById('passEditGPA').value) || activePlayer.gpa;
+            const wt = parseFloat(document.getElementById('passEditWeight').value) || activePlayer.weight_lbs;
+            const ht = parseFloat(document.getElementById('passEditHeight').value) || activePlayer.height_in;
+            const stat = document.getElementById('passEditStatus').value || activePlayer.status_badge;
+
+            activePlayer.combine.flying_30m_sec = speed;
+            activePlayer.combine.broad_jump_in = jump;
+            activePlayer.micro_kpis.controlled_exit_pct = exitPct;
+            activePlayer.micro_kpis.shoulder_scans_per_possession = scans;
+            activePlayer.gpa = gpa;
+            activePlayer.weight_lbs = wt;
+            activePlayer.height_in = ht;
+            activePlayer.status_badge = stat;
+
+            // Mathematical recompute
+            const speedScore = Math.max(40, Math.min(99, 100 - (speed - 3.8) * 60));
+            const jumpScore = Math.max(40, Math.min(99, (jump / 100) * 88));
+            const athleticIndex = (speedScore * 0.6 + jumpScore * 0.4).toFixed(1);
+            const composite = ((parseFloat(athleticIndex) + exitPct) / 2).toFixed(1);
+
+            activePlayer.projection.composite_trajectory_score = parseFloat(composite);
+            activePlayer.projection.athletic_index = parseFloat(athleticIndex);
+
+            const signerUser = window.BlueLineAuth ? window.BlueLineAuth.getCurrentUser() : null;
+            if (window.BlueLineAuth && typeof window.BlueLineAuth.stampImmutableLedger === 'function') {
+              window.BlueLineAuth.stampImmutableLedger(
+                activePlayer,
+                'Passport Biometrics & Trajectory Re-Assessment',
+                'Authenticated Ledger Update',
+                `Speed: ${speed}s; Jump: ${jump}in; Exit: ${exitPct}%; Scans: ${scans}; GPA: ${gpa}. Trajectory: ${composite}.`,
+                signerUser
+              );
+            } else if (activePlayer.audit_ledger) {
+              activePlayer.audit_ledger.unshift({
+                id: `led_${Date.now()}`,
+                timestamp: new Date().toISOString(),
+                account: signerUser ? `${signerUser.name} (${signerUser.badge})` : 'Verified Staff Evaluator',
+                category: 'Passport Re-Assessment',
+                action: 'Updated Biometrics & Combine',
+                diff: `Speed: ${speed}s; Jump: ${jump}in; Exit: ${exitPct}%; Scans: ${scans}; GPA: ${gpa}. Trajectory: ${composite}.`,
+                status: 'CRYPTOGRAPHICALLY VERIFIED & LOCKED'
+              });
+            }
+
+            const editPanel = document.getElementById('passportEditPanel');
+            if (editPanel) editPanel.classList.add('hidden');
+            renderPassport(activePlayer);
+            if (window.BlueLineUI && typeof window.BlueLineUI.showToast === 'function') {
+              window.BlueLineUI.showToast(`✓ Trajectory and biometrics saved for ${activePlayer.name}. Cryptographic ledger stamped.`, 'success');
+            }
+          });
+        }
       }
     });
 

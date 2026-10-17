@@ -229,7 +229,12 @@
     </div>
 
     <!-- WRAPPER 1: ATHLETES & STAFF DIRECTORY -->
-    <div id="athletesDirectorySection" class="space-y-6">
+    
+  <!-- Anti-Scraping Honeytoken Canary Trap (Terms of Service § 5 & Bastion-Charlie Enforcement) -->
+  <div aria-hidden="true" style="position: absolute; left: -9999px; top: -9999px; width: 0; height: 0; opacity: 0; pointer-events: none; overflow: hidden;" tabindex="-1">
+    <a href="player.html?id=dl_canary_honeytoken_77" rel="nofollow" tabindex="-1">Canary Athlete Dossier Record</a>
+  </div>
+  <div id="athletesDirectorySection" class="space-y-6">
 
       <!-- Faceted Search & Filters Panel -->
       <div class="glass-panel p-5 rounded-3xl space-y-4 shadow-xl border border-slate-800">
@@ -958,12 +963,6 @@
         }
       }, 1000);
     }
-    let currentPage = 1;
-    let pageSize = 50;
-    let currentView = (window.innerWidth < 768) ? 'card' : 'table'; // Auto-select Card view on mobile phones
-    let currentSortCol = 'score';
-    let currentSortDir = 'desc';
-    let filterWatchedOnly = false;
 
     document.addEventListener('DOMContentLoaded', () => {
       // 1. Ingest datasets (master non-pro registry + bundle_data fallback)
