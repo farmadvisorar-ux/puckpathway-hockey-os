@@ -183,7 +183,7 @@
       <div class="flex flex-wrap items-center justify-between gap-4">
         <div>
           <div class="flex items-center gap-2.5">
-            <h1 class="text-xl sm:text-2xl font-black text-white tracking-tight">DraftLineup.com MASTER DIRECTORY</h1>
+            <h1 class="text-lg sm:text-xl font-bold text-white tracking-tight">DraftLineup.com Master Directory</h1>
             <span class="text-xs px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 font-bold" id="heroTotalBadge">
               31,085 Active Personnel
             </span>
@@ -194,11 +194,12 @@
         </div>
 
         <div class="flex items-center gap-2">
-          <button id="exportCsvBtn" class="px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 text-xs font-bold transition flex items-center gap-1.5 shadow-md">
-            <span>📊</span> Export CSV
-          </button>
-          <button id="exportJsonBtn" class="px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 text-xs font-bold transition flex items-center gap-1.5 shadow-md">
-            <span>💾</span> Export JSON
+          <div class="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-800 text-[11px] font-mono text-emerald-400">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+            <span>Vault Protected Stream</span>
+          </div>
+          <button id="exportCsvBtn" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 text-xs font-semibold transition flex items-center gap-1.5 shadow-sm" title="Export currently viewed page (max 50 records) with institutional audit watermark. Bulk scraping is prohibited.">
+            <span>📥</span> Export Page CSV
           </button>
         </div>
       </div>
@@ -206,7 +207,7 @@
       <!-- Primary Directory Mode Switcher (Athletes & Staff vs Colleges & High Schools vs Overseas Pro Clubs) -->
       <div class="flex items-center justify-between flex-wrap gap-3 pt-3 border-t border-slate-800">
         <div class="flex items-center gap-1.5 bg-slate-950 p-1.5 rounded-2xl border border-slate-800 flex-wrap">
-          <button id="modeAthletesBtn" class="px-4 py-2 rounded-xl bg-sky-600 text-white font-bold text-xs flex items-center gap-2 transition active shadow-sm">
+          <button id="modeAthletesBtn" class="px-3.5 py-1.5 rounded-xl bg-slate-800 text-white font-bold text-xs border border-slate-700 flex items-center gap-2 transition active shadow-sm">
             <span>🏒</span> <span>Athletes & Staff Directory</span>
             <span class="px-2 py-0.5 rounded-full bg-sky-400/20 text-sky-200 text-[10px] font-mono font-bold" id="badgeAthletesCount">31,085</span>
           </button>
@@ -482,7 +483,17 @@
         </div>
       </div>
 
-      <div id="tableViewContainer" class="glass-panel rounded-2xl border border-slate-800 overflow-hidden shadow-2xl">
+      
+    <!-- Anti-Scraping / Vault Rate Limit Notification Banner -->
+    <div id="vaultRateLimitBanner" class="hidden p-3.5 rounded-2xl bg-amber-950/50 border border-amber-500/40 text-amber-200 text-xs flex flex-wrap items-center justify-between gap-3 font-mono shadow-lg">
+      <div class="flex items-center gap-2">
+        <span>🛡️</span>
+        <span id="vaultRateLimitMsg">Rate limit engaged: Automated rapid querying restricted to protect athlete privacy.</span>
+      </div>
+      <span class="px-2 py-0.5 rounded bg-amber-500/20 border border-amber-500/40 font-bold" id="vaultRateLimitRetry">Please wait 4s</span>
+    </div>
+
+    <div id="tableViewContainer" class="glass-panel rounded-2xl border border-slate-800 overflow-hidden shadow-2xl">
       <div class="overflow-x-auto max-h-[700px] overflow-y-auto">
         <table class="w-full text-left text-xs border-collapse">
           <thead class="sticky top-0 z-20 bg-slate-950/95 backdrop-blur border-b border-slate-800 text-[10px] text-slate-400 uppercase tracking-wider">
@@ -913,9 +924,40 @@
   <script src="static/js/nhl_analytics_database.js"></script>
   <script src="static/js/institutions_catalog.js"></script>
   <script src="static/js/overseas_clubs_database.js"></script>
+  <script src="static/js/athlete_vault.js"></script>
   <script>
-    let allAthletes = [];
-    let filteredAthletes = [];
+    let currentPage = 1;
+    let pageSize = 50;
+    let currentPageRecords = [];
+    let currentView = (window.innerWidth < 768) ? 'card' : 'table';
+    let currentSortCol = 'composite_score';
+    let currentSortDir = 'desc';
+    let filterWatchedOnly = false;
+    let rateLimitTimer = null;
+
+    function showRateLimitBanner(msg, seconds) {
+      const banner = document.getElementById('vaultRateLimitBanner');
+      const msgEl = document.getElementById('vaultRateLimitMsg');
+      const retryEl = document.getElementById('vaultRateLimitRetry');
+      if (!banner) return;
+
+      if (msgEl) msgEl.textContent = msg || 'Rate limit engaged: Automated rapid querying restricted to protect athlete privacy.';
+      banner.classList.remove('hidden');
+
+      let remaining = seconds || 4;
+      if (retryEl) retryEl.textContent = `Please wait ${remaining}s`;
+
+      if (rateLimitTimer) clearInterval(rateLimitTimer);
+      rateLimitTimer = setInterval(() => {
+        remaining--;
+        if (remaining <= 0) {
+          clearInterval(rateLimitTimer);
+          banner.classList.add('hidden');
+        } else if (retryEl) {
+          retryEl.textContent = `Please wait ${remaining}s`;
+        }
+      }, 1000);
+    }
     let currentPage = 1;
     let pageSize = 50;
     let currentView = (window.innerWidth < 768) ? 'card' : 'table'; // Auto-select Card view on mobile phones
@@ -1293,7 +1335,7 @@
         currentDossierInst = inst;
 
         const queryName = (inst.shortName || inst.name).toLowerCase();
-        currentDossierRoster = allAthletes.filter(a => {
+        currentDossierRoster = (window.DraftLineupVault ? window.DraftLineupVault.getAthletesByInstitution(inst.shortName || inst.name) : []).filter(a => {
           const tm = (a.team || '').toLowerCase();
           const ins = (a.institution || '').toLowerCase();
           return tm.includes(queryName) || ins.includes(queryName);
@@ -1730,7 +1772,7 @@
 
     function toggleWatchlistQuick(athleteId) {
       if (!athleteId) return;
-      const athlete = allAthletes.find(p => p.id === athleteId);
+      const athlete = (window.DraftLineupVault ? window.DraftLineupVault.getAthleteById(athleteId) : null);
       const name = athlete ? athlete.name : 'Prospect';
 
       if (typeof BlueLineUI !== 'undefined' && typeof BlueLineUI.togglePlayerInLedger === 'function') {
@@ -1752,94 +1794,7 @@
     }
 
     function applyFilters() {
-      const q = document.getElementById('masterSearchInput').value.toLowerCase().trim();
-      const role = document.getElementById('filterRole') ? document.getElementById('filterRole').value : 'all';
-      const league = document.getElementById('filterLeague').value;
-      const conf = document.getElementById('filterConference').value;
-      const pos = document.getElementById('filterPosition').value;
-      const cls = document.getElementById('filterClass').value;
-      const draft = document.getElementById('filterDraft').value;
-
-      filteredAthletes = allAthletes.filter(p => {
-        // Watched Only filter
-        if (filterWatchedOnly) {
-          const ledger = getScoutWatchingLedger();
-          if (!ledger.includes(p.id)) return false;
-        }
-
-        // Role filter
-        if (role === 'player' && p.entity_type !== 'player') return false;
-        if (role === 'coach' && p.entity_type !== 'coach') return false;
-
-        // Query search
-        if (q) {
-          const name = (p.name || '').toLowerCase();
-          const team = (p.team || '').toLowerCase();
-          const inst = (p.institution || '').toLowerCase();
-          const num = `#${p.num}`.toLowerCase();
-          const rawNum = `${p.num}`;
-          const hometown = (p.hometown || '').toLowerCase();
-          const feeder = (p.previous_team || '').toLowerCase();
-          const draftStatus = (p.draft_status || '').toLowerCase();
-          const confName = (p.conference || '').toLowerCase();
-          const roleTitle = (p.role_title || '').toLowerCase();
-          const almaMater = (p.alma_mater || '').toLowerCase();
-          const accolades = (p.accolades || '').toLowerCase();
-
-          const matchesQ = name.includes(q) || team.includes(q) || inst.includes(q) || 
-                           num === q || rawNum === q || hometown.includes(q) || feeder.includes(q) || 
-                           draftStatus.includes(q) || confName.includes(q) || roleTitle.includes(q) || 
-                           almaMater.includes(q) || accolades.includes(q);
-          if (!matchesQ) return false;
-        }
-
-        // League
-        if (league !== 'all') {
-          if (!p.league || !p.league.toLowerCase().includes(league.toLowerCase())) return false;
-        }
-
-        // Conference
-        if (conf !== 'all') {
-          if (!p.conference || !p.conference.toLowerCase().includes(conf.toLowerCase())) return false;
-        }
-
-        // Position & Staff Role
-        if (pos !== 'all') {
-          if (pos === 'F' && !['F', 'C', 'LW', 'RW'].includes(p.pos)) return false;
-          if (pos === 'D' && p.pos !== 'D') return false;
-          if ((pos === 'G' || pos === 'GC') && !['G', 'GC'].includes(p.pos)) return false;
-          if (pos === 'HC' && p.pos !== 'HC') return false;
-          if (pos === 'GM' && p.pos !== 'GM') return false;
-          if (pos === 'REC' && !['REC', 'STAFF'].includes(p.pos)) return false;
-        }
-
-        // Class Level & Staff
-        if (cls !== 'all') {
-          if (cls === 'Staff') {
-            if (p.entity_type !== 'coach') return false;
-          } else {
-            if (p.entity_type === 'coach') return false;
-            if (!p.class_level || !p.class_level.toLowerCase().includes(cls.toLowerCase())) return false;
-          }
-        }
-
-        // Status & Honors
-        if (draft === 'champion') {
-          const hasChampionship = (p.accolades && p.accolades.toLowerCase().includes('champ')) ||
-                                  (p.draft_status && p.draft_status.toLowerCase().includes('champ'));
-          if (!hasChampionship) return false;
-        } else if (draft === 'drafted') {
-          if (p.entity_type === 'coach') return false;
-          if (!p.draft_status || p.draft_status === 'Undrafted') return false;
-        } else if (draft === 'undrafted') {
-          if (p.entity_type === 'coach') return false;
-          if (p.draft_status && p.draft_status !== 'Undrafted') return false;
-        }
-
-        return true;
-      });
-
-      sortAthletes();
+      currentPage = 1;
       renderCurrentPage();
       updateWatchedCountBadge();
     }
@@ -1859,39 +1814,67 @@
     }
 
     function renderCurrentPage() {
-      const total = filteredAthletes.length;
-      const totalPages = Math.max(1, Math.ceil(total / pageSize));
-      if (currentPage > totalPages) currentPage = totalPages;
+      const searchInput = document.getElementById('masterSearchInput');
+      const roleFilter = document.getElementById('filterRole');
+      const leagueFilter = document.getElementById('filterLeague');
+      const confFilter = document.getElementById('filterConference');
+      const posFilter = document.getElementById('filterPosition');
+      const classFilter = document.getElementById('filterClass');
+      const draftFilter = document.getElementById('filterDraft');
 
-      const startIndex = (currentPage - 1) * pageSize;
-      const endIndex = Math.min(total, startIndex + pageSize);
-      const pageAthletes = filteredAthletes.slice(startIndex, endIndex);
+      const filters = {
+        q: searchInput ? searchInput.value.toLowerCase().trim() : '',
+        role: roleFilter ? roleFilter.value : 'all',
+        league: leagueFilter ? leagueFilter.value : 'all',
+        conference: confFilter ? confFilter.value : 'all',
+        position: posFilter ? posFilter.value : 'all',
+        classLevel: classFilter ? classFilter.value : 'all',
+        draft: draftFilter ? draftFilter.value : 'all',
+        watchedOnly: filterWatchedOnly,
+        watchedIds: getScoutWatchingLedger()
+      };
 
-      // Labels
-      const countLabel = document.getElementById('resultCountLabel');
-      if (countLabel) {
-        countLabel.textContent = total === 0 
-          ? 'No matching athletes found' 
-          : `Showing ${startIndex + 1} to ${endIndex} of ${total.toLocaleString()} athletes`;
-      }
+      DraftLineupVault.fetchPage({
+        page: currentPage,
+        pageSize: pageSize,
+        filters: filters,
+        sortCol: currentSortCol,
+        sortDir: currentSortDir
+      }).then(result => {
+        currentPageRecords = result.records;
+        currentPage = result.page;
+        const total = result.totalRecords;
+        const totalPages = result.totalPages;
 
-      const pagStatus = document.getElementById('paginationStatusLabel');
-      if (pagStatus) {
-        pagStatus.textContent = `Page ${currentPage} of ${totalPages} (${total.toLocaleString()} total)`;
-      }
+        // Labels
+        const countLabel = document.getElementById('resultCountLabel');
+        if (countLabel) {
+          countLabel.textContent = total === 0 
+            ? 'No matching athletes found' 
+            : `Showing ${result.start} to ${result.end} of ${total.toLocaleString()} verified personnel`;
+        }
 
-      // Disabled state
-      document.getElementById('prevPageBtn').disabled = (currentPage <= 1);
-      document.getElementById('nextPageBtn').disabled = (currentPage >= totalPages);
+        const pagStatus = document.getElementById('paginationStatusLabel');
+        if (pagStatus) {
+          pagStatus.textContent = `Page ${currentPage} of ${totalPages} (${total.toLocaleString()} total • Vault Protected)`;
+        }
 
-      // Page numbers (max 5 buttons)
-      renderPageNumbers(totalPages);
+        // Disabled state
+        const prevBtn = document.getElementById('prevPageBtn');
+        const nextBtn = document.getElementById('nextPageBtn');
+        if (prevBtn) prevBtn.disabled = (currentPage <= 1);
+        if (nextBtn) nextBtn.disabled = (currentPage >= totalPages);
 
-      if (currentView === 'table') {
-        renderTableView(pageAthletes);
-      } else {
-        renderCardView(pageAthletes);
-      }
+        renderPageNumbers(totalPages);
+
+        if (currentView === 'table') {
+          renderTableView(result.records);
+        } else {
+          renderCardView(result.records);
+        }
+      }).catch(err => {
+        showRateLimitBanner(err.message, 4);
+      });
     }
 
     function renderPageNumbers(totalPages) {
@@ -2183,43 +2166,18 @@
     }
 
     function exportFilteredCSV() {
-      if (filteredAthletes.length === 0) { if (window.BlueLineUI) { BlueLineUI.showToast('No personnel to export.', 'info'); } return; }
-      const headers = ['Type', 'Number_or_Role', 'Name', 'Role_or_Position', 'Team', 'League', 'Conference', 'Level_or_Title', 'Height_or_Tenure', 'Weight', 'Hometown_or_Origin', 'Feeder_or_AlmaMater', 'Honors_or_Draft', 'Score'];
-      const rows = filteredAthletes.map(p => [
-        p.entity_type || 'player',
-        p.entity_type === 'coach' ? 'STAFF' : p.num,
-        `"${p.name.replace(/"/g, '""')}"`,
-        p.pos,
-        `"${(p.team || '').replace(/"/g, '""')}"`,
-        `"${(p.league || '').replace(/"/g, '""')}"`,
-        `"${(p.conference || '').replace(/"/g, '""')}"`,
-        `"${(p.role_title || p.class_level || '').replace(/"/g, '""')}"`,
-        `"${p.entity_type === 'coach' ? (p.tenure || 'Staff') : (p.height_str || '')}"`,
-        p.entity_type === 'coach' ? '' : (p.weight_lbs || ''),
-        `"${(p.hometown || '').replace(/"/g, '""')}"`,
-        `"${(p.alma_mater || p.previous_team || '').replace(/"/g, '""')}"`,
-        `"${(p.accolades || p.draft_status || '').replace(/"/g, '""')}"`,
-        p.composite_score || ''
-      ]);
-
-      const csvContent = [headers.join(','), ...rows.map(r => r.join(','))].join('\r\n');
-      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `blueline_dataworks_master_directory_${Date.now()}.csv`;
-      a.click();
+      if (!currentPageRecords || currentPageRecords.length === 0) {
+        if (window.BlueLineUI) { BlueLineUI.showToast('No active page records to export.', 'info'); }
+        return;
+      }
+      DraftLineupVault.exportCurrentPageCsv(currentPageRecords);
     }
 
     function exportFilteredJSON() {
-      if (filteredAthletes.length === 0) { if (window.BlueLineUI) { BlueLineUI.showToast('No personnel to export.', 'info'); } return; }
-      const jsonContent = JSON.stringify(filteredAthletes, null, 2);
-      const blob = new Blob([jsonContent], { type: 'application/json;charset=utf-8;' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `blueline_dataworks_master_directory_${Date.now()}.json`;
-      a.click();
+      if (window.BlueLineUI) {
+        BlueLineUI.showToast('Bulk JSON raw dump is disabled to protect athlete privacy. Exporting active page CSV.', 'info', 4000);
+      }
+      DraftLineupVault.exportCurrentPageCsv(currentPageRecords);
     }
   </script>
   <script>
