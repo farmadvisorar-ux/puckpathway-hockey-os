@@ -159,340 +159,455 @@
   </div>
 
   <!-- =========================================================================
-       ENTERPRISE HOCKEY INTELLIGENCE HERO (InStat / Hudl / EP Tier)
+       CLEAN MINIMALIST HERO SECTION
        ========================================================================= -->
-  <header class="hero-enterprise">
-    <div class="hero-enterprise-container">
+  <header class="hero-simple">
+    <div class="hero-simple-container">
       
-      <!-- Top Authority Proof Row -->
-      <div class="hero-badge-row">
-        <div class="hero-badge">
-          <span class="pulse-dot"></span>
-          <span>OFFICIAL LIFELONG HOCKEY INTELLIGENCE OPERATING SYSTEM</span>
-        </div>
-        <div class="hero-subbadge">
-          <span>⚡ 30,000+ Verified Athletes &bull; Tier III to NHL Draft &bull; 22 Integrated Modules</span>
+      <div class="hero-simple-badge">
+        <span class="pulse-dot"></span>
+        <span>LIFELONG HOCKEY INTELLIGENCE &amp; DRAFT OS</span>
+      </div>
+
+      <h1 class="hero-simple-title">
+        Hockey Intelligence, Simplified.<br>
+        <span class="hero-simple-highlight">From Youth Hockey to the NHL Draft.</span>
+      </h1>
+
+      <p class="hero-simple-subtitle">
+        One clean operating system for players, parents, coaches, and scouts to track athlete development, combine biometrics, and recruiting pathways across 30,000+ profiles.
+      </p>
+
+      <!-- Clean Centered Universal Search Bar -->
+      <div class="hero-search-wrapper">
+        <form action="database.html" method="GET" class="hero-search-bar" onsubmit="return handleHeroSearchSubmit(event)">
+          <span class="search-icon">🔍</span>
+          <input type="text" name="q" id="heroSearchInput" placeholder="Search 30,000+ players, colleges, or teams (e.g. Celebrini, Austin Ice Bats, USHL)..." autocomplete="off">
+          <button type="submit" class="search-submit-btn">Search</button>
+        </form>
+        <div class="hero-quick-links">
+          <span>Quick links:</span>
+          <a href="database.html?q=Austin+Ice+Bats">🦇 Austin Ice Bats</a>
+          <a href="database.html?q=Michigan">🎓 NCAA D1</a>
+          <a href="database.html?position=GC">🧤 Goalie Crease</a>
+          <a href="database.html">📂 Full Directory &rarr;</a>
         </div>
       </div>
 
-      <!-- Main Dual-Column Hero Grid -->
-      <div class="hero-main-grid">
-        
-        <!-- Left Column: Commanding Positioning, Fast Universal Search, 4-Role Matrix, & CTAs -->
-        <div class="hero-text-col">
-          <h1 class="hero-main-title">
-            Enterprise Hockey Intelligence.
-            <span class="hero-highlight">From Early Junior to the NHL Draft.</span>
-          </h1>
-          
-          <p class="hero-lead-desc">
-            DraftLineup.com tracks athletes across their entire competitive lifecycle. Powered by micro-KPI puck telemetry, 8-pillar biometric combines, and predictive NCAA/NHL draft modeling trusted by scouts, coaches, and organizations worldwide.
-          </p>
-
-          <!-- Fast Live Universal Search Bar -->
-          <div class="hero-search-wrapper">
-            <form action="database.html" method="GET" class="hero-search-bar" onsubmit="return handleHeroSearchSubmit(event)">
-              <span class="search-icon">🔍</span>
-              <input type="text" name="q" id="heroSearchInput" placeholder="Search 30,000+ athletes, teams, colleges (e.g. Celebrini, Denver, Austin Ice Bats, USHL)..." autocomplete="off">
-              <button type="submit" class="search-submit-btn">Search Directory &rarr;</button>
-            </form>
-            
-            <!-- Quick Search Trending Tags -->
-            <div class="hero-trending-tags">
-              <span style="color:#94a3b8; font-weight:700;">Trending:</span>
-              <a href="database.html?q=Austin+Ice+Bats" class="trending-pill">🦇 Austin Ice Bats</a>
-              <a href="database.html?q=Connor+Bedard" class="trending-pill">⚡ Connor Bedard</a>
-              <a href="database.html?q=Michigan" class="trending-pill">🎓 NCAA D1</a>
-              <a href="database.html?position=GC" class="trending-pill">🧤 Goalie Crease</a>
-              <a href="database.html?league=USHL" class="trending-pill">🏒 USHL</a>
-            </div>
-          </div>
-
-          <!-- 4-Role Enterprise Matrix Cards with Transparent Pricing -->
-          <div class="hero-role-matrix">
-            <a href="app.html?role=athlete" class="hero-role-card role-athlete" title="Launch Player OS Dashboard">
-              <div class="role-icon" style="color: #38bdf8;">⚡</div>
-              <div class="role-info">
-                <span class="role-name">Player OS</span>
-                <span class="role-meta">Personal Passport &bull; $4.99/mo</span>
-              </div>
-            </a>
-            <a href="parent.html" class="hero-role-card role-parent" title="Launch Family Oversight Portal">
-              <div class="role-icon" style="color: #f43f5e;">🛡️</div>
-              <div class="role-info">
-                <span class="role-name">Parent Portal</span>
-                <span class="role-meta">Family Oversight &bull; $4.99/mo</span>
-              </div>
-            </a>
-            <a href="coach.html" class="hero-role-card role-coach" title="Launch Coach Desk PRO">
-              <div class="role-icon" style="color: #818cf8;">📋</div>
-              <div class="role-info">
-                <span class="role-name">Coach Desk</span>
-                <span class="role-meta">Film & Chemistry &bull; $22.99/mo</span>
-              </div>
-            </a>
-            <a href="scout.html" onclick="return handleScoutDeskNav(event)" class="hero-role-card role-scout" title="Launch Lead Scout Desk PRO">
-              <div class="role-icon" style="color: #fbbf24;">🔭</div>
-              <div class="role-info">
-                <span class="role-name">Lead Scout Desk</span>
-                <span class="role-meta">All 22 Modules &bull; $22.99/mo</span>
-              </div>
-            </a>
-          </div>
-
-          <!-- Primary Action CTA Row -->
-          <div class="hero-action-row">
-            <a href="database.html" class="hero-btn-primary">
-              <span>📊 Open Master Directory (30,000+)</span>
-            </a>
-            <a href="scout.html" onclick="return handleScoutDeskNav(event)" class="hero-btn-secondary">
-              <span>🔭 Launch Scout Desk PRO</span>
-            </a>
-            <button type="button" class="hero-btn-ghost" onclick="openHomePaymentModal('scout')">
-              <span>💳 Subscribe & Pay</span>
-            </button>
-          </div>
-
-        </div>
-
-        <!-- Right Column: Live Software Interface / Athlete Intelligence Console Mockup -->
-        <div class="hero-preview-col">
-          <div class="hero-terminal-window">
-            
-            <!-- Terminal Titlebar -->
-            <div class="terminal-titlebar">
-              <div class="terminal-dots">
-                <span class="dot red"></span>
-                <span class="dot yellow"></span>
-                <span class="dot green"></span>
-              </div>
-              <div class="terminal-title">
-                <span>DRAFTLINEUP VAULT &bull; VERIFIED DOSSIER</span>
-              </div>
-              <div class="terminal-status">
-                <span>● REAL-TIME</span>
-              </div>
-            </div>
-
-            <!-- Terminal Body -->
-            <div class="terminal-body">
-              
-              <!-- Athlete Header Card -->
-              <div class="terminal-athlete-header">
-                <div class="athlete-avatar-badge" style="background: linear-gradient(135deg, #0284c7, #1e1b4b);">
-                  #9
-                </div>
-                <div class="athlete-header-details">
-                  <div class="athlete-name-row">
-                    <h3 class="athlete-name">Arys Perardi</h3>
-                    <span class="verified-pill">✓ VERIFIED DOSSIER</span>
-                  </div>
-                  <div class="athlete-meta-sub">
-                    <span>RW &bull; Austin Ice Bats &bull; NA3HL Tier III</span>
-                  </div>
-                  <div class="athlete-tender-tag">
-                    <span>🦇 NAHL Tender &bull; Corpus Christi IceRays</span>
-                  </div>
-                </div>
-                
-                <!-- Trajectory Score Pill -->
-                <div class="athlete-score-box">
-                  <span class="score-label">TRAJECTORY</span>
-                  <span class="score-number">89.2</span>
-                  <span class="score-ceiling">NCAA D1 / USHL</span>
-                </div>
-              </div>
-
-              <!-- Telemetry KPI 4-Grid -->
-              <div class="terminal-kpi-grid">
-                <div class="terminal-kpi-chip">
-                  <span class="kpi-tag">EXPECTED GOALS (xG)</span>
-                  <span class="kpi-stat" style="color: #38bdf8;">+18.9 Diff</span>
-                  <span class="kpi-sub">94th percentile pace</span>
-                </div>
-                <div class="terminal-kpi-chip">
-                  <span class="kpi-tag">CONTROLLED ENTRIES</span>
-                  <span class="kpi-stat" style="color: #10b981;">71.2% Rate</span>
-                  <span class="kpi-sub">Neutral-zone transition</span>
-                </div>
-                <div class="terminal-kpi-chip">
-                  <span class="kpi-tag">HIGH DANGER SHOTS</span>
-                  <span class="kpi-stat" style="color: #fbbf24;">64.5% Danger</span>
-                  <span class="kpi-sub">Inner-slot shot share</span>
-                </div>
-                <div class="terminal-kpi-chip">
-                  <span class="kpi-tag">30M FLYING SPRINT</span>
-                  <span class="kpi-stat" style="color: #a855f7;">3.62s Laser</span>
-                  <span class="kpi-sub">Optical combine timing</span>
-                </div>
-              </div>
-
-              <!-- Career Advancement Trajectory Probabilities -->
-              <div class="terminal-probabilities-card">
-                <div class="prob-header">
-                  <span class="prob-title">AI ADVANCEMENT TRAJECTORY</span>
-                  <span class="prob-watermark">VAULT PROTECTED</span>
-                </div>
-                <div class="prob-bars">
-                  <div class="prob-row">
-                    <div class="prob-labels">
-                      <span>🎓 NCAA Division I</span>
-                      <span class="prob-val" style="color: #38bdf8;">88%</span>
-                    </div>
-                    <div class="prob-track">
-                      <div class="prob-fill" style="width: 88%; background: linear-gradient(90deg, #38bdf8, #0284c7);"></div>
-                    </div>
-                  </div>
-                  <div class="prob-row">
-                    <div class="prob-labels">
-                      <span>⚡ USHL Tier 1 Junior</span>
-                      <span class="prob-val" style="color: #f59e0b;">92%</span>
-                    </div>
-                    <div class="prob-track">
-                      <div class="prob-fill" style="width: 92%; background: linear-gradient(90deg, #f59e0b, #d97706);"></div>
-                    </div>
-                  </div>
-                  <div class="prob-row">
-                    <div class="prob-labels">
-                      <span>🏒 NAHL / BCHL Tier 2</span>
-                      <span class="prob-val" style="color: #10b981;">98%</span>
-                    </div>
-                    <div class="prob-track">
-                      <div class="prob-fill" style="width: 98%; background: linear-gradient(90deg, #10b981, #059669);"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Security & Provenance Footer -->
-              <div class="terminal-footer">
-                <div class="vault-stamp">
-                  <span>🔒 Proof-of-Work Guarded &bull; Single-Dossier Pacing &bull; COPPA Verified</span>
-                </div>
-                <a href="player.html?id=aib_p02" class="terminal-inspect-btn">
-                  <span>Inspect Full Passport &rarr;</span>
-                </a>
-              </div>
-
-            </div>
-          </div>
-        </div>
-
+      <!-- Primary Action Buttons -->
+      <div class="hero-buttons">
+        <a href="#pricing-plans" class="hero-btn-primary">
+          <span>⚡ View Role Tiers &amp; Pricing</span>
+        </a>
+        <a href="database.html" class="hero-btn-secondary">
+          <span>📊 Browse 30,000+ Athletes</span>
+        </a>
+        <a href="scout.html" onclick="return handleScoutDeskNav(event)" class="hero-btn-secondary">
+          <span>🔭 Launch Scout Desk</span>
+        </a>
       </div>
 
-      <!-- Live Institutional Proof Bar (5 Enterprise Stats) -->
-      <div class="hero-stats-bar">
-        <div class="stat-item">
-          <span class="stat-number">30,000+</span>
-          <span class="stat-title">Tracked Athletes</span>
-          <span class="stat-desc">Tier III to NHL Pro</span>
+      <!-- Clean 4-Metric Trust Strip -->
+      <div class="hero-minimal-stats">
+        <div class="minimal-stat-item">
+          <span class="minimal-stat-val">30,000+</span>
+          <span class="minimal-stat-lbl">Tracked Athletes</span>
         </div>
-        <div class="stat-item">
-          <span class="stat-number">190+</span>
-          <span class="stat-title">Colleges &amp; Preps</span>
-          <span class="stat-desc">NCAA D1/D3, High Schools</span>
+        <div class="minimal-stat-item">
+          <span class="minimal-stat-val">500+</span>
+          <span class="minimal-stat-lbl">Colleges &amp; Clubs</span>
         </div>
-        <div class="stat-item">
-          <span class="stat-number">32</span>
-          <span class="stat-title">NHL Draft Pipelines</span>
-          <span class="stat-desc">Pro scouting models</span>
+        <div class="minimal-stat-item">
+          <span class="minimal-stat-val">32</span>
+          <span class="minimal-stat-lbl">NHL Draft Pipelines</span>
         </div>
-        <div class="stat-item">
-          <span class="stat-number">300+</span>
-          <span class="stat-title">Overseas Pro Clubs</span>
-          <span class="stat-desc">SHL, Liiga, DEL &amp; NL</span>
-        </div>
-        <div class="stat-item">
-          <span class="stat-number">22</span>
-          <span class="stat-title">Integrated Modules</span>
-          <span class="stat-desc">Combine, Video &amp; Telemetry</span>
-        </div>
-      </div>
-
-      <!-- Canonical Leagues Coverage Marquee -->
-      <div class="hero-leagues-marquee">
-        <span class="leagues-label">COVERING CANONICAL LEAGUES:</span>
-        <div class="leagues-badges">
-          <span class="league-pill">NHL</span>
-          <span class="league-pill">AHL</span>
-          <span class="league-pill">NCAA DIVISION I</span>
-          <span class="league-pill">USHL</span>
-          <span class="league-pill">CHL (OHL / WHL / QMJHL)</span>
-          <span class="league-pill">NAHL</span>
-          <span class="league-pill">NA3HL (AUSTIN ICE BATS)</span>
-          <span class="league-pill">SHL / LIIGA</span>
-          <span class="league-pill">PREP ACADEMIES</span>
+        <div class="minimal-stat-item">
+          <span class="minimal-stat-val">22</span>
+          <span class="minimal-stat-lbl">Platform Modules</span>
         </div>
       </div>
 
     </div>
   </header>
+
   <!-- Anti-Scraping Honeytoken Canary Trap (Terms of Service § 5 & Bastion-Charlie Enforcement) -->
   <div aria-hidden="true" style="position: absolute; left: -9999px; top: -9999px; width: 0; height: 0; opacity: 0; pointer-events: none; overflow: hidden;" tabindex="-1">
     <a href="player.html?id=dl_canary_honeytoken_77" rel="nofollow" tabindex="-1">Canary Athlete Dossier Record</a>
   </div>
 
+  <!-- =========================================================================
+       CLEAN 4-TIER ROLE PLANS WITH INTERACTIVE FEATURE DROPDOWNS
+       ========================================================================= -->
+  <section id="pricing-plans" class="clean-tiers-section">
+    <div id="role-features"></div>
+    <div class="clean-section-header">
+      <span class="clean-section-tag">PLATFORM TIERS BY ROLE</span>
+      <h2 class="clean-section-title">Simple, Transparent Plans</h2>
+      <p class="clean-section-subtitle">
+        Choose your role below. Click <strong>"View Tier Details"</strong> on any card to expand its full list of features and modules.
+      </p>
 
-  
+      <!-- Monthly vs Annual Billing Toggle -->
+      <div class="billing-toggle-container" style="margin-top: 1rem;">
+        <button type="button" class="billing-toggle-btn active" id="billingBtnMonthly" onclick="toggleBillingCycle('monthly')">
+          Monthly Billing
+        </button>
+        <button type="button" class="billing-toggle-btn" id="billingBtnAnnual" onclick="toggleBillingCycle('annual')">
+          Annual Billing <span class="billing-save-badge">Save 20%</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- 4 CLEAN ROLE TIER CARDS WITH COLLAPSIBLE DROPDOWNS -->
+    <div class="clean-tiers-grid" id="roleCardsGrid">
+
+      <!-- 1. PLAYER OS ($4.99/mo) -->
+      <div class="tier-clean-card role-feature-card" id="card-athlete">
+        <div class="tier-card-top">
+          <span class="tier-role-badge">Athlete Passport</span>
+          <span class="tier-icon">⚡</span>
+        </div>
+        <h3 class="tier-name">Player OS</h3>
+        <p class="tier-audience">Minor, Junior, Prep &amp; NCAA Players</p>
+        <div class="tier-price-row">
+          <span class="pricing-currency">$</span><span class="pricing-amount">4.99</span><span class="pricing-period">/ month</span>
+        </div>
+        <p class="tier-short-desc">
+          Log your stats, earn XP, unlock skill nodes, and maintain a verified digital recruiting passport.
+        </p>
+        <div class="tier-cta-group card-action">
+          <button type="button" class="tier-subscribe-btn" onclick="openHomePaymentModal('athlete')">💳 Subscribe ($4.99/mo)</button>
+          <a href="app.html?role=athlete" class="tier-portal-link">Open Player Dashboard &rarr;</a>
+        </div>
+        <button type="button" class="tier-dropdown-toggle" onclick="toggleTierDropdown('dropdown-athlete', this)" aria-expanded="false">
+          <span>View Tier Details &amp; Features</span>
+          <span class="chevron-icon">▾</span>
+        </button>
+        <div id="dropdown-athlete" class="tier-dropdown-panel">
+          <div class="tier-dropdown-cat">⚡ Performance &amp; Gamification</div>
+          <ul class="tier-dropdown-list">
+            <li><span class="check">✓</span> <span><strong>Personal Stats Radar:</strong> Real-time ratings for Skating, Shooting, Passing, Defense &amp; IQ.</span></li>
+            <li><span class="check">✓</span> <span><strong>XP &amp; 10-Tier Mastery:</strong> Climb from Tier 1 to Tier 10 with daily position missions.</span></li>
+            <li><span class="check">✓</span> <span><strong>Dynamic Skill Tree:</strong> Unlock masteries for edge work, quick release &amp; gap control.</span></li>
+          </ul>
+          <div class="tier-dropdown-cat">🛣️ Pathways &amp; The Wire</div>
+          <ul class="tier-dropdown-list">
+            <li><span class="check">✓</span> <span><strong>5-Stage Career Ladder:</strong> Track progression from Youth/AAA to Junior, NCAA &amp; Pro.</span></li>
+            <li><span class="check">✓</span> <span><strong>30,000+ Directory &amp; Compare Lab:</strong> 8-axis head-to-head radar comparisons.</span></li>
+            <li><span class="check">✓</span> <span><strong>The Wire &amp; Direct DMs:</strong> Public highlight profile, crest stamper &amp; coach messaging.</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 2. PARENT PORTAL ($4.99/mo) -->
+      <div class="tier-clean-card role-feature-card" id="card-parent">
+        <div class="tier-card-top">
+          <span class="tier-role-badge">Family Oversight</span>
+          <span class="tier-icon">🛡️</span>
+        </div>
+        <h3 class="tier-name">Parent Portal</h3>
+        <p class="tier-audience">Hockey Parents, Guardians &amp; Families</p>
+        <div class="tier-price-row">
+          <span class="pricing-currency">$</span><span class="pricing-amount">4.99</span><span class="pricing-period">/ month</span>
+        </div>
+        <p class="tier-short-desc">
+          Track your child's development in plain English, monitor milestones, and communicate safely with verified staff.
+        </p>
+        <div class="tier-cta-group card-action">
+          <button type="button" class="tier-subscribe-btn" onclick="openHomePaymentModal('parent')">💳 Subscribe ($4.99/mo)</button>
+          <a href="parent.html" class="tier-portal-link">Open Parent Portal &rarr;</a>
+        </div>
+        <button type="button" class="tier-dropdown-toggle" onclick="toggleTierDropdown('dropdown-parent', this)" aria-expanded="false">
+          <span>View Tier Details &amp; Features</span>
+          <span class="chevron-icon">▾</span>
+        </button>
+        <div id="dropdown-parent" class="tier-dropdown-panel">
+          <div class="tier-dropdown-cat">📈 Development &amp; Clarity</div>
+          <ul class="tier-dropdown-list">
+            <li><span class="check">✓</span> <span><strong>Milestone Timeline:</strong> Visual tracking of skill improvements and tier promotions.</span></li>
+            <li><span class="check">✓</span> <span><strong>Plain-English Insights:</strong> Clear coaching priorities without confusing jargon.</span></li>
+            <li><span class="check">✓</span> <span><strong>Age-Cohort Benchmarks:</strong> Compare progression against historical age-group percentiles.</span></li>
+          </ul>
+          <div class="tier-dropdown-cat">🛡️ Guidance &amp; Safe Comms</div>
+          <ul class="tier-dropdown-list">
+            <li><span class="check">✓</span> <span><strong>NCAA &amp; Prep Roadmap:</strong> Academic eligibility rules, junior options &amp; timelines.</span></li>
+            <li><span class="check">✓</span> <span><strong>The Wire &amp; Monitored DMs:</strong> Safe messaging channel with verified coaches and scouts.</span></li>
+            <li><span class="check">✓</span> <span><strong>Family Account Control:</strong> Manage subscriptions and privacy settings in one click.</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 3. COACH DESK PRO ($22.99/mo) -->
+      <div class="tier-clean-card tier-pro role-feature-card" id="card-coach">
+        <div class="tier-card-top">
+          <span class="tier-role-badge">★ All 22 Modules</span>
+          <span class="tier-icon">📋</span>
+        </div>
+        <h3 class="tier-name">Coach Desk PRO</h3>
+        <p class="tier-audience">Head Coaches, Assistants &amp; Video Staff</p>
+        <div class="tier-price-row">
+          <span class="pricing-currency">$</span><span class="pricing-amount">22.99</span><span class="pricing-period">/ month</span>
+        </div>
+        <p class="tier-short-desc">
+          Unrestricted access to AI lineup chemistry, video telestration, 3D tactical rink, and team analytics.
+        </p>
+        <div class="tier-cta-group card-action">
+          <button type="button" class="tier-subscribe-btn" onclick="openHomePaymentModal('coach')">💳 Subscribe ($22.99/mo)</button>
+          <a href="coach.html" class="tier-portal-link">Open Coach Desk &rarr;</a>
+        </div>
+        <button type="button" class="tier-dropdown-toggle" onclick="toggleTierDropdown('dropdown-coach', this)" aria-expanded="false">
+          <span>View Tier Details &amp; Features</span>
+          <span class="chevron-icon">▾</span>
+        </button>
+        <div id="dropdown-coach" class="tier-dropdown-panel">
+          <div class="tier-dropdown-cat">📋 Tactics &amp; Bench Suite</div>
+          <ul class="tier-dropdown-list">
+            <li><span class="check">✓</span> <span><strong>AI Lineup Optimizer:</strong> 5v5, PP, and PK line chemistry and xGF% simulations.</span></li>
+            <li><span class="check">✓</span> <span><strong>3D Virtual Rink &amp; Playbook:</strong> Interactive forechecks (1-2-2, 2-1-2) and WebGL rink.</span></li>
+            <li><span class="check">✓</span> <span><strong>AI Film Studio:</strong> Video telestration, spotlight cones, and clip tagging.</span></li>
+          </ul>
+          <div class="tier-dropdown-cat">🔬 Labs, Tournaments &amp; Wire</div>
+          <ul class="tier-dropdown-list">
+            <li><span class="check">✓</span> <span><strong>Microstat &amp; Crease Labs:</strong> Royal Road passing metrics, GSAx &amp; goalie geometry.</span></li>
+            <li><span class="check">✓</span> <span><strong>Combine &amp; Bracketology:</strong> Team conditioning benchmarks &amp; tournament war rooms.</span></li>
+            <li><span class="check">✓</span> <span><strong>Full Directory &amp; The Wire:</strong> All 30,000+ dossiers, verified coach badge &amp; direct DMs.</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 4. LEAD SCOUT DESK PRO ($22.99/mo) -->
+      <div class="tier-clean-card tier-pro role-feature-card" id="card-scout">
+        <div class="tier-card-top">
+          <span class="tier-role-badge">★ All 22 Modules</span>
+          <span class="tier-icon">🔭</span>
+        </div>
+        <h3 class="tier-name">Lead Scout Desk</h3>
+        <p class="tier-audience">NHL, NCAA &amp; Junior Scouts &amp; GMs</p>
+        <div class="tier-price-row">
+          <span class="pricing-currency">$</span><span class="pricing-amount">22.99</span><span class="pricing-period">/ month</span>
+        </div>
+        <p class="tier-short-desc">
+          Full recruiting operating system with live micro-telemetry logging, combine biometrics, and draft war rooms.
+        </p>
+        <div class="tier-cta-group card-action">
+          <button type="button" class="tier-subscribe-btn" onclick="openHomePaymentModal('scout')">💳 Subscribe ($22.99/mo)</button>
+          <a href="scout.html" onclick="return handleScoutDeskNav(event)" class="tier-portal-link">Open Scout Desk &rarr;</a>
+        </div>
+        <button type="button" class="tier-dropdown-toggle" onclick="toggleTierDropdown('dropdown-scout', this)" aria-expanded="false">
+          <span>View Tier Details &amp; Features</span>
+          <span class="chevron-icon">▾</span>
+        </button>
+        <div id="dropdown-scout" class="tier-dropdown-panel">
+          <div class="tier-dropdown-cat">🔭 Live Scouting &amp; Telemetry</div>
+          <ul class="tier-dropdown-list">
+            <li><span class="check">✓</span> <span><strong>Lead Scout Workspace:</strong> Live micro-telemetry logger for shots, passes &amp; wall battles.</span></li>
+            <li><span class="check">✓</span> <span><strong>AI Trajectory Engine:</strong> Dynamic NCAA/NHL progression probabilities &amp; hash ledger.</span></li>
+            <li><span class="check">✓</span> <span><strong>1-Click Dossier Export:</strong> Instant CSV, PDF &amp; JSON exports across 30,000+ athletes.</span></li>
+          </ul>
+          <div class="tier-dropdown-cat">🎯 Draft, Portal &amp; Front Office</div>
+          <ul class="tier-dropdown-list">
+            <li><span class="check">✓</span> <span><strong>Recruiting Pipeline CRM:</strong> Track Watchlist &rarr; Visit &rarr; Offer &rarr; Committed.</span></li>
+            <li><span class="check">✓</span> <span><strong>7-Round Draft &amp; NIL Portal:</strong> Monte Carlo draft war room &amp; NCAA transfer valuations.</span></li>
+            <li><span class="check">✓</span> <span><strong>Trade Desk, Cap Lab &amp; Wire:</strong> Multi-team trade simulator, salary cap lab &amp; scout DMs.</span></li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Collapsible Dropdown 1: All 22 Platform Modules Directory -->
+    <details class="clean-accordion" id="modules-catalog">
+      <summary>
+        <span>🚀 Browse All 22 Platform Modules &amp; Direct Links</span>
+        <span style="color: #38bdf8; font-size: 0.8rem;">Click to Expand ▾</span>
+      </summary>
+      <div class="clean-accordion-body">
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 0.75rem;">
+          <a href="app.html" class="module-tile-card" data-mod="app" data-roles="scout,coach,athlete,parent" style="padding: 0.75rem; border-radius: 10px; background: rgba(15,23,42,0.8); border: 1px solid rgba(255,255,255,0.07); text-decoration: none; color: #f8fafc; display: flex; align-items: center; gap: 0.65rem;">
+            <span>⚡</span> <div><div class="module-tile-name" style="font-weight: 700; font-size: 0.85rem;">Athlete Command</div><div style="font-size: 0.72rem; color: #94a3b8;">Personal Stats &amp; XP</div></div>
+          </a>
+          <a href="database.html" class="module-tile-card" data-mod="database" data-roles="scout,coach,athlete,parent" style="padding: 0.75rem; border-radius: 10px; background: rgba(15,23,42,0.8); border: 1px solid rgba(255,255,255,0.07); text-decoration: none; color: #f8fafc; display: flex; align-items: center; gap: 0.65rem;">
+            <span>📊</span> <div><div class="module-tile-name" style="font-weight: 700; font-size: 0.85rem;">Master Directory</div><div style="font-size: 0.72rem; color: #94a3b8;">30,000+ Athlete Profiles</div></div>
+          </a>
+          <a href="scout.html" onclick="return handleScoutDeskNav(event)" class="module-tile-card" data-mod="scout" data-roles="scout" style="padding: 0.75rem; border-radius: 10px; background: rgba(15,23,42,0.8); border: 1px solid rgba(255,255,255,0.07); text-decoration: none; color: #f8fafc; display: flex; align-items: center; gap: 0.65rem;">
+            <span>🔭</span> <div><div class="module-tile-name" style="font-weight: 700; font-size: 0.85rem;">Scout Workspace</div><div style="font-size: 0.72rem; color: #94a3b8;">Live Telemetry Logger</div></div>
+          </a>
+          <a href="coach.html" class="module-tile-card" data-mod="coach" data-roles="scout,coach" style="padding: 0.75rem; border-radius: 10px; background: rgba(15,23,42,0.8); border: 1px solid rgba(255,255,255,0.07); text-decoration: none; color: #f8fafc; display: flex; align-items: center; gap: 0.65rem;">
+            <span>📋</span> <div><div class="module-tile-name" style="font-weight: 700; font-size: 0.85rem;">Coach Desk</div><div style="font-size: 0.72rem; color: #94a3b8;">Bench &amp; Roster Suite</div></div>
+          </a>
+          <a href="parent.html" class="module-tile-card" data-mod="parent" data-roles="scout,coach,parent" style="padding: 0.75rem; border-radius: 10px; background: rgba(15,23,42,0.8); border: 1px solid rgba(255,255,255,0.07); text-decoration: none; color: #f8fafc; display: flex; align-items: center; gap: 0.65rem;">
+            <span>🛡️</span> <div><div class="module-tile-name" style="font-weight: 700; font-size: 0.85rem;">Parent Portal</div><div style="font-size: 0.72rem; color: #94a3b8;">Family Oversight</div></div>
+          </a>
+          <a href="community.html" class="module-tile-card" data-mod="community" data-roles="scout,coach,athlete,parent" style="padding: 0.75rem; border-radius: 10px; background: rgba(15,23,42,0.8); border: 1px solid rgba(255,255,255,0.07); text-decoration: none; color: #f8fafc; display: flex; align-items: center; gap: 0.65rem;">
+            <span>🌐</span> <div><div class="module-tile-name" style="font-weight: 700; font-size: 0.85rem;">The Wire</div><div style="font-size: 0.72rem; color: #94a3b8;">Social Feed &amp; Direct DMs</div></div>
+          </a>
+          <a href="combine.html" class="module-tile-card" data-mod="combine" data-roles="scout,coach" style="padding: 0.75rem; border-radius: 10px; background: rgba(15,23,42,0.8); border: 1px solid rgba(255,255,255,0.07); text-decoration: none; color: #f8fafc; display: flex; align-items: center; gap: 0.65rem;">
+            <span>🧬</span> <div><div class="module-tile-name" style="font-weight: 700; font-size: 0.85rem;">Combine Lab</div><div style="font-size: 0.72rem; color: #94a3b8;">Biometrics &amp; Wingate</div></div>
+          </a>
+          <a href="compare.html" class="module-tile-card" data-mod="compare" data-roles="scout,coach,athlete,parent" style="padding: 0.75rem; border-radius: 10px; background: rgba(15,23,42,0.8); border: 1px solid rgba(255,255,255,0.07); text-decoration: none; color: #f8fafc; display: flex; align-items: center; gap: 0.65rem;">
+            <span>⚖️</span> <div><div class="module-tile-name" style="font-weight: 700; font-size: 0.85rem;">Compare Lab</div><div style="font-size: 0.72rem; color: #94a3b8;">8-Axis Radar Overlay</div></div>
+          </a>
+          <a href="pathway.html" class="module-tile-card" data-mod="pathway" data-roles="scout,coach,athlete,parent" style="padding: 0.75rem; border-radius: 10px; background: rgba(15,23,42,0.8); border: 1px solid rgba(255,255,255,0.07); text-decoration: none; color: #f8fafc; display: flex; align-items: center; gap: 0.65rem;">
+            <span>🛣️</span> <div><div class="module-tile-name" style="font-weight: 700; font-size: 0.85rem;">Career Pathway</div><div style="font-size: 0.72rem; color: #94a3b8;">5-Stage Career Ladder</div></div>
+          </a>
+          <a href="film.html" class="module-tile-card" data-mod="film" data-roles="scout,coach" style="padding: 0.75rem; border-radius: 10px; background: rgba(15,23,42,0.8); border: 1px solid rgba(255,255,255,0.07); text-decoration: none; color: #f8fafc; display: flex; align-items: center; gap: 0.65rem;">
+            <span>🎬</span> <div><div class="module-tile-name" style="font-weight: 700; font-size: 0.85rem;">AI Film Studio</div><div style="font-size: 0.72rem; color: #94a3b8;">Video Breakdown</div></div>
+          </a>
+          <a href="tactics.html" class="module-tile-card" data-mod="tactics" data-roles="scout,coach" style="padding: 0.75rem; border-radius: 10px; background: rgba(15,23,42,0.8); border: 1px solid rgba(255,255,255,0.07); text-decoration: none; color: #f8fafc; display: flex; align-items: center; gap: 0.65rem;">
+            <span>📋</span> <div><div class="module-tile-name" style="font-weight: 700; font-size: 0.85rem;">Tactics Lab</div><div style="font-size: 0.72rem; color: #94a3b8;">Lineup Chemistry</div></div>
+          </a>
+          <a href="crease.html" class="module-tile-card" data-mod="crease" data-roles="scout,coach" style="padding: 0.75rem; border-radius: 10px; background: rgba(15,23,42,0.8); border: 1px solid rgba(255,255,255,0.07); text-decoration: none; color: #f8fafc; display: flex; align-items: center; gap: 0.65rem;">
+            <span>🥅</span> <div><div class="module-tile-name" style="font-weight: 700; font-size: 0.85rem;">Crease Lab</div><div style="font-size: 0.72rem; color: #94a3b8;">Goalie Geometry &amp; GSAx</div></div>
+          </a>
+          <a href="tracking.html" class="module-tile-card" data-mod="tracking" data-roles="scout,coach" style="padding: 0.75rem; border-radius: 10px; background: rgba(15,23,42,0.8); border: 1px solid rgba(255,255,255,0.07); text-decoration: none; color: #f8fafc; display: flex; align-items: center; gap: 0.65rem;">
+            <span>🔬</span> <div><div class="module-tile-name" style="font-weight: 700; font-size: 0.85rem;">Microstat Studio</div><div style="font-size: 0.72rem; color: #94a3b8;">Spatial Passing Web</div></div>
+          </a>
+          <a href="rink3d.html" class="module-tile-card" data-mod="rink3d" data-roles="scout,coach,athlete,parent" style="padding: 0.75rem; border-radius: 10px; background: rgba(15,23,42,0.8); border: 1px solid rgba(255,255,255,0.07); text-decoration: none; color: #f8fafc; display: flex; align-items: center; gap: 0.65rem;">
+            <span>🧊</span> <div><div class="module-tile-name" style="font-weight: 700; font-size: 0.85rem;">3D Virtual Rink</div><div style="font-size: 0.72rem; color: #94a3b8;">WebGL Rink Sim</div></div>
+          </a>
+          <a href="draft.html" class="module-tile-card" data-mod="draft" data-roles="scout,coach" style="padding: 0.75rem; border-radius: 10px; background: rgba(15,23,42,0.8); border: 1px solid rgba(255,255,255,0.07); text-decoration: none; color: #f8fafc; display: flex; align-items: center; gap: 0.65rem;">
+            <span>🎯</span> <div><div class="module-tile-name" style="font-weight: 700; font-size: 0.85rem;">Draft Room</div><div style="font-size: 0.72rem; color: #94a3b8;">7-Round Mock Simulator</div></div>
+          </a>
+          <a href="portal.html" class="module-tile-card" data-mod="portal" data-roles="scout,coach" style="padding: 0.75rem; border-radius: 10px; background: rgba(15,23,42,0.8); border: 1px solid rgba(255,255,255,0.07); text-decoration: none; color: #f8fafc; display: flex; align-items: center; gap: 0.65rem;">
+            <span>⚡</span> <div><div class="module-tile-name" style="font-weight: 700; font-size: 0.85rem;">Portal &amp; NIL</div><div style="font-size: 0.72rem; color: #94a3b8;">NCAA Transfer Exchange</div></div>
+          </a>
+          <a href="market.html" class="module-tile-card" data-mod="market" data-roles="scout,coach" style="padding: 0.75rem; border-radius: 10px; background: rgba(15,23,42,0.8); border: 1px solid rgba(255,255,255,0.07); text-decoration: none; color: #f8fafc; display: flex; align-items: center; gap: 0.65rem;">
+            <span>💼</span> <div><div class="module-tile-name" style="font-weight: 700; font-size: 0.85rem;">Trade Desk</div><div style="font-size: 0.72rem; color: #94a3b8;">Multi-Team Trade Sim</div></div>
+          </a>
+          <a href="caplab.html" class="module-tile-card" data-mod="caplab" data-roles="scout,coach" style="padding: 0.75rem; border-radius: 10px; background: rgba(15,23,42,0.8); border: 1px solid rgba(255,255,255,0.07); text-decoration: none; color: #f8fafc; display: flex; align-items: center; gap: 0.65rem;">
+            <span>💵</span> <div><div class="module-tile-name" style="font-weight: 700; font-size: 0.85rem;">Cap Lab</div><div style="font-size: 0.72rem; color: #94a3b8;">Salary Cap &amp; LTIR</div></div>
+          </a>
+          <a href="tournament.html" class="module-tile-card" data-mod="tournament" data-roles="scout,coach" style="padding: 0.75rem; border-radius: 10px; background: rgba(15,23,42,0.8); border: 1px solid rgba(255,255,255,0.07); text-decoration: none; color: #f8fafc; display: flex; align-items: center; gap: 0.65rem;">
+            <span>🏆</span> <div><div class="module-tile-name" style="font-weight: 700; font-size: 0.85rem;">Tournaments</div><div style="font-size: 0.72rem; color: #94a3b8;">Bracketology War Room</div></div>
+          </a>
+          <a href="scoreboard.html" class="module-tile-card" data-mod="scoreboard" data-roles="scout,coach,athlete,parent" style="padding: 0.75rem; border-radius: 10px; background: rgba(15,23,42,0.8); border: 1px solid rgba(255,255,255,0.07); text-decoration: none; color: #f8fafc; display: flex; align-items: center; gap: 0.65rem;">
+            <span>📡</span> <div><div class="module-tile-name" style="font-weight: 700; font-size: 0.85rem;">Game Center</div><div style="font-size: 0.72rem; color: #94a3b8;">Live Multi-Game Feeds</div></div>
+          </a>
+          <a href="player.html" class="module-tile-card" data-mod="player" data-roles="scout,coach,athlete,parent" style="padding: 0.75rem; border-radius: 10px; background: rgba(15,23,42,0.8); border: 1px solid rgba(255,255,255,0.07); text-decoration: none; color: #f8fafc; display: flex; align-items: center; gap: 0.65rem;">
+            <span>👤</span> <div><div class="module-tile-name" style="font-weight: 700; font-size: 0.85rem;">Player Passport</div><div style="font-size: 0.72rem; color: #94a3b8;">Single-Athlete Dossier</div></div>
+          </a>
+          <a href="security.html" class="module-tile-card" data-mod="security" data-roles="scout,coach,athlete,parent" style="padding: 0.75rem; border-radius: 10px; background: rgba(15,23,42,0.8); border: 1px solid rgba(255,255,255,0.07); text-decoration: none; color: #f8fafc; display: flex; align-items: center; gap: 0.65rem;">
+            <span>🛡️</span> <div><div class="module-tile-name" style="font-weight: 700; font-size: 0.85rem;">Cyber Shield</div><div style="font-size: 0.72rem; color: #94a3b8;">Anti-Scrape &amp; RASP</div></div>
+          </a>
+        </div>
+      </div>
+    </details>
+
+    <!-- Collapsible Dropdown 2: Side-by-Side Feature Comparison Matrix -->
+    <details class="clean-accordion" id="featureMatrixTable">
+      <summary>
+        <span>📊 Compare All 4 Role Tiers Side-by-Side</span>
+        <span style="color: #38bdf8; font-size: 0.8rem;">Click to Expand ▾</span>
+      </summary>
+      <div class="clean-accordion-body">
+        <div class="matrix-table-wrapper overflow-x-auto">
+          <table class="platform-matrix-table">
+            <thead>
+              <tr>
+                <th class="matrix-th-feature">Capability / Module</th>
+                <th class="matrix-th-role">⚡ Player OS ($4.99)</th>
+                <th class="matrix-th-role">🛡️ Parent ($4.99)</th>
+                <th class="matrix-th-role highlight-pro">📋 Coach PRO ($22.99)</th>
+                <th class="matrix-th-role highlight-pro">🔭 Scout PRO ($22.99)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="feature-name"><strong>30,000+ Player Directory &amp; Career Pathways</strong></td>
+                <td class="status-cell standard-access"><span class="check-badge-light">✓ Included</span></td>
+                <td class="status-cell standard-access"><span class="check-badge-light">✓ Included</span></td>
+                <td class="status-cell pro-access"><span class="check-badge">✓ Full Access</span></td>
+                <td class="status-cell pro-access"><span class="check-badge">✓ Full Access</span></td>
+              </tr>
+              <tr>
+                <td class="feature-name"><strong>The Wire Social Network &amp; Direct Messaging</strong></td>
+                <td class="status-cell standard-access"><span class="check-badge-light">✓ Included</span></td>
+                <td class="status-cell standard-access"><span class="check-badge-light">✓ Included</span></td>
+                <td class="status-cell pro-access"><span class="check-badge">✓ Full Access</span></td>
+                <td class="status-cell pro-access"><span class="check-badge">✓ Full Access</span></td>
+              </tr>
+              <tr>
+                <td class="feature-name"><strong>Personal Stats Radar, XP &amp; 8-Axis Compare Lab</strong></td>
+                <td class="status-cell standard-access"><span class="check-badge-light">✓ Included</span></td>
+                <td class="status-cell standard-access"><span class="check-badge-light">✓ Included</span></td>
+                <td class="status-cell pro-access"><span class="check-badge">✓ Full Access</span></td>
+                <td class="status-cell pro-access"><span class="check-badge">✓ Full Access</span></td>
+              </tr>
+              <tr>
+                <td class="feature-name"><strong>Tactics Lab, AI Lineup Optimizer &amp; AI Film Studio</strong></td>
+                <td class="status-cell locked"><span class="lock-pill">🔒 Pro ($22.99)</span></td>
+                <td class="status-cell locked"><span class="lock-pill">🔒 Pro ($22.99)</span></td>
+                <td class="status-cell pro-access"><span class="check-badge">✓ Full Access</span></td>
+                <td class="status-cell pro-access"><span class="check-badge">✓ Full Access</span></td>
+              </tr>
+              <tr>
+                <td class="feature-name"><strong>Combine Lab, Crease Lab &amp; Microstat Studio</strong></td>
+                <td class="status-cell locked"><span class="lock-pill">🔒 Pro ($22.99)</span></td>
+                <td class="status-cell locked"><span class="lock-pill">🔒 Pro ($22.99)</span></td>
+                <td class="status-cell pro-access"><span class="check-badge">✓ Full Access</span></td>
+                <td class="status-cell pro-access"><span class="check-badge">✓ Full Access</span></td>
+              </tr>
+              <tr>
+                <td class="feature-name"><strong>Lead Scout Telemetry Desk, CRM &amp; 1-Click Export</strong></td>
+                <td class="status-cell locked"><span class="lock-pill">🔒 Pro ($22.99)</span></td>
+                <td class="status-cell locked"><span class="lock-pill">🔒 Pro ($22.99)</span></td>
+                <td class="status-cell pro-access"><span class="check-badge">✓ Full Access</span></td>
+                <td class="status-cell pro-access"><span class="check-badge">✓ Full Access</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </details>
+  </section>
 
   <!-- =========================================================================
-       ELITE PROSPECT SPOTLIGHT & SCOUTING SHOWCASE (HOME PAGE RADAR)
-       Top players show up first on home page: Austin Ice Bats + Premier Stars + GC Category
+       COMPACT FEATURED PROSPECTS SPOTLIGHT
        ========================================================================= -->
-  <section id="elite-showcase" class="elite-showcase-section">
+  <section id="elite-showcase" class="elite-showcase-section" style="padding: 2.5rem 1.5rem 3.5rem;">
     <div class="showcase-container">
       
-      <!-- Section Header -->
-      <div class="showcase-header">
-        <div style="display: flex; align-items: center; justify-content: center; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.4rem;">
-          <span class="showcase-badge-pill">SCOUTING RADAR • TIER III TO NHL</span>
-          <span class="showcase-badge-pill badge-highlight">AUSTIN ICE BATS &amp; PRO PROSPECTS</span>
-        </div>
-        <h2 class="showcase-title">
-          Premier Player Showcase &amp; Scouting Spotlight
-        </h2>
-        <p class="showcase-subtitle">
-          Real-time trajectory tracking across <strong>Tier III Junior (Austin Ice Bats)</strong>, <strong>NCAA Division I</strong>, <strong>USHL</strong>, and the <strong>NHL</strong>. Explore premier snipers, blue-line anchors, and our dedicated <strong>Goalie Crease (GC)</strong> netminder directory.
+      <div class="clean-section-header" style="margin-bottom: 1.5rem;">
+        <span class="clean-section-tag">SCOUTING SPOTLIGHT</span>
+        <h2 class="clean-section-title">Featured Athlete Dossiers</h2>
+        <p class="clean-section-subtitle">
+          Sample verified profiles across Tier III Junior (Austin Ice Bats), NCAA Division I, and NHL Draft prospects.
         </p>
       </div>
 
-      <!-- Category Filter Pills Bar (Dedicated Category for all the GC, Austin Ice Bats, etc.) -->
-      <div class="showcase-filter-bar">
+      <!-- Category Filter Pills Bar -->
+      <div class="showcase-filter-bar" style="margin-bottom: 1.25rem;">
         <button type="button" class="showcase-filter-pill active" data-cat="all" onclick="filterShowcaseCategory('all', this)">
-          <span>🌟</span> <span>All Top Prospects</span>
-          <span class="filter-count-chip" id="chipCountAll">12</span>
+          <span>🌟</span> <span>Featured</span>
         </button>
         <button type="button" class="showcase-filter-pill" data-cat="ice_bats" onclick="filterShowcaseCategory('ice_bats', this)">
-          <span>🦇</span> <span>Austin Ice Bats Spotlight</span>
-          <span class="filter-count-chip badge-icebats" id="chipCountIceBats">7</span>
+          <span>🦇</span> <span>Austin Ice Bats</span>
         </button>
         <button type="button" class="showcase-filter-pill pill-gc-highlight" data-cat="gc" onclick="filterShowcaseCategory('gc', this)">
-          <span>🧤</span> <span>GC (Goalie Crease / Netminders)</span>
-          <span class="filter-count-chip badge-gc" id="chipCountGC">4</span>
+          <span>🧤</span> <span>Goalie Crease (GC)</span>
         </button>
         <button type="button" class="showcase-filter-pill" data-cat="forward" onclick="filterShowcaseCategory('forward', this)">
-          <span>⚡</span> <span>Elite Forwards (F)</span>
+          <span>⚡</span> <span>Forwards</span>
         </button>
         <button type="button" class="showcase-filter-pill" data-cat="defense" onclick="filterShowcaseCategory('defense', this)">
-          <span>🛡️</span> <span>Blue-Line Defense (D)</span>
+          <span>🛡️</span> <span>Defense</span>
         </button>
         <button type="button" class="showcase-filter-pill" data-cat="pro_ncaa" onclick="filterShowcaseCategory('pro_ncaa', this)">
-          <span>🏆</span> <span>NHL &amp; NCAA Stars</span>
+          <span>🏆</span> <span>NHL &amp; NCAA</span>
         </button>
       </div>
 
-      <!-- Quick Category Context Notice for GC / Ice Bats -->
-      <div id="showcaseContextNotice" class="showcase-context-notice">
+      <div id="showcaseContextNotice" class="showcase-context-notice" style="margin-bottom: 1.25rem;">
         <div style="display: flex; align-items: center; gap: 0.5rem;">
-          <span style="color: #fbbf24; font-size: 1rem;">💡</span>
-          <span id="showcaseNoticeText">Showing top scout-ranked prospects: featuring elite talent from the Austin Ice Bats NA3HL franchise alongside premier NHL and NCAA D1 draft prospects.</span>
+          <span style="color: #38bdf8; font-size: 0.95rem;">ℹ️</span>
+          <span id="showcaseNoticeText">Showing featured prospects. Individual dossiers are protected by single-record Proof-of-Work pacing.</span>
         </div>
         <a href="database.html" style="color: #38bdf8; font-family: monospace; font-size: 0.75rem; text-decoration: underline; white-space: nowrap;">
-          Open 31,000+ Full Database &rarr;
+          Search All 30,000+ &rarr;
         </a>
       </div>
 
-      <!-- The Responsive Cards Grid -->
+      <!-- Compact 4-Card Spotlight Grid -->
       <div class="showcase-grid" id="showcaseGrid">
         
         <!-- 1. Arys Perardi (Austin Ice Bats - RW) -->
@@ -502,1805 +617,88 @@
               <div class="card-num-box" style="background: linear-gradient(135deg, #0284c7, #1e1b4b);">#9</div>
               <div style="min-width: 0;">
                 <h3 class="card-name-title">Arys Perardi <span style="color: #38bdf8; font-size: 0.75rem;" title="Verified Profile">✓</span></h3>
-                <div class="card-team-sub">Austin Ice Bats · NA3HL Tier III</div>
+                <div class="card-team-sub">Austin Ice Bats · NA3HL</div>
               </div>
             </div>
-            <span class="card-pos-badge badge-pos-f">RW · SNIPER</span>
+            <span class="card-pos-badge badge-pos-f">RW</span>
           </div>
-          <div class="card-honor-pill honor-icebats">
-            🦇 NAHL Tender · Corpus Christi IceRays
-          </div>
-          <div class="card-rating-row">
+          <div class="card-rating-row" style="margin-top: 0.5rem;">
             <span style="font-size: 0.65rem; color: #94a3b8; font-family: monospace; text-transform: uppercase;">Scout Composite</span>
-            <div style="display: flex; align-items: baseline; gap: 0.25rem;">
-              <span class="rating-score-val">89.2</span>
-              <span style="font-size: 0.65rem; color: #64748b; font-family: monospace;">/100</span>
-            </div>
+            <span class="rating-score-val">89.2</span>
           </div>
-          <div class="card-kpis-grid">
-            <div class="kpi-metric-chip">
-              <span class="kpi-label">xG DIFFERENTIAL</span>
-              <span class="kpi-value" style="color: #38bdf8;">+18.9 Diff</span>
-            </div>
-            <div class="kpi-metric-chip">
-              <span class="kpi-label">ZONE ENTRIES</span>
-              <span class="kpi-value">71.2% Controlled</span>
-            </div>
-            <div class="kpi-metric-chip">
-              <span class="kpi-label">HD SHOT SHARE</span>
-              <span class="kpi-value">64.5% Danger</span>
-            </div>
-            <div class="kpi-metric-chip">
-              <span class="kpi-label">30M SPRINT</span>
-              <span class="kpi-value">3.62s Laser</span>
-            </div>
-          </div>
-          <div class="card-actions-row">
-            <a href="scout.html?player=aib_p02" class="card-btn-action card-btn-primary">🔭 Scout Desk</a>
-            <a href="player.html?id=aib_p02" class="card-btn-action card-btn-secondary">⚡ Passport</a>
+          <div class="card-actions-row" style="margin-top: 0.75rem;">
+            <a href="player.html?id=aib_p02" class="card-btn-action card-btn-primary">⚡ Open Dossier</a>
+            <a href="scout.html?player=aib_p02" class="card-btn-action card-btn-secondary">🔭 Scout</a>
           </div>
         </div>
 
-        <!-- 2. Connor Bedard (Chicago Blackhawks - NHL) -->
-        <div class="showcase-player-card" data-categories="all pro_ncaa forward">
+        <!-- 2. Jacksonavinger (Austin Ice Bats - GC) -->
+        <div class="showcase-player-card is-gc" data-categories="all ice_bats gc">
           <div class="card-header-row">
             <div class="card-avatar-group">
-              <div class="card-num-box" style="background: linear-gradient(135deg, #dc2626, #78350f);">#98</div>
+              <div class="card-num-box" style="background: linear-gradient(135deg, #059669, #064e3b);">#35</div>
               <div style="min-width: 0;">
-                <h3 class="card-name-title">Connor Bedard <span style="color: #38bdf8; font-size: 0.75rem;" title="Verified Profile">✓</span></h3>
-                <div class="card-team-sub">Chicago Blackhawks · NHL</div>
+                <h3 class="card-name-title">Jacksonavinger <span style="color: #38bdf8; font-size: 0.75rem;" title="Verified Profile">✓</span></h3>
+                <div class="card-team-sub">Austin Ice Bats · NA3HL</div>
               </div>
             </div>
-            <span class="card-pos-badge badge-pos-f">C · FRANCHISE</span>
+            <span class="card-pos-badge badge-pos-gc">GC</span>
           </div>
-          <div class="card-honor-pill" style="background: rgba(220, 38, 38, 0.15); border-color: rgba(239, 68, 68, 0.35); color: #fca5a5;">
-            🏆 Calder Memorial Trophy · #1 Overall Pick
+          <div class="card-rating-row" style="margin-top: 0.5rem;">
+            <span style="font-size: 0.65rem; color: #94a3b8; font-family: monospace; text-transform: uppercase;">Goalie Composite</span>
+            <span class="rating-score-val" style="color: #34d399;">88.8</span>
           </div>
-          <div class="card-rating-row">
-            <span style="font-size: 0.65rem; color: #94a3b8; font-family: monospace; text-transform: uppercase;">Scout Composite</span>
-            <div style="display: flex; align-items: baseline; gap: 0.25rem;">
-              <span class="rating-score-val" style="color: #f59e0b;">99.5</span>
-              <span style="font-size: 0.65rem; color: #64748b; font-family: monospace;">/100</span>
-            </div>
-          </div>
-          <div class="card-kpis-grid">
-            <div class="kpi-metric-chip">
-              <span class="kpi-label">xG DIFFERENTIAL</span>
-              <span class="kpi-value" style="color: #38bdf8;">+28.4 Diff</span>
-            </div>
-            <div class="kpi-metric-chip">
-              <span class="kpi-label">SHOT RELEASE</span>
-              <span class="kpi-value">94.5 mph Quick</span>
-            </div>
-            <div class="kpi-metric-chip">
-              <span class="kpi-label">ZONE ENTRIES</span>
-              <span class="kpi-value">82.4% Carry</span>
-            </div>
-            <div class="kpi-metric-chip">
-              <span class="kpi-label">ROYAL ROAD</span>
-              <span class="kpi-value">6.8 Passes/60</span>
-            </div>
-          </div>
-          <div class="card-actions-row">
-            <a href="scout.html" class="card-btn-action card-btn-primary">🔭 Scout Desk</a>
-            <a href="database.html" class="card-btn-action card-btn-secondary">⚡ Passport</a>
+          <div class="card-actions-row" style="margin-top: 0.75rem;">
+            <a href="player.html?id=aib_p11" class="card-btn-action card-btn-primary">⚡ Open Dossier</a>
+            <a href="crease.html?player=aib_p11" class="card-btn-action card-btn-secondary">🥅 Crease</a>
           </div>
         </div>
 
-        <!-- 3. Gipton Benchowski (Austin Ice Bats - GC GOALIE CREASE) -->
-        <div class="showcase-player-card is-gc is-icebats" data-categories="all ice_bats gc">
+        <!-- 3. Macklin Celebrini (San Jose Sharks / BU - C) -->
+        <div class="showcase-player-card" data-categories="all forward pro_ncaa">
           <div class="card-header-row">
             <div class="card-avatar-group">
-              <div class="card-num-box" style="background: linear-gradient(135deg, #d97706, #0c4a6e);">#30</div>
-              <div style="min-width: 0;">
-                <h3 class="card-name-title">Gipton Benchowski <span style="color: #fbbf24; font-size: 0.75rem;" title="Verified Goalie Profile">🧤</span></h3>
-                <div class="card-team-sub">Austin Ice Bats · NA3HL Tier III</div>
-              </div>
-            </div>
-            <span class="card-pos-badge badge-pos-gc">🧤 GC CREASE</span>
-          </div>
-          <div class="card-honor-pill honor-gc">
-            🧤 Starter · +12.4 GSAx Goalie Crease Anchor
-          </div>
-          <div class="card-rating-row" style="background: rgba(30, 27, 75, 0.4); border-color: rgba(245, 158, 11, 0.2);">
-            <span style="font-size: 0.65rem; color: #fbbf24; font-family: monospace; text-transform: uppercase;">GC Goalie Score</span>
-            <div style="display: flex; align-items: baseline; gap: 0.25rem;">
-              <span class="rating-score-val" style="color: #fcd34d;">88.4</span>
-              <span style="font-size: 0.65rem; color: #94a3b8; font-family: monospace;">/100</span>
-            </div>
-          </div>
-          <div class="card-kpis-grid">
-            <div class="kpi-metric-chip kpi-gold">
-              <span class="kpi-label">GSAx (IMPACT)</span>
-              <span class="kpi-value" style="color: #fbbf24;">+12.4 Saved</span>
-            </div>
-            <div class="kpi-metric-chip kpi-gold">
-              <span class="kpi-label">SAVE PCT (SV%)</span>
-              <span class="kpi-value">.924 SV%</span>
-            </div>
-            <div class="kpi-metric-chip kpi-gold">
-              <span class="kpi-label">RVH POST SEAL</span>
-              <span class="kpi-value">92.5% Lock</span>
-            </div>
-            <div class="kpi-metric-chip kpi-gold">
-              <span class="kpi-label">GAA (AVG)</span>
-              <span class="kpi-value">2.21 Goals</span>
-            </div>
-          </div>
-          <div class="card-actions-row">
-            <a href="scout.html?player=aib_p33" class="card-btn-action card-btn-primary" style="background: rgba(245, 158, 11, 0.2); border-color: rgba(245, 158, 11, 0.4); color: #fde68a;">🔭 Crease Lab</a>
-            <a href="player.html?id=aib_p33" class="card-btn-action card-btn-secondary">⚡ Passport</a>
-          </div>
-        </div>
-
-        <!-- 4. Jack Hanson (Austin Ice Bats - F) -->
-        <div class="showcase-player-card is-icebats" data-categories="all ice_bats forward">
-          <div class="card-header-row">
-            <div class="card-avatar-group">
-              <div class="card-num-box" style="background: linear-gradient(135deg, #0369a1, #312e81);">#71</div>
-              <div style="min-width: 0;">
-                <h3 class="card-name-title">Jack Hanson <span style="color: #38bdf8; font-size: 0.75rem;" title="Verified Profile">✓</span></h3>
-                <div class="card-team-sub">Austin Ice Bats · NA3HL Tier III</div>
-              </div>
-            </div>
-            <span class="card-pos-badge badge-pos-f">F · PLAYMAKER</span>
-          </div>
-          <div class="card-honor-pill honor-icebats">
-            🦇 43-Point Team Scoring Leader · Power Play QB
-          </div>
-          <div class="card-rating-row">
-            <span style="font-size: 0.65rem; color: #94a3b8; font-family: monospace; text-transform: uppercase;">Scout Composite</span>
-            <div style="display: flex; align-items: baseline; gap: 0.25rem;">
-              <span class="rating-score-val">88.9</span>
-              <span style="font-size: 0.65rem; color: #64748b; font-family: monospace;">/100</span>
-            </div>
-          </div>
-          <div class="card-kpis-grid">
-            <div class="kpi-metric-chip">
-              <span class="kpi-label">SCORING PACE</span>
-              <span class="kpi-value" style="color: #38bdf8;">1.28 Pts/GP</span>
-            </div>
-            <div class="kpi-metric-chip">
-              <span class="kpi-label">xG DIFFERENTIAL</span>
-              <span class="kpi-value">+16.4 Diff</span>
-            </div>
-            <div class="kpi-metric-chip">
-              <span class="kpi-label">ZONE ENTRIES</span>
-              <span class="kpi-value">67.8% Carry</span>
-            </div>
-            <div class="kpi-metric-chip">
-              <span class="kpi-label">PRO AGILITY</span>
-              <span class="kpi-value">4.14s Shuttle</span>
-            </div>
-          </div>
-          <div class="card-actions-row">
-            <a href="scout.html?player=aib_p21" class="card-btn-action card-btn-primary">🔭 Scout Desk</a>
-            <a href="player.html?id=aib_p21" class="card-btn-action card-btn-secondary">⚡ Passport</a>
-          </div>
-        </div>
-
-        <!-- 5. Macklin Celebrini (San Jose Sharks / NCAA - C) -->
-        <div class="showcase-player-card" data-categories="all pro_ncaa forward">
-          <div class="card-header-row">
-            <div class="card-avatar-group">
-              <div class="card-num-box" style="background: linear-gradient(135deg, #0d9488, #075985);">#71</div>
+              <div class="card-num-box" style="background: linear-gradient(135deg, #0d9488, #115e59);">#71</div>
               <div style="min-width: 0;">
                 <h3 class="card-name-title">Macklin Celebrini <span style="color: #38bdf8; font-size: 0.75rem;" title="Verified Profile">✓</span></h3>
-                <div class="card-team-sub">San Jose Sharks · NHL / Boston Univ</div>
+                <div class="card-team-sub">San Jose Sharks · NHL / NCAA</div>
               </div>
             </div>
-            <span class="card-pos-badge badge-pos-f">C · TWO-WAY</span>
+            <span class="card-pos-badge badge-pos-f">C</span>
           </div>
-          <div class="card-honor-pill" style="background: rgba(13, 148, 136, 0.15); border-color: rgba(45, 212, 191, 0.35); color: #99f6e4;">
-            🏆 2024 NHL 1st Overall Pick · Hobey Baker Award
-          </div>
-          <div class="card-rating-row">
+          <div class="card-rating-row" style="margin-top: 0.5rem;">
             <span style="font-size: 0.65rem; color: #94a3b8; font-family: monospace; text-transform: uppercase;">Scout Composite</span>
-            <div style="display: flex; align-items: baseline; gap: 0.25rem;">
-              <span class="rating-score-val" style="color: #f59e0b;">99.4</span>
-              <span style="font-size: 0.65rem; color: #64748b; font-family: monospace;">/100</span>
-            </div>
+            <span class="rating-score-val" style="color: #38bdf8;">97.4</span>
           </div>
-          <div class="card-kpis-grid">
-            <div class="kpi-metric-chip">
-              <span class="kpi-label">xG DIFFERENTIAL</span>
-              <span class="kpi-value" style="color: #38bdf8;">+26.1 Diff</span>
-            </div>
-            <div class="kpi-metric-chip">
-              <span class="kpi-label">CONTROLLED ENTRIES</span>
-              <span class="kpi-value">79.8% Rate</span>
-            </div>
-            <div class="kpi-metric-chip">
-              <span class="kpi-label">HD SHOT SHARE</span>
-              <span class="kpi-value">68.2% Danger</span>
-            </div>
-            <div class="kpi-metric-chip">
-              <span class="kpi-label">NCAA PRODUCTION</span>
-              <span class="kpi-value">32G 32A 64P</span>
-            </div>
-          </div>
-          <div class="card-actions-row">
-            <a href="scout.html" class="card-btn-action card-btn-primary">🔭 Scout Desk</a>
-            <a href="database.html" class="card-btn-action card-btn-secondary">⚡ Passport</a>
+          <div class="card-actions-row" style="margin-top: 0.75rem;">
+            <a href="database.html?q=Macklin+Celebrini" class="card-btn-action card-btn-primary">⚡ Open Dossier</a>
+            <a href="compare.html" class="card-btn-action card-btn-secondary">⚖️ Compare</a>
           </div>
         </div>
 
-        <!-- 6. Trey Augustine (Michigan State / Detroit Red Wings - GC GOALIE CREASE) -->
-        <div class="showcase-player-card is-gc" data-categories="all pro_ncaa gc">
+        <!-- 4. Zeev Buium (Denver / Minnesota Wild - D) -->
+        <div class="showcase-player-card" data-categories="all defense pro_ncaa">
           <div class="card-header-row">
             <div class="card-avatar-group">
-              <div class="card-num-box" style="background: linear-gradient(135deg, #059669, #0f172a);">#1</div>
-              <div style="min-width: 0;">
-                <h3 class="card-name-title">Trey Augustine <span style="color: #fbbf24; font-size: 0.75rem;" title="Verified Profile">🧤</span></h3>
-                <div class="card-team-sub">Michigan State · NCAA D1 / Red Wings</div>
-              </div>
-            </div>
-            <span class="card-pos-badge badge-pos-gc">🧤 GC CREASE</span>
-          </div>
-          <div class="card-honor-pill honor-gc">
-            🧤 Detroit Red Wings (41st Pick) · World Juniors Gold
-          </div>
-          <div class="card-rating-row" style="background: rgba(30, 27, 75, 0.4); border-color: rgba(245, 158, 11, 0.2);">
-            <span style="font-size: 0.65rem; color: #fbbf24; font-family: monospace; text-transform: uppercase;">GC Goalie Score</span>
-            <div style="display: flex; align-items: baseline; gap: 0.25rem;">
-              <span class="rating-score-val" style="color: #fcd34d;">96.9</span>
-              <span style="font-size: 0.65rem; color: #94a3b8; font-family: monospace;">/100</span>
-            </div>
-          </div>
-          <div class="card-kpis-grid">
-            <div class="kpi-metric-chip kpi-gold">
-              <span class="kpi-label">GSAx (IMPACT)</span>
-              <span class="kpi-value" style="color: #fbbf24;">+18.2 Saved</span>
-            </div>
-            <div class="kpi-metric-chip kpi-gold">
-              <span class="kpi-label">SAVE PCT (SV%)</span>
-              <span class="kpi-value">.928 SV%</span>
-            </div>
-            <div class="kpi-metric-chip kpi-gold">
-              <span class="kpi-label">LD SAVE PCT</span>
-              <span class="kpi-value">94.2% Vacuum</span>
-            </div>
-            <div class="kpi-metric-chip kpi-gold">
-              <span class="kpi-label">GAA (AVG)</span>
-              <span class="kpi-value">2.08 Goals</span>
-            </div>
-          </div>
-          <div class="card-actions-row">
-            <a href="scout.html" class="card-btn-action card-btn-primary" style="background: rgba(245, 158, 11, 0.2); border-color: rgba(245, 158, 11, 0.4); color: #fde68a;">🔭 Crease Lab</a>
-            <a href="database.html" class="card-btn-action card-btn-secondary">⚡ Passport</a>
-          </div>
-        </div>
-
-        <!-- 7. Jake Bamback (Austin Ice Bats - F) -->
-        <div class="showcase-player-card is-icebats" data-categories="all ice_bats forward">
-          <div class="card-header-row">
-            <div class="card-avatar-group">
-              <div class="card-num-box" style="background: linear-gradient(135deg, #059669, #064e3b);">#21</div>
-              <div style="min-width: 0;">
-                <h3 class="card-name-title">Jake Bamback <span style="color: #38bdf8; font-size: 0.75rem;" title="Verified Profile">✓</span></h3>
-                <div class="card-team-sub">Austin Ice Bats · NA3HL Tier III</div>
-              </div>
-            </div>
-            <span class="card-pos-badge badge-pos-f">F · DYNAMO</span>
-          </div>
-          <div class="card-honor-pill honor-icebats">
-            🦇 All-NA3HL 2nd Team · Arkansas Commit
-          </div>
-          <div class="card-rating-row">
-            <span style="font-size: 0.65rem; color: #94a3b8; font-family: monospace; text-transform: uppercase;">Scout Composite</span>
-            <div style="display: flex; align-items: baseline; gap: 0.25rem;">
-              <span class="rating-score-val">88.6</span>
-              <span style="font-size: 0.65rem; color: #64748b; font-family: monospace;">/100</span>
-            </div>
-          </div>
-          <div class="card-kpis-grid">
-            <div class="kpi-metric-chip">
-              <span class="kpi-label">xG DIFFERENTIAL</span>
-              <span class="kpi-value" style="color: #38bdf8;">+16.2 Diff</span>
-            </div>
-            <div class="kpi-metric-chip">
-              <span class="kpi-label">ZONE ENTRIES</span>
-              <span class="kpi-value">69.1% Carry</span>
-            </div>
-            <div class="kpi-metric-chip">
-              <span class="kpi-label">ROYAL ROAD</span>
-              <span class="kpi-value">4.5 Passes/60</span>
-            </div>
-            <div class="kpi-metric-chip">
-              <span class="kpi-label">BROAD JUMP</span>
-              <span class="kpi-value">112" Explosive</span>
-            </div>
-          </div>
-          <div class="card-actions-row">
-            <a href="scout.html?player=aib_p04" class="card-btn-action card-btn-primary">🔭 Scout Desk</a>
-            <a href="player.html?id=aib_p04" class="card-btn-action card-btn-secondary">⚡ Passport</a>
-          </div>
-        </div>
-
-        <!-- 8. Guhnar Hillman (Austin Ice Bats - C) -->
-        <div class="showcase-player-card is-icebats" data-categories="all ice_bats forward">
-          <div class="card-header-row">
-            <div class="card-avatar-group">
-              <div class="card-num-box" style="background: linear-gradient(135deg, #0284c7, #1e3a8a);">#17</div>
-              <div style="min-width: 0;">
-                <h3 class="card-name-title">Guhnar Hillman <span style="color: #38bdf8; font-size: 0.75rem;" title="Verified Profile">✓</span></h3>
-                <div class="card-team-sub">Austin Ice Bats · NA3HL Tier III</div>
-              </div>
-            </div>
-            <span class="card-pos-badge badge-pos-f">C · "G MONEY"</span>
-          </div>
-          <div class="card-honor-pill honor-icebats">
-            🦇 Austin Native · Tier II NAHL Prospect
-          </div>
-          <div class="card-rating-row">
-            <span style="font-size: 0.65rem; color: #94a3b8; font-family: monospace; text-transform: uppercase;">Scout Composite</span>
-            <div style="display: flex; align-items: baseline; gap: 0.25rem;">
-              <span class="rating-score-val">87.8</span>
-              <span style="font-size: 0.65rem; color: #64748b; font-family: monospace;">/100</span>
-            </div>
-          </div>
-          <div class="card-kpis-grid">
-            <div class="kpi-metric-chip">
-              <span class="kpi-label">xG DIFFERENTIAL</span>
-              <span class="kpi-value" style="color: #38bdf8;">+14.6 Diff</span>
-            </div>
-            <div class="kpi-metric-chip">
-              <span class="kpi-label">ZONE ENTRIES</span>
-              <span class="kpi-value">68.4% Controlled</span>
-            </div>
-            <div class="kpi-metric-chip">
-              <span class="kpi-label">ROYAL ROAD</span>
-              <span class="kpi-value">4.8 Passes/60</span>
-            </div>
-            <div class="kpi-metric-chip">
-              <span class="kpi-label">PRO AGILITY</span>
-              <span class="kpi-value">4.16s Lateral</span>
-            </div>
-          </div>
-          <div class="card-actions-row">
-            <a href="scout.html?player=aib_p01" class="card-btn-action card-btn-primary">🔭 Scout Desk</a>
-            <a href="player.html?id=aib_p01" class="card-btn-action card-btn-secondary">⚡ Passport</a>
-          </div>
-        </div>
-
-        <!-- 9. Albin Boija (Maine Black Bears - GC GOALIE CREASE) -->
-        <div class="showcase-player-card is-gc" data-categories="all pro_ncaa gc">
-          <div class="card-header-row">
-            <div class="card-avatar-group">
-              <div class="card-num-box" style="background: linear-gradient(135deg, #0284c7, #312e81);">#31</div>
-              <div style="min-width: 0;">
-                <h3 class="card-name-title">Albin Boija <span style="color: #fbbf24; font-size: 0.75rem;" title="Verified Profile">🧤</span></h3>
-                <div class="card-team-sub">Maine Black Bears · NCAA D1 Hockey East</div>
-              </div>
-            </div>
-            <span class="card-pos-badge badge-pos-gc">🧤 GC CREASE</span>
-          </div>
-          <div class="card-honor-pill honor-gc">
-            🧤 Mike Richter Award Finalist · Hockey East All-Star
-          </div>
-          <div class="card-rating-row" style="background: rgba(30, 27, 75, 0.4); border-color: rgba(245, 158, 11, 0.2);">
-            <span style="font-size: 0.65rem; color: #fbbf24; font-family: monospace; text-transform: uppercase;">GC Goalie Score</span>
-            <div style="display: flex; align-items: baseline; gap: 0.25rem;">
-              <span class="rating-score-val" style="color: #fcd34d;">96.8</span>
-              <span style="font-size: 0.65rem; color: #94a3b8; font-family: monospace;">/100</span>
-            </div>
-          </div>
-          <div class="card-kpis-grid">
-            <div class="kpi-metric-chip kpi-gold">
-              <span class="kpi-label">GSAx (IMPACT)</span>
-              <span class="kpi-value" style="color: #fbbf24;">+19.4 Saved</span>
-            </div>
-            <div class="kpi-metric-chip kpi-gold">
-              <span class="kpi-label">SAVE PCT (SV%)</span>
-              <span class="kpi-value">.938 SV%</span>
-            </div>
-            <div class="kpi-metric-chip kpi-gold">
-              <span class="kpi-label">RVH POST SEAL</span>
-              <span class="kpi-value">94.8% Shutout</span>
-            </div>
-            <div class="kpi-metric-chip kpi-gold">
-              <span class="kpi-label">GAA (AVG)</span>
-              <span class="kpi-value">1.64 Goals</span>
-            </div>
-          </div>
-          <div class="card-actions-row">
-            <a href="scout.html" class="card-btn-action card-btn-primary" style="background: rgba(245, 158, 11, 0.2); border-color: rgba(245, 158, 11, 0.4); color: #fde68a;">🔭 Crease Lab</a>
-            <a href="database.html" class="card-btn-action card-btn-secondary">⚡ Passport</a>
-          </div>
-        </div>
-
-        <!-- 10. Collin Lemanski (Austin Ice Bats - GC GOALIE CREASE) -->
-        <div class="showcase-player-card is-gc is-icebats" data-categories="all ice_bats gc">
-          <div class="card-header-row">
-            <div class="card-avatar-group">
-              <div class="card-num-box" style="background: linear-gradient(135deg, #0d9488, #1e293b);">#32</div>
-              <div style="min-width: 0;">
-                <h3 class="card-name-title">Collin Lemanski <span style="color: #fbbf24; font-size: 0.75rem;" title="Verified Profile">🧤</span></h3>
-                <div class="card-team-sub">Austin Ice Bats · NA3HL Tier III</div>
-              </div>
-            </div>
-            <span class="card-pos-badge badge-pos-gc">🧤 GC CREASE</span>
-          </div>
-          <div class="card-honor-pill honor-gc">
-            🧤 Veteran Standout Goaltender · Rebound Specialist
-          </div>
-          <div class="card-rating-row" style="background: rgba(30, 27, 75, 0.4); border-color: rgba(245, 158, 11, 0.2);">
-            <span style="font-size: 0.65rem; color: #fbbf24; font-family: monospace; text-transform: uppercase;">GC Goalie Score</span>
-            <div style="display: flex; align-items: baseline; gap: 0.25rem;">
-              <span class="rating-score-val" style="color: #fcd34d;">87.9</span>
-              <span style="font-size: 0.65rem; color: #94a3b8; font-family: monospace;">/100</span>
-            </div>
-          </div>
-          <div class="card-kpis-grid">
-            <div class="kpi-metric-chip kpi-gold">
-              <span class="kpi-label">GSAx (IMPACT)</span>
-              <span class="kpi-value" style="color: #fbbf24;">+11.0 Saved</span>
-            </div>
-            <div class="kpi-metric-chip kpi-gold">
-              <span class="kpi-label">SAVE PCT (SV%)</span>
-              <span class="kpi-value">.921 SV%</span>
-            </div>
-            <div class="kpi-metric-chip kpi-gold">
-              <span class="kpi-label">RVH POST SEAL</span>
-              <span class="kpi-value">91.0% Seal</span>
-            </div>
-            <div class="kpi-metric-chip kpi-gold">
-              <span class="kpi-label">GAA (AVG)</span>
-              <span class="kpi-value">2.45 Goals</span>
-            </div>
-          </div>
-          <div class="card-actions-row">
-            <a href="scout.html?player=aib_p37" class="card-btn-action card-btn-primary" style="background: rgba(245, 158, 11, 0.2); border-color: rgba(245, 158, 11, 0.4); color: #fde68a;">🔭 Crease Lab</a>
-            <a href="player.html?id=aib_p37" class="card-btn-action card-btn-secondary">⚡ Passport</a>
-          </div>
-        </div>
-
-        <!-- 11. Zeev Buium (Denver Pioneers / Minnesota Wild - D) -->
-        <div class="showcase-player-card" data-categories="all pro_ncaa defense">
-          <div class="card-header-row">
-            <div class="card-avatar-group">
-              <div class="card-num-box" style="background: linear-gradient(135deg, #d97706, #881337);">#28</div>
+              <div class="card-num-box" style="background: linear-gradient(135deg, #6366f1, #312e81);">#28</div>
               <div style="min-width: 0;">
                 <h3 class="card-name-title">Zeev Buium <span style="color: #38bdf8; font-size: 0.75rem;" title="Verified Profile">✓</span></h3>
-                <div class="card-team-sub">Denver Pioneers · NCAA D1 / MN Wild</div>
+                <div class="card-team-sub">Univ. of Denver · NCAA D1</div>
               </div>
             </div>
-            <span class="card-pos-badge badge-pos-d">D · PUCK-MOVER</span>
+            <span class="card-pos-badge badge-pos-d">LD</span>
           </div>
-          <div class="card-honor-pill" style="background: rgba(217, 119, 6, 0.15); border-color: rgba(245, 158, 11, 0.35); color: #fed7aa;">
-            🏆 NCAA National Champion · Minnesota Wild 1st Round
-          </div>
-          <div class="card-rating-row">
+          <div class="card-rating-row" style="margin-top: 0.5rem;">
             <span style="font-size: 0.65rem; color: #94a3b8; font-family: monospace; text-transform: uppercase;">Scout Composite</span>
-            <div style="display: flex; align-items: baseline; gap: 0.25rem;">
-              <span class="rating-score-val" style="color: #f59e0b;">97.6</span>
-              <span style="font-size: 0.65rem; color: #64748b; font-family: monospace;">/100</span>
-            </div>
+            <span class="rating-score-val" style="color: #a855f7;">94.6</span>
           </div>
-          <div class="card-kpis-grid">
-            <div class="kpi-metric-chip">
-              <span class="kpi-label">NCAA PRODUCTION</span>
-              <span class="kpi-value" style="color: #38bdf8;">50 Pts / 42 GP</span>
-            </div>
-            <div class="kpi-metric-chip">
-              <span class="kpi-label">xG DIFFERENTIAL</span>
-              <span class="kpi-value">+22.3 Diff</span>
-            </div>
-            <div class="kpi-metric-chip">
-              <span class="kpi-label">EXIT SUCCESS</span>
-              <span class="kpi-value">81.4% Clean</span>
-            </div>
-            <div class="kpi-metric-chip">
-              <span class="kpi-label">TRANSITION</span>
-              <span class="kpi-value">89.2 Rating</span>
-            </div>
-          </div>
-          <div class="card-actions-row">
-            <a href="scout.html" class="card-btn-action card-btn-primary">🔭 Scout Desk</a>
-            <a href="database.html" class="card-btn-action card-btn-secondary">⚡ Passport</a>
-          </div>
-        </div>
-
-        <!-- 12. Michael Berman (Austin Ice Bats - D) -->
-        <div class="showcase-player-card is-icebats" data-categories="all ice_bats defense">
-          <div class="card-header-row">
-            <div class="card-avatar-group">
-              <div class="card-num-box" style="background: linear-gradient(135deg, #e11d48, #4c0519);">#7</div>
-              <div style="min-width: 0;">
-                <h3 class="card-name-title">Michael Berman <span style="color: #38bdf8; font-size: 0.75rem;" title="Verified Profile">✓</span></h3>
-                <div class="card-team-sub">Austin Ice Bats · NA3HL Tier III</div>
-              </div>
-            </div>
-            <span class="card-pos-badge badge-pos-d">D · "BIG RED"</span>
-          </div>
-          <div class="card-honor-pill honor-icebats">
-            🦇 6'4" 210 lbs · Tier II NAHL Tender Prospect
-          </div>
-          <div class="card-rating-row">
-            <span style="font-size: 0.65rem; color: #94a3b8; font-family: monospace; text-transform: uppercase;">Scout Composite</span>
-            <div style="display: flex; align-items: baseline; gap: 0.25rem;">
-              <span class="rating-score-val">87.5</span>
-              <span style="font-size: 0.65rem; color: #64748b; font-family: monospace;">/100</span>
-            </div>
-          </div>
-          <div class="card-kpis-grid">
-            <div class="kpi-metric-chip">
-              <span class="kpi-label">WALL BATTLES</span>
-              <span class="kpi-value" style="color: #34d399;">84.2% Win Rate</span>
-            </div>
-            <div class="kpi-metric-chip">
-              <span class="kpi-label">xG DIFFERENTIAL</span>
-              <span class="kpi-value">+11.8 Diff</span>
-            </div>
-            <div class="kpi-metric-chip">
-              <span class="kpi-label">SHOT BLOCKS</span>
-              <span class="kpi-value">22 Blocks</span>
-            </div>
-            <div class="kpi-metric-chip">
-              <span class="kpi-label">GRIP STRENGTH</span>
-              <span class="kpi-value">168 lbs Peak</span>
-            </div>
-          </div>
-          <div class="card-actions-row">
-            <a href="scout.html?player=aib_p22" class="card-btn-action card-btn-primary">🔭 Scout Desk</a>
-            <a href="player.html?id=aib_p22" class="card-btn-action card-btn-secondary">⚡ Passport</a>
+          <div class="card-actions-row" style="margin-top: 0.75rem;">
+            <a href="database.html?q=Zeev+Buium" class="card-btn-action card-btn-primary">⚡ Open Dossier</a>
+            <a href="compare.html" class="card-btn-action card-btn-secondary">⚖️ Compare</a>
           </div>
         </div>
 
       </div>
-
-      <!-- Footer Action Bar -->
-      <div class="showcase-footer-bar">
-        <div style="display: flex; align-items: center; gap: 0.5rem; font-family: monospace; font-size: 0.72rem; color: #94a3b8;">
-          <span style="display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #34d399; animation: pulse 2s infinite;"></span>
-          <span>Live biometric tracking, xG differential &amp; official scouting consensus. Updated daily.</span>
-        </div>
-        <div style="display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap;">
-          <a href="database.html" class="btn secondary" style="padding: 0.5rem 1rem; font-size: 0.8rem; font-weight: 700; text-decoration: none;">
-            <span>📂</span> Explore All 31,000+ Athletes in Directory
-          </a>
-          <a href="scout.html" class="btn primary" style="padding: 0.5rem 1rem; font-size: 0.8rem; font-weight: 700; text-decoration: none;">
-            <span>🔭</span> Launch Scout Desk Terminal
-          </a>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- =========================================================================
-       COMPLETE ROLE-BASED FEATURE MATRIX & BREAKDOWN SECTION
-       ========================================================================= -->
-  <section id="pricing-plans" class="role-features-section">
-    <div id="role-features"></div>
-    <div class="section-header-block">
-      <span class="section-tag-badge">PLATFORM CAPABILITIES BY ROLE</span>
-      <h2>Subscription Plans, Payments & Feature Entitlements</h2>
-      <p class="section-subtitle">
-        Tailored access designed for every level of the hockey ecosystem. <strong>Coaches and Recruiters get full access to all 22 features combined ($22.99/mo)</strong>, while <strong>Players ($4.99/mo)</strong> and <strong>Parents ($4.99/mo)</strong> get targeted tools focused on development, tracking, and communication.
-      </p>
-
-      <!-- Monthly vs Annual Billing Toggle -->
-      <div class="billing-toggle-container">
-        <button type="button" class="billing-toggle-btn active" id="billingBtnMonthly" onclick="toggleBillingCycle('monthly')">
-          Monthly Billing
-        </button>
-        <button type="button" class="billing-toggle-btn" id="billingBtnAnnual" onclick="toggleBillingCycle('annual')">
-          Annual Billing <span class="billing-save-badge">Save 20%</span>
-        </button>
-      </div>
-
-      <!-- Interactive Role Selector Filter -->
-      <div class="role-selector-bar">
-        <button type="button" class="role-selector-pill active" onclick="selectRoleView('all', this)">
-          <span class="role-pill-icon">🌐</span> All Roles Comparison
-        </button>
-        <button type="button" class="role-selector-pill" onclick="selectRoleView('scout', this)">
-          <span class="role-pill-icon">🔭</span> Recruiters & Scouts <span class="role-pill-price">$22.99</span>
-        </button>
-        <button type="button" class="role-selector-pill" onclick="selectRoleView('coach', this)">
-          <span class="role-pill-icon">📋</span> Coaches <span class="role-pill-price">$22.99</span>
-        </button>
-        <button type="button" class="role-selector-pill" onclick="selectRoleView('athlete', this)">
-          <span class="role-pill-icon">⚡</span> Players / Athletes <span class="role-pill-price">$4.99</span>
-        </button>
-        <button type="button" class="role-selector-pill" onclick="selectRoleView('parent', this)">
-          <span class="role-pill-icon">🛡️</span> Parents <span class="role-pill-price">$4.99</span>
-        </button>
-      </div>
-    </div>
-
-    <!-- 4 COMPREHENSIVE ROLE CARDS -->
-    <div class="role-cards-grid" id="roleCardsGrid">
-
-      <!-- 1. RECRUITERS & SCOUTS CARD -->
-      <div class="role-feature-card role-card-pro" id="card-scout">
-        <div class="card-top-badge">
-          <span class="badge-tag-all">★ ALL FEATURES COMBINED — FULL ACCESS</span>
-        </div>
-        <div class="card-header">
-          <div class="card-role-title-row">
-            <span class="role-icon-large">🔭</span>
-            <div>
-              <h3>Recruiters & Scouts</h3>
-              <p class="role-subtitle">Scouting Directors, NHL/NCAA/Junior Scouts & Talent Evaluators</p>
-            </div>
-          </div>
-          <div class="card-pricing-block">
-            <span class="pricing-currency">$</span><span class="pricing-amount">22.99</span><span class="pricing-period">/ month</span>
-          </div>
-        </div>
-
-        <div class="card-summary-box">
-          <strong>Full Unrestricted Access:</strong> Recruiters and scouts get unrestricted access to every single module, dataset, pipeline, simulation, and communication channel on the platform with zero paywalls.
-        </div>
-
-        <div class="feature-category-group">
-          <div class="category-header">
-            <span class="cat-icon">⚡</span> Lead Scout Micro-Telemetry & Workspace
-          </div>
-          <ul class="feature-bullets">
-            <li><span class="check-icon">✓</span> <strong>Lead Scout Workspace (<code>scout.html</code>)</strong>: Live micro-telemetry logger for shots, passes, zone entries, and wall usage.</li>
-            <li><span class="check-icon">✓</span> <strong>Live AI Trajectory Recalculation</strong>: Dynamic Bayesian NHL/NCAA progression probabilities on every logged touch.</li>
-            <li><span class="check-icon">✓</span> <strong>Cryptographic Evaluation Ledger</strong>: Tamper-evident time-stamped scouting entries with hash blocks.</li>
-            <li><span class="check-icon">✓</span> <strong>Offline DB Consensus Sync</strong>: Log evaluations offline with instant one-click cloud synchronization.</li>
-          </ul>
-        </div>
-
-        <div class="feature-category-group">
-          <div class="category-header">
-            <span class="cat-icon">📊</span> Talent Directory & Dossier Export
-          </div>
-          <ul class="feature-bullets">
-            <li><span class="check-icon">✓</span> <strong>30,000+ Master Player Directory</strong>: Unrestricted search across all 30,000+ athletes with deep league and NHLe filters.</li>
-            <li><span class="check-icon">✓</span> <strong>Pro Scout Dossier 1-Click Export</strong>: Unlimited exports to CSV, PDF, and JSON for offline draft boards and war rooms.</li>
-            <li><span class="check-icon">✓</span> <strong>Scouting Pipeline CRM</strong>: Multi-stage tracking (Watchlist &rarr; Contacted &rarr; Visit &rarr; Offer &rarr; Committed &rarr; Signed).</li>
-            <li><span class="check-icon">✓</span> <strong>Priority Tags & Private Notes</strong>: Multi-scout collaboration with encrypted private scout commentary.</li>
-          </ul>
-        </div>
-
-        <div class="feature-category-group">
-          <div class="category-header">
-            <span class="cat-icon">🎬</span> Film, Biometrics & War Rooms
-          </div>
-          <ul class="feature-bullets">
-            <li><span class="check-icon">✓</span> <strong>AI Film Studio & Telestration</strong>: Video breakdown with spotlight rings, trajectory cones, and player tracks.</li>
-            <li><span class="check-icon">✓</span> <strong>Combine & Biometrics Lab</strong>: Wingate 30s peak power, 30m sprint timing gates, and physiological stress indices.</li>
-            <li><span class="check-icon">✓</span> <strong>7-Round Monte Carlo Draft Simulator</strong>: Draft board war room, team pick trading, and draft value curves.</li>
-            <li><span class="check-icon">✓</span> <strong>NCAA Transfer Portal & NIL Valuation</strong>: Real-time portal monitoring and algorithm-backed NIL athlete values.</li>
-            <li><span class="check-icon">✓</span> <strong>Trade Desk & Salary Cap Lab</strong>: 3-team multi-player trade simulator, retained salary, buyouts, and LTIR relief.</li>
-          </ul>
-        </div>
-
-        <div class="feature-category-group">
-          <div class="category-header">
-            <span class="cat-icon">🌐</span> The Wire & Social Mesh
-          </div>
-          <ul class="feature-bullets">
-            <li><span class="check-icon">✓</span> <strong>Verified Scout Badge & The Wire</strong>: Full posting, timeline feeds, and official scouting credential badge.</li>
-            <li><span class="check-icon">✓</span> <strong>Direct DM Messaging</strong>: Communicate directly with athletes, parents, and coaches without intermediary gatekeepers.</li>
-            <li><span class="check-icon">✓</span> <strong>Military-Grade Cyber Shield</strong>: AI agent swarm co-pilots, real-time threat telemetry, and audit logs.</li>
-          </ul>
-        </div>
-
-        <div class="card-action">
-          <button type="button" class="btn primary full-width" onclick="openHomePaymentModal('scout')">💳 Pay & Subscribe ($22.99/mo)</button>
-          <a href="signup.html?role=scout" style="display:block; text-align:center; margin-top:0.5rem; font-size:0.75rem; color:#7dd3fc; text-decoration:underline; font-weight:600;">or Start 7-Day Free Trial</a>
-        </div>
-      </div>
-
-      <!-- 2. COACHES CARD -->
-      <div class="role-feature-card role-card-pro" id="card-coach">
-        <div class="card-top-badge">
-          <span class="badge-tag-all">★ ALL FEATURES COMBINED — FULL ACCESS</span>
-        </div>
-        <div class="card-header">
-          <div class="card-role-title-row">
-            <span class="role-icon-large">📋</span>
-            <div>
-              <h3>Coaches</h3>
-              <p class="role-subtitle">Head Coaches, Assistant Coaches, Video Coordinators & Skills Directors</p>
-            </div>
-          </div>
-          <div class="card-pricing-block">
-            <span class="pricing-currency">$</span><span class="pricing-amount">22.99</span><span class="pricing-period">/ month</span>
-          </div>
-        </div>
-
-        <div class="card-summary-box">
-          <strong>Full Unrestricted Access:</strong> Coaches get the complete bench, tactics, film, player evaluation, team analytics, and administrative operations suite with zero paywalls.
-        </div>
-
-        <div class="feature-category-group">
-          <div class="category-header">
-            <span class="cat-icon">📋</span> Tactics Lab & AI Lineup Optimizer
-          </div>
-          <ul class="feature-bullets">
-            <li><span class="check-icon">✓</span> <strong>AI Lineup Optimizer</strong>: 5v5, Power Play, and Penalty Kill line chemistry scoring and balance analytics.</li>
-            <li><span class="check-icon">✓</span> <strong>Tactical Systems Playbook</strong>: 1-2-2 forechecks, 2-1-2 aggro pressure, Left Wing Lock, and neutral zone traps.</li>
-            <li><span class="check-icon">✓</span> <strong>Expected Goals (xGF%) Engine</strong>: Real-time expected goal share simulation based on spatial line configurations.</li>
-            <li><span class="check-icon">✓</span> <strong>3D Virtual Rink Simulation</strong>: Interactive 3D WebGL rink to simulate plays, puck trajectories, and formations.</li>
-          </ul>
-        </div>
-
-        <div class="feature-category-group">
-          <div class="category-header">
-            <span class="cat-icon">🎬</span> AI Film Studio & Microstat Studio
-          </div>
-          <ul class="feature-bullets">
-            <li><span class="check-icon">✓</span> <strong>AI Film Studio & Telestration</strong>: Draw play paths, isolate coverage breakdowns, and tag clips for team video sessions.</li>
-            <li><span class="check-icon">✓</span> <strong>Microstat Studio & Spatial Passing</strong>: Royal Road cross-slot pass metrics, offensive zone entries, and transition efficiency.</li>
-            <li><span class="check-icon">✓</span> <strong>Crease Lab & Goalie Geometry</strong>: RVH post-seals, depth positioning, angle coverage, GSAx, and rebound tracking.</li>
-            <li><span class="check-icon">✓</span> <strong>Combine & Conditioning Lab</strong>: Team-wide combine protocols, physical benchmark tracking, and fatigue monitoring.</li>
-          </ul>
-        </div>
-
-        <div class="feature-category-group">
-          <div class="category-header">
-            <span class="cat-icon">🏆</span> Tournaments, Roster & Administration
-          </div>
-          <ul class="feature-bullets">
-            <li><span class="check-icon">✓</span> <strong>Tournament War Room & Bracketology</strong>: Frozen Four, Memorial Cup, WJC bracket simulation and series strategy.</li>
-            <li><span class="check-icon">✓</span> <strong>Admin Operations Center</strong>: Automated system mailer dispatch, IP telemetry tracker, session logs, and roster governance.</li>
-            <li><span class="check-icon">✓</span> <strong>Scouting Pipeline & Roster War Room</strong>: Track recruits, incoming commits, and scholarship allocations.</li>
-            <li><span class="check-icon">✓</span> <strong>30,000+ Player Directory & Comparison</strong>: Full database access and 8-axis radar comparison charts for game prep.</li>
-          </ul>
-        </div>
-
-        <div class="feature-category-group">
-          <div class="category-header">
-            <span class="cat-icon">🌐</span> The Wire & Communications
-          </div>
-          <ul class="feature-bullets">
-            <li><span class="check-icon">✓</span> <strong>Head Coach Verified Profile</strong>: Official team announcements, player shoutouts, and social timeline.</li>
-            <li><span class="check-icon">✓</span> <strong>Direct DM Messaging</strong>: Direct communication with players, parents, recruits, and opposing coaches.</li>
-            <li><span class="check-icon">✓</span> <strong>Team Crest Logo Stamper</strong>: Create and stamp team crests onto social media graphics and announcements.</li>
-          </ul>
-        </div>
-
-        <div class="card-action">
-          <button type="button" class="btn primary full-width" onclick="openHomePaymentModal('coach')">💳 Pay & Subscribe ($22.99/mo)</button>
-          <a href="signup.html?role=coach" style="display:block; text-align:center; margin-top:0.5rem; font-size:0.75rem; color:#7dd3fc; text-decoration:underline; font-weight:600;">or Start 7-Day Free Trial</a>
-        </div>
-      </div>
-
-      <!-- 3. PLAYERS / ATHLETES CARD -->
-      <div class="role-feature-card" id="card-athlete">
-        <div class="card-top-badge">
-          <span class="badge-tag-athlete">ATHLETE PASSPORT & XP PROGRESSION</span>
-        </div>
-        <div class="card-header">
-          <div class="card-role-title-row">
-            <span class="role-icon-large">⚡</span>
-            <div>
-              <h3>Players / Athletes</h3>
-              <p class="role-subtitle">Minor, Junior, Prep, NCAA & Aspiring Pro Hockey Players</p>
-            </div>
-          </div>
-          <div class="card-pricing-block">
-            <span class="pricing-currency">$</span><span class="pricing-amount">4.99</span><span class="pricing-period">/ month</span>
-          </div>
-        </div>
-
-        <div class="card-summary-box">
-          <strong>Personal Hockey Passport:</strong> Everything an athlete needs to log stats, earn XP, complete daily drills, climb tiers, compare skills with peers, and get discovered by scouts.
-        </div>
-
-        <div class="feature-category-group">
-          <div class="category-header">
-            <span class="cat-icon">⚡</span> Personal Performance Passport
-          </div>
-          <ul class="feature-bullets">
-            <li><span class="check-icon">✓</span> <strong>Personal Stats Dashboard</strong>: Real-time stat rings for Skating, Shooting, Passing, Defense, and Hockey IQ.</li>
-            <li><span class="check-icon">✓</span> <strong>XP Progression & Dynamic Level-Up</strong>: Earn XP from training, game performances, combine drills, and daily missions.</li>
-            <li><span class="check-icon">✓</span> <strong>Dynamic Skill Tree</strong>: Unlock skill nodes across edge work, quick release, one-timers, sauce passes, and gap control.</li>
-            <li><span class="check-icon">✓</span> <strong>10-Tier Mastery System & Badges</strong>: Climb from Tier 1 (Novice) to Tier 10 (Elite Pro) with verified badges.</li>
-            <li><span class="check-icon">✓</span> <strong>Daily Position-Specific Missions</strong>: Tailored daily challenges based on your position and developmental weaknesses.</li>
-          </ul>
-        </div>
-
-        <div class="feature-category-group">
-          <div class="category-header">
-            <span class="cat-icon">🛣️</span> Pathways, Database & Comparisons
-          </div>
-          <ul class="feature-bullets">
-            <li><span class="check-icon">✓</span> <strong>Lifelong 5-Stage Career Pathway</strong>: Roadmap from Minor Hockey to NCAA D1 / CHL, AHL, and NHL/PWHL draft eligibility.</li>
-            <li><span class="check-icon">✓</span> <strong>30,000+ Player Database Search</strong>: Research profiles, developmental trajectories, and career stats of over 30,000 athletes.</li>
-            <li><span class="check-icon">✓</span> <strong>8-Axis Radar Comparison Chart</strong>: Compare your ratings head-to-head against friends, teammates, or pro benchmarks.</li>
-            <li><span class="check-icon">✓</span> <strong>Transparent Package Management</strong>: Self-service subscription management with 1-click upgrade to Pro.</li>
-          </ul>
-        </div>
-
-        <div class="feature-category-group">
-          <div class="category-header">
-            <span class="cat-icon">🌐</span> The Wire & Social Profile
-          </div>
-          <ul class="feature-bullets">
-            <li><span class="check-icon">✓</span> <strong>The Wire (X.com Style Profile)</strong>: Personal athletic profile with bio, highlights, timeline posts, and stats showcase.</li>
-            <li><span class="check-icon">✓</span> <strong>Crest Logo Stamping Tool</strong>: Stamp team and league crests directly onto your avatar and highlight photos.</li>
-            <li><span class="check-icon">✓</span> <strong>Direct DM Messaging Box</strong>: Message coaches, verified scouts, teammates, and fellow athletes directly.</li>
-          </ul>
-        </div>
-
-        <div class="feature-category-group gated-category">
-          <div class="category-header gated">
-            <span class="cat-icon">🔒</span> Pro Tools (Requires Coach/Recruiter Pro $22.99/mo)
-          </div>
-          <ul class="feature-bullets gated-bullets">
-            <li><span class="lock-icon-small">🔒</span> AI Video Telestration Studio & Automated Tracking</li>
-            <li><span class="lock-icon-small">🔒</span> Official Combine Lab & Wingate Anaerobic Testing</li>
-            <li><span class="lock-icon-small">🔒</span> College & Junior Recruiting Pipeline CRM</li>
-            <li><span class="lock-icon-small">🔒</span> Tactical Game IQ Sim & Lineup Chemistry Optimizer</li>
-            <li><span class="lock-icon-small">🔒</span> Admin Operations Center & Security Telemetry Hub</li>
-          </ul>
-        </div>
-
-        <div class="card-action">
-          <button type="button" class="btn primary full-width" onclick="openHomePaymentModal('athlete')">💳 Pay & Subscribe ($4.99/mo)</button>
-          <a href="signup.html?role=athlete" style="display:block; text-align:center; margin-top:0.5rem; font-size:0.75rem; color:#7dd3fc; text-decoration:underline; font-weight:600;">or Start 7-Day Free Trial</a>
-        </div>
-      </div>
-
-      <!-- 4. PARENTS CARD -->
-      <div class="role-feature-card" id="card-parent">
-        <div class="card-top-badge">
-          <span class="badge-tag-parent">DEVELOPMENTAL OVERSIGHT & SAFE COMMS</span>
-        </div>
-        <div class="card-header">
-          <div class="card-role-title-row">
-            <span class="role-icon-large">🛡️</span>
-            <div>
-              <h3>Parents</h3>
-              <p class="role-subtitle">Hockey Parents, Guardians & Family Support Teams</p>
-            </div>
-          </div>
-          <div class="card-pricing-block">
-            <span class="pricing-currency">$</span><span class="pricing-amount">4.99</span><span class="pricing-period">/ month</span>
-          </div>
-        </div>
-
-        <div class="card-summary-box">
-          <strong>Peace of Mind & Clear Guidance:</strong> Track your child's hockey development transparently, understand their skill tree in plain English, and communicate safely with verified coaches and scouts.
-        </div>
-
-        <div class="feature-category-group">
-          <div class="category-header">
-            <span class="cat-icon">📈</span> Milestone Oversight & Skill Tracking
-          </div>
-          <ul class="feature-bullets">
-            <li><span class="check-icon">✓</span> <strong>Developmental Milestones</strong>: Visual timeline tracking skill improvements, XP milestones, and tier advancements.</li>
-            <li><span class="check-icon">✓</span> <strong>Plain-English Skill Tree Insights</strong>: Understand strengths, coaching priorities, and next goals without confusing jargon.</li>
-            <li><span class="check-icon">✓</span> <strong>Cohort Comparison Tool</strong>: Compare athlete progression against age-group benchmarks and historical percentiles.</li>
-            <li><span class="check-icon">✓</span> <strong>Lifelong Career Pathway Explorer</strong>: Educational guidance on NCAA academic eligibility, prep school options, and junior leagues.</li>
-          </ul>
-        </div>
-
-        <div class="feature-category-group">
-          <div class="category-header">
-            <span class="cat-icon">📊</span> Directory & Safe Communications
-          </div>
-          <ul class="feature-bullets">
-            <li><span class="check-icon">✓</span> <strong>30,000+ Player & Team Directory</strong>: Research competitive teams, leagues, prep academies, and college programs.</li>
-            <li><span class="check-icon">✓</span> <strong>The Wire & Safe Direct Messaging</strong>: Safe, monitored direct messaging channel with verified coaches and team scouts.</li>
-            <li><span class="check-icon">✓</span> <strong>Crest Logo Stamping Tool</strong>: Help your athlete create polished profile graphics with official team crests.</li>
-            <li><span class="check-icon">✓</span> <strong>Transparent Billing & Account Control</strong>: Family subscription management, cancel or upgrade anytime with one click.</li>
-          </ul>
-        </div>
-
-        <div class="feature-category-group gated-category">
-          <div class="category-header gated">
-            <span class="cat-icon">🔒</span> Pro Tools (Requires Coach/Recruiter Pro $22.99/mo)
-          </div>
-          <ul class="feature-bullets gated-bullets">
-            <li><span class="lock-icon-small">🔒</span> Coaching Tactical Lineup Optimizer & Line Chemistry</li>
-            <li><span class="lock-icon-small">🔒</span> Deep Scouting Pipeline & Recruitment Offer CRM</li>
-            <li><span class="lock-icon-small">🔒</span> Professional AI Video Telestration & Play Tagging</li>
-            <li><span class="lock-icon-small">🔒</span> Admin Operations Center & Server Telemetry</li>
-          </ul>
-        </div>
-
-        <div class="card-action">
-          <button type="button" class="btn primary full-width" onclick="openHomePaymentModal('parent')">💳 Pay & Subscribe ($4.99/mo)</button>
-          <a href="signup.html?role=parent" style="display:block; text-align:center; margin-top:0.5rem; font-size:0.75rem; color:#7dd3fc; text-decoration:underline; font-weight:600;">or Start 7-Day Free Trial</a>
-        </div>
-      </div>
-
-    
-    <!-- GUARANTEED WIRE ACCESS FOR ALL PLANS BANNER -->
-    <div style="margin:2.5rem 0 1.5rem; background:rgba(56,189,248,0.08); border:1px solid rgba(56,189,248,0.35); border-radius:14px; padding:1.25rem 1.5rem; text-align:center; box-shadow:0 10px 25px rgba(0,0,0,0.3);">
-      <div style="display:inline-flex; align-items:center; gap:0.5rem; margin-bottom:0.35rem;">
-        <span style="font-size:1.4rem;">🌐</span>
-        <h4 style="margin:0; font-size:1.15rem; color:#ffffff; font-weight:800; letter-spacing:-0.01em;">All Subscription Plans Include Full Access to The Wire</h4>
-      </div>
-      <p style="margin:0 auto; font-size:0.88rem; color:#cbd5e1; max-width:850px; line-height:1.5;">
-        Regardless of whether you are on <strong>Player Passport ($4.99/mo)</strong>, <strong>Parent Plan ($4.99/mo)</strong>, <strong>Coach Pro ($22.99/mo)</strong>, or <strong>Recruiter Pro ($22.99/mo)</strong>, every single account receives unrestricted access to <strong>The Wire</strong> social feed, public athletic profiles, the team crest logo stamping tool, and direct DM messaging with verified coaches and scouts.
-      </p>
-    </div>
-
-    </div>
-
-    <!-- =========================================================================
-         MASTER FEATURE COMPARISON MATRIX TABLE
-         ========================================================================= -->
-    <div class="feature-matrix-container" id="featureMatrixTable">
-      <div class="matrix-header-block">
-        <h3>Comprehensive Platform Feature Matrix</h3>
-        <p>Full side-by-side comparison across all four subscription roles.</p>
-      </div>
-
-      <div class="matrix-table-wrapper overflow-x-auto">
-        <table class="platform-matrix-table">
-          <thead>
-            <tr>
-              <th class="matrix-th-feature">Feature / Module</th>
-              <th class="matrix-th-role highlight-pro">
-                <div class="th-role-title">🔭 Recruiters & Scouts</div>
-                <div class="th-role-badge">ALL COMBINED</div>
-                <div class="th-role-price">$22.99/mo</div>
-              </th>
-              <th class="matrix-th-role highlight-pro">
-                <div class="th-role-title">📋 Coaches</div>
-                <div class="th-role-badge">ALL COMBINED</div>
-                <div class="th-role-price">$22.99/mo</div>
-              </th>
-              <th class="matrix-th-role">
-                <div class="th-role-title">⚡ Players / Athletes</div>
-                <div class="th-role-badge">PASSPORT</div>
-                <div class="th-role-price">$4.99/mo</div>
-              </th>
-              <th class="matrix-th-role">
-                <div class="th-role-title">🛡️ Parents</div>
-                <div class="th-role-badge">OVERSIGHT</div>
-                <div class="th-role-price">$4.99/mo</div>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-
-            <!-- CATEGORY: SCOUTING & TALENT EVALUATION -->
-            <tr class="matrix-cat-row">
-              <td colspan="5">🔭 Scouting, Talent Evaluation & War Rooms</td>
-            </tr>
-            <tr>
-              <td class="feature-name">
-                <strong>Lead Scout Workspace (<code>scout.html</code>)</strong>
-                <span>Live micro-telemetry logger, shot/pass outcome tracker, wall usage, AI trajectory probabilities</span>
-              </td>
-              <td class="status-cell pro-access"><span class="check-badge">✓ Full Access</span></td>
-              <td class="status-cell pro-access"><span class="check-badge">✓ Full Access</span></td>
-              <td class="status-cell locked"><span class="lock-pill">🔒 Pro ($22.99)</span></td>
-              <td class="status-cell locked"><span class="lock-pill">🔒 Pro ($22.99)</span></td>
-            </tr>
-            <tr>
-              <td class="feature-name">
-                <strong>30,000+ Master Player Directory & Search</strong>
-                <span>Comprehensive database of 30,000+ athletes across leagues with position, age, and stats filters</span>
-              </td>
-              <td class="status-cell pro-access"><span class="check-badge">✓ Full Access</span></td>
-              <td class="status-cell pro-access"><span class="check-badge">✓ Full Access</span></td>
-              <td class="status-cell standard-access"><span class="check-badge-light">✓ Included</span></td>
-              <td class="status-cell standard-access"><span class="check-badge-light">✓ Included</span></td>
-            </tr>
-            <tr>
-              <td class="feature-name">
-                <strong>Pro Scout Dossier 1-Click Export</strong>
-                <span>Instant high-fidelity CSV, PDF, and JSON dossier download with verified microstat metrics</span>
-              </td>
-              <td class="status-cell pro-access"><span class="check-badge">✓ Full Access</span></td>
-              <td class="status-cell pro-access"><span class="check-badge">✓ Full Access</span></td>
-              <td class="status-cell locked"><span class="lock-pill">🔒 Pro ($22.99)</span></td>
-              <td class="status-cell locked"><span class="lock-pill">🔒 Pro ($22.99)</span></td>
-            </tr>
-            <tr>
-              <td class="feature-name">
-                <strong>Scouting Pipeline & CRM War Room</strong>
-                <span>Multi-stage recruit management (Watchlist, Contacted, Visit, Offer, Committed, Signed)</span>
-              </td>
-              <td class="status-cell pro-access"><span class="check-badge">✓ Full Access</span></td>
-              <td class="status-cell pro-access"><span class="check-badge">✓ Full Access</span></td>
-              <td class="status-cell locked"><span class="lock-pill">🔒 Pro ($22.99)</span></td>
-              <td class="status-cell locked"><span class="lock-pill">🔒 Pro ($22.99)</span></td>
-            </tr>
-            <tr>
-              <td class="feature-name">
-                <strong>7-Round Monte Carlo Draft Simulator</strong>
-                <span>Draft board war room, simulated picks, team trade algorithms, and draft pick value charts</span>
-              </td>
-              <td class="status-cell pro-access"><span class="check-badge">✓ Full Access</span></td>
-              <td class="status-cell pro-access"><span class="check-badge">✓ Full Access</span></td>
-              <td class="status-cell locked"><span class="lock-pill">🔒 Pro ($22.99)</span></td>
-              <td class="status-cell locked"><span class="lock-pill">🔒 Pro ($22.99)</span></td>
-            </tr>
-            <tr>
-              <td class="feature-name">
-                <strong>Transfer Portal & NIL Valuation Exchange</strong>
-                <span>NCAA portal entries, transfer trends, and automated athlete NIL market valuation model</span>
-              </td>
-              <td class="status-cell pro-access"><span class="check-badge">✓ Full Access</span></td>
-              <td class="status-cell pro-access"><span class="check-badge">✓ Full Access</span></td>
-              <td class="status-cell locked"><span class="lock-pill">🔒 Pro ($22.99)</span></td>
-              <td class="status-cell locked"><span class="lock-pill">🔒 Pro ($22.99)</span></td>
-            </tr>
-
-            <!-- CATEGORY: TACTICS, COACHING & FILM -->
-            <tr class="matrix-cat-row">
-              <td colspan="5">📋 Coaching, Tactics & Video Breakdown</td>
-            </tr>
-            <tr>
-              <td class="feature-name">
-                <strong>Tactics Lab & AI Lineup Optimizer</strong>
-                <span>5v5, PP, and PK forward/defense pairing chemistry scoring, balance indices, and xGF% calculations</span>
-              </td>
-              <td class="status-cell pro-access"><span class="check-badge">✓ Full Access</span></td>
-              <td class="status-cell pro-access"><span class="check-badge">✓ Full Access</span></td>
-              <td class="status-cell locked"><span class="lock-pill">🔒 Pro ($22.99)</span></td>
-              <td class="status-cell locked"><span class="lock-pill">🔒 Pro ($22.99)</span></td>
-            </tr>
-            <tr>
-              <td class="feature-name">
-                <strong>Tactical Systems Playbook & 3D Virtual Rink</strong>
-                <span>1-2-2 forecheck, Left Wing Lock, neutral zone trap animations, and WebGL 3D rink simulation</span>
-              </td>
-              <td class="status-cell pro-access"><span class="check-badge">✓ Full Access</span></td>
-              <td class="status-cell pro-access"><span class="check-badge">✓ Full Access</span></td>
-              <td class="status-cell locked"><span class="lock-pill">🔒 Pro ($22.99)</span></td>
-              <td class="status-cell locked"><span class="lock-pill">🔒 Pro ($22.99)</span></td>
-            </tr>
-            <tr>
-              <td class="feature-name">
-                <strong>AI Film Studio & Video Telestration</strong>
-                <span>Drawing tools, spotlight rings, player trajectory vectors, and custom play tagging</span>
-              </td>
-              <td class="status-cell pro-access"><span class="check-badge">✓ Full Access</span></td>
-              <td class="status-cell pro-access"><span class="check-badge">✓ Full Access</span></td>
-              <td class="status-cell locked"><span class="lock-pill">🔒 Pro ($22.99)</span></td>
-              <td class="status-cell locked"><span class="lock-pill">🔒 Pro ($22.99)</span></td>
-            </tr>
-            <tr>
-              <td class="feature-name">
-                <strong>Crease Lab & Goalie Geometry</strong>
-                <span>RVH post-seal analysis, depth positioning, angle coverage, GSAx, and rebound recovery</span>
-              </td>
-              <td class="status-cell pro-access"><span class="check-badge">✓ Full Access</span></td>
-              <td class="status-cell pro-access"><span class="check-badge">✓ Full Access</span></td>
-              <td class="status-cell locked"><span class="lock-pill">🔒 Pro ($22.99)</span></td>
-              <td class="status-cell locked"><span class="lock-pill">🔒 Pro ($22.99)</span></td>
-            </tr>
-            <tr>
-              <td class="feature-name">
-                <strong>Microstat Studio & Spatial Passing</strong>
-                <span>Royal Road cross-slot pass metrics, offensive zone entries (carry vs dump), and exit efficiency</span>
-              </td>
-              <td class="status-cell pro-access"><span class="check-badge">✓ Full Access</span></td>
-              <td class="status-cell pro-access"><span class="check-badge">✓ Full Access</span></td>
-              <td class="status-cell locked"><span class="lock-pill">🔒 Pro ($22.99)</span></td>
-              <td class="status-cell locked"><span class="lock-pill">🔒 Pro ($22.99)</span></td>
-            </tr>
-            <tr>
-              <td class="feature-name">
-                <strong>Tournament War Room & Bracketology</strong>
-                <span>Frozen Four, Memorial Cup, WJC bracket simulation and series strategy planning</span>
-              </td>
-              <td class="status-cell pro-access"><span class="check-badge">✓ Full Access</span></td>
-              <td class="status-cell pro-access"><span class="check-badge">✓ Full Access</span></td>
-              <td class="status-cell locked"><span class="lock-pill">🔒 Pro ($22.99)</span></td>
-              <td class="status-cell locked"><span class="lock-pill">🔒 Pro ($22.99)</span></td>
-            </tr>
-
-            <!-- CATEGORY: ATHLETE DEVELOPMENT & GAMIFICATION -->
-            <tr class="matrix-cat-row">
-              <td colspan="5">⚡ Athlete Development, XP & Gamification</td>
-            </tr>
-            <tr>
-              <td class="feature-name">
-                <strong>Personal Athlete Dashboard & Radar</strong>
-                <span>Real-time stat radar across Skating, Shooting, Passing, Defense, and Hockey IQ</span>
-              </td>
-              <td class="status-cell pro-access"><span class="check-badge">✓ Full Access</span></td>
-              <td class="status-cell pro-access"><span class="check-badge">✓ Full Access</span></td>
-              <td class="status-cell standard-access"><span class="check-badge-light">✓ Included</span></td>
-              <td class="status-cell standard-access"><span class="check-badge-light">✓ Included</span></td>
-            </tr>
-            <tr>
-              <td class="feature-name">
-                <strong>XP Progression & Dynamic Level-Up Engine</strong>
-                <span>Earn XP from daily training, game performances, and missions; climb levels dynamically</span>
-              </td>
-              <td class="status-cell pro-access"><span class="check-badge">✓ Full Access</span></td>
-              <td class="status-cell pro-access"><span class="check-badge">✓ Full Access</span></td>
-              <td class="status-cell standard-access"><span class="check-badge-light">✓ Included</span></td>
-              <td class="status-cell standard-access"><span class="check-badge-light">✓ Included</span></td>
-            </tr>
-            <tr>
-              <td class="feature-name">
-                <strong>Dynamic Skill Tree (Nodes & Masteries)</strong>
-                <span>Unlock skill nodes across edge work, explosive stride, quick release, one-timers, and gap control</span>
-              </td>
-              <td class="status-cell pro-access"><span class="check-badge">✓ Full Access</span></td>
-              <td class="status-cell pro-access"><span class="check-badge">✓ Full Access</span></td>
-              <td class="status-cell standard-access"><span class="check-badge-light">✓ Included</span></td>
-              <td class="status-cell standard-access"><span class="check-badge-light">✓ Included</span></td>
-            </tr>
-            <tr>
-              <td class="feature-name">
-                <strong>10-Tier Mastery System & Badges</strong>
-                <span>Climb from Tier 1 (Novice) to Tier 10 (Elite Pro) with verified badges and achievements</span>
-              </td>
-              <td class="status-cell pro-access"><span class="check-badge">✓ Full Access</span></td>
-              <td class="status-cell pro-access"><span class="check-badge">✓ Full Access</span></td>
-              <td class="status-cell standard-access"><span class="check-badge-light">✓ Included</span></td>
-              <td class="status-cell standard-access"><span class="check-badge-light">✓ Included</span></td>
-            </tr>
-            <tr>
-              <td class="feature-name">
-                <strong>Daily Position-Specific Missions</strong>
-                <span>Personalized training drills and challenges tailored to your position and weaknesses</span>
-              </td>
-              <td class="status-cell pro-access"><span class="check-badge">✓ Full Access</span></td>
-              <td class="status-cell pro-access"><span class="check-badge">✓ Full Access</span></td>
-              <td class="status-cell standard-access"><span class="check-badge-light">✓ Included</span></td>
-              <td class="status-cell text-muted"><span class="dash-text">—</span></td>
-            </tr>
-            <tr>
-              <td class="feature-name">
-                <strong>Lifelong 5-Stage Career Pathway Roadmap</strong>
-                <span>Guidance from Minor Hockey to NCAA D1 / CHL, AHL, and NHL/PWHL professional eligibility</span>
-              </td>
-              <td class="status-cell pro-access"><span class="check-badge">✓ Full Access</span></td>
-              <td class="status-cell pro-access"><span class="check-badge">✓ Full Access</span></td>
-              <td class="status-cell standard-access"><span class="check-badge-light">✓ Included</span></td>
-              <td class="status-cell standard-access"><span class="check-badge-light">✓ Included</span></td>
-            </tr>
-            <tr>
-              <td class="feature-name">
-                <strong>8-Axis Radar Comparison Chart</strong>
-                <span>Head-to-head comparison tool against teammates, rivals, or league averages</span>
-              </td>
-              <td class="status-cell pro-access"><span class="check-badge">✓ Full Access</span></td>
-              <td class="status-cell pro-access"><span class="check-badge">✓ Full Access</span></td>
-              <td class="status-cell standard-access"><span class="check-badge-light">✓ Included</span></td>
-              <td class="status-cell standard-access"><span class="check-badge-light">✓ Included</span></td>
-            </tr>
-
-            <!-- CATEGORY: SOCIAL, WIRE & MESSAGING -->
-            <tr class="matrix-cat-row">
-              <td colspan="5">🌐 The Wire, Social Mesh & Communications</td>
-            </tr>
-            <tr>
-              <td class="feature-name">
-                <strong>The Wire (X.com Style Social Profile)</strong>
-                <span>Personal public profile, bio, timeline feed, highlight posts, and engagement counters</span>
-              </td>
-              <td class="status-cell pro-access"><span class="check-badge">✓ Full Access</span></td>
-              <td class="status-cell pro-access"><span class="check-badge">✓ Full Access</span></td>
-              <td class="status-cell standard-access"><span class="check-badge-light">✓ Included</span></td>
-              <td class="status-cell standard-access"><span class="check-badge-light">✓ Included</span></td>
-            </tr>
-            <tr>
-              <td class="feature-name">
-                <strong>Team Crest Logo Stamping Tool</strong>
-                <span>Stamp official team and league crests/logos directly onto profile avatars and highlight photos</span>
-              </td>
-              <td class="status-cell pro-access"><span class="check-badge">✓ Full Access</span></td>
-              <td class="status-cell pro-access"><span class="check-badge">✓ Full Access</span></td>
-              <td class="status-cell standard-access"><span class="check-badge-light">✓ Included</span></td>
-              <td class="status-cell standard-access"><span class="check-badge-light">✓ Included</span></td>
-            </tr>
-            <tr>
-              <td class="feature-name">
-                <strong>Direct DM Messaging Box</strong>
-                <span>Communicate directly with verified scouts, certified coaches, and team leadership</span>
-              </td>
-              <td class="status-cell pro-access"><span class="check-badge">✓ Full Access</span></td>
-              <td class="status-cell pro-access"><span class="check-badge">✓ Full Access</span></td>
-              <td class="status-cell standard-access"><span class="check-badge-light">✓ Included</span></td>
-              <td class="status-cell standard-access"><span class="check-badge-light">✓ Included</span></td>
-            </tr>
-
-            <!-- CATEGORY: ADMIN, IT & SECURITY -->
-            <tr class="matrix-cat-row">
-              <td colspan="5">🛡️ Administration, Telemetry & Cyber Defense</td>
-            </tr>
-            <tr>
-              <td class="feature-name">
-                <strong>Admin Operations Center & Auto-Mailer</strong>
-                <span>Automated system email dispatch, broadcast bulletins, and account role governance</span>
-              </td>
-              <td class="status-cell pro-access"><span class="check-badge">✓ Full Access</span></td>
-              <td class="status-cell pro-access"><span class="check-badge">✓ Full Access</span></td>
-              <td class="status-cell locked"><span class="lock-pill">🔒 Pro ($22.99)</span></td>
-              <td class="status-cell locked"><span class="lock-pill">🔒 Pro ($22.99)</span></td>
-            </tr>
-            <tr>
-              <td class="feature-name">
-                <strong>IP Telemetry, Audit Logs & Session Tracker</strong>
-                <span>Real-time IP geotracking, cryptographic security ledger, and access violation monitor</span>
-              </td>
-              <td class="status-cell pro-access"><span class="check-badge">✓ Full Access</span></td>
-              <td class="status-cell pro-access"><span class="check-badge">✓ Full Access</span></td>
-              <td class="status-cell locked"><span class="lock-pill">🔒 Pro ($22.99)</span></td>
-              <td class="status-cell locked"><span class="lock-pill">🔒 Pro ($22.99)</span></td>
-            </tr>
-            <tr>
-              <td class="feature-name">
-                <strong>Active Pre-Execution Security Shield (RASP)</strong>
-                <span>Client-side runtime application self-protection and tamper-evident event recording</span>
-              </td>
-              <td class="status-cell pro-access"><span class="check-badge">✓ Active</span></td>
-              <td class="status-cell pro-access"><span class="check-badge">✓ Active</span></td>
-              <td class="status-cell standard-access"><span class="check-badge-light">✓ Active</span></td>
-              <td class="status-cell standard-access"><span class="check-badge-light">✓ Active</span></td>
-            </tr>
-
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </section>
-
-  <!-- =========================================================================
-       22 ENTERPRISE MODULES DIRECTORY (EXACT SCREENSHOT REPLICA)
-       ========================================================================= -->
-  <section id="modules-catalog" class="modules-directory-section">
-    <div class="section-header-block">
-      <span class="section-tag-badge">THE COMPLETE 22-MODULE SYSTEM</span>
-      <h2>Explore All 22 Enterprise Modules</h2>
-      <p class="section-subtitle">
-        The complete hockey intelligence ecosystem. <strong>Coaches and Recruiters get full access to all 22 modules combined ($22.99/mo)</strong>, while <strong>Players ($4.99/mo)</strong> and <strong>Parents ($4.99/mo)</strong> receive tailored access centered on athlete development, stats, and <strong>The Wire</strong>.
-      </p>
-
-      <!-- Search Input exactly like screenshot -->
-      <div class="modules-search-bar-wrap">
-        <span class="modules-search-icon">🔍</span>
-        <input type="text" id="moduleSearchInput" class="modules-search-input" placeholder="Search 22 modules, 190 colleges & high schools, or athletes... (e.g. 'Denver', 'Edina', 'Shattuck', 'draft', 'cap')" oninput="handleModuleLiveSearch(this.value)">
-      </div>
-
-      <!-- Role Entitlement View Filter -->
-      <div class="role-selector-bar">
-        <button type="button" class="role-selector-pill active" id="modPill-all" onclick="filterModulesByRole('all', this)">
-          <span class="role-pill-icon">🌐</span> All 22 Modules
-        </button>
-        <button type="button" class="role-selector-pill" id="modPill-scout" onclick="filterModulesByRole('scout', this)">
-          <span class="role-pill-icon">🔭</span> Recruiters & Scouts (All 22 Combined)
-        </button>
-        <button type="button" class="role-selector-pill" id="modPill-coach" onclick="filterModulesByRole('coach', this)">
-          <span class="role-pill-icon">📋</span> Coaches (All 22 Combined)
-        </button>
-        <button type="button" class="role-selector-pill" id="modPill-athlete" onclick="filterModulesByRole('athlete', this)">
-          <span class="role-pill-icon">⚡</span> Players / Athletes ($4.99)
-        </button>
-        <button type="button" class="role-selector-pill" id="modPill-parent" onclick="filterModulesByRole('parent', this)">
-          <span class="role-pill-icon">🛡️</span> Parents ($4.99)
-        </button>
-      </div>
-    </div>
-
-    <!-- 1. RINK & GAME OPERATIONS (6 Modules) -->
-    <div class="module-category-block" data-cat="rink">
-      <div class="module-category-header">
-        <span>🏟️ RINK & GAME OPERATIONS</span>
-        <span class="module-category-count">6</span>
-      </div>
-      <div class="modules-category-grid">
-
-        <a href="app.html" class="module-tile-card" data-mod="app" data-roles="scout,coach,athlete,parent">
-          <div class="module-tile-icon-box">⚡</div>
-          <div class="module-tile-content">
-            <div class="module-tile-title-row">
-              <span class="module-tile-name">Player OS</span>
-            </div>
-            <p class="module-tile-desc">Logged-In Athlete Command Center & Passport</p>
-            <div class="module-role-badge-row">
-              <span class="badge-entitled-wire" data-role-badge>✓ All Roles Have Access</span>
-            </div>
-          </div>
-        </a>
-
-        <a href="index.html" class="module-tile-card" data-mod="index" data-roles="scout,coach,athlete,parent">
-          <div class="module-tile-icon-box">🌐</div>
-          <div class="module-tile-content">
-            <div class="module-tile-title-row">
-              <span class="module-tile-name">Public Home</span>
-            </div>
-            <p class="module-tile-desc">Public Marketing Homepage & Platform Overview</p>
-            <div class="module-role-badge-row">
-              <span class="badge-entitled-pro" data-role-badge>✓ Open Access</span>
-            </div>
-          </div>
-        </a>
-
-        <a href="scoreboard.html" class="module-tile-card" data-mod="scoreboard" data-roles="scout,coach,athlete,parent">
-          <div class="module-tile-icon-box">📡</div>
-          <div class="module-tile-content">
-            <div class="module-tile-title-row">
-              <span class="module-tile-name">Game Center</span>
-            </div>
-            <p class="module-tile-desc">Live multi-game scoreboard, shot tracking & xG feeds</p>
-            <div class="module-role-badge-row">
-              <span class="badge-entitled-pro" data-role-badge>✓ Included All Roles</span>
-            </div>
-          </div>
-        </a>
-
-        <a href="rink3d.html" class="module-tile-card" data-mod="rink3d" data-roles="scout,coach,athlete,parent">
-          <div class="module-tile-icon-box">🧊</div>
-          <div class="module-tile-content">
-            <div class="module-tile-title-row">
-              <span class="module-tile-name">3D Virtual Rink</span>
-            </div>
-            <p class="module-tile-desc">Interactive WebGL 3D rink simulator & physics</p>
-            <div class="module-role-badge-row">
-              <span class="badge-entitled-included" data-role-badge>✓ 3D Physics Simulation</span>
-            </div>
-          </div>
-        </a>
-
-        <a href="film.html" class="module-tile-card" data-mod="film" data-roles="scout,coach">
-          <div class="module-tile-icon-box">🎬</div>
-          <div class="module-tile-content">
-            <div class="module-tile-title-row">
-              <span class="module-tile-name">AI Film Studio</span>
-            </div>
-            <p class="module-tile-desc">Telestration, video breakdown & play tagging</p>
-            <div class="module-role-badge-row">
-              <span class="badge-entitled-pro" data-role-badge>★ Full Access (Pro $22.99)</span>
-            </div>
-          </div>
-        </a>
-
-        <a href="broadcast_ai.html" class="module-tile-card" data-mod="broadcast_ai" data-roles="scout,coach">
-          <div class="module-tile-icon-box">🎙️</div>
-          <div class="module-tile-content">
-            <div class="module-tile-title-row">
-              <span class="module-tile-name">Voice AI Studio</span>
-            </div>
-            <p class="module-tile-desc">Automated play-by-play synthesis & audio broadcast</p>
-            <div class="module-role-badge-row">
-              <span class="badge-entitled-pro" data-role-badge>★ Full Access (Pro $22.99)</span>
-            </div>
-          </div>
-        </a>
-
-      </div>
-    </div>
-
-    <!-- 2. PERFORMANCE & ANALYTICS LABS (4 Modules) -->
-    <div class="module-category-block" data-cat="labs">
-      <div class="module-category-header">
-        <span>🔬 PERFORMANCE & ANALYTICS LABS</span>
-        <span class="module-category-count">4</span>
-      </div>
-      <div class="modules-category-grid">
-
-        <a href="tracking.html" class="module-tile-card" data-mod="tracking" data-roles="scout,coach">
-          <div class="module-tile-icon-box">🔬</div>
-          <div class="module-tile-content">
-            <div class="module-tile-title-row">
-              <span class="module-tile-name">Microstat Studio</span>
-            </div>
-            <p class="module-tile-desc">Spatial passing web, Royal Road & zone transitions</p>
-            <div class="module-role-badge-row">
-              <span class="badge-entitled-pro" data-role-badge>★ Full Access (Pro $22.99)</span>
-            </div>
-          </div>
-        </a>
-
-        <a href="crease.html" class="module-tile-card" data-mod="crease" data-roles="scout,coach">
-          <div class="module-tile-icon-box">🥅</div>
-          <div class="module-tile-content">
-            <div class="module-tile-title-row">
-              <span class="module-tile-name">Crease Lab</span>
-            </div>
-            <p class="module-tile-desc">Goalie geometry, RVH post-seals, GSAx & fatigue</p>
-            <div class="module-role-badge-row">
-              <span class="badge-entitled-pro" data-role-badge>★ Full Access (Pro $22.99)</span>
-            </div>
-          </div>
-        </a>
-
-        <a href="combine.html" class="module-tile-card" data-mod="combine" data-roles="scout,coach">
-          <div class="module-tile-icon-box">🧬</div>
-          <div class="module-tile-content">
-            <div class="module-tile-title-row">
-              <span class="module-tile-name">Combine Lab</span>
-            </div>
-            <p class="module-tile-desc">Biometrics, Wingate anaerobic testing & physiology</p>
-            <div class="module-role-badge-row">
-              <span class="badge-entitled-pro" data-role-badge>★ Full Access (Pro $22.99)</span>
-            </div>
-          </div>
-        </a>
-
-        <a href="compare.html" class="module-tile-card" data-mod="compare" data-roles="scout,coach,athlete,parent">
-          <div class="module-tile-icon-box">⚖️</div>
-          <div class="module-tile-content">
-            <div class="module-tile-title-row">
-              <span class="module-tile-name">Compare Lab</span>
-            </div>
-            <p class="module-tile-desc">8-axis radar benchmarks & NHLe trajectory curves</p>
-            <div class="module-role-badge-row">
-              <span class="badge-entitled-included" data-role-badge>✓ Included for Players & Parents</span>
-            </div>
-          </div>
-        </a>
-
-      </div>
-    </div>
-
-    <!-- 3. COACHING & TOURNAMENTS (4 Modules) -->
-    <div class="module-category-block" data-cat="coaching">
-      <div class="module-category-header">
-        <span>📋 COACHING & TOURNAMENTS</span>
-        <span class="module-category-count">4</span>
-      </div>
-      <div class="modules-category-grid">
-
-        <a href="tactics.html" class="module-tile-card" data-mod="tactics" data-roles="scout,coach">
-          <div class="module-tile-icon-box">📋</div>
-          <div class="module-tile-content">
-            <div class="module-tile-title-row">
-              <span class="module-tile-name">Tactics Lab</span>
-            </div>
-            <p class="module-tile-desc">AI lineup optimizer, 5v5/PP/PK chemistry & xGF%</p>
-            <div class="module-role-badge-row">
-              <span class="badge-entitled-pro" data-role-badge>★ Full Access (Pro $22.99)</span>
-            </div>
-          </div>
-        </a>
-
-        <a href="scout.html" onclick="return handleScoutDeskNav(event)" class="module-tile-card" data-mod="scout" data-roles="scout">
-          <div class="module-tile-icon-box">🔭</div>
-          <div class="module-tile-content">
-            <div class="module-tile-title-row">
-              <span class="module-tile-name">Scout Workspace</span>
-            </div>
-            <p class="module-tile-desc">Lead Scout live micro-telemetry logger & prospect directory</p>
-            <div class="module-role-badge-row">
-              <span class="badge-entitled-pro" style="background:rgba(245,158,11,0.2); color:#fbbf24; border-color:rgba(245,158,11,0.4);" data-role-badge>★ Recruiters Only (Paywall $22.99)</span>
-            </div>
-          </div>
-        </a>
-
-        <a href="tournament.html" class="module-tile-card" data-mod="tournament" data-roles="scout,coach">
-          <div class="module-tile-icon-box">🏆</div>
-          <div class="module-tile-content">
-            <div class="module-tile-title-row">
-              <span class="module-tile-name">Tournaments</span>
-            </div>
-            <p class="module-tile-desc">Bracketology war room: Frozen Four, Memorial Cup, WJC</p>
-            <div class="module-role-badge-row">
-              <span class="badge-entitled-pro" data-role-badge>★ Full Access (Pro $22.99)</span>
-            </div>
-          </div>
-        </a>
-
-        <a href="international.html" class="module-tile-card" data-mod="international" data-roles="scout,coach">
-          <div class="module-tile-icon-box">🌍</div>
-          <div class="module-tile-content">
-            <div class="module-tile-title-row">
-              <span class="module-tile-name">International</span>
-            </div>
-            <p class="module-tile-desc">4 Nations Face-Off & 2026 Olympic Hub (85ft vs 100ft)</p>
-            <div class="module-role-badge-row">
-              <span class="badge-entitled-pro" data-role-badge>★ Full Access (Pro $22.99)</span>
-            </div>
-          </div>
-        </a>
-
-      </div>
-    </div>
-
-    <!-- 4. FRONT OFFICE & CAREER MARKET (5 Modules) -->
-    <div class="module-category-block" data-cat="frontoffice">
-      <div class="module-category-header">
-        <span>💼 FRONT OFFICE & CAREER MARKET</span>
-        <span class="module-category-count">5</span>
-      </div>
-      <div class="modules-category-grid">
-
-        <a href="market.html" class="module-tile-card" data-mod="market" data-roles="scout,coach">
-          <div class="module-tile-icon-box">💼</div>
-          <div class="module-tile-content">
-            <div class="module-tile-title-row">
-              <span class="module-tile-name">Trade Desk</span>
-            </div>
-            <p class="module-tile-desc">Multi-team trade machine, retention & free agency</p>
-            <div class="module-role-badge-row">
-              <span class="badge-entitled-pro" data-role-badge>★ Full Access (Pro $22.99)</span>
-            </div>
-          </div>
-        </a>
-
-        <a href="caplab.html" class="module-tile-card" data-mod="caplab" data-roles="scout,coach">
-          <div class="module-tile-icon-box">💵</div>
-          <div class="module-tile-content">
-            <div class="module-tile-title-row">
-              <span class="module-tile-name">Cap Lab</span>
-            </div>
-            <p class="module-tile-desc">NHL salary cap ledger, buyouts & LTIR simulator</p>
-            <div class="module-role-badge-row">
-              <span class="badge-entitled-pro" data-role-badge>★ Full Access (Pro $22.99)</span>
-            </div>
-          </div>
-        </a>
-
-        <a href="pathway.html" class="module-tile-card" data-mod="pathway" data-roles="scout,coach,athlete,parent">
-          <div class="module-tile-icon-box">🛣️</div>
-          <div class="module-tile-content">
-            <div class="module-tile-title-row">
-              <span class="module-tile-name">Career Pathway</span>
-            </div>
-            <p class="module-tile-desc">Lifelong 5-stage career ladder & NCAA vs CHL</p>
-            <div class="module-role-badge-row">
-              <span class="badge-entitled-included" data-role-badge>✓ Included for Players & Parents</span>
-            </div>
-          </div>
-        </a>
-
-        <a href="draft.html" class="module-tile-card" data-mod="draft" data-roles="scout,coach">
-          <div class="module-tile-icon-box">🎯</div>
-          <div class="module-tile-content">
-            <div class="module-tile-title-row">
-              <span class="module-tile-name">Draft Room</span>
-            </div>
-            <p class="module-tile-desc">7-round Monte Carlo mock draft & scouting boards</p>
-            <div class="module-role-badge-row">
-              <span class="badge-entitled-pro" data-role-badge>★ Full Access (Pro $22.99)</span>
-            </div>
-          </div>
-        </a>
-
-        <a href="portal.html" class="module-tile-card" data-mod="portal" data-roles="scout,coach">
-          <div class="module-tile-icon-box">⚡</div>
-          <div class="module-tile-content">
-            <div class="module-tile-title-row">
-              <span class="module-tile-name">Portal & NIL</span>
-            </div>
-            <p class="module-tile-desc">NCAA transfer portal & athlete NIL valuation exchange</p>
-            <div class="module-role-badge-row">
-              <span class="badge-entitled-pro" data-role-badge>★ Full Access (Pro $22.99)</span>
-            </div>
-          </div>
-        </a>
-
-      </div>
-    </div>
-
-    <!-- 5. SECURITY & INTELLIGENCE (5 Modules) -->
-    <div class="module-category-block" data-cat="system">
-      <div class="module-category-header">
-        <span>🛡️ SECURITY & INTELLIGENCE</span>
-        <span class="module-category-count">5</span>
-      </div>
-      <div class="modules-category-grid">
-
-        <a href="security.html" class="module-tile-card" data-mod="security" data-roles="scout,coach,athlete,parent">
-          <div class="module-tile-icon-box">🛡️</div>
-          <div class="module-tile-content">
-            <div class="module-tile-title-row">
-              <span class="module-tile-name">Cyber Shield</span>
-            </div>
-            <p class="module-tile-desc">Military-grade RASP defense & AI co-pilot swarm</p>
-            <div class="module-role-badge-row">
-              <span class="badge-entitled-pro" data-role-badge>✓ Active Platform Defense</span>
-            </div>
-          </div>
-        </a>
-
-        <a href="agents.html" class="module-tile-card" data-mod="agents" data-roles="scout,coach">
-          <div class="module-tile-icon-box">🤖</div>
-          <div class="module-tile-content">
-            <div class="module-tile-title-row">
-              <span class="module-tile-name">AI Swarm</span>
-            </div>
-            <p class="module-tile-desc">Autonomous multi-agent cooperative scouting mesh</p>
-            <div class="module-role-badge-row">
-              <span class="badge-entitled-pro" data-role-badge>★ Full Access (Pro $22.99)</span>
-            </div>
-          </div>
-        </a>
-
-        <a href="community.html" class="module-tile-card" data-mod="community" data-roles="scout,coach,athlete,parent">
-          <div class="module-tile-icon-box">🌐</div>
-          <div class="module-tile-content">
-            <div class="module-tile-title-row">
-              <span class="module-tile-name">The Wire</span>
-            </div>
-            <p class="module-tile-desc">Scouting social network, direct messaging & bulletins</p>
-            <div class="module-role-badge-row">
-              <span class="badge-entitled-wire" data-role-badge>★ INCLUDED FOR ALL ROLES</span>
-            </div>
-          </div>
-        </a>
-
-        <a href="database.html" class="module-tile-card" data-mod="database" data-roles="scout,coach,athlete,parent">
-          <div class="module-tile-icon-box">📊</div>
-          <div class="module-tile-content">
-            <div class="module-tile-title-row">
-              <span class="module-tile-name">Master Directory</span>
-            </div>
-            <p class="module-tile-desc">Comprehensive directory of 30,000+ athlete dossiers</p>
-            <div class="module-role-badge-row">
-              <span class="badge-entitled-included" data-role-badge>✓ Included for Players & Parents</span>
-            </div>
-          </div>
-        </a>
-
-        <a href="player.html" class="module-tile-card" data-mod="player" data-roles="scout,coach,athlete,parent">
-          <div class="module-tile-icon-box">👤</div>
-          <div class="module-tile-content">
-            <div class="module-tile-title-row">
-              <span class="module-tile-name">Player Passport</span>
-            </div>
-            <p class="module-tile-desc">Comprehensive athlete dossier & development logs</p>
-            <div class="module-role-badge-row">
-              <span class="badge-entitled-included" data-role-badge>✓ Included for Players & Parents</span>
-            </div>
-          </div>
-        </a>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- DASHBOARD TEASER -->
-  <section class="dashboard-teaser">
-    <h2>Your Personal Hockey Dashboard</h2>
-    <p>Tier, XP, skills, missions, highlights — all in one place.</p>
-
-    <div class="dashboard-blur">
-      <div class="blur-overlay">
-        <span class="lock-icon">🔒</span>
-        <p>Log in to unlock your dashboard.</p>
-        <div style="display:flex; gap:0.75rem; flex-wrap:wrap; justify-content:center; margin-top:0.5rem;">
-          <a href="login.html" class="btn primary" style="padding:0.55rem 1.25rem; font-size:0.85rem;">Log In Now</a>
-          <a href="signup.html" class="btn secondary" style="padding:0.55rem 1.25rem; font-size:0.85rem;">Sign Up Free</a>
-          <a href="app.html" class="btn demo" style="padding:0.55rem 1.25rem; font-size:0.85rem;">View Demo</a>
-        </div>
-      </div>
-
-      <div class="dashboard-grid">
-        <div class="dash-box">Tier Badge</div>
-        <div class="dash-box">XP Bar</div>
-        <div class="dash-box">Skill Rings</div>
-        <div class="dash-box">Daily Missions</div>
-        <div class="dash-box">Highlight Reel</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- DEMO PLAYER PREVIEW -->
-  <section class="demo-player-preview section">
-    <h2>See Your Future Player Profile</h2>
-    <div class="demo-player-card">
-      <h3>Alex Carter — Tier 6 Forward</h3>
-      <p>Skill rings, XP, highlights, combine results, and more.</p>
-
-      <div class="demo-locked">
-        <span class="lock-icon">🔒</span>
-        <p>Your profile will look like this once you log in.</p>
-      </div>
-
-      <div class="demo-stats-grid">
-        <div class="demo-stat">Skating: 72</div>
-        <div class="demo-stat">Shooting: 68</div>
-        <div class="demo-stat">Passing: 64</div>
-        <div class="demo-stat">Defense: 59</div>
-        <div class="demo-stat">Hockey IQ: 70</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- =========================================================================
-       WHY EACH ROLE USES PUCXPATHWAY (SCOUTS, COACHES, PLAYERS, PARENTS)
-       ========================================================================= -->
-  <section class="why-section" id="why-roles">
-    <div class="section-header-block">
-      <span class="section-tag-badge">ROLE-TAILORED VALUE</span>
-      <h2>Why Scouts, Coaches, Athletes, and Parents Choose DraftLineup.com</h2>
-      <p class="section-subtitle">
-        Purpose-built for every stakeholder in amateur and professional hockey. <strong>All accounts include full access to The Wire and Direct Messaging.</strong>
-      </p>
-    </div>
-
-    <div class="why-roles-grid">
-
-      <!-- Why Recruiters & Scouts Use It -->
-      <div class="why-role-card highlight-scout">
-        <div class="why-role-header">
-          <div class="why-role-title">
-            <span>🔭</span> Recruiters & Scouts
-          </div>
-          <div class="why-role-price">$22.99 / mo</div>
-        </div>
-        <p class="why-role-summary">
-          <strong>Full Access to All 22 Features Combined:</strong> One continuous talent evaluation operating system from youth prospect cards to pro drafts.
-        </p>
-        <ul class="why-role-highlights">
-          <li>✓ <strong>Lead Scout Desk:</strong> Live touch logger, shot quality micro-telemetry &amp; immutable evaluation ledger.</li>
-          <li>✓ <strong>30,000+ Player Directory:</strong> Full amateur registry, composite scores, NCAA/USHL/Prep filters &amp; pathway history.</li>
-          <li>✓ <strong>NCAA Transfer Portal War Room:</strong> Real-time entries, NIL valuations, commit status tracker &amp; eligibility calendar.</li>
-          <li>✓ <strong>Scouting Combine &amp; Biometrics:</strong> Wingate anaerobic power, laser 30m sprint gates, physiological stress indices.</li>
-          <li>✓ <strong>Multi-Player Comparison &amp; Draft Dossier:</strong> 5-player radar overlays, Tale of the Tape percentile matrix, 1-click PDF export.</li>
-          <li>✓ <strong>7-Round NHL Draft Simulator:</strong> Monte Carlo pick trading engine, draft curves &amp; franchise draft grades.</li>
-          <li>✓ <strong>International Tournaments:</strong> World Juniors, WJC U18, D1 Frozen Four &amp; Memorial Cup simulator.</li>
-          <li>✓ <strong>The Wire &amp; Recruiter DMs:</strong> Verified scout badge, direct messaging to prospects, parents &amp; prep coaches.</li>
-        </ul>
-        <div class="why-role-action">
-          <button type="button" class="btn primary" onclick="openHomePaymentModal('scout')" style="width:100%; cursor:pointer;">💳 Subscribe as Recruiter ($22.99/mo)</button>
-        </div>
-      </div>
-
-      <!-- Why Coaches Use It -->
-      <div class="why-role-card highlight-coach">
-        <div class="why-role-header">
-          <div class="why-role-title">
-            <span>📋</span> Coaches
-          </div>
-          <div class="why-role-price">$22.99 / mo</div>
-        </div>
-        <p class="why-role-summary">
-          <strong>Full Access to All 22 Features Combined:</strong> From tactical line optimization and video breakdown to bench chemistry and team conditioning.
-        </p>
-        <ul class="why-role-highlights">
-          <li>✓ <strong>Coach Command Center:</strong> Full roster management, depth chart builder, practice scheduler &amp; ADM station plans.</li>
-          <li>✓ <strong>3D Virtual Rink &amp; Tactics:</strong> 1-2-2 / 2-1-2 forechecks, power play diagrammer, net exposure simulator.</li>
-          <li>✓ <strong>AI Film Room &amp; Telestration:</strong> Multi-skater tracking, spotlight cones &amp; automated event tagging.</li>
-          <li>✓ <strong>Crease Lab &amp; Goalie Optimizer:</strong> 82-game start split, GSAx, RVH post-seal telemetry &amp; tandem fatigue model.</li>
-          <li>✓ <strong>Live Game Center &amp; Period Analytics:</strong> Live scoreboard, period shot charts &amp; xG telemetry feed.</li>
-          <li>✓ <strong>Multi-Player Radar Comparison:</strong> 8-axis biometric skill radars, NHLe curves &amp; executive dossier export.</li>
-          <li>✓ <strong>24-Agent Emergent AI Swarm:</strong> Automated scout briefings, drill generators &amp; opponent scouting reports.</li>
-          <li>✓ <strong>The Wire &amp; Coach DMs:</strong> Verified coach locker room bulletins, direct recruit contact &amp; film clip sharing.</li>
-        </ul>
-        <div class="why-role-action">
-          <button type="button" class="btn primary" onclick="openHomePaymentModal('coach')" style="width:100%; cursor:pointer;">💳 Subscribe as Coach ($22.99/mo)</button>
-        </div>
-      </div>
-
-      <!-- Why Players / Athletes Use It -->
-      <div class="why-role-card highlight-athlete">
-        <div class="why-role-header">
-          <div class="why-role-title">
-            <span>⚡</span> Players / Athletes
-          </div>
-          <div class="why-role-price">$4.99 / mo</div>
-        </div>
-        <p class="why-role-summary">
-          <strong>Personal Hockey Passport:</strong> Own your digital hockey identity, climb tiers, earn XP, and get discovered by college and junior scouts.
-        </p>
-        <ul class="why-role-highlights">
-          <li>✓ <strong>XP & Dynamic Level-Up:</strong> Turn practices, games, and combine workouts into tangible progression.</li>
-          <li>✓ <strong>Dynamic Skill Tree:</strong> Unlock masteries across skating, shooting, passing, and defense.</li>
-          <li>✓ <strong>Compare Lab:</strong> Benchmark your game against friends, rivals, and NCAA benchmarks.</li>
-          <li>✓ <strong>The Wire:</strong> Build your athletic brand, stamp official team crests, and message coaches directly.</li>
-        </ul>
-        <div class="why-role-action">
-          <button type="button" class="btn primary" onclick="openHomePaymentModal('athlete')" style="width:100%; cursor:pointer;">💳 Subscribe Player Passport ($4.99/mo)</button>
-        </div>
-      </div>
-
-      <!-- Why Parents Use It -->
-      <div class="why-role-card highlight-parent">
-        <div class="why-role-header">
-          <div class="why-role-title">
-            <span>🛡️</span> Parents
-          </div>
-          <div class="why-role-price">$4.99 / mo</div>
-        </div>
-        <p class="why-role-summary">
-          <strong>Developmental Clarity & Peace of Mind:</strong> Follow your player’s hockey journey transparently without confusing industry jargon.
-        </p>
-        <ul class="why-role-highlights">
-          <li>✓ <strong>Milestone Oversight:</strong> Track skill development, tier promotions, and physical growth curves.</li>
-          <li>✓ <strong>NCAA & Prep Pathways:</strong> Understand academic eligibility rules, junior options, and showcase timelines.</li>
-          <li>✓ <strong>The Wire & Safe Messaging:</strong> Communicate safely with verified coaches, scouts, and team staff.</li>
-          <li>✓ <strong>Transparent Billing:</strong> Simple family subscription control, cancel or upgrade anytime with one click.</li>
-        </ul>
-        <div class="why-role-action">
-          <button type="button" class="btn primary" onclick="openHomePaymentModal('parent')" style="width:100%; cursor:pointer;">💳 Subscribe Parent Plan ($4.99/mo)</button>
-        </div>
-      </div>
-
     </div>
   </section>
 
@@ -3246,6 +1644,22 @@
   <script src="static/js/auto_mailer.js"></script>
   <script src="static/js/blueline-core.js"></script>
   <script>
+    
+    function toggleTierDropdown(panelId, btnEl) {
+      const panel = document.getElementById(panelId);
+      if (!panel) return;
+      const isOpen = panel.classList.toggle('is-open');
+      if (btnEl) {
+        btnEl.classList.toggle('active', isOpen);
+        btnEl.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        const labelSpan = btnEl.querySelector('span:first-child');
+        if (labelSpan) {
+          labelSpan.textContent = isOpen ? 'Hide Tier Details' : 'View Tier Details & Features';
+        }
+      }
+    }
+    window.toggleTierDropdown = toggleTierDropdown;
+
     function handleHeroSearchSubmit(event) {
       if (event) event.preventDefault();
       const input = document.getElementById('heroSearchInput');
