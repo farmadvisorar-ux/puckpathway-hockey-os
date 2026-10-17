@@ -46,12 +46,18 @@
     }
   } catch (e) {}
 
-  // Load existing incident history
+  // Load existing incident history (and prune any legacy false-positive Wikipedia egress alerts)
   try {
     const raw = localStorage.getItem(INCIDENT_STORAGE_KEY);
     if (raw) {
-      defenseState.incidents = JSON.parse(raw).slice(0, 50);
+      const parsedIncidents = JSON.parse(raw);
+      defenseState.incidents = parsedIncidents.filter(inc => {
+        const sample = String(inc && inc.payloadSample || "");
+        const details = String(inc && inc.details || "");
+        return !sample.includes("wikipedia.org") && !details.includes("wikipedia.org");
+      }).slice(0, 50);
       defenseState.blockedAttacksCount = defenseState.incidents.length;
+      localStorage.setItem(INCIDENT_STORAGE_KEY, JSON.stringify(defenseState.incidents));
     }
   } catch (e) {}
 
@@ -235,7 +241,12 @@
   // =========================================================================
   // 4. VANGUARD-DELTA: EGRESS & ORIGIN FIREWALL
   // =========================================================================
-  const ALLOWED_ORIGIN_DOMAINS = [
+  const EGRESS_ALLOWLIST = [
+    window.location.origin,
+    "https://en.wikipedia.org",
+    "https://*.wikipedia.org",
+    "wikipedia.org",
+    "wikimedia.org",
     "github.io",
     "github.com",
     "googleapis.com",
@@ -250,9 +261,36 @@
     "api.ipify.org",
     "api64.ipify.org",
     "ipapi.co",
+    "draftlineup.com",
     "localhost",
     "127.0.0.1"
   ];
+
+  function isAllowedEgress(url) {
+    try {
+      const baseOrigin = (window.location && window.location.origin && window.location.origin !== "null")
+        ? window.location.origin
+        : "https://draftlineup.com";
+      const parsed = new URL(url, baseOrigin);
+      return EGRESS_ALLOWLIST.some(allowed => {
+        if (!allowed) return false;
+        if (allowed.startsWith("http")) {
+          if (allowed.includes("*")) {
+            const wildcardHost = allowed.replace(/^https?:\/\/\*\.?/, "").replace(/\/.*$/, "");
+            return parsed.hostname === wildcardHost || parsed.hostname.endsWith("." + wildcardHost) || parsed.hostname.endsWith("wikipedia.org");
+          }
+          try {
+            return parsed.origin === new URL(allowed).origin || parsed.hostname.endsWith("wikipedia.org");
+          } catch (innerErr) {
+            return parsed.hostname.endsWith("wikipedia.org");
+          }
+        }
+        return parsed.hostname === allowed || parsed.hostname.endsWith("." + allowed);
+      });
+    } catch (e) {
+      return false;
+    }
+  }
 
   if (window.fetch) {
     const originalFetch = window.fetch;
@@ -260,17 +298,16 @@
       defenseState.agents.vanguardDelta.eventsScanned++;
       let urlStr = typeof input === "string" ? input : (input && input.url ? input.url : "");
       
-      if (urlStr && urlStr.startsWith("http")) {
-        try {
-          const urlObj = new URL(urlStr);
-          const isAllowed = ALLOWED_ORIGIN_DOMAINS.some(domain => 
-            urlObj.hostname === domain || urlObj.hostname.endsWith("." + domain)
-          );
-          if (!isAllowed) {
-            logSecurityEvent("vanguardDelta", "Unauthorized Cross-Origin Data Exfiltration Intercepted", "CRITICAL", `Network request to unauthorized external host '${urlObj.hostname}' blocked by zero-trust egress firewall.`, urlStr);
-            return Promise.reject(new Error("[Aegis Shield] Blocked by Egress Firewall"));
-          }
-        } catch (err) {}
+      if (urlStr && (urlStr.startsWith("http") || urlStr.startsWith("//"))) {
+        if (!isAllowedEgress(urlStr)) {
+          let blockedHost = urlStr;
+          try {
+            const urlObj = new URL(urlStr, window.location.origin);
+            blockedHost = urlObj.hostname;
+          } catch (err) {}
+          logSecurityEvent("vanguardDelta", "Unauthorized Cross-Origin Data Exfiltration Intercepted", "CRITICAL", `Network request to unauthorized external host '${blockedHost}' blocked by zero-trust egress firewall.`, urlStr);
+          return Promise.reject(new Error("[Aegis Shield] Blocked by Egress Firewall"));
+        }
       }
       return originalFetch.apply(this, arguments);
     };
@@ -354,8 +391,11 @@
       defenseState.incidents = [];
       defenseState.blockedAttacksCount = 0;
       localStorage.removeItem(INCIDENT_STORAGE_KEY);
-    }
+    },
+    isAllowedEgress,
+    EGRESS_ALLOWLIST
   };
+  window.isAllowedEgress = isAllowedEgress;
 
   console.log("%c[Aegis Shield]%c 5 Autonomous AI Security Co-Pilots Active & Enforcing RASP Defense.", "color: #10b981; font-weight: bold;", "color: #94a3b8;");
 
